@@ -1,0 +1,43 @@
+\documentclass[a4paper,12pt]{report}
+
+\newcommand{\cor}[1]{\textit{#1}}
+\newcommand{\gr}[1]{\textbf{#1}}
+
+\begin{document}
+\section*{Marco Agnese Research Plan Confirmation}
+The focus of my Ph.D. research is the analytical study and the numerical implementation of a finite element method to solve a mathematical model of two-phase Navier--Stokes flow in 2D and 3D. This problem is a free boundary problem since the evolution of the interface is not prescribed but it is an unknown of the problem. 
+
+In the literature on the numerical approximation of free boundary problems different methods for the discretization of the interface are proposed (e.g. parametric approach, phase field method and level set method); I am going to use a parametric approach using a fitted mesh. The fitted approach differs form the unfitted one for the fact that the interface is approximated by faces of elements belonging to the mesh. On the other hand, in the unfitted approach the faces which discretize the interface are independent from the mesh and intersect the mesh elements. 
+
+Several authors have already analysed the unfitted approach for the two phase model while the fitted one still needs an analysis. Moreover it would be interesting to benchmark the two different approaches to understand the pros and the cos of the two different methods.
+\newline
+
+I am now working at a preliminary problem which is preparatory to deal the two-phase flow: the mean curvature flow problem. The mean curvature flow problem is that of finding a surface which evolves so that the normal velocity is given by mean curvature; it is a type of geometric evolution equation. More precisely the problem is formulated as follows
+\begin{equation}
+ \gr{x}_t\cdot\gr{n}=-\Delta_SH,\qquad H\gr{n}=\Delta_S\gr{x} \,,
+\end{equation}
+where $\gr{x}$ is the map from the reference manifold to the unknown surface, $H$ is the mean curvature of the surface while $\gr{n}$ is its normal vector. The operator $\Delta_S$ is the surface Laplacian which is also known as Laplace--Beltrami operator. In 2D the problem describes the evolution of a closed curved with no self-intersection which shrinks due to the effect of its own curvature.
+
+The evolving surface is parametrized with respect to a curve, usually a circle. In the discrete model the direct dependence from the reference curve is removed and the curve at time $t_{n+1}$ depends only on the curve at time $t_n$.
+\newline
+
+I am implementing a \verb|C++| code using \verb|Dune| and the \verb|Dune-fem| library which are a framework to solve PDEs with finite elements methods. These packages can be interfaced natively with several grid managers and provide a wide variety of linear solvers; moreover they support a parallel implementation of the code using \verb|MPI|.
+
+I decide to use the open-source \verb|Dune| framework among all the finite elements packages because it is written natively in \verb|C++|, it has a wide community which update and support it and it is very efficiently implemented using advance template programming technique.
+\newline
+
+I found several courses, offered both from the Master's in Mathematics and from the TCC, which may be very useful to have a better understanding of topics which I am dealing with. Among them I have planned to take the following postgraduate courses:
+\begin{itemize}
+\item Manifolds (Master Course);
+\item Riemannian Geometry (Master Course);
+\item Advanced Finite Element Theory (TCC);
+\item Tools of Modern Analysis (TCC).
+\end{itemize}
+
+For what concerns the professional skills courses, I choose instead these two courses:
+\begin{itemize}
+\item Research Skills \& Development (RSD) Course;
+\item Negotiation Skills for Researchers.
+\end{itemize}
+
+\end{document}
