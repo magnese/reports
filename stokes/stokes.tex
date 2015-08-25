@@ -1411,15 +1411,25 @@ The last 2D problem which we report is a shear flow. We use the same geometry co
 \begin{equation*}
 \vec g(\vec z)=(z_2,0)^T\quad \mbox{on }\partial\Omega\,,
 \end{equation*}
-and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figure~\ref{fig:shear_2d} is reported the pressure evolution of the circle with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$. 
+and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=2$. In Figure~\ref{fig:shear_2d} is reported the pressure evolution of the circle with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$. Instead, in Figure~\ref{fig:shear_2d_smooth} the remeshing coefficient is $C_r=0.0$ so only the smoothing is used.
 \begin{figure}[htbp]
   \centering
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_50.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_100.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_250.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_500.ps}}\\
-  \caption{2D Shear flow pressure evolution for P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0.5$, (b) $t=1.0$, (c) $t=2.5$ and (d) $t=5.0$.}
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_150.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_200.ps}}\\
+  \caption{2D Shear flow pressure evolution for P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0.5$, (b) $t=1.0$, (c) $t=1.5$ and (d) $t=2.0$.}
   \label{fig:shear_2d}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_50.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_100.ps}}\\
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_150.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_200.ps}}\\
+  \caption{2D Shear flow pressure evolution for P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=0.0$ for (a) $t=0.5$, (b) $t=1.0$, (c) $t=1.5$ and (d) $t=2.0$.}
+  \label{fig:shear_2d_smooth}
 \end{figure}
 
 \subsection{Numerical results in 3d} \label{subsec:numerical_results_3d}
