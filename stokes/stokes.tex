@@ -1093,17 +1093,28 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \label{tab:bubble2Dp2p1p0adaptive}
 \end{table*}
 
-In Figure~\ref{fig:ellipse} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$. The other condition are equal to the stationary bubble problem.
+In Figure~\ref{fig:ellipse} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$. The other condition are equal to the stationary bubble problem. Instead, in Figure~\ref{fig:ellipse_smooth} the remeshing coefficient is $C_r=0.0$ so only the smoothing is used.
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_0.ps}}\\
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_000.ps}}\\
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_100.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_200.ps}}\\
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_300.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_400.ps}}\\
   \caption{Ellipse evolution P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0$, (b) $t=1$, (c) $t=2$, (d) $t=3$, (e) $t=4$.}
   \label{fig:ellipse}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_000.ps}}\\
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_100.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_200.ps}}\\
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_300.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_400.ps}}\\
+  \caption{Ellipse evolution P2--P0 with $c_l=0.1$, $C_s=1.0$ and no remeshing for (a) $t=0$, (b) $t=1$, (c) $t=2$, (d) $t=3$, (e) $t=4$.}
+  \label{fig:ellipse_smooth}
 \end{figure}
 
 For the expanding bubble test, we fix $\Omega = (-1,1)^2 \setminus [-\frac13,\frac13]^2$ and we choose the parameters
@@ -1114,10 +1125,10 @@ for the true solution (\ref{eq:radialr2},b). In Figure~\ref{fig:expanding_bubble
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_0.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_25.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_50.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_75.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_000.ps}}\\
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_025.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_050.ps}}\\
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_075.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_100.ps}}\\
   \caption{2D expanding bubble problem P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0$, (b) $t=0.25$, (c) $t=0.5$, (d) $t=0.75$, (e) $t=1$.}
   \label{fig:expanding_bubble}
@@ -1325,10 +1336,10 @@ In all the previous simulations, the meshes used were uniform therefore the char
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_0.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_25.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_50.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_75.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_000.ps}}\\
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_025.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_050.ps}}\\
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_075.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_100.ps}}\\
   \caption{2D expanding bubble problem P2--P0 using an adaptive mesh, $c_{l,\Gamma}=0.05$, with $C_r=1$ and no smoothing for (a) $t=0$, (b) $t=0.25$, (c) $t=0.5$, (d) $t=0.75$, (e) $t=1$.}
   \label{fig:expanding_bubble_adaptive}
@@ -1411,24 +1422,28 @@ The last 2D problem which we report is a shear flow. We use the same geometry co
 \begin{equation*}
 \vec g(\vec z)=(z_2,0)^T\quad \mbox{on }\partial\Omega\,,
 \end{equation*}
-and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=2$. In Figure~\ref{fig:shear_2d} is reported the pressure evolution of the circle with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$. Instead, in Figure~\ref{fig:shear_2d_smooth} the remeshing coefficient is $C_r=0.0$ so only the smoothing is used.
+and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figure~\ref{fig:shear_2d} is reported the pressure evolution of the circle with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$. Instead, in Figure~\ref{fig:shear_2d_smooth} the remeshing coefficient is $C_r=0.0$ so only the smoothing is used.
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_50.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_050.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_100.ps}}\\
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_150.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_200.ps}}\\
-  \caption{2D Shear flow pressure evolution for P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0.5$, (b) $t=1.0$, (c) $t=1.5$ and (d) $t=2.0$.}
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_250.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_500.ps}}\\
+  \caption{2D Shear flow pressure evolution for P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0.5$, (b) $t=1.0$, (c) $t=1.5$, (d) $t=2.0$, (e) $t=2.5$ and (f) $t=5.0$.}
   \label{fig:shear_2d}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_50.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_050.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_100.ps}}\\
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_150.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_200.ps}}\\
-  \caption{2D Shear flow pressure evolution for P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=0.0$ for (a) $t=0.5$, (b) $t=1.0$, (c) $t=1.5$ and (d) $t=2.0$.}
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_250.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_500.ps}}\\
+  \caption{2D Shear flow pressure evolution for P2--P0 with $c_l=0.1$, $C_s=1.0$ and no remeshing for (a) $t=0.5$, (b) $t=1.0$, (c) $t=1.5$, (d) $t=2.0$, (e) $t=2.5$ and (f) $t=5.0$.}
   \label{fig:shear_2d_smooth}
 \end{figure}
 
@@ -1520,7 +1535,7 @@ In Figure~\ref{fig:ellipsoid} is reported the interface evolution of an ellipsoi
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipsoid_0.ps}}\\
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipsoid_000.ps}}\\
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipsoid_100.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipsoid_200.ps}}\\
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipsoid_300.ps}}\quad
@@ -1533,15 +1548,15 @@ Also for the 3D, we show the evolution of a shear flow. The initial interface is
 \begin{equation*}
 \vec g(\vec z)=(z_3,0,0)^T\quad \mbox{on }\partial\Omega\,,
 \end{equation*}
-and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figure~\ref{fig:shear_3d} is reported the interface evolution of the sphere with initial characteristic length $c_l=0.25$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$. 
+and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figure~\ref{fig:shear_3d} is reported the interface evolution of the sphere with initial characteristic length $c_l=0.125$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$. 
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_0.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_50.ps}}\quad
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_000.ps}}\\
+  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_050.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_100.ps}}\\
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_250.ps}}\quad
   \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_500.ps}}\\
-  \caption{3D Shear flow interface evolution for P2--P0 with $c_l=0.25$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0.0$, (b) $t=0.5$, (c) $t=1.0$, (d) $t=2.5$ and (e) $t=5.0$.}
+  \caption{3D Shear flow interface evolution for P2--P0 with $c_l=0.125$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0.0$, (b) $t=0.5$, (c) $t=1.0$, (d) $t=2.5$ and (e) $t=5.0$.}
   \label{fig:shear_3d}
 \end{figure}
 

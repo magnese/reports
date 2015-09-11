@@ -2,7 +2,6 @@
 *.log
 *.aux
 *.dvi
-*.ps
 *.bbl
 *.backup
 *~
