@@ -4,50 +4,17 @@
 \usepackage[english]{babel}
 \usepackage{amssymb,amsmath,amsthm,epsfig,a4,verbatim,pstricks,url,subfig,hyperref}
 
-
 \newtheorem{thm}{Theorem}
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{rem}[thm]{Remark}
-%\newproof{pf}{Proof}
+\newtheorem{lem}{Lemma}
 
-\newcommand{\Rplus}{{\mathbb R}_{>0}}
-\newcommand{\Rgeq}{{\mathbb R}_{\geq 0}}
-\newcommand{\RgeqJ}{{\mathbb R}_{\geq 0}^{\cal J}}
-\newcommand{\Rgeqd}{{\mathbb R}_{\geq 0}^{d}}
-\newcommand{\RZ}{{\mathbb R} \slash {\mathbb Z}}
 \newcommand{\R}{{\mathbb R}}
-\newcommand{\TOL}{{\rm TOL}}
-\newcommand{\oldTOL}{\underline{\rm TOL}}
-\newcommand{\llambda}{b}
-\newcommand{\im}{\operatorname{im}}
 \newcommand{\spa}{\operatorname{span}}
-\newcommand{\rank}{\operatorname{rank}}
-\newcommand{\dist}{\operatorname{dist}}
-\newcommand{\diag}{\operatorname{diag}}
-\newcommand{\diam}{\operatorname{diam}}
-\newcommand{\vol}{\mathcal{L}^d} %{\operatorname{vol}}
-\newcommand{\conv}{\operatorname{conv}}
-\newcommand{\cond}{\operatorname{cond}}
-\newcommand{\supp}{\operatorname{supp}}
-\newcommand{\intr}{\operatorname{int}}
-\newcommand{\Mloss}{\mathcal{L}_{\rm loss}}
-\newcommand{\tG}{{\widetilde{G}}}
-\newcommand{\Lapg}{{\Delta_s^{\!\tG}}}
-\newcommand{\Lapgl}{{\Delta_s^{\!\tG_\ell}}}
+\newcommand{\vol}{\mathcal{L}^d}
 \newcommand{\dH}[1]{\;{\rm d}{\cal H}^{#1}} % Hausdorff measure
 \newcommand{\dL}[1]{\;{\rm d}{\cal L}^{#1}} % Lebesgue measure
-\newcommand{\compactsubset}{\subset\hspace*{-2pt}\subset}
 \newcommand{\bigchi}{\ensuremath{\mathrm{\mathcal{X}}}}
 \newcommand{\charfcn}[1]{\bigchi_{#1}} % characteristic function
-\newcommand{\Domain}{\Omega}
-\newcommand{\Sm}{S^m}
-\newcommand{\Smhom}{S^m_0}
-\newcommand{\SmD}{S^m_D}
-\newcommand{\Sml}{S^m_+}
-\newcommand{\Smhoml}{S^m_{0,+}}
-\newcommand{\SmDl}{S^m_{D,+}}
 \newcommand{\Vh}{\underline{V}(\Gamma^m)}
-\newcommand{\Vhpartial}{\underline{V}_\partial(\Gamma^m)}
 \newcommand{\Wh}{W(\Gamma^m)}
 \newcommand{\Vht}{\underline{V}(\Gamma^h(t))}
 \newcommand{\Wht}{W(\Gamma^h(t))}
@@ -55,44 +22,31 @@
 \newcommand{\pspace}{\mathbb{P}}
 \newcommand{\kspace}{\mathbb{K}}
 \newcommand{\xspace}{\mathbb{X}}
-%\newcommand{\mspace}{\mathbb{M}}
 \newcommand{\sigmaO}{o}
 \newcommand{\nabs}{\nabla_{\!s}}
-\newcommand{\myphi}{\phi}
 \newcommand{\Id}{I\!d}
 \newcommand{\id}{\rm id}
 \newcommand{\ddt}{\frac{\rm d}{{\rm d}t}}
-\newcommand{\ddeps}{\frac{\rm d}{{\rm d}\epsilon}}
 \newcommand{\NbulkT}{\vec{N}_{\Gamma,\Omega}^T}
 \newcommand{\Nbulk}{\vec{N}_{\Gamma,\Omega}} 
 \newcommand{\errorXx}{\|\vec{X} - \vec{x}\|_{L^\infty}}
-\newcommand{\tinyplus}{\mbox{\tiny $+$}}
-\newcommand{\errorUupl}{\|\vec U - I^h\,\vec u\|_{L^\infty,\tinyplus}}
 \newcommand{\LerrorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{L^2(\Omega_T)}}
 \newcommand{\errorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{L^\infty}}
-\newcommand{\errorUuT}[1]{\|(\vec U - I^h_{#1}\,\vec u)(T)\|_{L^\infty}}
 \newcommand{\errorPp}[1]{\|P - I^h_{#1}\,p\|_{L^\infty}}
 \newcommand{\LerrorPp}[1]{\|P - I^h_{#1}\,p\|_{L^2(\Omega_T)}}
-\newcommand{\indicator}{1\!\!\!\:{\rm I}}
-\def\conduct{\mathcal{K}}
-\def\undercool{\mathcal{S}}
 \newcommand{\unitn}{\vec{\rm n}}
-\newcommand{\unitt}{\vec{\rm t}}
-\newcommand{\ek}{e}
-\newcommand{\strikec}{\mbox{$c\!\!\!\!\:/$}}
-\newcommand{\strikes}{\mbox{$s\!\!\!\!\:/$}}
-\def\epsilon{\varepsilon} 
 \newcommand{\mat}[1]{\underline{\underline{#1}}\rule{0pt}{0pt}}
-\newcommand{\myfootnote}[1]{\footnote{#1}}
+
+\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
 
 \textwidth 455pt \oddsidemargin 0pt \evensidemargin 0pt \headsep 0pt
 \headheight 0pt \textheight 655pt
-\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
 
 \title{Fitted Finite Element Discretization of Two--Phase Stokes Flow}
 \author{Marco Agnese \and Robert N\"urnberg}
 
 \begin{document}
+\captionsetup[subfigure]{labelformat=empty}
 
 \maketitle
 
@@ -106,21 +60,21 @@ Fitted method for two--phase Stokes problem.
 
 \section{Introduction}\label{sec:introduction}
 \textcolor{magenta}{TODO : explanation fitted mesh, pros and cons}
-In this paper we want to compare the unfitted scheme for two--phase Stokes flow described in \cite{spurious} with our fitted scheme.  
+In this paper we want to compare the unfitted scheme for two--phase Stokes flow described in \cite{spurious} with our fitted scheme. See Figure~\ref{fig:meshes_uniform} and Figure~\ref{fig:meshes_adaptive} for two examples of 2D fitted meshes using an uniform and an adaptive meshing, respectively.  
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/mesh_uniform.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/mesh_hole_uniform.ps}}\\
-  \caption{Initial fitted uniform meshes for the 2D stationary bubble problem (a) and for the 2D expanding bubble problem (b) with 32 interface elements.}
+  \subfloat[Stationary bubble problem]{\includegraphics[width=.45\textwidth]{images/mesh_uniform.ps}}\quad
+  \subfloat[Expanding bubble problem]{\includegraphics[width=.45\textwidth]{images/mesh_hole_uniform.ps}}\\
+  \caption{Initial fitted uniform 2D meshes with 32 interface elements.}
   \label{fig:meshes_uniform}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/mesh_adaptive.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/mesh_hole_adaptive.ps}}\\
-  \caption{Initial fitted adaptive meshes for the 2D stationary bubble problem (a) and for the 2D expanding bubble problem (b) with 64 interface elements.}
+  \subfloat[Stationary bubble problem]{\includegraphics[width=.45\textwidth]{images/mesh_adaptive.ps}}\quad
+  \subfloat[Expanding bubble problem]{\includegraphics[width=.45\textwidth]{images/mesh_hole_adaptive.ps}}\\
+  \caption{Initial fitted adaptive 2D meshes with 64 interface elements.}
   \label{fig:meshes_adaptive}
 \end{figure}
 
@@ -149,16 +103,14 @@ In this paper we consider two--phase Stokes flow in a given domain $\Omega\subse
 \end{figure}
 For later use, we assume that $(\Gamma(t))_{t\in [0,T]}$ is a sufficiently smooth evolving hypersurface without boundary that is parameterized by $\vec x(\cdot,t):\Upsilon\to\R^d$, where $\Upsilon\subset \R^d$ is a given reference manifold, i.e.\ $\Gamma(t) = \vec x(\Upsilon,t)$. Then
 \begin{equation} \label{eq:V}
-\vec{\mathcal{V}}(\vec z, t) := \vec x_t(\vec q, t)
-\qquad \forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)
+\vec{\mathcal{V}}(\vec z, t) := \vec x_t(\vec q, t) \qquad \forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)
 \end{equation}
 defines the velocity of $\Gamma(t)$, and $\vec{\mathcal{V}} \,.\,\vec{\nu}$ is the normal velocity of the evolving hypersurface $\Gamma(t)$,
 where $\vec\nu(t)$ is the unit normal on $\Gamma(t)$ pointing into $\Omega_+(t)$.
 
 In order to define the model, we introduce the stress tensor $\mat\sigma : \Omega \times [0,T] \to \R^{d \times d}$
 \begin{equation} \label{eq:stress_tensor}
-\mat\sigma = \mu \,(\nabla\,\vec u + (\nabla\,\vec u)^T) - p\,\mat\id
-= 2\,\mu\, \mat D(\vec u)-p\,\mat\id\,,
+\mat\sigma = \mu \,(\nabla\,\vec u + (\nabla\,\vec u)^T) - p\,\mat\id = 2\,\mu\, \mat D(\vec u)-p\,\mat\id\,,
 \end{equation}
 where $\vec u : \Omega \times [0, T] \to \R^d$ is the fluid velocity, $p : \Omega \times [0, T] \to \R$ is the pressure and $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$, with $\mu_\pm \in \R_{>0}$, denotes the dynamic viscosities in the two phases.
  
@@ -232,9 +184,8 @@ Choosing $\vec \xi=\vec u$ then gives, on recalling (\ref{eq:stokes_mass}),
 \int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec u \dL{d} = -\int_{\Omega} 2\,\mu\,\mat D(\vec u) : \mat D(\vec u) \dL{d} + \gamma \int_{\Gamma(t)} \varkappa\,\vec \nu \,.\, \vec u \dH{d-1}.
 \end{equation}
  Then using the identity, see \cite[Lemma~2.1]{DeckelnickDE05}, 
-\begin{equation}
-\ddt\,\mathcal{H}^{d-1}(\Gamma(t)) = -\int_{\Gamma(t)} \varkappa\,\mathcal{V} \dH{d-1} \,,
-\label{eq:dtarea}
+\begin{equation}\label{eq:dtarea}
+\ddt\,\mathcal{H}^{d-1}(\Gamma(t)) = -\int_{\Gamma(t)} \varkappa\,\mathcal{V} \dH{d-1} \,, 
 \end{equation}
 we obtain from (\ref{eq:sigmaibp}) that
 \begin{align}
@@ -244,7 +195,7 @@ we obtain from (\ref{eq:sigmaibp}) that
 
 Finally we show that during the evolution of the two--phase Stokes flow the fluid volumes are conserved. Indeed, due to the incompressibility condition, the volume of the two fluids is preserved since from (\ref{eq:full_mass},\ref{eq:full_velocity}) we have that
 \begin{align}
-\frac{\rm d}{{\rm d}t} \vol(\Omega_-(t)) & = \int_{\Gamma(t)} \mathcal{V}\dH{d-1}=\int_{\Gamma(t)}\vec u\,.\,\vec\nu \dH{d-1} \nonumber \\ 
+\ddt \vol(\Omega_-(t)) & = \int_{\Gamma(t)} \mathcal{V}\dH{d-1}=\int_{\Gamma(t)}\vec u\,.\,\vec\nu \dH{d-1} \nonumber \\ 
 & = \int_{\Omega_-(t)} \nabla\,.\,\vec u \dL{d} =0\,. \label{eq:conserved}
 \end{align}
 It will be our aim to introduce a fitted FEM for two--phase Stokes flow that satisfies discrete analogous of (\ref{eq:length}) and (\ref{eq:conserved}).
@@ -290,7 +241,7 @@ and let $(\cdot,\cdot)$ and $\langle \cdot, \cdot \rangle_{\Gamma(t)}$ denote th
 = 0  \quad \forall\ \vec\eta \in \xspace\,\label{eq:weakd}
 \end{align}
 \end{subequations}
-holds for almost all times $t \in (0,T]$, as well as the initial condition (\ref{eq:full_initial_interface}). Here we have observed that if $p \in \pspace$ is part of a solution to (\ref{eq:full_momentum}--g), then so is $p + c$ for an arbitrary $c\in \R$. Moreover, we note that for convenience we have adopted a slight abuse of notation in (\ref{eq:weaka}--d). In particular, in this paper we will identify functions defined on the reference manifold $\Upsilon$ with functions defined on $\Gamma(t)$. That is, we identify $v \in \kspace$ with $v \circ \vec{x}^{-1}$ on $\Gamma(t)$, where we recall that $\Gamma(t) = \vec{x}(\Upsilon,t)$, and we denote both functions simply as $v$. For example, $\vec{x} \equiv \vec{\rm id}$ is also the identity function on $\Gamma(t)$.
+holds for almost all times $t \in (0,T]$, as well as the initial condition (\ref{eq:full_initial_interface}). Here we have observed that if $p \in \pspace$ is part of a solution to (\ref{eq:full_momentum}--g), then so is $p + c$ for an arbitrary $c\in \R$. Moreover, we note that for convenience we have adopted a slight abuse of notation in (\ref{eq:weaka}--d). In particular, in this paper we will identify functions defined on the reference manifold $\Upsilon$ with functions defined on $\Gamma(t)$. That is, we identify $v \in \kspace$ with $v \circ \vec{x}^{-1}$ on $\Gamma(t)$, where we recall that $\Gamma(t) = \vec{x}(\Upsilon,t)$, and we denote both functions simply as $v$. For example, $\vec{x} \equiv \vec \id$ is also the identity function on $\Gamma(t)$.
 
 \section{Finite element approximation}\label{sec:fem}
 \setcounter{equation} 0
@@ -373,251 +324,113 @@ Moreover we introduce the piecewise linear vertex normal function
 \end{equation}
 and, on recalling (\ref{eq:masslump}), note that 
 \begin{subequations}
-\begin{equation} 
-\left\langle \vec{v}, w\,\vec\nu^m\right\rangle_{\Gamma^m}^h =
-\left\langle \vec{v}, w\,\vec\omega^m\right\rangle_{\Gamma^m}^h 
-\quad \forall\ \vec{v} \in \Vh\,,\ w \in \Wh \,.
-\label{eq:NI}
+\begin{equation}\label{eq:NI} 
+\left\langle \vec{v}, w\,\vec\nu^m\right\rangle_{\Gamma^m}^h = \left\langle \vec{v}, w\,\vec\omega^m\right\rangle_{\Gamma^m}^h \quad \forall\ \vec{v} \in \Vh\,,\ w \in \Wh \,.
 \end{equation}
 and
-\begin{equation} 
-\left\langle \vec{v}, \vec\omega^m\right\rangle_{\Gamma^m}^h =
-\left\langle \vec{v}, \vec\nu^m\right\rangle_{\Gamma^m}^h =
-\left\langle \vec{v}, \vec\nu^m\right\rangle_{\Gamma^m}
-\quad \forall\ \vec{v} \in \Vh\,. \label{eq:NI1}
+\begin{equation}\label{eq:NI1} 
+\left\langle \vec{v}, \vec\omega^m\right\rangle_{\Gamma^m}^h = \left\langle \vec{v}, \vec\nu^m\right\rangle_{\Gamma^m}^h = \left\langle \vec{v}, \vec\nu^m\right\rangle_{\Gamma^m} \quad \forall\ \vec{v} \in \Vh\,. 
 \end{equation}
 \end{subequations}
 
-The next theorem establishes the existence of a unique solution to 
-(\ref{eq:HGa}--d) under some natural conditions. For later developments we also
-consider the reduced system {\rm (\ref{eq:HGa},c,d)} with
-$\uspace^m$ replaced by 
-$$\uspace^m_0 :=\{ \vec U \in \uspace^m : (\nabla\,.\,\vec U, \varphi) = 0 
-\quad \forall\ \varphi \in \widehat\pspace^m \} \,.$$
-Clearly, any solution $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) 
-\in \uspace^m\times \widehat\pspace^m \times \Vh \times \Wh$ to 
-{\rm (\ref{eq:HGa}--d)} is such that $(\vec U^{m+1}, 
-\vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m_0 \times \Vh \times \Wh$ solves this
-reduced system.
-
+We can prove the existence of a unique solution to (\ref{eq:HGa}--d) under some natural conditions. 
 \begin{thm} \label{thm:stab}
-Let the assumption ($\mathcal{A}$) hold,
-and let $(\uspace^m,\widehat \pspace^m)$ satisfy the LBB condition 
-{\rm (\ref{eq:LBB})}, $m=0 ,\ldots, M-1$. 
-Then for $m=0 ,\ldots, M-1$ there exists a unique solution
-$(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) 
-\in \uspace^m\times \widehat\pspace^m \times \Vh \times \Wh$ to 
-{\rm (\ref{eq:HGa}--d)}. 
-In the absence of an LBB condition for $(\uspace^m,\widehat \pspace^m)$ there
-exists a unique solution $(\vec U^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) 
-\in \uspace^m_0\times \Vh \times \Wh$ to {\rm (\ref{eq:HGa},c,d)} with
-$\uspace^m$ replaced by 
-$\uspace^m_0$.
+Let the assumption ($\mathcal{A}$) hold, and let $(\uspace^m,\widehat \pspace^m)$ satisfy the LBB condition (\ref{eq:LBB}), $m=0 ,\ldots, M-1$. 
+Then for $m=0 ,\ldots, M-1$ there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat\pspace^m \times \Vh \times \Wh$ to (\ref{eq:HGa}--d). 
 \end{thm}
 \begin{proof}
-As the system (\ref{eq:HGa}--d) is linear, existence follows from uniqueness.
-In order to establish the latter, we consider the system:
-Find $(\vec U, P, \vec{X}, \kappa) \in \uspace^m\times\widehat\pspace^m 
-\times \Vh \times \Wh$ such that
+As the system (\ref{eq:HGa}--d) is linear, existence follows from uniqueness. In order to establish the latter, we consider the system: Find $(\vec U, P, \vec{X}, \kappa) \in \uspace^m\times\widehat\pspace^m \times \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
-&
- 2\left(\mu^m\,\mat D(\vec U), \mat D(\vec \xi) \right)
-- \left(P, \nabla\,.\,\vec \xi\right)
- - \gamma\,\left\langle \kappa\,\vec\nu^m, \vec\xi\right\rangle_{\Gamma^m}
-= 0 
-\quad \forall\ \vec\xi \in \uspace^m \,, \label{eq:proofa}\\
-& \left(\nabla\,.\,\vec U, \varphi\right)  = 0 
-\quad \forall\ \varphi \in \widehat\pspace^m\,,
-\label{eq:proofb} \\
-&  \left\langle \frac{\vec X}{\tau_m} ,
-\chi\,\vec\nu^m \right\rangle_{\Gamma^m}^h
-- \left\langle \vec U, 
-\chi\,\vec\nu^m \right\rangle_{\Gamma^m} = 0
- \quad\forall\ \chi \in \Wh\,,
-\label{eq:proofc} \\
-& \left\langle \kappa\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
-+ \left\langle \nabs\,\vec X, \nabs\,\vec \eta \right\rangle_{\Gamma^m}
- = 0  \quad\forall\ \vec\eta \in \Vh\,.
-\label{eq:proofd}
+& 2\left(\mu^m\,\mat D(\vec U), \mat D(\vec \xi) \right) - \left(P, \nabla\,.\,\vec \xi\right) - \gamma\,\left\langle \kappa\,\vec\nu^m, \vec\xi\right\rangle_{\Gamma^m} = 0 \quad \forall\ \vec\xi \in \uspace^m \,, \label{eq:proofa}\\
+& \left(\nabla\,.\,\vec U, \varphi\right)  = 0 \quad \forall\ \varphi \in \widehat\pspace^m\,, \label{eq:proofb} \\
+& \left\langle \frac{\vec X}{\tau_m} , \chi\,\vec\nu^m \right\rangle_{\Gamma^m}^h - \left\langle \vec U, \chi\,\vec\nu^m \right\rangle_{\Gamma^m} = 0 \quad\forall\ \chi \in \Wh\,,\label{eq:proofc} \\
+& \left\langle \kappa\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h + \left\langle \nabs\,\vec X, \nabs\,\vec \eta \right\rangle_{\Gamma^m}
+ = 0  \quad\forall\ \vec\eta \in \Vh\,. \label{eq:proofd}
 \end{align}
 \end{subequations}
-Choosing $\vec\xi=\vec U$ in (\ref{eq:proofa}), 
-$\varphi =  P$ in (\ref{eq:proofb}), 
-$\chi = \gamma\,\kappa$ in (\ref{eq:proofc}) 
-and $\vec\eta=\gamma\,\vec{X}$ in (\ref{eq:proofd})
-yields
-that
+Choosing $\vec\xi=\vec U$ in (\ref{eq:proofa}), $\varphi =  P$ in (\ref{eq:proofb}), $\chi = \gamma\,\kappa$ in (\ref{eq:proofc}) and $\vec\eta=\gamma\,\vec{X}$ in (\ref{eq:proofd}) yields that
 \begin{equation}
-2\,\tau_m\left(\mu^m\,\mat D(\vec U), \mat D(\vec U) \right)
-+ \gamma\,\left\langle \nabs\,\vec{X}, \nabs\,\vec{X} \right\rangle_{\Gamma^m} 
+2\,\tau_m\left(\mu^m\,\mat D(\vec U), \mat D(\vec U) \right) + \gamma\,\left\langle \nabs\,\vec{X}, \nabs\,\vec{X} \right\rangle_{\Gamma^m} 
 =0\,. \label{eq:proof2}
 \end{equation}
-It immediately follows from (\ref{eq:proof2}) and Korn's inequality
-that $\vec U = \vec 0$.
-In addition, it holds that $\vec{X} = \vec{X}_c \in \R^d$. 
-Together with (\ref{eq:proofc}) for $\vec U=\vec 0$, 
-(\ref{eq:NI}) and the assumption $(\mathcal{A})$ this
-immediately yields that $\vec{X} = \vec0$, while
-(\ref{eq:proofd}) with $\vec\eta=\vec\pi^m[\kappa\,\vec\omega^m]$, 
-recall (\ref{eq:NI}), implies that $\kappa = 0$.
-Finally, it now follows from (\ref{eq:proofa}) with $\vec U = \vec 0$ and
-$\kappa = 0$, on recalling (\ref{eq:LBB}), that $P = 0$. 
-Hence there exists a unique solution
-$(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times
-\widehat\pspace^m \times \Vh \times \Wh$ to {\rm (\ref{eq:HGa}--d)}.
-
-The proof for the reduced system {\rm (\ref{eq:HGa},c,d)}, with
-$\uspace^m$ replaced by $\uspace^m_0$ is analogous.
+It immediately follows from (\ref{eq:proof2}) and Korn's inequality that $\vec U = \vec 0$. In addition, it holds that $\vec{X} = \vec{X}_c \in \R^d$\footnote{What is $\vec{X}_c$? Never defined before.}. Together with (\ref{eq:proofc}) for $\vec U=\vec 0$, (\ref{eq:NI}) and the assumption $(\mathcal{A})$ this immediately yields that $\vec{X} = \vec0$, while (\ref{eq:proofd}) with $\vec\eta=\vec\pi^m[\kappa\,\vec\omega^m]$, recall (\ref{eq:NI}), implies that $\kappa = 0$. Finally, it now follows from (\ref{eq:proofa}) with $\vec U = \vec 0$ and $\kappa = 0$, on recalling (\ref{eq:LBB}), that $P = 0$. Hence there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times
+\widehat\pspace^m \times \Vh \times \Wh$ to (\ref{eq:HGa}--d).
 \end{proof}
+The proof of existence of an unique solution to the inhomogeneous system (\ref{eq:HGa},c,d), (\ref{eq:LAb}) is exactly the same.
+\newline
 
-We now demonstrate that the discretization (\ref{eq:HGa}-d) satisfies
-an energy estimate, which corresponds to the computation 
-(\ref{eq:length}) in the continuous case. In particular, we obtain
-unconditional stability for our scheme.
+We define the reduced system (\ref{eq:HGa},c,d) with $\uspace^m$ replaced by 
+\begin{equation*}
+\uspace^m_0 :=\{ \vec U \in \uspace^m : (\nabla\,.\,\vec U, \varphi) = 0 \quad \forall\ \varphi \in \widehat\pspace^m \} \,. 
+\end{equation*}
+Clearly, any solution $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat\pspace^m \times \Vh \times \Wh$ to 
+(\ref{eq:HGa}--d) is such that $(\vec U^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m_0 \times \Vh \times \Wh$ solves the reduced system (\ref{eq:HGa},c,d).
 
+We now demonstrate that the reduced system (\ref{eq:HGa},c,d) satisfies an energy estimate, which corresponds to the computation (\ref{eq:length}) in the continuous case and in particular, we obtain unconditional stability for our scheme.
 \begin{thm} \label{thm:stabstab}
-Let $0\leq m \leq M-1$ and let
-$(\vec U^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) 
-\in \uspace^m\times \Vh \times \Wh$ 
-be the unique solution to {\rm (\ref{eq:HGa},c,d)},
-with $\uspace^m$ replaced by $\uspace^m_0$.
-Then
-\begin{equation}
-\gamma\, \mathcal{H}^{d-1}(\Gamma^{m+1})
-+ 2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1}) \right)
-\leq \gamma\, \mathcal{H}^{d-1}(\Gamma^m) 
-+ \tau_m\left( \vec f^{m+1}, \vec U^{m+1} \right)\,.
-\label{eq:stab}
+Let $0\leq m \leq M-1$ and let $(\vec U^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \Vh \times \Wh$ be the unique solution to (\ref{eq:HGa},c,d), with $\uspace^m$ replaced by $\uspace^m_0$. Then
+\begin{equation}\label{eq:stab}
+\gamma\, \mathcal{H}^{d-1}(\Gamma^{m+1}) + 2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1}) \right) \leq \gamma\,\mathcal{H}^{d-1}(\Gamma^m) + \tau_m\left( \vec f^{m+1}, \vec U^{m+1} \right)\,.
 \end{equation}
-In addition, let $\{t_k\}_{k=0}^M$ be an
-arbitrary partitioning of $[0,T]$. Then it holds that
-\begin{equation}
-\gamma\,\mathcal{H}^{d-1}(\Gamma^{m+1}) 
-+ 2 \sum_{k=0}^m  \tau_k\left(\mu^k\,\mat D(\vec U^{k+1}), \mat D(\vec U^{k+1})
-\right)\leq \gamma\,\mathcal{H}^{d-1}(\Gamma^0)
-+ \sum_{k=0}^m \tau_k\left(\vec f^{k+1}, \vec U^{k+1} \right)
-\label{eq:stabstab}
+In addition, let $\{t_k\}_{k=0}^M$ be an arbitrary partitioning of $[0,T]$. Then it holds that
+\begin{equation}\label{eq:stabstab}
+\gamma\,\mathcal{H}^{d-1}(\Gamma^{m+1}) + 2 \sum_{k=0}^m  \tau_k\left(\mu^k\,\mat D(\vec U^{k+1}), \mat D(\vec U^{k+1}) \right)\leq \gamma\,\mathcal{H}^{d-1}(\Gamma^0) + \sum_{k=0}^m \tau_k\left(\vec f^{k+1}, \vec U^{k+1} \right)
 \end{equation}
 for $m=0,\ldots, M-1$.
 \end{thm}
 \begin{proof}
-Choosing $\vec\xi = \vec U^{m+1} \in \uspace^m_0$ in (\ref{eq:HGa}), 
-$\chi = \gamma\,\kappa^{m+1}$ in (\ref{eq:HGc}) and
-$\vec\eta=\gamma\,({\vec{X}^{m+1}-\vec{X}^m})$ in (\ref{eq:HGd}) yields that
+Choosing $\vec\xi = \vec U^{m+1} \in \uspace^m_0$ in (\ref{eq:HGa}), $\chi = \gamma\,\kappa^{m+1}$ in (\ref{eq:HGc}) and $\vec\eta=\gamma\,({\vec{X}^{m+1}-\vec{X}^m})$ in (\ref{eq:HGd}) yields that
 \begin{equation*}
-2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1}) \right)
-+ \gamma\,\left\langle \nabs\,\vec{X}^{m+1}, \nabs\,(\vec{X}^{m+1} - \vec{X}^m) 
-\right\rangle_{\Gamma^m}= \tau_m\left(\vec f^{m+1}, \vec U^{m+1} \right)\,.
+2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1}) \right) + \gamma\,\left\langle \nabs\,\vec{X}^{m+1}, \nabs\,(\vec{X}^{m+1} - \vec{X}^m) \right\rangle_{\Gamma^m}= \tau_m\left(\vec f^{m+1}, \vec U^{m+1} \right)\,.
 \end{equation*}
-Hence (\ref{eq:stab}) follows immediately, where
-we have used the result that
+Hence (\ref{eq:stab}) follows immediately, where we have used the result that
 \begin{equation*}
-\left\langle \nabs\,\vec{X}^{m+1}, \nabs\,(\vec{X}^{m+1} - \vec{X}^m) 
-\right\rangle_{\Gamma^m}
-\geq \mathcal{H}^{d-1}(\Gamma^{m+1}) - \mathcal{H}^{d-1}(\Gamma^{m})\,,
+\left\langle \nabs\,\vec{X}^{m+1}, \nabs\,(\vec{X}^{m+1} - \vec{X}^m) \right\rangle_{\Gamma^m} \geq \mathcal{H}^{d-1}(\Gamma^{m+1}) - \mathcal{H}^{d-1}(\Gamma^{m})\,,
 \end{equation*}
-see e.g.\ \cite[Proof of Theorem~2.3]{triplej} and 
-\cite[Proof of Theorem~2.2]{gflows3d} 
-for the proofs for $d=2$ and $d=3$, respectively.
-The desired result (\ref{eq:stabstab}) immediately follows from 
-(\ref{eq:stab}).
+see e.g.\ \cite[Proof of Theorem~2.3]{triplej} and \cite[Proof of Theorem~2.2]{gflows3d} for the proofs for $d=2$ and $d=3$, respectively. The desired result (\ref{eq:stabstab}) immediately follows from (\ref{eq:stab}).
 \end{proof}
 
-\begin{rem} \label{rem:cons}
-It is worthwhile to consider a continuous-in-time semidiscrete version of our 
-scheme {\rm (\ref{eq:HGa}--d)}. 
-For $t\in [0,T]$, let $\mathcal{T}^h(t)$ be a 
-regular partitioning of $\Omega$ into disjoint open simplices
-and define the finite element spaces $S^h_k(t)$, $\uspace^h(t)$ and
-$\pspace^h(t)$ similarly to $S^m_k$, $\uspace^m$ and $\pspace^m$, with the
-corresponding interpolation operators $I^h_k$ and 
-discrete approximations $\mu^h(t) \in S^h_0(t)$, which
-will depend on $\Gamma^h(t)$.
-Then, given $\Gamma^h(0)$,  
-for $t\in (0,T]$ find
-$\vec U^h(t) \in \uspace^h(t)$, $P^h(t) \in \widehat\pspace^h(t)$,
-$\vec{X}^h(t)\in \Vht$ and $\kappa^h(t) \in \Wht$ such that
+It is worthwhile to consider a continuous-in-time semidiscrete version of our scheme (\ref{eq:HGa}--d).  For $t\in [0,T]$, let $\mathcal{T}^h(t)$ be a regular partitioning of $\Omega$ into disjoint open simplices and define the finite element spaces $S^h_k(t)$, $\uspace^h(t)$ and $\pspace^h(t)$ similarly to $S^m_k$, $\uspace^m$ and $\pspace^m$, with the corresponding interpolation operators $I^h_k$ and 
+discrete approximations $\mu^h(t) \in S^h_0(t)$, which will depend on $\Gamma^h(t)$. Then, given $\Gamma^h(0)$, for $t\in (0,T]$ find
+$\vec U^h(t) \in \uspace^h(t)$, $P^h(t) \in \widehat\pspace^h(t)$, $\vec{X}^h(t)\in \Vht$ and $\kappa^h(t) \in \Wht$ such that
 \begin{subequations}
 \begin{align}
-&2\left(\mu^h\,\mat D(\vec U^h), \mat D(\vec \xi) \right)
-- \left(P^h, \nabla\,.\,\vec \xi\right)
- - \gamma\,\left\langle \kappa^h\,\vec\nu^h,
-   \vec\xi\right\rangle_{\Gamma^h(t)}
-= \left(\vec f^h, \vec \xi\right)
-\nonumber \\ & \hspace{6cm}
-\forall\ \vec\xi \in \uspace^h(t) \,, \label{eq:sda}\\
-& \left(\nabla\,.\,\vec U^h, \varphi\right)  = 0 
-\quad \forall\ \varphi \in \widehat\pspace^h(t)\,,
-\label{eq:sdb} \\
-&  \left\langle \vec X^h_t ,
-\chi\,\vec\nu^h \right\rangle_{\Gamma^h(t)}^h
-- \left\langle \vec U^h, 
-\chi\,\vec\nu^h \right\rangle_{\Gamma^h(t)} = 0
-\quad \forall\ \chi \in \Wht\,,
-\label{eq:sdc} \\
-&\left\langle \kappa^h\,\vec\nu^h, \vec\eta \right\rangle_{\Gamma^h(t)}^h
-+ \left\langle \nabs\,\vec X^h, \nabs\,\vec \eta \right\rangle_{\Gamma^h(t)}
- = 0  
-\quad
-\forall\ \vec\eta \in \Vht\,,
-\label{eq:sdd}
+& 2\left(\mu^h\,\mat D(\vec U^h), \mat D(\vec \xi) \right) - \left(P^h, \nabla\,.\,\vec \xi\right) - \gamma\,\left\langle \kappa^h\,\vec\nu^h,
+\vec\xi\right\rangle_{\Gamma^h(t)} = \left(\vec f^h, \vec \xi\right) \forall\ \vec\xi \in \uspace^h(t) \,, \label{eq:sda}\\
+& \left(\nabla\,.\,\vec U^h, \varphi\right)  = 0 \quad \forall\ \varphi \in \widehat\pspace^h(t)\,, \label{eq:sdb} \\
+& \left\langle \vec X^h_t , \chi\,\vec\nu^h \right\rangle_{\Gamma^h(t)}^h - \left\langle \vec U^h, \chi\,\vec\nu^h \right\rangle_{\Gamma^h(t)} = 0 \quad \forall\ \chi \in \Wht\,, \label{eq:sdc} \\
+& \left\langle \kappa^h\,\vec\nu^h, \vec\eta \right\rangle_{\Gamma^h(t)}^h + \left\langle \nabs\,\vec X^h, \nabs\,\vec \eta \right\rangle_{\Gamma^h(t)} = 0  \quad \forall\ \vec\eta \in \Vht\,, \label{eq:sdd}
 \end{align}
 \end{subequations}
-where $\vec f^h := \vec I^h_2\,\vec f(t)$.
-In {\rm (\ref{eq:sda}--d)} 
-we always integrate over the current surface $\Gamma^h(t)$, with normal
-$\vec\nu^h(t)$, described by the identity function 
-$\vec{X}^h(t) \in \Vht$.
-Moreover, $\langle \cdot,\cdot\rangle^{h}_{\Gamma^h(t)}$
-is the same as $\langle \cdot,\cdot \rangle_{\Gamma^m}^{h}$ with 
-$\Gamma^m$ and $\vec{X}^m$ replaced by $\Gamma^h(t)$ and $\vec{X}^h(t)$, 
-respectively;
-and similarly for $\langle \cdot,\cdot\rangle_{\Gamma^h(t)}$.
+where $\vec f^h := \vec I^h_2\,\vec f(t)$. In (\ref{eq:sda}--d) we always integrate over the current surface $\Gamma^h(t)$, with normal
+$\vec\nu^h(t)$, described by the identity function $\vec{X}^h(t) \in \Vht$. Moreover, $\langle \cdot,\cdot\rangle^{h}_{\Gamma^h(t)}$ is the same as $\langle \cdot,\cdot \rangle_{\Gamma^m}^{h}$ with $\Gamma^m$ and $\vec{X}^m$ replaced by $\Gamma^h(t)$ and $\vec{X}^h(t)$, respectively; and similarly for $\langle \cdot,\cdot\rangle_{\Gamma^h(t)}$.
 
 Using the results from \cite{gflows3d} it is straightforward to show that
 \begin{equation*}
-\ddt \mathcal{H}^{d-1}(\Gamma^h(t)) =  
-\left\langle \nabs\,\vec{X}^h, \nabs\,\vec{X}^h_t \right\rangle_{\Gamma^h(t)} 
-\,,
+\ddt \mathcal{H}^{d-1}(\Gamma^h(t)) = \left\langle \nabs\,\vec{X}^h, \nabs\,\vec{X}^h_t \right\rangle_{\Gamma^h(t)} \,,
 \end{equation*}
-which is the discrete analogue of {\rm (\ref{eq:dtarea})} on noting 
-{\rm (\ref{eq:sdd})}.
-It is then not difficult to derive the following
-energy bound for the solution $(\vec U^h, P^h, \vec{X}^h, \kappa^h)$ of the
-semidiscrete scheme {\rm (\ref{eq:sda}--d)}{\rm :}
-\begin{align}
-& \gamma\,\ddt\,\mathcal{H}^{d-1}(\Gamma^h(t)) 
-+ 2\,\|[\mu^h]^\frac12\,\mat D(\vec U^h)\|^2_{0}
-= \left(\vec f^h, \vec U^h\right) \,.
-\label{eq:stabsd}
-\end{align}
-Clearly, {\rm (\ref{eq:stabsd})} is the natural discrete analogue of
-{\rm (\ref{eq:length})}.
-In addition, it is possible to prove that the vertices of $\Gamma^h(t)$ are
-well distributed. As this follows already from the equations 
-{\rm (\ref{eq:sdd})}, we
-refer to our earlier work in \cite{triplej,gflows3d} for further details. In
-particular, we observe that in the case $d=2$, i.e.\ for the planar two-phase
-problem, an equidistribution property for the vertices of $\Gamma^h(t)$ can be
-shown, while in the case $d=3$ it can be shown that $\Gamma^h(t)$ is a 
-conformal polyhedral surface; see also {\rm (\ref{eq:conformal})} below.
-\end{rem}
+which is the discrete analogue of  (\ref{eq:dtarea}) on noting (\ref{eq:sdd}). It is then not difficult to derive the following energy bound for the solution $(\vec U^h, P^h, \vec{X}^h, \kappa^h)$ of the semidiscrete scheme (\ref{eq:sda}--d):
+\begin{equation}\label{eq:stabsd}
+\gamma\,\ddt\,\mathcal{H}^{d-1}(\Gamma^h(t)) + 2\,\|[\mu^h]^\frac12\,\mat D(\vec U^h)\|^2_{0} = \left(\vec f^h, \vec U^h\right) \,.
+\end{equation}
+Clearly, (\ref{eq:stabsd}) is the natural discrete analogue of (\ref{eq:length}). In addition, it is possible to prove that the vertices of $\Gamma^h(t)$ are well distributed. As this follows already from the equations (\ref{eq:sdd}), we refer to \cite{triplej,gflows3d} for further details. In particular, we observe that in the case $d=2$, i.e.\ for the planar two-phase problem, an equidistribution property for the vertices of $\Gamma^h(t)$ can be shown, while in the case $d=3$ it can be shown that $\Gamma^h(t)$ is a 
+conformal polyhedral surface; see also (\ref{eq:conformal}) below.
 
 \section{Properties of discrete stationary solutions} \label{sec:discrete_solution_properties}
 \setcounter{equation} 0
 
-We now consider stationary states, $\Gamma^{m+1} = \Gamma^m$, of the fully discrete system. It follows from {\rm (\ref{eq:NI})} that a stationary solution to {\rm (\ref{eq:HGa}--d)} satisfies
+We now consider stationary states, $\Gamma^{m+1} = \Gamma^m$, of the fully discrete system. It follows from (\ref{eq:NI}) that a stationary solution to (\ref{eq:HGa}--d) satisfies
 \begin{equation}\label{eq:conformal}
 \left\langle \nabs\, \vec X^m,\nabs\,\vec\eta\right\rangle_{\Gamma^m}=0 \quad \forall \,\vec\eta\in \Vh \ \text{with}\ \vec\eta(\vec{q}_k^m)\,.\,\vec\omega_k^{m} = 0,\, k = 1 ,\ldots, K^m_\Gamma \,,
 \end{equation}
-where we note {\rm (\ref{eq:omega})}. We recall from \cite{triplej} that (\ref{eq:conformal}) in the case $d=2$ implies that $\Gamma^m$ is
+where we note (\ref{eq:omega}). We recall from \cite{triplej} that (\ref{eq:conformal}) in the case $d=2$ implies that $\Gamma^m$ is
 equidistributed, with the possible exception of elements $\sigma^m_j$ that are locally parallel to each other. Moreover, we recall from \cite{gflows3d} that surfaces in $\R^3$ that satisfy (\ref{eq:conformal}) are called conformal polyhedral surfaces.
 \newline
 
 Next we consider discrete stationary states when no outer forces act, i.e.\ when $\vec f = \vec 0$. Here, independently of the choice of $\mu_\pm$, no spurious velocities appear for discrete stationary solutions. Indeed, Theorem~\ref{thm:stabstab} has an immediate consequence.
 \begin{lem}\label{lem:stat1}
-Let $(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat \pspace^m\times \Vh\times\Wh$ be a solution to {\rm (\ref{eq:HGa}--d)} with $\vec f^{m+1} = \vec 0$. If $\vec X^{m+1} = \vec X^m$, then $\vec U^{m+1} = \vec 0$. 
+Let $(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat \pspace^m\times \Vh\times\Wh$ be a solution to  (\ref{eq:HGa}--d) with $\vec f^{m+1} = \vec 0$. If $\vec X^{m+1} = \vec X^m$, then $\vec U^{m+1} = \vec 0$. 
 \end{lem}
 \begin{proof}
 The solution $(\vec U^{m+1}, \vec X^{m+1})$ fulfils (\ref{eq:stab}) with $\Gamma^{m+1}$ replaced by $\Gamma^m$ and  $\vec f^{m+1} = \vec 0$. Hence we obtain $(\mu^m\,\mat D (\vec U^{m+1}), \mat D(\vec U^{m+1})) = 0$, and so Korn's inequality implies $\vec U^{m+1} = \vec 0$. 
@@ -625,28 +438,28 @@ The solution $(\vec U^{m+1}, \vec X^{m+1})$ fulfils (\ref{eq:stab}) with $\Gamma
 
 Finally, it holds that polyhedral surfaces with constant discrete mean curvature and zero velocity are stationary solutions. 
 \begin{lem} \label{lem:stat2}
-Let $\charfcn{\Omega_-^m} \in \pspace^m$ and let $\Gamma^m$ be a polyhedral surface with constant discrete mean curvature, i.e.\ there exists a constant $\overline{\kappa}\in\mathbb{R}$ such that
+Let $\charfcn{\Omega_-^m} \in \pspace^m$ \footnote{Remove $\charfcn{\Omega_-^m}$.} and let $\Gamma^m$ be a polyhedral surface with constant discrete mean curvature, i.e.\ there exists a constant $\overline{\kappa}\in\mathbb{R}$ such that
 \begin{equation}\label{eq:constcurv}
 \overline{\kappa} \left\langle\vec\nu^m,\vec\eta\right\rangle_{\Gamma^m} + \left\langle \nabs\, \vec X^m,\nabs\ \vec\eta\right\rangle_{\Gamma^m}=0\quad \forall \,\vec\eta\in\Vh\,.
 \end{equation}
-Then $\Gamma^m$ satisfies {\rm (\ref{eq:conformal})} and $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m, \overline{\kappa}) \in\uspace^m_0\times\Vh\times \Wh$ is the unique solution to the reduced system {\rm (\ref{eq:HGa},c,d)}, with $\uspace^m$ replaced by $\uspace^m_0$,with $\vec f^{m+1} = \vec 0$. 
+Then $\Gamma^m$ satisfies (\ref{eq:conformal}) and $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m, \overline{\kappa}) \in\uspace^m_0\times\Vh\times \Wh$ is the unique solution to the reduced system (\ref{eq:HGa},c,d), with $\uspace^m$ replaced by $\uspace^m_0$,with $\vec f^{m+1} = \vec 0$. 
 \end{lem}
 \begin{proof} 
 It immediately follows from (\ref{eq:NI}) that (\ref{eq:conformal}) holds. Theorem~\ref{thm:stab} implies that in order to establish the 
-remaining result, we only need to show that $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m, \overline{\kappa})$ is a solution to {\rm (\ref{eq:HGa},c,d)}, with $\uspace^m$ replaced by $\uspace^m_0$, with $\vec f^{m+1} = \vec 0$. But this follows immediately from
+remaining result, we only need to show that $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m, \overline{\kappa})$ is a solution to (\ref{eq:HGa},c,d), with $\uspace^m$ replaced by $\uspace^m_0$, with $\vec f^{m+1} = \vec 0$. But this follows immediately from
 $\overline{\kappa}\,\langle\vec\nu^m,\vec\eta\rangle_{\Gamma^m} = \langle\overline{\kappa}\,\vec\nu^m,\vec\eta\rangle_{\Gamma^m}^h$ for all $\vec\eta \in \Vh$, and
 \begin{equation*}
 \left\langle \vec\nu^m, \vec\xi \right\rangle_{\Gamma^m} = \left(\nabla\,.\,\vec\xi,\charfcn{\Omega_-^m}\right) =0 \quad \forall \ \vec\xi \in \uspace^m_0\,.
 \end{equation*}
 \end{proof}
 
-A stationary solution to the continuous problem with $\vec f = \vec 0$ is a circle $(d=2)$ or a sphere $(d=3)$ with zero velocity and a piecewise constant pressure with a discontinuity across the interface, see {\rm (\ref{eq:radialr},b)} below. 
+A stationary solution to the continuous problem with $\vec f = \vec 0$ is a circle $(d=2)$ or a sphere $(d=3)$ with zero velocity and a piecewise constant pressure with a discontinuity across the interface, see (\ref{eq:radialr},b) below. 
 
 For $d=2$, one can choose $\Gamma^m$ with equidistributed points on a circle as an approximation of this circle, i.e.\ a closed regular polygon.
-Such a $\Gamma^m$ has constant discrete curvature, i.e.\ there exists a $\overline{\kappa} \in \mathbb{R}$ such that {\rm (\ref{eq:constcurv})} is satisfied. Hence Lemma~{\rm \ref{lem:stat2}} yields that in this situation $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m, 
+Such a $\Gamma^m$ has constant discrete curvature, i.e.\ there exists a $\overline{\kappa} \in \mathbb{R}$ such that (\ref{eq:constcurv}) is satisfied. Hence Lemma~ \ref{lem:stat2} yields that in this situation $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m, 
 \overline{\kappa})$ is the unique solution to the reduced system with $\vec f^{m+1} =\vec 0$.   
 
-For $d=3$, we observe in practice that conformal approximations of the sphere, i.e.\ spherical $\Gamma^m$ satisfying {\rm (\ref{eq:conformal})}, also satisfy {\rm (\ref{eq:constcurv})}.
+For $d=3$, we observe in practice that conformal approximations of the sphere, i.e.\ spherical $\Gamma^m$ satisfying (\ref{eq:conformal}), also satisfy (\ref{eq:constcurv}).
 
 \section{Algebraic system}\label{sec:algebraic_system}
 \setcounter{equation} 0
@@ -678,22 +491,11 @@ P^{m+1} \\
 \end{equation}
 where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec{X}^{m+1})\in (\R^d)^{K^m_\uspace}\times \R^{K^m_\pspace} \times \R^{K^m_\Gamma}\,\times (\R^d)^{K^m_\Gamma}$ here denote the coefficients of these finite element functions with respect to the standard bases of $\uspace^m$, $\pspace^m$, $\Wh$ and $\Vh$, respectively. The definitions of the matrices and vectors in (\ref{eq:lin}) directly follow from (\ref{eq:HGa}--d). Let $i,\,j = 1 ,\ldots, K_\uspace^m$, $n,q = 1 ,\ldots, K_\pspace^m$ and $k,l = 1 ,\ldots, K^m_\Gamma$. Then
 \begin{align*}
-& [\vec B_\Omega]_{ij} := 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspace^m} \vec \ek_r), \mat D( \phi_i^{\uspace^m}\,\vec \ek_s) \right) \right)_{r,s=1}^d\,,\quad [\vec C_\Omega]_{iq} := - \left( \left(\nabla\,.\,(\phi_i^{\uspace^m}\,\vec \ek_r), \phi_q^{\pspace^m} \right) \right)_{r=1}^d,\\
+& [\vec B_\Omega]_{ij} := 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspace^m} \vec e_r), \mat D( \phi_i^{\uspace^m}\,\vec e_s) \right) \right)_{r,s=1}^d\,,\quad [\vec C_\Omega]_{iq} := - \left( \left(\nabla\,.\,(\phi_i^{\uspace^m}\,\vec e_r), \phi_q^{\pspace^m} \right) \right)_{r=1}^d,\\
 & [\Nbulk]_{il} := \left\langle \phi_i^{\uspace^m}, \chi^m_l \,\vec\nu^m \right\rangle_{\Gamma^m} \,,\quad [\vec{N}_\Gamma]_{kl} := \left\langle \chi^m_l, \chi^m_k\,\vec\nu^m \right\rangle_{\Gamma^m}^h \,,\quad [\vec{A}_\Gamma]_{kl} := \left\langle \nabs\,\chi^m_l, \nabs\,\chi^m_k \right\rangle_{\Gamma^m} \,\mat\id \,,\\
 & \vec g_i = \left( \vec f^{m+1},\phi_i^{\uspace^m}\right)\,;
 \end{align*}
-where we recall that $\{\vec \ek_r\}_{r=1}^d$ denotes the standard basis in $\R^d$ and where we have used the convention that the subscripts in the matrix notations refer to the test and trial domains, respectively. A single subscript is used where the two domains are the same.
-
-
-If $(\uspace^m, \pspace^m)$ satisfy the LBB condition (\ref{eq:LBB}), then
-the existence and uniqueness proof for a solution to (\ref{eq:HGa},c,d), 
-(\ref{eq:LAb}) is as before. In the absence of (\ref{eq:LBB}), the existence
-and uniqueness of a solution to the reduced system that is analogous to 
-(\ref{eq:HGa},c,d), with $\uspace^m$ replaced by $\uspace^m_0$,
-hinges on the nonemptiness of the set
-$\uspace^m_0(\vec g) := 
-\{ \vec U \in \uspace^m(\vec g) : (\nabla\,.\,\vec U, \varphi) = 0 \quad
-\forall\ \varphi \in \widehat\pspace^m \}$.
+where we recall that $\{\vec e_r\}_{r=1}^d$ denotes the standard basis in $\R^d$ and where we have used the convention that the subscripts in the matrix notations refer to the test and trial domains, respectively. A single subscript is used where the two domains are the same.
 
 When we use the space (P1+P0) for the pressure, the algebraic system assumes the following form 
 \begin{equation}
@@ -794,18 +596,15 @@ An application of the preconditioner (\ref{eq:ESW}) amounts to solving the equat
 \begin{pmatrix} \vec U \\ P \end{pmatrix}
 = \begin{pmatrix} \vec v \\ q \end{pmatrix}
 \iff
-\mathcal{P}_S\,P = -q\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U = 
-\vec v - \vec C_\Omega\,P\,.
+\mathcal{P}_S\,P = -q\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U = \vec v - \vec C_\Omega\,P\,.
 \end{equation*}
 
 Therefore, we solve (\ref{eq:SchurkX}), which is a slight modification of (\ref{eq:stokes_system}), with a preconditioned GMRES iteration, and we choose $\vec B_\Omega$  for $\vec{\mathcal{P}}_{\vec B}$ and the weighted mass matrix $ M_\mu$ 
 \begin{equation*} 
-[M_\mu]_{nq} = 
-\left((\mu^m)^{-1}\,\phi_q^{\pspace^m}, \phi_n^{\pspace^m}\right)
-\qquad n,q = 1 ,\ldots, K_\pspace^m\,
+[M_\mu]_{nq} = \left((\mu^m)^{-1}\,\phi_q^{\pspace^m}, \phi_n^{\pspace^m}\right) \qquad n,q = 1 ,\ldots, K_\pspace^m\,
 \end{equation*}
 for $\mathcal{P}_S$.
-At each iteration of the GMRES, the matrix (\ref{eq:Xi}) needs to be "inverted`` (more precisely the linear system associated to that matrix needs to be solved), therefore we use the UMFPACK direct linear solver to reuse the factorization.
+At each iteration of the GMRES, the matrix (\ref{eq:Xi}) needs to be "inverted`` (more precisely the linear system associated to that matrix needs to be solved), therefore we use the UMFPACK, see \cite{UMFPACK,suitesparse-web-page}, direct linear solver to reuse the factorization.
 
 In our numerical simulations, we always set the GMRES tolerance to $10^{-12}$ and the restart value to 1000.
 
@@ -853,12 +652,16 @@ which is
 \mathcal{P}_{S,1}\,P_1 = -q\,,\quad \mathcal{P}_{S,0}\,P_0 = -p\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U = \vec v - \vec C_{\Omega,1}\,P_1 - \vec C_{\Omega,0}\,P_0\,.
 \end{equation*}
 
-\section{Mesh smoothing} \label{sec:smoothing}
+\section{Preservation of mesh quality}
+
+Depending on the nature of problem, the bulk elements around the interface may have a quick distortion and may overlap leading to a drastic decrease of the accuracy of the scheme. To prevent this, it is necessary to keep a good mesh quality throughout all the simulation. We adopt and combine two different methods to accomplish the preservation of the mesh quality, namely mesh smoothing and remeshing. 
+
+\subsection{Mesh smoothing} \label{subsec:smoothing}
 \setcounter{equation} 0
 
 \textcolor{magenta}{TODO : add proper explanation, ALE in general seems a way to rewrite an equation respect to a manifold}
 
-We use a deforming grid technique to smooth the bulk mesh called Arbitrary Lagrangian Eulerian (ALE) approach. In this approach the interfaces move with the fluid while the inner mesh points can be displaced in an arbitrarily prescribed way. This avoids the quick distortion of meshes and remeshing almost. More precisely the interface points $\vec x \in \Gamma(t)$ are advected with the bulk velocity
+We use a deforming grid technique to smooth the bulk mesh called Arbitrary Lagrangian Eulerian (ALE) approach, see \cite{GanesanPhd} for more details. In this approach the interfaces move with the fluid while the inner mesh points can be displaced in an arbitrarily prescribed way. This avoids the quick distortion of meshes and remeshing almost. More precisely the interface points $\vec x \in \Gamma(t)$ are advected with the bulk velocity
 \begin{equation}\label{eq:smoothing_ALE}
 \vec{\mathcal{V}}\,.\,\vec\nu = \vec u\,.\,\vec \nu\quad \mbox{on }\Gamma(t)
 \end{equation}
@@ -877,36 +680,41 @@ We stress the fact that the unknown $\vec\psi$ is the displacement which all the
 
 The weak formulation is: find $\vec\psi\in \mathbb{M}= H^1(\Omega, \R^d)$ such that
 \begin{equation}
- \big(\,\mat D(\vec\psi)\,,\,\mat D (\vec \phi)\,\big)+
- C_s\,\langle\, \nabla\,.\,\vec \psi\,,\,\nabla\,.\,\vec\phi\,\rangle_{\Gamma(t)}\, 
+ \big(\,\mat D(\vec\psi)\,,\,\mat D (\vec \phi)\,\big)+ C_s\,\langle\, \nabla\,.\,\vec \psi\,,\,\nabla\,.\,\vec\phi\,\rangle_{\Gamma(t)}\, 
  =\, 0\quad \forall \vec \phi \in\mathbb{M}
 \end{equation}
 with free-slip condition on $\partial\Omega$ and with smoothing coefficient $C_s=\frac{\lambda_1}{\lambda_2}>0$.
 
-The algebraic system is resolved with UMFPACK.
+The algebraic system is solved with UMFPACK.
 
-\section{Remeshing} \label{sec:remeshing}
+\subsection{Remeshing} \label{subsec:remeshing}
 \setcounter{equation} 0
 
-A remeshing is called every time the following inequality is satisfied
+After the smoothing process, we check the bulk mesh quality computing the volume ratio of the elements. More precisely, if the following inequality is satisfied
 \begin{equation}\label{eq:remesh_criteria}
-\frac{\max_{\sigmaO\in {\cal T}^m}(\mathcal{H}^{d}(\sigmaO))}{\min_{\sigmaO\in\mathcal {T}^m}(\mathcal{H}^{d}(\sigmaO))}\geq C_r,
+\frac{\max_{\sigmaO\in {\cal T}^m}(\mathcal{H}^{d}(\sigmaO))}{\min_{\sigmaO\in\mathcal {T}^m}(\mathcal{H}^{d}(\sigmaO))}<C_r,
 \end{equation}
-where we call $C_r>0$ remeshing coefficient. Obviously, when $C_r\leq 1$ a remeshing is always called.
+the mesh quality is good enough to continue the simulation. We call $C_r>0$ remeshing coefficient. 
+\newline
+
+When (\ref{eq:remesh_criteria}) is not satisfied, the bulk mesh is too deformed and, in order to preserve the mesh quality, we rebuild the bulk mesh from scratch keeping the interface mesh and the bulk boundary fixed. Obviously, when $C_r\leq 1$ a remeshing is always called. We stress the fact that, like in the mesh smoothing, the interface needs to remain fixed.
 
 \section{Numerical results} \label{sec:numerical_results}
 \setcounter{equation} 0
 
-The simplest test is the so called stationary bubble. In this experiment we solve the trivial true solution of a stationary $d-1$-sphere. In particular, $\Gamma(t) := \{ \vec z \in \R^d : |\vec z| = r(t)\}$, where
+\textcolor{magenta}{TODO : say somewhere that the CPU times are not taken on the same machine and with the same load and therefore are only a rough idea}
+
+We implemented our scheme with the help of the toolbox \verb|DUNE|, the Distributed and Unified Numerics Environment, see \cite{ISTL,ISTLParallel,dunegridpaperI08,dunegridpaperII08,dune-web-page} and in particular using the finite element module \verb|DUNE-FEM|, see \cite{dunefempaper10,dunefem-web-page}. For what concern the grid manager, we used \verb|ALBERTA|, see \cite{Alberta,alberta-web-page}. Finally, all the meshes are created on the fly using \verb|Gmsh|, see \cite{GeuzaineR09,gmsh-web-page}, which is also used to remesh the bulk when needed.
+\newline
+
+The simplest test is the so called stationary bubble. In this experiment we solve the trivial true solution of a stationary $d-1$--sphere. In particular, $\Gamma(t) := \{ \vec z \in \R^d : |\vec z| = r(t)\}$, where
 \begin{subequations}
 \begin{equation} \label{eq:radialr}
 r(t) = r(0)\,,
 \end{equation}
 together with 
 \begin{equation} \label{eq:radialup}
-\vec u(\vec z, t) = \vec 0 \,,\quad
-p(\vec z, t) = \lambda(t)\left[\charfcn{\Omega_-(0)}
--\frac{\mathcal{L}^d(\Omega_-(0))}{\mathcal{L}^d(\Omega)} \right] ,
+\vec u(\vec z, t) = \vec 0 \,,\quad p(\vec z, t) = \lambda(t)\left[\charfcn{\Omega_-(0)} -\frac{\mathcal{L}^d(\Omega_-(0))}{\mathcal{L}^d(\Omega)} \right] ,
 \end{equation}
 \end{subequations}
 where $\lambda(t) = \lambda(0) = \gamma\,(d-1)\,[r(0)]^{-1}$, is an exact solution to the problem (\ref{eq:full_momentum}--g).
@@ -918,9 +726,7 @@ r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
 \end{equation}
 together with 
 \begin{equation} \label{eq:radialup2}
-\vec u(\vec z, t) = \alpha\,|\vec z|^{-d}\,\vec z \,, \quad
-p(\vec z, t) = \lambda(t)\left[ \charfcn{\Omega_-(t)} - 
-\frac{\mathcal{L}^d(\Omega_-(t))}{\mathcal{L}^d(\Omega)}\right],
+\vec u(\vec z, t) = \alpha\,|\vec z|^{-d}\,\vec z \,, \quad p(\vec z, t) = \lambda(t)\left[ \charfcn{\Omega_-(t)} - \frac{\mathcal{L}^d(\Omega_-(t))}{\mathcal{L}^d(\Omega)}\right],
 \end{equation}
 \end{subequations}
 where $\lambda(t) = \gamma\,(d-1)\,[r(t)]^{-1} + 2\,\alpha\,(d-1)\,(\mu_+ - \mu_-)\,[r(t)]^{-d}$, is an exact solution to the problem (\ref{eq:full_momentum}--g) with the homogeneous right hand side in (\ref{eq:full_initial_velocity}) replaced by $\vec g$, where $\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$. We call this experiment expanding bubble.
@@ -949,7 +755,9 @@ For the stationary bubble test we use the domain $\Omega = (-1,1)^2$ and we choo
 \end{equation*}
 Therefore, the true solution reduces to $r(t) = \frac{1}{2}$, $\vec u(\cdot, t) = \vec 0$ and $p(t) = 2\,\charfcn{\Omega_-(0)} - \frac{\pi}{8}$ for all $t \geq 0$.
 
-In Table~\ref{tab:bubble2Delementsuniform} it is reported the characteristic length $c_l$, which prescribes the desired size of the elements, used to create the mesh for the stationary bubble problem, the corresponding number of interface elements $K_\Gamma$ generated, the corresponding number of bulk elements $K_\Omega$ generated and the time step $\tau$ used. All these meshes are uniform so the same characteristic length is used both for the interface and for the boundary. 
+In Table~\ref{tab:bubble2Delementsuniform} it is reported the characteristic length $c_l$, used to create the mesh for the stationary bubble problem, the corresponding number of interface elements $K_\Gamma$ generated, the corresponding number of bulk elements $K_\Omega$ generated and the time step $\tau$ used. All these meshes are uniform so the same characteristic length is used both for the interface and for the boundary. 
+
+The characteristic length prescribes the size of the mesh elements. For example, a segment of length $L$, which defines an edge of the domain boundary, delimited by two points of characteristic length $c_l$ will be subdivided into several segments of lengths $\frac{L}{c_l}$ during the mesh generation. Therefore, smaller is the characteristic length, finer is the resulting mesh.   
 \begin{table*}
  \center
 \begin{tabular}{llll}
@@ -962,13 +770,13 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 0.025 & 128 & 17194 & $10^{-2}$ \\
 \hline
 \end{tabular}
-\caption{(2D Stationary bubble problem, uniform mesh) Number of interface elements ($K_\Gamma$), number of bulk elements ($K_\Omega$) and time step ($\tau$) for a certain characteristic length ($c_l$).}
+\caption{Number of interface elements ($K_\Gamma$), number of bulk elements ($K_\Omega$) and time step ($\tau$) for a certain characteristic length ($c_l$) for the 2D stationary bubble problem, uniform mesh.}
 \label{tab:bubble2Delementsuniform}
 \end{table*}
 
-Since the solution is stationary, neither smoothing nor remeshing is performed. The mesh is created on the fly; this operation has a computational cost not negligible only for very small mesh (in our case only for $c_l=0.25$). 
+Since the solution is stationary, neither smoothing nor remeshing is performed. 
 
-Some errors for our numerical scheme, using uniform meshes, can be seen in Table~\ref{tab:bubble2Dp2p0} for the P2--P0 element and in Table~\ref{tab:bubble2Dp2p1p0} for the P2--(P1+P0) element. Instead, in Table~\ref{tab:bubble2Dp2p0adaptive} and in Table~\ref{tab:bubble2Dp2p1p0adaptive} we use adaptive meshes which are fine close to the interface and coarse away from it. More precisely, the characteristic length on the interface is 8 times smaller than the characteristic length on the boundary,see Table~\ref{tab:bubble2Delementsadaptive}. 
+Some errors for our numerical scheme, using uniform meshes, can be seen in Table~\ref{tab:bubble2Dp2p0} for the P2--P0 element and in Table~\ref{tab:bubble2Dp2p1p0} for the P2--(P1+P0) element. Instead, in Table~\ref{tab:bubble2Dp2p0adaptive} and in Table~\ref{tab:bubble2Dp2p1p0adaptive} we use adaptive meshes which are fine close to the interface and coarse away from it. More precisely, the characteristic length on the interface is 8 times smaller than the characteristic length on the boundary, see Table~\ref{tab:bubble2Delementsadaptive}. 
 \newline
 
 \begin{table*}
@@ -985,7 +793,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time interval $[0,1]$ for the P2--P0 element.}
+\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time interval $[0,1]$ for the P2--P0 element, uniform mesh.}
 \label{tab:bubble2Dp2p0}
 \end{table*}
 
@@ -1003,7 +811,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time interval $[0,1]$ for the P2--P1 element.}
+\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time interval $[0,1]$ for the P2--P1 element, uniform mesh.}
 \label{tab:bubble2Dp2p1}
 \end{table*}
 
@@ -1021,7 +829,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element.}
+\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, uniform mesh.}
 \label{tab:bubble2Dp2p1p0}
 \end{table*}
 
@@ -1036,7 +844,7 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 0.0125 & 252 & 7188 & $10^{-2}$ \\
 \hline
 \end{tabular}
-\caption{(2D Stationary bubble problem, adaptive mesh) Number of interface elements ($K_\Gamma$), number of bulk elements ($K_\Omega$) and time step ($\tau$) for a certain characteristic length ($c_l$).}
+\caption{Number of interface elements ($K_\Gamma$), number of bulk elements ($K_\Omega$) and time step ($\tau$) for a certain characteristic length ($c_l$) for the 2D stationary bubble problem, adaptive mesh.}
 \label{tab:bubble2Delementsadaptive}
 \end{table*}
 
@@ -1091,56 +899,55 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \label{tab:bubble2Dp2p1p0adaptive}
 \end{table*}
 
-In Figure~\ref{fig:ellipse} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$. The other condition are equal to the stationary bubble problem. 
-Figure~\ref{fig:ellipse_bulk_inner_volume} shows the evolution of the bulk inner relative volume $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ while Figure~\ref{fig:ellipse_interface_length} shows the evolution of the interface length $\mathcal{H}^{d-1}(\Gamma^h(t))$.
+In Figure~\ref{fig:ellipse} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. The mesh is uniform and all the other conditions are equal to the stationary bubble problem. Figure~\ref{fig:ellipse_bulk_inner_volume} shows the evolution of the bulk inner relative volume $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ while Figure~\ref{fig:ellipse_interface_length} shows the evolution of the interface length $\mathcal{H}^{d-1}(\Gamma^h(t))$.
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_000.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_100.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_200.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_300.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_400.ps}}\\
-  \caption{Ellipse evolution P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0$, (b) $t=1$, (c) $t=2$, (d) $t=3$, (e) $t=4$.}
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{images/ellipse_000.ps}}\\
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{images/ellipse_100.ps}}\quad
+  \subfloat[$t=2$]{\includegraphics[width=.45\textwidth]{images/ellipse_200.ps}}\\
+  \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]{images/ellipse_300.ps}}\quad
+  \subfloat[$t=4$]{\includegraphics[width=.45\textwidth]{images/ellipse_400.ps}}\\
+  \caption{($\mu=\gamma=1$) Pressure evolution of an ellipse with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:ellipse}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=.45\textwidth]{images/ellipse_bulk_inner_volume.ps}
-  \caption{Ellipse evolution bulk inner relative volume for P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$.}
+  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution of an ellipse with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:ellipse_bulk_inner_volume}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=.45\textwidth]{images/ellipse_interface_length.ps}
-  \caption{Ellipse evolution interface length for P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$.}
+  \caption{($\mu=\gamma=1$) Interface length evolution for an ellipse with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:ellipse_interface_length}
 \end{figure}
 
-Instead, in Figure~\ref{fig:ellipse_smooth} the remeshing coefficient is $C_r=0.0$ so only the smoothing is used. The evolution of the bulk inner relative volume and the evolution of the interface length are shown in Figure~\ref{fig:ellipse_smooth_bulk_inner_volume} and in Figure~\ref{fig:ellipse_smooth_interface_length}, respectively.
+Instead, in Figure~\ref{fig:ellipse_smooth} only the smoothing is used. The evolution of the bulk inner relative volume and the evolution of the interface length are shown in Figure~\ref{fig:ellipse_smooth_bulk_inner_volume} and in Figure~\ref{fig:ellipse_smooth_interface_length}, respectively.
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_000.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_100.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_200.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_300.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_400.ps}}\\
-  \caption{Ellipse evolution P2--P0 with $c_l=0.1$, $C_s=1.0$ and no remeshing for (a) $t=0$, (b) $t=1$, (c) $t=2$, (d) $t=3$, (e) $t=4$.}
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_000.ps}}\\
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_100.ps}}\quad
+  \subfloat[$t=2$]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_200.ps}}\\
+  \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_300.ps}}\quad
+  \subfloat[$t=4$]{\includegraphics[width=.45\textwidth]{images/ellipse_smooth_400.ps}}\\
+  \caption{($\mu=\gamma=1$) Pressure evolution of an ellipse with $c_l=0.1$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
   \label{fig:ellipse_smooth}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=.45\textwidth]{images/ellipse_smooth_bulk_inner_volume.ps}
-  \caption{Ellipse evolution bulk inner relative volume for P2--P0 with $c_l=0.1$, $C_s=1.0$ and no remeshing.}
+  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution of an ellipse with $c_l=0.1$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
   \label{fig:ellipse_smooth_bulk_inner_volume}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=.45\textwidth]{images/ellipse_smooth_interface_length.ps}
-  \caption{Ellipse evolution interface length for P2--P0 with $c_l=0.1$, $C_s=1.0$ and no remeshing.}
+  \caption{($\mu=\gamma=1$) Interface length evolution for an ellipse with $c_l=0.1$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
   \label{fig:ellipse_smooth_interface_length}
 \end{figure}
 
@@ -1148,16 +955,16 @@ For the expanding bubble test, we fix $\Omega = (-1,1)^2 \setminus [-\frac13,\fr
 \begin{equation*}
 \alpha = 0.15 \quad\text{and}\quad \mu = \gamma = 1
 \end{equation*}
-for the true solution (\ref{eq:radialr2},b). In Figure~\ref{fig:expanding_bubble} is reported the pressure evolution for the expanding bubble problem with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$.
+for the true solution (\ref{eq:radialr2},b). In Figure~\ref{fig:expanding_bubble} is reported the pressure evolution for the expanding bubble problem with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ using an uniform mesh for the P2--P0 element.
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_000.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_025.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_050.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_075.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_100.ps}}\\
-  \caption{2D expanding bubble problem P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0$, (b) $t=0.25$, (c) $t=0.5$, (d) $t=0.75$, (e) $t=1$.}
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_000.ps}}\\
+  \subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_025.ps}}\quad
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_050.ps}}\\
+  \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_075.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_100.ps}}\\
+  \caption{($\mu=\gamma=1,\alpha = 0.15$) Pressure evolution of the 2D expanding bubble with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:expanding_bubble}
 \end{figure}
 
@@ -1173,7 +980,7 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$\\
 0.05 & 64 & 3776 & $10^{-3}$ \\
 \hline
 \end{tabular}
-\caption{(2D Expanding bubble problem) Number of interface elements ($K_\Gamma$), number of bulk elements ($K_\Omega$) and time step ($\tau$) for a certain characteristic length ($c_l$).}
+\caption{Number of interface elements ($K_\Gamma$), number of bulk elements ($K_\Omega$) and time step ($\tau$) for a certain characteristic length ($c_l$) for the 2D expanding bubble problem, uniform mesh.}
 \label{tab:expandingbubble2Delements}
 \end{table*}
 
@@ -1188,11 +995,11 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 0.25 & 9.59020e-03 & 5.91121e-04 & 4.09862e-03 & 1.43868e-01 & 3.72132e-01 & 36.632 & 120\\
 0.1 & 1.71523e-03 & 1.07812e-04 & 8.68997e-04 & 1.84066e-02 & 4.56430e-02 & 1402.8 & 452\\
-0.05 & 3.66049e-04 & 1.49010e-05 & 1.92527e-04 & 2.87844e-03 & 7.63704e-03 & 130190 & 1866\\%TODO 
+0.05 & 3.66077e-04 & 1.48787e-05 & 1.92562e-04 & 2.87838e-03 & 7.63704e-03 & 62112 & 1866\\
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and uniform mesh.}
 \label{tab:expandingbubble2Dp2p0remesh}
 \end{table*}
 
@@ -1209,7 +1016,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, with remeshing at every time step.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, with remeshing at every time step and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1remesh}
 \end{table*}
 
@@ -1226,7 +1033,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, with remeshing at every time step.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, with remeshing at every time step and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1p0remesh}
 \end{table*}
 
@@ -1245,7 +1052,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$ and no remeshing.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, no remeshing and uniform mesh.}
 \label{tab:expandingbubble2Dp2p0smooth}
 \end{table*}
 
@@ -1262,7 +1069,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, $C_s=1$ and no remeshing.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, $C_s=1$, no remeshing and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1smooth}
 \end{table*}
 
@@ -1279,7 +1086,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, $C_s=1$ and no remeshing.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, $C_s=1$, no remeshing and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1p0smooth}
 \end{table*}
 
@@ -1299,7 +1106,7 @@ $C_r$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$ and $c_l=0.1$.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, $c_l=0.1$ and uniform mesh.}
 \label{tab:expandingbubble2Dp2p0bothdiffcr}
 \end{table*}
 
@@ -1318,7 +1125,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$ and $C_r=3$.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, $C_r=3$ and uniform mesh.}
 \label{tab:expandingbubble2Dp2p0all}
 \end{table*}
 
@@ -1335,7 +1142,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, $C_s=1$ and $C_r=3$.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, $C_s=1$, $C_r=3$ and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1all}
 \end{table*}
 
@@ -1352,23 +1159,20 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, $C_s=1$ and $C_r=3$.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, $C_s=1$, $C_r=3$ and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1p0all}
 \end{table*}
 
-We can observe that the simulations which use only the smoothing have bigger errors and they take more time therefore it is not feasible to use only the smoothing process. On the other side both only remeshing and smoothing/remeshing combined achieve almost the same quality and performance. It is important to notice that the performance are almost the same for sequential code (our case) but in parallel computation the remeshing is the real bottleneck therefore it is way better to use the combined smoothing/remeshing approach.  
-\newline
-
-In all the previous simulations, the meshes used were uniform therefore the characteristic length was equal for all the nodes. Moreover they were kept uniform also after the remeshing. Obviously, with this approach, it is very expensive to have a large number of interface elements since it leads to a drastic increase of bulk elements. In the following simulations, instead, we use adaptive meshes which are fine close to the interface and coarse far from the interface. In Figure~\ref{fig:expanding_bubble_adaptive} is reported the pressure evolution for the expanding bubble problem with an adaptive mesh which has characteristic interface length $c_{l,\Gamma}=0.05$. This time no smoothing is performed since we need to remesh at each time step.
+In all the previous simulations, the meshes used were uniform therefore the characteristic length was equal for all the nodes. Moreover they were kept uniform also after the remeshing. Obviously, with this approach, it is very expensive to have a large number of interface elements since it leads to a drastic increase of bulk elements. In the following simulations, instead, we use adaptive meshes which are fine close to the interface and coarse far from the interface. In Figure~\ref{fig:expanding_bubble_adaptive} is reported the pressure evolution for the expanding bubble problem with an adaptive mesh which has characteristic interface length $c_{l,\Gamma}=0.05$ for the P2--P0 element. This time no smoothing is performed since we need to remesh at each time step.
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_000.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_025.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_050.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_075.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_100.ps}}\\
-  \caption{2D expanding bubble problem P2--P0 using an adaptive mesh, $c_{l,\Gamma}=0.05$, with $C_r=1$ and no smoothing for (a) $t=0$, (b) $t=0.25$, (c) $t=0.5$, (d) $t=0.75$, (e) $t=1$.}
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_000.ps}}\\
+  \subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_025.ps}}\quad
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_050.ps}}\\
+  \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_075.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{images/expanding_bubble_adaptive_100.ps}}\\
+  \caption{($\mu=\gamma=1,\alpha = 0.15$) Pressure evolution of the 2D expanding bubble with $c_l=0.1$, with remeshing at every time step for the P2--P0 element, adaptive mesh.}
   \label{fig:expanding_bubble_adaptive}
 \end{figure}
 
@@ -1388,7 +1192,7 @@ $c_{l,\Gamma}$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 0.0123 & 256 & 7460 & $10^{-3}$\\
 \hline
 \end{tabular}
-\caption{(2D Expanding bubble problem with adaptive mesh) Number of interface elements ($K_\Gamma$), number of bulk elements ($K_\Omega$) and time step ($\tau$) for a certain interface characteristic length ($c_{l,\Gamma}$).}
+\caption{Number of interface elements ($K_\Gamma$), number of bulk elements ($K_\Omega$) and time step ($\tau$) for a certain characteristic length ($c_l$) for the 2D expanding bubble problem, adaptive mesh.}
 \label{tab:expandingbubble2Delements_adaptive}
 \end{table*}
 
@@ -1407,7 +1211,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, adaptive mesh.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and adaptive mesh.}
 \label{tab:expandingbubble2Dp2p0adaptive}
 \end{table*}
 
@@ -1424,7 +1228,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, adaptive mesh.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, with remeshing at every time step and adaptive mesh.}
 \label{tab:expandingbubble2Dp2p1adaptive}
 \end{table*}
 
@@ -1441,47 +1245,47 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, adaptive mesh.}
+\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, with remeshing at every time step and adaptive mesh.}
 \label{tab:expandingbubble2Dp2p1p0adaptive}
 \end{table*}
 
-The last 2D problem which we report is a shear flow. We use the same geometry configuration of the 2D stationary bubble but we prescribe the inhomogeneous Dirichlet boundary condition
+The last 2D problem which we report is a shear flow. We use the same geometry configuration of the 2D stationary bubble and an uniform mesh but we prescribe the inhomogeneous Dirichlet boundary condition
 \begin{equation*}
 \vec g(\vec z)=(z_2,0)^T\quad \mbox{on }\partial\Omega\,,
 \end{equation*}
-and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=2$. In Figure~\ref{fig:shear_2d} is reported the pressure evolution of the circle with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$. The bulk inner relative volume evolution $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ is reported in Figure~\ref{fig:shear_2d_bulk_inner_volume}.
+and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=2$. In Figure~\ref{fig:shear_2d} is reported the pressure evolution of the circle with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. The bulk inner relative volume evolution $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ is reported in Figure~\ref{fig:shear_2d_bulk_inner_volume}.
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_050.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_100.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_150.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_200.ps}}\\
-  \caption{2D Shear flow pressure evolution for P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0.5$, (b) $t=1.0$, (c) $t=1.5$ and (d) $t=2.0$.}
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_050.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{images/2d_shear_100.ps}}\\
+  \subfloat[$t=1.5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_150.ps}}\quad
+  \subfloat[$t=2$]{\includegraphics[width=.45\textwidth]{images/2d_shear_200.ps}}\\
+  \caption{($\mu=1,\gamma=3$) Pressure evolution of the 2D shear flow with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:shear_2d}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=.45\textwidth]{images/2d_shear_bulk_inner_volume.ps}
-  \caption{2D Shear flow bulk inner relative volume evolution for P2--P0 with $c_l=0.1$, $C_s=1.0$ and $C_r=3.0$.}
+  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution of the 2D shear flow with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:shear_2d_bulk_inner_volume}
 \end{figure}
 
-Instead, in Figure~\ref{fig:shear_2d_smooth} the remeshing coefficient is $C_r=0.0$ so only the smoothing is used. The bulk inner relative volume evolution is reported in Figure~\ref{fig:shear_2d_smooth_bulk_inner_volume}.
+Instead, in Figure~\ref{fig:shear_2d_smooth} the remeshing coefficient is $C_r=0$ so only the smoothing is used. The bulk inner relative volume evolution is reported in Figure~\ref{fig:shear_2d_smooth_bulk_inner_volume}.
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_050.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_100.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_150.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_200.ps}}\\
-  \caption{2D Shear flow pressure evolution for P2--P0 with $c_l=0.1$, $C_s=1.0$ and no remeshing for (a) $t=0.5$, (b) $t=1.0$, (c) $t=1.5$ and (d) $t=2.0$.}
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_050.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_100.ps}}\\
+  \subfloat[$t=1.5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_150.ps}}\quad
+  \subfloat[$t=2$]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_200.ps}}\\
+  \caption{$\mu=1,\gamma=3$) Pressure evolution of the 2D shear flow with $c_l=0.1$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
   \label{fig:shear_2d_smooth}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=.45\textwidth]{images/2d_shear_smooth_bulk_inner_volume.ps}
-  \caption{2D Shear flow bulk inner relative volume evolution for P2--P0 with $c_l=0.1$, $C_s=1.0$ and no remeshing.}
+  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution of the 2D shear flow with $c_l=0.1$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
   \label{fig:shear_2d_smooth_bulk_inner_volume}
 \end{figure}
 
@@ -1494,7 +1298,7 @@ For the stationary bubble test we use the domain $\Omega = (-1,1)^3$ and we choo
 \end{equation*}
 Therefore, the true solution reduces to $r(t) = \frac{1}{2}$, $\vec u(\cdot, t) = \vec 0$ and $p(t) = 4\,\charfcn{\Omega_-(0)} - \frac{\pi}{12}$ for all $t\geq0$.
 
-In Table~\ref{tab:bubble3Delements} it is reported the characteristic length $c_l$, which prescribes the desired size of the elements, used to create the mesh for the stationary bubble problem, the corresponding number of interface elements $K_\Gamma$ generated, the corresponding number of bulk elements $K_\Omega$ generated and the time step $\tau$ used. The mesh used obtained applying a surface diffusion to a sphere until the the surface is stationary which means until the displacement is 0 up to machine accuracy for all the nodes.
+In Table~\ref{tab:bubble3Delements} it is reported the characteristic length $c_l$, which prescribes the desired size of the elements, used to create the mesh for the stationary bubble problem, the corresponding number of interface elements $K_\Gamma$ generated, the corresponding number of bulk elements $K_\Omega$ generated and the time step $\tau$ used. The interface mesh is obtained applying a surface diffusion to a sphere until the surface is stationary which means until the displacement is 0 up to machine accuracy for all the nodes. The bulk mesh is uniform.
 \begin{table*}
  \center
  \hspace*{-2cm}
@@ -1508,11 +1312,11 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{(3D Stationary bubble problem) Number of interface elements ($K_\Gamma$), number of bulk elements ($K_\Omega$) and time step ($\tau$) for a certain characteristic length ($c_l$).}
+\caption{Number of interface elements ($K_\Gamma$), number of bulk elements ($K_\Omega$) and time step ($\tau$) for a certain characteristic length ($c_l$) for the 3D stationary bubble problem, stationary uniform mesh.}
 \label{tab:bubble3Delements}
 \end{table*}
 
-Since the solution is stationary, neither smoothing nor remeshing is performed. The mesh is created on the fly; this operation has a computational cost not negligible only for very small mesh (in our case only for $c_l=0.25$). 
+Since the solution is stationary, neither smoothing nor remeshing is performed. 
 
 Some errors for our numerical scheme can be seen in Table~\ref{tab:bubble3Dp2p0} for the P2--P0 element and in Table~\ref{tab:bubble3Dp2p1p0} for the P2--(P1+P0). 
 
@@ -1529,7 +1333,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time interval $[0,1]$ for the P2--P0 element.}
+\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time interval $[0,1]$ for the P2--P0 element, stationary uniform mesh.}
 \label{tab:bubble3Dp2p0}
 \end{table*}
 
@@ -1546,7 +1350,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time interval $[0,1]$ for the P2--P1 element.}
+\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time interval $[0,1]$ for the P2--P1 element, stationary uniform mesh.}
 \label{tab:bubble3Dp2p1}
 \end{table*}
 
@@ -1563,37 +1367,43 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp2$ & $\errorPp2$ & $
 \hline
 \end{tabular}
 \hspace*{-2cm}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time interval $[0,1]$ for the P2--(P1+P0) element.}
+\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time interval $[0,1]$ for the P2--(P1+P0) element, stationary uniform mesh.}
 \label{tab:bubble3Dp2p1p0}
 \end{table*}
 
-We see that the radius error in Table~\ref{tab:bubble3Dp2p0} is terrible compared to the analogous test in 2d. The reason is that in 2d the initial discrete interface is equidistributed and its radius is exactly 0.5 while in 3d the mesh is equidistributed but the initial radius has already an error. This error is exactly the one seen in the table since the displacement is always 0 up to machine accuracy. 
+We see that the radius error in Table~\ref{tab:bubble3Dp2p0} is terrible compared to the analogous test in 2D. The reason is that in 2D the initial discrete interface is equidistributed and its radius is exactly 0.5 while in 3D the mesh is equidistributed but the initial radius has already an error. This error is exactly the one seen in the table since the displacement is always 0 up to machine accuracy. 
 
-Also for the 3D, we show the evolution of a shear flow. The initial interface is a non-stationary sphere and we prescribe the inhomogeneous Dirichlet boundary condition
+Also for the 3D, we show the evolution of a shear flow. The initial interface mesh is a non-stationary sphere while the bulk mesh is uniform. We prescribe the inhomogeneous Dirichlet boundary condition
 \begin{equation*}
 \vec g(\vec z)=(z_3,0,0)^T\quad \mbox{on }\partial\Omega\,,
 \end{equation*}
-and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figure~\ref{fig:shear_3d} is reported the interface evolution of the sphere with initial characteristic length $c_l=0.125$, smoothing coefficient $C_s=1.0$ and remeshing coefficient $C_r=3.0$. The characteristic length for the boundary is fixed and not uniform like in the 2D case. The bulk inner relative volume evolution $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ is reported in Figure~\ref{fig:shear_3d_bulk_inner_volume}.
+and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figure~\ref{fig:shear_3d} is reported the interface evolution of the sphere with initial characteristic length $c_l=0.125$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. The characteristic length for the boundary is fixed and not uniform like in the 2D case. The bulk inner relative volume evolution $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ is reported in Figure~\ref{fig:shear_3d_bulk_inner_volume}.
 \begin{figure}[htbp]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_000.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_050.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_100.ps}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_250.ps}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{images/3d_shear_500.ps}}\\
-  \caption{3D Shear flow interface evolution for P2--P0 with $c_l=0.125$, $C_s=1.0$ and $C_r=3.0$ for (a) $t=0.0$, (b) $t=0.5$, (c) $t=1.0$, (d) $t=2.5$ and (e) $t=5.0$.}
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{images/3d_shear_000.ps}}\\
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{images/3d_shear_050.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{images/3d_shear_100.ps}}\\
+  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{images/3d_shear_250.ps}}\quad
+  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{images/3d_shear_500.ps}}\\
+  \caption{($\mu=1,\gamma=3$) Pressure evolution of the 3D shear flow with $c_l=0.125$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:shear_3d}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=.45\textwidth]{images/3d_shear_bulk_inner_volume.ps}
-  \caption{3D Shear flow bulk inner relative volume evolution for P2--P0 with $c_l=0.125$, $C_s=1.0$ and $C_r=3.0$.}
+  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution of the 3D shear flow with $c_l=0.125$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:shear_3d_bulk_inner_volume}
 \end{figure}
 
 \section{Conclusion}\label{sec:conclusion}
+\textcolor{magenta}{TODO : add comparison reults unfitted scheme scheme stokes paper}
 
+The P2--P0 element has the same accuracy of the P2--(P1+P0) element but it is simpler to implement, always satisfies the LBB condition and the resulting linear system is smaller therefore it is the best choice.
+
+The adaptive mesh works very well for the stationary bubble problem. Indeed, with a fraction of bulk elements, it reaches the same accuracy of the uniform mesh. Unfortunately this is not the case for the expanding bubble problem. For this problem, the uniform mesh is much faster and requires less bulk elements compared to the adaptive mesh therefore.\footnote{But they have different $\tau$!}
+
+In the 2D expanding bubble problem, We can observe that the simulations which use only the smoothing have bigger errors and take more time therefore it is not feasible to use only the smoothing process. On the other side both only remeshing and smoothing/remeshing combined achieve almost the same quality and performance. It is important to notice that the performance are almost the same for sequential code (our case) but in parallel computation the remeshing is the real bottleneck therefore it is way better to use the combined smoothing/remeshing approach.
 \newpage
 \bibliographystyle{siam} 
 \bibliography{../bib/robert_refs,../bib/marco_refs}
