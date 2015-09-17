@@ -1229,25 +1229,25 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 \label{tab:expandingbubble2Dp2p1p0adaptive}
 \end{table*}
 
-The last 2D problem which we report is a shear flow. We use the same geometry configuration of the 2D stationary bubble and an uniform mesh but we prescribe the inhomogeneous Dirichlet boundary condition
+Finally, we report a shear flow in the domain $\Omega=(-1,1)^2$, with a circle of radius $r=0.5$ as initial interface. We prescribe the inhomogeneous Dirichlet boundary condition
 \begin{equation*}
 \vec g(\vec z)=(z_2,0)^T\quad \mbox{on }\partial\Omega\,,
 \end{equation*}
-and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=2$. In Figure~\ref{fig:shear_2d} is reported the pressure evolution of the circle with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. The bulk inner relative volume evolution $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ is reported in Figure~\ref{fig:shear_2d_bulk_inner_volume}.
+and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figure~\ref{fig:shear_2d} is reported the pressure evolution using a characteristic length $c_l=0.05$ and an uniform mesh, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. The bulk inner relative volume evolution $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ is reported in Figure~\ref{fig:shear_2d_bulk_inner_volume}.
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_050.ps}}\quad
   \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{images/2d_shear_100.ps}}\\
-  \subfloat[$t=1.5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_150.ps}}\quad
-  \subfloat[$t=2$]{\includegraphics[width=.45\textwidth]{images/2d_shear_200.ps}}\\
-  \caption{($\mu=1,\gamma=3$) Pressure evolution of the 2D shear flow with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
+  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_250.ps}}\quad
+  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_500.ps}}\\
+  \caption{($\mu=1,\gamma=3$) Pressure evolution of the 2D shear flow with $c_l=0.05$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:shear_2d}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=.45\textwidth]{images/2d_shear_bulk_inner_volume.ps}
-  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution of the 2D shear flow with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
+  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution of the 2D shear flow with $c_l=0.05$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:shear_2d_bulk_inner_volume}
 \end{figure}
 
@@ -1256,16 +1256,16 @@ Instead, in Figure~\ref{fig:shear_2d_smooth} the remeshing coefficient is $C_r=0
   \centering
   \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_050.ps}}\quad
   \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_100.ps}}\\
-  \subfloat[$t=1.5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_150.ps}}\quad
-  \subfloat[$t=2$]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_200.ps}}\\
-  \caption{$\mu=1,\gamma=3$) Pressure evolution of the 2D shear flow with $c_l=0.1$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
+  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_250.ps}}\quad
+  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{images/2d_shear_smooth_500.ps}}\\
+  \caption{($\mu=1,\gamma=3$) Pressure evolution of the 2D shear flow with $c_l=0.05$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
   \label{fig:shear_2d_smooth}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=.45\textwidth]{images/2d_shear_smooth_bulk_inner_volume.ps}
-  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution of the 2D shear flow with $c_l=0.1$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
+  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution of the 2D shear flow with $c_l=0.05$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
   \label{fig:shear_2d_smooth_bulk_inner_volume}
 \end{figure}
 
@@ -1347,7 +1347,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 
 We see that the radius error in Table~\ref{tab:bubble3Dp2p0} is terrible compared to the analogous test in 2D. The reason is that in 2D the initial discrete interface is equidistributed and its radius is exactly 0.5 while in 3D the mesh is equidistributed but the initial radius has already an error. This error is exactly the one seen in the table since the displacement is always 0 up to machine accuracy. 
 
-Also for the 3D, we show the evolution of a shear flow. The initial interface mesh is a non-stationary sphere while the bulk mesh is uniform. We prescribe the inhomogeneous Dirichlet boundary condition
+Finally, we report a shear flow in the domain $\Omega=(-1,1)^3$, with a sphere of radius $r=0.5$ as initial interface. The initial interface mesh is a non-stationary sphere while the bulk mesh is uniform. We prescribe the inhomogeneous Dirichlet boundary condition
 \begin{equation*}
 \vec g(\vec z)=(z_3,0,0)^T\quad \mbox{on }\partial\Omega\,,
 \end{equation*}
@@ -1379,7 +1379,6 @@ The adaptive mesh works very well for the stationary bubble problem. Indeed, wit
 
 In the 2D expanding bubble problem, We can observe that the simulations which use only the smoothing have bigger errors and take more time therefore it is not feasible to use only the smoothing process. On the other side both only remeshing and smoothing/remeshing combined achieve almost the same quality and performance. It is important to notice that the performance are almost the same for sequential code (our case) but in parallel computation the remeshing is the real bottleneck therefore it is way better to use the combined smoothing/remeshing approach.
 \newpage
-\textcolor{magenta}{TODO : missing dash in DUNE--FEM in the bibliography, how can I do it?}
 \bibliographystyle{siam} 
 \bibliography{../bib/robert_refs,../bib/marco_refs}
 \end{document}
