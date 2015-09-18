@@ -897,7 +897,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 \label{tab:bubble2Dp2p1p0adaptive}
 \end{table*}
 
-In Figure~\ref{fig:ellipse} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. The mesh is uniform and all the other conditions are equal to the stationary bubble problem. Figure~\ref{fig:ellipse_bulk_inner_volume} shows the evolution of the bulk inner relative volume $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ while Figure~\ref{fig:ellipse_interface_length} shows the evolution of the interface length $\mathcal{H}^{d-1}(\Gamma^h(t))$.
+In Figure~\ref{fig:ellipse} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. The mesh is uniform and all the other conditions are equal to the stationary bubble problem. Figure~\ref{fig:ellipse_volumes} shows the evolution of the bulk inner relative volume $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ and the evolution of the interface length $\mathcal{H}^{d-1}(\Gamma^h(t))$.
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/ellipse_000.ps}}\\
@@ -911,19 +911,13 @@ In Figure~\ref{fig:ellipse} is reported the pressure evolution of an ellipse, of
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=.45\textwidth]{figures/ellipse_bulk_inner_volume.ps}
-  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution of an ellipse with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
-  \label{fig:ellipse_bulk_inner_volume}
+  \subfloat[$\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$]{\includegraphics[width=.45\textwidth]{figures/ellipse_bulk_inner_volume.ps}}
+  \subfloat[$\mathcal{H}^{d-1}(\Gamma^h(t))$]{\includegraphics[width=.45\textwidth]{figures/ellipse_interface_length.ps}}
+  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution and interface length evolution of an ellipse with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
+  \label{fig:ellipse_volumes}
 \end{figure}
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=.45\textwidth]{figures/ellipse_interface_length.ps}
-  \caption{($\mu=\gamma=1$) Interface length evolution for an ellipse with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
-  \label{fig:ellipse_interface_length}
-\end{figure}
-
-Instead, in Figure~\ref{fig:ellipse_smooth} only the smoothing is used. The evolution of the bulk inner relative volume and the evolution of the interface length are shown in Figure~\ref{fig:ellipse_smooth_bulk_inner_volume} and in Figure~\ref{fig:ellipse_smooth_interface_length}, respectively.
+Instead, in Figure~\ref{fig:ellipse_smooth} only the smoothing is used while the evolution of the bulk inner relative volume and the evolution of the interface length are shown in Figure~\ref{fig:ellipse_smooth_volumes}.
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_000.ps}}\\
@@ -937,16 +931,10 @@ Instead, in Figure~\ref{fig:ellipse_smooth} only the smoothing is used. The evol
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=.45\textwidth]{figures/ellipse_smooth_bulk_inner_volume.ps}
-  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution of an ellipse with $c_l=0.1$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
-  \label{fig:ellipse_smooth_bulk_inner_volume}
-\end{figure}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=.45\textwidth]{figures/ellipse_smooth_interface_length.ps}
-  \caption{($\mu=\gamma=1$) Interface length evolution for an ellipse with $c_l=0.1$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
-  \label{fig:ellipse_smooth_interface_length}
+  \subfloat[$\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_bulk_inner_volume.ps}}
+  \subfloat[$\mathcal{H}^{d-1}(\Gamma^h(t))$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_interface_length.ps}}
+  \caption{($\mu=\gamma=1$) Bulk inner relative volume evolution and interface length evolution of an ellipse with $c_l=0.1$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
+  \label{fig:ellipse_smooth_volumes}
 \end{figure}
 
 For the expanding bubble test, we fix $\Omega = (-1,1)^2 \setminus [-\frac13,\frac13]^2$ and we choose the parameters
@@ -957,11 +945,11 @@ for the true solution (\ref{eq:radialr2},b). In Figure~\ref{fig:expanding_bubble
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_000.ps}}\\
-  \subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_025.ps}}\quad
-  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_050.ps}}\\
-  \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_075.ps}}\quad
-  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_100.ps}}\\
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_3d_000.ps}}\\
+  \subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_3d_025.ps}}\quad
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_3d_050.ps}}\\
+  \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_3d_075.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_3d_100.ps}}\\
   \caption{($\mu=\gamma=1,\alpha = 0.15$) Pressure evolution of the 2D expanding bubble with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:expanding_bubble}
 \end{figure}
@@ -1151,11 +1139,11 @@ In all the previous simulations, the meshes used were uniform therefore the char
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_000.ps}}\\
-  \subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_025.ps}}\quad
-  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_050.ps}}\\
-  \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_075.ps}}\quad
-  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_100.ps}}\\
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_3d_000.ps}}\\
+  \subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_3d_025.ps}}\quad
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_3d_050.ps}}\\
+  \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_3d_075.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_3d_100.ps}}\\
   \caption{($\mu=\gamma=1,\alpha = 0.15$) Pressure evolution of the 2D expanding bubble with $c_l=0.1$, with remeshing at every time step for the P2--P0 element, adaptive mesh.}
   \label{fig:expanding_bubble_adaptive}
 \end{figure}
@@ -1233,7 +1221,7 @@ Finally, we report a shear flow in the domain $\Omega=(-1,1)^2$, with a circle o
 \begin{equation*}
 \vec g(\vec z)=(z_2,0)^T\quad \mbox{on }\partial\Omega\,,
 \end{equation*}
-and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figure~\ref{fig:shear_2d} is reported the pressure evolution using a characteristic length $c_l=0.05$ and an uniform mesh, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. The bulk inner relative volume evolution $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ is reported in Figure~\ref{fig:shear_2d_bulk_inner_volume}.
+and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figure~\ref{fig:shear_2d} is reported the pressure evolution using a characteristic length $c_l=0.05$ and an uniform mesh, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. In Figure~\ref{fig:shear_2d_velocity} is shown the velocity vector field evolution while the bulk inner relative volume evolution $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ is reported in Figure~\ref{fig:shear_2d_bulk_inner_volume}.
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/2d_shear_050.ps}}\quad
@@ -1242,6 +1230,16 @@ and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figu
   \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/2d_shear_500.ps}}\\
   \caption{($\mu=1,\gamma=3$) Pressure evolution of the 2D shear flow with $c_l=0.05$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:shear_2d}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/2d_shear_velocity_050.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/2d_shear_velocity_100.ps}}\\
+  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/2d_shear_velocity_250.ps}}\quad
+  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/2d_shear_velocity_500.ps}}\\
+  \caption{($\mu=1,\gamma=3$) Velocity vector field of the 2D shear flow with $c_l=0.05$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
+  \label{fig:shear_2d_velocity}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -1378,6 +1376,8 @@ The P2--P0 element has the same accuracy of the P2--(P1+P0) element but it is si
 The adaptive mesh works very well for the stationary bubble problem. Indeed, with a fraction of bulk elements, it reaches the same accuracy of the uniform mesh. Unfortunately this is not the case for the expanding bubble problem. For this problem, the uniform mesh is much faster and requires less bulk elements compared to the adaptive mesh therefore.\footnote{But they have different $\tau$!}
 
 In the 2D expanding bubble problem, We can observe that the simulations which use only the smoothing have bigger errors and take more time therefore it is not feasible to use only the smoothing process. On the other side both only remeshing and smoothing/remeshing combined achieve almost the same quality and performance. It is important to notice that the performance are almost the same for sequential code (our case) but in parallel computation the remeshing is the real bottleneck therefore it is way better to use the combined smoothing/remeshing approach.
+
+Both element capture perfectly the jump in the pressure.
 \newpage
 \bibliographystyle{siam} 
 \bibliography{../bib/robert_refs,../bib/marco_refs}
