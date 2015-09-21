@@ -909,7 +909,8 @@ Figure~\ref{fig:2d_stationary_bubble} shows the pressure of the stationary bubbl
   \label{fig:2d_stationary_bubble}
 \end{figure}
 
-In Figure~\ref{fig:ellipse_both} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. The mesh is uniform and all the other conditions are equal to the stationary bubble problem. Figure~\ref{fig:ellipse_both_volumes} shows the evolution of the bulk inner relative volume $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ and the evolution of the interface length $\mathcal{H}^{d-1}(\Gamma^h(t))$. We point out that, since there is no exact solution to the problem, we cannot show the pressure state at $t=0$ therefore we show the pressure state at $t=10^{-5}$.
+In Figure~\ref{fig:ellipse_both} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. We fix the usual domain $\Omega = (-1,1)^2$ and we use the parameters $\mu=1$, $\gamma=1$, $\tau=10^{-2}$ and $T=4$. The mesh is uniform and we prescribe homogeneous Dirichlet
+boundary condition. Figure~\ref{fig:ellipse_both_volumes} shows the evolution of the bulk inner relative volume $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ and the evolution of the interface length $\mathcal{H}^{d-1}(\Gamma^h(t))$. We point out that, since there is no exact solution to the problem, we cannot show the pressure state at $t=0$ therefore we show the pressure state at $t=10^{-5}$.
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]{figures/ellipse_both_000.ps}}\\
@@ -1361,7 +1362,7 @@ Finally, we report a shear flow in the domain $\Omega=(-1,1)^3$, with a sphere o
 \begin{equation*}
 \vec g(\vec z)=(z_3,0,0)^T\quad \mbox{on }\partial\Omega\,,
 \end{equation*}
-and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figure~\ref{fig:shear_3d} is reported the interface evolution of the sphere with initial characteristic length $c_l=0.125$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. The characteristic length for the boundary is fixed and not uniform like in the 2D case. The bulk inner relative volume evolution $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ is reported in Figure~\ref{fig:shear_3d_bulk_inner_volume}.
+and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figure~\ref{fig:shear_3d} is reported the interface evolution of the sphere with initial characteristic length $c_l=0.125$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. The characteristic length for the boundary is fixed and not uniform like in the 2D case. In Figure~\ref{fig:shear_3d_velocity} is shown the velocity vector field evolution in the plane normal to $(0,1,0)$ and passing through the origin while the bulk inner relative volume evolution $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ is reported in Figure~\ref{fig:shear_3d_bulk_inner_volume}.
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/3d_shear_000.ps}}\\
@@ -1369,8 +1370,18 @@ and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$. In Figu
   \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/3d_shear_100.ps}}\\
   \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/3d_shear_250.ps}}\quad
   \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/3d_shear_500.ps}}\\
-  \caption{($\mu=1,\gamma=3$) Pressure evolution of the 3D shear flow with $c_l=0.125$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
+  \caption{($\mu=1,\gamma=3$) Interface evolution of the 3D shear flow with $c_l=0.125$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:shear_3d}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/3d_shear_velocity_050.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/3d_shear_velocity_100.ps}}\\
+  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/3d_shear_velocity_250.ps}}\quad
+  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/3d_shear_velocity_500.ps}}\\
+  \caption{($\mu=1,\gamma=3$) Velocity vector field in the plane normal to $(0,1,0)$ and passing through the origin of the 3D shear flow with $c_l=0.125$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
+  \label{fig:shear_3d_velocity}
 \end{figure}
 
 \begin{figure}[htbp]
