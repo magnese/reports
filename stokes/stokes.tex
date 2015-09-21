@@ -941,17 +941,17 @@ For the expanding bubble test, we fix $\Omega = (-1,1)^2 \setminus [-\frac13,\fr
 \begin{equation*}
 \alpha = 0.15 \quad\text{and}\quad \mu = \gamma = 1
 \end{equation*}
-for the true solution (\ref{eq:radialr2},b). In Figure~\ref{fig:expanding_bubble} is reported the pressure evolution for the expanding bubble problem with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ using an uniform mesh for the P2--P0 element.
+for the true solution (\ref{eq:radialr2},b). In Figure~\ref{fig:expanding_bubble_uniform} is reported the pressure evolution for the expanding bubble problem with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ using an uniform mesh for the P2--P0 element.
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_3d_000.ps}}\\
-  \subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_3d_025.ps}}\quad
-  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_3d_050.ps}}\\
-  \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_3d_075.ps}}\quad
-  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_3d_100.ps}}\\
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_uniform_000.ps}}\\
+  \subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_uniform_025.ps}}\quad
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_uniform_050.ps}}\\
+  \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_uniform_075.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_uniform_100.ps}}\\
   \caption{($\mu=\gamma=1,\alpha = 0.15$) Pressure evolution of the 2D expanding bubble with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
-  \label{fig:expanding_bubble}
+  \label{fig:expanding_bubble_uniform}
 \end{figure}
 
 In Table~\ref{tab:expandingbubble2Delements} it is reported the characteristic length $c_l$ used to create the initial mesh for the expanding bubble problem, the corresponding number of interface elements $K_\Gamma$ generated, the corresponding number of bulk elements $K_\Omega$ generated and the time step $\tau$ used. 
@@ -1139,11 +1139,11 @@ In all the previous simulations, the meshes used were uniform therefore the char
 
 \begin{figure}[htbp]
   \centering
-  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_3d_000.ps}}\\
-  \subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_3d_025.ps}}\quad
-  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_3d_050.ps}}\\
-  \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_3d_075.ps}}\quad
-  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_3d_100.ps}}\\
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_000.ps}}\\
+  \subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_025.ps}}\quad
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_050.ps}}\\
+  \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_075.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_100.ps}}\\
   \caption{($\mu=\gamma=1,\alpha = 0.15$) Pressure evolution of the 2D expanding bubble with $c_l=0.1$, with remeshing at every time step for the P2--P0 element, adaptive mesh.}
   \label{fig:expanding_bubble_adaptive}
 \end{figure}
