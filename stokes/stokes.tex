@@ -210,7 +210,7 @@ It will be our aim to introduce a fitted FEM for two--phase Stokes flow that sat
 \section{Interface treatment}
 \setcounter{equation} 0
 
-As said in Section (\ref{sec:problem}) we use an explicit method known as parametric approach to treat the interface. It involves seeking a parametrization over a base manifold. All the geometrical quantities of the hypersurface (e.g. curvature) can be expressed as derivatives of the parametrization.
+As said in Section~\ref{sec:problem} we use an explicit method known as parametric approach to treat the interface. It involves seeking a parametrization over a base manifold. All the geometrical quantities of the hypersurface (e.g. curvature) can be expressed as derivatives of the parametrization.
 
 In order to compute a discrete version of the mean curvature for polyhedral surfaces, we will use the identity
 \begin{equation} \label{eq:LBop}
@@ -907,6 +907,26 @@ Figure~\ref{fig:2d_stationary_bubble} shows the pressure of the stationary bubbl
   \subfloat[adaptive mesh, $K_\Gamma=64$]{\includegraphics[width=.45\textwidth]{figures/2d_stationary_bubble_adaptive_100.ps}}\\
   \caption{($\mu=\gamma=1$) Pressure of the 2D stationary bubble at time $t=1$ for the P2--P0 element with uniform mesh and with adaptive mesh.}
   \label{fig:2d_stationary_bubble}
+\end{figure}
+
+We now demonstrate the remarkable equidistribution property of our method showing that the circular, equidistributed numerical steady state solution is recovered by our method even if we choose a very nonuniform initial interface $\Gamma^0$. This is the discrete analogue of the fact that circles are the unique steady state solutions in the continuous case, see Section~\ref{sec:discrete_solution_properties}. In particular, we take $\Gamma^0$ to be a very nonuniform approximation of $\Gamma(0)$, where we represent the upper half of the circle by a single vertex, while the lower half resembles a semicircle. In total we use 64 vertices for $\Gamma^0$ and we use an adaptive mesh with characteristic length $c_l=0.25$ for the boundary. We take $\mu=1$, $\gamma=1$, $\tau=10^{-4}$, $T=5$, smoothing coefficient $C_s=1$ and no remeshing and we use the P2--P0 element. In Figure~\ref{fig:nonuniform_bubble_smooth} are shown some snapshots of the mesh evolution while in Figure~\ref{fig:nonuniform_bubble_velocity_smooth} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. As expected, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
+
+\begin{figure}[htbp]
+  \centering
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_000.ps}}\\
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_050.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_100.ps}}\\
+  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_250.ps}}\quad
+  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_500.ps}}\\
+  \caption{($\mu=\gamma=1$) Mesh evolution of a non uniform circle formed by 64 vertices with $C_s=1$ and no remeshing for the P2--P0 element, adaptive mesh.}
+  \label{fig:nonuniform_bubble_smooth}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_velocity_smooth.ps}
+  \caption{($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution of a non uniform circle formed by 64 vertices with $C_s=1$ and no remeshing for the P2--P0 element, adaptive mesh.}
+  \label{fig:nonuniform_bubble_velocity_smooth}
 \end{figure}
 
 In Figure~\ref{fig:ellipse_both} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. We fix the usual domain $\Omega = (-1,1)^2$ and we use the parameters $\mu=1$, $\gamma=1$, $\tau=10^{-2}$ and $T=4$. The mesh is uniform and we prescribe homogeneous Dirichlet
