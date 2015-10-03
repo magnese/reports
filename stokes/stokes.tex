@@ -784,7 +784,6 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 Since the solution is stationary, neither smoothing nor remeshing is performed. 
 
 Some errors for our numerical scheme, using uniform meshes, can be seen in Table~\ref{tab:bubble2Dp2p0} for the P2--P0 element and in Table~\ref{tab:bubble2Dp2p1p0} for the P2--(P1+P0) element. 
-
 \begin{table*}
  \center
 \begin{tabular}{llHlHlll}
@@ -836,7 +835,6 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,DG}$ & $\errorPp{
 \end{table*}
 
 Instead, in Table~\ref{tab:bubble2Dp2p0adaptive} and in Table~\ref{tab:bubble2Dp2p1p0adaptive} we use adaptive meshes which are fine close to the interface and coarse away from it. More precisely, the characteristic length on the interface is 8 times smaller than the characteristic length on the boundary, see Table~\ref{tab:bubble2Delementsadaptive}. 
-
 \begin{table*}
  \center
 \begin{tabular}{llll}
@@ -900,7 +898,6 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 \end{table*}
 
 Figure~\ref{fig:2d_stationary_bubble} shows the pressure of the stationary bubble at $t=1$ for the P2--P0 element using an uniform mesh, $c_l=0.1$, and an adaptive mesh, $c_l=0.05$.
-
 \begin{figure}[htbp]
   \centering
   \subfloat[uniform mesh, $K_\Gamma=32$]{\includegraphics[width=.45\textwidth]{figures/2d_stationary_bubble_uniform_100.ps}}\quad
@@ -909,8 +906,26 @@ Figure~\ref{fig:2d_stationary_bubble} shows the pressure of the stationary bubbl
   \label{fig:2d_stationary_bubble}
 \end{figure}
 
-We now demonstrate the remarkable equidistribution property of our method showing that the circular, equidistributed numerical steady state solution is recovered by our method even if we choose a very nonuniform initial interface $\Gamma^0$. This is the discrete analogue of the fact that circles are the unique steady state solutions in the continuous case, see Section~\ref{sec:discrete_solution_properties}. In particular, we take $\Gamma^0$ to be a very nonuniform approximation of $\Gamma(0)$, where we represent the upper half of the circle by a single vertex, while the lower half resembles a semicircle. In total we use 64 vertices for $\Gamma^0$ and we use an adaptive mesh with characteristic length $c_l=0.25$ for the boundary. We take $\mu=1$, $\gamma=1$, $\tau=10^{-4}$, $T=5$, smoothing coefficient $C_s=1$ and no remeshing and we use the P2--P0 element. In Figure~\ref{fig:nonuniform_bubble_smooth} are shown some snapshots of the mesh evolution while in Figure~\ref{fig:nonuniform_bubble_velocity_smooth} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. As expected, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
+We now demonstrate the remarkable equidistribution property of our method showing that the circular, equidistributed numerical steady state solution is recovered by our method even if we choose a very nonuniform initial interface $\Gamma^0$. This is the discrete analogue of the fact that circles are the unique steady state solutions in the continuous case, see Section~\ref{sec:discrete_solution_properties}. In particular, we take $\Gamma^0$ to be a very nonuniform approximation of $\Gamma(0)$, where we represent the upper half of the circle by a single vertex, while the lower half resembles a semicircle. In total we use 64 vertices for $\Gamma^0$ and we use a characteristic length $c_l=0.05$ for the boundary. This characteristic length is the one needed to subdivide a circle of radius $r=\frac{1}{2}$ in 64 equidistributed points, see Table~\ref{tab:bubble2Delementsuniform}. The initial bulk mesh is not uniform since it has to respect the nonuniform approximation of the interface but it becomes more uniform the more the points get equidistributed. We take $\mu=1$, $\gamma=1$, $\tau=10^{-4}$, $T=5$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ and we use the P2--P0 element. In Figure~\ref{fig:nonuniform_bubble_remesh} are shown some snapshots of the mesh evolution while in Figure~\ref{fig:nonuniform_bubble_velocity_remesh} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. As expected, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
+\begin{figure}[htbp]
+  \centering
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_000.ps}}\\
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_050.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_100.ps}}\\
+  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_250.ps}}\quad
+  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_500.ps}}\\
+  \caption{($\mu=\gamma=1$) Mesh evolution of a non uniform circle formed by 64 vertices with $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
+  \label{fig:nonuniform_bubble_remesh}
+\end{figure}
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_velocity_remesh.ps}
+  \caption{($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution of a non uniform circle formed by 64 vertices with $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
+  \label{fig:nonuniform_bubble_velocity_remesh}
+\end{figure}
+
+Instead, in Figure~\ref{fig:nonuniform_bubble_smooth} are shown some snapshots of the mesh evolution when an adaptive mesh with characteristic length $c_l=0.25$ for the boundary is used and no remeshing is performed. In Figure~\ref{fig:nonuniform_bubble_velocity_smooth} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. Also in this case, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_000.ps}}\\
@@ -975,7 +990,6 @@ For the expanding bubble test, we fix $\Omega = (-1,1)^2 \setminus [-\frac13,\fr
 \alpha = 0.15 \quad\text{and}\quad \mu = \gamma = 1
 \end{equation*}
 for the true solution (\ref{eq:radialr2},b). In Figure~\ref{fig:expanding_bubble_uniform} is reported the pressure evolution for the expanding bubble problem with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ using an uniform mesh for the P2--P0 element.
-
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_uniform_000.ps}}\\
@@ -1004,7 +1018,6 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$\\
 \end{table*}
 
 Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0remesh} for what concern P2--P0 and in Table~\ref{tab:expandingbubble2Dp2p1p0remesh} for what concern P2--(P1+P0)  when a remeshing is performed at each time step and no smoothing is used.
-
 \begin{table*}
  \center
 \begin{tabular}{llHlHllll}
@@ -1053,7 +1066,6 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 \end{table*}
 
 Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0smooth} for what concern P2--P0 and in Table~\ref{tab:expandingbubble2Dp2p1p0smooth} for what concern P2--(P1+P0) when a smoothing with coefficient $C_s=1$ is performed at each time step and no remeshing is used.
-
 \begin{table*}
  \center
 \begin{tabular}{llHlHlll}
@@ -1102,7 +1114,6 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 \end{table*}
 
 In order to choose the better remeshing coefficient $C_r$ several experiment were carried out. Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0bothdiffcr} with a starting characteristic length $c_l=0.1$, using P2--P0 polynomials and smoothing coefficient $C_s=1$. The better result are obtained with $C_r=3$ because it reduces the number of remeshing compared to $C_r=2$ while keeping the same performance and error quality. For this reason we are going to use this parameter for the other simulations.
-
 \begin{table*}
  \center
 \begin{tabular}{llHlHllll}
@@ -1120,7 +1131,6 @@ $C_r$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 \end{table*}
 
 Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0all} for what concern P2--P0 and in Table~\ref{tab:expandingbubble2Dp2p1p0all} for what concern P2--(P1+P0) whit remeshing coefficient $C_r=3$ and with smoothing coefficient $C_s=1$.
-
 \begin{table*}
  \center
 \begin{tabular}{llHlHllll}
@@ -1169,7 +1179,6 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 \end{table*}
 
 In all the previous simulations, the meshes used were uniform therefore the characteristic length was equal for all the nodes. Moreover they were kept uniform also after the remeshing. Obviously, with this approach, it is very expensive to have a large number of interface elements since it leads to a drastic increase of bulk elements. In the following simulations, instead, we use adaptive meshes which are fine close to the interface and coarse far from the interface. In Figure~\ref{fig:expanding_bubble_adaptive} is reported the pressure evolution for the expanding bubble problem with an adaptive mesh which has characteristic interface length $c_{l,\Gamma}=0.05$ for the P2--P0 element. This time no smoothing is performed since we need to remesh at each time step.
-
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_000.ps}}\\
@@ -1202,7 +1211,6 @@ $c_{l,\Gamma}$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 \end{table*}
 
 Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0adaptive} for what concern P2--P0 and in Table~\ref{tab:expandingbubble2Dp2p1p0adaptive} for what concern P2--(P1+P0).
-
 \begin{table*}
  \center
 \begin{tabular}{llHlHllll}
@@ -1328,7 +1336,6 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 Since the solution is stationary, neither smoothing nor remeshing is performed. 
 
 Some errors for our numerical scheme can be seen in Table~\ref{tab:bubble3Dp2p0} for the P2--P0 element and in Table~\ref{tab:bubble3Dp2p1p0} for the P2--(P1+P0). 
-
 \begin{table*}
  \center
 \begin{tabular}{llHlHlll}
