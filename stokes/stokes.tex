@@ -4,6 +4,8 @@
 \usepackage[english]{babel}
 \usepackage{amssymb,amsmath,amsthm,array,epsfig,a4,verbatim,pstricks,url,subfig,hyperref}
 
+\newenvironment{keywords}{{\upshape\bfseries Key words. }\ignorespaces}{}
+
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}{Lemma}
 
@@ -56,12 +58,37 @@
 \maketitle
 
 \begin{abstract}
-We propose a novel fitted finite element method for two-phase Stokes flow problems that uses piecewise linear finite elements to approximate the moving interface. The method can be shown to be unconditionally stable. Moreover, spherical stationary solutions are captured exactly by the numerical approximation. In addition, the meshes describing the discrete interface in general do not deteriorate in time, which means that in numerical simulations a smoothing or a remeshing of the interface mesh is not necessary. We present several numerical experiments for our numerical method, which demonstrate the accuracy and robustness of the proposed algorithm. 
+We propose a novel fitted finite element method for two-phase Stokes flow problems that uses piecewise linear finite elements to approximate the
+moving interface. The method can be shown to be unconditionally stable. Moreover, spherical stationary solutions are captured exactly by the numerical approximation. In addition, the meshes describing the discrete interface in general do not deteriorate in time, which means that in numerical simulations a smoothing or a remeshing of the interface mesh is not necessary. We present several numerical experiments for our numerical method, which demonstrate the accuracy and robustness of the proposed algorithm.
 \end{abstract}
 
+\begin{keywords} 
+viscous incompressible two-phase flow, Stokes equations, free boundary problem, surface tension, finite elements, front tracking
+\end{keywords}
+
 \section{Introduction}\label{sec:introduction}
-\textcolor{magenta}{TODO : explanation fitted mesh, pros and cons}
-In this paper we want to compare the unfitted scheme for two--phase Stokes flow described in \cite{spurious} with our fitted scheme. See Figure~\ref{fig:meshes_uniform} and Figure~\ref{fig:meshes_adaptive} for two examples of 2D fitted meshes using an uniform and an adaptive meshing, respectively.  
+Fluid flow problems with a moving interface are encountered in many applications in physics, engineering and biophysics. Developing robust and
+efficient numerical methods for these flows is an important problem and has attracted tremendous interest over the last decade. Apart from the usual difficulties arising from the numerical computation of the fluid flow in the bulk, the acurate approximation of the moving free interface, as well as a suitable description of the conditions that need to hold on the interface, pose serious challenges. Of particular importance is the precise inclusion of surface tension terms, and the correct handling of discontinuity jumps in material properties and pressure at the interface, in order to suppress spurious velocities, which are also called parasitic currents.
+
+In this paper we propose a novel finite element approximation for incompressible two-phase Stokes flow that naturally avoids spurious velocities. Our scheme is based on the numerical method introduced in \cite{spurious}, and so uses piecewise linear parametric finite elements to describe the moving discrete interface. In contrast to \cite{spurious}, where the interface and the bulk mesh were totally independent, here we pursue the fitted approach. That means that the interface discretization is always fitted to the bulk mesh, i.e.\ the discrete interface is made up of edges/faces of element belonging to the bulk mesh. An advantage of our method is that the discontinuity jumps in material properties and in the pressure are captured naturally. In particular, we do not need to employ an XFEM-type extension of standard bulk pressure spaces.
+Surface tension forces are discretized with the help of a variational approximation of curvature that was first proposed in \cite{triplej,gflows3d}. Combining this was an implicit treatment of the surface tension forces yields an unconditionally stable scheme. Interestingly, the formulation of curvature from \cite{triplej} leads to a tangential motion of vertices in practice, which guarantees equidistribution in 2d and good meshes in 3d. Overall, our proposed method has the following properties. 
+\begin{itemize}
+\item The fully discrete scheme is unconditionally stable in the sense that the total surface energy is monotonically decreasing independent of the chosen time step size.
+\item In the absence of outer forces, any discrete solution with a stationary interface must have zero velocity globally, i.e.\ we can prove that there are no stationary solutions with spurious velocities. Similarly, discrete stationary solutions for spherical interface are attained for our scheme.
+\item For the semidiscrete continuous-in-time variant of the scheme the volume of the two phases is conserved. The fully discrete scheme maintains the enclosed volumes well.
+\item Thanks to the fitted nature of the finite element method, the pressure jumps at the interface are captured accurately for standard pressure finite element spaces without the need for XFEM extensions.
+\item The surface tension effects are included with the help of a variational treatment of curvature based on the Laplace--Beltrami operator.
+\item The surface mesh quality is maintained. In particular, for the semidiscrete scheme an equidistribution property can be shown in 2d.
+\item The fully discrete scheme uses an implicit approximation of curvature that leads to a linear system of equations to be solved at each time step.
+\end{itemize}
+
+Let us briefly discuss alternative approaches to the numerical approximation of two-phase flow problems. In this paper we use a direct description of the interface using a parameterization of the unknown interface. In such direct approaches, which are often called front-tracking methods, the interface is either triangulated or presented by a connected set of particles. The discrete interface is advected with the help of the bulk fluid velocities, and quantities on the interface need to be suitably coupled to the bulk equations. We refer e.g.\ to 
+\cite{UnverdiT92,Bansch01,Tryggvason_etal01,GanesanMT07,GanesanT08,spurious} for further details, and to \cite{LevequeL97,Peskin02} for the
+related immersed boundary method. Another class of approaches is based on interface capturing methods using an indicator function to
+describe the interface. The volume of fluid (VOF) method and the level set  method fall into this category. In the former, the characteristic function of one of the phases is approximated numerically, see e.g.\ \cite{HirtN81,RenardyR02,Popinet09}; whereas in the latter, the interface is given as the level set of a function, which has to be determined, see e.g.\ \cite{SussmanSO94,Sethian99,OsherF03,GrossR07}. 
+In phase field methods the interface is assumed to have a small, but positive, thickness and an additional parabolic equation, defined in the whole domain, has to be solved in these so-called diffuse interface models. We refer to \cite{HohenbergH77,AndersonMW98,LowengrubT98,Feng06,KaySW08,AbelsGG12,GrunK14} for details.
+
+The remainder of this paper is organized as follows. In Section~\ref{sec:2} we present the mathematical model and the weak formulation on which our finite element approximation is going to be based. Our numerical method is presented in Section~\ref{sec:3}, together with proofs for its main properties. In addition, we describe how the arising linear systems of equations are solved in practice, and we give details on our mesh generation and smoothing procedures. Finally, in Section~\ref{sec:4} we present several numerical simulations in 2d and 3d.
 
 \begin{figure}[htbp]
   \centering
@@ -88,15 +115,14 @@ In this paper we consider two--phase Stokes flow in a given domain $\Omega\subse
 \begin{center}
 \unitlength15mm
 \psset{unit=\unitlength,linewidth=1pt}
-\begin{picture}(4,3.5)(0,0)
-\psline[linestyle=solid]{-}(0,0)(4,0)(4,3.5)(0,3.5)(0,0)
-\psccurve[showpoints=false,linestyle=solid] 
- (1,1.3)(1.5,1.6)(2.7,1.0)(2.5,2.6)(1.6,2.5)(1.1,2.7)
-\psline[linestyle=solid]{->}(2.92,1.6)(3.4,1.6)
-\put(3.25,1.7){{\black $\vec\nu$}}
-\put(2.9,1.0){{$\Gamma(t)$}}
-\put(2,2.1){{$\Omega_-(t)$}}
-\put(0.5,0.5){{$\Omega_+(t)$}}
+\begin{picture}(4,4)(0,0)
+\psline(0,0)(4,0)(4,4)(0,4)(0,0)
+\psellipse(2,2)(1,1)
+\psline{->}(3,2)(3.5,2)
+\put(3.25,1.75){$\vec\nu$}
+\put(1.75,0.75){{$\Gamma(t)$}}
+\put(1.75,2){{$\Omega_-(t)$}}
+\put(0.5,3.25){{$\Omega_+(t)$}}
 \end{picture}
 \end{center}
 \caption{The domain $\Omega$ in the case $d=2$.}
@@ -940,15 +966,15 @@ Instead, in Figure~\ref{fig:nonuniform_bubble_smooth} are shown some snapshots o
   \label{fig:nonuniform_bubble_velocity_smooth}
 \end{figure}
 
-In Figure~\ref{fig:ellipse_both} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. We fix the usual domain $\Omega = (-1,1)^2$ and we use the parameters $\mu=1$, $\gamma=1$, $\tau=10^{-2}$ and $T=4$. The mesh is uniform and we prescribe homogeneous Dirichlet
+In Figure~\ref{fig:ellipse_both} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. We fix the usual domain $\Omega = (-1,1)^2$ and we use the parameters $\mu=1$, $\gamma=1$, $\tau=10^{-2}$ and $T=10$. The mesh is uniform and we prescribe homogeneous Dirichlet
 boundary condition. Figure~\ref{fig:ellipse_both_volumes} shows the evolution of the bulk inner relative volume $\frac{\mathcal{L}^d(\Omega^h_-(t))}{\mathcal{L}^d(\Omega^h_-(0))}$ and the evolution of the interface length $\mathcal{H}^{d-1}(\Gamma^h(t))$. We point out that, since there is no exact solution to the problem, we cannot show the pressure state at $t=0$ therefore we show the pressure state at $t=10^{-5}$.
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]{figures/ellipse_both_000.ps}}\\
-  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/ellipse_both_100.ps}}\quad
-  \subfloat[$t=2$]{\includegraphics[width=.45\textwidth]{figures/ellipse_both_200.ps}}\\
-  \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]{figures/ellipse_both_300.ps}}\quad
-  \subfloat[$t=4$]{\includegraphics[width=.45\textwidth]{figures/ellipse_both_400.ps}}\\
+  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/ellipse_both_250.ps}}\quad
+  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/ellipse_both_500.ps}}\\
+  \subfloat[$t=7.5$]{\includegraphics[width=.45\textwidth]{figures/ellipse_both_750.ps}}\quad
+  \subfloat[$t=10$]{\includegraphics[width=.45\textwidth]{figures/ellipse_both_1000.ps}}\\
   \caption{($\mu=\gamma=1$) Pressure evolution of an ellipse with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:ellipse_both}
 \end{figure}
@@ -965,10 +991,10 @@ Instead, in Figure~\ref{fig:ellipse_smooth} only the smoothing is used while the
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_000.ps}}\\
-  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_100.ps}}\quad
-  \subfloat[$t=2$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_200.ps}}\\
-  \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_300.ps}}\quad
-  \subfloat[$t=4$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_400.ps}}\\
+  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_250.ps}}\quad
+  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_500.ps}}\\
+  \subfloat[$t=7.5$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_750.ps}}\quad
+  \subfloat[$t=10$]{\includegraphics[width=.45\textwidth]{figures/ellipse_smooth_1000.ps}}\\
   \caption{($\mu=\gamma=1$) Pressure evolution of an ellipse with $c_l=0.1$, $C_s=1$ and no remeshing for the P2--P0 element, uniform mesh.}
   \label{fig:ellipse_smooth}
 \end{figure}
