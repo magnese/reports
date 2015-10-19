@@ -2,7 +2,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{amssymb,amsmath,amsthm,array,epsfig,a4,verbatim,pstricks,url,subfig,hyperref}
+\usepackage{amssymb,amsmath,amsthm,array,epsfig,pstricks,subfig,hyperref}
 
 \usepackage[notref,notcite]{showkeys}
 \newtheorem{thm}{Theorem}
@@ -74,7 +74,6 @@ free boundary problem, surface tension, finite elements, front tracking
 \end{keywords}
 
 \section{Introduction}\label{sec:introduction}
-
 Fluid flow problems with a moving interface are encountered in many
 applications in physics, engineering and biophysics. Developing robust and
 efficient numerical methods for these flows is an important problem and 
@@ -167,7 +166,6 @@ and 3d.
 \section{Mathematical model} \label{sec:2}
 
 \subsection{Governing equations}
-
 In this paper we consider two--phase Stokes flow in a given domain $\Omega\subset\mathbb{R}^d$, where $d=2$ or $d=3$. The domain $\Omega$ contains two different immiscible, incompressible, viscous fluids (liquid-liquid or liquid-gas) which for all $t\in[0,T]$ occupy time dependent regions $\Omega_+(t)$ and $\Omega_-(t):=\Omega\setminus\overline{\Omega}_+(t)$ and which are separated by an interface $(\Gamma(t))_{t\in[0,T]}$, $\Gamma(t)\subset\Omega$. 
 See Figure~\ref{fig:sketch} for an illustration.
 \begin{figure}
@@ -246,7 +244,6 @@ Therefore the total system can be rewritten as follows:
 \end{subequations}
 
 \subsection{Weak formulation} 
-
 In order to obtain a weak formulation, we define the function spaces
 \begin{align*}
 \uspace &:= H^1_0(\Omega, \R^d)\,,\qquad \pspace := L^2(\Omega) \qquad 
@@ -329,7 +326,6 @@ two-phase Stokes flow that satisfies discrete analogous of
 \setcounter{equation} 0
 \section{Numerical method} \label{sec:3}
 \subsection{Finite element approximation}\label{sec:fem}
-
 We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of $[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0 ,\ldots, M-1$.
 Moreover, let ${\cal T}^m$, $\forall m\ge 0$, be a regular partitioning of 
 the domain $\Omega$ into disjoint open simplices 
@@ -427,7 +423,6 @@ We also note that the scheme (\ref{eq:HGa}--d), in the context of an
 unfitted finite element approximation, has been considered in \cite{spurious}. 
 
 \subsection{Existence and uniqueness of a discrete solution} 
-
 \begin{thm} \label{thm:ex}
 Let $m \in \{0,\ldots,M-1\}$ and 
 let $(\uspace^m,\pspace^m)$ satisfy the LBB condition {\rm (\ref{eq:LBB})}.
@@ -495,7 +490,6 @@ $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times
 \end{proof}
 
 \subsection{Stability}
-
 We now demonstrate that the scheme (\ref{eq:HGa}--d) satisfies an energy 
 estimate, which corresponds to the bound (\ref{eq:ap1}) in the 
 continuous case. In particular, we obtain an unconditional stability 
@@ -534,7 +528,6 @@ see e.g.\ \cite[Proof of Theorem~2.3]{triplej} and \cite[Proof of Theorem~2.2]{g
 \end{proof}
 
 \subsection{Discrete stationary solutions} 
-
 If the solution $(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1})$ to
 (\ref{eq:HGa}--d) is such that the interface has not moved, 
 $\Gamma^{m+1} = \Gamma^m$, then it holds that
@@ -618,7 +611,6 @@ approximations of stationary spherical bubble solutions, see
 \S\ref{sec:41} and \S\ref{sec:45} for details.
 
 \subsection{Semidiscrete scheme}
-
 We briefly investigate a semidiscrete variant of the scheme (\ref{eq:HGa}--d)
 in order to highlight two additional important properties of the scheme: a 
 good tangential distribution of mesh points, and good volume conservation.
@@ -652,7 +644,7 @@ First of all we note that a solution $\Gamma^h(t)$ to (\ref{eq:sda}--d) clearly
 satisfies (\ref{eq:conformal}), with $\Gamma^m$ replaced by $\Gamma^h(t)$. This
 means that in 2d the polygonal curve $\Gamma^h$ is equidistributed, and
 asymptotically this property is inherited by our fully discrete scheme
-(\ref{eq:HGa}--d); see e.g.\ Figure~\ref{fig:usp} below.
+(\ref{eq:HGa}--d); see e.g.\ Figure~\ref{fig:nonuniform_bubble_remesh} below.
 In 3d the property (\ref{eq:conformal}) means that $\Gamma^h(t)$ is a 
 conformal polyhedral surface, which implies that the mesh quality is good. Once
 again, we observe in practice that the fully discrete solutions to
@@ -677,7 +669,6 @@ the fully discrete scheme (\ref{eq:HGa}--d) inherits this property in the sense
 that in our simulations the volumes are always well maintained.
 
 \subsection{Solution method}
-
 As is standard practice for the solution of linear systems arising from discretizations of (Navier--)Stokes equations, we avoid the complications of the constrained pressure space $\widehat\pspace^m$ in practice by considering an overdetermined linear system with $\pspace^m$ instead. The pressure obtained is then projected into the space of zero mean functions. The linear system (\ref{eq:HGa}--d), with $\widehat\pspace^m$ replaced by $\pspace^m$, can be formulated as: 
 
 Find $(\vec U^{m+1},P^{m+1}, \kappa^{m+1},\delta\vec{X}^{m+1})$, 
@@ -761,7 +752,7 @@ $(\kappa^{m+1}, \delta\vec X^{m+1})$.
 
 \begin{rem} \label{rem:}
 With a view towards some numerical test cases in 
-Section~\ref{sec:numerical_results}, we also allow for an 
+Section~\ref{sec:4}, we also allow for an 
 inhomogeneous Dirichlet boundary condition $\vec g$ on $\partial\Omega$. 
 In this case the linear system is suitably adjusted. For example, 
 in place of {\rm (\ref{eq:HGb})}, with $\widehat \pspace^m$ replaced by
@@ -819,7 +810,6 @@ remeshing would be triggered after every time step.
 
 \setcounter{equation} 0
 \section{Numerical results} \label{sec:4}
-
 We implemented the scheme (\ref{eq:HGa}--d) 
 with the help of the toolbox \verb|DUNE|, 
 see \cite{dunegridpaperI08,dunegridpaperII08}, using the finite element module 
@@ -882,7 +872,6 @@ and
 \footnote{Marco: Can you implement that and repeat the calculations if necessary? We could also state the degree of the quadrature rule.}
 
 \subsection{Convergence tests in 2d} \label{sec:41}
-
 For the true solution (\ref{eq:radialr},b) we choose the domain $\Omega =
 (-1,1)^2$ and let $\mu = \gamma = 1$. 
 Therefore, the solution reduces to $r(t) = \frac{1}{2}$, $\vec u(\cdot, t) = \vec 0$ and $p(t) = 2\,\charfcn{\Omega_-(0)} - \frac{\pi}{8}$ for all $t \geq 0$.
@@ -944,8 +933,6 @@ use an equidistributed approximation $\Gamma^0$, which means that
 Of course, since the discrete solution is stationary, neither smoothing or 
 remeshing is performed for the simulations in  
 Tables~\ref{tab:bubble2Dp2p0} and \ref{tab:bubble2Dp2p1p0}.
-%\footnote{Marco: Maybe combine the two tables into one, with two columns for
-%CPU time.}
 We also observe that the error for the two approximations with the P2--P0 and
 the P2--(P1+P0) element, respectively, produce identical errors. Again, that is
 to be expected, since the solution (\ref{eq:solsol}) is such that $P^{m+1} \in
@@ -962,9 +949,6 @@ for the P2--P0 element.}
 For the expanding bubble test, we fix $\Omega = (-1,1)^2 \setminus [-\frac13,\frac13]^2$ and we choose the parameters
 $\alpha = 0.15$ and $\mu_+ = 10\,\mu_- = \gamma = 1$
 for the true solution (\ref{eq:radialr2},b). 
-\footnote{Marco: Can you use these parameters and re-do all the presented runs?
-The old values were for $\mu_+ = \mu_- = 1$, which we do not want to consider
-in this paper.}
 Here we consider two different bulk mesh strategies. Either we use a nearly
 uniform mesh, as shown on the left of Figure~\ref{fig:meshes_expanding},
 or an adaptive mesh that uses a finer resolution close to the interface,
@@ -1018,7 +1002,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$
 64 & 3.86187e-04 & 8.68664e-05 & 5.33729e-04 & *4.12034e-03 & 1.73534e-02 & 125110\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, no remeshing and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, no remeshing and uniform mesh.}
 \label{tab:expandingbubble2Dp2p0smooth}
 \end{table*}
 \begin{table*}
@@ -1032,7 +1016,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$
 64 & 3.66077e-04 & 1.48787e-05 & 1.92562e-04 & *2.87838e-03 & 7.63704e-03 & 62110 & 1866\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and uniform mesh.}
 \label{tab:expandingbubble2Dp2p0remesh}
 \end{table*}
 We observe a dramatic improvement in the CPU times, and a significant reduction
@@ -1050,7 +1034,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1
 64 & 3.66563e-04 & 2.35009e-05 & 2.72774e-04 & *3.77802e-03 & 5.76371e-02 & 75650 & 1868\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, with remeshing at every time step and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, with remeshing at every time step and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1p0remesh}
 \end{table*}
 Comparing the errors in Tables~\ref{tab:expandingbubble2Dp2p0remesh}
@@ -1062,17 +1046,15 @@ only consider the P2--P0 element.
 The evolution of the discrete pressure solution in the case $J_\Gamma = 32$,
 for the run with $C_r = 1$, can be seen in 
 Figure~\ref{fig:expanding_bubble_uniform}.
-\footnote{Marco: Can you replace these figures for a run with $C_r = 1$? At
-present they are for $C_r=3$.}
 \begin{figure}[htbp]
   \centering
-  \subfloat[$t=0$]{\includegraphics[width=.32\textwidth]{figures/expanding_bubble_uniform_000.ps}}
-  \subfloat[$t=0.5$]{\includegraphics[width=.32\textwidth]{figures/expanding_bubble_uniform_050.ps}}
-  \subfloat[$t=1$]{\includegraphics[width=.32\textwidth]{figures/expanding_bubble_uniform_100.ps}}
-  \caption{($\mu=\gamma=1,\alpha = 0.15$) Pressure evolution of the 2d expanding bubble for the P2--P0 element, uniform mesh.}
+  \subfloat[$t=0$]{\includegraphics[width=.32\textwidth]{figures/expanding_bubble_uniform_remesh_000.ps}}
+  \subfloat[$t=0.5$]{\includegraphics[width=.32\textwidth]{figures/expanding_bubble_uniform_remesh_050.ps}}
+  \subfloat[$t=1$]{\includegraphics[width=.32\textwidth]{figures/expanding_bubble_uniform_remesh_100.ps}}
+  \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of the 2d expanding bubble for the P2--P0 element, uniform mesh.}
   \label{fig:expanding_bubble_uniform}
 \end{figure}
-Here we note that the discontinous jump in the pressure at the interface is
+Here we note that the discontinuous jump in the pressure at the interface is
 captured very well, with no oscillations being present. This is a significant
 improvement on the oscillations observed in the discrete pressures for the 
 unfitted finite element approximation from \cite{spurious}, see e.g.\
@@ -1114,7 +1096,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$
 256 & 6.15383e-05 & 6.98648e-05 & 6.90439e-04 & *2.38225e-03 & 1.50292e-02 & 119900 & 3860\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and adaptive mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and adaptive mesh.}
 \label{tab:expandingbubble2Dp2p0adaptive}
 \end{table*}
 Comparing the error quantities in Tables~\ref{tab:expandingbubble2Dp2p0remesh}
@@ -1122,17 +1104,14 @@ and \ref{tab:expandingbubble2Dp2p0adaptive} we note that $\ldots$
 \footnote{Complete sentence once the same time step sizes are used.}
 
 \subsection{Equidistribution property in 2d}
-
 We now demonstrate the remarkable equidistribution property of our method showing that the circular, equidistributed numerical steady state solution is recovered by our method even if we choose a very nonuniform initial interface $\Gamma^0$. 
 In particular, for the presented numerical simulation, we take $\Gamma^0$ to 
 be a very nonuniform approximation of a unit circle, where we represent the 
 upper half of the circle by a single vertex, while the lower half resembles 
 a semicircle. 
-In total we use $J_\Gamma = 64$ elements for $\Gamma^0$ and we start with
-a very nonuniform bulk mesh with $J_\Omega^0 = $ elements.
-\footnote{Marco: Can you repeat this experiment for $J_\Gamma = 32$ so that the
-mesh evolution is easier to see? Also, can you put some effort in making the
-initial bulk mesh a bit more symmetric?}
+In total we use $J_\Gamma = 32$ elements for $\Gamma^0$ and we start with
+a very nonuniform bulk mesh with $J_\Omega^0 = 1154$ elements.
+\footnote{Marco: change last plot!}
 Of course, the initial bulk mesh has to respect the nonuniform approximation 
 of the interface, and so is very nonuniform itself.
 However, we see from the evolution in Figure~\ref{fig:nonuniform_bubble_remesh}
@@ -1150,7 +1129,7 @@ $\Gamma^m$ converge towards an equidistributed circle.
   \subfloat[$t=0$]{\includegraphics[width=.32\textwidth]{figures/nonuniform_bubble_remesh_000.ps}}
   \subfloat[$t=1$]{\includegraphics[width=.32\textwidth]{figures/nonuniform_bubble_remesh_100.ps}}
   \subfloat[$t=5$]{\includegraphics[width=.32\textwidth]{figures/nonuniform_bubble_remesh_500.ps}}
-  \caption{($\mu=\gamma=1$) Mesh evolution of a non uniform circle formed by 64 vertices. Here we use the P2--P0 element, and let $C_r = 3$.}
+  \caption{($\mu=\gamma=1$) Mesh evolution of a non uniform circle formed by 32 vertices. Here we use the P2--P0 element, and let $C_r = 3$.}
   \label{fig:nonuniform_bubble_remesh}
 \end{figure}
 
@@ -1163,7 +1142,6 @@ for the evolution shown in Figure~\ref{fig:nonuniform_bubble_remesh}.}
 \end{figure}
 
 \subsection{Energy decay and area conservation in 2d}
-
 In Figure~\ref{fig:ellipse_both} we show the pressure evolution for a
 simulation that starts with an initial ellipse, with major and minor axes of
 0.8 and 0.375. The domain is given by $\Omega = (-1,1)^2$ and we use the 
@@ -1206,7 +1184,6 @@ of the same simulation when no remeshings are performed, i.e.\ we use $C_r=
 \end{figure}
 
 \subsection{Shear flow experiment in 2d}
-
 As the final 2d numerical simulation we present a shear flow experiment
 in the domain $\Omega=(-1,1)^2$, with a circle of radius $r=0.5$ as the 
 initial interface. Here we 
@@ -1240,7 +1217,6 @@ $C_r=3$ for the P2--P0 element, uniform mesh.}
 \end{figure}
 
 \subsection{Convergence test in 3d} \label{sec:45}
-
 Similarly to \S\ref{sec:41}, we perform the following convergence test for a
 stationary spherical bubble in 3d. Let $\Omega = (-1,1)^3$ and 
 $\mu = \gamma = 1$. 
@@ -1302,7 +1278,6 @@ discrete interface, because the vertices of the initial interface $\Gamma^0$ do
 not lie on $\Gamma(0)$.
 
 \subsection{Shear flow experiment in 3d}
-
 Finally, we also report on a shear flow experiment in the domain 
 $\Omega=(-1,1)^3$, with a sphere of radius $r=0.5$ as the initial interface. 
 The initial interface mesh has $J_\Gamma = 596$ elements, while the nearly uniform

@@ -710,8 +710,7 @@ We stress the fact that the unknown $\vec\psi$ is the displacement which all the
 
 The weak formulation is: find $\vec\psi\in \mathbb{M}= H^1(\Omega, \R^d)$ such that
 \begin{equation}
- \big(\,\mat D(\vec\psi)\,,\,\mat D (\vec \phi)\,\big)+ C_s\,\langle\, \nabla\,.\,\vec \psi\,,\,\nabla\,.\,\vec\phi\,\rangle_{\Gamma(t)}\, 
- =\, 0\quad \forall \vec \phi \in\mathbb{M}
+ \big(\,\mat D(\vec\psi)\,,\,\mat D (\vec \phi)\,\big)+ C_s\,\big(\, \nabla\,.\,\vec \psi\,,\,\nabla\,.\,\vec\phi\,\big)\, =\, 0\quad \forall \vec \phi \in\mathbb{M}
 \end{equation}
 with free-slip condition on $\partial\Omega$ and with smoothing coefficient $C_s=\frac{\lambda_1}{\lambda_2}>0$.
 
@@ -928,7 +927,7 @@ Figure~\ref{fig:2d_stationary_bubble} shows the pressure of the stationary bubbl
   \label{fig:2d_stationary_bubble}
 \end{figure}
 
-We now demonstrate the remarkable equidistribution property of our method showing that the circular, equidistributed numerical steady state solution is recovered by our method even if we choose a very nonuniform initial interface $\Gamma^0$. This is the discrete analogue of the fact that circles are the unique steady state solutions in the continuous case, see Section~\ref{sec:discrete_solution_properties}. In particular, we take $\Gamma^0$ to be a very nonuniform approximation of $\Gamma(0)$, where we represent the upper half of the circle by a single vertex, while the lower half resembles a semicircle. In total we use 64 vertices for $\Gamma^0$ and we use a characteristic length $c_l=0.05$ for the boundary. This characteristic length is the one needed to subdivide a circle of radius $r=\frac{1}{2}$ in 64 equidistributed points, see Table~\ref{tab:bubble2Delementsuniform}. The initial bulk mesh is not uniform since it has to respect the nonuniform approximation of the interface but it becomes more uniform the more the points get equidistributed. We take $\mu=1$, $\gamma=1$, $\tau=10^{-4}$, $T=5$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ and we use the P2--P0 element. In Figure~\ref{fig:nonuniform_bubble_remesh} are shown some snapshots of the mesh evolution while in Figure~\ref{fig:nonuniform_bubble_velocity_remesh} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. As expected, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
+We now demonstrate the remarkable equidistribution property of our method showing that the circular, equidistributed numerical steady state solution is recovered by our method even if we choose a very nonuniform initial interface $\Gamma^0$. This is the discrete analogue of the fact that circles are the unique steady state solutions in the continuous case, see Section~\ref{sec:discrete_solution_properties}. In particular, we take $\Gamma^0$ to be a very nonuniform approximation of $\Gamma(0)$, where we represent the upper half of the circle by a single vertex, while the lower half resembles a semicircle. In total we use 32 vertices for $\Gamma^0$ and we use a characteristic length $c_l=0.1$ for the boundary. This characteristic length is the one needed to subdivide a circle of radius $r=\frac{1}{2}$ in 32 equidistributed points, see Table~\ref{tab:bubble2Delementsuniform}. The initial bulk mesh is not uniform since it has to respect the nonuniform approximation of the interface but it becomes more uniform the more the points get equidistributed. We take $\mu=1$, $\gamma=1$, $\tau=10^{-4}$, $T=5$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ and we use the P2--P0 element. In Figure~\ref{fig:nonuniform_bubble_remesh} are shown some snapshots of the mesh evolution while in Figure~\ref{fig:nonuniform_bubble_velocity_remesh} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. As expected, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_000.ps}}\\
@@ -936,18 +935,18 @@ We now demonstrate the remarkable equidistribution property of our method showin
   \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_100.ps}}\\
   \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_250.ps}}\quad
   \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_500.ps}}\\
-  \caption{($\mu=\gamma=1$) Mesh evolution of a non uniform circle formed by 64 vertices with $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
+  \caption{($\mu=\gamma=1$) Mesh evolution of a non uniform circle formed by 32 vertices with $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:nonuniform_bubble_remesh}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_velocity_remesh.ps}
-  \caption{($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution of a non uniform circle formed by 64 vertices with $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
+  \caption{($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution of a non uniform circle formed by 32 vertices with $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:nonuniform_bubble_velocity_remesh}
 \end{figure}
 
-Instead, in Figure~\ref{fig:nonuniform_bubble_smooth} are shown some snapshots of the mesh evolution when an adaptive mesh with characteristic length $c_l=0.25$ for the boundary is used and no remeshing is performed. In Figure~\ref{fig:nonuniform_bubble_velocity_smooth} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. Also in this case, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
+Instead, in Figure~\ref{fig:nonuniform_bubble_smooth} are shown some snapshots of the mesh evolution when an adaptive mesh with characteristic length $c_l=0.25$ for the boundary and 64 points on the interface is used and no remeshing is performed. In Figure~\ref{fig:nonuniform_bubble_velocity_smooth} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. Also in this case, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
 \begin{figure}[htbp]
   \centering
   \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_000.ps}}\\
@@ -955,14 +954,14 @@ Instead, in Figure~\ref{fig:nonuniform_bubble_smooth} are shown some snapshots o
   \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_100.ps}}\\
   \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_250.ps}}\quad
   \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_500.ps}}\\
-  \caption{($\mu=\gamma=1$) Mesh evolution of a non uniform circle formed by 64 vertices with $C_s=1$ and no remeshing for the P2--P0 element, adaptive mesh.}
+  \caption{($\mu=\gamma=1$) Mesh evolution of a non uniform circle formed by 32 vertices with $C_s=1$ and no remeshing for the P2--P0 element, adaptive mesh.}
   \label{fig:nonuniform_bubble_smooth}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_velocity_smooth.ps}
-  \caption{($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution of a non uniform circle formed by 64 vertices with $C_s=1$ and no remeshing for the P2--P0 element, adaptive mesh.}
+  \caption{($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution of a non uniform circle formed by 32 vertices with $C_s=1$ and no remeshing for the P2--P0 element, adaptive mesh.}
   \label{fig:nonuniform_bubble_velocity_smooth}
 \end{figure}
 
@@ -1009,7 +1008,7 @@ Instead, in Figure~\ref{fig:ellipse_smooth} only the smoothing is used while the
 
 For the expanding bubble test, we fix $\Omega = (-1,1)^2 \setminus [-\frac13,\frac13]^2$ and we choose the parameters
 \begin{equation*}
-\alpha = 0.15 \quad\text{and}\quad \mu = \gamma = 1
+\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15
 \end{equation*}
 for the true solution (\ref{eq:radialr2},b). In Figure~\ref{fig:expanding_bubble_uniform} is reported the pressure evolution for the expanding bubble problem with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ using an uniform mesh for the P2--P0 element.
 \begin{figure}[htbp]
@@ -1019,7 +1018,7 @@ for the true solution (\ref{eq:radialr2},b). In Figure~\ref{fig:expanding_bubble
   \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_uniform_050.ps}}\\
   \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_uniform_075.ps}}\quad
   \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_uniform_100.ps}}\\
-  \caption{($\mu=\gamma=1,\alpha = 0.15$) Pressure evolution of the 2D expanding bubble with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
+  \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of the 2D expanding bubble with $c_l=0.1$, $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
   \label{fig:expanding_bubble_uniform}
 \end{figure}
 
@@ -1051,7 +1050,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 0.05 & 3.66077e-04 & 1.48787e-05 & 1.92562e-04 & 2.87838e-03 & 7.63704e-03 & 62112 & 1866\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and uniform mesh.}
 \label{tab:expandingbubble2Dp2p0remesh}
 \end{table*}
 
@@ -1067,7 +1066,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 0.05 & 4.44456e-03 & 1.49021e-03 & 6.91841e-03 & 3.19935e-01 & 1.42542e+00 & 65958 & 1856\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, with remeshing at every time step and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, with remeshing at every time step and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1remesh}
 \end{table*}
 \fi
@@ -1083,7 +1082,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 0.05 & 3.66563e-04 & 2.35009e-05 & 2.72774e-04 & 3.77802e-03 & 5.76371e-02 & 75651 & 1868\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, with remeshing at every time step and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, with remeshing at every time step and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1p0remesh}
 \end{table*}
 
@@ -1099,7 +1098,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 0.05 & 3.86187e-04 & 8.68664e-05 & 5.33729e-04 & 4.12034e-03 & 1.73534e-02 & 125110\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, no remeshing and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, no remeshing and uniform mesh.}
 \label{tab:expandingbubble2Dp2p0smooth}
 \end{table*}
 
@@ -1115,7 +1114,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 0.05 & 3.74146e-03 & 1.23051e-03 & 6.66689e-03 & 2.15909e-01 & 1.42022e+00 & 93025\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, $C_s=1$, no remeshing and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, $C_s=1$, no remeshing and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1smooth}
 \end{table*}
 \fi
@@ -1131,7 +1130,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 0.05 & 3.78745e-04 & 1.09782e-04 & 8.91862e-04 & 7.81970e-03 & 1.10068e-01 & 108790\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, $C_s=1$, no remeshing and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, $C_s=1$, no remeshing and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1p0smooth}
 \end{table*}
 
@@ -1148,7 +1147,7 @@ $C_r$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 5 & 1.72580e-03 & 1.03604e-04 & 7.20310e-04 & 1.83590e-02 & 4.56430e-02 & 1497.3 & 468\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, $c_l=0.1$ and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, $c_l=0.1$ and uniform mesh.}
 \label{tab:expandingbubble2Dp2p0bothdiffcr}
 \end{table*}
 
@@ -1164,7 +1163,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 0.05 & 3.66047e-04 & 1.50674e-05 & 1.74840e-04 & 2.88134e-03 & 7.63707e-03 & 63215 & 1864\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, $C_r=3$ and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, $C_r=3$ and uniform mesh.}
 \label{tab:expandingbubble2Dp2p0all}
 \end{table*}
 
@@ -1180,7 +1179,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 0.05 & 4.38718e-03 & 1.46440e-03 & 7.06896e-03 & 3.10958e-01 & 1.42542e+00 & 60968 & 1864\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, $C_s=1$, $C_r=3$ and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, $C_s=1$, $C_r=3$ and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1all}
 \end{table*}
 \fi
@@ -1196,7 +1195,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 0.05 & 3.66901e-04 & 2.35815e-05 & 2.15554e-04 & 3.76150e-03 & 5.82683e-02 & 71301 & 1864\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, $C_s=1$, $C_r=3$ and uniform mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, $C_s=1$, $C_r=3$ and uniform mesh.}
 \label{tab:expandingbubble2Dp2p1p0all}
 \end{table*}
 
@@ -1208,7 +1207,7 @@ In all the previous simulations, the meshes used were uniform therefore the char
   \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_050.ps}}\\
   \subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_075.ps}}\quad
   \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/expanding_bubble_adaptive_100.ps}}\\
-  \caption{($\mu=\gamma=1,\alpha = 0.15$) Pressure evolution of the 2D expanding bubble with $c_l=0.1$, with remeshing at every time step for the P2--P0 element, adaptive mesh.}
+  \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of the 2D expanding bubble with $c_l=0.1$, with remeshing at every time step for the P2--P0 element, adaptive mesh.}
   \label{fig:expanding_bubble_adaptive}
 \end{figure}
 
@@ -1244,7 +1243,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 0.0123 & 6.15383e-05 & 6.98648e-05 & 6.90439e-04 & 2.38225e-03 & 1.50292e-02 & 119900 & 3860\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and adaptive mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and adaptive mesh.}
 \label{tab:expandingbubble2Dp2p0adaptive}
 \end{table*}
 
@@ -1260,7 +1259,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 0.0123 & 1.44126e-03 & 2.99560e-04 & 2.32296e-03 & 1.70133e-01 & 1.48891e+00 & 114050 & 3856\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, with remeshing at every time step and adaptive mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P1 element, with remeshing at every time step and adaptive mesh.}
 \label{tab:expandingbubble2Dp2p1adaptive}
 \end{table*}
 \fi
@@ -1276,7 +1275,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 0.0123 & 7.67770e-05 & 1.56422e-04 & 1.63225e-03 & 1.05762e-02 & 1.61938e-01 & 133400 & 3866\\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, with remeshing at every time step and adaptive mesh.}
+\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, with remeshing at every time step and adaptive mesh.}
 \label{tab:expandingbubble2Dp2p1p0adaptive}
 \end{table*}
 
