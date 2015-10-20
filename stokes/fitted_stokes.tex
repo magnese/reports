@@ -975,8 +975,8 @@ $c_l$ & $J_\Gamma$ & $J_\Omega^0$ & $\tau$ &
 \multicolumn{2}{c}{$J_\Omega^M$ for $C_r=1$} \\
 & & & & P2--P0 & P2--(P1+P0) \\
 \hline
-0.25 & 16 & 212  & $10^{-1}$ &  120 & 120 \\
-0.1  & 32 & 988  & $10^{-2}$ &  452 & 452 \\
+0.25 & 16 & 212  & $1.6\cdot10^{-2}$ &  120 & 120 \\
+0.1  & 32 & 988  & $4\cdot10^{-3}$ &  452 & 452 \\
 0.05 & 64 & 3776 & $10^{-3}$ & 1866 & 1868 \\
 \hline
 \end{tabular}
@@ -1065,15 +1065,13 @@ meshes, that are refined close to the interface. An example mesh is shown on
 the right hand side of Figure~\ref{fig:meshes_expanding}, and we list our
 employed discretization parameters in 
 Table~\ref{tab:expandingbubble2Delements_adaptive}.
-\footnote{Marco: Ideally the time step sizes should match with the previous
-set of simulations, so either $10^{-1}$, $10^{-2}$ here, or before you use the
-ones stated here.}
 \begin{table*}
  \center
 \begin{tabular}{Hrrrr}
 \hline
 $c_{l,\Gamma}$ & $J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ \\
 \hline
+0.1    &  32 & *    & $6.4\cdot10^{-2}$ & *    \\
 0.05   &  64 & 1020 & $1.6\cdot10^{-2}$ & 564  \\
 0.025  & 128 & 2506 & $4\cdot10^{-3}$   & 1232 \\
 0.0125 & 256 & 7460 & $10^{-3}$         & 3860 \\
@@ -1111,7 +1109,6 @@ upper half of the circle by a single vertex, while the lower half resembles
 a semicircle. 
 In total we use $J_\Gamma = 32$ elements for $\Gamma^0$ and we start with
 a very nonuniform bulk mesh with $J_\Omega^0 = 1154$ elements.
-\footnote{Marco: change last plot!}
 Of course, the initial bulk mesh has to respect the nonuniform approximation 
 of the interface, and so is very nonuniform itself.
 However, we see from the evolution in Figure~\ref{fig:nonuniform_bubble_remesh}
