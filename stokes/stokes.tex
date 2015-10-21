@@ -31,11 +31,11 @@
 \newcommand{\ddt}{\frac{\rm d}{{\rm d}t}}
 \newcommand{\NbulkT}{\vec{N}_{\Gamma,\Omega}^T}
 \newcommand{\Nbulk}{\vec{N}_{\Gamma,\Omega}} 
-\newcommand{\errorXx}{\|\vec{X} - \vec{x}\|_{L^\infty}}
+\newcommand{\errorXx}{\|\Gamma^h - \Gamma\|_{L^\infty}}
 \newcommand{\LerrorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{L^2(\Omega_T)}}
 \newcommand{\errorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{L^\infty}}
 \newcommand{\errorPp}[1]{\|P - I^h_{#1}\,p\|_{L^\infty}}
-\newcommand{\LerrorPp}[1]{\|P - I^h_{#1}\,p\|_{L^2(\Omega_T)}}
+\newcommand{\LerrorPp}{\|P - p\|_{L^2(\Omega_T)}}
 \newcommand{\unitn}{\vec{\rm n}}
 \newcommand{\mat}[1]{\underline{\underline{#1}}\rule{0pt}{0pt}}
 
@@ -45,7 +45,7 @@
 %\headheight 0pt \textheight 655pt
 
 \newif\ifthesis
-%\thesistrue % comment in to add thesis parts
+\thesistrue % comment in to add thesis parts
 
 \title{Fitted Finite Element Discretization of Two--Phase Stokes Flow}
 \author{Marco Agnese \and Robert N\"urnberg}
@@ -761,18 +761,20 @@ where $\lambda(t) = \gamma\,(d-1)\,[r(t)]^{-1} + 2\,\alpha\,(d-1)\,(\mu_+ - \mu_
 In the following, we fix, as initial interface, the surface $\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$ and we use uniform time steps $\tau_m=\tau$, $m=0,\ldots, M-1$.
 
 Finally, we define the errors 
-\begin{equation*}
-\errorXx := \max_{m=1,\ldots, M} \|\vec{X}^m - \vec{x}(\cdot,t_m)\|_{L^\infty}\,, 
-\end{equation*}
-where $\|\vec{X}(t_m) - \vec{x}(\cdot,t_m)\|_{L^\infty} :=\max_{k=1,\ldots, K^m_\Gamma} \left\{\min_{\vec{y}\in \Upsilon} |\vec{X}^m(\vec{q}^m_k) - \vec{x}(\vec{y},t_m)|\right\}\,,$
+\begin{equation} \label{eq:errorXx}
+\errorXx := \max_{m=1,\ldots, M} \|\Gamma^m - \Gamma(t_m)\|_{L^\infty}\,, 
+\end{equation}
+where $\|\Gamma^m - \Gamma(t_m)\|_{L^\infty} := 
+\max_{k=1,\ldots, K_\Gamma} {\rm dist}( \vec{q}^m_k, \Gamma(t_m))$,
 \begin{equation*} 
 \errorUu2 := \max_{m=1,\ldots, M}\|U^m - \vec I^m_2\,u(\cdot,t_m)\|_{L^\infty(\Omega)}\,, 
 \end{equation*}
 and
 \begin{equation*}
-\errorPp{o} := \max_{m=1,\ldots, M}\|P^m - I^m_o\,p(\cdot,t_m)\|_{L^\infty(\Omega)}\,,
+\LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2 
+\right]^\frac12 .
 \end{equation*}
-where $o$ is 0 for the P2--P0 element and $1,\rm{DG}$ for the P2--(P1+P0) element since we interpolate the exact pressure over a discontinuous Lagrange space of order 1\footnote{Is it clear?}.
+\footnote{State the degree of the quadrature rule.}
 
 \subsection{Numerical results in 2d} \label{subsec:numerical_results_2d}
 \setcounter{equation} 0
@@ -807,14 +809,14 @@ Since the solution is stationary, neither smoothing nor remeshing is performed.
 Some errors for our numerical scheme, using uniform meshes, can be seen in Table~\ref{tab:bubble2Dp2p0} for the P2--P0 element and in Table~\ref{tab:bubble2Dp2p1p0} for the P2--(P1+P0) element. 
 \begin{table*}
  \center
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHl}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $CPU[s]$ \\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$ \\
 \hline
-0.25 & 0 & 0 & 0 & 3.67621e-02 & 4.17008e-02 & 9.5778\\
-0.1 & 0 & 0 & 0 & 9.17561e-03 & 1.03077e-02 & 55.598\\
-0.05 & 0 & 0 & 0 & 2.29299e-03 & 2.56968e-03 & 364.46\\
-0.025 & 0 & 0 & 0 & 5.73192e-04 & 6.41969e-04 & 1733.4\\
+0.25 & 0 & 0 & 0 & 3.67621e-02 & 4.17008e-02 & 9\\
+0.1 & 0 & 0 & 0 & 1.41195e-01 & 1.03077e-02 & 49\\
+0.05 & 0 & 0 & 0 & 4.06438e-02 & 2.56968e-03 & 378\\
+0.025 & 0 & 0 & 0 & 2.60448e-02 & 6.41969e-04 & 1967\\
 \hline
 \end{tabular}
 \caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time interval $[0,1]$ for the P2--P0 element, uniform mesh.}
@@ -824,14 +826,14 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 \ifthesis
 \begin{table*}
  \center
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ \\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp1$ & $CPU[s]$ \\
 \hline
-0.25 & 2.40915e-02 & 9.34969e-03 & 2.26293e-02 & 7.58499e-01 & 1.54614e+00 & 12.709\\
-0.1 & 1.21789e-02 & 3.44480e-03 & 1.27595e-02 & 5.05804e-01 & 1.56475e+00 & 41.629\\
-0.05 & 6.17055e-03 & 1.24629e-03 & 7.05100e-03 & 3.43368e-01 & 1.44776e+00 & 512.82\\
-0.025 & 2.97451e-03 & 4.41980e-04 & 3.13944e-03 & 2.40298e-01 & 1.42258e+00 & 2454\\
+0.25 & 2.40915e-02 & 9.34969e-03 & 2.26293e-02 & 5.75519e-01 & 1.54614e+00 & 10\\
+0.1 & 1.21789e-02 & 3.44480e-03 & 1.27595e-02 & 3.99458e-01 & 1.56475e+00 & 55\\
+0.05 & 6.17055e-03 & 1.24629e-03 & 7.05100e-03 & 2.77632e-01 & 1.44776e+00 & 282\\
+0.025 & 2.97451e-03 & 4.41980e-04 & 3.13944e-03 & 1.96901e-01 & 1.42258e+00 & 1364\\
 \hline
 \end{tabular}
 \caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time interval $[0,1]$ for the P2--P1 element, uniform mesh.}
@@ -841,14 +843,14 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 
 \begin{table*}
  \center
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,DG}$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ \\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ \\
 \hline
-0.25 & 0 & 0 & 0 & 3.67621e-02 & 4.17008e-02 & 40.9\\
-0.1 & 0 & 0 & 0 & 9.17561e-03 & 1.03077e-02 & 570.43\\
-0.05 & 0 & 0 & 0 & 2.29299e-03 & 2.56968e-03 & 6499\\
-0.025 & 0 & 0 & 0 & 5.73192e-04 & 6.42132e-04 & 44042\\
+0.25 & 0 & 0 & 0 & 3.22254e-01 & 4.17008e-02 & 41\\
+0.1 & 0 & 0 & 0 & 1.41195e-01 & 1.03077e-02 & 821\\
+0.05 & 0 & 0 & 0 & 4.06438e-02 & 2.56968e-03 & 8971\\
+0.025 & 0 & 0 & 0 & 2.60448e-02 & 6.42132e-04 & 55629\\
 \hline
 \end{tabular}
 \caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time interval $[0,1]$ for the P2--(P1+P0) element, uniform mesh.}
@@ -873,6 +875,7 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHlll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $CPU[s]$ \\
@@ -889,6 +892,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 \ifthesis
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHlll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ \\
@@ -905,6 +909,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHlll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ \\
@@ -1043,11 +1048,11 @@ Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp
  \center
 \begin{tabular}{llHlHllll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
-0.25 & 9.59020e-03 & 5.91121e-04 & 4.09862e-03 & 1.43868e-01 & 3.72132e-01 & 36.632 & 120\\
-0.1 & 1.71523e-03 & 1.07812e-04 & 8.68997e-04 & 1.84066e-02 & 4.56430e-02 & 1402.8 & 452\\
-0.05 & 3.66077e-04 & 1.48787e-05 & 1.92562e-04 & 2.87838e-03 & 7.63704e-03 & 62112 & 1866\\
+0.25 & 5.92892e-03 & 5.38254e-04 & 3.86458e-03 & 4.43308e-01 & 1.52251e-01 & 243 & 120\\
+0.1 & 1.46653e-03 & 1.05799e-04 & 8.73181e-04 & 2.14625e-01 & 3.68834e-02 & 4362 & 452\\
+0.05 & *3.66077e-04 & *1.48787e-05 & *1.92562e-04 & *2.87838e-03 & *7.63704e-03 & *62112 & *1866\\
 \hline
 \end{tabular}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and uniform mesh.}
@@ -1057,6 +1062,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 \ifthesis
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHllll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ & $K_\Omega^T$\\
@@ -1073,6 +1079,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHllll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ & $K_\Omega^T$\\
@@ -1088,14 +1095,14 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 
 Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0smooth} for what concern P2--P0 and in Table~\ref{tab:expandingbubble2Dp2p1p0smooth} for what concern P2--(P1+P0) when a smoothing with coefficient $C_s=1$ is performed at each time step and no remeshing is used.
 \begin{table*}
- \center
+ \center 
 \begin{tabular}{llHlHlll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $CPU[s]$\\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$\\
 \hline
-0.25 & 9.74956e-03 & 9.45854e-04 & 3.71046e-03 & 1.44456e-01 & 3.72132e-01 & 45.287\\
-0.1 & 1.75510e-03 & 3.32420e-04 & 1.52677e-03 & 1.89573e-02 & 5.65689e-02 & 2140.7\\
-0.05 & 3.86187e-04 & 8.68664e-05 & 5.33729e-04 & 4.12034e-03 & 1.73534e-02 & 125110\\
+0.25 & 5.98661e-03 & 8.42552e-04 & 3.67780e-03 & 4.17354e-01 & 1.52251e-01 & 253\\
+0.1 & 1.47669e-03 & 3.40092e-04 & 1.68775e-03 & 2.29737e-01 & 3.68834e-02 & 5348\\
+0.05 & *3.86187e-04 & *8.68664e-05 & *5.33729e-04 & *4.12034e-03 & *1.73534e-02 & *125110\\
 \hline
 \end{tabular}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, no remeshing and uniform mesh.}
@@ -1105,6 +1112,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 \ifthesis
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHlll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ \\
@@ -1121,6 +1129,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHlll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$\\
@@ -1137,6 +1146,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 In order to choose the better remeshing coefficient $C_r$ several experiment were carried out. Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0bothdiffcr} with a starting characteristic length $c_l=0.1$, using P2--P0 polynomials and smoothing coefficient $C_s=1$. The better result are obtained with $C_r=3$ because it reduces the number of remeshing compared to $C_r=2$ while keeping the same performance and error quality. For this reason we are going to use this parameter for the other simulations.
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHllll}
 \hline
 $C_r$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
@@ -1154,6 +1164,7 @@ $C_r$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0all} for what concern P2--P0 and in Table~\ref{tab:expandingbubble2Dp2p1p0all} for what concern P2--(P1+P0) whit remeshing coefficient $C_r=3$ and with smoothing coefficient $C_s=1$.
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHllll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
@@ -1170,6 +1181,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 \ifthesis
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHllll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ & $K_\Omega^T$\\
@@ -1186,6 +1198,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHllll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ & $K_\Omega^T$\\
@@ -1222,7 +1235,7 @@ where $\vec{x}\in\partial\Omega$ is a mesh node. See Table~\ref{tab:expandingbub
 \hline
 $c_{l,\Gamma}$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 \hline
-0.01 & 32 & * & $6.4\cdot10^{-2}$ \\
+0.01 & 32 & 584 & $6.4\cdot10^{-2}$ \\
 0.05 & 64 & 1020 & $1.6\cdot10^{-2}$ \\
 0.025 & 128 & 2506 & $4\cdot10^{-3}$\\
 0.0123 & 256 & 7460 & $10^{-3}$\\
@@ -1237,11 +1250,12 @@ Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp
  \center
 \begin{tabular}{llHlHllll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
-0.05 & 1.00492e-03 & 3.65898e-04 & 1.84254e-03 & 2.17526e-02 & 4.75296e-02 & 537.01 & 564\\
-0.25 & 2.65031e-04 & 2.81870e-04 & 2.60458e-03 & 8.19573e-03 & 5.09886e-02 & 8686.3 & 1232\\
-0.0123 & 6.15383e-05 & 6.98648e-05 & 6.90439e-04 & 2.38225e-03 & 1.50292e-02 & 119900 & 3860\\
+0.1 & 3.91426e-03 & 6.42479e-04 & 1.86979e-03 & 5.57560e-01 & 2.77033e-01 & 97 & 234\\
+0.05 & 9.96943e-04 & 3.65216e-04 & 1.83143e-03 & 2.94448e-01 & 7.13603e-02 & 590 & 564\\
+0.025 & 2.51524e-04 & 2.76858e-04 & 2.63245e-03 & 1.51500e-01 & 1.79215e-02 & 11003 & 1226\\
+0.0123 & *6.15383e-05 & *6.98648e-05 & *6.90439e-04 & *2.38225e-03 & *1.50292e-02 & *119900 & *3860\\
 \hline
 \end{tabular}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and adaptive mesh.}
@@ -1251,6 +1265,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 \ifthesis
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHllll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ & $K_\Omega^T$\\
@@ -1267,6 +1282,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHllll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ & $K_\Omega^T$\\
@@ -1362,11 +1378,11 @@ Some errors for our numerical scheme can be seen in Table~\ref{tab:bubble3Dp2p0}
  \center
 \begin{tabular}{llHlHlll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $CPU[s]$ \\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$ \\
 \hline
-0.5 & 2.97986e-02 & 0 & 0 & 4.68089e-01 & 7.43095e-01 & 376.87\\
-0.25 & 5.80971e-03 & 0 & 0 & 7.80486e-02 & 1.06521e-01 & 7173.9\\
-0.125 & 2.42857e-03 & 0 & 0 & 2.86154e-02 & 3.83704e-02 & 84878 \\
+0.5 & 2.97986e-02 & 0 & 0 & 1.65555e+00 & 7.43095e-01 & 385\\
+0.25 & 5.80971e-03 & 0 & 0 & 7.14269e-01 & 1.06521e-01 & 4699\\
+0.125 & 2.42857e-03 & 0 & 0 & 3.58466e-01 & 3.83704e-02 & 51604\\
 \hline
 \end{tabular}
 \caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time interval $[0,1]$ for the P2--P0 element, stationary uniform mesh.}
@@ -1376,6 +1392,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 \ifthesis
 \begin{table*}
  \center
+ WRONG
 \begin{tabular}{llHlHlll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ \\
@@ -1394,11 +1411,11 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
  \center
 \begin{tabular}{llHlHlll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ \\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ \\
 \hline
-0.5 & 2.97986e-02 & 0 & 0 & 4.72706e-01 & 7.44770e-01 & 373.13\\
-0.25 & 5.80971e-03 & 0 & 0 & 8.28392e-02 & 2.91977e-01 & 7179.5\\
-0.125 & 2.42857e-03 & 0 & 0 & 3.23297e-02 & 3.10695e-01 & 124800\\
+0.5 & 2.97986e-02 & 0 & 0 & 1.65749e+00 & 7.44770e-01 & 568\\
+0.25 & 5.80971e-03 & 0 & 0 & 7.15353e-01 & 2.91977e-01 & 9174\\
+0.125 & *2.42857e-03 & *0 & *0 & *3.23297e-02 & *3.10695e-01 & *124800\\
 \hline
 \end{tabular}
 \caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time interval $[0,1]$ for the P2--(P1+P0) element, stationary uniform mesh.}
