@@ -927,42 +927,42 @@ Figure~\ref{fig:2d_stationary_bubble} shows the pressure of the stationary bubbl
   \label{fig:2d_stationary_bubble}
 \end{figure}
 
-We now demonstrate the remarkable equidistribution property of our method showing that the circular, equidistributed numerical steady state solution is recovered by our method even if we choose a very nonuniform initial interface $\Gamma^0$. This is the discrete analogue of the fact that circles are the unique steady state solutions in the continuous case, see Section~\ref{sec:discrete_solution_properties}. In particular, we take $\Gamma^0$ to be a very nonuniform approximation of $\Gamma(0)$, where we represent the upper half of the circle by a single vertex, while the lower half resembles a semicircle. In total we use 32 vertices for $\Gamma^0$ and we use a characteristic length $c_l=0.1$ for the boundary. This characteristic length is the one needed to subdivide a circle of radius $r=\frac{1}{2}$ in 32 equidistributed points, see Table~\ref{tab:bubble2Delementsuniform}. The initial bulk mesh is not uniform since it has to respect the nonuniform approximation of the interface but it becomes more uniform the more the points get equidistributed. We take $\mu=1$, $\gamma=1$, $\tau=10^{-4}$, $T=5$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ and we use the P2--P0 element. In Figure~\ref{fig:nonuniform_bubble_remesh} are shown some snapshots of the mesh evolution while in Figure~\ref{fig:nonuniform_bubble_velocity_remesh} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. As expected, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
+We now demonstrate the remarkable equidistribution property of our method showing that the circular, equidistributed numerical steady state solution is recovered by our method even if we choose a very nonuniform initial interface $\Gamma^0$. This is the discrete analogue of the fact that circles are the unique steady state solutions in the continuous case, see Section~\ref{sec:discrete_solution_properties}. In particular, we take $\Gamma^0$ to be a very nonuniform approximation of $\Gamma(0)$, where we represent the upper half of the circle by a single vertex, while the lower half resembles a semicircle. In total we use 32 vertices for $\Gamma^0$ and we use a characteristic length $c_l=0.1$ for the boundary. This characteristic length is the one needed to subdivide a circle of radius $r=\frac{1}{2}$ in 32 equidistributed points, see Table~\ref{tab:bubble2Delementsuniform}. The initial bulk mesh is not uniform since it has to respect the nonuniform approximation of the interface but it becomes more uniform the more the points get equidistributed. We take $\mu=1$, $\gamma=1$, $\tau=10^{-4}$, $T=5$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ and we use the P2--P0 element. In Figure~\ref{fig:nonuniform_bubble_32_both} are shown some snapshots of the mesh evolution while in Figure~\ref{fig:nonuniform_bubble_velocity_32_both} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. As expected, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
 \begin{figure}[htbp]
   \centering
-  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_000.ps}}\\
-  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_050.ps}}\quad
-  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_100.ps}}\\
-  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_250.ps}}\quad
-  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_remesh_500.ps}}\\
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_32_both_000.ps}}\\
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_32_both_050.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_32_both_100.ps}}\\
+  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_32_both_250.ps}}\quad
+  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_32_both_500.ps}}\\
   \caption{($\mu=\gamma=1$) Mesh evolution of a non uniform circle formed by 32 vertices with $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
-  \label{fig:nonuniform_bubble_remesh}
+  \label{fig:nonuniform_bubble_32_both}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_velocity_remesh.ps}
+  \includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_velocity_32_both.ps}
   \caption{($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution of a non uniform circle formed by 32 vertices with $C_s=1$ and $C_r=3$ for the P2--P0 element, uniform mesh.}
-  \label{fig:nonuniform_bubble_velocity_remesh}
+  \label{fig:nonuniform_bubble_velocity_32_both}
 \end{figure}
 
-Instead, in Figure~\ref{fig:nonuniform_bubble_smooth} are shown some snapshots of the mesh evolution when an adaptive mesh with characteristic length $c_l=0.25$ for the boundary and 64 points on the interface is used and no remeshing is performed. In Figure~\ref{fig:nonuniform_bubble_velocity_smooth} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. Also in this case, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
+Instead, in Figure~\ref{fig:nonuniform_bubble_64_coarse_smooth} are shown some snapshots of the mesh evolution when an adaptive mesh with characteristic length $c_l=0.25$ for the boundary and 64 points on the interface is used and no remeshing is performed. In Figure~\ref{fig:nonuniform_bubble_velocity_64_coarse_smooth} is shown the evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$. Also in this case, the approximations $\Gamma^m$ converge towards an equidistributed circle, while $\vec U^m$ converges to zero.
 \begin{figure}[htbp]
   \centering
-  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_000.ps}}\\
-  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_050.ps}}\quad
-  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_100.ps}}\\
-  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_250.ps}}\quad
-  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_smooth_500.ps}}\\
+  \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_64_coarse_smooth_000.ps}}\\
+  \subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_64_coarse_smooth_050.ps}}\quad
+  \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_64_coarse_smooth_100.ps}}\\
+  \subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_64_coarse_smooth_250.ps}}\quad
+  \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_64_coarse_smooth_500.ps}}\\
   \caption{($\mu=\gamma=1$) Mesh evolution of a non uniform circle formed by 32 vertices with $C_s=1$ and no remeshing for the P2--P0 element, adaptive mesh.}
-  \label{fig:nonuniform_bubble_smooth}
+  \label{fig:nonuniform_bubble_64_coarse_smooth}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_velocity_smooth.ps}
+  \includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_velocity_64_coarse_smooth.ps}
   \caption{($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution of a non uniform circle formed by 32 vertices with $C_s=1$ and no remeshing for the P2--P0 element, adaptive mesh.}
-  \label{fig:nonuniform_bubble_velocity_smooth}
+  \label{fig:nonuniform_bubble_velocity_64_coarse_smooth}
 \end{figure}
 
 In Figure~\ref{fig:ellipse_both} is reported the pressure evolution of an ellipse, of axis 0.8 and 0.375, with initial characteristic length $c_l=0.1$, smoothing coefficient $C_s=1$ and remeshing coefficient $C_r=3$ for the P2--P0 element. We fix the usual domain $\Omega = (-1,1)^2$ and we use the parameters $\mu=1$, $\gamma=1$, $\tau=10^{-2}$ and $T=10$. The mesh is uniform and we prescribe homogeneous Dirichlet

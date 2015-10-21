@@ -644,7 +644,7 @@ First of all we note that a solution $\Gamma^h(t)$ to (\ref{eq:sda}--d) clearly
 satisfies (\ref{eq:conformal}), with $\Gamma^m$ replaced by $\Gamma^h(t)$. This
 means that in 2d the polygonal curve $\Gamma^h$ is equidistributed, and
 asymptotically this property is inherited by our fully discrete scheme
-(\ref{eq:HGa}--d); see e.g.\ Figure~\ref{fig:nonuniform_bubble_remesh} below.
+(\ref{eq:HGa}--d); see e.g.\ Figure~\ref{fig:nonuniform_bubble_32_both} below.
 In 3d the property (\ref{eq:conformal}) means that $\Gamma^h(t)$ is a 
 conformal polyhedral surface, which implies that the mesh quality is good. Once
 again, we observe in practice that the fully discrete solutions to
@@ -1111,31 +1111,31 @@ In total we use $J_\Gamma = 32$ elements for $\Gamma^0$ and we start with
 a very nonuniform bulk mesh with $J_\Omega^0 = 1154$ elements.
 Of course, the initial bulk mesh has to respect the nonuniform approximation 
 of the interface, and so is very nonuniform itself.
-However, we see from the evolution in Figure~\ref{fig:nonuniform_bubble_remesh}
+However, we see from the evolution in Figure~\ref{fig:nonuniform_bubble_32_both}
 that as the interface gets closer and closer to an equidistributed
 approximation of a circle, the bulk mesh also becomes more uniform. For
 the presented simulation we used the physical parameters
 $\mu= \gamma=1$. The uniform time step size is chosen as $\tau=10^{-4}$ and 
 we set $C_r=3$, recall (\ref{eq:remesh}). 
 The evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$ over time is shown in
-Figure~\ref{fig:nonuniform_bubble_velocity_remesh}, where we note that the
+Figure~\ref{fig:nonuniform_bubble_velocity_32_both}, where we note that the
 velocity converges to zero as the discrete interface approximations 
 $\Gamma^m$ converge towards an equidistributed circle.
 \begin{figure}[htbp]
   \centering
-  \subfloat[$t=0$]{\includegraphics[width=.32\textwidth]{figures/nonuniform_bubble_remesh_000.ps}}
-  \subfloat[$t=1$]{\includegraphics[width=.32\textwidth]{figures/nonuniform_bubble_remesh_100.ps}}
-  \subfloat[$t=5$]{\includegraphics[width=.32\textwidth]{figures/nonuniform_bubble_remesh_500.ps}}
+  \subfloat[$t=0$]{\includegraphics[width=.32\textwidth]{figures/nonuniform_bubble_32_both_000.ps}}
+  \subfloat[$t=1$]{\includegraphics[width=.32\textwidth]{figures/nonuniform_bubble_32_both_100.ps}}
+  \subfloat[$t=5$]{\includegraphics[width=.32\textwidth]{figures/nonuniform_bubble_32_both_500.ps}}
   \caption{($\mu=\gamma=1$) Mesh evolution of a non uniform circle formed by 32 vertices. Here we use the P2--P0 element, and let $C_r = 3$.}
-  \label{fig:nonuniform_bubble_remesh}
+  \label{fig:nonuniform_bubble_32_both}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_velocity_remesh.ps}
+  \includegraphics[width=.45\textwidth]{figures/nonuniform_bubble_velocity_32_both.ps}
 \caption{($\mu=\gamma=1$) A plot of $\|\vec U^m\|_{L^\infty(\Omega)}$ over time
-for the evolution shown in Figure~\ref{fig:nonuniform_bubble_remesh}.}
-\label{fig:nonuniform_bubble_velocity_remesh}
+for the evolution shown in Figure~\ref{fig:nonuniform_bubble_32_both}.}
+\label{fig:nonuniform_bubble_velocity_32_both}
 \end{figure}
 
 \subsection{Energy decay and area conservation in 2d}
