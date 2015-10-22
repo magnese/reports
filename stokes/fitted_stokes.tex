@@ -1082,13 +1082,11 @@ every time step, $C_r = 1$, recall (\ref{eq:remesh}).
 \center
 \begin{tabular}{rrcrr}
 \hline
-$J_\Gamma$ & $J_\Omega^0$ & $\tau$ & 
-\multicolumn{2}{c}{$J_\Omega^M$ for $C_r=1$} \\
-& & & P2--P0 & P2--(P1+P0) \\
+$J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ for $C_r=1$ \\
 \hline
-16 &  212 & $1.6\cdot10^{-2}$ &  120 &  120 \\
-32 &  988 &   $4\cdot10^{-3}$ &  452 &  452 \\
-64 & 3776 &         $10^{-3}$ & 1864 & 1868 \\
+16 &  212 & $1.6\cdot10^{-2}$ &  120 \\
+32 &  988 &   $4\cdot10^{-3}$ &  452 \\
+64 & 3776 &         $10^{-3}$ & 1864 \\
 \hline
 \end{tabular}
 \caption{Discretization parameters for the 2d expanding bubble problem, 
@@ -1145,9 +1143,9 @@ Table~\ref{tab:expandingbubble2Dp2p1p0remesh}.
 \hline
 $J_\Gamma$ & $\errorXx$ & $\errorUu2$ & $\LerrorPp$ & $CPU[s]$ \\
 \hline
-16 & 5.95691e-03 & 4.04415e-03 & 4.44634e-01 &  258 \\
-32 & 1.47266e-03 & 3.23973e-03 & 2.14906e-01 & 4683 \\
-64 & *3.66563e-04 & *2.72774e-04 & *3.77802e-03 & *75650 \\
+16 & 5.95691e-03 & 4.04415e-03 & 4.44634e-01 &    258 \\
+32 & 1.47266e-03 & 3.23973e-03 & 2.14906e-01 &   4683 \\
+64 & 3.65596e-04 & 2.72450e-04 & 8.10807e-02 & 129910 \\
 \hline
 \end{tabular}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble 
