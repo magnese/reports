@@ -4,7 +4,6 @@
 \usepackage[english]{babel}
 \usepackage{amssymb,amsmath,amsthm,array,epsfig,pstricks,subfig,hyperref}
 
-\usepackage[notref,notcite]{showkeys}
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{rem}[thm]{Remark}
@@ -12,7 +11,6 @@
 \newenvironment{keywords}{{\upshape\bfseries Key words. }\ignorespaces}{}
 
 \newcommand{\R}{{\mathbb R}}
-\newcommand{\spa}{\operatorname{span}}
 \newcommand{\vol}{\mathcal{L}^d}
 \newcommand{\dH}[1]{\;{\rm d}{\cal H}^{#1}} % Hausdorff measure
 \newcommand{\dL}[1]{\;{\rm d}{\cal L}^{#1}} % Lebesgue measure
@@ -28,16 +26,12 @@
 \newcommand{\xspace}{\mathbb{X}}
 \newcommand{\sigmaO}{o}
 \newcommand{\nabs}{\nabla_{\!s}}
-\newcommand{\Id}{I\!d}
 \newcommand{\id}{\rm id}
 \newcommand{\ddt}{\frac{\rm d}{{\rm d}t}}
 \newcommand{\NbulkT}{\vec{N}_{\Gamma,\Omega}^T}
 \newcommand{\Nbulk}{\vec{N}_{\Gamma,\Omega}} 
 \newcommand{\errorXx}{\|\Gamma^h - \Gamma\|_{L^\infty}}
-\newcommand{\LerrorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{L^2(\Omega_T)}}
 \newcommand{\errorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{L^\infty}}
-\newcommand{\errorPp}[1]{\|P - I^h_{#1}\,p\|_{L^\infty}}
-\newcommand{\LerrorPph}[1]{\|P - I^h_{#1}\,p\|_{L^2(\Omega_T)}}
 \newcommand{\LerrorPp}{\|P - p\|_{L^2(\Omega_T)}}
 \newcommand{\unitn}{\vec{\rm n}}
 \newcommand{\mat}[1]{\underline{\underline{#1}}\rule{0pt}{0pt}}
@@ -52,7 +46,6 @@
 \begin{document}
 
 \captionsetup[subfigure]{labelformat=empty} % remove label subplot
-\newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}} % hide table column
 
 \maketitle
 
@@ -984,7 +977,7 @@ and
 \LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2 
 \right]^\frac12 .
 \end{equation*}
-\footnote{State the degree of the quadrature rule.}
+\footnote{Degree of the quadrature rule: 13 for 2D and 10 for 3D.}
 
 \subsection{Convergence tests in 2d} \label{sec:41}
 For the true solution (\ref{eq:radialr},b) we choose the domain $\Omega =
@@ -1148,13 +1141,13 @@ consider the case $C_r = 1$, see
 Table~\ref{tab:expandingbubble2Dp2p1p0remesh}.
 \begin{table*}
  \center
-\begin{tabular}{llHllHrH}
+\begin{tabular}{llllr}
 \hline
-$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ & $J_\Omega^M$\\
+$J_\Gamma$ & $\errorXx$ & $\errorUu2$ & $\LerrorPp$ & $CPU[s]$ \\
 \hline
-16 & 9.63687e-03 & 9.25039e-04 & 3.82844e-03 & *1.46701e-01 & 5.85530e-01 &    41 &  120 \\
-32 & 1.72931e-03 & 2.47559e-04 & 3.39462e-03 & *2.60172e-02 & 3.96317e-01 &  1580 &  452 \\
-64 & 3.66563e-04 & 2.35009e-05 & 2.72774e-04 & *3.77802e-03 & 5.76371e-02 & 75650 & 1868 \\
+16 & 9.63687e-03 & 3.82844e-03 & *1.46701e-01 &    41 \\
+32 & 1.72931e-03 & 3.39462e-03 & *2.60172e-02 &  1580 \\
+64 & 3.66563e-04 & 2.72774e-04 & *3.77802e-03 & 75650 \\
 \hline
 \end{tabular}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble 
