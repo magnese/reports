@@ -1,8 +1,10 @@
+% LAST CHANGES BY RN 26/10/15
+% Submitted to Int. J. Numer. Methods Fluids on 26/10/15.
 \documentclass[a4paper,12pt,onecolumn]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{amssymb,amsmath,amsthm,array,epsfig,pstricks,subfig,hyperref}
+\usepackage{amssymb,amsmath,amsthm,array,epsfig,pstricks,subfig,hyperref,verbatim}
 
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
@@ -40,8 +42,12 @@
 
 \textwidth 425pt
 
-\title{Fitted Finite Element Discretization of Two--Phase Stokes Flow}
-\author{Marco Agnese \and Robert N\"urnberg}
+\title{Fitted Finite Element Discretization of \\ Two--Phase Stokes Flow}
+\author{Marco Agnese and Robert N\"urnberg%
+\thanks{email: \texttt{\{m.agnese13,robert.nurnberg\}@imperial.ac.uk}}\\
+\small
+Department of Mathematics, Imperial College, London, SW7 2AZ, U.K.}
+\date{}
 
 \begin{document}
 
@@ -72,11 +78,11 @@ applications in physics, engineering and biophysics. Developing robust and
 efficient numerical methods for these flows is an important problem and
 has attracted tremendous interest over the last decade. Apart from the usual
 difficulties arising from the numerical computation of the fluid flow in the
-bulk, the acurate approximation of the moving free interface, as well as a
+bulk, the accurate approximation of the moving free interface, as well as a
 suitable description of the conditions that need to hold on the interface,
 pose serious challenges. Of particular importance is the precise inclusion of
-surface tension terms, and the correct handling of discontinuity jumps in
-material properties and pressure at the interface, in order to suppress
+surface tension terms, and the correct handling of discontinuity jumps in the
+material properties and in the pressure at the interface, in order to suppress
 spurious velocities, which are also called parasitic currents.
 
 In this paper we propose a novel finite element approximation for
@@ -87,10 +93,10 @@ describe the moving discrete interface. In contrast to \cite{spurious}, where
 the interface and the bulk mesh were totally independent, here we pursue the
 fitted approach. That means that the interface discretization is always fitted
 to the bulk mesh, i.e.\ the discrete interface is made up of edges/faces of
-element belonging to the bulk mesh. An advantage of our method is that the
-discontinuity jumps in material properties and in the pressure are captured
+elements belonging to the bulk mesh. An advantage of our method is that the
+discontinuity jumps in the material properties and in the pressure are captured
 naturally. In particular, we do not need to employ an XFEM-type extension of
-standard bulk pressure spaces.Surface tension forces are discretized with the
+standard bulk pressure spaces. Surface tension forces are discretized with the
 help of a variational approximation of curvature that was first proposed in
 \cite{triplej,gflows3d}. Combining this was an implicit treatment of the
 surface tension forces yields an unconditionally stable scheme. Interestingly,
@@ -104,10 +110,11 @@ step size.
 \item In the absence of outer forces, any discrete solution with a stationary
 interface must have zero velocity globally, i.e.\ we can prove that there are
 no stationary solutions with spurious velocities. Similarly, discrete
-stationary solutions for spherical interface are attained for our scheme.
-\item For the semidiscrete continuous-in-time variant of the scheme the volume
-of the two phases is conserved. The fully discrete scheme maintains the
-enclosed volumes well.
+stationary solutions for spherical interfaces are attained for our scheme.
+\item For the semidiscrete continuous-in-time variant of the fully discrete
+scheme the volume
+of the two phases is conserved. The fully discrete scheme itself maintains the
+enclosed volumes well in practice.
 \item Thanks to the fitted nature of the finite element method, the pressure
 jumps at the interface are captured accurately for standard pressure finite
 element spaces without the need for XFEM extensions.
@@ -116,26 +123,31 @@ treatment of curvature based on the Laplace--Beltrami operator.
 \item The surface mesh quality is maintained. In particular, for the
 semidiscrete scheme an equidistribution property can be shown in 2d.
 \item The fully discrete scheme uses an implicit approximation of curvature
-that leads to a linear system of equations to be solved at each time step.
+that leads to a coupled linear system of equations to be solved at each time
+step.
 \end{itemize}
 
 Let us briefly discuss alternative approaches to the numerical approximation of
 two-phase flow problems. In this paper we use a direct description of the
-interface using a parameterization of the unknown interface. In such direct
+interface.  In such direct
 approaches, which are often called front-tracking methods, the interface is
 either triangulated or presented by a connected set of particles. The discrete
 interface is advected with the help of the bulk fluid velocities, and
 quantities on the interface need to be suitably coupled to the bulk equations.
+In our situation, a finite element parameterization of the unknown interface
+is employed.
 We refer e.g.\ to
 \cite{UnverdiT92,Bansch01,Tryggvason_etal01,GanesanMT07,GanesanT08,spurious}
-for further details, and to \cite{LevequeL97,Peskin02} for the related immersed
+for further details on front tracking methods,
+and to \cite{LevequeL97,Peskin02} for the related immersed
 boundary method. Another class of approaches is based on interface capturing
 methods using an indicator function to describe the interface. The volume of
 fluid (VOF) method and the level set method fall into this category. In the
 former, the characteristic function of one of the phases is approximated
 numerically, see e.g.\ \cite{HirtN81,RenardyR02,Popinet09}; whereas in the
 latter, the interface is given as the level set of a function, which has to be
-determined, see e.g.\ \cite{SussmanSO94,Sethian99,OsherF03,GrossR07}. In phase
+determined, see e.g.\ \cite{SussmanSO94,Sethian99,OsherF03,GrossR07}.
+Finally, in phase
 field methods the interface is assumed to have a small, but positive, thickness
 and an additional parabolic equation, defined in the whole domain, has to be
 solved in these so-called diffuse interface models. We refer to
@@ -280,7 +292,7 @@ the $L^2$--inner products on $\Omega$ and $\Gamma(t)$, respectively. In
 addition, we let $\mathcal{L}^d$ and $\mathcal{H}^{d-1}$ denote the Lebesgue
 measure in $\R^d$ and the $(d-1)$-dimensional Hausdorff measure, respectively.
 
-Mutiplying (\ref{eq:LBop}) with a test function, and performing integration by
+Multiplying (\ref{eq:LBop}) with a test function, and performing integration by
 parts, yields
 $$
 \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
@@ -390,8 +402,10 @@ exists a constant $C_0 \in \R_{>0}$, independent of $\mathcal{T}^m$, such that
 \frac{( \varphi, \nabla \,.\,\vec \xi)} {\|\varphi\|_0\,\|\vec \xi\|_1}
 \geq C_0 > 0\,,
 \end{equation}
-where $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ is the $H^1$--norm on
-$\Omega$, see \cite[p.~114]{GiraultR86}. In our simulations, we use the
+see \cite[p.~114]{GiraultR86}. Here $\|\cdot\|_0 := (\cdot,\cdot)^\frac12$ and
+$\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ denote the $L^2$--norm and
+the $H^1$--norm on $\Omega$, respectively. Throughout this paper, we restrict
+ourselves to the
 elements P2--P0 and P2--(P1+P0), i.e.\ we set $\uspace^m=[S^m_2]^d\cap\uspace$
 and either $\pspace^m = S^m_0$ or $S^m_1+S^m_0$. Both these elements satisfy
 the LBB condition (\ref{eq:LBB}), where we note that the choice P2--(P1+P0)
@@ -433,7 +447,8 @@ the new surface $\Gamma^{m+1}$ over $\Gamma^m$ using a parameterization
 $\vec{X}^{m+1} \in \Vh$, so that $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$.
 Before we can state our numerical method, we need to introduce a mass lumped
 inner product on $\Gamma^m$, that is crucial for the desired tangential motion
-of vertices on $\Gamma^m$, which will lead to good interface mesh properties.
+of vertices on $\Gamma^m$. This induced tangential motion
+will lead to good interface mesh properties.
 If $v,w \in L^\infty(\Gamma^m)$ are piecewise continuous, with possible jumps
 across the edges of $\{\sigma_j^m\}_{j=1}^{J_\Gamma}$, we define the mass
 lumped inner product $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ as
@@ -520,7 +535,7 @@ $\vec\eta=\gamma\,\vec{X}$ in (\ref{eq:proofd}) yields that
 + \gamma\,\left\langle \nabs\,\vec{X}, \nabs\,\vec{X} \right\rangle_{\Gamma^m}
 =0\,. \label{eq:proof2}
 \end{equation}
-It immediately follows from (\ref{eq:proof2}) and Korn's inequality that
+It immediately follows from (\ref{eq:proof2}) and a Korn's inequality that
 $\vec U = \vec 0$. In addition, it holds that $\vec{X}$ is equal to a constant
 on $\Gamma^m$, which satisfies, on recalling (\ref{eq:proofc}) and $\vec U =
 \vec 0$, that
@@ -528,7 +543,8 @@ on $\Gamma^m$, which satisfies, on recalling (\ref{eq:proofc}) and $\vec U =
 \left\langle \vec X, \chi\,\vec\nu^m \right\rangle_{\Gamma^m}^h = 0
 \quad\forall\ \chi \in \Wh\,.
 \end{equation}
-It was shown in \cite{gflows3d} that if $\Gamma^m$ has no self-intersections,
+It was shown in \cite[Proof of Theorem~2.1]{gflows3d} that if $\Gamma^m$
+has no self-intersections,
 then (\ref{eq:Xconst}) immediately yields that $\vec X = \vec 0$. Since
 $\Gamma^m = \partial\Omega^m_-$ is the boundary of an open domain, it cannot
 self-intersect, and hence we obtain that $\vec X = \vec 0$. This means that
@@ -620,14 +636,16 @@ $\Gamma^{m+1} = \Gamma^m$, then it holds that
 \right\rangle_{\Gamma^{m}}^h + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta
 \right\rangle_{\Gamma^{m}} = 0 \quad \forall\ \vec\eta \in \Vh \,.
 \end{equation}
-We recall from \cite{triplej} that (\ref{eq:conformal}) in the case $d=2$
-implies that $\Gamma^m$ is equidistributed, with the possible exception of
+We recall from \cite[Remark~2.4]{triplej} that (\ref{eq:conformal}) in the
+case $d=2$ implies that $\Gamma^m$ is equidistributed, with the possible
+exception of
 elements $\sigma^m_j$ that are locally parallel to each other; see also
-\cite{fdfi}.
-Moreover, we recall from \cite{gflows3d} that surfaces $\Gamma^m \subset \R^3$
+\cite[Theorem~2.2]{fdfi}.
+Moreover, we recall from \cite[\S4.1]{gflows3d}
+that surfaces $\Gamma^m \subset \R^3$
 that satisfy (\ref{eq:conformal}) are called conformal polyhedral surfaces.
 
-Next we consider discrete stationary states when no outer forces act, i.e.\
+Next we consider discrete stationary solutions when no outer forces act, i.e.\
 when $\vec f = \vec 0$. Here, independently of the choice of $\mu_\pm$, no
 spurious velocities appear for discrete stationary solutions. This is an
 immediate consequence of Theorem~\ref{thm:stabstab}, as the following proof
@@ -700,7 +718,7 @@ good tangential distribution of mesh points, and good volume conservation.
 
 Let $(\Gamma^h(t))_{t\in[0,T]}$ be a family of polyhedral surfaces, with
 outer normal $\vec\nu^h$. Similarly to (\ref{eq:V}), we can then define the
-discrete velocity $\vec{\mathcal{V}}^h$, see e.g.\ \cite[3.3]{tpfs}. We also
+discrete velocity $\vec{\mathcal{V}}^h$, see e.g.\ \cite[(3.3)]{tpfs}. We also
 define the piecewise linear finite element spaces $\Wht$ and $\Vht$. For $t\in
 [0,T]$, let $\mathcal{T}^h(t)$ be a regular partitioning of $\Omega$ into
 disjoint open simplices and define the finite element spaces $S^h_k(t)$,
@@ -731,7 +749,7 @@ where $\vec f^h := \vec I^h_2\,\vec f(t)$.
 
 First of all we note that a solution $\Gamma^h(t)$ to (\ref{eq:sda}--d) clearly
 satisfies (\ref{eq:conformal}), with $\Gamma^m$ replaced by $\Gamma^h(t)$. This
-means that in 2d the polygonal curve $\Gamma^h$ is equidistributed, and
+means that in 2d the polygonal curve $\Gamma^h(t)$ is equidistributed, and
 asymptotically this property is inherited by our fully discrete scheme
 (\ref{eq:HGa}--d); see e.g.\ Figure~\ref{fig:nonuniform_bubble_32_both} below.
 In 3d the property (\ref{eq:conformal}) means that $\Gamma^h(t)$ is a
@@ -760,7 +778,8 @@ that in our simulations the volumes are always well maintained.
 As is standard practice for the solution of linear systems arising from
 discretizations of (Navier--)Stokes equations, we avoid the complications of the
 constrained pressure space $\widehat\pspace^m$ in practice by considering an
-overdetermined linear system with $\pspace^m$ instead. The pressure obtained is
+overdetermined linear system with $\pspace^m$ instead.
+In a post-processing step the computed pressure is
 then projected into the space of zero mean functions. The linear system
 (\ref{eq:HGa}--d), with $\widehat\pspace^m$ replaced by $\pspace^m$, can be
 formulated as:
@@ -782,7 +801,7 @@ P^{m+1} \\
 \end{pmatrix}
 =
 \begin{pmatrix}
-\vec g \\
+\vec c \\
 0 \\
 0 \\
 -\vec{A}_\Gamma\,\vec X^m
@@ -791,7 +810,7 @@ P^{m+1} \\
 \end{equation}
 where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec{X}^{m+1})\in
 (\R^d)^{K^m_\uspace}\times \R^{K^m_\pspace} \times \R^{K_\Gamma}\,\times
-(\R^d)^{K^\Gamma}$ here denote the coefficients of these finite element
+(\R^d)^{K_\Gamma}$ here denote the coefficients of these finite element
 functions with respect to the standard bases of $\uspace^m$, $\pspace^m$, $\Wh$
 and $\Vh$, respectively. Moreover, $\vec X^m$ denotes the coefficients of
 $\vec\id\!\mid_{\Gamma^m}$ with respect to the basis of $\Vh$. The definitions
@@ -827,7 +846,7 @@ Then (\ref{eq:lin}) can be reduced to
 \vec U^{m+1} \\ P^{m+1}
 \end{pmatrix}
 = \begin{pmatrix}
-\vec g
+\vec c
 -\gamma\,(\Nbulk \ 0)\, \Xi_\Gamma^{-1}\,
 \binom{0}{\vec{A}_\Gamma\,\vec X^m} \\
 0
@@ -1040,7 +1059,7 @@ see also Figure~\ref{fig:2d_stationary_bubble} for a visualization of the
 discrete pressure in the case $J_\Gamma = 32$. This is not surprising given the
 result of Theorem~\ref{thm:stat2}, and the fact that we use an equidistributed
 approximation $\Gamma^0$, which means that (\ref{eq:constcurv}) is satisfied.
-Of course, since the discrete solution is stationary, neither smoothing or
+Of course, since the discrete solution is stationary, neither smoothing nor
 remeshing is performed for the simulations in Tables~\ref{tab:bubble2Dp2p0} and
 \ref{tab:bubble2Dp2p1p0}. We also observe that the error for the two
 approximations with the P2--P0 and the P2--(P1+P0) element, respectively,
@@ -1075,10 +1094,11 @@ on the right hand side of Figure~\ref{fig:meshes_expanding}.
 \end{figure}
 
 Details on the discretization parameters for the nearly uniform meshes are
-given in Table~\ref{tab:expandingbubble2Delements}. Here we distinguish two
-cases for the final number of bulk elements $J_\Omega^M$. Either we use only
-smoothing throughout, $C_r = \infty$, or we completely remesh the bulk after
-every time step, $C_r = 1$, recall (\ref{eq:remesh}).
+given in Table~\ref{tab:expandingbubble2Delements}. Here we explicitly
+state the final number of bulk elements, $J_\Omega^M$, only in the case
+$C_r = 1$, recall (\ref{eq:remesh}), i.e.\ when the bulk is remeshed after
+every time step. Of course, when only smoothing is employed, then the number of
+bulk mesh elements is invariant, and so $J_\Omega^M = J_\Omega^0$.
 \begin{table*}
 \center
 \begin{tabular}{rrcrr}
@@ -1242,11 +1262,7 @@ evolution in Figure~\ref{fig:nonuniform_bubble_32_both} that as the interface
 gets closer and closer to an equidistributed approximation of a circle, the
 bulk mesh also becomes more uniform. For the presented simulation we used the
 physical parameters $\mu= \gamma=1$. The uniform time step size is chosen as
-$\tau=10^{-4}$ and we set $C_r=3$, recall (\ref{eq:remesh}). The evolution of
-$\|\vec U^m\|_{L^\infty(\Omega)}$ over time is shown in
-Figure~\ref{fig:nonuniform_bubble_velocity_32_both}, where we note that the
-velocity converges to zero as the discrete interface approximations $\Gamma^m$
-converge towards an equidistributed circle.
+$\tau=10^{-4}$ and we set $C_r=3$, recall (\ref{eq:remesh}).
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=0$]{\includegraphics[width=.32\textwidth]
@@ -1260,28 +1276,19 @@ $J_\Gamma = 32$ elements. Here we use the P2--P0 element, and let $C_r = 3$.}
 \label{fig:nonuniform_bubble_32_both}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.45\textwidth]
-{figures/nonuniform_bubble_velocity_32_both.ps}
-\caption{($\mu=\gamma=1$) A plot of $\|\vec U^m\|_{L^\infty(\Omega)}$ over time
-for the evolution shown in Figure~\ref{fig:nonuniform_bubble_32_both}.}
-\label{fig:nonuniform_bubble_velocity_32_both}
-\end{figure}
-
 \subsection{Energy decay and area conservation in 2d}
 In Figure~\ref{fig:ellipse_both} we show the pressure evolution for a
 simulation that starts with an initial ellipse, with major and minor axes of
-0.8 and 0.375. The domain is given by $\Omega = (-1,1)^2$ and we use the
+1.6 and 0.75. The domain is given by $\Omega = (-1,1)^2$ and we use the
 parameters $\mu = \gamma=1$, $\tau=10^{-2}$ and $T=10$. The initial interface
 is discretized with $J_\Gamma = 40$ surface elements, and the initial bulk mesh
 has $J_\Omega^0 = 1112$ elements. We employ the P2--P0 element and use the
-remeshing paramter $C_r=3$ during the evolution.
+remeshing parameter $C_r=3$ during the evolution.
 Figure~\ref{fig:ellipse_both_volumes} shows the evolution of the relative inner
 area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ and the
 evolution of the interface energy $\gamma\,\mathcal{H}^{1}(\Gamma^m)$. The
-graphs show that the inner area is nearly conserved, and that the energy is
-monotonically decreasing.
+graphs show that the inner area is nearly conserved, and that the interface
+energy is monotonically decreasing.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10^{-5}$]{
@@ -1309,7 +1316,9 @@ the simulation in Figure~\ref{fig:ellipse_both}.}
 \end{figure}
 As a comparison, we show in Figure~\ref{fig:ellipse_smooth} the final snapshot
 of the same simulation when no remeshings are performed, i.e.\ we use $C_r=
-\infty$ in (\ref{eq:remesh}).
+\infty$ in (\ref{eq:remesh}). We clearly see that due to the strong deformation
+of the interface, this leads to elongated elements in the inner and in the
+outer phase of the bulk finite element mesh.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10$]{\includegraphics[width=.32\textwidth]
@@ -1370,16 +1379,17 @@ $J_\Gamma = 32$, $220$ and $596$ interface elements, and
 $J_\Omega^0 = 408$, $3590$ and $20473$ bulk elements, respectively. Here, in
 contrast to the situation in 2d, we are not able to define $\Gamma^0$
 such that the vertices of $\Gamma^0$ lie on $\Gamma(0)$ and such that
-(\ref{eq:conformal}) is satisfied. As we would like to demonstrate the ability
+(\ref{eq:constcurv}) is satisfied. As we would like to demonstrate the ability
 of our method to recover the discrete stationary solution (\ref{eq:solsol})
 also in 3d, we choose the initial interface $\Gamma^0$ such that
-(\ref{eq:conformal}) holds, at the expense of a nonzero initial error
+(\ref{eq:constcurv}) holds, at the expense of a nonzero initial error
 $\| \Gamma^0 - \Gamma(0) \|_{L^\infty}$, recall (\ref{eq:errorXx}). We obtain
 such an initial triangulation with the help of the numerical scheme from
 \cite{gflows3d} for surface diffusion, which is a gradient flow for
 surface area that maintains the enclosed volume. See
 e.g.\ \cite[Fig.\ 11]{gflows3d} for an evolution towards a polyhedral
-approximation of a sphere that satisfies (\ref{eq:conformal}). We report the
+approximation of a sphere that satisfies (\ref{eq:constcurv}), and hence also
+(\ref{eq:conformal}). We report the
 errors for the P2--P0 element in Table~\ref{tab:bubble3Dp2p0}, while
 Table~\ref{tab:bubble3Dp2p1p0} shows the same errors for the P2--(P1+P0)
 element. In both cases we use the uniform time step size $\tau = 10^{-2}$.
