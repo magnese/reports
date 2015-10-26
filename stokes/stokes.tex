@@ -196,8 +196,6 @@ which is the canonical form of the one--phase Stokes problem.
 \section{Energy bound and fluid volumes} \label{sec:volume_conservation}
 \setcounter{equation} 0
 
-\textcolor{magenta}{TODO : explain (\ref{eq:weak_stress_tensor})}
-
 First of all an a priori energy bound holds and the numerical scheme should preserve it. We start noting that for the left hand side of (\ref{eq:stokes_momentum}) holds, $\forall \ \vec \xi \in H^1_0(\Omega, \R^d)$, the identity 
 \begin{equation}\label{eq:weak_stress_tensor}
 \int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec \xi \dL{d}  = - \int_{\Omega} \mat\sigma : \nabla\,\vec \xi \dL{d}
@@ -772,9 +770,9 @@ where $\|\Gamma^m - \Gamma(t_m)\|_{L^\infty} :=
 and
 \begin{equation*}
 \LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2 
-\right]^\frac12 .
+\right]^\frac12\,,
 \end{equation*}
-\footnote{State the degree of the quadrature rule.}
+where for the $L^2$--norms over $\Omega$ we employ a quadrature rule of degree $k$, with $k=13$ in 2d and $k=10$ in 3d.
 
 \subsection{Numerical results in 2d} \label{subsec:numerical_results_2d}
 \setcounter{equation} 0
@@ -826,7 +824,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $C
 \ifthesis
 \begin{table*}
  \center
-\begin{tabular}{llHllHll}
+\begin{tabular}{llHllHl}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp1$ & $CPU[s]$ \\
 \hline
@@ -843,7 +841,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp1$ & $C
 
 \begin{table*}
  \center
-\begin{tabular}{llHllHll}
+\begin{tabular}{llHllHl}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ \\
 \hline
@@ -876,9 +874,9 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 \begin{table*}
  \center
  WRONG
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHl}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $CPU[s]$ \\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$ \\
 \hline
 0.05 & 0 & 0 & 0 & 2.29299e-03 & 2.56968e-03 & 34.238\\
 0.025 & 0 & 0 & 0 & 5.73192e-04 & 6.41969e-04 & 148.52\\
@@ -893,9 +891,9 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 \begin{table*}
  \center
  WRONG
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHl}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ \\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp1$ & $CPU[s]$ \\
 \hline
 0.05 & 8.17131e-03 & 2.01347e-03 & 9.84381e-03 & 4.00037e-01 & 1.54182e+00 & 23.498\\
 0.025 & 3.70473e-03 & 6.21265e-04 & 4.22674e-03 & 2.69354e-01 & 1.44315e+00 & 87.518\\
@@ -910,9 +908,9 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 \begin{table*}
  \center
  WRONG
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHl}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ \\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ \\
 \hline
 0.05 & 0 & 0 & 0 & 2.29299e-03 & 2.56968e-03 & 161.39\\
 0.025 & 0 & 0 & 0 & 5.73192e-04 & 6.41970e-04 & 1279.8\\
@@ -1046,7 +1044,7 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$\\
 Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0remesh} for what concern P2--P0 and in Table~\ref{tab:expandingbubble2Dp2p1p0remesh} for what concern P2--(P1+P0)  when a remeshing is performed at each time step and no smoothing is used.
 \begin{table*}
  \center
-\begin{tabular}{llHlHllll}
+\begin{tabular}{llHllHll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
@@ -1063,9 +1061,9 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $C
 \begin{table*}
  \center
  WRONG
-\begin{tabular}{llHlHllll}
+\begin{tabular}{llHllHll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ & $K_\Omega^T$\\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp1$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
 0.25 & 6.72793e-03 & 9.18724e-03 & 2.68895e-02 & 6.57692e-01 & 1.86246e+00 & 35.519 & 120\\
 0.1 & 7.86359e-03 & 4.26446e-03 & 1.53507e-02 & 4.63074e-01 & 1.83618e+00 & 1578.5 & 468\\
@@ -1079,7 +1077,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 
 \begin{table*}
  \center
-\begin{tabular}{llHlHllll}
+\begin{tabular}{llHllHll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
@@ -1095,7 +1093,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{
 Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0smooth} for what concern P2--P0 and in Table~\ref{tab:expandingbubble2Dp2p1p0smooth} for what concern P2--(P1+P0) when a smoothing with coefficient $C_s=1$ is performed at each time step and no remeshing is used.
 \begin{table*}
  \center 
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHl}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$\\
 \hline
@@ -1112,9 +1110,9 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $C
 \begin{table*}
  \center
  WRONG
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHl}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ \\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp1$ & $CPU[s]$ \\
 \hline
 0.25 & 4.54754e-03 & 7.20725e-03 & 1.91472e-02 & 5.39278e-01 & 1.86246e+00 & 37.779\\
 0.1 & 6.63921e-03 & 3.28381e-03 & 1.25620e-02 & 3.32005e-01 & 1.83618e+00 & 2145.6\\
@@ -1129,9 +1127,9 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 \begin{table*}
  \center
  WRONG
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHl}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$\\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$\\
 \hline
 0.25 & 9.75830e-03 & 1.47842e-03 & 3.87930e-03 & 1.50724e-01 & 5.85530e-01 & 46.73\\
 0.1 & 1.77013e-03 & 4.39215e-04 & 1.69488e-03 & 2.69416e-02 & 1.83356e-01 & 2448.5\\
@@ -1145,15 +1143,14 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\err
 In order to choose the better remeshing coefficient $C_r$ several experiment were carried out. Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0bothdiffcr} with a starting characteristic length $c_l=0.1$, using P2--P0 polynomials and smoothing coefficient $C_s=1$. The better result are obtained with $C_r=3$ because it reduces the number of remeshing compared to $C_r=2$ while keeping the same performance and error quality. For this reason we are going to use this parameter for the other simulations.
 \begin{table*}
  \center
- WRONG
-\begin{tabular}{llHlHllll}
+\begin{tabular}{llHllHll}
 \hline
-$C_r$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
+$C_r$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
-2 & 1.71500e-03 & 1.07788e-04 & 8.66903e-04 & 1.84060e-02 & 4.56430e-02 & 1494.2 & 452\\
-3 & 1.72575e-03 & 1.03609e-04 & 7.19812e-04 & 1.83599e-02 & 4.56430e-02 & 1561.3 & 468\\
-4 & 1.73115e-03 & 1.29324e-04 & 8.85266e-04 & 1.83974e-02 & 4.56430e-02 & 1657.7 & 504\\
-5 & 1.72580e-03 & 1.03604e-04 & 7.20310e-04 & 1.83590e-02 & 4.56430e-02 & 1497.3 & 468\\
+2 & 1.46658e-03 & 1.05801e-04 & 8.73227e-04 & 2.14589e-01 & 3.68834e-02 & 4297 & 452\\
+3 & 1.47162e-03 & 1.02085e-04 & 7.19650e-04 & 2.13599e-01 & 3.68834e-02 & 3919 & 468\\
+4 & 1.46761e-03 & 1.27330e-04 & 8.55458e-04 & 2.19071e-01 & 3.68834e-02 & 4682 & 504\\
+5 & 1.47218e-03 & 1.26419e-04 & 7.20711e-04 & 2.12456e-01 & 3.68834e-02 & 4775& 468\\
 \hline
 \end{tabular}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, $c_l=0.1$ and uniform mesh.}
@@ -1163,14 +1160,13 @@ $C_r$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0all} for what concern P2--P0 and in Table~\ref{tab:expandingbubble2Dp2p1p0all} for what concern P2--(P1+P0) whit remeshing coefficient $C_r=3$ and with smoothing coefficient $C_s=1$.
 \begin{table*}
  \center
- WRONG
-\begin{tabular}{llHlHllll}
+\begin{tabular}{llHllHll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
-0.25 & 9.54922e-03 & 8.91817e-04 & 3.28947e-03 & 1.45205e-01 & 3.72132e-01 & 44.892 & 184\\
-0.1 & 1.72575e-03 & 1.03609e-04 & 7.19812e-04 & 1.83599e-02 & 4.56430e-02 & 1561.3 & 468\\
-0.05 & 3.66047e-04 & 1.50674e-05 & 1.74840e-04 & 2.88134e-03 & 7.63707e-03 & 63215 & 1864\\
+0.25 & 5.94696e-03 & 6.21713e-04 & 3.34287e-03 & 4.44516e-01 & 1.52251e-01 & 266 & 184\\
+0.1 & 1.47162e-03 & 1.02085e-04 & 7.19650e-04 & 2.13599e-01 & 3.68834e-02 & 3919 & 468\\
+0.05 & 3.65449e-04 & 1.50098e-05 & 1.74918e-04 & 8.19570e-02 & 9.20480e-03 & 80437 & 1864\\
 \hline
 \end{tabular}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time interval $[0,1]$ for the P2--P0 element, $C_s=1$, $C_r=3$ and uniform mesh.}
@@ -1181,9 +1177,9 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp0$ & $\errorPp0$ & $
 \begin{table*}
  \center
  WRONG
-\begin{tabular}{llHlHllll}
+\begin{tabular}{llHllHll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ & $K_\Omega^T$\\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp1$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
 0.25 & 6.69114e-03 & 9.11156e-03 & 2.72737e-02 & 6.48539e-01 & 1.86246e+00 & 35.888 & 164\\
 0.1 & 7.47170e-03 & 3.94367e-03 & 1.51501e-02 & 4.24146e-01 & 1.83618e+00 & 1718.3 & 468\\
@@ -1198,9 +1194,9 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 \begin{table*}
  \center
  WRONG
-\begin{tabular}{llHlHllll}
+\begin{tabular}{llHllHll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ & $K_\Omega^T$\\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
 0.25 & 9.67194e-03 & 9.20512e-04 & 3.73007e-03 & 1.46187e-01 & 5.85530e-01 & 46.025 & 184\\
 0.1 & 1.73742e-03 & 2.23657e-04 & 2.82615e-03 & 2.51153e-02 & 4.02237e-01 & 1794.2 & 468\\
@@ -1247,7 +1243,7 @@ $c_{l,\Gamma}$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0adaptive} for what concern P2--P0 and in Table~\ref{tab:expandingbubble2Dp2p1p0adaptive} for what concern P2--(P1+P0).
 \begin{table*}
  \center
-\begin{tabular}{llHlHllll}
+\begin{tabular}{llHllHll}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
@@ -1265,9 +1261,9 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $C
 \begin{table*}
  \center
  WRONG
-\begin{tabular}{llHlHllll}
+\begin{tabular}{llHllHll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ & $K_\Omega^T$\\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp1$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
 0.05 & 5.83738e-03 & 2.53548e-03 & 1.02947e-02 & 4.02004e-01 & 1.55842e+00 & 539.24 & 546\\
 0.025 & 2.96051e-03 & 9.44063e-04 & 5.17811e-03 & 2.54813e-01 & 1.46784e+00 & 8499.5 & 1212\\
@@ -1282,9 +1278,9 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 \begin{table*}
  \center
  WRONG
-\begin{tabular}{llHlHllll}
+\begin{tabular}{llHllHll}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp{1,\rm{DG}}$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ & $K_\Omega^T$\\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ & $K_\Omega^T$\\
 \hline
 0.05 & 1.07834e-03 & 6.59317e-04 & 3.26722e-03 & 3.20463e-02 & 3.07658e-01 & 631.62 & 564\\
 0.025 & 3.18849e-04 & 5.16850e-04 & 3.13403e-03 & 2.21693e-02 & 3.07668e-01 & 10836 & 1236\\
@@ -1375,7 +1371,7 @@ Since the solution is stationary, neither smoothing nor remeshing is performed.
 Some errors for our numerical scheme can be seen in Table~\ref{tab:bubble3Dp2p0} for the P2--P0 element and in Table~\ref{tab:bubble3Dp2p1p0} for the P2--(P1+P0). 
 \begin{table*}
  \center
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHl}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$ \\
 \hline
@@ -1391,14 +1387,13 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $C
 \ifthesis
 \begin{table*}
  \center
- WRONG
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHl}
 \hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $CPU[s]$ \\
+$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp1$ & $CPU[s]$ \\
 \hline
-0.5 & 1.34231e-01 & 5.95039e-02 & 1.04966e-01 & 3.54657e+00 & 8.81248e+00 & 358.11\\
-0.25 & 7.60042e-02 & 3.14735e-02 & 7.26802e-02 & 1.94421e+00 & 3.75606e+00 & 2762.3\\
-0.125 & 4.03084e-02 & 1.34315e-02 & 4.30264e-02 & 1.38833e+00 & 3.73339e+00 & 33051\\
+0.5 & 1.56938e-01 & 6.01956e-02 & 1.12442e-01 & 2.10996e+00 & 8.83403e+00 & 315\\
+0.25 & 7.28946e-02 & 3.13992e-02 & 6.81154e-02 & 1.47595e+00 & 3.75404e+00 & 4231\\
+596 & 4.04291e-02 & 1.34276e-02 & 4.30474e-02 & 1.09674e+00 & 3.73351e+00 & 51287\\
 \hline
 \end{tabular}
 \caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time interval $[0,1]$ for the P2--P1 element, stationary uniform mesh.}
@@ -1408,7 +1403,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp1$ & $\errorPp1$ & $
 
 \begin{table*}
  \center
-\begin{tabular}{llHlHlll}
+\begin{tabular}{llHllHl}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{DG}}$ & $CPU[s]$ \\
 \hline
