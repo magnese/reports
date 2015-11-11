@@ -30,7 +30,7 @@
 \newcommand{\id}{\rm id}
 \newcommand{\ddt}{\frac{\rm d}{{\rm d}t}}
 \newcommand{\NbulkT}{\vec{N}_{\Gamma,\Omega}^T}
-\newcommand{\Nbulk}{\vec{N}_{\Gamma,\Omega}} 
+\newcommand{\Nbulk}{\vec{N}_{\Gamma,\Omega}}
 \newcommand{\errorXx}{\|\Gamma^h - \Gamma\|_{L^\infty}}
 \newcommand{\LerrorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{L^2(\Omega_T)}}
 \newcommand{\errorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{L^\infty}}
@@ -62,7 +62,7 @@ We propose a novel fitted finite element method for two-phase Stokes flow proble
 moving interface. The method can be shown to be unconditionally stable. Moreover, spherical stationary solutions are captured exactly by the numerical approximation. In addition, the meshes describing the discrete interface in general do not deteriorate in time, which means that in numerical simulations a smoothing or a remeshing of the interface mesh is not necessary. We present several numerical experiments for our numerical method, which demonstrate the accuracy and robustness of the proposed algorithm.
 \end{abstract}
 
-\begin{keywords} 
+\begin{keywords}
 viscous incompressible two-phase flow, Stokes equations, free boundary problem, surface tension, finite elements, front tracking
 \end{keywords}
 
@@ -71,7 +71,7 @@ Fluid flow problems with a moving interface are encountered in many applications
 efficient numerical methods for these flows is an important problem and has attracted tremendous interest over the last decade. Apart from the usual difficulties arising from the numerical computation of the fluid flow in the bulk, the acurate approximation of the moving free interface, as well as a suitable description of the conditions that need to hold on the interface, pose serious challenges. Of particular importance is the precise inclusion of surface tension terms, and the correct handling of discontinuity jumps in material properties and pressure at the interface, in order to suppress spurious velocities, which are also called parasitic currents.
 
 In this paper we propose a novel finite element approximation for incompressible two-phase Stokes flow that naturally avoids spurious velocities. Our scheme is based on the numerical method introduced in \cite{spurious}, and so uses piecewise linear parametric finite elements to describe the moving discrete interface. In contrast to \cite{spurious}, where the interface and the bulk mesh were totally independent, here we pursue the fitted approach. That means that the interface discretization is always fitted to the bulk mesh, i.e.\ the discrete interface is made up of edges/faces of element belonging to the bulk mesh. An advantage of our method is that the discontinuity jumps in material properties and in the pressure are captured naturally. In particular, we do not need to employ an XFEM-type extension of standard bulk pressure spaces.
-Surface tension forces are discretized with the help of a variational approximation of curvature that was first proposed in \cite{triplej,gflows3d}. Combining this was an implicit treatment of the surface tension forces yields an unconditionally stable scheme. Interestingly, the formulation of curvature from \cite{triplej} leads to a tangential motion of vertices in practice, which guarantees equidistribution in 2d and good meshes in 3d. Overall, our proposed method has the following properties. 
+Surface tension forces are discretized with the help of a variational approximation of curvature that was first proposed in \cite{triplej,gflows3d}. Combining this was an implicit treatment of the surface tension forces yields an unconditionally stable scheme. Interestingly, the formulation of curvature from \cite{triplej} leads to a tangential motion of vertices in practice, which guarantees equidistribution in 2d and good meshes in 3d. Overall, our proposed method has the following properties.
 \begin{itemize}
 \item The fully discrete scheme is unconditionally stable in the sense that the total surface energy is monotonically decreasing independent of the chosen time step size.
 \item In the absence of outer forces, any discrete solution with a stationary interface must have zero velocity globally, i.e.\ we can prove that there are no stationary solutions with spurious velocities. Similarly, discrete stationary solutions for spherical interface are attained for our scheme.
@@ -82,10 +82,10 @@ Surface tension forces are discretized with the help of a variational approximat
 \item The fully discrete scheme uses an implicit approximation of curvature that leads to a linear system of equations to be solved at each time step.
 \end{itemize}
 
-Let us briefly discuss alternative approaches to the numerical approximation of two-phase flow problems. In this paper we use a direct description of the interface using a parameterization of the unknown interface. In such direct approaches, which are often called front-tracking methods, the interface is either triangulated or presented by a connected set of particles. The discrete interface is advected with the help of the bulk fluid velocities, and quantities on the interface need to be suitably coupled to the bulk equations. We refer e.g.\ to 
+Let us briefly discuss alternative approaches to the numerical approximation of two-phase flow problems. In this paper we use a direct description of the interface using a parameterization of the unknown interface. In such direct approaches, which are often called front-tracking methods, the interface is either triangulated or presented by a connected set of particles. The discrete interface is advected with the help of the bulk fluid velocities, and quantities on the interface need to be suitably coupled to the bulk equations. We refer e.g.\ to
 \cite{UnverdiT92,Bansch01,Tryggvason_etal01,GanesanMT07,GanesanT08,spurious} for further details, and to \cite{LevequeL97,Peskin02} for the
 related immersed boundary method. Another class of approaches is based on interface capturing methods using an indicator function to
-describe the interface. The volume of fluid (VOF) method and the level set  method fall into this category. In the former, the characteristic function of one of the phases is approximated numerically, see e.g.\ \cite{HirtN81,RenardyR02,Popinet09}; whereas in the latter, the interface is given as the level set of a function, which has to be determined, see e.g.\ \cite{SussmanSO94,Sethian99,OsherF03,GrossR07}. 
+describe the interface. The volume of fluid (VOF) method and the level set  method fall into this category. In the former, the characteristic function of one of the phases is approximated numerically, see e.g.\ \cite{HirtN81,RenardyR02,Popinet09}; whereas in the latter, the interface is given as the level set of a function, which has to be determined, see e.g.\ \cite{SussmanSO94,Sethian99,OsherF03,GrossR07}.
 In phase field methods the interface is assumed to have a small, but positive, thickness and an additional parabolic equation, defined in the whole domain, has to be solved in these so-called diffuse interface models. We refer to \cite{HohenbergH77,AndersonMW98,LowengrubT98,Feng06,KaySW08,AbelsGG12,GrunK14} for details.
 
 The remainder of this paper is organized as follows. In Section~\ref{sec:2} we present the mathematical model and the weak formulation on which our finite element approximation is going to be based. Our numerical method is presented in Section~\ref{sec:3}, together with proofs for its main properties. In addition, we describe how the arising linear systems of equations are solved in practice, and we give details on our mesh generation and smoothing procedures. Finally, in Section~\ref{sec:4} we present several numerical simulations in 2d and 3d.
@@ -140,14 +140,14 @@ In order to define the model, we introduce the stress tensor $\mat\sigma : \Omeg
 \mat\sigma = \mu \,(\nabla\,\vec u + (\nabla\,\vec u)^T) - p\,\mat\id = 2\,\mu\, \mat D(\vec u)-p\,\mat\id\,,
 \end{equation}
 where $\vec u : \Omega \times [0, T] \to \R^d$ is the fluid velocity, $p : \Omega \times [0, T] \to \R$ is the pressure and $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$, with $\mu_\pm \in \R_{>0}$, denotes the dynamic viscosities in the two phases.
- 
+
 We denote the identity matrix as $\mat\id \in \R^{d \times d}$, $\mat D(\vec u):=\frac12\, (\nabla\vec u+(\nabla\vec u)^T)$ is the rate-of-deformation tensor and $\charfcn{\mathcal{A}}$ defines the characteristic function for a set $\mathcal{A}$.
 
-For low Reynolds numbers one can neglect the inertia terms, and so the equations governing the fluid are 
+For low Reynolds numbers one can neglect the inertia terms, and so the equations governing the fluid are
 \begin{subequations}
 \begin{alignat}{2}
 - \nabla\,.\,\mat\sigma & = \vec f \qquad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:stokes_momentum} \\
-\nabla\,.\,\vec u & = 0 \qquad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:stokes_mass}   
+\nabla\,.\,\vec u & = 0 \qquad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:stokes_mass}
 \end{alignat}
 \end{subequations}
 where $\vec f : \Omega \times [0, T] \to \R^d$ is the forcing term.
@@ -155,13 +155,13 @@ where $\vec f : \Omega \times [0, T] \to \R^d$ is the forcing term.
 On the free surface $\Gamma(t)$, the following conditions need to hold:
 \begin{subequations}
 \begin{alignat}{2}
-[\vec u]_-^+ & = \vec 0 \qquad &&\mbox{on } \Gamma(t)\,, \label{eq:interface_jump_velocity} \\ 
-[\mat\sigma\,\vec \nu]_-^+ & = -\gamma\,\varkappa\,\vec\nu \qquad &&\mbox{on } \Gamma(t)\,, \label{eq:interface_jump_stress} \\ 
-\mathcal{V} &= \vec u\,.\,\vec \nu \qquad &&\mbox{on } \Gamma(t)\,, \label{eq:interface_velocity} 
+[\vec u]_-^+ & = \vec 0 \qquad &&\mbox{on } \Gamma(t)\,, \label{eq:interface_jump_velocity} \\
+[\mat\sigma\,\vec \nu]_-^+ & = -\gamma\,\varkappa\,\vec\nu \qquad &&\mbox{on } \Gamma(t)\,, \label{eq:interface_jump_stress} \\
+\mathcal{V} &= \vec u\,.\,\vec \nu \qquad &&\mbox{on } \Gamma(t)\,, \label{eq:interface_velocity}
 \end{alignat}
 \end{subequations}
 where $\gamma>0$ is the surface tension coefficient and $\varkappa$ denotes the mean curvature of $\Gamma(t)$, i.e.\ the sum of the principal curvatures of $\Gamma(t)$, where we have adopted the sign convention that $\varkappa$ is negative where $\Omega_-(t)$ is locally convex. To close the system we prescribe the initial data $\Gamma(0) = \Gamma_0$ and the boundary condition $\vec u = \vec 0$ on $\partial \Omega$. We note that (\ref{eq:interface_velocity}) can be rewritten as
-\begin{equation} \label{eq:interface_velocity_bis} 
+\begin{equation} \label{eq:interface_velocity_bis}
 (\vec{\mathcal{V}}-\vec u)\,.\,\vec{\nu} = 0 \qquad \mbox{on } \Gamma(t)\, .
 \end{equation}
 
@@ -173,13 +173,13 @@ Therefore the total system can be rewritten as
 -2 \mu\,\nabla\,.\,\mat D(\vec u)+ \nabla\,p & = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:full_momentum} \\
 \nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:full_mass} \\
 \vec u & = \vec 0 \qquad &&\mbox{on } \partial\Omega\,, \label{eq:full_initial_velocity} \\
-[\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,, \label{eq:full_jump_velocity} \\ 
-[2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ & = -\gamma\,\varkappa\,\vec\nu \quad &&\mbox{on } \Gamma(t)\,, \label{eq:full_jump_stress} \\ 
+[\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,, \label{eq:full_jump_velocity} \\
+[2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ & = -\gamma\,\varkappa\,\vec\nu \quad &&\mbox{on } \Gamma(t)\,, \label{eq:full_jump_stress} \\
 (\vec{\mathcal{V}}-\vec u)\,.\,\vec{\nu} & = 0 \quad &&\mbox{on } \Gamma(t)\,,\label{eq:full_velocity}  \\
-\Gamma(0) & = \Gamma_0 \,,\label{eq:full_initial_interface} 
+\Gamma(0) & = \Gamma_0 \,,\label{eq:full_initial_interface}
 \end{alignat}
 \end{subequations}
-which is appropriate for the weak formulation considered in this paper. 
+which is appropriate for the weak formulation considered in this paper.
 
 \ifthesis
 We can notice that for the one--phase Stokes flow, $\mu_+=\mu_-=\mu$, using the incompressibility condition (\ref{eq:full_mass}) we have
@@ -196,7 +196,7 @@ which is the canonical form of the one--phase Stokes problem.
 \section{Energy bound and fluid volumes} \label{sec:volume_conservation}
 \setcounter{equation} 0
 
-First of all an a priori energy bound holds and the numerical scheme should preserve it. We start noting that for the left hand side of (\ref{eq:stokes_momentum}) holds, $\forall \ \vec \xi \in H^1_0(\Omega, \R^d)$, the identity 
+First of all an a priori energy bound holds and the numerical scheme should preserve it. We start noting that for the left hand side of (\ref{eq:stokes_momentum}) holds, $\forall \ \vec \xi \in H^1_0(\Omega, \R^d)$, the identity
 \begin{equation}\label{eq:weak_stress_tensor}
 \int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec \xi \dL{d}  = - \int_{\Omega} \mat\sigma : \nabla\,\vec \xi \dL{d}
 - \int_{\Gamma(t)} [\mat\sigma\,\vec\nu]_-^+\, . \,\vec \xi  \dH{d-1}.
@@ -210,9 +210,9 @@ Choosing $\vec \xi=\vec u$ then gives, on recalling (\ref{eq:stokes_mass}),
 \begin{equation}\label{eq:sigmaibp}
 \int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec u \dL{d} = -\int_{\Omega} 2\,\mu\,\mat D(\vec u) : \mat D(\vec u) \dL{d} + \gamma \int_{\Gamma(t)} \varkappa\,\vec \nu \,.\, \vec u \dH{d-1}.
 \end{equation}
- Then using the identity, see \cite[Lemma~2.1]{DeckelnickDE05}, 
+ Then using the identity, see \cite[Lemma~2.1]{DeckelnickDE05},
 \begin{equation}\label{eq:dtarea}
-\ddt\,\mathcal{H}^{d-1}(\Gamma(t)) = -\int_{\Gamma(t)} \varkappa\,\mathcal{V} \dH{d-1} \,, 
+\ddt\,\mathcal{H}^{d-1}(\Gamma(t)) = -\int_{\Gamma(t)} \varkappa\,\mathcal{V} \dH{d-1} \,,
 \end{equation}
 we obtain from (\ref{eq:sigmaibp}) that
 \begin{align}
@@ -222,7 +222,7 @@ we obtain from (\ref{eq:sigmaibp}) that
 
 Finally we show that during the evolution of the two--phase Stokes flow the fluid volumes are conserved. Indeed, due to the incompressibility condition, the volume of the two fluids is preserved since from (\ref{eq:full_mass},\ref{eq:full_velocity}) we have that
 \begin{align}
-\ddt \vol(\Omega_-(t)) & = \int_{\Gamma(t)} \mathcal{V}\dH{d-1}=\int_{\Gamma(t)}\vec u\,.\,\vec\nu \dH{d-1} \nonumber \\ 
+\ddt \vol(\Omega_-(t)) & = \int_{\Gamma(t)} \mathcal{V}\dH{d-1}=\int_{\Gamma(t)}\vec u\,.\,\vec\nu \dH{d-1} \nonumber \\
 & = \int_{\Omega_-(t)} \nabla\,.\,\vec u \dL{d} =0\,. \label{eq:conserved}
 \end{align}
 It will be our aim to introduce a fitted FEM for two--phase Stokes flow that satisfies discrete analogous of (\ref{eq:length}) and (\ref{eq:conserved}).
@@ -236,13 +236,13 @@ In order to compute a discrete version of the mean curvature for polyhedral surf
 \begin{equation} \label{eq:LBop}
 \Delta_s\, \vec \id = \varkappa\, \vec\nu \qquad \mbox{on $\Gamma(t)$}\,,
 \end{equation}
-where $\Delta_s = \nabs\,.\,\nabs$ is the Laplace--Beltrami operator on $\Gamma(t)$ with $\nabs\,.\,$ and $\nabs$ denoting surface divergence and surface gradient on $\Gamma(t)$, respectively. 
+where $\Delta_s = \nabs\,.\,\nabs$ is the Laplace--Beltrami operator on $\Gamma(t)$ with $\nabs\,.\,$ and $\nabs$ denoting surface divergence and surface gradient on $\Gamma(t)$, respectively.
 
 Precisely, $\nabla_s$ is the tangential gradient defined as
 \begin{equation}\label{eq:tangent_gradient}
  \nabla_s f(\vec{p})=\nabla f(\vec{p})-\nabla f(p)\,.\,\vec{\nu}(\vec{p})\,\vec{\nu}(\vec{p}),\qquad \vec{p}\in\Gamma(t),
 \end{equation}
-for a smooth function $f$ defined in a neighbourhood of $\Gamma(t)$. 
+for a smooth function $f$ defined in a neighbourhood of $\Gamma(t)$.
 
 It is possible to use a weak formulation of this identity discretizing directly the vector quantity $\vec\varkappa:=\varkappa\,\vec\nu$, see in \cite{Dziuk91,Bansch01,GanesanMT07}. Instead we follow the approach introduced in \cite{triplej} for $d=2$ and in \cite{gflows3d} for
 $d=3$ which treats the mean curvature as a scalar and we discretize it separately from the normal $\vec\nu$. This approach leads to good mesh property and to a smaller algebraic system.
@@ -255,8 +255,8 @@ $d=3$ which treats the mean curvature as a scalar and we discretize it separatel
 In order to obtain a weak formulation, we define the function spaces
 \begin{align*}
 \uspace &:= H^1_0(\Omega, \R^d)\,,\qquad \pspace := L^2(\Omega)\,, \qquad \widehat\pspace := \{\eta\in\pspace : \int_\Omega\eta\dL{d}=0 \}\,,\\
-\xspace &:= H^1(\Upsilon,\R^d) \qquad\mbox{and}\qquad \kspace := L^2(\Upsilon,\R)\,, 
-\end{align*}  
+\xspace &:= H^1(\Upsilon,\R^d) \qquad\mbox{and}\qquad \kspace := L^2(\Upsilon,\R)\,,
+\end{align*}
 and let $(\cdot,\cdot)$ and $\langle \cdot, \cdot \rangle_{\Gamma(t)}$ denote the $L^2$--inner products on $\Omega$ and $\Gamma(t)$, respectively. On recalling (\ref{eq:sigmaibp}) and using also (\ref{eq:LBop}), a possible weak formulation of (\ref{eq:full_momentum}--g) is then given as follows. Find the interface $\Gamma(t)$ and time dependent functions $\vec u$, $p$ and $\varkappa$ such that $\vec u(\cdot,t) \in \uspace$, $p(\cdot,t) \in \widehat\pspace$, $\varkappa(\cdot,t) \in \kspace$ and
 
 \begin{subequations}
@@ -273,10 +273,10 @@ holds for almost all times $t \in (0,T]$, as well as the initial condition (\ref
 \section{Finite element approximation}\label{sec:fem}
 \setcounter{equation} 0
 
-We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of $[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0 ,\ldots, M-1$ and the regular partitioning ${\cal T}^m$, $\forall m\ge 0$, of the domain $\Omega$ into disjoint open simplices $\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. 
+We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of $[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0 ,\ldots, M-1$ and the regular partitioning ${\cal T}^m$, $\forall m\ge 0$, of the domain $\Omega$ into disjoint open simplices $\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$.
 
 On ${\cal T}^m$ we define the finite element spaces
-\begin{equation*} 
+\begin{equation*}
  S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m} \in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\} \subset H^1(\Omega),\quad k \in \mathbb{N}\,,
 \end{equation*}
 where $\mathcal{P}_k(\sigmaO^m)$ denotes the space of polynomials of degree $k$ on $\sigmaO^m$. Moreover, $S^m_0$ is the space of piecewise constant functions on ${\cal T}^m$.
@@ -285,7 +285,7 @@ Let $\uspace^m\subset\uspace$ and $\pspace^m\subset\pspace$ be the finite elemen
 \begin{equation} \label{eq:LBB}
 \inf_{\varphi \in \widehat\pspace^m} \sup_{\vec \xi \in \uspace^m} \frac{( \varphi, \nabla \,.\,\vec \xi)} {\|\varphi\|_0\,\|\vec \xi\|_1} \geq C_0 > 0\,,
 \end{equation}
-where $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ is the $H^1$--norm on $\Omega$, see \cite[p.~114]{GiraultR86}. 
+where $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ is the $H^1$--norm on $\Omega$, see \cite[p.~114]{GiraultR86}.
 
 Since $C_0$ needs to be strictly positive, we have to take the reduced pressure space $\widehat\pspace^m$ in (\ref{eq:LBB}) because
 \begin{equation*}
@@ -295,7 +295,7 @@ where $\unitn$ denotes the outer unit normal to $\Omega$.
 
 In our simulations, we use the elements P2--P0 and P2--(P1+P0) setting $\uspace^m=[S^m_2]^d\cap\uspace$ and $\pspace^m = S^m_0$ or $S^m_1+S^m_0$, respectively. Both these elements satisfy the LBB condition (\ref{eq:LBB}). We remark that the result for P2--(P1+P0) needs the weak constraint that all simplices have a vertex in $\Omega$, see \cite{BoffiCGG12}.
 
-Let $\Gamma^{m}\subset\R^d$ be a $(d-1)$-dimensional polyhedral surface approximating the closed surface $\Gamma(t_m)$, $m=0 ,\ldots, M$. More precisely $\Gamma^m=\bigcup_{j=1}^{J^m_\Gamma} \overline{\sigma^m_j}$, where $\{\sigma^m_j\}_{j=1}^{J^m_\Gamma}$ is a family of mutually disjoint open $(d-1)$-simplices with vertices $\{\vec{q}^m_k\}_{k=1}^{K^m_\Gamma}$. 
+Let $\Gamma^{m}\subset\R^d$ be a $(d-1)$-dimensional polyhedral surface approximating the closed surface $\Gamma(t_m)$, $m=0 ,\ldots, M$. More precisely $\Gamma^m=\bigcup_{j=1}^{J^m_\Gamma} \overline{\sigma^m_j}$, where $\{\sigma^m_j\}_{j=1}^{J^m_\Gamma}$ is a family of mutually disjoint open $(d-1)$-simplices with vertices $\{\vec{q}^m_k\}_{k=1}^{K^m_\Gamma}$.
 
 Similarly to \cite{gflows3d}, we introduce the following discrete spaces, based on the work of Dziuk, \cite{Dziuk91}. Then for $m =0 ,\ldots, M-1$, let $\Vh := \{\vec\chi \in C(\Gamma^m,\R^d):\vec\chi\!\mid_{\sigma^m_j} \in \mathcal{P}_1(\sigma^m_j), j=1,\ldots, J^m_\Gamma\} =: [\Wh]^d \subset H^1(\Gamma^m,\R^d)$, where $\Wh \subset H^1(\Gamma^m,\R)$ is the space of scalar continuous piecewise linear functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K^m_\Gamma}$ denoting the standard basis of $\Wh$.
 
@@ -324,7 +324,7 @@ The finite element approximation used is the following one. Let $\Gamma^0$, an a
 \end{subequations}
 and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$. Here we have defined $\vec f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$, where $\vec I^m_2$ is the standard interpolation operator onto $[S^m_2]^d$ and $\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0$. Note that here $\nabs$ denotes the surface gradient on $\Gamma^m$, and so it depends on $m$. We observe that (\ref{eq:HGa}--d) is a linear scheme in that it leads to a linear system of equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})$ at each time level.
 
-With a view towards some numerical test cases in Section~\ref{sec:numerical_results}, we also allow for an inhomogeneous Dirichlet boundary condition $\vec g$ on $\partial\Omega$. Therefore, in this case, (\ref{eq:HGb}) becomes 
+With a view towards some numerical test cases in Section~\ref{sec:numerical_results}, we also allow for an inhomogeneous Dirichlet boundary condition $\vec g$ on $\partial\Omega$. Therefore, in this case, (\ref{eq:HGb}) becomes
 \begin{equation} \label{eq:LAb}
  \left(\nabla\,.\,\vec U^{m+1}, \varphi\right) = \frac{\left(\varphi, 1\right)}{\mathcal{L}^d(\Omega)}\, \int_{\partial\Omega} (\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in \pspace^m\,.
 \end{equation}
@@ -348,21 +348,21 @@ Moreover we introduce the piecewise linear vertex normal function
 \begin{equation} \label{eq:omega}
 \vec\omega^m := \sum_{k=1}^{K^m_\Gamma} \chi^m_k\,\vec\omega^m_k \in \Vh \,,
 \end{equation}
-and, on recalling (\ref{eq:masslump}), note that 
+and, on recalling (\ref{eq:masslump}), note that
 \begin{subequations}
-\begin{equation}\label{eq:NI} 
+\begin{equation}\label{eq:NI}
 \left\langle \vec{v}, w\,\vec\nu^m\right\rangle_{\Gamma^m}^h = \left\langle \vec{v}, w\,\vec\omega^m\right\rangle_{\Gamma^m}^h \quad \forall\ \vec{v} \in \Vh\,,\ w \in \Wh \,.
 \end{equation}
 and
-\begin{equation}\label{eq:NI1} 
-\left\langle \vec{v}, \vec\omega^m\right\rangle_{\Gamma^m}^h = \left\langle \vec{v}, \vec\nu^m\right\rangle_{\Gamma^m}^h = \left\langle \vec{v}, \vec\nu^m\right\rangle_{\Gamma^m} \quad \forall\ \vec{v} \in \Vh\,. 
+\begin{equation}\label{eq:NI1}
+\left\langle \vec{v}, \vec\omega^m\right\rangle_{\Gamma^m}^h = \left\langle \vec{v}, \vec\nu^m\right\rangle_{\Gamma^m}^h = \left\langle \vec{v}, \vec\nu^m\right\rangle_{\Gamma^m} \quad \forall\ \vec{v} \in \Vh\,.
 \end{equation}
 \end{subequations}
 
-We can prove the existence of a unique solution to (\ref{eq:HGa}--d) under some natural conditions. 
+We can prove the existence of a unique solution to (\ref{eq:HGa}--d) under some natural conditions.
 \begin{thm} \label{thm:stab}
-Let the assumption ($\mathcal{A}$) hold, and let $(\uspace^m,\widehat \pspace^m)$ satisfy the LBB condition (\ref{eq:LBB}), $m=0 ,\ldots, M-1$. 
-Then for $m=0 ,\ldots, M-1$ there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat\pspace^m \times \Vh \times \Wh$ to (\ref{eq:HGa}--d). 
+Let the assumption ($\mathcal{A}$) hold, and let $(\uspace^m,\widehat \pspace^m)$ satisfy the LBB condition (\ref{eq:LBB}), $m=0 ,\ldots, M-1$.
+Then for $m=0 ,\ldots, M-1$ there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat\pspace^m \times \Vh \times \Wh$ to (\ref{eq:HGa}--d).
 \end{thm}
 \begin{proof}
 As the system (\ref{eq:HGa}--d) is linear, existence follows from uniqueness. In order to establish the latter, we consider the system: Find $(\vec U, P, \vec{X}, \kappa) \in \uspace^m\times\widehat\pspace^m \times \Vh \times \Wh$ such that
@@ -377,7 +377,7 @@ As the system (\ref{eq:HGa}--d) is linear, existence follows from uniqueness. In
 \end{subequations}
 Choosing $\vec\xi=\vec U$ in (\ref{eq:proofa}), $\varphi =  P$ in (\ref{eq:proofb}), $\chi = \gamma\,\kappa$ in (\ref{eq:proofc}) and $\vec\eta=\gamma\,\vec{X}$ in (\ref{eq:proofd}) yields that
 \begin{equation}
-2\,\tau_m\left(\mu^m\,\mat D(\vec U), \mat D(\vec U) \right) + \gamma\,\left\langle \nabs\,\vec{X}, \nabs\,\vec{X} \right\rangle_{\Gamma^m} 
+2\,\tau_m\left(\mu^m\,\mat D(\vec U), \mat D(\vec U) \right) + \gamma\,\left\langle \nabs\,\vec{X}, \nabs\,\vec{X} \right\rangle_{\Gamma^m}
 =0\,. \label{eq:proof2}
 \end{equation}
 It immediately follows from (\ref{eq:proof2}) and Korn's inequality that $\vec U = \vec 0$. In addition, it holds that $\vec{X} = \vec{X}_c \in \R^d$\footnote{What is $\vec{X}_c$? Never defined before.}. Together with (\ref{eq:proofc}) for $\vec U=\vec 0$, (\ref{eq:NI}) and the assumption $(\mathcal{A})$ this immediately yields that $\vec{X} = \vec0$, while (\ref{eq:proofd}) with $\vec\eta=\vec\pi^m[\kappa\,\vec\omega^m]$, recall (\ref{eq:NI}), implies that $\kappa = 0$. Finally, it now follows from (\ref{eq:proofa}) with $\vec U = \vec 0$ and $\kappa = 0$, on recalling (\ref{eq:LBB}), that $P = 0$. Hence there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times
@@ -385,11 +385,11 @@ It immediately follows from (\ref{eq:proof2}) and Korn's inequality that $\vec U
 \end{proof}
 The proof of existence of an unique solution to the inhomogeneous system (\ref{eq:HGa},c,d), (\ref{eq:LAb}) is exactly the same.
 
-We define the reduced system (\ref{eq:HGa},c,d) with $\uspace^m$ replaced by 
+We define the reduced system (\ref{eq:HGa},c,d) with $\uspace^m$ replaced by
 \begin{equation*}
-\uspace^m_0 :=\{ \vec U \in \uspace^m : (\nabla\,.\,\vec U, \varphi) = 0 \quad \forall\ \varphi \in \widehat\pspace^m \} \,. 
+\uspace^m_0 :=\{ \vec U \in \uspace^m : (\nabla\,.\,\vec U, \varphi) = 0 \quad \forall\ \varphi \in \widehat\pspace^m \} \,.
 \end{equation*}
-Clearly, any solution $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat\pspace^m \times \Vh \times \Wh$ to 
+Clearly, any solution $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat\pspace^m \times \Vh \times \Wh$ to
 (\ref{eq:HGa}--d) is such that $(\vec U^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m_0 \times \Vh \times \Wh$ solves the reduced system (\ref{eq:HGa},c,d).
 
 We now demonstrate that the reduced system (\ref{eq:HGa},c,d) satisfies an energy estimate, which corresponds to the computation (\ref{eq:length}) in the continuous case and in particular, we obtain unconditional stability for our scheme.
@@ -416,7 +416,7 @@ Hence (\ref{eq:stab}) follows immediately, where we have used the result that
 see e.g.\ \cite[Proof of Theorem~2.3]{triplej} and \cite[Proof of Theorem~2.2]{gflows3d} for the proofs for $d=2$ and $d=3$, respectively. The desired result (\ref{eq:stabstab}) immediately follows from (\ref{eq:stab}).
 \end{proof}
 
-It is worthwhile to consider a continuous-in-time semidiscrete version of our scheme (\ref{eq:HGa}--d).  For $t\in [0,T]$, let $\mathcal{T}^h(t)$ be a regular partitioning of $\Omega$ into disjoint open simplices and define the finite element spaces $S^h_k(t)$, $\uspace^h(t)$ and $\pspace^h(t)$ similarly to $S^m_k$, $\uspace^m$ and $\pspace^m$, with the corresponding interpolation operators $I^h_k$ and 
+It is worthwhile to consider a continuous-in-time semidiscrete version of our scheme (\ref{eq:HGa}--d).  For $t\in [0,T]$, let $\mathcal{T}^h(t)$ be a regular partitioning of $\Omega$ into disjoint open simplices and define the finite element spaces $S^h_k(t)$, $\uspace^h(t)$ and $\pspace^h(t)$ similarly to $S^m_k$, $\uspace^m$ and $\pspace^m$, with the corresponding interpolation operators $I^h_k$ and
 discrete approximations $\mu^h(t) \in S^h_0(t)$, which will depend on $\Gamma^h(t)$. Then, given $\Gamma^h(0)$, for $t\in (0,T]$ find
 $\vec U^h(t) \in \uspace^h(t)$, $P^h(t) \in \widehat\pspace^h(t)$, $\vec{X}^h(t)\in \Vht$ and $\kappa^h(t) \in \Wht$ such that
 \begin{subequations}
@@ -439,7 +439,7 @@ which is the discrete analogue of  (\ref{eq:dtarea}) on noting (\ref{eq:sdd}). I
 \begin{equation}\label{eq:stabsd}
 \gamma\,\ddt\,\mathcal{H}^{d-1}(\Gamma^h(t)) + 2\,\|[\mu^h]^\frac12\,\mat D(\vec U^h)\|^2_{0} = \left(\vec f^h, \vec U^h\right) \,.
 \end{equation}
-Clearly, (\ref{eq:stabsd}) is the natural discrete analogue of (\ref{eq:length}). In addition, it is possible to prove that the vertices of $\Gamma^h(t)$ are well distributed. As this follows already from the equations (\ref{eq:sdd}), we refer to \cite{triplej,gflows3d} for further details. In particular, we observe that in the case $d=2$, i.e.\ for the planar two-phase problem, an equidistribution property for the vertices of $\Gamma^h(t)$ can be shown, while in the case $d=3$ it can be shown that $\Gamma^h(t)$ is a 
+Clearly, (\ref{eq:stabsd}) is the natural discrete analogue of (\ref{eq:length}). In addition, it is possible to prove that the vertices of $\Gamma^h(t)$ are well distributed. As this follows already from the equations (\ref{eq:sdd}), we refer to \cite{triplej,gflows3d} for further details. In particular, we observe that in the case $d=2$, i.e.\ for the planar two-phase problem, an equidistribution property for the vertices of $\Gamma^h(t)$ can be shown, while in the case $d=3$ it can be shown that $\Gamma^h(t)$ is a
 conformal polyhedral surface; see also (\ref{eq:conformal}) below.
 
 \section{Properties of discrete stationary solutions} \label{sec:discrete_solution_properties}
@@ -454,22 +454,22 @@ equidistributed, with the possible exception of elements $\sigma^m_j$ that are l
 
 Next we consider discrete stationary states when no outer forces act, i.e.\ when $\vec f = \vec 0$. Here, independently of the choice of $\mu_\pm$, no spurious velocities appear for discrete stationary solutions. Indeed, Theorem~\ref{thm:stabstab} has an immediate consequence.
 \begin{lem}\label{lem:stat1}
-Let $(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat \pspace^m\times \Vh\times\Wh$ be a solution to  (\ref{eq:HGa}--d) with $\vec f^{m+1} = \vec 0$. If $\vec X^{m+1} = \vec X^m$, then $\vec U^{m+1} = \vec 0$. 
+Let $(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat \pspace^m\times \Vh\times\Wh$ be a solution to  (\ref{eq:HGa}--d) with $\vec f^{m+1} = \vec 0$. If $\vec X^{m+1} = \vec X^m$, then $\vec U^{m+1} = \vec 0$.
 \end{lem}
 \begin{proof}
-The solution $(\vec U^{m+1}, \vec X^{m+1})$ fulfils (\ref{eq:stab}) with $\Gamma^{m+1}$ replaced by $\Gamma^m$ and  $\vec f^{m+1} = \vec 0$. Hence we obtain $(\mu^m\,\mat D (\vec U^{m+1}), \mat D(\vec U^{m+1})) = 0$, and so Korn's inequality implies $\vec U^{m+1} = \vec 0$. 
+The solution $(\vec U^{m+1}, \vec X^{m+1})$ fulfils (\ref{eq:stab}) with $\Gamma^{m+1}$ replaced by $\Gamma^m$ and  $\vec f^{m+1} = \vec 0$. Hence we obtain $(\mu^m\,\mat D (\vec U^{m+1}), \mat D(\vec U^{m+1})) = 0$, and so Korn's inequality implies $\vec U^{m+1} = \vec 0$.
 \end{proof}
 
-Finally, it holds that polyhedral surfaces with constant discrete mean curvature and zero velocity are stationary solutions. 
+Finally, it holds that polyhedral surfaces with constant discrete mean curvature and zero velocity are stationary solutions.
 \begin{lem} \label{lem:stat2}
 Let $\charfcn{\Omega_-^m} \in \pspace^m$ \footnote{Remove $\charfcn{\Omega_-^m}$.} and let $\Gamma^m$ be a polyhedral surface with constant discrete mean curvature, i.e.\ there exists a constant $\overline{\kappa}\in\mathbb{R}$ such that
 \begin{equation}\label{eq:constcurv}
 \overline{\kappa} \left\langle\vec\nu^m,\vec\eta\right\rangle_{\Gamma^m} + \left\langle \nabs\, \vec X^m,\nabs\ \vec\eta\right\rangle_{\Gamma^m}=0\quad \forall \,\vec\eta\in\Vh\,.
 \end{equation}
-Then $\Gamma^m$ satisfies (\ref{eq:conformal}) and $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m, \overline{\kappa}) \in\uspace^m_0\times\Vh\times \Wh$ is the unique solution to the reduced system (\ref{eq:HGa},c,d), with $\uspace^m$ replaced by $\uspace^m_0$,with $\vec f^{m+1} = \vec 0$. 
+Then $\Gamma^m$ satisfies (\ref{eq:conformal}) and $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m, \overline{\kappa}) \in\uspace^m_0\times\Vh\times \Wh$ is the unique solution to the reduced system (\ref{eq:HGa},c,d), with $\uspace^m$ replaced by $\uspace^m_0$,with $\vec f^{m+1} = \vec 0$.
 \end{lem}
-\begin{proof} 
-It immediately follows from (\ref{eq:NI}) that (\ref{eq:conformal}) holds. Theorem~\ref{thm:stab} implies that in order to establish the 
+\begin{proof}
+It immediately follows from (\ref{eq:NI}) that (\ref{eq:conformal}) holds. Theorem~\ref{thm:stab} implies that in order to establish the
 remaining result, we only need to show that $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m, \overline{\kappa})$ is a solution to (\ref{eq:HGa},c,d), with $\uspace^m$ replaced by $\uspace^m_0$, with $\vec f^{m+1} = \vec 0$. But this follows immediately from
 $\overline{\kappa}\,\langle\vec\nu^m,\vec\eta\rangle_{\Gamma^m} = \langle\overline{\kappa}\,\vec\nu^m,\vec\eta\rangle_{\Gamma^m}^h$ for all $\vec\eta \in \Vh$, and
 \begin{equation*}
@@ -477,18 +477,18 @@ $\overline{\kappa}\,\langle\vec\nu^m,\vec\eta\rangle_{\Gamma^m} = \langle\overli
 \end{equation*}
 \end{proof}
 
-A stationary solution to the continuous problem with $\vec f = \vec 0$ is a circle $(d=2)$ or a sphere $(d=3)$ with zero velocity and a piecewise constant pressure with a discontinuity across the interface, see (\ref{eq:radialr},b) below. 
+A stationary solution to the continuous problem with $\vec f = \vec 0$ is a circle $(d=2)$ or a sphere $(d=3)$ with zero velocity and a piecewise constant pressure with a discontinuity across the interface, see (\ref{eq:radialr},b) below.
 
 For $d=2$, one can choose $\Gamma^m$ with equidistributed points on a circle as an approximation of this circle, i.e.\ a closed regular polygon.
-Such a $\Gamma^m$ has constant discrete curvature, i.e.\ there exists a $\overline{\kappa} \in \mathbb{R}$ such that (\ref{eq:constcurv}) is satisfied. Hence Lemma~ \ref{lem:stat2} yields that in this situation $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m, 
-\overline{\kappa})$ is the unique solution to the reduced system with $\vec f^{m+1} =\vec 0$.   
+Such a $\Gamma^m$ has constant discrete curvature, i.e.\ there exists a $\overline{\kappa} \in \mathbb{R}$ such that (\ref{eq:constcurv}) is satisfied. Hence Lemma~ \ref{lem:stat2} yields that in this situation $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m,
+\overline{\kappa})$ is the unique solution to the reduced system with $\vec f^{m+1} =\vec 0$.
 
 For $d=3$, we observe in practice that conformal approximations of the sphere, i.e.\ spherical $\Gamma^m$ satisfying (\ref{eq:conformal}), also satisfy (\ref{eq:constcurv}).
 
 \section{Algebraic system}\label{sec:algebraic_system}
 \setcounter{equation} 0
 
-As is standard practice for the solution of linear systems arising from discretizations of Stokes equations, we avoid the complications of the constrained pressure space $\widehat\pspace^m$ in practice by considering an overdetermined linear system with $\pspace^m$ instead. The pressure obtained is then projected into the space of zero mean functions. The linear system (\ref{eq:HGa}--d), with $\widehat\pspace^m$ replaced by $\pspace^m$, can be formulated as: 
+As is standard practice for the solution of linear systems arising from discretizations of Stokes equations, we avoid the complications of the constrained pressure space $\widehat\pspace^m$ in practice by considering an overdetermined linear system with $\pspace^m$ instead. The pressure obtained is then projected into the space of zero mean functions. The linear system (\ref{eq:HGa}--d), with $\widehat\pspace^m$ replaced by $\pspace^m$, can be formulated as:
 
 Find $(\vec U^{m+1},P^{m+1}, \kappa^{m+1},\delta\vec{X}^{m+1})$, where $\vec X^{m+1} = \vec X^m +  \delta\vec X^{m+1}$, such that
 \begin{equation}
@@ -496,20 +496,20 @@ Find $(\vec U^{m+1},P^{m+1}, \kappa^{m+1},\delta\vec{X}^{m+1})$, where $\vec X^{
 \vec B_\Omega & \vec C_\Omega & -\gamma\,\Nbulk & 0 \\
 \vec C^T_\Omega & 0 & 0 & 0 \\
 \NbulkT & 0 & 0 & -\frac1{\tau_m}\,\vec{N}_\Gamma^T \\
-0 & 0 & \vec{N}_\Gamma & \vec{A}_\Gamma 
-\end{pmatrix} 
-\begin{pmatrix} 
-\vec U^{m+1} \\ 
-P^{m+1} \\ 
-\kappa^{m+1} \\ 
-\delta\vec{X}^{m+1} 
+0 & 0 & \vec{N}_\Gamma & \vec{A}_\Gamma
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\
+P^{m+1} \\
+\kappa^{m+1} \\
+\delta\vec{X}^{m+1}
 \end{pmatrix}
 =
-\begin{pmatrix} 
-\vec g \\ 
+\begin{pmatrix}
+\vec g \\
 0 \\
-0 \\ 
--\vec{A}_\Gamma\,\vec{X}^{m} 
+0 \\
+-\vec{A}_\Gamma\,\vec{X}^{m}
 \end{pmatrix} \,,
 \label{eq:lin}
 \end{equation}
@@ -522,29 +522,29 @@ where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec{X}^{m+1})\in (\R^d)^{K^m_\u
 where we recall that $\{\vec e_r\}_{r=1}^d$ denotes the standard basis in $\R^d$ and where we have used the convention that the subscripts in the matrix notations refer to the test and trial domains, respectively. A single subscript is used where the two domains are the same.
 
 \ifthesis
-When we use the space (P1+P0) for the pressure, the algebraic system assumes the following form 
+When we use the space (P1+P0) for the pressure, the algebraic system assumes the following form
 \begin{equation}
 \begin{pmatrix}
 \vec B_\Omega & \vec C_{\Omega,1} & \vec C_{\Omega,0} & -\gamma\,\Nbulk & 0 \\
 \vec C^T_{\Omega,1} & 0 & 0 & 0 & 0 \\
 \vec C^T_{\Omega,0} & 0 & 0 & 0 & 0 \\
 \NbulkT & 0 & 0 & 0 & -\frac1{\tau_m}\,\vec{N}_\Gamma^T \\
-0 & 0 & 0 & \vec{N}_\Gamma & \vec{A}_\Gamma 
-\end{pmatrix} 
-\begin{pmatrix} 
-\vec U^{m+1} \\ 
+0 & 0 & 0 & \vec{N}_\Gamma & \vec{A}_\Gamma
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\
 P^{m+1}_1 \\
 P^{m+1}_0 \\
-\kappa^{m+1} \\ 
-\delta\vec{X}^{m+1} 
+\kappa^{m+1} \\
+\delta\vec{X}^{m+1}
 \end{pmatrix}
 =
-\begin{pmatrix} 
+\begin{pmatrix}
 \vec g \\
 0 \\
 0 \\
-0 \\ 
--\vec{A}_\Gamma\,\vec{X}^{m} 
+0 \\
+-\vec{A}_\Gamma\,\vec{X}^{m}
 \end{pmatrix} \,,
 \label{eq:lin_p1p0}
 \end{equation}
@@ -557,11 +557,11 @@ where $\vec C_{\Omega,1}$ and $\vec C_{\Omega,0}$ are defined exactly as $\vec C
 
 \textcolor{magenta}{TODO : why I am calculating twice the factorization of (\ref{eq:Xi}) in my code??}
 
-For the the solution of (\ref{eq:lin}) we use a Schur complement approach that eliminates $(\kappa^{m+1}, \delta \vec X^{m+1})$ from (\ref{eq:lin}), and then use an iterative solver for the remaining system in $(\vec U^{m+1}, P^{m+1})$. This approach has the advantage that for the reduced system well-known solution methods for finite element discretizations for the standard Stokes equations may be employed. The desired Schur complement approach for eliminating $(\kappa^{m+1},\delta \vec X^{m+1})$ from (\ref{eq:lin}) can be obtained as follows. Let 
+For the the solution of (\ref{eq:lin}) we use a Schur complement approach that eliminates $(\kappa^{m+1}, \delta \vec X^{m+1})$ from (\ref{eq:lin}), and then use an iterative solver for the remaining system in $(\vec U^{m+1}, P^{m+1})$. This approach has the advantage that for the reduced system well-known solution methods for finite element discretizations for the standard Stokes equations may be employed. The desired Schur complement approach for eliminating $(\kappa^{m+1},\delta \vec X^{m+1})$ from (\ref{eq:lin}) can be obtained as follows. Let
 \begin{equation} \label{eq:Xi}
 \Xi_\Gamma:= \begin{pmatrix}
  0 & - \frac1{\tau_m}\,\vec{N}_\Gamma^T \\
-\vec{N}_\Gamma & \vec{A}_\Gamma 
+\vec{N}_\Gamma & \vec{A}_\Gamma
 \end{pmatrix} \,.
 \end{equation}
 Then (\ref{eq:lin}) can be reduced to
@@ -570,10 +570,10 @@ Then (\ref{eq:lin}) can be reduced to
 \begin{pmatrix}
 \vec B_\Omega + \gamma\,(\Nbulk \ 0)\,\Xi_\Gamma^{-1}\,
 \binom{\NbulkT}{0} & \vec C_\Omega \\
-\vec C_\Omega^T & 0 
+\vec C_\Omega^T & 0
 \end{pmatrix}
 \begin{pmatrix}
-\vec U^{m+1} \\ P^{m+1} 
+\vec U^{m+1} \\ P^{m+1}
 \end{pmatrix}
 = \begin{pmatrix}
 \vec g
@@ -594,10 +594,10 @@ We notice that when $\gamma = 0$ the linear system (\ref{eq:SchurkX}) becomes
 \begin{equation} \label{eq:stokes_system}
 \begin{pmatrix}
 \vec B_\Omega & \vec C_\Omega \\
-\vec C_\Omega^T & 0 
+\vec C_\Omega^T & 0
 \end{pmatrix}
 \begin{pmatrix}
-\vec U^{m+1} \\ P^{m+1} 
+\vec U^{m+1} \\ P^{m+1}
 \end{pmatrix}
 = \begin{pmatrix}
 \vec g \\
@@ -611,10 +611,10 @@ which for $\mu_+=\mu_-$ corresponds to a discretization of the one--phase Stokes
 0 & -\mathcal{P}_S
 \end{pmatrix}\,,
 \end{equation}
-where $\vec{\mathcal{P}}_{\vec B}$ is some preconditioner for the matrix $\vec B_\Omega$, and $\mathcal{P}_S$ acts as a preconditioner for the Schur complement operator $S=\vec C^T_\Omega \,\vec B_\Omega^{-1}\,\vec C_\Omega$. 
+where $\vec{\mathcal{P}}_{\vec B}$ is some preconditioner for the matrix $\vec B_\Omega$, and $\mathcal{P}_S$ acts as a preconditioner for the Schur complement operator $S=\vec C^T_\Omega \,\vec B_\Omega^{-1}\,\vec C_\Omega$.
 
 An application of the preconditioner (\ref{eq:ESW}) amounts to solving the equations
-\begin{equation*} 
+\begin{equation*}
 \begin{pmatrix}
 \vec{\mathcal{P}}_{\vec B} & \vec C_\Omega \\
 0 & -\mathcal{P}_S
@@ -625,8 +625,8 @@ An application of the preconditioner (\ref{eq:ESW}) amounts to solving the equat
 \mathcal{P}_S\,P = -q\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U = \vec v - \vec C_\Omega\,P\,.
 \end{equation*}
 
-Therefore, we solve (\ref{eq:SchurkX}), which is a slight modification of (\ref{eq:stokes_system}), with a preconditioned GMRES iteration, and we choose $\vec B_\Omega$  for $\vec{\mathcal{P}}_{\vec B}$ and the weighted mass matrix $ M_\mu$ 
-\begin{equation*} 
+Therefore, we solve (\ref{eq:SchurkX}), which is a slight modification of (\ref{eq:stokes_system}), with a preconditioned GMRES iteration, and we choose $\vec B_\Omega$  for $\vec{\mathcal{P}}_{\vec B}$ and the weighted mass matrix $ M_\mu$
+\begin{equation*}
 [M_\mu]_{nq} = \left((\mu^m)^{-1}\,\phi_q^{\pspace^m}, \phi_n^{\pspace^m}\right) \qquad n,q = 1 ,\ldots, K_\pspace^m\,
 \end{equation*}
 for $\mathcal{P}_S$.
@@ -635,7 +635,7 @@ At each iteration of the GMRES, the matrix (\ref{eq:Xi}) needs to be "inverted``
 In our numerical simulations, we always set the GMRES tolerance to $10^{-12}$ and the restart value to 1000.
 
 \ifthesis
-When we use use the space (P1+P0) for the pressure, (\ref{eq:SchurkX}) becomes 
+When we use use the space (P1+P0) for the pressure, (\ref{eq:SchurkX}) becomes
 \begin{subequations}
 \begin{equation} \label{eq:SchurkXP1P0}
 \begin{pmatrix}
@@ -644,8 +644,8 @@ When we use use the space (P1+P0) for the pressure, (\ref{eq:SchurkX}) becomes
 \vec C^T_{\Omega,0} & 0 & 0 \\
 \end{pmatrix}
 \begin{pmatrix}
-\vec U^{m+1} \\ 
-P^{m+1}_1 \\ 
+\vec U^{m+1} \\
+P^{m+1}_1 \\
 P^{m+1}_0
 \end{pmatrix}
 = \begin{pmatrix}
@@ -656,20 +656,20 @@ P^{m+1}_0
 \end{equation}
 \end{subequations}
 and an application of the preconditioner amounts to solving the equations
-\begin{equation*} 
+\begin{equation*}
 \begin{pmatrix}
 \vec{\mathcal{P}}_{\vec B} & \vec C_{\Omega,1} & \vec C_{\Omega,0} \\
 0 & -\mathcal{P}_{S,1} & 0 \\
 0 & 0 &-\mathcal{P}_{S,0}
 \end{pmatrix}
-\begin{pmatrix} 
-\vec U \\ 
+\begin{pmatrix}
+\vec U \\
 P_1 \\
 P_0
 \end{pmatrix}
-= 
-\begin{pmatrix} 
-\vec v \\ 
+=
+\begin{pmatrix}
+\vec v \\
 q \\
 p
 \end{pmatrix}
@@ -682,7 +682,7 @@ which is
 
 \section{Preservation of mesh quality}
 
-Depending on the nature of problem, the bulk elements around the interface may have a quick distortion and may overlap leading to a drastic decrease of the accuracy of the scheme. To prevent this, it is necessary to keep a good mesh quality throughout all the simulation. We adopt and combine two different methods to accomplish the preservation of the mesh quality, namely mesh smoothing and remeshing. 
+Depending on the nature of problem, the bulk elements around the interface may have a quick distortion and may overlap leading to a drastic decrease of the accuracy of the scheme. To prevent this, it is necessary to keep a good mesh quality throughout all the simulation. We adopt and combine two different methods to accomplish the preservation of the mesh quality, namely mesh smoothing and remeshing.
 
 \subsection{Mesh smoothing} \label{subsec:smoothing}
 \setcounter{equation} 0
@@ -698,7 +698,7 @@ while the inner points can be moved arbitrarily to preserve the mesh quality. Se
 We use the so called linear elastic solid technique to prescribe the inner points displacement with respect to the interface displacement. The problem to solve is: find a map $\vec \psi$ such that
 \begin{align}
  \nabla\,.\mat S(\vec \psi) &= 0 && \mbox{in }\Omega_{\pm}(t)\\
- \vec \psi &= \delta \vec X && \mbox{on } \Gamma(t) 
+ \vec \psi &= \delta \vec X && \mbox{on } \Gamma(t)
 \end{align}
 where
 \begin{equation} \label{eq:elasticity_tensor}
@@ -721,7 +721,7 @@ After the smoothing process, we check the bulk mesh quality computing the volume
 \begin{equation}\label{eq:remesh_criteria}
 \frac{\max_{\sigmaO\in {\cal T}^m}(\mathcal{H}^{d}(\sigmaO))}{\min_{\sigmaO\in\mathcal {T}^m}(\mathcal{H}^{d}(\sigmaO))}<C_r,
 \end{equation}
-the mesh quality is good enough to continue the simulation. We call $C_r>0$ remeshing coefficient. 
+the mesh quality is good enough to continue the simulation. We call $C_r>0$ remeshing coefficient.
 
 When (\ref{eq:remesh_criteria}) is not satisfied, the bulk mesh is too deformed and, in order to preserve the mesh quality, we rebuild the bulk mesh from scratch keeping the interface mesh and the bulk boundary fixed. Obviously, when $C_r\leq 1$ a remeshing is always called. We stress the fact that, like in the mesh smoothing, the interface needs to remain fixed.
 
@@ -737,7 +737,7 @@ The simplest test is the so called stationary bubble. In this experiment we solv
 \begin{equation} \label{eq:radialr}
 r(t) = r(0)\,,
 \end{equation}
-together with 
+together with
 \begin{equation} \label{eq:radialup}
 \vec u(\vec z, t) = \vec 0 \,,\quad p(\vec z, t) = \lambda(t)\left[\charfcn{\Omega_-(0)} -\frac{\mathcal{L}^d(\Omega_-(0))}{\mathcal{L}^d(\Omega)} \right] ,
 \end{equation}
@@ -749,7 +749,7 @@ A nontrivial divergence free and radially symmetric solution $\vec u$ can be con
 \begin{equation} \label{eq:radialr2}
 r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
 \end{equation}
-together with 
+together with
 \begin{equation} \label{eq:radialup2}
 \vec u(\vec z, t) = \alpha\,|\vec z|^{-d}\,\vec z \,, \quad p(\vec z, t) = \lambda(t)\left[ \charfcn{\Omega_-(t)} - \frac{\mathcal{L}^d(\Omega_-(t))}{\mathcal{L}^d(\Omega)}\right],
 \end{equation}
@@ -758,18 +758,18 @@ where $\lambda(t) = \gamma\,(d-1)\,[r(t)]^{-1} + 2\,\alpha\,(d-1)\,(\mu_+ - \mu_
 
 In the following, we fix, as initial interface, the surface $\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$ and we use uniform time steps $\tau_m=\tau$, $m=0,\ldots, M-1$.
 
-Finally, we define the errors 
+Finally, we define the errors
 \begin{equation} \label{eq:errorXx}
-\errorXx := \max_{m=1,\ldots, M} \|\Gamma^m - \Gamma(t_m)\|_{L^\infty}\,, 
+\errorXx := \max_{m=1,\ldots, M} \|\Gamma^m - \Gamma(t_m)\|_{L^\infty}\,,
 \end{equation}
-where $\|\Gamma^m - \Gamma(t_m)\|_{L^\infty} := 
+where $\|\Gamma^m - \Gamma(t_m)\|_{L^\infty} :=
 \max_{k=1,\ldots, K_\Gamma} {\rm dist}( \vec{q}^m_k, \Gamma(t_m))$,
-\begin{equation*} 
-\errorUu2 := \max_{m=1,\ldots, M}\|U^m - \vec I^m_2\,u(\cdot,t_m)\|_{L^\infty(\Omega)}\,, 
+\begin{equation*}
+\errorUu2 := \max_{m=1,\ldots, M}\|U^m - \vec I^m_2\,u(\cdot,t_m)\|_{L^\infty(\Omega)}\,,
 \end{equation*}
 and
 \begin{equation*}
-\LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2 
+\LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2
 \right]^\frac12\,,
 \end{equation*}
 where for the $L^2$--norms over $\Omega$ we employ a quadrature rule of degree $k$, with $k=13$ in 2d and $k=10$ in 3d.
@@ -779,13 +779,13 @@ where for the $L^2$--norms over $\Omega$ we employ a quadrature rule of degree $
 
 For the stationary bubble test we use the domain $\Omega = (-1,1)^2$ and we choose, for the true solution (\ref{eq:radialr},b), the parameters
 \begin{equation*}
-\mu = \gamma = 1\,. 
+\mu = \gamma = 1\,.
 \end{equation*}
 Therefore, the true solution reduces to $r(t) = \frac{1}{2}$, $\vec u(\cdot, t) = \vec 0$ and $p(t) = 2\,\charfcn{\Omega_-(0)} - \frac{\pi}{8}$ for all $t \geq 0$.
 
-In Table~\ref{tab:bubble2Delementsuniform} it is reported the characteristic length $c_l$, used to create the mesh for the stationary bubble problem, the corresponding number of interface elements $K_\Gamma$ generated, the corresponding number of bulk elements $K_\Omega$ generated and the time step $\tau$ used. All these meshes are uniform so the same characteristic length is used both for the interface and for the boundary. 
+In Table~\ref{tab:bubble2Delementsuniform} it is reported the characteristic length $c_l$, used to create the mesh for the stationary bubble problem, the corresponding number of interface elements $K_\Gamma$ generated, the corresponding number of bulk elements $K_\Omega$ generated and the time step $\tau$ used. All these meshes are uniform so the same characteristic length is used both for the interface and for the boundary.
 
-The characteristic length prescribes the size of the mesh elements. For example, a segment of length $L$, which defines an edge of the domain boundary, delimited by two points of characteristic length $c_l$ will be subdivided into several segments of lengths $\frac{L}{c_l}$ during the mesh generation. Therefore, smaller is the characteristic length, finer is the resulting mesh.   
+The characteristic length prescribes the size of the mesh elements. For example, a segment of length $L$, which defines an edge of the domain boundary, delimited by two points of characteristic length $c_l$ will be subdivided into several segments of lengths $\frac{L}{c_l}$ during the mesh generation. Therefore, smaller is the characteristic length, finer is the resulting mesh.
 \begin{table*}
  \center
 \begin{tabular}{llll}
@@ -802,9 +802,9 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 \label{tab:bubble2Delementsuniform}
 \end{table*}
 
-Since the solution is stationary, neither smoothing nor remeshing is performed. 
+Since the solution is stationary, neither smoothing nor remeshing is performed.
 
-Some errors for our numerical scheme, using uniform meshes, can be seen in Table~\ref{tab:bubble2Dp2p0} for the P2--P0 element and in Table~\ref{tab:bubble2Dp2p1p0} for the P2--(P1+P0) element. 
+Some errors for our numerical scheme, using uniform meshes, can be seen in Table~\ref{tab:bubble2Dp2p0} for the P2--P0 element and in Table~\ref{tab:bubble2Dp2p1p0} for the P2--(P1+P0) element.
 \begin{table*}
  \center
 \begin{tabular}{llHllHl}
@@ -855,7 +855,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{
 \label{tab:bubble2Dp2p1p0}
 \end{table*}
 
-Instead, in Table~\ref{tab:bubble2Dp2p0adaptive} and in Table~\ref{tab:bubble2Dp2p1p0adaptive} we use adaptive meshes which are fine close to the interface and coarse away from it. More precisely, the characteristic length on the interface is 8 times smaller than the characteristic length on the boundary, see Table~\ref{tab:bubble2Delementsadaptive}. 
+Instead, in Table~\ref{tab:bubble2Dp2p0adaptive} and in Table~\ref{tab:bubble2Dp2p1p0adaptive} we use adaptive meshes which are fine close to the interface and coarse away from it. More precisely, the characteristic length on the interface is 8 times smaller than the characteristic length on the boundary, see Table~\ref{tab:bubble2Delementsadaptive}.
 \begin{table*}
  \center
 \begin{tabular}{llll}
@@ -1022,7 +1022,7 @@ for the true solution (\ref{eq:radialr2},b). In Figure~\ref{fig:expanding_bubble
   \label{fig:expanding_bubble_uniform}
 \end{figure}
 
-In Table~\ref{tab:expandingbubble2Delements} it is reported the characteristic length $c_l$ used to create the initial mesh for the expanding bubble problem, the corresponding number of interface elements $K_\Gamma$ generated, the corresponding number of bulk elements $K_\Omega$ generated and the time step $\tau$ used. 
+In Table~\ref{tab:expandingbubble2Delements} it is reported the characteristic length $c_l$ used to create the initial mesh for the expanding bubble problem, the corresponding number of interface elements $K_\Gamma$ generated, the corresponding number of bulk elements $K_\Omega$ generated and the time step $\tau$ used.
 \begin{table*}
  \center
 \begin{tabular}{llll}
@@ -1088,7 +1088,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{
 
 Some errors for our approximation are shown in Table~\ref{tab:expandingbubble2Dp2p0smooth} for what concern P2--P0 and in Table~\ref{tab:expandingbubble2Dp2p1p0smooth} for what concern P2--(P1+P0) when a smoothing with coefficient $C_s=1$ is performed at each time step and no remeshing is used.
 \begin{table*}
- \center 
+ \center
 \begin{tabular}{llHllHl}
 \hline
 $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ & $CPU[s]$\\
@@ -1215,7 +1215,7 @@ The characteristic length of the bulk elements, $c_{l,\Omega}(\vec{x})$, is comp
 \begin{equation}\label{eq:adaptive_criteria}
  c_{l,\Omega}(\vec{x})=\min\big\{8c_{l,\Gamma},\textrm{dist}(\vec{x},\Gamma)\big\}
 \end{equation}
-where $\vec{x}\in\partial\Omega$ is a mesh node. See Table~\ref{tab:expandingbubble2Delements_adaptive} for the resulting number of elements. 
+where $\vec{x}\in\partial\Omega$ is a mesh node. See Table~\ref{tab:expandingbubble2Delements_adaptive} for the resulting number of elements.
 \begin{table*}
  \center
 \begin{tabular}{llll}
@@ -1338,7 +1338,7 @@ Instead, in Figure~\ref{fig:shear_2d_smooth} the remeshing coefficient is $C_r=0
 
 For the stationary bubble test we use the domain $\Omega = (-1,1)^3$ and we choose, for the true solution (\ref{eq:radialr},b), the parameters
 \begin{equation*}
-\mu = \gamma = 1\,. 
+\mu = \gamma = 1\,.
 \end{equation*}
 Therefore, the true solution reduces to $r(t) = \frac{1}{2}$, $\vec u(\cdot, t) = \vec 0$ and $p(t) = 4\,\charfcn{\Omega_-(0)} - \frac{\pi}{12}$ for all $t\geq0$.
 
@@ -1358,9 +1358,9 @@ $c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
 \label{tab:bubble3Delements}
 \end{table*}
 
-Since the solution is stationary, neither smoothing nor remeshing is performed. 
+Since the solution is stationary, neither smoothing nor remeshing is performed.
 
-Some errors for our numerical scheme can be seen in Table~\ref{tab:bubble3Dp2p0} for the P2--P0 element and in Table~\ref{tab:bubble3Dp2p1p0} for the P2--(P1+P0). 
+Some errors for our numerical scheme can be seen in Table~\ref{tab:bubble3Dp2p0} for the P2--P0 element and in Table~\ref{tab:bubble3Dp2p1p0} for the P2--(P1+P0).
 \begin{table*}
  \center
 \begin{tabular}{llHllHl}
@@ -1408,7 +1408,7 @@ $c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp{1,\rm{
 \label{tab:bubble3Dp2p1p0}
 \end{table*}
 
-We see that the radius error in Table~\ref{tab:bubble3Dp2p0} is terrible compared to the analogous test in 2D. The reason is that in 2D the initial discrete interface is equidistributed and its radius is exactly 0.5 while in 3D the mesh is equidistributed but the initial radius has already an error. This error is exactly the one seen in the table since the displacement is always 0 up to machine accuracy. 
+We see that the radius error in Table~\ref{tab:bubble3Dp2p0} is terrible compared to the analogous test in 2D. The reason is that in 2D the initial discrete interface is equidistributed and its radius is exactly 0.5 while in 3D the mesh is equidistributed but the initial radius has already an error. This error is exactly the one seen in the table since the displacement is always 0 up to machine accuracy.
 
 Finally, we report a shear flow in the domain $\Omega=(-1,1)^3$, with a sphere of radius $r=0.5$ as initial interface. The initial interface mesh is a non-stationary sphere while the bulk mesh is uniform. We prescribe the inhomogeneous Dirichlet boundary condition
 \begin{equation*}
@@ -1454,6 +1454,6 @@ In the 2D expanding bubble problem, We can observe that the simulations which us
 
 Both element capture perfectly the jump in the pressure.
 \newpage
-\bibliographystyle{siam} 
+\bibliographystyle{siam}
 \bibliography{../bib/robert_refs,../bib/marco_refs}
 \end{document}
