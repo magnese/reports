@@ -63,7 +63,9 @@ surface tension terms, and the correct handling of discontinuity jumps in the
 material properties and in the pressure at the interface, in order to suppress
 spurious velocities, which are also called parasitic currents.
 
-In this paper we propose a novel finite element approximation for
+This report is extensively based on a paper we submitted some weeks ago.
+
+We propose a novel finite element approximation for
 incompressible two-phase Stokes flow that naturally avoids spurious
 velocities. Our scheme is based on the numerical method introduced in
 \cite{spurious}, and so uses piecewise linear parametric finite elements to
@@ -97,7 +99,7 @@ enclosed volumes well in practice.
 jumps at the interface are captured accurately for standard pressure finite
 element spaces without the need for XFEM extensions.
 \item The surface tension effects are included with the help of a variational
-treatment of curvature based on the Laplace--Beltrami operator.
+treatment of curvature based on the Laplace-Beltrami operator.
 \item The surface mesh quality is maintained. In particular, for the
 semidiscrete scheme an equidistribution property can be shown in 2d.
 \item The fully discrete scheme uses an implicit approximation of curvature
@@ -106,7 +108,7 @@ step.
 \end{itemize}
 
 Let us briefly discuss alternative approaches to the numerical approximation of
-two-phase flow problems. In this paper we use a direct description of the
+two-phase flow problems. We use a direct description of the
 interface.  In such direct
 approaches, which are often called front-tracking methods, the interface is
 either triangulated or presented by a connected set of particles. The discrete
@@ -132,19 +134,10 @@ solved in these so-called diffuse interface models. We refer to
 \cite{HohenbergH77,AndersonMW98,LowengrubT98,Feng06,KaySW08,AbelsGG12,GrunK14}
 for details.
 
-The remainder of this paper is organized as follows. In Section~\ref{sec:2}
-we present the mathematical model and the weak formulation on which our finite
-element approximation is going to be based. Our numerical method is presented
-in Section~\ref{sec:3}, together with proofs for its main properties. In
-addition, we describe how the arising linear systems of equations are solved in
-practice, and we give details on our mesh generation and smoothing procedures.
-Finally, in Section~\ref{sec:4} we present several numerical simulations in 2d
-and 3d.
-
 \section{Mathematical model} \label{sec:2}
 
 \subsection{Governing equations}
-In this paper we consider two--phase Stokes flow in a given domain
+We consider two-phase Stokes flow in a given domain
 $\Omega\subset\mathbb{R}^d$, where $d=2$ or $d=3$. The domain $\Omega$ contains
 two different immiscible, incompressible, viscous fluids (liquid-liquid or
 liquid-gas) which for all $t\in[0,T]$ occupy time dependent regions
@@ -194,7 +187,7 @@ $\mat\id \in \R^{d \times d}$ is the identity matrix and
 $\mat D(\vec u):=\frac12\, (\nabla\vec u+(\nabla\vec u)^T)$
 is the rate-of-deformation tensor.
 
-In this paper we consider a two-phase Stokes problem, and so the equations
+We consider a two-phase Stokes problem, and so the equations
 governing the fluid are
 \begin{subequations}
 \begin{alignat}{2}
@@ -225,7 +218,7 @@ see e.g.\ \cite{DeckelnickDE05}, it holds that
 \begin{equation} \label{eq:LBop}
 \Delta_s\, \vec \id = \varkappa\, \vec\nu \qquad \mbox{on $\Gamma(t)$}\,,
 \end{equation}
-where $\Delta_s = \nabs\,.\,\nabs$ is the Laplace--Beltrami operator on
+where $\Delta_s = \nabs\,.\,\nabs$ is the Laplace-Beltrami operator on
 $\Gamma(t)$ with $\nabs\,.\,$ and $\nabs$ denoting surface divergence and
 surface gradient on $\Gamma(t)$, respectively. Moreover, as usual,
 $[\vec u]_-^+ := \vec u_+ - \vec u_-$ and
@@ -348,7 +341,7 @@ Hence it follows immediately from the incompressibility condition
  = \int_{\Omega_-(t)} \nabla\,.\,\vec u \dL{d} =0\,. \label{eq:conserved}
 \end{align}
 It will be our aim to introduce a fitted finite element approximation for
-two-phase Stokes flow that satisfies discrete analogous of
+two--phase Stokes flow that satisfies discrete analogous of
 (\ref{eq:ap1}) and (\ref{eq:conserved}).
 
 \setcounter{equation} 0
@@ -382,15 +375,14 @@ exists a constant $C_0 \in \R_{>0}$, independent of $\mathcal{T}^m$, such that
 \end{equation}
 see \cite[p.~114]{GiraultR86}. Here $\|\cdot\|_0 := (\cdot,\cdot)^\frac12$ and
 $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ denote the $L^2$--norm and
-the $H^1$--norm on $\Omega$, respectively. Throughout this paper, we restrict
-ourselves to the
+the $H^1$--norm on $\Omega$, respectively. We restrict ourselves to the
 elements P2--P0 and P2--(P1+P0), i.e.\ we set $\uspace^m=[S^m_2]^d\cap\uspace$
 and either $\pspace^m = S^m_0$ or $S^m_1+S^m_0$. Both these elements satisfy
 the LBB condition (\ref{eq:LBB}), where we note that the choice P2--(P1+P0)
 requires the weak constraint that all simplices have a vertex in $\Omega$,
 see \cite{BoffiCGG12}.
 
-In this paper we consider a fitted finite element approximation for the
+We consider a fitted finite element approximation for the
 evolution of the interface $\Gamma(t)$. Let $\Gamma^{m}\subset\R^d$ be a
 $(d-1)$-dimensional polyhedral surface approximating the closed surface
 $\Gamma(t_m)$, $m=0 ,\ldots, M$. Let $\Omega^m_+$ denote the exterior of
@@ -420,8 +412,8 @@ denoting the standard basis of $\Wh$.
 
 Moreover we define $\pi^m: C(\Gamma^m)\to \Wh$ the standard interpolation
 operator at the nodes $\{\vec{q}_k^m\}_{k=1}^{K_\Gamma}$, and similarly
-$\vec\pi^m: [C(\Gamma^m)]^d\to \Vh$. Throughout this paper, we parameterize
-the new surface $\Gamma^{m+1}$ over $\Gamma^m$ using a parameterization
+$\vec\pi^m: [C(\Gamma^m)]^d\to \Vh$. We parameterize the new surface
+$\Gamma^{m+1}$ over $\Gamma^m$ using a parameterization
 $\vec{X}^{m+1} \in \Vh$, so that $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$.
 Before we can state our numerical method, we need to introduce a mass lumped
 inner product on $\Gamma^m$, that is crucial for the desired tangential motion
@@ -754,7 +746,7 @@ that in our simulations the volumes are always well maintained.
 
 \subsection{Solution method}
 As is standard practice for the solution of linear systems arising from
-discretizations of (Navier--)Stokes equations, we avoid the complications of the
+discretizations of (Navier-)Stokes equations, we avoid the complications of the
 constrained pressure space $\widehat\pspace^m$ in practice by considering an
 overdetermined linear system with $\pspace^m$ instead.
 In a post-processing step the computed pressure is
@@ -792,8 +784,19 @@ where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec{X}^{m+1})\in
 functions with respect to the standard bases of $\uspace^m$, $\pspace^m$, $\Wh$
 and $\Vh$, respectively. Moreover, $\vec X^m$ denotes the coefficients of
 $\vec\id\!\mid_{\Gamma^m}$ with respect to the basis of $\Vh$. The definitions
-of the matrices and vectors in (\ref{eq:lin}) directly follow from
-(\ref{eq:HGa}--d).
+of the matrices and vectors in (\ref{eq:lin}) are:
+\begin{align*}
+& [\vec B_\Omega]_{ij} := 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspace^m} \vec
+e_r), \mat D( \phi_i^{\uspace^m}\,\vec e_s) \right) \right)_{r,s=1}^d\,,\quad
+\vec c = \left( \vec f^{m+1},\phi_i^{\uspace^m}\right)\,,\\
+&[\vec C_\Omega]_{iq} := - \left( \left(\nabla\,.\,(\phi_i^{\uspace^m}\,\vec
+e_r), \phi_q^{\pspace^m} \right) \right)_{r=1}^d,\quad
+[\Nbulk]_{il} := \left\langle \phi_i^{\uspace^m}, \chi^m_l \,\vec\nu^m
+\right\rangle_{\Gamma^m} \,,\\
+& [\vec{N}_\Gamma]_{kl} := \left\langle \chi^m_l, \chi^m_k\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h \,,\quad [\vec{A}_\Gamma]_{kl} := \left\langle
+\nabs\,\chi^m_l, \nabs\,\chi^m_k \right\rangle_{\Gamma^m} \,\vec\id \,.
+\end{align*}
 
 Note that for the submatrices we have used the convention that the subscripts
 refer to the test and trial domains, respectively. A single subscript is
@@ -804,7 +807,7 @@ that eliminates $(\kappa^{m+1}, \delta \vec X^{m+1})$ from (\ref{eq:lin}),
 and then use an iterative solver for the remaining system in
 $(\vec U^{m+1}, P^{m+1})$. This approach has the advantage that for the
 reduced system well-known solution methods for finite element discretizations
-for standard (Navier--)Stokes discretizations may be employed. The desired
+for standard (Navier-)Stokes discretizations may be employed. The desired
 Schur complement can be obtained as follows. Let
 \begin{equation} \label{eq:Xi}
 \Xi_\Gamma:= \begin{pmatrix}
@@ -840,9 +843,25 @@ and
 For the solution of (\ref{eq:SchurkX}) we employ a preconditioned GMRES
 iterative solver, where for the inverse $\Xi_\Gamma^{-1}$ we employ a sparse
 $L\,U$ decomposition, which we obtain with the help of the sparse factorization
-package UMFPACK, see \cite{Davis04}. Having obtained $(\vec U^{m+1}, P^{m+1})$
-from (\ref{eq:SchurkX}), we solve (\ref{eq:SchurkXb}) for
-$(\kappa^{m+1}, \delta\vec X^{m+1})$.
+package UMFPACK, see \cite{Davis04}.
+
+As preconditioner we use the matrix
+\begin{equation} \label{eq:ESW}
+\mathcal{P} =
+\begin{pmatrix}
+\vec B_\Omega & \vec C_\Omega \\
+0 & -\vec M_\Omega
+\end{pmatrix}
+\,,
+\end{equation}
+where $\vec M_\Omega$ is the weighted mass matrix defined as
+\begin{equation*}
+[\vec M_\Omega]_{ij} = \left((1,1)^{-1}\,\phi_j^{\pspace^m},\,
+\phi_i^{\pspace^m}\right)\,.
+\end{equation*}
+
+Having obtained $(\vec U^{m+1}, P^{m+1})$ from (\ref{eq:SchurkX}), we solve
+(\ref{eq:SchurkXb}) for $(\kappa^{m+1}, \delta\vec X^{m+1})$.
 
 \begin{rem} \label{rem:}
 With a view towards some numerical test cases in Section~\ref{sec:4}, we also
@@ -1461,7 +1480,7 @@ over time for the simulation in Figure~\ref{fig:shear_3d}.}
 \end{figure}
 
 \section{Conclusion}\label{sec:conclusion}
-We have presented a novel fitted finite element approximation for two-phase
+We have presented a novel fitted finite element approximation for two--phase
 Stokes flow. The method uses a piecewise linear approximation of the interface
 and employs standard velocity and pressure finite element spaces in the bulk.
 
@@ -1473,10 +1492,43 @@ no pressure oscillations appear in practice.
 Moreover, the numerical solutions exhibit good volume conservation properties
 and the quality of the interface mesh does not deteriorate in time.
 
-\section{Two--phase Navier-Stokes}
+\setcounter{equation} 0
+\section{Future work}
 
-\subsection{Rising bubble in 2d}
+The future work will be the generalization of the FEM fitted scheme described
+above for a two-phase Navier-Stokes flow. Therefore, instead of having the
+Stokes flow (\ref{eq:stokes_momentum}--b), the governing equation will be
+\begin{subequations}
+\begin{alignat}{2}
+\rho\,(\vec u_t + (\vec u \,.\,\nabla)\,\vec u) - \nabla\,.\,\mat\sigma
+& =\rho\,\vec f \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_momentum} \\
+\nabla\,.\,\vec u & = 0 \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_mass}
+\end{alignat}
+\end{subequations}
+where $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)} +
+\rho_-\,\charfcn{\Omega_-(t)}$, with $\rho_\pm \in \R_{>0}$, denotes the
+densities in the two phases.
 
+As preliminary result, it is used the first benchmark problem described in
+\cite{HysingTKPBGT09}, ie. the rectangular domain $\Omega = (0,1) \times (0,2)$
+and homogeneous Dirichlet boundary condition on $[0,1] \times \{0,2\}$ and
+free-slip boundary conditions on $\{0,1\} \times (0,2)$.
+
+The initial interface is the circle $\Gamma_0 = \{\vec z \in \R^2 : |\vec z -
+(\frac12, \frac12)^T| = \frac14\}$ and the physical parameters are
+\begin{equation} \label{eq:Hysing1}
+\rho_+ = 1000\,,\quad \rho_- = 100\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
+\gamma = 24.5\,.
+\end{equation}
+Finally the gravity term is $\vec f = (-0.98,0)^T$, the time interval
+chosen for the simulation is $[0,3]$ and $\tau=10^{-3}$.
+
+In Figure~\ref{fig:rising_bubble_2d_velocity} it is shown the evolution of
+the velocity vector field and in Figure~\ref{fig:rising_bubble_2d} it is
+visualized the mesh evolution. The element used is P2--P0 with remeshing at
+every time step and uniform mesh.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=1$]{\includegraphics[width=.32\textwidth]
@@ -1505,6 +1557,28 @@ for the P2--P0 element, uniform mesh.}
 \label{fig:rising_bubble_2d}
 \end{figure}
 
+The main points which need to be addressed can be summarized as follows.
+\begin{itemize}
+\item Prove that the Navier-Stokes discrete scheme is stable.
+\item Implement a new scheme based on Arbitrary Lagrangian Eulerian (ALE)
+approach. Here a prescribed flow drives the movement of the bulk mesh vertices,
+and this prescribed flow needs to be accounted for in the approximation of the
+momentum equation. The movement of the bulk mesh is incorporated in the finite
+element approximation therefore it avoids the repeated interpolation onto the
+bulk mesh.
+\item Prove that the ALE scheme is stable.
+\item Test other solvers/preconditioners to solve the algebraic linear system
+more efficiently.
+\item Include surface active agents (surfactants) to the model. Surfactants
+molecules can attach to and detach from the interface therefore they influence
+the surface tension and the corresponding mass balances on the interface and in
+the bulk have to be taken into account. The fundamental transport mechanisms for
+surfactants are diffusion in the bulk phases and on the interface, and advection
+with the underlying fluid velocity.
+\item Use adaptive meshes to increase the accuracy of the scheme.
+\item Test higher order spaces to approximate the displacement of the interface.
+\end{itemize}
+
 \section{Courses}
 
 \subsection{Courses for academic credits}
@@ -1517,7 +1591,7 @@ During the first two years of my Ph.D. I took the following courses:
 \item \textit{Pseudo Differential Operators}, TCC, 20 hours;
 \item \textit{Analysis of Points and Lines}, TCC, 20 hours;
 \end{itemize}
-completing 110 hours over the 100 hours of compulsory classes .
+completing 110 hours over the 100 hours of compulsory classes.
 
 \subsection{Courses for Graduate School}
 
