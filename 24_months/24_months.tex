@@ -36,6 +36,8 @@
 
 \renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
 
+\textwidth 425pt
+
 \begin{document}
 
 \title{Late Stage Review}
@@ -63,7 +65,8 @@ surface tension terms, and the correct handling of discontinuity jumps in the
 material properties and in the pressure at the interface, in order to suppress
 spurious velocities, which are also called parasitic currents.
 
-This report is extensively based on a paper we submitted some weeks ago.
+This report is extensively based on a paper we submitted some weeks ago, see
+\cite{stokesfitted}.
 
 We propose a novel finite element approximation for
 incompressible two-phase Stokes flow that naturally avoids spurious
@@ -850,15 +853,15 @@ As preconditioner we use the matrix
 \mathcal{P} =
 \begin{pmatrix}
 \vec B_\Omega & \vec C_\Omega \\
-0 & -\vec M_\Omega
+0 & -M_\Omega
 \end{pmatrix}
 \,,
 \end{equation}
-where $\vec M_\Omega$ is the weighted mass matrix defined as
+where $M_\Omega$ is the weighted mass matrix defined as
 \begin{equation*}
-[\vec M_\Omega]_{ij} = \left((1,1)^{-1}\,\phi_j^{\pspace^m},\,
-\phi_i^{\pspace^m}\right)\,.
+[M_\Omega]_{ij} = \left(\,\phi_j^{\pspace^m},\, \phi_i^{\pspace^m}\right)\,.
 \end{equation*}
+See \cite{ElmanSW05} for more details.
 
 Having obtained $(\vec U^{m+1}, P^{m+1})$ from (\ref{eq:SchurkX}), we solve
 (\ref{eq:SchurkXb}) for $(\kappa^{m+1}, \delta\vec X^{m+1})$.
@@ -1522,7 +1525,7 @@ The initial interface is the circle $\Gamma_0 = \{\vec z \in \R^2 : |\vec z -
 \rho_+ = 1000\,,\quad \rho_- = 100\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
 \gamma = 24.5\,.
 \end{equation}
-Finally the gravity term is $\vec f = (-0.98,0)^T$, the time interval
+Finally the gravity term is $\vec f = (0,-0.98)^T$, the time interval
 chosen for the simulation is $[0,3]$ and $\tau=10^{-3}$.
 
 In Figure~\ref{fig:rising_bubble_2d_velocity} it is shown the evolution of
@@ -1559,14 +1562,16 @@ for the P2--P0 element, uniform mesh.}
 
 The main points which need to be addressed can be summarized as follows.
 \begin{itemize}
-\item Prove that the Navier-Stokes discrete scheme is stable.
+\item Investigate whether the stability proof in Theorem \ref{thm:stabstab} can
+be extended to Navier-Stokes.
 \item Implement a new scheme based on Arbitrary Lagrangian Eulerian (ALE)
 approach. Here a prescribed flow drives the movement of the bulk mesh vertices,
 and this prescribed flow needs to be accounted for in the approximation of the
 momentum equation. The movement of the bulk mesh is incorporated in the finite
 element approximation therefore it avoids the repeated interpolation onto the
 bulk mesh.
-\item Prove that the ALE scheme is stable.
+\item Investigate whether the stability proof in Theorem \ref{thm:stabstab} can
+be extended also to the ALE scheme.
 \item Test other solvers/preconditioners to solve the algebraic linear system
 more efficiently.
 \item Include surface active agents (surfactants) to the model. Surfactants
