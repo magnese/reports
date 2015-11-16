@@ -36,7 +36,8 @@
 
 \renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
 
-\textwidth 425pt
+\textwidth 445pt
+\oddsidemargin 10pt
 
 \begin{document}
 
@@ -791,23 +792,22 @@ of the matrices and vectors in (\ref{eq:lin}) are:
 \begin{align*}
 & [\vec B_\Omega]_{ij} := 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspace^m} \vec
 e_r), \mat D( \phi_i^{\uspace^m}\,\vec e_s) \right) \right)_{r,s=1}^d\,,\quad
-\vec c = \left( \vec f^{m+1},\phi_i^{\uspace^m}\right)\,,\\
+\vec c_i = \left( \vec f^{m+1},\phi_i^{\uspace^m}\right)\,,\\
 &[\vec C_\Omega]_{iq} := - \left( \left(\nabla\,.\,(\phi_i^{\uspace^m}\,\vec
 e_r), \phi_q^{\pspace^m} \right) \right)_{r=1}^d,\quad
 [\Nbulk]_{il} := \left\langle \phi_i^{\uspace^m}, \chi^m_l \,\vec\nu^m
 \right\rangle_{\Gamma^m} \,,\\
 & [\vec{N}_\Gamma]_{kl} := \left\langle \chi^m_l, \chi^m_k\,\vec\nu^m
 \right\rangle_{\Gamma^m}^h \,,\quad [\vec{A}_\Gamma]_{kl} := \left\langle
-\nabs\,\chi^m_l, \nabs\,\chi^m_k \right\rangle_{\Gamma^m} \,\vec\id \,.
+\nabs\,\chi^m_l, \nabs\,\chi^m_k \right\rangle_{\Gamma^m} \,\vec\id \,,
 \end{align*}
-
-Note that for the submatrices we have used the convention that the subscripts
-refer to the test and trial domains, respectively. A single subscript is
-used where the two domains are the same.
+where $\phi^{\uspace^m} \in \uspace^m$, $\phi^{\pspace^m} \in \pspace^m$ and
+$\chi^m \in \Wh$. Note that for the submatrices we have used the convention that
+the subscripts refer to the test and trial domains, respectively.
 
 For the the solution of (\ref{eq:lin}) we use a Schur complement approach
-that eliminates $(\kappa^{m+1}, \delta \vec X^{m+1})$ from (\ref{eq:lin}),
-and then use an iterative solver for the remaining system in
+that eliminates \linebreak $(\kappa^{m+1}, \delta \vec X^{m+1})$ from
+(\ref{eq:lin}), and then use an iterative solver for the remaining system in
 $(\vec U^{m+1}, P^{m+1})$. This approach has the advantage that for the
 reduced system well-known solution methods for finite element discretizations
 for standard (Navier-)Stokes discretizations may be employed. The desired
@@ -857,9 +857,28 @@ As preconditioner we use the matrix
 \end{pmatrix}
 \,,
 \end{equation}
-where $M_\Omega$ is the weighted mass matrix defined as
+where $M_\Omega$ is the pressure mass matrix defined as
 \begin{equation*}
 [M_\Omega]_{ij} = \left(\,\phi_j^{\pspace^m},\, \phi_i^{\pspace^m}\right)\,.
+\end{equation*}
+An application of the preconditioner (\ref{eq:ESW}) amounts to solving the
+equations
+\begin{equation*}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_\Omega \\
+0 & -M_\Omega
+\end{pmatrix}
+\begin{pmatrix}
+\vec U \\
+P
+\end{pmatrix}
+=
+\begin{pmatrix}
+\vec v \\
+q
+\end{pmatrix}
+\iff
+M_\Omega\,P = -q\,,\quad \vec B_\Omega\,\vec U = \vec v - \vec C_\Omega\,P\,.
 \end{equation*}
 See \cite{ElmanSW05} for more details.
 
