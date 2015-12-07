@@ -1,5 +1,7 @@
-% LAST CHANGES BY RN 26/10/15
-% Submitted to Int. J. Numer. Methods Fluids on 26/10/15.
+% LAST CHANGES BY MA 28/01/16
+% Submitted to Int. J. Numer. Methods Fluids on 26/10/15. (ID: FLD-15-0367)
+% Received referee reports on 26/12/15.
+% Resubmitted to Int. J. Numer. Methods Fluids on 28/01/16.
 \documentclass[a4paper,12pt,onecolumn]{article}
 
 \usepackage[utf8]{inputenc}
@@ -33,8 +35,9 @@
 \newcommand{\NbulkT}{\vec{N}_{\Gamma,\Omega}^T}
 \newcommand{\Nbulk}{\vec{N}_{\Gamma,\Omega}}
 \newcommand{\errorXx}{\|\Gamma^h - \Gamma\|_{L^\infty}}
-\newcommand{\errorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{L^\infty}}
-\newcommand{\LerrorPp}{\|P - p\|_{L^2(\Omega_T)}}
+\newcommand{\LerrorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{L^2}}
+\newcommand{\HerrorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{H^1}}
+\newcommand{\LerrorPp}{\|P - p\|_{L^2}}
 \newcommand{\unitn}{\vec{\rm n}}
 \newcommand{\mat}[1]{\underline{\underline{#1}}\rule{0pt}{0pt}}
 
@@ -98,7 +101,7 @@ discontinuity jumps in the material properties and in the pressure are captured
 naturally. In particular, we do not need to employ an XFEM-type extension of
 standard bulk pressure spaces. Surface tension forces are discretized with the
 help of a variational approximation of curvature that was first proposed in
-\cite{triplej,gflows3d}. Combining this was an implicit treatment of the
+\cite{triplej,gflows3d}. Combining this with an implicit treatment of the
 surface tension forces yields an unconditionally stable scheme. Interestingly,
 the formulation of curvature from \cite{triplej} leads to a tangential motion
 of vertices in practice, which guarantees equidistribution in 2d and good
@@ -166,7 +169,7 @@ and 3d.
 \section{Mathematical model} \label{sec:2}
 
 \subsection{Governing equations}
-In this paper we consider two--phase Stokes flow in a given domain
+In this paper we consider two-phase Stokes flow in a given domain
 $\Omega\subset\mathbb{R}^d$, where $d=2$ or $d=3$. The domain $\Omega$ contains
 two different immiscible, incompressible, viscous fluids (liquid-liquid or
 liquid-gas) which for all $t\in[0,T]$ occupy time dependent regions
@@ -299,8 +302,8 @@ $$
 + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
 = 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t)]^d\,.
 $$
-Moreover, on noting (\ref{eq:stress_tensor}) and (\ref{eq:full_jump_stress}),
-we have that
+Moreover, on noting (\ref{eq:stress_tensor}) and
+(\ref{eq:interface_jump_stress}), we have that
 \begin{align*}
 \int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec \xi \dL{d}
 & = - \left(\mat\sigma, \nabla\,\vec \xi\right)
@@ -312,9 +315,8 @@ we have that
 \end{align*}
 for all $\vec \xi \in [H^1_0(\Omega)]^d$. Hence a possible weak formulation of
 (\ref{eq:full_momentum}--g) is given as follows. Given $\Gamma(0) = \Gamma_0$,
-for almost all $t\in(0,T)$ find $\Gamma(t)$ and functions
-$\vec u \in \uspace$, $p \in \widehat\pspace$, $\varkappa \in H^1(\Gamma(t))$
-such that
+for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
+\uspace \times \widehat\pspace \times H^1(\Gamma(t))}$ such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
@@ -404,19 +406,23 @@ exists a constant $C_0 \in \R_{>0}$, independent of $\mathcal{T}^m$, such that
 \end{equation}
 see \cite[p.~114]{GiraultR86}. Here $\|\cdot\|_0 := (\cdot,\cdot)^\frac12$ and
 $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ denote the $L^2$--norm and
-the $H^1$--norm on $\Omega$, respectively. Throughout this paper, we restrict
-ourselves to the
-elements P2--P0 and P2--(P1+P0), i.e.\ we set $\uspace^m=[S^m_2]^d\cap\uspace$
-and either $\pspace^m = S^m_0$ or $S^m_1+S^m_0$. Both these elements satisfy
-the LBB condition (\ref{eq:LBB}), where we note that the choice P2--(P1+P0)
-requires the weak constraint that all simplices have a vertex in $\Omega$,
-see \cite{BoffiCGG12}.
+the $H^1$--norm on $\Omega$, respectively. Throughout this paper, we will
+assume that $S^m_0\subset\pspace^m$. Then, for $d=2$, possible pairs
+$(\uspace^m,\pspace^m)$ that satisfy (\ref{eq:LBB}) are P2--P0 and P2--(P1+P0),
+i.e.\ we set $\uspace^m=[S^m_2]^d\cap\uspace$ and either $\pspace^m = S^m_0$ or
+$S^m_1+S^m_0$. We note that the choice P2--(P1+P0) requires the weak constraint
+that all simplices have a vertex in $\Omega$, see \cite{BoffiCGG12}. For $d=3$,
+pairs of spaces that satisfy $S^m_0\subset\pspace^m$ and (\ref{eq:LBB}) are
+the P3--(P2+P0) element, see \cite{BoffiCGG12}, or stabilized spaces such as
+P1$^{\mbox{face bubble}}$--P0, see \cite[Remark~8.7.1]{BoffiBF13}, which is
+also called the SMALL element.
 
 In this paper we consider a fitted finite element approximation for the
 evolution of the interface $\Gamma(t)$. Let $\Gamma^{m}\subset\R^d$ be a
 $(d-1)$-dimensional polyhedral surface approximating the closed surface
 $\Gamma(t_m)$, $m=0 ,\ldots, M$. Let $\Omega^m_+$ denote the exterior of
-$\Gamma^m$ and let $\Omega^m_-$ be the interior of $\Gamma^m$. Then
+$\Gamma^m$ and let $\Omega^m_-$ be the interior of $\Gamma^m$, where we assume
+that $\Gamma^m$ has no self-intersections. Then
 $\Omega = \Omega_-^m \cup \Gamma^m \cup \Omega_+^m$, and the fitted nature of
 our method implies that
 \begin{equation} \label{eq:fittedO}
@@ -465,11 +471,10 @@ let $\langle\cdot,\cdot\rangle_{\Gamma^m}$ denote the standard $L^2$--inner
 product on $\Gamma^m$.
 
 Then our finite element approximation, which is based on the variational
-formulation (\ref{eq:weaka}--d), is given as follows.
-Let $\Gamma^0$ be an approximation to $\Gamma(0)$.
-For $m=0,\ldots, M-1$, find $\vec U^{m+1} \in \uspace^m$,
-$P^{m+1} \in \widehat\pspace^m$,
-$\vec{X}^{m+1}\in\Vh$ and $\kappa^{m+1} \in \Wh$ such that
+formulation (\ref{eq:weaka}--d), is given as follows. Let $\Gamma^0$ be an
+approximation to $\Gamma(0)$. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},
+P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat\pspace^m
+\times \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
@@ -496,6 +501,8 @@ coupled linear system of equations for the unknowns
 $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})$ at each time level.
 We also note that the scheme (\ref{eq:HGa}--d), in the context of an
 unfitted finite element approximation, has been considered in \cite{spurious}.
+In particular, most of the theoretical results presented in the following
+are a direct consequence of the results in \cite{spurious}.
 
 \subsection{Existence and uniqueness of a discrete solution}
 \begin{thm} \label{thm:ex}
@@ -544,23 +551,24 @@ on $\Gamma^m$, which satisfies, on recalling (\ref{eq:proofc}) and $\vec U =
 \quad\forall\ \chi \in \Wh\,.
 \end{equation}
 It was shown in \cite[Proof of Theorem~2.1]{gflows3d} that if $\Gamma^m$
-has no self-intersections,
-then (\ref{eq:Xconst}) immediately yields that $\vec X = \vec 0$. Since
-$\Gamma^m = \partial\Omega^m_-$ is the boundary of an open domain, it cannot
-self-intersect, and hence we obtain that $\vec X = \vec 0$. This means that
-(\ref{eq:proofd}) reduces to
+has no self-intersections, then (\ref{eq:Xconst}) immediately yields that $\vec
+X = \vec 0$. As $\Gamma^m = \partial\Omega^m_-$ is the boundary of an open
+domain, we always assume that it does not self-intersect, and
+hence we obtain that $\vec X = \vec 0$. This means that (\ref{eq:proofd})
+reduces to
 \begin{equation} \label{eq:kappaproof}
 \left\langle \kappa\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h = 0
 \quad\forall\ \vec\eta \in \Vh\,.
 \end{equation}
 Let $\vec\omega^m \in \Vh$ be the mass-lumped $L^2$--projection of $\vec\nu^m$
-onto $\Vh$, i.e.\ $\left\langle \vec\omega^m, \vec\varphi
-\right\rangle_{\Gamma^m}^h$ $= \left\langle \vec\nu^m,
+onto $\Vh$, i.e.\ \linebreak $\left\langle \vec\omega^m, \vec\varphi
+\right\rangle_{\Gamma^m}^h = \left\langle \vec\nu^m,
+\vec\varphi \right\rangle_{\Gamma^m}^h = \left\langle \vec\nu^m,
 \vec\varphi \right\rangle_{\Gamma^m}$ for all $\vec\varphi\in\Vh$. It is easy
 to see that $\vec\omega^m (\vec q^m_k) \not= \vec 0$ for
-all $k=1,\ldots,K_\Gamma$, because $\Gamma^m$ is the boundary of an open domain.
-Then it follows from choosing $\vec\eta = \vec\pi^m[\kappa\,\vec\omega^m]$ in
-(\ref{eq:kappaproof}) that
+all $k=1,\ldots,K_\Gamma$, because $\Gamma^m$ does not self-intersect.
+Then it follows from choosing $\vec\eta = \vec\omega^m$ in (\ref{eq:kappaproof})
+that
 \begin{align*}
 0 = \left\langle \kappa\,\vec\nu^m, \vec\omega^m \right\rangle_{\Gamma^m}^h
 = \left\langle \vec\nu^m, \vec\pi^m[\kappa\,\vec\omega^m]
@@ -576,6 +584,12 @@ $\kappa^{m+1}) \in \uspace^m\times \widehat\pspace^m \times \Vh \times \Wh$ to
 (\ref{eq:HGa}--d).
 \end{proof}
 
+We note that if $(\uspace^m,\pspace^m)$ does not satisfy the LBB condition
+(\ref{eq:LBB}), then existence and uniqueness of the solution
+$(\vec U^{m+1},\vec X^{m+1},\kappa^{m+1})$ to a reduced system, where the
+pressure $P^{m+1}$ is eliminated, can be shown. See \cite[Theorem~1]{spurious}
+for more details.
+
 \subsection{Stability}
 We now demonstrate that the scheme (\ref{eq:HGa}--d) satisfies an energy
 estimate, which corresponds to the bound (\ref{eq:ap1}) in the continuous case.
@@ -584,7 +598,7 @@ In particular, we obtain an unconditional stability result for our scheme.
 \begin{thm} \label{thm:stabstab}
 Let $m \in \{0,\ldots,M-1\}$ and let
 $(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times
-\widehat\pspace^m \times \Vh \times \Wh$ be the unique solution to
+\widehat\pspace^m \times \Vh \times \Wh$ be a solution to
 {\rm (\ref{eq:HGa}--d)}. Then
 \begin{equation}\label{eq:stab}
 \gamma\, \mathcal{H}^{d-1}(\Gamma^{m+1})
@@ -603,28 +617,12 @@ f^{k+1}, \vec U^{k+1} \right)
 for $m=0,\ldots, M-1$.
 \end{thm}
 \begin{proof}
-Choosing $\vec\xi = \vec U^{m+1} \in \uspace^m$ in (\ref{eq:HGa}),
+The desired results follow from choosing $\vec\xi = \vec U^{m+1} \in \uspace^m$
+in (\ref{eq:HGa}),
 $\varphi = P^{m+1} \in \widehat\pspace^m$ in (\ref{eq:HGb}),
 $\chi = \gamma\,\kappa^{m+1}$ in (\ref{eq:HGc}) and
-$\vec\eta=\gamma\,({\vec{X}^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ in (\ref{eq:HGd})
-yields that
-\begin{align*}
-& 2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1}) \right)
-+ \gamma\,\left\langle \nabs\,\vec{X}^{m+1}, \nabs\,(\vec{X}^{m+1} - \vec\id)
-\right\rangle_{\Gamma^m}
-\\ & \qquad
-= \tau_m\left(\vec f^{m+1}, \vec U^{m+1} \right)\,.
-\end{align*}
-Hence (\ref{eq:stab}) follows immediately, where we have used the result that
-\begin{equation*}
-\left\langle \nabs\,\vec{X}^{m+1}, \nabs\,(\vec{X}^{m+1}
-- \vec\id) \right\rangle_{\Gamma^m} \geq \mathcal{H}^{d-1}(\Gamma^{m+1}) -
-\mathcal{H}^{d-1}(\Gamma^{m})\,,
-\end{equation*}
-see e.g.\ \cite[Proof of Theorem~2.3]{triplej} and
-\cite[Proof of Theorem~2.2]{gflows3d} for the proofs for $d=2$ and $d=3$,
-respectively. The desired result (\ref{eq:stabstab}) immediately follows from
-(\ref{eq:stab}).
+$\vec\eta=\gamma\,({\vec{X}^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ in
+(\ref{eq:HGd}). See \cite[Proof of Theorem~2]{spurious} for more details.
 \end{proof}
 
 \subsection{Discrete stationary solutions}
@@ -645,29 +643,10 @@ Moreover, we recall from \cite[\S4.1]{gflows3d}
 that surfaces $\Gamma^m \subset \R^3$
 that satisfy (\ref{eq:conformal}) are called conformal polyhedral surfaces.
 
-Next we consider discrete stationary solutions when no outer forces act, i.e.\
-when $\vec f = \vec 0$. Here, independently of the choice of $\mu_\pm$, no
-spurious velocities appear for discrete stationary solutions. This is an
-immediate consequence of Theorem~\ref{thm:stabstab}, as the following proof
-shows.
-
-\begin{thm}\label{thm:stat1}
-Let $(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1})
-\in \uspace^m\times \widehat \pspace^m\times \Vh\times\Wh$ be the unique
-solution to {\rm (\ref{eq:HGa}--d)} with $\vec f^{m+1} = \vec 0$. If
-$\Gamma^{m+1} = \Gamma^m$, then $\vec U^{m+1} = \vec 0$.
-\end{thm}
-\begin{proof}
-Clearly the solution satisfies (\ref{eq:stab}) with $\Gamma^{m+1}$ replaced
-by $\Gamma^m$ and with $\vec f^{m+1} = \vec 0$. Hence we obtain that
-$(\mu^m\,\mat D (\vec U^{m+1}),\mat D(\vec U^{m+1})) = 0$, and so Korn's
-inequality implies that $\vec U^{m+1} = \vec 0$.
-\end{proof}
-
-In addition, we can prove that discrete stationary solution exist for our
-scheme.
+Next we can prove that discrete stationary solution exist for our scheme.
 \begin{thm} \label{thm:stat2}
-Let $S^m_0 \subset \pspace^m$ and let $\vec f^{m+1} = \vec 0$. Moreover, let
+Let $(\uspace^m,\pspace^m)$ satisfy the LBB condition \mbox{\rm (\ref{eq:LBB})}
+and let $S^m_0 \subset \pspace^m$. Let $\vec f^{m+1} = \vec 0$. Moreover, let
 $\Gamma^m$ be a polyhedral surface with constant discrete mean curvature,
 i.e.\ there exists a constant $\overline{\kappa}\in\mathbb{R}$ such that
 \begin{equation}\label{eq:constcurv}
@@ -682,7 +661,7 @@ Then $\Gamma^m$ satisfies {\rm (\ref{eq:conformal})} and
 \charfcn{\Omega_-^m} - \frac{\mathcal{L}^d(\Omega_-^m)}{\mathcal{L}^d(\Omega)}
 \right], \vec\id\!\mid_{\Gamma^m}, \overline{\kappa})
 \end{equation}
-is the the unique solution to \mbox{\rm (\ref{eq:HGa}--d)}.
+is the unique solution to \mbox{\rm (\ref{eq:HGa}--d)}.
 \end{thm}
 \begin{proof}
 It immediately follows from (\ref{eq:constcurv}) that (\ref{eq:conformal})
@@ -717,17 +696,30 @@ in order to highlight two additional important properties of the scheme: a
 good tangential distribution of mesh points, and good volume conservation.
 
 Let $(\Gamma^h(t))_{t\in[0,T]}$ be a family of polyhedral surfaces, with
-outer normal $\vec\nu^h$. Similarly to (\ref{eq:V}), we can then define the
-discrete velocity $\vec{\mathcal{V}}^h$, see e.g.\ \cite[(3.3)]{tpfs}. We also
-define the piecewise linear finite element spaces $\Wht$ and $\Vht$. For $t\in
+outer normal $\vec\nu^h(t)$.
+We also define the piecewise linear finite element spaces $\Wht$ and $\Vht$,
+with $\{\chi^h_k(\cdot,t)\}_{k=1}^{K_\Gamma}$ denoting the standard basis of
+the former. Hence
+$\chi^h_k(\vec q^h_l(t),t) = \delta_{kl}$ for all $k,l \in
+\{1,\ldots,K_\Gamma\}$ and $t \in [0,T]$, where
+$\{\vec{q}^h_k(t)\}_{k=1}^{K_\Gamma}$ are the vertices of $\Gamma^h(t)$.
+Similarly to (\ref{eq:V}), we can then define the discrete velocity
+\begin{equation*}
+\vec{\mathcal{V}}^h(\vec z, t):=
+\sum_{k=1}^{K_\Gamma}\left[\ddt\,\vec q^h_k(t)\right] \chi^h_k(\vec z, t)
+\in \Vht\,,
+\end{equation*}
+see e.g.\ \cite[(3.3)]{tpfs}.
+For $t\in
 [0,T]$, let $\mathcal{T}^h(t)$ be a regular partitioning of $\Omega$ into
 disjoint open simplices and define the finite element spaces $S^h_k(t)$,
 $\uspace^h(t)$ and $\pspace^h(t)$ similarly to $S^m_k$, $\uspace^m$ and
 $\pspace^m$, with the corresponding interpolation operators $I^h_k$ and discrete
-approximations $\mu^h(t) \in S^h_0(t)$. Then, given $\Gamma^h(0)$, for $t\in
-(0,T]$ find $\Gamma^h(t)$, such that $\vec{\mathcal{V}}^h \in \Vht$, and
-$\vec U^h(t) \in \uspace^h(t)$, $P^h(t) \in \widehat\pspace^h(t)$ and
-$\kappa^h(t) \in \Wht$ such that
+approximations $\mu^h(t) \in S^h_0(t)$. Here we recall that we assume
+$S_0^h(t)\subset\pspace^h(t)$. Then, given $\Gamma^h(0)$, for $t\in
+(0,T]$ find $\Gamma^h(t)$ and $(\vec U^h(t), P^h(t), \vec{\mathcal{V}}^h(t),
+\kappa^h(t)) \in \uspace^h(t) \times \widehat\pspace^h(t) \times \Vht \times
+\Wht$ such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu^h\,\mat D(\vec U^h), \mat D(\vec \xi) \right)
@@ -784,8 +776,10 @@ then projected into the space of zero mean functions. The linear system
 (\ref{eq:HGa}--d), with $\widehat\pspace^m$ replaced by $\pspace^m$, can be
 formulated as:
 
-Find $(\vec U^{m+1},P^{m+1}, \kappa^{m+1},\delta\vec{X}^{m+1})$, where $\vec
-X^{m+1} = \vec X^m+ \delta\vec X^{m+1}$, such that
+Find $(\vec U^{m+1},P^{m+1}, \kappa^{m+1},\delta\vec{X}^{m+1})\in
+(\R^d)^{K^m_\uspace}\times \R^{K^m_\pspace} \times \R^{K_\Gamma}\,\times
+(\R^d)^{K_\Gamma}$, where $\vec X^{m+1} = \vec X^m+ \delta\vec X^{m+1}$, such
+that
 \begin{equation}
 \begin{pmatrix}
 \vec B_\Omega & \vec C_\Omega & -\gamma\,\Nbulk & 0 \\
@@ -808,20 +802,18 @@ P^{m+1} \\
 \end{pmatrix} \,,
 \label{eq:lin}
 \end{equation}
-where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec{X}^{m+1})\in
-(\R^d)^{K^m_\uspace}\times \R^{K^m_\pspace} \times \R^{K_\Gamma}\,\times
-(\R^d)^{K_\Gamma}$ here denote the coefficients of these finite element
-functions with respect to the standard bases of $\uspace^m$, $\pspace^m$, $\Wh$
-and $\Vh$, respectively. Moreover, $\vec X^m$ denotes the coefficients of
-$\vec\id\!\mid_{\Gamma^m}$ with respect to the basis of $\Vh$. The definitions
-of the matrices and vectors in (\ref{eq:lin}) directly follow from
-(\ref{eq:HGa}--d).
+where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec{X}^{m+1})$ here denote the
+coefficients of these finite element functions with respect to the standard
+bases of $\uspace^m$, $\pspace^m$, $\Wh$ and $\Vh$, respectively. Moreover,
+$\vec X^m$ denotes the coefficients of $\vec\id\!\mid_{\Gamma^m}$ with respect
+to the basis of $\Vh$. The definitions of the matrices and vectors in
+(\ref{eq:lin}) directly follow from (\ref{eq:HGa}--d).
 
 Note that for the submatrices we have used the convention that the subscripts
 refer to the test and trial domains, respectively. A single subscript is
 used where the two domains are the same.
 
-For the the solution of (\ref{eq:lin}) we use a Schur complement approach
+For the solution of (\ref{eq:lin}) we use a Schur complement approach
 that eliminates $(\kappa^{m+1}, \delta \vec X^{m+1})$ from (\ref{eq:lin}),
 and then use an iterative solver for the remaining system in
 $(\vec U^{m+1}, P^{m+1})$. This approach has the advantage that for the
@@ -895,25 +887,25 @@ is inspired by the method proposed in \cite{Ganesan06}, see also
 (\ref{eq:lin}), we solve the linear elasticity problem: Find a displacement
 $\vec\psi \in [H^1(\Omega)]^d$ such that
 \begin{subequations}
-\begin{align}
-\nabla\,.\,\mat S(\vec\psi) &= 0 && \mbox{in }\Omega_{\pm}^m\,,
+\begin{alignat}{2}
+\nabla\,.\,\mat S & = \vec 0 \qquad &&\mbox{in } \Omega_\pm^m\,,
 \label{eq:elasta}\\
-\vec\psi &= \delta \vec X && \mbox{on } \Gamma^m\,, \label{eq:elastb} \\
-\vec\psi\,.\,\vec{\rm n} & = 0 &&\mbox{on } \partial\Omega\,, \label{eq:elastc}
-\end{align}
+\vec\psi &= \delta \vec X \qquad && \mbox{on } \Gamma^m\,, \label{eq:elastb} \\
+\vec\psi\,.\,\vec{\rm n} & = 0 \qquad &&\mbox{on } \partial\Omega\,,
+\label{eq:elastc}
+\end{alignat}
 \end{subequations}
-where
+where the stress tensor $\mat S$ is defined as
 \begin{equation} \label{eq:elasticity_tensor}
-\mat S(\vec \psi) = (\nabla\,.\vec\psi)\,\mat\id + 2\,\mat D(\vec\psi)
+\mat S = 2\,\mat D(\vec\psi) + (\nabla\,.\vec\psi)\,\mat\id
 \end{equation}
-is the stress tensor with Lam{\'e} moduli $\lambda=\mu=1$, and where
-$\vec{\rm n}$ in (\ref{eq:elastc}) is the outer unit normal to $\Omega$ on
-$\partial\Omega$. In practice we approximate (\ref{eq:elasta}--c) with
-piecewise linear elements and solve the resulting system of linear equations
-with the UMPFACK package, see \cite{Davis04}. The obtained discrete variant of
-$\vec\psi$, at every vertex of the current bulk grid $\mathcal{T}^m$, then
-represents the variation in their position that we compute in order to obtain
-$\mathcal{T}^{m+1}$.
+and where $\vec{\rm n}$ in (\ref{eq:elastc}) is the outer unit normal to
+$\Omega$ on $\partial\Omega$. In practice we approximate (\ref{eq:elasta}--c)
+with piecewise linear elements and solve the resulting system of linear
+equations with the UMPFACK package, see \cite{Davis04}. The obtained discrete
+variant of $\vec\psi$, at every vertex of the current bulk grid
+$\mathcal{T}^m$, then represents the variation in their position that we
+compute in order to obtain $\mathcal{T}^{m+1}$.
 
 Occasionally the deformation of the mesh becomes too large, for instance when
 the bubble making up the inner phase undergoes strong deformations, and so a
@@ -925,6 +917,11 @@ for a complete remeshing, we define the criterion
 \end{equation}
 where $C_r$ is a fixed constant. Of course, if we choose $C_r = 1$, then a
 remeshing would be triggered after every time step.
+
+We stress that in all our numerical simulations we never need to remesh the
+interface $\Gamma^m$ itself. Hence the stability results from
+Theorem~\ref{thm:stabstab} hold throughout. Of course, a remeshing of $\Gamma^m$
+would mean that Theorem~\ref{thm:stabstab} is no longer valid.
 
 \setcounter{equation} 0
 \section{Numerical results} \label{sec:4}
@@ -938,8 +935,9 @@ in seconds and correspond to a single thread computation on an Intel Xeon E5640
 
 In order to test our method, and to allow comparisons with the unfitted finite
 element approximation in \cite{spurious}, we recall the following stationary
-and expanding spherical solutions from \cite{spurious}. Firstly, the stationary
-sphere $\Gamma(t) = \{ \vec z \in \R^d : |\vec z| = r(t)\}$, where
+and expanding spherical solutions from \cite{spurious}. Let $\Gamma(t) = \{ \vec
+z \in \R^d : |\vec z| = r(t)\}$ be a sphere of radius $r(t)$ and curvature
+$\kappa(t) = -\,\frac{d-1}{r(t)}$. Firstly, the stationary sphere where
 \begin{subequations}
 \begin{equation} \label{eq:radialr}
 r(t) = r(0)\,,
@@ -947,61 +945,64 @@ r(t) = r(0)\,,
 together with
 \begin{equation} \label{eq:radialup}
 \vec u(\vec z, t) = \vec 0 \,,\quad p(\vec z, t) =
-\lambda(t)\left[\charfcn{\Omega_-(0)}
+-\,\gamma \kappa(0)\left[\charfcn{\Omega_-(0)}
 -\frac{\mathcal{L}^d(\Omega_-(0))}{\mathcal{L}^d(\Omega)} \right] ,
 \end{equation}
 \end{subequations}
-where $\lambda(t) = \lambda(0) = \gamma\,(d-1)\,[r(0)]^{-1}$, is an exact
-solution to the problem (\ref{eq:full_momentum}--g) on e.g.\ $\Omega =
-(-1,1)^d$. Secondly, a nontrivial divergence free and radially symmetric
+is an exact solution to the problem (\ref{eq:full_momentum}--g) on e.g.\
+$\Omega = (-1,1)^d$. This solution is the continuous version of
+(\ref{eq:solsol}). Secondly, a nontrivial divergence free and radially symmetric
 solution $\vec u$ can be constructed on a domain that does not contain the
 origin. To this end, consider e.g.\ $\Omega = (-1,1)^d \setminus [-\frac13,
-\frac13]^d$, and let $\alpha \geq 0$ be given. Then $\Gamma(t) = \{ \vec z \in
-\R^d : |\vec z| = r(t)\}$, where
+\frac13]^d$, and let $\alpha \geq 0$ be given. Then, the expanding sphere where
 \begin{subequations}
 \begin{equation} \label{eq:radialr2}
 r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
 \end{equation}
 together with
 \begin{equation} \label{eq:radialup2}
-\vec u(\vec z, t) = \alpha\,|\vec z|^{-d}\,\vec z \,, \quad p(\vec z, t) =
-\lambda(t)\left[ \charfcn{\Omega_-(t)} -
+\vec u(\vec z, t) = \alpha\,\frac{\vec z}{|\vec z\,|^d}\,, \quad
+p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
+{r(t)^{d-1}}\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
 \frac{\mathcal{L}^d(\Omega_-(t))}{\mathcal{L}^d(\Omega)}\right],
 \end{equation}
 \end{subequations}
-where $\lambda(t) = \gamma\,(d-1)\,[r(t)]^{-1}
-+ 2\,\alpha\,(d-1)\,(\mu_+ - \mu_-)\,[r(t)]^{-d}$, is an exact solution to the
-problem (\ref{eq:full_momentum}--g) with the homogeneous right hand side in
-(\ref{eq:full_initial_velocity}) replaced by $\vec g$, where $\vec g(\vec z) =
-\alpha\,|\vec z|^{-d}\,\vec z$. We will refer to (\ref{eq:radialr},b) as the
-stationary bubble solution, and to (\ref{eq:radialr2}) as the expanding bubble
-solution.
+is an exact solution to the problem (\ref{eq:full_momentum}--g) with the
+homogeneous right hand side in (\ref{eq:full_initial_velocity}) replaced by
+$\vec g$, where $\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$. We will refer
+to (\ref{eq:radialr},b) as the stationary bubble solution, and to
+(\ref{eq:radialr2},b) as the expanding bubble solution.
 
 In the following, unless otherwise stated, we choose the initial surface
-$\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$, and we employ
-uniform time steps $\tau_m=\tau$, $m=0,\ldots, M-1$.
+$\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$, the domain
+$\Omega = (-1,1)^d$ and we employ uniform time steps $\tau_m=\tau$,
+$m=0,\ldots, M-1$.
 
-Finally, we define the errors
+Moreover, we define the errors
 \begin{equation} \label{eq:errorXx}
 \errorXx := \max_{m=1,\ldots, M} \|\Gamma^m - \Gamma(t_m)\|_{L^\infty}\,,
 \end{equation}
 where $\|\Gamma^m - \Gamma(t_m)\|_{L^\infty} :=
 \max_{k=1,\ldots, K_\Gamma} {\rm dist}( \vec{q}^m_k, \Gamma(t_m))$,
-\begin{equation*}
-\errorUu2 := \max_{m=1,\ldots, M}\|U^m
-- \vec I^m_2\,u(\cdot,t_m)\|_{L^\infty(\Omega)}\,,
-\end{equation*}
+\begin{equation} \label{eq:errorLUu}
+\LerrorUu2 := \left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
+t_m)\|_{L^2(\Omega)}^2 \right]^\frac12,
+\end{equation}
+\begin{equation} \label{eq:errorHUu}
+\HerrorUu2 := \left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
+t_m)\|_{H^1(\Omega)}^2 \right]^\frac12,
+\end{equation}
 and
-\begin{equation*}
+\begin{equation} \label{eq:errorPp}
 \LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2
-\right]^\frac12 ,
-\end{equation*}
-where for the $L^2$--norms over $\Omega$ we employ a quadrature rule of degree
-$k$, with $k=13$ in 2d and $k=10$ in 3d.
+\right]^\frac12.
+\end{equation}
+In (\ref{eq:errorPp}) we employ a quadrature rule of degree $k$, with $k=13$ in
+2d and $k=10$ in 3d, to compute the $L^2$--norms over $\Omega$.
 
 \subsection{Convergence tests in 2d} \label{sec:41}
-For the true solution (\ref{eq:radialr},b) we choose the domain $\Omega =
-(-1,1)^2$ and let $\mu = \gamma = 1$. Therefore, the solution reduces to $r(t) =
+For the true solution (\ref{eq:radialr},b) we choose $\mu = \gamma = 1$.
+Therefore, the solution reduces to $r(t) =
 \frac{1}{2}$, $\vec u(\cdot, t) = \vec 0$ and $p(t) = 2\,\charfcn{\Omega_-(0)} -
 \frac{\pi}{8}$ for all $t \geq 0$. We approximate this stationary solution on
 nearly uniform meshes that feature $J_\Gamma = 2^i$, $i=4,\ldots,7$, uniform
@@ -1023,14 +1024,14 @@ Tables~\ref{tab:bubble2Dp2p0} and \ref{tab:bubble2Dp2p1p0},
 respectively.
 \begin{table*}
 \center
-\begin{tabular}{rlllr}
+\begin{tabular}{rllllr}
 \hline
-$J_\Gamma$ & $\errorXx$ & $\errorUu2$ & $\LerrorPp$ & $CPU[s]$ \\
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 \hline
- 16 & 0 & 0 & 3.22254e-01 &   10 \\
- 32 & 0 & 0 & 1.41195e-01 &   49 \\
- 64 & 0 & 0 & 4.06438e-02 &  378 \\
-128 & 0 & 0 & 2.60448e-02 & 1967 \\
+ 16 & 0 & 0 & 3.22254e-01 &    - &    9 \\
+ 32 & 0 & 0 & 1.41195e-01 & 0.90 &   54 \\
+ 64 & 0 & 0 & 4.06438e-02 & 1.80 &  292 \\
+128 & 0 & 0 & 2.60448e-02 & 0.64 & 1443 \\
 \hline
 \end{tabular}
 \caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
@@ -1039,14 +1040,14 @@ interval $[0,1]$ for the P2--P0 element.}
 \end{table*}
 \begin{table*}
  \center
-\begin{tabular}{rlllr}
+\begin{tabular}{rllllr}
 \hline
-$J_\Gamma$ & $\errorXx$ & $\errorUu2$ & $\LerrorPp$ & $CPU[s]$ \\
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 \hline
- 16 & 0 & 0 & 3.22254e-01 &    41 \\
- 32 & 0 & 0 & 1.41195e-01 &   821 \\
- 64 & 0 & 0 & 4.06438e-02 &  8971 \\
-128 & 0 & 0 & 2.60448e-02 & 55629 \\
+ 16 & 0 & 0 & 3.22254e-01 &    - &   13 \\
+ 32 & 0 & 0 & 1.41195e-01 & 0.90 &   44 \\
+ 64 & 0 & 0 & 4.06438e-02 & 1.80 &  203 \\
+128 & 0 & 0 & 2.60448e-02 & 0.64 & 2151 \\
 \hline
 \end{tabular}
 \caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
@@ -1101,13 +1102,14 @@ every time step. Of course, when only smoothing is employed, then the number of
 bulk mesh elements is invariant, and so $J_\Omega^M = J_\Omega^0$.
 \begin{table*}
 \center
-\begin{tabular}{rrcrr}
+\begin{tabular}{rrrr}
 \hline
 $J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ for $C_r=1$ \\
 \hline
-16 &  212 & $1.6\cdot10^{-2}$ &  120 \\
-32 &  988 &   $4\cdot10^{-3}$ &  452 \\
-64 & 3776 &         $10^{-3}$ & 1864 \\
+ 16 &   212 & $1.6\cdot10^{-2}$ &  120 \\
+ 32 &   988 &   $4\cdot10^{-3}$ &  452 \\
+ 64 &  3776 &         $10^{-3}$ & 1864 \\
+128 & 15212 & $2.5\cdot10^{-4}$ & 7272 \\
 \hline
 \end{tabular}
 \caption{Discretization parameters for the 2d expanding bubble problem,
@@ -1117,21 +1119,33 @@ uniform meshes.}
 We report on the error for the P2--P0 element, when only mesh smoothings are
 applied, in Table~\ref{tab:expandingbubble2Dp2p0smooth}. Due to the expanding
 motion of the interface, we observe that over time bulk mesh elements strongly
-deform. This leads to large CPU times and additional approximation errors.
+deform. This leads to large CPU times and additional approximation errors. In
+particular, the strong mesh deformations for the finest run, with
+$J_\Omega^0 = J_\Omega^M = 15212$, leads to a breakdown of the convergence rate
+for the $L^2$-velocity error, and an actual increase in the $H^1$-velocity
+error.
 Hence, as a comparison, we show the errors for the same element, when the bulk
 mesh is remeshed after every time step, in
 Table~\ref{tab:expandingbubble2Dp2p0remesh}.
 \begin{table*}
- \center
-\begin{tabular}{llllr}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rllllllr}
 \hline
-$J_\Gamma$ & $\errorXx$ & $\errorUu2$ & $\LerrorPp$ & $CPU[s]$\\
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
+& CPU[s] \\
 \hline
-16 & 5.98661e-03 & 3.67780e-03 & 4.17354e-01 &    253 \\
-32 & 1.47669e-03 & 1.68775e-03 & 2.29737e-01 &   5348 \\
-64 & 3.68788e-04 & 5.35566e-04 & 1.05960e-01 & 107430 \\
+ 16 & 6.17082e-03 & 8.84787e-04 &    - & 2.50884e-02 & 4.16967e-01 &    - &
+5 \\
+ 32 & 1.51156e-03 & 3.41220e-04 & 1.04 & 1.17669e-02 & 2.29638e-01 & 0.65 &
+119 \\
+ 64 & 3.69491e-04 & 8.66470e-05 & 1.98 & 5.82977e-03 & 1.05959e-01 & 1.12 &
+2121 \\
+128 & 9.20954e-05 & 5.90688e-05 & 0.55 & 6.42798e-03 & 3.15158e-02 & 1.75 &
+37494 \\
 \hline
 \end{tabular}
+\hspace*{-3.25cm}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
 interval $[0,1]$ for the P2--P0 element, no remeshing and uniform mesh.}
@@ -1139,15 +1153,23 @@ interval $[0,1]$ for the P2--P0 element, no remeshing and uniform mesh.}
 \end{table*}
 \begin{table*}
 \center
-\begin{tabular}{llllr}
+\hspace*{-3.25cm}
+\begin{tabular}{rllllllr}
 \hline
-$J_\Gamma$ & $\errorXx$ & $\errorUu2$ & $\LerrorPp$ & $CPU[s]$\\
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
+& CPU[s] \\
 \hline
-16 & 5.92892e-03 & 3.86458e-03 & 4.43308e-01 &   243 \\
-32 & 1.46653e-03 & 8.73181e-04 & 2.14625e-01 &  4362 \\
-64 & 3.65445e-04 & 1.92670e-04 & 8.09743e-02 & 78947 \\
+ 16 & 5.96720e-03 & 5.50015e-04 &    - & 1.59994e-02 & 4.43219e-01 &    - &
+17 \\
+ 32 & 1.46664e-03 & 1.05702e-04 & 1.80 & 5.25702e-03 & 2.14651e-01 & 0.79 &
+142 \\
+ 64 & 3.65441e-04 & 1.48680e-05 & 2.83 & 1.50700e-03 & 8.09626e-02 & 1.41 &
+1598 \\
+128 & 9.12537e-05 & 1.80890e-06 & 3.04 & 3.59193e-04 & 3.69595e-02 & 1.13 &
+26254 \\
 \hline
 \end{tabular}
+\hspace*{-3.25cm}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
 interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and
@@ -1155,20 +1177,31 @@ uniform mesh.}
 \label{tab:expandingbubble2Dp2p0remesh}
 \end{table*}
 We observe a dramatic improvement in the CPU times, and a significant reduction
-in the error quantities. That is why for the P2--(P1+P0) element we only
+in the error quantities. In particular, there is no deterioration of the
+observed convergence rates.
+That is why for the P2--(P1+P0) element we only
 consider the case $C_r = 1$, see
-Table~\ref{tab:expandingbubble2Dp2p1p0remesh}.
+Table~\ref{tab:expandingbubble2Dp2p1p0remesh}, i.e.\ only a simulation with
+remeshing at every time step.
 \begin{table*}
  \center
-\begin{tabular}{llllr}
+\hspace*{-3.25cm}
+\begin{tabular}{rllllllr}
 \hline
-$J_\Gamma$ & $\errorXx$ & $\errorUu2$ & $\LerrorPp$ & $CPU[s]$ \\
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
+& CPU[s] \\
 \hline
-16 & 5.95691e-03 & 4.04415e-03 & 4.44634e-01 &    258 \\
-32 & 1.47266e-03 & 3.23973e-03 & 2.14906e-01 &   4683 \\
-64 & 3.65596e-04 & 2.72450e-04 & 8.10807e-02 & 129910 \\
+ 16 & 5.96973e-03 & 9.14482e-04 &    - & 2.64868e-02 & 4.44352e-01 &    - &
+16 \\
+ 32 & 1.47267e-03 & 2.41367e-04 & 1.45 & 1.03904e-02 & 2.14909e-01 & 0.79 &
+168 \\
+ 64 & 3.65603e-04 & 2.33325e-05 & 3.37 & 2.02177e-03 & 8.11567e-02 & 1.40 &
+2177 \\
+128 & 9.12677e-05 & 2.42999e-06 & 3.26 & 4.31899e-04 & 3.69626e-02 & 1.13 &
+29120 \\
 \hline
 \end{tabular}
+\hspace*{-3.25cm}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
 interval $[0,1]$ for the P2--(P1+P0) element, with remeshing at every time step
@@ -1209,14 +1242,14 @@ employed discretization parameters in
 Table~\ref{tab:expandingbubble2Delements_adaptive}.
 \begin{table*}
 \center
-\begin{tabular}{rrcr}
+\begin{tabular}{rrrr}
 \hline
 $J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ \\
 \hline
  32 &  584 & $6.4\cdot10^{-2}$ &  234 \\
  64 & 1020 & $1.6\cdot10^{-2}$ &  564 \\
 128 & 2506 &   $4\cdot10^{-3}$ & 1226 \\
-256 & 7460 &         $10^{-3}$ & 3872 \\
+256 & 7460 &         $10^{-3}$ & 3866 \\
 \hline
 \end{tabular}
 \caption{Discretization parameters for the 2d expanding bubble problem,
@@ -1226,17 +1259,24 @@ adaptive meshes.}
 The observed errors for our numerical approximation are shown in
 Table~\ref{tab:expandingbubble2Dp2p0adaptive}.
 \begin{table*}
- \center
-\begin{tabular}{rlllr}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rllllllr}
 \hline
-$J_\Gamma$ & $\errorXx$ & $\errorUu2$ & $\LerrorPp$ & $CPU[s]$\\
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
+& CPU[s] \\
 \hline
- 32 & 3.91426e-03 & 1.86979e-03 & 5.57560e-01 &     97 \\
- 64 & 9.96943e-04 & 1.83143e-03 & 2.94448e-01 &    590 \\
-128 & 2.51524e-04 & 2.63245e-03 & 1.51500e-01 &  11003 \\
-256 & 6.04565e-05 & 6.90220e-04 & 6.32413e-02 & 130320 \\
+ 32 & 3.92051e-03 & 6.54288e-04 &    - & 1.43866e-02 & 5.58359e-01 &    - &
+5 \\
+ 64 & 9.96712e-04 & 3.70951e-04 & 0.62 & 1.09825e-02 & 2.94547e-01 & 0.70 &
+25 \\
+128 & 2.60197e-04 & 2.88781e-04 & 0.36 & 9.81011e-03 & 1.51576e-01 & 0.96 &
+238 \\
+256 & 6.05795e-05 & 6.98183e-05 & 2.05 & 3.87054e-03 & 6.32656e-02 & 1.26 &
+2624 \\
 \hline
 \end{tabular}
+\hspace*{-3.25cm}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
 interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and
@@ -1279,7 +1319,7 @@ $J_\Gamma = 32$ elements. Here we use the P2--P0 element, and let $C_r = 3$.}
 \subsection{Energy decay and area conservation in 2d}
 In Figure~\ref{fig:ellipse_both} we show the pressure evolution for a
 simulation that starts with an initial ellipse, with major and minor axes of
-1.6 and 0.75. The domain is given by $\Omega = (-1,1)^2$ and we use the
+1.6 and 0.75. We use the
 parameters $\mu = \gamma=1$, $\tau=10^{-2}$ and $T=10$. The initial interface
 is discretized with $J_\Gamma = 40$ surface elements, and the initial bulk mesh
 has $J_\Omega^0 = 1112$ elements. We employ the P2--P0 element and use the
@@ -1329,10 +1369,8 @@ Figure~\ref{fig:ellipse_both}, when no remeshings are performed.}
 \end{figure}
 
 \subsection{Shear flow experiment in 2d}
-As the final 2d numerical simulation we present a shear flow experiment
-in the domain $\Omega=(-1,1)^2$, with a circle of radius $r=0.5$ as the
-initial interface. Here we prescribe the inhomogeneous Dirichlet boundary
-condition
+As the final 2d numerical simulation we present a shear flow experiment. Here
+we prescribe the inhomogeneous Dirichlet boundary condition
 \begin{equation*}
 \vec g(\vec z)=(z_2,0)^T\quad \mbox{on }\partial\Omega\,,
 \end{equation*}
@@ -1370,8 +1408,8 @@ $C_r=3$ for the P2--P0 element, uniform mesh.}
 
 \subsection{Convergence test in 3d} \label{sec:45}
 Similarly to \S\ref{sec:41}, we perform the following convergence test for a
-stationary spherical bubble in 3d. Let $\Omega = (-1,1)^3$ and
-$\mu = \gamma = 1$. Then the true solution (\ref{eq:radialr},b) reduces to
+stationary spherical bubble in 3d. Let $\mu = \gamma = 1$. Then the true
+solution (\ref{eq:radialr},b) reduces to
 $r(t) = \frac{1}{2}$, $\vec u(\cdot, t) = \vec 0$ and
 $p(t) = 4\,\charfcn{\Omega_-(0)} - \frac{\pi}{12}$ for all $t\geq0$. We
 approximate this stationary solution on nearly uniform meshes that feature
@@ -1389,19 +1427,25 @@ such an initial triangulation with the help of the numerical scheme from
 surface area that maintains the enclosed volume. See
 e.g.\ \cite[Fig.\ 11]{gflows3d} for an evolution towards a polyhedral
 approximation of a sphere that satisfies (\ref{eq:constcurv}), and hence also
-(\ref{eq:conformal}). We report the
-errors for the P2--P0 element in Table~\ref{tab:bubble3Dp2p0}, while
-Table~\ref{tab:bubble3Dp2p1p0} shows the same errors for the P2--(P1+P0)
-element. In both cases we use the uniform time step size $\tau = 10^{-2}$.
+(\ref{eq:conformal}). We report the errors for the P2--P0 element in
+Table~\ref{tab:bubble3Dp2p0}, while Table~\ref{tab:bubble3Dp2p1p0} shows the
+same errors for the P2--(P1+P0) element. Here we note that, as yet, for
+the pairs P2--P0 and P2--(P1+P0) there exist no proofs in the literature that
+the LBB condition (\ref{eq:LBB}) holds, see e.g.\ the discussion in
+\cite[Remark~8.4.3]{BoffiBF13}. However, in practice we encountered no problems
+when using these spaces, and our iterative solver always converged to a
+solution of the scheme (\ref{eq:HGa}--d).
+For both sets of simulations we use the uniform time step size
+$\tau = 10^{-2}$.
 \begin{table*}
 \center
-\begin{tabular}{rlllr}
+\begin{tabular}{rllllr}
 \hline
-$J_\Gamma$ & $\errorXx$ & $\errorUu2$ & $\LerrorPp$ & $CPU[s]$ \\
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 \hline
- 32 & 2.97986e-02 & 0 & 1.65555e-00 &   385 \\
-220 & 5.80971e-03 & 0 & 7.14269e-01 &  4699 \\
-596 & 2.42857e-03 & 0 & 3.58466e-01 & 51604 \\
+ 32 & 2.97986e-02 & 0 & 1.65555e-00 &    - &   385 \\
+220 & 5.80971e-03 & 0 & 7.14269e-01 & 1.21 &  4699 \\
+596 & 2.42857e-03 & 0 & 3.58466e-01 & 0.99 & 51604 \\
 \hline
 \end{tabular}
 \caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time
@@ -1411,13 +1455,13 @@ interval $[0,1]$ for the P2--P0 element.}
 
 \begin{table*}
 \center
-\begin{tabular}{rlllr}
+\begin{tabular}{rllllr}
 \hline
-$J_\Gamma$ & $\errorXx$ & $\errorUu2$ & $\LerrorPp$ & $CPU[s]$ \\
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 \hline
- 32 & 2.97986e-02 & 0 & 1.65749e-00 &   568 \\
-220 & 5.80971e-03 & 0 & 7.15353e-01 &  9174 \\
-596 & 2.42857e-03 & 0 & 3.59181e-01 & 121110 \\
+ 32 & 2.97986e-02 & 0 & 1.65749e-00 &    - &    568 \\
+220 & 5.80971e-03 & 0 & 7.15353e-01 & 1.21 &   9174 \\
+596 & 2.42857e-03 & 0 & 3.59181e-01 & 0.99 & 121110 \\
 \hline
 \end{tabular}
 \caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time
@@ -1431,8 +1475,7 @@ discrete interface, because the vertices of the initial interface $\Gamma^0$ do
 not lie on $\Gamma(0)$.
 
 \subsection{Shear flow experiment in 3d}
-Finally, we also report on a shear flow experiment in the domain
-$\Omega=(-1,1)^3$, with a sphere of radius $r=0.5$ as the initial interface.
+Finally, we also report on a 3d shear flow experiment.
 The initial interface mesh has $J_\Gamma = 596$ elements, while the nearly
 uniform bulk mesh is made up of $J_\Omega^0 = 19641$ elements. We prescribe the
 inhomogeneous Dirichlet boundary condition
