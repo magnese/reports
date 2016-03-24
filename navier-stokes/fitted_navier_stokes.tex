@@ -2,6 +2,8 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{amssymb,amsmath,amsthm,array,epsfig,pstricks,subfig,hyperref,verbatim}
 
 \newtheorem{thm}{Theorem}
@@ -104,7 +106,7 @@ y_c^m = \frac1{\mathcal{L}^2(\Omega_-^m)}\,\int_{\Omega_-^m} x_2 \dL2\,,
 V^m_c = \frac{(\rho^m_-\,U^m_2, 1)}{(\rho^m_-,1)}\,.
 \end{equation}
 
-\subsubsection{2d benchmark problem 1} \label{sec:2d_benchmark_1}
+\subsection{2d benchmark problem 1} \label{sec:2d_benchmark_1}
 We use the setup described in \cite{HysingTKPBGT09}, see Figure~2 there;
 i.e.\ $\Omega = (0,1) \times (0,2)$ with 
 $\partial_1\Omega = [0,1] \times \{0,2\}$ and 
@@ -162,15 +164,15 @@ in Table~\ref{tab:2d_benchmark1_P1P0} for the P2-(P1+P0) element.
 
 \begin{table}
 \center
-\begin{tabular}{lrrrr}
+\begin{tabular}{lrrrrr}
 \hline
-& 16 & 32 & 64 & 128 \\
+& 16 & $32_{M=1000}$ & 32 & 64 & 128 \\
 \hline
-$\strikec_{\min}$ & 0.893056 & 0.889483 & 0.888179 & -\\
-$t_{\strikec = \strikec_{\min}}$ & 3 & 1.833 & 1.744 & -\\
-$V_{c,\max}$ & 0.205934 & 0.226142 & 0.230845 & -\\
-$t_{V_c = V_{c,\max}}$ & 0.979 & 0.872 & 0.895 & -\\
-$y_c(t=3)$ & 1.05998 & 1.06082 & 1.05741 & -\\
+$\strikec_{\min}$ & 0.893056 & 0.888906 & 0.889483 & 0.888179 & - \\
+$t_{\strikec = \strikec_{\min}}$ & 3 & 1.815 & 1.833 & 1.744 & - \\
+$V_{c,\max}$ & 0.205934 & 0.226088 & 0.226142 & 0.230845 & - \\
+$t_{V_c = V_{c,\max}}$ & 0.979 & 0.897 & 0.872 & 0.895 & - \\
+$y_c(t=3)$ & 1.05998 & 1.05792 & 1.06082 & 1.05741 & - \\
 \hline
 \end{tabular}
 \caption{Some quantitative results for the test case 1 in 
@@ -195,6 +197,62 @@ $y_c(t=3)$ & 1.07838 & 1.06602 & 1.06179 & 1.06062\\
 \cite{HysingTKPBGT09}. Here we use the P2-(P1+P0) element.}
 \label{tab:2d_benchmark1_P1P0}
 \end{table}
+
+\begin{figure}[htbp]
+\centering
+\subfloat[$t=0$]{
+\includegraphics[width=.45\textwidth]
+{figures/2d_benchmark1_pressure_p1p0_128_0.ps}}
+\subfloat[$t=1$]{
+\includegraphics[width=.45\textwidth]
+{figures/2d_benchmark1_pressure_p1p0_128_1.ps}} \\
+\subfloat[$t=2$]{
+\includegraphics[width=.45\textwidth]
+{figures/2d_benchmark1_pressure_p1p0_128_2.ps}}
+\subfloat[$t=3$]{
+\includegraphics[width=.45\textwidth]
+{figures/2d_benchmark1_pressure_p1p0_128_3.ps}}
+\caption{Pressure evolution for the simulation with 128 interface elements and 
+using P2-(P1+P0) element.}
+\label{fig:2d_benchmark1_pressure}
+\end{figure}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/2d_benchmark1_barycenter_p1p0_128.ps}
+\caption{Plot of the centre of mass over time for the simulation with 128 
+interface elements and using P2-(P1+P0) element.}
+\label{fig:2d_benchmark1_barycenter}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/2d_benchmark1_velocity_p1p0_128.ps}
+\caption{Plot of the average rising velocity over time for the simulation 
+with 128 interface elements and using P2-(P1+P0) element.}
+\label{fig:2d_benchmark1_velocity}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/2d_benchmark1_circularity_p1p0_128.ps}
+\caption{Plot of the circularity over time for the simulation with 128 
+interface elements and using P2-(P1+P0) element.}
+\label{fig:2d_benchmark1_circularity}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/2d_benchmark1_inner_volume_p1p0_128.ps}
+\caption{Plot of the relative inner volume
+$\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the 
+simulation with 128 interface elements and using P2-(P1+P0) element.}
+\label{fig:2d_benchmark1_volume}
+\end{figure}
+
 \bibliographystyle{siam}
 \bibliography{../bib/robert_refs,../bib/marco_refs}
 \end{document}
