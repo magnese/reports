@@ -4,9 +4,11 @@
 % Resubmitted to Int. J. Numer. Methods Fluids on 28/01/16.
 \documentclass[a4paper,12pt,onecolumn]{article}
 
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{amssymb,amsmath,amsthm,array,epsfig,pstricks,subfig,hyperref,verbatim}
+\usepackage{amssymb,amsmath,amsthm,array,epsfig,lmodern,pstricks,subfig,hyperref
+,verbatim}
 
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
@@ -286,7 +288,7 @@ Therefore the total system can be rewritten as follows:
 \subsection{Weak formulation}
 In order to obtain a weak formulation, we define the function spaces
 \begin{align*}
-\uspace &:= H^1_0(\Omega, \R^d)\,,\qquad \pspace := L^2(\Omega) \qquad
+\uspace &:= [H^1_0(\Omega)]^d\,,\qquad \pspace := L^2(\Omega) \qquad
 \mbox{and}\qquad
 \widehat\pspace := \{\eta\in\pspace : \int_\Omega\eta\dL{d}=0 \}\,,
 \end{align*}
@@ -300,7 +302,7 @@ parts, yields
 $$
 \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
 + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
-= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t)]^d\,.
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,.
 $$
 Moreover, on noting (\ref{eq:stress_tensor}) and
 (\ref{eq:interface_jump_stress}), we have that
