@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{times}
+\parindent0pt
+\parskip 1.5ex plus 1ex minus .5ex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Do not change above this line! Do not add packages! You may comment
+% out packages missing in your installation.
+%
+% Everything before "\begin{document}" will be ignored! Do not define
+%   macros!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\title{Fitted ALE scheme for Two-Phase Navier--Stokes Flow}
+\author{%
+  Marco Agnese\thanks{Imperial College London,
+    \texttt{m.agnese13@imperial.ac.uk}}
+}
+\maketitle
+
+We present a novel fitted ALE scheme for two-phase Navier--Stokes flow problems 
+that uses piecewise linear finite elements to approximate the moving interface. 
+The meshes describing the discrete interface in general do not deteriorate in 
+time, which means that in numerical simulations a smoothing or a remeshing of 
+the interface mesh is not necessary.
+\begin{thebibliography}{10}
+
+\bibitem{Paper}
+M.~Agnese, R.~N\"urnberg, Internat. J. Numer. Methods Fluids, 
+\emph{ Fitted finite element discretization of two--phase Stokes flow},(2016), 
+to appear.
+\end{thebibliography}
+
+\end{document}
