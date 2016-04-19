@@ -1029,7 +1029,7 @@ elements, respectively. We show the initial mesh for $J_\Gamma = 32$ in
 Figure~\ref{fig:meshes_uniform}.
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.45\textwidth]{../stokes/figures/mesh_uniform.ps}
+\includegraphics[width=.45\textwidth]{figures/mesh_uniform.ps}
 \caption{Initial mesh for the 2d stationary bubble problem with $J_\Gamma = 32$
 interface elements.}
 \label{fig:meshes_uniform}
@@ -1089,7 +1089,7 @@ approximation.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
-{../stokes/figures/2d_stationary_bubble_uniform_100.ps}
+{figures/2d_stationary_bubble_uniform_100.ps}
 \caption{($\mu=\gamma=1$) Pressure of the 2d stationary bubble at time $t=1$
 for the P2--P0 element.}
 \label{fig:2d_stationary_bubble}
@@ -1105,10 +1105,10 @@ on the right hand side of Figure~\ref{fig:meshes_expanding}.
 \begin{figure}[htbp]
 \centering
 \subfloat[Uniform mesh with $J_\Gamma = 32$]{
-\includegraphics[width=.45\textwidth]{../stokes/figures/mesh_hole_uniform.ps}}
+\includegraphics[width=.45\textwidth]{figures/mesh_hole_uniform.ps}}
 \quad
 \subfloat[Adaptive mesh with $J_\Gamma = 64$]{
-\includegraphics[width=.45\textwidth]{../stokes/figures/mesh_hole_adaptive.ps}}
+\includegraphics[width=.45\textwidth]{figures/mesh_hole_adaptive.ps}}
 \caption{Initial meshes for the expanding bubble problem.}
 \label{fig:meshes_expanding}
 \end{figure}
@@ -1207,11 +1207,11 @@ Figure~\ref{fig:expanding_bubble_uniform}.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=0$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/expanding_bubble_uniform_remesh_000.ps}}
+{figures/expanding_bubble_uniform_remesh_000.ps}}
 \subfloat[$t=0.5$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/expanding_bubble_uniform_remesh_050.ps}}
+{figures/expanding_bubble_uniform_remesh_050.ps}}
 \subfloat[$t=1$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/expanding_bubble_uniform_remesh_100.ps}}
+{figures/expanding_bubble_uniform_remesh_100.ps}}
 \caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of
 the 2d expanding bubble for the P2--P0 element, uniform mesh.}
 \label{fig:expanding_bubble_uniform}
@@ -1286,11 +1286,11 @@ $\tau=10^{-4}$ and we set $C_r=3$, recall (\ref{eq:remesh}).
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=0$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/nonuniform_bubble_32_both_000.ps}}
+{figures/nonuniform_bubble_32_both_000.ps}}
 \subfloat[$t=1$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/nonuniform_bubble_32_both_100.ps}}
+{figures/nonuniform_bubble_32_both_100.ps}}
 \subfloat[$t=5$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/nonuniform_bubble_32_both_500.ps}}
+{figures/nonuniform_bubble_32_both_500.ps}}
 \caption{($\mu=\gamma=1$) Mesh evolution of a nonuniform circle formed by
 $J_\Gamma = 32$ elements. Here we use the P2--P0 element, and let $C_r = 3$.}
 \label{fig:nonuniform_bubble_32_both}
@@ -1312,11 +1312,11 @@ energy is monotonically decreasing.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10^{-5}$]{
-\includegraphics[width=.32\textwidth]{../stokes/figures/ellipse_both_000.ps}}
+\includegraphics[width=.32\textwidth]{figures/ellipse_both_000.ps}}
 \subfloat[$t=2.5$]{
-\includegraphics[width=.32\textwidth]{../stokes/figures/ellipse_both_250.ps}}
+\includegraphics[width=.32\textwidth]{figures/ellipse_both_250.ps}}
 \subfloat[$t=10$]{
-\includegraphics[width=.32\textwidth]{../stokes/figures/ellipse_both_1000.ps}}
+\includegraphics[width=.32\textwidth]{figures/ellipse_both_1000.ps}}
 \caption{($\mu=\gamma=1$) Pressure evolution of an ellipse that evolves
 towards a circle. Here we use the P2--P0 element, and let $C_r = 3$.}
 \label{fig:ellipse_both}
@@ -1326,10 +1326,10 @@ towards a circle. Here we use the P2--P0 element, and let $C_r = 3$.}
 \centering
 \subfloat[$\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$]{
 \includegraphics[width=.45\textwidth]
-{../stokes/figures/ellipse_both_bulk_inner_volume.ps}}
+{figures/ellipse_both_bulk_inner_volume.ps}}
 \subfloat[$\gamma\,\mathcal{H}^{1}(\Gamma^m)$]{
 \includegraphics[width=.45\textwidth]
-{../stokes/figures/ellipse_both_interface_length.ps}}
+{figures/ellipse_both_interface_length.ps}}
 \caption{Evolutions of the relative inner area and the interface energy for
 the simulation in Figure~\ref{fig:ellipse_both}.}
 \label{fig:ellipse_both_volumes}
@@ -1342,7 +1342,7 @@ outer phase of the bulk finite element mesh.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/ellipse_smooth_1000.ps}}
+{figures/ellipse_smooth_1000.ps}}
 \caption{($\mu=\gamma=1$) Final pressure solution for a simulation as in
 Figure~\ref{fig:ellipse_both}, when no remeshings are performed.}
 \label{fig:ellipse_smooth}
@@ -1365,11 +1365,11 @@ are visualized in Figure~\ref{fig:shear_2d_velocity}.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=0.5$]{
-\includegraphics[width=.32\textwidth]{../stokes/figures/2d_shear_050.ps}}
+\includegraphics[width=.32\textwidth]{figures/2d_shear_050.ps}}
 \subfloat[$t=1$]{
-\includegraphics[width=.32\textwidth]{../stokes/figures/2d_shear_100.ps}}
+\includegraphics[width=.32\textwidth]{figures/2d_shear_100.ps}}
 \subfloat[$t=5$]{
-\includegraphics[width=.32\textwidth]{../stokes/figures/2d_shear_500.ps}}
+\includegraphics[width=.32\textwidth]{figures/2d_shear_500.ps}}
 \caption{($\mu=1,\gamma=3$) Pressure evolution for the 2d shear flow with
 $C_r=3$ for the P2--P0 element, uniform mesh.}
 \label{fig:shear_2d}
@@ -1378,11 +1378,11 @@ $C_r=3$ for the P2--P0 element, uniform mesh.}
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=0.5$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/2d_shear_velocity_050.ps}}
+{figures/2d_shear_velocity_050.ps}}
 \subfloat[$t=1$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/2d_shear_velocity_100.ps}}
+{figures/2d_shear_velocity_100.ps}}
 \subfloat[$t=5$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/2d_shear_velocity_500.ps}}
+{figures/2d_shear_velocity_500.ps}}
 \caption{($\mu=1,\gamma=3$) Velocity vector field for the 2d shear flow with
 $C_r=3$ for the P2--P0 element, uniform mesh.}
 \label{fig:shear_2d_velocity}
@@ -1466,11 +1466,11 @@ are visualized in Figure~\ref{fig:shear_3d_velocity}.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=0$]{
-\includegraphics[width=.32\textwidth]{../stokes/figures/3d_shear_000.ps}}
+\includegraphics[width=.32\textwidth]{figures/3d_shear_000.ps}}
 \subfloat[$t=1$]{
-\includegraphics[width=.32\textwidth]{../stokes/figures/3d_shear_100.ps}}
+\includegraphics[width=.32\textwidth]{figures/3d_shear_100.ps}}
 \subfloat[$t=5$]{
-\includegraphics[width=.32\textwidth]{../stokes/figures/3d_shear_500.ps}}
+\includegraphics[width=.32\textwidth]{figures/3d_shear_500.ps}}
 \caption{($\mu=1,\gamma=3$) Interface evolution for the 3d shear flow with
 $C_r=3$ for the P2--P0 element, uniform mesh.}
 \label{fig:shear_3d}
@@ -1479,9 +1479,9 @@ $C_r=3$ for the P2--P0 element, uniform mesh.}
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=1$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/3d_shear_velocity_100.ps}}
+{figures/3d_shear_velocity_100.ps}}
 \subfloat[$t=5$]{\includegraphics[width=.32\textwidth]
-{../stokes/figures/3d_shear_velocity_500.ps}}
+{figures/3d_shear_velocity_500.ps}}
 \caption{($\mu=1,\gamma=3$) Velocity vector field in the plane normal to
 $(0,1,0)^T$ and passing through the origin for the 3d shear flow with $C_r=3$
 for the P2--P0 element, uniform mesh.}
@@ -1494,7 +1494,7 @@ numerical method maintains the enclosed volume well.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
-{../stokes/figures/3d_shear_bulk_inner_volume.ps}
+{figures/3d_shear_bulk_inner_volume.ps}
 \caption{A plot of the relative inner volume
 $\frac{\mathcal{L}^3(\Omega^m_-)}{\mathcal{L}^3(\Omega^0_-)}$
 over time for the simulation in Figure~\ref{fig:shear_3d}.}
