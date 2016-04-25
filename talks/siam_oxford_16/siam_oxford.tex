@@ -1,7 +1,18 @@
 \documentclass{beamer}
 
 \usepackage[english]{babel}
-\usepackage{amssymb,amsmath,amsthm,epsfig,pstricks,times,multimedia}
+\usepackage{amssymb,amsmath,amsthm,epsfig,pstricks,times}
+
+\newif\iflinuxvideo
+
+%\linuxvideotrue
+\linuxvideofalse % compatible with acrobat read
+
+\iflinuxvideo
+\usepackage{multimedia}
+\else
+\usepackage{media9}
+\fi
 
 \newcommand{\R}{{\mathbb R}}
 \newcommand{\vol}{\mathcal{L}^d}
@@ -342,13 +353,28 @@ where $C_r \geq 1$ is a fixed constant.
 
 \centering
 
+\iflinuxvideo
+
 \movie[
   height = 187pt,
   width = 187pt,
   showcontrols,
   poster
 ]
-{}{figures/usp.avi}
+{}{figures/usp.mp4}
+
+\else
+
+\includemedia[
+  label = usp,
+  addresource = figures/usp.mp4,
+  activate = pageopen,
+  width = 187pt,
+  height = 187pt,
+  %flashvars={source=figures/usp.mp4}
+]{}{VPlayer.swf}
+
+\fi
 \end{frame}
 
 \begin{frame}
@@ -361,13 +387,28 @@ where $C_r \geq 1$ is a fixed constant.
 
 \centering
 
+\iflinuxvideo
+
 \movie[
   height = 187pt,
   width = 187pt,
   showcontrols,
   poster
 ]
-{}{figures/shear.avi}
+{}{figures/shear.mp4}
+
+\else
+
+\includemedia[
+  label = shear,
+  addresource = figures/shear.mp4,
+  activate = pageopen,
+  width = 187pt,
+  height = 187pt,
+  %flashvars = {source=figures/shear.mp4}
+]{}{VPlayer.swf}
+
+\fi
 \end{frame}
 
 \begin{frame}
@@ -380,13 +421,28 @@ where $C_r \geq 1$ is a fixed constant.
 
 \centering
 
+\iflinuxvideo
+
 \movie[
   height = 187pt,
   width = 187pt,
   showcontrols,
   poster
 ]
-{}{figures/rising_bubble.avi}
+{}{figures/rising_bubble.mp4}
+
+\else
+
+\includemedia[
+  label = rising_bubble,
+  addresource = figures/rising_bubble.mp4,
+  activate = pageopen,
+  width = 187pt,
+  height = 187pt,
+  %flashvars = {source=figures/rising_bubble.mp4}
+]{}{VPlayer.swf}
+
+\fi
 \end{frame}
 
 \begin{frame}
