@@ -128,7 +128,7 @@ surface gradient on $\Gamma(t)$.
 Using the function spaces
 \begin{subequations}
 \begin{align*}
-\uspace &:= H^1_0(\Omega, \R^d)\,,\qquad \pspace := L^2(\Omega) \qquad
+\uspace &:= [H^1_0(\Omega)]^d\,,\qquad \pspace := L^2(\Omega) \qquad
 \mbox{and} \\
 \widehat\pspace &:= \{\eta\in\pspace : \int_\Omega\eta\dL{d}=0 \}\,,
 \end{align*}
@@ -312,11 +312,11 @@ As preconditioner we use the matrix
 \begin{itemize}
 \item Smoothing: find a displacement $\vec\psi \in [H^1(\Omega)]^d$ such that
 \begin{subequations}
-\begin{align*}
+\begin{alignat*}{2}
 \nabla\,.\,\mat S & = \vec 0 \qquad &&\mbox{in } \Omega_\pm^m\,, \\
 \vec\psi &= \delta \vec X \qquad && \mbox{on } \Gamma^m\,, \\
 \vec\psi\,.\,\vec{\rm n} & = 0 \qquad &&\mbox{on } \partial\Omega\,,
-\end{align*}
+\end{alignat*}
 \end{subequations}
 where $\mat S = 2\,\mat D(\vec\psi) +(\nabla\,.\vec\psi)\,\mat\id$ is the stress
 tensor and where $\vec{\rm n}$ is the outer unit normal to $\Omega$ on
