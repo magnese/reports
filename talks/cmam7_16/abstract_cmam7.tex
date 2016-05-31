@@ -1,0 +1,42 @@
+\documentclass{smpstyle}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{amsmath}
+\pagestyle{empty}
+
+\parindent0pt
+\parskip\medskipamount
+
+
+\title{Fitted ALE scheme for Two-Phase Navier--Stokes Flow}
+\author{Marco Agnese}
+\address{Department of Mathematics\\
+Imperial College London\\
+London, UK\\
+e-mail: m.agnese13@imperial.ac.uk
+}
+
+\begin{document}
+
+\maketitle
+
+\section*{ABSTRACT}
+
+
+We present a novel fitted ALE scheme for two-phase Navier--Stokes flow problems
+that uses piecewise linear finite elements to approximate the moving interface.
+The meshes describing the discrete interface in general do not deteriorate in
+time, which means that in numerical simulations a smoothing or a remeshing of
+the interface mesh is not necessary. We present several numerical experiments 
+for our numerical method, which demonstrate the accuracy and
+robustness of the proposed algorithm.
+
+\begin{thebibliography}{99}
+\bibitem{fitted}
+M.~Agnese and R.~N\"urnberg, Fitted Finite Element Discretization of Two-Phase 
+{S}tokes Flow, Int.\ J.\ Numer.\ Meth.\ Fluids, 2016.
+
+\end{thebibliography}
+
+
+\end{document}
