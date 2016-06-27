@@ -381,11 +381,56 @@ where $C_r \geq 1$ is a fixed constant.
 \end{frame}
 
 \begin{frame}
+\frametitle{Velocity interpolation}
+
+\begin{itemize}
+\item Velocity solution $\vec U^{m+1}$, which is defined over $\Omega^m$, needs
+to be interpolated onto $\Omega^{m+1}$.
+
+\pause
+
+\item Interpolation is very expensive and reduces the accuracy of the scheme.
+
+\pause
+
+\item In order to reduce the computational cost of the interpolation, bulk
+elements are sorted and traversed following a continuous path; barycentric
+coordinates are used to locate the interpolation points in the previous bulk
+mesh.
+
+\pause
+
+\item On the other hand, to improve the accuracy, the interpolation should be
+performed only after a remeshing.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Arbitrary Lagrangian Eulerian approach (WIP!)}
+
+\begin{itemize}
+\item In the ALE approach, a prescribed flow drives the movement of the bulk
+mesh vertices.
+
+\pause
+
+\item This prescribed flow needs to be accounted for in the approximation of the
+momentum equation; in practice, it adds a convective-type term to the momentum
+balance.
+
+\pause
+
+\item The movement of the bulk mesh is incorporated in the finite element
+approximation therefore it avoids the repeated interpolation onto the bulk mesh.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Outlook}
 
 \begin{itemize}
-\item Derive and implement a new scheme for Navier-Stokes based on Arbitrary
-Lagrangian Eulerian (ALE) approach.
 \item Test other solvers/preconditioners to solve the algebraic linear system
 more efficiently.
 \item Include surface active agents (surfactants) to the model.
