@@ -13,23 +13,30 @@
 %   macros!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-\title{Fitted ALE scheme for Two-Phase Navier--Stokes Flow}
+\title{FEM approximation of Two-Phase Navier--Stokes Flow using DUNE-FEM}
 \author{%
   Marco Agnese\thanks{Imperial College London,
     \texttt{m.agnese13@imperial.ac.uk}}
 }
 \maketitle
 
-We present a novel fitted ALE scheme for two-phase Navier--Stokes flow problems 
-that uses piecewise linear finite elements to approximate the moving interface. 
-The meshes describing the discrete interface in general do not deteriorate in 
-time, which means that in numerical simulations a smoothing or a remeshing of 
-the interface mesh is not necessary.
+We propose a novel fitted finite element method for two-phase Navier--Stokes
+flow problems that uses piecewise linear finite elements to approximate the
+moving interface. The meshes describing the discrete interface in general do
+not deteriorate in time, which means that in numerical simulations a smoothing
+or a remeshing of the interface mesh is not necessary. We present several
+numerical experiments for our numerical method, which demonstrate the accuracy
+and robustness of the proposed algorithm. The discretization is implemented
+within the DUNE-FEM framework.
+
+Link: \emph{http://www2.warwick.ac.uk/fac/sci/maths/research/events/2015-16/
+nonsymposium/pde}
+
 \begin{thebibliography}{10}
 
 \bibitem{Paper}
-M.~Agnese, R.~N\"urnberg, Internat. J. Numer. Methods Fluids, 
-\emph{ Fitted finite element discretization of two--phase Stokes flow},(2016), 
+M.~Agnese, R.~N\"urnberg, Internat. J. Numer. Methods Fluids,
+\emph{ Fitted finite element discretization of two--phase Stokes flow},(2016),
 to appear.
 \end{thebibliography}
 
