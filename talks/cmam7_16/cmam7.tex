@@ -3,6 +3,9 @@
 \usepackage[english]{babel}
 \usepackage{amssymb,amsmath,amsthm,animate,epsfig,multimedia,pstricks,times}
 
+\def\black{\color{black}}
+\def\blue{\color{blue}}
+
 \newcommand{\R}{{\mathbb R}}
 \newcommand{\vol}{\mathcal{L}^d}
 \newcommand{\dH}[1]{\;{\rm d}{\cal H}^{#1}} % Hausdorff measure
@@ -67,9 +70,9 @@ Domain $\Omega$ in the 2-dimensional case.
 \item Bulk equations
 \begin{subequations}
 \begin{alignat*}{2}
-\rho\,(\vec u_t + (\vec u \,.\,\nabla)\,\vec u) - \nabla\,.\,\mat\sigma
-& = \vec f = \rho\,\vec f_1 + \vec f_2 \qquad &&\mbox{in }
-\Omega_\pm(t)\,, \\
+\blue \rho\,(\vec u_t + (\vec u \,.\,\nabla)\,\vec u) \black
+- \nabla\,.\,\mat\sigma & = \vec f = \rho\,\vec f_1 + \vec f_2 \qquad &&
+\mbox{in } \Omega_\pm(t)\,, \\
 \nabla\,.\,\vec u & = 0 \qquad &&\mbox{in } \Omega_\pm(t)\,,
 \end{alignat*}
 \end{subequations}
@@ -124,7 +127,7 @@ surface gradient on $\Gamma(t)$.
 \end{frame}
 
 \begin{frame}
-\frametitle{Stokes weak formulation}
+\frametitle{Navier--Stokes weak formulation}
 
 Using the function spaces
 \begin{subequations}
@@ -134,13 +137,17 @@ Using the function spaces
 \widehat\pspace &:= \{\eta\in\pspace : \int_\Omega\eta\dL{d}=0 \}\,,
 \end{align*}
 \end{subequations}
-the Stokes weak formulation is
+the Navier--Stokes weak formulation is
 \begin{subequations}
 \begin{align*}
-& 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
+& \blue \frac{1}{2}\left[
+\ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
++ (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
+- [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u) \right] \black \\
+& + 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
 - \left(p, \nabla\,.\,\vec \xi\right)
 - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
-= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,, \\
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,, \notag \\
 & \left(\nabla\,.\,\vec u, \varphi\right) = 0
 \quad \forall\ \varphi \in \widehat\pspace\,, \\
 &  \left\langle \vec{\mathcal{V}}
@@ -172,7 +179,7 @@ to interpolate bulk quantities over interface.
 \end{frame}
 
 \begin{frame}
-\frametitle{FEM discretization}
+\frametitle{FEM formulation}
 
 \begin{itemize}
 \item For $m\geq 0$, let a discrete interface $\Gamma^m$ be given. Here
@@ -195,6 +202,36 @@ $\pspace^m$ possibly extended by an additional basis function.
 \item Then our finite element approximation is based directly on the
 discretization of the weak formulation.
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{FEM discretization}
+
+Find $(\vec U^{m+1},P^{m+1}, \kappa^{m+1},\delta\vec{X}^{m+1})$ such that
+\begin{align*}
+& \blue \left( \rho^m\,\frac{\vec U^{m+1} - \,\vec I^m_2\,\vec
+U^m}{\tau^m},\vec \xi \right) \notag\\
+& \blue + \frac{1}{2}\left(\rho^m, [(\vec I^m_2\,\vec U^m\,.\,\nabla)\,\vec
+U^{m+1}]\,.\,\vec \xi - [(\vec I^m_2\,\vec U^m\,.\,\nabla)\,\vec \xi]\,
+.\,\vec U^{m+1} \right)\notag \\
+& \black + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) - \gamma\,\left\langle
+\kappa^{m+1}\,\vec\nu^m, \vec\xi\right\rangle_{\Gamma^m} \notag \\
+& = \left(\rho^m\,\vec f^{m+1}_1 + \vec f^{m+1}_2, \vec \xi\right)
+\qquad \forall\ \vec\xi \in \uspace^m \,, \\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \widehat\pspace^m\,,\\
+&  \left\langle \frac{\vec X^{m+1} - \vec \id}{\tau} ,
+\chi\,\vec\nu^m \right\rangle_{\Gamma^m}^h
+- \left\langle \vec U^{m+1},
+\chi\,\vec\nu^m \right\rangle_{\Gamma^m}  = 0
+\quad \forall\ \chi \in \Wh\,,\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m}
+ = 0 \quad \forall\ \vec\eta \in \Vh
+\end{align*} \black
+and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$.
+
 \end{frame}
 
 \begin{frame}
