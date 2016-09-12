@@ -1,11 +1,10 @@
 \documentclass[a4paper,12pt,onecolumn]{article}
 
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{amssymb,amsmath,amsthm,array,epsfig,pstricks,subfig,hyperref,verbatim}
-
+\usepackage{amssymb,amsmath,amsthm,array,epsfig,lmodern,pstricks,subfig,hyperref
+,verbatim}
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{rem}[thm]{Remark}
@@ -46,8 +45,8 @@
 
 \textwidth 425pt
 
-\title{Fitted Finite Element Discretization of \\ Two-Phase Navier-Stokes
-Flow}
+\title{Fitted Finite Element Discretization of \\ Two-Phase Navier--Stokes
+Flow using an ALE formulation}
 \author{Marco Agnese and Robert N\"urnberg%
 \thanks{email: \texttt{\{m.agnese13,robert.nurnberg\}@imperial.ac.uk}}\\
 \small
@@ -68,9 +67,550 @@ method, which demonstrate the accuracy and robustness of the proposed algorithm.
 \end{abstract}
 
 \begin{keywords}
-viscous incompressible two-phase flow, Navier-Stokes equations,
+viscous incompressible two-phase flow, Navier--Stokes equations, ALE,
 free boundary problem, surface tension, finite elements, front tracking
 \end{keywords}
+
+\section{Mathematical model} \label{sec:model}
+
+\subsection{Governing equations}\label{sec:equations}
+TODO: add free slip condition
+
+In this paper we consider two-phase Navier--Stokes flow in a given domain
+$\Omega\subset\mathbb{R}^d$, where $d=2$ or $d=3$. The domain $\Omega$ contains
+two different immiscible, incompressible, viscous fluids (liquid-liquid or
+liquid-gas) which for all $t\in[0,T]$ occupy time dependent regions
+$\Omega_+(t)$ and $\Omega_-(t):=\Omega\setminus\overline{\Omega}_+(t)$ and
+which are separated by an interface
+$(\Gamma(t))_{t\in[0,T]}$, $\Gamma(t)\subset\Omega$.
+See Figure~\ref{fig:sketch} for an illustration.
+\begin{figure}
+\begin{center}
+\unitlength15mm
+\psset{unit=\unitlength,linewidth=1pt}
+\begin{picture}(4,4)(0,0)
+\psline(0,0)(4,0)(4,4)(0,4)(0,0)
+\psellipse(2,2)(1,1)
+\psline{->}(3,2)(3.5,2)
+\put(3.25,1.75){$\vec\nu$}
+\put(1.75,0.75){{$\Gamma(t)$}}
+\put(1.75,2){{$\Omega_-(t)$}}
+\put(0.5,3.25){{$\Omega_+(t)$}}
+\end{picture}
+\end{center}
+\caption{The domain $\Omega$ in the case $d=2$.}
+\label{fig:sketch}
+\end{figure}
+For later use, we assume that $(\Gamma(t))_{t\in [0,T]}$ is a sufficiently
+smooth evolving hypersurface without boundary. Let
+$\vec x(\cdot,t):\Upsilon\to\R^d$ be an homeomorphic map which at each time
+$t\in [0,T]$ associates a point $\vec q$ of a reference manifold
+$\Upsilon\subset \R^d$ to a point $\vec z\in \Omega$:
+\begin{equation}\label{eq:x}
+\vec x(\cdot,t):\Upsilon\to\Omega, \qquad \vec z=\vec x(t,\vec q).
+\end{equation}
+Therefore, given a suitable $\Upsilon_{\Gamma}$, we can parametrize the
+evolving interface as $\Gamma(t) = \vec x(\Upsilon_{\Gamma},t)$ with velocity
+\begin{equation} \label{eq:V}
+\vec{\mathcal{V}}(\vec z, t) := \vec x_t(\vec q, t) \qquad
+\forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)
+\end{equation}
+where $\vec{\mathcal{V}} \,.\,\vec{\nu}$ is the normal velocity of the evolving
+hypersurface $\Gamma(t)$ and $\vec\nu(t)$ is the unit normal on $\Gamma(t)$
+pointing into $\Omega_+(t)$.
+
+Denoting the velocity and pressure by $\vec u$ and $p$, respectively, we
+introduce the stress tensor
+\begin{equation} \label{eq:stress_tensor}
+\mat\sigma = \mu \,(\nabla\,\vec u + (\nabla\,\vec u)^T) - p\,\mat\id
+= 2\,\mu\, \mat D(\vec u)-p\,\mat\id\,,
+\end{equation}
+where $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$,
+with $\mu_\pm \in \R_{>0}$, denotes the dynamic viscosities in the two phases,
+$\mat\id \in \R^{d \times d}$ is the identity matrix and
+$\mat D(\vec u):=\frac{1}{2}\, (\nabla\vec u+(\nabla\vec u)^T)$
+is the rate-of-deformation tensor. Finally let
+$\rho(t) = \rho_+\,\charfcn{\Omega_+(t)} + \rho_-\,\charfcn{\Omega_-(t)}$,
+with $\rho_\pm \in \R_{>0}$, be the fluid density.
+
+In this paper we consider a two-phase Navier--Stokes problem, and so the
+equations governing the fluid are
+\begin{subequations}
+\begin{alignat}{2}
+\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u)- \nabla\,.\,\mat\sigma
+& = \vec f \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_momentum} \\
+\nabla\,.\,\vec u & = 0 \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_mass}
+\end{alignat}
+\end{subequations}
+where $\vec f$ is a possible forcing term.
+
+On the free surface $\Gamma(t)$, the following conditions need to hold:
+\begin{subequations}
+\begin{alignat}{2}
+[\vec u]_-^+ & = \vec 0 \qquad &&\mbox{on } \Gamma(t)\,,
+\label{eq:interface_jump_velocity} \\
+[\mat\sigma\,\vec \nu]_-^+ & = -\gamma\,\varkappa\,\vec\nu \qquad
+&&\mbox{on } \Gamma(t)\,, \label{eq:interface_jump_stress} \\
+\vec{\mathcal{V}}\,.\,\vec\nu &= \vec u\,.\,\vec \nu \qquad
+&&\mbox{on } \Gamma(t)\,, \label{eq:interface_velocity}
+\end{alignat}
+\end{subequations}
+where $\gamma>0$ is the surface tension coefficient and $\varkappa$ denotes the
+mean curvature of $\Gamma(t)$, i.e.\ the sum of the principal curvatures of
+$\Gamma(t)$, where we have adopted the sign convention that $\varkappa$ is
+negative where $\Omega_-(t)$ is locally convex. In particular,
+see e.g.\ \cite{DeckelnickDE05}, it holds that
+\begin{equation} \label{eq:LBop}
+\Delta_s\, \vec \id = \varkappa\, \vec\nu \qquad \mbox{on $\Gamma(t)$}\,,
+\end{equation}
+where $\Delta_s = \nabs\,.\,\nabs$ is the Laplace--Beltrami operator on
+$\Gamma(t)$ with $\nabs\,.\,$ and $\nabs$ denoting surface divergence and
+surface gradient on $\Gamma(t)$, respectively. Moreover, as usual,
+$[\vec u]_-^+ := \vec u_+ - \vec u_-$ and
+$[\mat\sigma\,\vec\nu]_-^+ := \mat\sigma_+\,\vec\nu - \mat\sigma_-\,\vec\nu$
+denote the jumps in velocity and normal stress across the interface
+$\Gamma(t)$. Here and throughout, we employ the shorthand notation
+$\vec g_\pm := \vec g\!\mid_{\Omega_\pm(t)}$ for a function
+$\vec g : \Omega \times [0,T] \to \R^d$; and similarly for scalar and
+matrix-valued functions. To close the system we prescribe the initial data
+$\Gamma(0) = \Gamma_0$ and the boundary condition $\vec u = \vec 0$ on
+$\partial \Omega$.
+
+\subsection{Arbitrary Lagrangian Eulerian (ALE) formulation}\label{sec:ale}
+TODO: specify that we have only one map $\vec x$ defined over
+$\Upsilon_{\Omega_-}\cup\Upsilon_{\Omega_+}\cup\Upsilon_{\Gamma}$. Unify
+definition domain velocities like $\mathcal{V}_\Gamma$ and
+$\mathcal{V}_{\Omega_\pm}$ (also at discrete level).
+
+% Let $\vec{\mathcal{A}}_t$ be an homeomorphic map which at each time $t\in
+% [0,T]$ associate a point $\vec Y$ of a reference domain $\Omega_0$ to a point
+% $\vec x$ in the current domain configuration $\Omega_t$:
+% \begin{equation}
+% \vec{\mathcal{A}}_t:\Omega_0 \subset \R^d\rightarrow \Omega_t \subset \R^d,
+% \qquad \vec x(\vec Y,t)=\vec{\mathcal{A}}_t(\vec Y).
+% \end{equation}
+% We assume that the application
+% \begin{equation}
+% t\rightarrow \vec x(\vec Y,t),\qquad \vec Y \in\Omega_0
+% \end{equation}
+% is differentiable almost everywhere in $[0,T]$.
+The system of governing equations
+(\ref{eq:ns_momentum},\ref{eq:ns_mass},\ref{eq:interface_jump_velocity},
+\ref{eq:interface_jump_stress},\ref{eq:interface_velocity}) is expressed in
+term of Eulerian coordinates $\vec z$. It is possible to rewrite the velocity
+time derivative $\vec u_t$ respect to the so called ALE coordinate $\vec q$.
+
+Analogously of what done in Section \ref{sec:equations} to parametrize the
+interface $\Gamma(t)$, we can define the fixed reference manifolds
+$\Upsilon_{\Omega_-}$ and $\Upsilon_{\Omega_+}$ and use the map
+(\ref{eq:x}) to parametrize $\Omega_\pm(t)$ as
+$\Omega_-(t)=\vec x(\Upsilon_{\Omega_-},t)$ and $\Omega_+(t)=\vec
+x(\Upsilon_{\Omega_+},t)$.
+
+Now, let $h:\Omega_{\pm}(t)\times [0,T]\to \mathbb{R}$ be a function defined on
+the Eulerian frame, the corresponding function on the ALE frame $\hat h$ is
+defined as
+\begin{equation}\label{eq:h}
+\hat h:\Upsilon_{\Omega_\pm}\times [0,T]\to \mathbb{R},\qquad
+\hat h(\vec q,t)=h(\vec{x}(\vec q,t),t).
+\end{equation}
+In order to compute the time derivative of (\ref{eq:h}) respect to the ALE
+frame, using the chain rule, we have
+\begin{equation}
+\frac{\partial\hat h(\vec q,t)}{\partial t}=\frac{\partial h(\vec x(\vec
+q,t),t)}{\partial t}=\frac{\partial h(\vec z,t)}{\partial t}+\vec x_t(\vec q,t)
+\cdot \nabla h(\vec z,t),
+\end{equation}
+therefore it holds that
+\begin{equation}
+\frac{\partial h(\vec z,t)}{\partial t} =
+\frac{\partial\hat h(\vec q,t)}{\partial t}-
+\vec x_t(\vec q,t) \cdot \nabla h(\vec z,t).
+\end{equation}
+Finally, introducing the domain velocity
+\begin{equation} \label{eq:W}
+\vec{\mathcal{W}}(\vec z, t) := \vec x_t(\vec q, t) \qquad
+\forall\ \vec z = \vec x(\vec q,t) \in \Omega_\pm(t)
+\end{equation}
+and the time derivative in the ALE frame
+\begin{equation} \label{eq:ale_derivative}
+\left.\frac{\partial h(\vec z,t)}{\partial t}\right|_{\Upsilon_{\Omega_\pm}}:=
+\frac{\partial\hat h(\vec q,t)}{\partial t} \qquad
+\forall\ \vec z = \vec x(\vec q,t) \in \Omega_\pm(t)
+\end{equation}
+we obtain
+\begin{equation}\label{eq:ale_dt}
+h_t =\left.h_t\right|_{\Upsilon_{\Omega_\pm}} -\vec{\mathcal{W}} \cdot \nabla h.
+\end{equation}
+
+Using (\ref{eq:ale_dt}) in (\ref{eq:ns_momentum}), we can now write the full
+system of governing equations in an Arbitrary Lagrangian Eulerian frame as:
+\begin{subequations}
+\begin{alignat}{2}
+\rho\,(\left.\vec{u}_t\right|_{\Upsilon_{\Omega_\pm}}
++(\vec u - \vec{\mathcal{W}})\,.\, \nabla \vec u)\,
+-2 \mu\,\nabla\,.\, \mat D(\vec u)+ \nabla\,p & = \vec f
+\quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:full_momentum} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:full_mass} \\
+\vec u & = \vec 0 \qquad &&\mbox{on } \partial\Omega\,,
+\label{eq:full_initial_velocity} \\
+[\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,,
+\label{eq:full_jump_velocity} \\
+[2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
+& = -\gamma\,\varkappa\,\vec\nu
+\quad &&\mbox{on } \Gamma(t)\,, \label{eq:full_jump_stress} \\
+(\vec{\mathcal{V}}-\vec u)\,.\,\vec{\nu} & = 0
+\quad &&\mbox{on } \Gamma(t)\,,\label{eq:full_velocity}  \\
+\Gamma(0) & = \Gamma_0 \,.\label{eq:full_initial_interface}
+\end{alignat}
+\end{subequations}
+We can notice that, respect to the original formulation, there is a
+convective-type term due to the domain movement and the time derivative is
+computed in the fixed reference frame $\Upsilon_{\Omega_\pm}$. Obviously, if
+the domain is fixed, this additional convective term is null and the time
+derivative in the ALE frame coincide with the usual time derivative in the
+Eulerian frame.
+
+% Finally, we indicate with $\left.\frac{\partial h}{\partial t}\right|_{\vec x}$
+% the partial time derivative in the Eulerian frame and with
+% \begin{equation}
+% \left.\frac{\partial h}{\partial t}\right|_{\vec Y}:\Omega_t\times
+% [0,T]\rightarrow \mathbb{R},\qquad\left.\frac{\partial h}{\partial
+% t}\right|_{\vec Y}=h(\vec{\mathcal{A}}_t(\vec Y),t).
+% \end{equation}
+
+\subsection{Weak formulation}
+TODO: add definition space of ALE counterpart
+% First, we observe that for arbitrary functions $\vec v$,
+% $\vec \omega$, $\vec \xi \in H^1(\Omega,\R^d)$ it holds that
+% \begin{align} \label{eq:tripleterm}
+% [(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi
+% &= (\vec v\,.\,\nabla)\,(\vec \omega\,.\,\vec \xi) -
+% [(\vec v\,.\,\nabla)\,\vec \xi]\,.\,\vec \omega \nonumber \\ &
+% = \tfrac{1}{2} \left[\,
+% [(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi - [(\vec v\,.\,\nabla)\,\vec
+% \xi] \,.\,\vec \omega\,\right] + \tfrac{1}{2}\,(\vec v\,.\,\nabla)\,
+% (\vec \omega\,.\,\vec \xi)\,.
+% \end{align}
+
+In order to obtain a weak formulation, we define the function spaces
+\begin{align*}
+\uspace &:= [H^1_0(\Omega)]^d\,,\qquad \pspace := L^2(\Omega) \qquad
+\mbox{and}\qquad
+\widehat\pspace := \{\eta\in\pspace : \int_\Omega\eta\dL{d}=0 \}\,,
+\end{align*}
+and let $(\cdot,\cdot)$ and $\langle \cdot, \cdot \rangle_{\Gamma(t)}$ denote
+the $L^2$--inner products on $\Omega$ and $\Gamma(t)$, respectively. In
+addition, we let $\mathcal{L}^d$ and $\mathcal{H}^{d-1}$ denote the Lebesgue
+measure in $\R^d$ and the $(d-1)$-dimensional Hausdorff measure, respectively.
+
+% Then we have for any $\vec v \in \uspace$
+% that
+% \begin{align} \label{eq:ibp0}
+% ( \rho,(\vec v \,.\,\nabla)\,\phi) & = (\rho, \nabla\,.\,(\phi\,\vec v))
+% - (\rho\,(\nabla\,.\,\vec v), \phi) \nonumber \\ & =
+% - \left\langle [\rho]_-^+\,\vec v\,.\,\vec \nu,
+%    \phi \right\rangle_{\Gamma(t)}
+% - (\rho\,(\nabla\,.\,\vec v), \phi)
+% \end{align}
+% which holds for all $\phi\in W^{1,\frac{3}{2}}(\Omega)$, and it is
+% precisely this regularity that will be needed in order to derive
+% (\ref{eq:advect}) below.
+%
+% Hence, it follows from (\ref{eq:full_momentum},\ref{eq:full_mass}),
+% (\ref{eq:tripleterm}) and (\ref{eq:ibp0}) that
+% \begin{align}\label{eq:advect}
+% & ( \rho\,((\vec u - \vec w) \,.\,\nabla)\,\vec u, \vec \xi)
+%  = \tfrac{1}{2} [ (\rho\,((\vec u - \vec w)\,.\,\nabla)\,\vec u, \vec \xi) -
+% (\rho\,((\vec u - \vec w)\,.\,\nabla)\,\vec \xi,\vec u) \nonumber \\
+% & -\langle [\rho]_-^+(\vec u - \vec w)\,.\,\vec \nu, \vec u\,.\,\vec \xi
+% \rangle_{\Gamma(t)} -(\rho\,(\nabla\,.\,\vec w ),\vec u\,.\,\vec\xi) ] \qquad
+% \forall\ \vec \xi \in H^1(\Omega,{\mathbb R}^d)\,.
+% \end{align}
+%
+% Next, on noting (\ref{eq:advect}) and using Reynolds transport theorem,
+% we have that
+% \begin{align}
+% \ddt(\rho \,\vec u, \vec \xi) & =
+% \ddt\left(\rho_+\,\int_{\Omega_+(t)} \vec u \,.\,\vec \xi \dL{d}
+% + \rho_-\,\int_{\Omega_-(t)} \vec u\,.\,\vec \xi \dL{d}  \right) \nonumber \\ &
+% =  (\rho\,\vec u_t, \vec \xi)
+% -\left\langle [\rho]_-^+\,\mathcal{V}, \vec u \,.\,\vec \xi
+% \right\rangle_{\Gamma(t)}
+% \nonumber \\
+% &= (\rho\,\vec u_t, \vec \xi)- \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
+% \vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
+% \qquad \forall
+% \vec \xi \in H^1(\Omega, {\mathbb R}^d)
+% \,.
+% \label{eq:rhot1}
+% \end{align}
+% Therefore, it follows from (\ref{eq:rhot1}) that
+% \begin{equation*}
+% (\rho\,\vec u_t, \vec \xi) =
+% \tfrac{1}{2} \left[
+% \ddt (\rho\,\vec u,\vec \xi) + (\rho\,\vec u_t, \vec \xi)
+% + \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
+% \vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
+% \right]
+% \qquad \forall\ \vec \xi \in H^1(\Omega, {\mathbb R}^d)\,,
+% \end{equation*}
+% which on combining with (\ref{eq:advect}) yields that
+% \begin{align} \label{eq:rhot3}
+% & (\rho\,[\vec u_t + ((\vec u - \vec w)\,.\,\nabla)\,\vec u], \vec \xi)
+% = \tfrac{1}{2}[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
+% \nonumber \\
+% & + (\rho, [((\vec u - \vec w)\,.\,\nabla)\,\vec u]\,.\,\vec \xi
+% - [((\vec u - \vec w)\,.\,\nabla)\,\vec \xi]\,.\,\vec u)
+% -\langle [\rho]_-^+\vec w\,.\,\vec \nu, \vec u\,.\,\vec \xi
+% \rangle_{\Gamma(t)} -(\rho\,(\nabla\,.\,\vec w ),\vec u\,.\,\vec\xi) ].
+% \end{align}
+
+Multiplying (\ref{eq:LBop}) with a test function, and performing integration by
+parts, yields
+$$
+\left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,.
+$$
+Moreover, on noting (\ref{eq:stress_tensor}) and
+(\ref{eq:interface_jump_stress}), we have that
+\begin{align*}
+\int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec \xi \dL{d}
+& = - \left(\mat\sigma, \nabla\,\vec \xi\right)
+- \left\langle [\mat\sigma\,\vec\nu]_-^+ , \vec \xi
+  \right\rangle_{\Gamma(t)} \nonumber \\
+& = \left( p , \nabla\,.\,\vec \xi\right)
+-2 \left(\mu\,\mat D(\vec u) , \mat D(\vec \xi) \right)
++ \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
+\end{align*}
+for all $\vec \xi \in [H^1_0(\Omega)]^d$.
+
+Hence a possible weak formulation of
+(\ref{eq:full_momentum}--g) is given as follows. Given $\Gamma(0) = \Gamma_0$,
+for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
+\uspace \times \widehat\pspace \times H^1(\Gamma(t))}$ such that
+\begin{subequations}
+\begin{align}
+& (\rho\,\left.\vec{u}_t\right|_{\Upsilon_{\Omega_\pm}}, \vec \xi)
++ (\rho\,(\vec u - \vec{\mathcal{W}})\,.\,\nabla\,
+\vec u\,,\,\vec \xi) +2\left(\mu\,\mat D(\vec u), \mat D(
+\vec \xi)\right) \nonumber \\
+& - \left(p, \nabla\,.\,\vec \xi\right)
+- \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,,
+\label{eq:weaka}\\
+& \left(\nabla\,.\,\vec u, \varphi\right) = 0
+\quad \forall\ \varphi \in \widehat\pspace\,, \label{eq:weakb} \\
+&  \left\langle \vec{\mathcal{V}}
+- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:weakc} \\
+& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d \label{eq:weakd}
+\end{align}
+\end{subequations}
+% \begin{subequations}
+% \begin{align}
+% & \tfrac{1}{2}[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
+%  + (\rho, [((\vec u - \vec w)\,.\,\nabla)\,\vec u]\,.\,\vec \xi
+% - [((\vec u - \vec w)\,.\,\nabla)\,\vec \xi]\,.\,\vec u) \nonumber \\
+% & -\langle [\rho]_-^+\vec w\,.\,\vec \nu, \vec u\,.\,\vec \xi
+% \rangle_{\Gamma(t)} -(\rho\,(\nabla\,.\,\vec w ),\vec u\,.\,\vec\xi)
+% ] \nonumber \\
+% & +2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
+% - \left(p, \nabla\,.\,\vec \xi\right)
+% - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
+% = \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,,
+% \label{eq:weaka}\\
+% & \left(\nabla\,.\,\vec u, \varphi\right) = 0
+% \quad \forall\ \varphi \in \widehat\pspace\,, \label{eq:weakb} \\
+% &  \left\langle \vec{\mathcal{V}}
+% - \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+% \quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:weakc} \\
+% & \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
+% + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+% = 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d \label{eq:weakd}
+% \end{align}
+% \end{subequations}
+holds for almost all times $t \in (0,T]$. Here we have observed that if
+$p \in \pspace$ is part of a solution to (\ref{eq:full_momentum}--g), then so is
+$p + c$ for an arbitrary $c\in \R$.
+
+% We note that the term $\langle [\rho]_-^+\vec w\,.\,\vec \nu, \vec u\,.\,\vec
+% \xi \rangle_{\Gamma(t)}$ in (\ref{eq:weaka}) is null since, by
+% construction, $\vec w = 0$ on $\Gamma (t)$.
+
+We note that we are using a different, and more standard, weak formulation
+respect to paper \cite{fluidfbp}. Indeed, there the authors use
+\cite[eq. 3.7]{fluidfbp} in order to obtain a weak formulation for which it is
+easy to derive an energy bound not only on the continuous level but also on
+discrete level, as well as existence/uniqueness on discrete level.
+
+\subsection{Finite element approximation}
+TODO: formulate as iterative scheme, state stopping criteria
+
+We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
+$[0,T]$ into possibly variable time steps
+$\tau_m := t_{m+1}-t_m$, $m=0 ,\ldots, M-1$. Moreover, let
+${\cal T}^m$, $\forall m\ge 0$, be a regular partitioning of the domain
+$\Omega$ into disjoint open simplices
+$\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. On ${\cal T}^m$ we define the
+finite element spaces
+\begin{equation*}
+S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
+\in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\}
+\subset H^1(\Omega),\quad k \in \mathbb{N}\,,
+\end{equation*}
+where $\mathcal{P}_k(\sigmaO^m)$ denotes the space of polynomials of degree $k$
+on $\sigmaO^m$. Moreover, $S^m_0$ is the space of piecewise constant functions
+on ${\cal T}^m$.
+
+Let $\uspace^m\subset\uspace$ and $\pspace^m\subset\pspace$ be the finite
+element spaces we use for the approximation of velocity and pressure,
+and let $\widehat\pspace^m:= \pspace^m \cap \widehat\pspace$.
+The spaces $(\uspace^m,\pspace^m)$ satisfy the LBB inf-sup condition if there
+exists a constant $C_0 \in \R_{>0}$, independent of $\mathcal{T}^m$, such that
+\begin{equation} \label{eq:LBB}
+\inf_{\varphi \in \widehat\pspace^m} \sup_{\vec \xi \in \uspace^m}
+\frac{( \varphi, \nabla \,.\,\vec \xi)} {\|\varphi\|_0\,\|\vec \xi\|_1}
+\geq C_0 > 0\,,
+\end{equation}
+see \cite[p.~114]{GiraultR86}. Here $\|\cdot\|_0 := (\cdot,\cdot)^\frac12$ and
+$\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ denote the $L^2$--norm and
+the $H^1$--norm on $\Omega$, respectively. Throughout this paper, we will
+assume that $S^m_0\subset\pspace^m$. Then, for $d=2$, possible pairs
+$(\uspace^m,\pspace^m)$ that satisfy (\ref{eq:LBB}) are P2--P0 and P2--(P1+P0),
+i.e.\ we set $\uspace^m=[S^m_2]^d\cap\uspace$ and either $\pspace^m = S^m_0$ or
+$S^m_1+S^m_0$. We note that the choice P2--(P1+P0) requires the weak constraint
+that all simplices have a vertex in $\Omega$, see \cite{BoffiCGG12}. For $d=3$,
+pairs of spaces that satisfy $S^m_0\subset\pspace^m$ and (\ref{eq:LBB}) are
+the P3--(P2+P0) element, see \cite{BoffiCGG12}, or stabilized spaces such as
+P1$^{\mbox{face bubble}}$--P0, see \cite[Remark~8.7.1]{BoffiBF13}, which is
+also called the SMALL element.
+
+In this paper we consider a fitted finite element approximation for the
+evolution of the interface $\Gamma(t)$. Let $\Gamma^{m}\subset\R^d$ be a
+$(d-1)$-dimensional polyhedral surface approximating the closed surface
+$\Gamma(t_m)$, $m=0 ,\ldots, M$. Let $\Omega^m_+$ denote the exterior of
+$\Gamma^m$ and let $\Omega^m_-$ be the interior of $\Gamma^m$, where we assume
+that $\Gamma^m$ has no self-intersections. Then
+$\Omega = \Omega_-^m \cup \Gamma^m \cup \Omega_+^m$, and the fitted nature of
+our method implies that
+\begin{equation} \label{eq:fittedO}
+\overline{\Omega^m_+} = \bigcup_{o \in \mathcal{T}^m_+} \overline{o}
+\quad\text{and}\quad
+\overline{\Omega^m_-} = \bigcup_{o \in \mathcal{T}^m_-} \overline{o} \,,
+\end{equation}
+where $\mathcal{T}^m = \mathcal{T}^m_+ \cup \mathcal{T}^m_-$ and
+$\mathcal{T}^m_+ \cap \mathcal{T}^m_- = \emptyset$.
+Let $\vec{\nu}^m$ denote the piecewise constant unit normal to $\Gamma^m$
+such that $\vec\nu^m$ points into $\Omega^m_+$.
+
+In order to define the parametric finite element spaces on $\Gamma^m$, we
+assume that $\Gamma^m=\bigcup_{j=1}^{J_\Gamma} \overline{\sigma^m_j}$, where
+$\{\sigma^m_j\}_{j=1}^{J_\Gamma}$ is a family of mutually disjoint open
+$(d-1)$-simplices with vertices $\{\vec{q}^m_k\}_{k=1}^{K_\Gamma}$. Following
+the notation in \cite{spurious}, see also \cite{gflows3d}, we define
+$\Vh := \{\vec\chi \in [C(\Gamma^m)]^d:\vec\chi\!\mid_{\sigma^m_j}
+\in \mathcal{P}_1(\sigma^m_j), j=1,\ldots, J_\Gamma\} =: [\Wh]^d$,
+where $\Wh \subset H^1(\Gamma^m)$ is the space of scalar continuous
+piecewise linear functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K_\Gamma}$
+denoting the standard basis of $\Wh$.
+
+Moreover we define $\pi^m: C(\Gamma^m)\to \Wh$ the standard interpolation
+operator at the nodes $\{\vec{q}_k^m\}_{k=1}^{K_\Gamma}$, and similarly
+$\vec\pi^m: [C(\Gamma^m)]^d\to \Vh$. Throughout this paper, we parametrize
+the new surface $\Gamma^{m+1}$ over $\Gamma^m$ using a parametrization
+$\vec{X}^{m+1} \in \Vh$, so that $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$.
+Similarly, we parametrize the new bulk $\Omega^{m+1}_\pm$ using a
+parametrization $\vec{\psi}^{m+1} \in [H^1(\Omega)]^d$ such that
+$\Omega^{m+1}_\pm = \vec{\psi}^{m+1}(\Omega^m_\pm)$ and
+$\left.\vec{\psi}^{m+1}\right|_{\Gamma^{m+1}}=\vec X^{m+1}$.
+Before we can state our numerical method, we need to introduce a mass lumped
+inner product on $\Gamma^m$, that is crucial for the desired tangential motion
+of vertices on $\Gamma^m$. This induced tangential motion
+will lead to good interface mesh properties.
+If $v,w \in L^\infty(\Gamma^m)$ are piecewise continuous, with possible jumps
+across the edges of $\{\sigma_j^m\}_{j=1}^{J_\Gamma}$, we define the mass
+lumped inner product $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ as
+\begin{equation} \label{eq:masslump}
+\left\langle v, w \right\rangle^h_{\Gamma^m} :=
+\tfrac1d \sum_{j=1}^{J_\Gamma} \mathcal{H}^{d-1}(\sigma^m_j)\,
+\sum_{k=1}^{d} (v\,w)((\vec{q}^m_{j_k})^-),
+\end{equation}
+where $\{\vec{q}^m_{j_k}\}_{k=1}^{d}$ are the vertices of $\sigma^m_j$, and
+where we define the limit $v((\vec{q}^m_{j_k})^-)
+:= \underset{\sigma^m_j\ni \vec{p}\to \vec{q}^m_{j_k}}{\lim}\, v(\vec{p})$. We
+naturally extend (\ref{eq:masslump}) to vector valued functions. Similarly, we
+let $\langle\cdot,\cdot\rangle_{\Gamma^m}$ denote the standard $L^2$--inner
+product on $\Gamma^m$.
+
+Then our finite element approximation, which is based on the variational
+formulation (\ref{eq:weaka}--d), is given as follows. Let $\Gamma^0$ be an
+approximation to $\Gamma(0)$. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},
+P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat\pspace^m
+\times \Vh \times \Wh$ such that
+\begin{subequations}
+\begin{align}
+& \left( \rho^{m}\,\frac{\vec U^{m+1} - \vec U^m}{\tau_m}, \vec \xi \right) +
+\left((\rho^{m}\vec U^{m+1}\,.\,\nabla)\,\vec U^{m+1}\,,\,\vec \xi \right) -
+\nonumber \\
+& \left((\rho^{m}\frac{\vec \psi^{m+1} -\vec \psi^{m}}{\tau^m}\,.\,\nabla)
+\,\vec U^{m+1}\,,\,\vec \xi \right)+ \nonumber \\
+& 2\left(\mu^{m}\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) - \gamma\,\left\langle
+\kappa^{m+1}\,\vec\nu^m, \vec\xi\right\rangle_{\Gamma^m}= \left(\vec f^{m+1},
+\vec \xi\right) \nonumber \\
+& \hspace{10cm} \quad \forall\ \vec\xi \in \uspace^m \,,\label{eq:HGa}\\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \widehat\pspace^m\,,\label{eq:HGb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,, \label{eq:HGc} \\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:HGd}
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$. Here we have defined
+$\vec f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$, where $\vec I^m_2$
+is the standard interpolation operator onto $[S^m_2]^d$, $\mu^m =
+\mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0$ and $\rho^m
+= \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0$.
+We observe that (\ref{eq:HGa}--d) is a non-linear scheme in that it leads to a
+coupled non-linear system of equations for the unknowns
+$(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})$ at each time level.
+
+\subsection{Mesh smoothing}
+We perform the following smoothing step on $\mathcal{T}^m$, which
+is inspired by the method proposed in \cite{Ganesan06}, see also
+\cite{GanesanT08}. Having obtained $\delta \vec X^{m+1}$ from the solution of
+(\ref{eq:lin}), we solve the linear elasticity problem: Find a displacement
+$\vec\psi \in [H^1(\Omega)]^d$ such that
+\begin{subequations}
+\begin{alignat}{2}
+\nabla\,.\,\mat S & = \vec 0 \qquad &&\mbox{in } \Omega_\pm^m\,,
+\label{eq:elasta}\\
+\vec\psi &= \delta \vec X \qquad && \mbox{on } \Gamma^m\,, \label{eq:elastb} \\
+\vec\psi\,.\,\vec{\rm n} & = 0 \qquad &&\mbox{on } \partial\Omega\,,
+\label{eq:elastc}
+\end{alignat}
+\end{subequations}
+where the stress tensor $\mat S$ is defined as
+\begin{equation} \label{eq:elasticity_tensor}
+\mat S = 2\,\mat D(\vec\psi) + (\nabla\,.\vec\psi)\,\mat\id
+\end{equation}
+and where $\vec{\rm n}$ in (\ref{eq:elastc}) is the outer unit normal to
+$\Omega$ on $\partial\Omega$. In practice we approximate (\ref{eq:elasta}--c)
+with piecewise linear elements and solve the resulting system of linear
+equations with the UMPFACK package, see \cite{Davis04}. The obtained discrete
+variant of $\vec\psi$, at every vertex of the current bulk grid
+$\mathcal{T}^m$, then represents the variation in their position that we
+compute in order to obtain $\mathcal{T}^{m+1}$.
 
 \setcounter{equation} 0
 \section{Numerical results} \label{sec:numerical_results}
@@ -111,8 +651,8 @@ We use the setup described in \cite{HysingTKPBGT09}, see Figure~2 there;
 i.e.\ $\Omega = (0,1) \times (0,2)$ with
 $\partial_1\Omega = [0,1] \times \{0,2\}$ and
 $\partial_2\Omega = \{0,1\} \times (0,2)$.
-Moreover, $\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\frac12, \frac12)^T| =
-\frac14\}$.
+Moreover, $\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\frac12, \frac{1}{2})^T| =
+\frac{1}{4}\}$.
 The physical parameters from the test case 1 in \cite[Table~I]{HysingTKPBGT09}
 are then given by
 \begin{equation} \label{eq:Hysing1}
@@ -254,6 +794,31 @@ $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
 simulation with 128 interface elements and using P2-(P1+P0) element.}
 \label{fig:2d_benchmark1_volume}
 \end{figure}
+
+\setcounter{equation} 0
+\subsection{True solution benchmark}
+
+Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z| = r(t)\}$ be a sphere of radius
+$r(t)$ and curvature $\kappa(t) = -\,\frac{d-1}{r(t)}$.
+An exact solution to the problem
+(\ref{eq:full_momentum})-(\ref{eq:full_initial_interface}) with
+(\ref{eq:full_velocity}) substitute by $- \nabla\,.\,\vec u = -\alpha\,d$ is
+\begin{equation} \label{eq:radialr}
+r(t) = \mathrm{e}^{\alpha\,t}\,r(0)\,,
+\end{equation}
+together with
+\begin{equation} \label{eq:radialup}
+\vec u(\vec z, t) = \alpha\,\vec z \,, \quad
+p(\vec z, t) = -\,\bigg(\gamma - 2\,\alpha\,\frac{\mu_+ - \mu_-}
+{d-1}r(t)\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+\frac{\mathcal{L}^d(\Omega_-(t))}{\mathcal{L}^d(\Omega)}\right],
+\end{equation}
+and with $\vec f(\vec z, t) = \rho\,\alpha^2\,\vec z$, where $\alpha \in \R$.
+
+In the following, unless otherwise stated, we choose the initial surface
+$\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$, the domain
+$\Omega = (-1,1)^d$ and we employ uniform time steps $\tau_m=\tau$,
+$m=0,\ldots, M-1$.
 
 \bibliographystyle{siam}
 \bibliography{../../bib/robert_refs,../../bib/marco_refs}
