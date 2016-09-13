@@ -803,17 +803,43 @@ $r(t)$ and curvature $\kappa(t) = -\,\frac{d-1}{r(t)}$.
 An exact solution to the problem
 (\ref{eq:full_momentum})-(\ref{eq:full_initial_interface}) with
 (\ref{eq:full_velocity}) substitute by $- \nabla\,.\,\vec u = -\alpha\,d$ is
-\begin{equation} \label{eq:radialr}
+\begin{equation} \label{eq:r_benchmark1}
 r(t) = \mathrm{e}^{\alpha\,t}\,r(0)\,,
 \end{equation}
 together with
-\begin{equation} \label{eq:radialup}
+\begin{equation} \label{eq:up_benchmark1}
 \vec u(\vec z, t) = \alpha\,\vec z \,, \quad
 p(\vec z, t) = -\,\bigg(\gamma - 2\,\alpha\,\frac{\mu_+ - \mu_-}
 {d-1}r(t)\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
 \frac{\mathcal{L}^d(\Omega_-(t))}{\mathcal{L}^d(\Omega)}\right],
 \end{equation}
 and with $\vec f(\vec z, t) = \rho\,\alpha^2\,\vec z$, where $\alpha \in \R$.
+
+Another exact solution to the problem
+(\ref{eq:full_momentum})-(\ref{eq:full_initial_interface}) with
+(\ref{eq:full_velocity}) substitute by $- \nabla\,.\,\vec u = -\big(
+\alpha_2\charfcn{\Omega_+(t)}\big(r(t)^2-\frac{2+d}{d}
+|\vec z|^2\big)-\alpha_1\big)d$ is
+\begin{equation} \label{eq:r_benchmark2}
+r(t) = \mathrm{e}^{\alpha_1\,t}\,r(0)\,,
+\end{equation}
+together with
+\begin{align} \label{eq:up_benchmark2}
+& \vec u(\vec z, t) = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}(|\vec
+z|^2-r(t)^2)\bigg)\,\vec z\,, \\
+& p(\vec z, t) = -\,\bigg(\gamma - 4\,\alpha_2\,\frac{\mu_+}{d-1}r(t)^3
+\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+\frac{\mathcal{L}^d(\Omega_-(t))}{\mathcal{L}^d(\Omega)}\right],
+\end{align}
+and with
+\begin{align}
+\vec f(\vec z, t) = &
+\rho\,\bigg(\alpha_1^2\,+\charfcn{\Omega_+(t)}\bigg(-2\alpha_1\alpha_2r(t)^2 +
+2\alpha_1\alpha_2\big(2|\vec z|^2-r(t)^2\big)+ \nonumber \\
+& \alpha_2^2\big(|\vec z|^2-r(t)^2\big)\big(3|\vec z|^2 -
+r(t)^2\big)-8\alpha_2\frac{\mu_+}{\rho}\bigg)\bigg)\vec z
+\end{align}
+where $\alpha_1,\alpha_2 \in \R$.
 
 In the following, unless otherwise stated, we choose the initial surface
 $\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$, the domain
