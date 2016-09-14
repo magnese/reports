@@ -802,7 +802,7 @@ Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z| = r(t)\}$ be a sphere of radius
 $r(t)$ and curvature $\kappa(t) = -\,\frac{d-1}{r(t)}$.
 An exact solution to the problem
 (\ref{eq:full_momentum})-(\ref{eq:full_initial_interface}) with
-(\ref{eq:full_velocity}) substitute by $- \nabla\,.\,\vec u = -\alpha\,d$ is
+(\ref{eq:full_velocity}) substitute by $\nabla\,.\,\vec u = \alpha\,d$ is
 \begin{equation} \label{eq:r_benchmark1}
 r(t) = \mathrm{e}^{\alpha\,t}\,r(0)\,,
 \end{equation}
@@ -817,9 +817,8 @@ and with $\vec f(\vec z, t) = \rho\,\alpha^2\,\vec z$, where $\alpha \in \R$.
 
 Another exact solution to the problem
 (\ref{eq:full_momentum})-(\ref{eq:full_initial_interface}) with
-(\ref{eq:full_velocity}) substitute by $- \nabla\,.\,\vec u = -\big(
-\alpha_2\charfcn{\Omega_+(t)}\big(r(t)^2-\frac{2+d}{d}
-|\vec z|^2\big)-\alpha_1\big)d$ is
+(\ref{eq:full_velocity}) substitute by $\nabla\,.\,\vec u = \big( \alpha_1 +
+\alpha_2\charfcn{\Omega_+(t)}\big(\frac{2+d}{d}|\vec z|^2-r(t)^2\big)\big)d$ is
 \begin{equation} \label{eq:r_benchmark2}
 r(t) = \mathrm{e}^{\alpha_1\,t}\,r(0)\,,
 \end{equation}
@@ -837,7 +836,7 @@ and with
 \rho\,\bigg(\alpha_1^2\,+\charfcn{\Omega_+(t)}\bigg(-2\alpha_1\alpha_2r(t)^2 +
 2\alpha_1\alpha_2\big(2|\vec z|^2-r(t)^2\big)+ \nonumber \\
 & \alpha_2^2\big(|\vec z|^2-r(t)^2\big)\big(3|\vec z|^2 -
-r(t)^2\big)-8\alpha_2\frac{\mu_+}{\rho}\bigg)\bigg)\vec z
+r(t)^2\big)-4(d+1)\alpha_2\frac{\mu_+}{\rho}\bigg)\bigg)\vec z
 \end{align}
 where $\alpha_1,\alpha_2 \in \R$.
 
