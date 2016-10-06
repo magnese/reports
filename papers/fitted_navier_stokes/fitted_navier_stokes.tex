@@ -184,25 +184,13 @@ $\Upsilon_{\Omega_-}\cup\Upsilon_{\Omega_+}\cup\Upsilon_{\Gamma}$. Unify
 definition domain velocities like $\mathcal{V}_\Gamma$ and
 $\mathcal{V}_{\Omega_\pm}$ (also at discrete level).
 
-% Let $\vec{\mathcal{A}}_t$ be an homeomorphic map which at each time $t\in
-% [0,T]$ associate a point $\vec Y$ of a reference domain $\Omega_0$ to a point
-% $\vec x$ in the current domain configuration $\Omega_t$:
-% \begin{equation}
-% \vec{\mathcal{A}}_t:\Omega_0 \subset \R^d\rightarrow \Omega_t \subset \R^d,
-% \qquad \vec x(\vec Y,t)=\vec{\mathcal{A}}_t(\vec Y).
-% \end{equation}
-% We assume that the application
-% \begin{equation}
-% t\rightarrow \vec x(\vec Y,t),\qquad \vec Y \in\Omega_0
-% \end{equation}
-% is differentiable almost everywhere in $[0,T]$.
 The system of governing equations
 (\ref{eq:ns_momentum},\ref{eq:ns_mass},\ref{eq:interface_jump_velocity},
 \ref{eq:interface_jump_stress},\ref{eq:interface_velocity}) is expressed in
 term of Eulerian coordinates $\vec z$. It is possible to rewrite the velocity
 time derivative $\vec u_t$ respect to the so called ALE coordinate $\vec q$.
 
-Analogously of what done in Section \ref{sec:equations} to parametrize the
+Analogously of what done in Section~\ref{sec:equations} to parametrize the
 interface $\Gamma(t)$, we can define the fixed reference manifolds
 $\Upsilon_{\Omega_-}$ and $\Upsilon_{\Omega_+}$ and use the map
 (\ref{eq:x}) to parametrize $\Omega_\pm(t)$ as
@@ -274,27 +262,8 @@ the domain is fixed, this additional convective term is null and the time
 derivative in the ALE frame coincide with the usual time derivative in the
 Eulerian frame.
 
-% Finally, we indicate with $\left.\frac{\partial h}{\partial t}\right|_{\vec x}$
-% the partial time derivative in the Eulerian frame and with
-% \begin{equation}
-% \left.\frac{\partial h}{\partial t}\right|_{\vec Y}:\Omega_t\times
-% [0,T]\rightarrow \mathbb{R},\qquad\left.\frac{\partial h}{\partial
-% t}\right|_{\vec Y}=h(\vec{\mathcal{A}}_t(\vec Y),t).
-% \end{equation}
-
-\subsection{Weak formulation}
+\subsection{Weak formulation}\label{sec:weak}
 TODO: add definition space of ALE counterpart
-% First, we observe that for arbitrary functions $\vec v$,
-% $\vec \omega$, $\vec \xi \in H^1(\Omega,\R^d)$ it holds that
-% \begin{align} \label{eq:tripleterm}
-% [(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi
-% &= (\vec v\,.\,\nabla)\,(\vec \omega\,.\,\vec \xi) -
-% [(\vec v\,.\,\nabla)\,\vec \xi]\,.\,\vec \omega \nonumber \\ &
-% = \tfrac{1}{2} \left[\,
-% [(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi - [(\vec v\,.\,\nabla)\,\vec
-% \xi] \,.\,\vec \omega\,\right] + \tfrac{1}{2}\,(\vec v\,.\,\nabla)\,
-% (\vec \omega\,.\,\vec \xi)\,.
-% \end{align}
 
 In order to obtain a weak formulation, we define the function spaces
 \begin{align*}
@@ -307,75 +276,13 @@ the $L^2$--inner products on $\Omega$ and $\Gamma(t)$, respectively. In
 addition, we let $\mathcal{L}^d$ and $\mathcal{H}^{d-1}$ denote the Lebesgue
 measure in $\R^d$ and the $(d-1)$-dimensional Hausdorff measure, respectively.
 
-% Then we have for any $\vec v \in \uspace$
-% that
-% \begin{align} \label{eq:ibp0}
-% ( \rho,(\vec v \,.\,\nabla)\,\phi) & = (\rho, \nabla\,.\,(\phi\,\vec v))
-% - (\rho\,(\nabla\,.\,\vec v), \phi) \nonumber \\ & =
-% - \left\langle [\rho]_-^+\,\vec v\,.\,\vec \nu,
-%    \phi \right\rangle_{\Gamma(t)}
-% - (\rho\,(\nabla\,.\,\vec v), \phi)
-% \end{align}
-% which holds for all $\phi\in W^{1,\frac{3}{2}}(\Omega)$, and it is
-% precisely this regularity that will be needed in order to derive
-% (\ref{eq:advect}) below.
-%
-% Hence, it follows from (\ref{eq:full_momentum},\ref{eq:full_mass}),
-% (\ref{eq:tripleterm}) and (\ref{eq:ibp0}) that
-% \begin{align}\label{eq:advect}
-% & ( \rho\,((\vec u - \vec w) \,.\,\nabla)\,\vec u, \vec \xi)
-%  = \tfrac{1}{2} [ (\rho\,((\vec u - \vec w)\,.\,\nabla)\,\vec u, \vec \xi) -
-% (\rho\,((\vec u - \vec w)\,.\,\nabla)\,\vec \xi,\vec u) \nonumber \\
-% & -\langle [\rho]_-^+(\vec u - \vec w)\,.\,\vec \nu, \vec u\,.\,\vec \xi
-% \rangle_{\Gamma(t)} -(\rho\,(\nabla\,.\,\vec w ),\vec u\,.\,\vec\xi) ] \qquad
-% \forall\ \vec \xi \in H^1(\Omega,{\mathbb R}^d)\,.
-% \end{align}
-%
-% Next, on noting (\ref{eq:advect}) and using Reynolds transport theorem,
-% we have that
-% \begin{align}
-% \ddt(\rho \,\vec u, \vec \xi) & =
-% \ddt\left(\rho_+\,\int_{\Omega_+(t)} \vec u \,.\,\vec \xi \dL{d}
-% + \rho_-\,\int_{\Omega_-(t)} \vec u\,.\,\vec \xi \dL{d}  \right) \nonumber \\ &
-% =  (\rho\,\vec u_t, \vec \xi)
-% -\left\langle [\rho]_-^+\,\mathcal{V}, \vec u \,.\,\vec \xi
-% \right\rangle_{\Gamma(t)}
-% \nonumber \\
-% &= (\rho\,\vec u_t, \vec \xi)- \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
-% \vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
-% \qquad \forall
-% \vec \xi \in H^1(\Omega, {\mathbb R}^d)
-% \,.
-% \label{eq:rhot1}
-% \end{align}
-% Therefore, it follows from (\ref{eq:rhot1}) that
-% \begin{equation*}
-% (\rho\,\vec u_t, \vec \xi) =
-% \tfrac{1}{2} \left[
-% \ddt (\rho\,\vec u,\vec \xi) + (\rho\,\vec u_t, \vec \xi)
-% + \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
-% \vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
-% \right]
-% \qquad \forall\ \vec \xi \in H^1(\Omega, {\mathbb R}^d)\,,
-% \end{equation*}
-% which on combining with (\ref{eq:advect}) yields that
-% \begin{align} \label{eq:rhot3}
-% & (\rho\,[\vec u_t + ((\vec u - \vec w)\,.\,\nabla)\,\vec u], \vec \xi)
-% = \tfrac{1}{2}[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
-% \nonumber \\
-% & + (\rho, [((\vec u - \vec w)\,.\,\nabla)\,\vec u]\,.\,\vec \xi
-% - [((\vec u - \vec w)\,.\,\nabla)\,\vec \xi]\,.\,\vec u)
-% -\langle [\rho]_-^+\vec w\,.\,\vec \nu, \vec u\,.\,\vec \xi
-% \rangle_{\Gamma(t)} -(\rho\,(\nabla\,.\,\vec w ),\vec u\,.\,\vec\xi) ].
-% \end{align}
-
 Multiplying (\ref{eq:LBop}) with a test function, and performing integration by
 parts, yields
-$$
+\begin{equation*}
 \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
 + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
 = 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,.
-$$
+\end{equation*}
 Moreover, on noting (\ref{eq:stress_tensor}) and
 (\ref{eq:interface_jump_stress}), we have that
 \begin{align*}
@@ -413,42 +320,131 @@ for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 = 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d \label{eq:weakd}
 \end{align}
 \end{subequations}
-% \begin{subequations}
-% \begin{align}
-% & \tfrac{1}{2}[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
-%  + (\rho, [((\vec u - \vec w)\,.\,\nabla)\,\vec u]\,.\,\vec \xi
-% - [((\vec u - \vec w)\,.\,\nabla)\,\vec \xi]\,.\,\vec u) \nonumber \\
-% & -\langle [\rho]_-^+\vec w\,.\,\vec \nu, \vec u\,.\,\vec \xi
-% \rangle_{\Gamma(t)} -(\rho\,(\nabla\,.\,\vec w ),\vec u\,.\,\vec\xi)
-% ] \nonumber \\
-% & +2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
-% - \left(p, \nabla\,.\,\vec \xi\right)
-% - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
-% = \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,,
-% \label{eq:weaka}\\
-% & \left(\nabla\,.\,\vec u, \varphi\right) = 0
-% \quad \forall\ \varphi \in \widehat\pspace\,, \label{eq:weakb} \\
-% &  \left\langle \vec{\mathcal{V}}
-% - \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
-% \quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:weakc} \\
-% & \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
-% + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
-% = 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d \label{eq:weakd}
-% \end{align}
-% \end{subequations}
 holds for almost all times $t \in (0,T]$. Here we have observed that if
 $p \in \pspace$ is part of a solution to (\ref{eq:full_momentum}--g), then so is
 $p + c$ for an arbitrary $c\in \R$.
 
-% We note that the term $\langle [\rho]_-^+\vec w\,.\,\vec \nu, \vec u\,.\,\vec
-% \xi \rangle_{\Gamma(t)}$ in (\ref{eq:weaka}) is null since, by
-% construction, $\vec w = 0$ on $\Gamma (t)$.
+\subsection{Alternative non symmetric weak formulation}
 
-We note that we are using a different, and more standard, weak formulation
-respect to paper \cite{fluidfbp}. Indeed, there the authors use
+We note that in Section~\ref{sec:weak} we are using a different, and more
+standard, weak formulation respect to paper \cite{fluidfbp}. There the authors
+use
 \cite[eq. 3.7]{fluidfbp} in order to obtain a weak formulation for which it is
 easy to derive an energy bound not only on the continuous level but also on
-discrete level, as well as existence/uniqueness on discrete level.
+discrete level, as well as existence/uniqueness on discrete level. For
+completeness we report the derivation of that non symmetric weak formulation.
+
+First, we observe that for arbitrary functions $\vec v$,
+$\vec \omega$, $\vec \xi \in H^1(\Omega,\R^d)$ it holds that
+\begin{align} \label{eq:tripleterm}
+[(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi
+&= (\vec v\,.\,\nabla)\,(\vec \omega\,.\,\vec \xi) -
+[(\vec v\,.\,\nabla)\,\vec \xi]\,.\,\vec \omega \nonumber \\ &
+= \tfrac{1}{2} \left[\,
+[(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi - [(\vec v\,.\,\nabla)\,\vec
+\xi] \,.\,\vec \omega\,\right] + \tfrac{1}{2}\,(\vec v\,.\,\nabla)\,
+(\vec \omega\,.\,\vec \xi)\,.
+\end{align}
+
+Then we have for any $\vec v \in \uspace$ that
+\begin{align} \label{eq:ibp0}
+( \rho,(\vec v \,.\,\nabla)\,\phi) & = (\rho, \nabla\,.\,(\phi\,\vec v))
+- (\rho\,(\nabla\,.\,\vec v), \phi) \nonumber \\ & =
+- \left\langle [\rho]_-^+\,\vec v\,.\,\vec \nu,
+  \phi \right\rangle_{\Gamma(t)}
+- (\rho\,(\nabla\,.\,\vec v), \phi)
+\end{align}
+which holds for all $\phi\in W^{1,\frac{3}{2}}(\Omega)$, and it is
+precisely this regularity that will be needed in order to derive
+(\ref{eq:advect}) below.
+
+Hence, it follows from (\ref{eq:full_momentum}),
+(\ref{eq:tripleterm}) and (\ref{eq:ibp0}) that
+\begin{align}\label{eq:fulladvect}
+& ( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi)
+= \tfrac{1}{2} [ (\rho\,(\vec u\,.\,\nabla)\,\vec u, \vec \xi) -
+(\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u) \nonumber \\
+& -\langle [\rho]_-^+\vec u\,.\,\vec \nu, \vec u\,.\,\vec \xi
+\rangle_{\Gamma(t)} -(\rho\,(\nabla\,.\,\vec u ),\vec u\,.\,\vec\xi) ] \qquad
+\forall\ \vec \xi \in H^1(\Omega,{\mathbb R}^d)\,,
+\end{align}
+and from (\ref{eq:full_mass}) we obtain
+\begin{align}\label{eq:advect}
+& ( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi)
+= \tfrac{1}{2} [ (\rho\,(\vec u\,.\,\nabla)\,\vec u, \vec \xi) -
+(\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u) \nonumber \\
+& -\langle [\rho]_-^+\vec u\,.\,\vec \nu, \vec u\,.\,\vec \xi
+\rangle_{\Gamma(t)}] \qquad \forall\ \vec \xi \in H^1(\Omega,{\mathbb R}^d)\,.
+\end{align}
+
+Next, on noting (\ref{eq:advect}) and using Reynolds transport theorem,
+we have that
+\begin{align}
+\ddt(\rho \,\vec u, \vec \xi) & =
+\ddt\left(\rho_+\,\int_{\Omega_+(t)} \vec u \,.\,\vec \xi \dL{d}
++ \rho_-\,\int_{\Omega_-(t)} \vec u\,.\,\vec \xi \dL{d}  \right) \nonumber \\
+& =  (\rho\,\vec u_t, \vec \xi)
+-\left\langle [\rho]_-^+\,\mathcal{V}, \vec u \,.\,\vec \xi
+\right\rangle_{\Gamma(t)} \nonumber \\
+&= (\rho\,\vec u_t, \vec \xi)- \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
+\vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
+\qquad \forall \vec \xi \in H^1(\Omega, {\mathbb R}^d)\,.
+\label{eq:rhot1}
+\end{align}
+Therefore, it follows from (\ref{eq:rhot1}) that
+\begin{equation*}
+(\rho\,\vec u_t, \vec \xi) =
+\tfrac{1}{2} \left[
+\ddt (\rho\,\vec u,\vec \xi) + (\rho\,\vec u_t, \vec \xi)
++ \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
+\vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
+\right]
+\qquad \forall\ \vec \xi \in H^1(\Omega, {\mathbb R}^d)\,,
+\end{equation*}
+which on combining with (\ref{eq:advect}) yields that
+\begin{align} \label{eq:rhot3}
+& (\rho\,[\vec u_t + (\vec u\,.\,\nabla)\,\vec u], \vec \xi) \nonumber \\
+& = \tfrac{1}{2}\bigg[ \ddt (\rho\,\vec u, \vec \xi)
++ (\rho\,\vec u_t, \vec \xi) + (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
+- [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u) \bigg].
+\end{align}
+
+Hence an alternative non symmetric weak formulation of
+(\ref{eq:full_momentum}--g) is given as follows. Given $\Gamma(0) = \Gamma_0$,
+for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
+\uspace \times \widehat\pspace \times H^1(\Gamma(t))}$ such that
+\begin{subequations}
+\begin{align}
+& \tfrac{1}{2}[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
++ (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
+- [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u) \nonumber \\
+& +2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
+- \left(p, \nabla\,.\,\vec \xi\right)
+- \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,,
+\label{eq:altweaka}\\
+& \left(\nabla\,.\,\vec u, \varphi\right) = 0
+\quad \forall\ \varphi \in \widehat\pspace\,, \label{eq:altweakb} \\
+&  \left\langle \vec{\mathcal{V}}
+- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:altweakc} \\
+& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d \label{eq:altweakd}
+\end{align}
+\end{subequations}
+holds for almost all times $t \in (0,T]$.
+
+\begin{rem} \label{rem:velocityhs}
+With a view towards some numerical test cases
+in Section~\ref{sec:numerical_results}, we also allow for non divergence-free
+problem therefore (\ref{eq:advect}) is no longer valid and we need to use
+(\ref{eq:fulladvect}) to derive the non symmetric weak formulation.
+Consequently the RHS of (\ref{eq:altweaka}) requires the additional term
+\begin{equation} \label{eq:additionalvelocityrhs}
+\tfrac{1}{2}(\rho\,(\nabla\,.\,\vec u ),\vec u\,.\,\vec\xi)\,.
+\end{equation}
+\end{rem}
 
 \subsection{Finite element approximation}
 TODO: formulate as iterative scheme, state stopping criteria
@@ -585,11 +581,29 @@ We observe that (\ref{eq:HGa}--d) is a non-linear scheme in that it leads to a
 coupled non-linear system of equations for the unknowns
 $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})$ at each time level.
 
+\begin{rem} \label{rem:pressurerhs}
+With a view towards some numerical test cases in
+Section~\ref{sec:numerical_results}, we also allow for an inhomogeneous
+Dirichlet boundary condition $\vec g$ on $\partial\Omega$. In this case the
+linear system is suitably adjusted. For example, in place of
+{\rm (\ref{eq:HGb})}, with $\widehat \pspace^m$ replaced by $\pspace^m$, we
+require
+\begin{equation} \label{eq:LAb}
+\left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
+\frac{\left(\varphi, 1\right)}{\mathcal{L}^d(\Omega)}\, \int_{\partial\Omega}
+(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
+\pspace^m\,.
+\end{equation}
+
+We also notice that we use (\ref{eq:LAb}) to enforce the non divergence free
+condition of some numerical test cases.
+\end{rem}
+
 \subsection{Mesh smoothing}
 We perform the following smoothing step on $\mathcal{T}^m$, which
 is inspired by the method proposed in \cite{Ganesan06}, see also
 \cite{GanesanT08}. Having obtained $\delta \vec X^{m+1}$ from the solution of
-(\ref{eq:lin}), we solve the linear elasticity problem: Find a displacement
+(\ref{eq:HGa}--d), we solve the linear elasticity problem: Find a displacement
 $\vec\psi \in [H^1(\Omega)]^d$ such that
 \begin{subequations}
 \begin{alignat}{2}
@@ -622,8 +636,7 @@ single thread computation on an Intel Xeon E5640 (2.67GHz) processor with 16 GB
 of main memory.
 
 We define the following benchmark quantities for the continuous solution $(\vec
-u, p, \Gamma)$ of
-(\ref{eq:2a}--h).
+u, p, \Gamma)$ of (\ref{eq:HGa}--d).
 Let $y_c(t) = \int_{\Omega_-(t)} x_2 \dL2 / \mathcal{L}^2(\Omega_-(t))$ denote
 the $x_2$-component of the bubble's centre of mass. Let $\strikec(t)$ denote
 the ``degree of circularity'' of $\Gamma(t)$, which is defined as the ratio of
@@ -728,11 +741,11 @@ $y_c(t=3)$ & 1.05998 & 1.05792 & 1.06082 & 1.05741 & 1.0592  & 1.0817 \\
 \hline
 & 16 & 32 & 64 & 128 \\
 \hline
-$\strikec_{\min}$ & 0.87394 & 0.877333 & 0.883851 & 0.886994\\
-$t_{\strikec = \strikec_{\min}}$ & 1.955 & 1.75 & 1.691 & 1.687\\
-$V_{c,\max}$ & 0.240278 & 0.235601 & 0.234366 & 0.234051\\
-$t_{V_c = V_{c,\max}}$ & 0.911 & 0.881 & 0.873 & 0.875\\
-$y_c(t=3)$ & 1.07838 & 1.06602 & 1.06179 & 1.06062\\
+$\strikec_{\min}$ & 0.87394 & 0.877333 & 0.883851 & 0.886994 \\
+$t_{\strikec = \strikec_{\min}}$ & 1.955 & 1.75 & 1.691 & 1.687 \\
+$V_{c,\max}$ & 0.240278 & 0.235601 & 0.234366 & 0.234051 \\
+$t_{V_c = V_{c,\max}}$ & 0.911 & 0.881 & 0.873 & 0.875 \\
+$y_c(t=3)$ & 1.07838 & 1.06602 & 1.06179 & 1.06062 \\
 \hline
 \end{tabular}
 \caption{Some quantitative results for the test case 1 in
@@ -839,6 +852,29 @@ and with
 r(t)^2\big)-4(d+1)\alpha_2\frac{\mu_+}{\rho}\bigg)\bigg)\vec z
 \end{align}
 where $\alpha_1,\alpha_2 \in \R$.
+
+Finally, a nontrivial divergence free and radially symmetric
+solution $\vec u$ can be constructed on a domain that does not contain the
+origin. To this end, consider e.g.\ $\Omega = (-1,1)^d \setminus [-\frac13,
+\frac13]^d$, and let $\alpha \geq 0$ be given. Then, the expanding sphere where
+\begin{equation} \label{eq:r_benchmark3}
+r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
+\end{equation}
+together with
+\begin{equation} \label{eq:up_benchmark3}
+\vec u(\vec z, t) = \alpha\,\frac{\vec z}{|\vec z\,|^d}\,, \quad
+p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
+{r(t)^{d-1}}\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+\frac{\mathcal{L}^d(\Omega_-(t))}{\mathcal{L}^d(\Omega)}\right],
+\end{equation}
+and with
+\begin{equation}
+\vec f(\vec z, t) = (1-d)\alpha^2\frac{\vec z}{|\vec z|^{2d}}
+\end{equation}
+is an exact solution to the problem
+(\ref{eq:full_momentum})-(\ref{eq:full_initial_interface}) with
+(\ref{eq:full_velocity}) substitute by $\nabla\,.\,\vec u =) = \alpha\,|\vec
+z|^{-d}\,\vec z$.
 
 In the following, unless otherwise stated, we choose the initial surface
 $\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$, the domain
