@@ -324,15 +324,14 @@ holds for almost all times $t \in (0,T]$. Here we have observed that if
 $p \in \pspace$ is part of a solution to (\ref{eq:full_momentum}--g), then so is
 $p + c$ for an arbitrary $c\in \R$.
 
-\subsection{Alternative non symmetric weak formulation}
+\subsection{Alternative antisymmetric weak formulation}
 
 We note that in Section~\ref{sec:weak} we are using a different, and more
 standard, weak formulation respect to paper \cite{fluidfbp}. There the authors
-use
-\cite[eq. 3.7]{fluidfbp} in order to obtain a weak formulation for which it is
-easy to derive an energy bound not only on the continuous level but also on
+use \cite[eq. 3.7]{fluidfbp} in order to obtain a weak formulation for which it
+is easy to derive an energy bound not only on the continuous level but also on
 discrete level, as well as existence/uniqueness on discrete level. For
-completeness we report the derivation of that non symmetric weak formulation.
+completeness we report the derivation of that antisymmetric weak formulation.
 
 First, we observe that for arbitrary functions $\vec v$,
 $\vec \omega$, $\vec \xi \in H^1(\Omega,\R^d)$ it holds that
@@ -409,7 +408,7 @@ which on combining with (\ref{eq:advect}) yields that
 - [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u) \bigg].
 \end{align}
 
-Hence an alternative non symmetric weak formulation of
+Hence an alternative antisymmetric weak formulation of
 (\ref{eq:full_momentum}--g) is given as follows. Given $\Gamma(0) = \Gamma_0$,
 for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 \uspace \times \widehat\pspace \times H^1(\Gamma(t))}$ such that
@@ -439,7 +438,7 @@ holds for almost all times $t \in (0,T]$.
 With a view towards some numerical test cases
 in Section~\ref{sec:numerical_results}, we also allow for non divergence-free
 problem therefore (\ref{eq:advect}) is no longer valid and we need to use
-(\ref{eq:fulladvect}) to derive the non symmetric weak formulation.
+(\ref{eq:fulladvect}) to derive the antisymmetric weak formulation.
 Consequently the RHS of (\ref{eq:altweaka}) requires the additional term
 \begin{equation} \label{eq:additionalvelocityrhs}
 \tfrac{1}{2}(\rho\,(\nabla\,.\,\vec u ),\vec u\,.\,\vec\xi)\,.
