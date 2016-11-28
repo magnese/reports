@@ -598,6 +598,39 @@ We also notice that we use (\ref{eq:LAb}) to enforce the non divergence free
 condition of some numerical test cases.
 \end{rem}
 
+\subsection{Alternative antisymmetric finite element approximation}
+The alternative antisymmetric finite element approximation, which is based on
+the variational formulation (\ref{eq:altweaka}--d), is given as follows. Let
+$\Gamma^0$ be an approximation to $\Gamma(0)$. For $m=0,\ldots, M-1$, find
+$(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times
+\widehat\pspace^m \times \Vh \times \Wh$ such that
+\begin{subequations}
+\begin{align}
+& \frac{1}{2}\left(\frac{\rho^{m}\,\vec U^{m+1} - \vec I^m_0\,\rho^{m-1}
+ \vec I^m_2\,\vec U^m}{\tau_m}, \vec \xi \right) + \frac{1}{2}\left( \rho^{m}\,
+ \frac{\vec U^{m+1} - \vec I^m_2\, \vec U^m}{\tau_m}, \vec \xi \right) +
+\nonumber \\
+& \frac{1}{2}\left((\rho^{m}\,\vec I^m_2\,\vec U^{m}\,.\,\nabla)\,
+\vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^{m}\,
+\vec I^m_2 \, \vec U^{m}\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right) +
+\nonumber \\
+& 2\left(\mu^{m}\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) - \gamma\,\left\langle
+\kappa^{m+1}\,\vec\nu^m, \vec\xi\right\rangle_{\Gamma^m}= \left(\vec f^{m+1},
+\vec \xi\right) \nonumber \\
+& \hspace{10cm} \quad \forall\ \vec\xi \in \uspace^m \,,\label{eq:altHGa}\\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \widehat\pspace^m\,,\label{eq:altHGb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,, \label{eq:altHGc}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:altHGd}
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$.
+
 \subsection{Mesh smoothing}
 We perform the following smoothing step on $\mathcal{T}^m$, which
 is inspired by the method proposed in \cite{Ganesan06}, see also
