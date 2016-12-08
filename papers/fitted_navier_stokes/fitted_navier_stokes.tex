@@ -785,6 +785,66 @@ $y_c(t=3)$ & 1.07838 & 1.06602 & 1.06179 & 1.06062 \\
 \label{tab:2d_benchmark1_P1P0}
 \end{table}
 
+\begin{table}
+\center
+\begin{tabular}{lrrr}
+\hline
+& 64 & 128 & reference \\
+\hline
+$\strikec_{\min}$ & 0.898608 & 0.899627 & 0.9019 \\
+$t_{\strikec = \strikec_{\min}}$ & 1.931 & 1.919 & 1.9028 \\
+$V_{c,\max}$ & 0.237903 & 0.240766 & 0.2416 \\
+$t_{V_c = V_{c,\max}}$ & 0.944 & 0.928 & 0.9200 \\
+$y_c(t=3)$ & 1.07764 & 1.07994 & 1.0817 \\
+CPU & 18448 & 66889 & \\
+\hline
+\end{tabular}
+\caption{Some quantitative results for the test case 1 in
+\cite{HysingTKPBGT09}. Here we use the P2-P0 element and classical
+discretization.}
+\label{tab:2d_benchmark1_P0_classical}
+\end{table}
+
+\begin{table}
+\center
+\begin{tabular}{lrrr}
+\hline
+& 64 & 128* & reference \\
+\hline
+$\strikec_{\min}$ & 0.888168 & 0.899627 & 0.9019 \\
+$t_{\strikec = \strikec_{\min}}$ & 1.736 & 1.919 & 1.9028 \\
+$V_{c,\max}$ & 0.230504 & 0.240766 & 0.2416 \\
+$t_{V_c = V_{c,\max}}$ & 0.864 & 0.928 & 0.9200 \\
+$y_c(t=3)$ & 1.05727 & 1.07994 & 1.0817 \\
+CPU & 14862 & 66889 & \\
+\hline
+\end{tabular}
+\caption{Some quantitative results for the test case 1 in
+\cite{HysingTKPBGT09}. Here we use the P2-P0 element and antisymmetric
+discretization.}
+\label{tab:2d_benchmark1_P0_antisym}
+\end{table}
+
+\begin{table}
+\center
+\begin{tabular}{lrrr}
+\hline
+& 64 & 128* & reference \\
+\hline
+$\strikec_{\min}$ & 0.898518 & 0.899627 & 0.9019 \\
+$t_{\strikec = \strikec_{\min}}$ & 1.937 & 1.919 & 1.9028 \\
+$V_{c,\max}$ & 0.237753 & 0.240766 & 0.2416 \\
+$t_{V_c = V_{c,\max}}$ & 0.93 & 0.928 & 0.9200 \\
+$y_c(t=3)$ & 1.07752 & 1.07994 & 1.0817 \\
+CPU & 39331.5 & 66889 & \\
+\hline
+\end{tabular}
+\caption{Some quantitative results for the test case 1 in
+\cite{HysingTKPBGT09}. Here we use the P2-P0 element and non-linear
+discretization.}
+\label{tab:2d_benchmark1_P0_nonlinear}
+\end{table}
+
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=0$]{
