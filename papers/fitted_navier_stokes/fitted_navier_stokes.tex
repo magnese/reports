@@ -777,16 +777,16 @@ discretization.}
 \hline
 & 64 & 128 & reference \\
 \hline
-$\strikec_{\min}$ & 0.898523 & 0.899689 & 0.9014 \\
-$t_{\strikec = \strikec_{\min}}$ & 1.935 & 1.917 & 1.9000 \\
-$V_{c,\max}$ & 0.237913 & 0.240749 & 0.2417 \\
-$t_{V_c = V_{c,\max}}$ & 0.922 & 0.923 & 0.9230 \\
-$y_c(t=3)$ & 1.07794 & 1.07995 & 1.0819 \\
-CPU & 37353 & 195508 & \\
+$\strikec_{\min}$ & 0.898523 & 0.899738 & 0.9014 \\
+$t_{\strikec = \strikec_{\min}}$ & 1.935 & 1.927 & 1.9000 \\
+$V_{c,\max}$ & 0.237913 & 0.240772 & 0.2417 \\
+$t_{V_c = V_{c,\max}}$ & 0.922 & 0.925 & 0.9230 \\
+$y_c(t=3)$ & 1.07794 & 1.08021 & 1.0819 \\
+CPU & 37353 & 175056 & \\
 \hline
 \end{tabular}
 \caption{Some quantitative results for the test case 1 in
-\cite{HysingTKPBGT09}. Here we use the P2-P0 element and non-linear
+\cite{HysingTKPBGT09}. Here we use the P2-P0 element and fixed point
 discretization.}
 \label{tab:2d_benchmark1_P0_nonlinear}
 \end{table}
@@ -840,10 +840,11 @@ interface elements and using P2-P0 element and fixed point discretization.}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
-{figures/2d_benchmark1_inner_volume_p1p0_128.ps}
+{figures/2d_benchmark1_inner_volume_p0_128.ps}
 \caption{Plot of the relative inner volume
 $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
-simulation with 128 interface elements and using P2-(P1+P0) element.}
+simulation with 128 interface elements and using P2-P0 element and fixed point
+discretization.}
 \label{fig:2d_benchmark1_volume}
 \end{figure}
 
