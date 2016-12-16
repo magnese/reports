@@ -4,7 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{amssymb,amsmath,amsthm,array,epsfig,lmodern,pstricks,subfig,hyperref
-,verbatim}
+,verbatim,textcomp}
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{rem}[thm]{Remark}
@@ -67,8 +67,8 @@ method, which demonstrate the accuracy and robustness of the proposed algorithm.
 \end{abstract}
 
 \begin{keywords}
-viscous incompressible two-phase flow, Navier--Stokes equations, ALE,
-free boundary problem, surface tension, finite elements, front tracking
+incompressible two-phase flow, Navier--Stokes equations,
+free boundary problem, surface tension, finite elements, front tracking, ALE
 \end{keywords}
 
 \section{Mathematical model} \label{sec:model}
@@ -78,7 +78,7 @@ TODO: add free slip condition
 
 In this paper we consider two-phase Navier--Stokes flow in a given domain
 $\Omega\subset\mathbb{R}^d$, where $d=2$ or $d=3$. The domain $\Omega$ contains
-two different immiscible, incompressible, viscous fluids (liquid-liquid or
+two different immiscible, incompressible, fluids (liquid-liquid or
 liquid-gas) which for all $t\in[0,T]$ occupy time dependent regions
 $\Omega_+(t)$ and $\Omega_-(t):=\Omega\setminus\overline{\Omega}_+(t)$ and
 which are separated by an interface
@@ -175,8 +175,8 @@ $\Gamma(t)$. Here and throughout, we employ the shorthand notation
 $\vec g_\pm := \vec g\!\mid_{\Omega_\pm(t)}$ for a function
 $\vec g : \Omega \times [0,T] \to \R^d$; and similarly for scalar and
 matrix-valued functions. To close the system we prescribe the initial data
-$\Gamma(0) = \Gamma_0$ and the boundary condition $\vec u = \vec 0$ on
-$\partial \Omega$.
+$\Gamma(0) = \Gamma_0$, the initial velocity $\vec u(0) = \vec u_0$ and the
+boundary condition $\vec u = \vec 0$ on $\partial \Omega$.
 
 \subsection{Arbitrary Lagrangian Eulerian (ALE) formulation}\label{sec:ale}
 TODO: specify that we have only one map $\vec x$ defined over
@@ -204,7 +204,7 @@ defined as
 \hat h:\Upsilon_{\Omega_\pm}\times [0,T]\to \mathbb{R},\qquad
 \hat h(\vec q,t)=h(\vec{x}(\vec q,t),t).
 \end{equation}
-In order to compute the time derivative of (\ref{eq:h}) respect to the ALE
+In order to compute the time derivative of (\ref{eq:h}) with respect to the ALE
 frame, using the chain rule, we have
 \begin{equation}
 \frac{\partial\hat h(\vec q,t)}{\partial t}=\frac{\partial h(\vec x(\vec
@@ -255,10 +255,10 @@ system of governing equations in an Arbitrary Lagrangian Eulerian frame as:
 \Gamma(0) & = \Gamma_0 \,.\label{eq:full_initial_interface}
 \end{alignat}
 \end{subequations}
-We can notice that, respect to the original formulation, there is a
+We can notice that, with respect to the original formulation, there is a
 convective-type term due to the domain movement and the time derivative is
 computed in the fixed reference frame $\Upsilon_{\Omega_\pm}$. Obviously, if
-the domain is fixed, this additional convective term is null and the time
+the domain is fixed, this additional convective term is zero and the time
 derivative in the ALE frame coincide with the usual time derivative in the
 Eulerian frame.
 
@@ -661,7 +661,7 @@ compute in order to obtain $\mathcal{T}^{m+1}$.
 \setcounter{equation} 0
 \section{Numerical results} \label{sec:numerical_results}
 Throughout this section we use uniform time steps $\tau_m=\tau$, $m=0,\ldots,
-M-1$. In addition, we set $\vec U^0 = \vec 0$.
+M-1$. In addition, unless otherwise stated, we set $\vec U^0 = \vec 0$.
 
 The CPU times which we report are measured in seconds and correspond to a
 single thread computation on an Intel Xeon E5640 (2.67GHz) processor with 16 GB
@@ -702,7 +702,7 @@ The physical parameters from the test case 1 in \cite[Table~I]{HysingTKPBGT09}
 are then given by
 \begin{equation} \label{eq:Hysing1}
 \rho_+ = 1000\,,\quad \rho_- = 100\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
-\gamma = 24.5\,,\quad \vec f_1 = -0.98\,\vec\ek_d\,,\quad \vec f_2 = \vec 0\,.
+\gamma = 24.5\,,\quad \vec f = -0.98\,\rho\,\vec\ek_d\,.
 \end{equation}
 The time interval chosen for the simulation is $[0,T]$ with $T=3$.
 
@@ -737,11 +737,11 @@ point discretization.
 \hline
 & 64 & 128 & reference \\
 \hline
-$\strikec_{\min}$ & 0.898378 & 0.899748 & 0.9014 \\
-$t_{\strikec = \strikec_{\min}}$ & 1.985 & 1.914 & 1.9000 \\
-$V_{c,\max}$ & 0.23801 & 0.24075 & 0.2417 \\
-$t_{V_c = V_{c,\max}}$ & 0.928 & 0.923 & 0.9230 \\
-$y_c(t=3)$ & 1.07778 & 1.08013 & 1.0819 \\
+$\strikec_{\min}$ & 0.8984 & 0.8997 & 0.9014 \\
+$t_{\strikec = \strikec_{\min}}$ & 1.9850 & 1.9140 & 1.9000 \\
+$V_{c,\max}$ & 0.2380 & 0.2408 & 0.2417 \\
+$t_{V_c = V_{c,\max}}$ & 0.9280 & 0.9230 & 0.9230 \\
+$y_c(t=3)$ & 1.0778 & 1.0801 & 1.0819 \\
 CPU & 14763 & 60607 & \\
 \hline
 \end{tabular}
@@ -757,11 +757,52 @@ discretization.}
 \hline
 & 64 & 128 & reference \\
 \hline
-$\strikec_{\min}$ & 0.888391 & 0.888561 & 0.9014 \\
-$t_{\strikec = \strikec_{\min}}$ & 1.718 & 1.699 & 1.9000 \\
-$V_{c,\max}$ & 0.230413 & 0.233032 & 0.2417 \\
-$t_{V_c = V_{c,\max}}$ & 0.893 & 0.88 & 0.9230 \\
-$y_c(t=3)$ & 1.05745 & 1.05921 & 1.0819 \\
+$\strikec_{\min}$ & 0.8958 & 0.8988 & 0.9014 \\
+$t_{\strikec = \strikec_{\min}}$ & 1.8980 & 1.8990 & 1.9000 \\
+$V_{c,\max}$ & 0.2423 & 0.2419 & 0.2417 \\
+$t_{V_c = V_{c,\max}}$ & 0.9220 & 0.9210 & 0.9230 \\
+$y_c(t=3)$ & 1.0830 & 1.0820 & 1.0819 \\
+CPU & 14763 & 92668 & \\
+\hline
+\end{tabular}
+\caption{Some quantitative results for the test case 1 in
+\cite{HysingTKPBGT09}. Here we use the P2-(P1+P0) element and classical
+discretization.}
+\label{tab:2d_benchmark1_P1P0_classical}
+\end{table}
+
+\begin{table}
+\center
+\begin{tabular}{lrrr}
+\hline
+& 64 & 128 & reference \\
+\hline
+$\strikec_{\min}$ & 0.8997 & 0.9004 & 0.9014 \\
+$t_{\strikec = \strikec_{\min}}$ & 1.9440 & 1.9340 & 1.9000 \\
+$V_{c,\max}$ & 0.2406 & 0.2407 & 0.2417 \\
+$t_{V_c = V_{c,\max}}$ & 0.9360 & 0.9270 & 0.9230 \\
+$y_c(t=3)$ & 1.0837 & 1.0812 & 1.0819 \\
+CPU & 20070 & 195848 & \\
+\hline
+\end{tabular}
+\caption{Some quantitative results for the test case 1 in
+\cite{HysingTKPBGT09}. Here we use the P2-P0 element and classical
+discretization using the angle criterion with minimum angle 20\textdegree to
+trigger the remesh.}
+\label{tab:2d_benchmark1_P0_classical_angle_criterion}
+\end{table}
+
+\begin{table}
+\center
+\begin{tabular}{lrrr}
+\hline
+& 64 & 128 & reference \\
+\hline
+$\strikec_{\min}$ & 0.8884 & 0.8886 & 0.9014 \\
+$t_{\strikec = \strikec_{\min}}$ & 1.7180 & 1.6990 & 1.9000 \\
+$V_{c,\max}$ & 0.2304 & 0.2330 & 0.2417 \\
+$t_{V_c = V_{c,\max}}$ & 0.8930 & 0.8800 & 0.9230 \\
+$y_c(t=3)$ & 1.0575 & 1.0592 & 1.0819 \\
 CPU & 15061 & 66283 & \\
 \hline
 \end{tabular}
@@ -777,11 +818,11 @@ discretization.}
 \hline
 & 64 & 128 & reference \\
 \hline
-$\strikec_{\min}$ & 0.898523 & 0.899738 & 0.9014 \\
-$t_{\strikec = \strikec_{\min}}$ & 1.935 & 1.927 & 1.9000 \\
-$V_{c,\max}$ & 0.237913 & 0.240772 & 0.2417 \\
-$t_{V_c = V_{c,\max}}$ & 0.922 & 0.925 & 0.9230 \\
-$y_c(t=3)$ & 1.07794 & 1.08021 & 1.0819 \\
+$\strikec_{\min}$ & 0.8985 & 0.8997 & 0.9014 \\
+$t_{\strikec = \strikec_{\min}}$ & 1.9350 & 1.9270 & 1.9000 \\
+$V_{c,\max}$ & 0.2379 & 0.2408 & 0.2417 \\
+$t_{V_c = V_{c,\max}}$ & 0.9220 & 0.9250 & 0.9230 \\
+$y_c(t=3)$ & 1.0779 & 1.0802 & 1.0819 \\
 CPU & 37353 & 175056 & \\
 \hline
 \end{tabular}
