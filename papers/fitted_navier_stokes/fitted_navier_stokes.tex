@@ -832,6 +832,26 @@ discretization.}
 \label{tab:2d_benchmark1_P0_nonlinear}
 \end{table}
 
+\begin{table}
+\center
+\begin{tabular}{lrrr}
+\hline
+& 64 & 128 & reference \\
+\hline
+$\strikec_{\min}$ & 0.8957 & 0.8988 & 0.9014 \\
+$t_{\strikec = \strikec_{\min}}$ & 1.9040 & 1.8920 & 1.9000 \\
+$V_{c,\max}$ & 0.2423 & 0.2419 & 0.2417 \\
+$t_{V_c = V_{c,\max}}$ & 0.9260 & 0.9230 & 0.9230 \\
+$y_c(t=3)$ & 1.0829 & 1.0819 & 1.0819 \\
+CPU & 50293 & 251378 & \\
+\hline
+\end{tabular}
+\caption{Some quantitative results for the test case 1 in
+\cite{HysingTKPBGT09}. Here we use the P2-(P1+P0) element and fixed point
+discretization.}
+\label{tab:2d_benchmark1_P1P0_nonlinear}
+\end{table}
+
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=0$]{
