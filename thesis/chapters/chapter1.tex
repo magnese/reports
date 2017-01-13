@@ -1,4 +1,338 @@
-\chapter{\sc Chapter 1}
+\chapter{\sc Two--Phase Stokes Flow}
 \label{ch:1}
 
-\section[Section 1]{Section 1}
+\section[Mathematical model]{Mathematical model}\label{sec:stokes_model}
+We consider two-phase Stokes flow in a given domain
+$\Omega\subset\mathbb{R}^d$, where $d=2$ or $d=3$. The domain $\Omega$ contains
+two different immiscible, incompressible, viscous fluids (liquid-liquid or
+liquid-gas) which for all $t\in[0,T]$ occupy time dependent regions
+$\Omega_+(t)$ and $\Omega_-(t):=\Omega\setminus\overline{\Omega}_+(t)$ and
+which are separated by an interface
+$(\Gamma(t))_{t\in[0,T]}$, $\Gamma(t)\subset\Omega$.
+See Figure~\ref{fig:sketch} for an illustration.
+\begin{figure}
+\begin{center}
+\unitlength15mm
+\psset{unit=\unitlength,linewidth=1pt}
+\begin{picture}(4,4)(0,0)
+\psline(0,0)(4,0)(4,4)(0,4)(0,0)
+\psellipse(2,2)(1,1)
+\psline{->}(3,2)(3.5,2)
+\put(3.25,1.75){$\vec\nu$}
+\put(1.75,0.75){{$\Gamma(t)$}}
+\put(1.75,2){{$\Omega_-(t)$}}
+\put(0.5,3.25){{$\Omega_+(t)$}}
+\end{picture}
+\end{center}
+\caption{The domain $\Omega$ in the case $d=2$.}
+\label{fig:sketch}
+\end{figure}
+For later use, we assume that $(\Gamma(t))_{t\in [0,T]}$ is a sufficiently
+smooth evolving hypersurface without boundary that is parameterized by
+$\vec x(\cdot,t):\Upsilon\to\R^d$, where $\Upsilon\subset \R^d$ is a given
+reference manifold, i.e.\ $\Gamma(t) = \vec x(\Upsilon,t)$. Then
+\begin{equation} \label{eq:V}
+\vec{\mathcal{V}}(\vec z, t) := \vec x_t(\vec q, t) \qquad
+\forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)
+\end{equation}
+defines the velocity of $\Gamma(t)$, and $\vec{\mathcal{V}} \,.\,\vec{\nu}$ is
+the normal velocity of the evolving hypersurface $\Gamma(t)$,
+where $\vec\nu(t)$ is the unit normal on $\Gamma(t)$ pointing into
+$\Omega_+(t)$.
+
+Denoting the velocity and pressure by $\vec u$ and $p$, respectively, we
+introduce the stress tensor
+\begin{equation} \label{eq:stress_tensor}
+\mat\sigma = \mu \,(\nabla\,\vec u + (\nabla\,\vec u)^T) - p\,\mat\id
+= 2\,\mu\, \mat D(\vec u)-p\,\mat\id\,,
+\end{equation}
+where $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$,
+with $\mu_\pm \in \R_{>0}$, denotes the dynamic viscosities in the two phases,
+$\mat\id \in \R^{d \times d}$ is the identity matrix and
+$\mat D(\vec u):=\frac12\, (\nabla\vec u+(\nabla\vec u)^T)$
+is the rate-of-deformation tensor.
+
+We consider a two-phase Stokes problem, and so the equations
+governing the fluid are
+\begin{subequations}
+\begin{alignat}{2}
+- \nabla\,.\,\mat\sigma & = \vec f \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:stokes_momentum} \\
+\nabla\,.\,\vec u & = 0 \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:stokes_mass}
+\end{alignat}
+\end{subequations}
+where $\vec f$ is a possible forcing term.
+
+On the free surface $\Gamma(t)$, the following conditions need to hold:
+\begin{subequations}
+\begin{alignat}{2}
+[\vec u]_-^+ & = \vec 0 \qquad &&\mbox{on } \Gamma(t)\,,
+\label{eq:interface_jump_velocity} \\
+[\mat\sigma\,\vec \nu]_-^+ & = -\gamma\,\varkappa\,\vec\nu \qquad
+&&\mbox{on } \Gamma(t)\,, \label{eq:interface_jump_stress} \\
+\vec{\mathcal{V}}\,.\,\vec\nu &= \vec u\,.\,\vec \nu \qquad
+&&\mbox{on } \Gamma(t)\,, \label{eq:interface_velocity}
+\end{alignat}
+\end{subequations}
+where $\gamma>0$ is the surface tension coefficient and $\varkappa$ denotes the
+mean curvature of $\Gamma(t)$, i.e.\ the sum of the principal curvatures of
+$\Gamma(t)$, where we have adopted the sign convention that $\varkappa$ is
+negative where $\Omega_-(t)$ is locally convex. In particular,
+see e.g.\ \cite{DeckelnickDE05}, it holds that
+\begin{equation} \label{eq:LBop}
+\Delta_s\, \vec \id = \varkappa\, \vec\nu \qquad \mbox{on $\Gamma(t)$}\,,
+\end{equation}
+where $\Delta_s = \nabs\,.\,\nabs$ is the Laplace--Beltrami operator on
+$\Gamma(t)$ with $\nabs\,.\,$ and $\nabs$ denoting surface divergence and
+surface gradient on $\Gamma(t)$, respectively. Moreover, as usual,
+$[\vec u]_-^+ := \vec u_+ - \vec u_-$ and
+$[\mat\sigma\,\vec\nu]_-^+ := \mat\sigma_+\,\vec\nu - \mat\sigma_-\,\vec\nu$
+denote the jumps in velocity and normal stress across the interface
+$\Gamma(t)$. Here and throughout, we employ the shorthand notation
+$\vec g_\pm := \vec g\!\mid_{\Omega_\pm(t)}$ for a function
+$\vec g : \Omega \times [0,T] \to \R^d$; and similarly for scalar and
+matrix-valued functions. To close the system we prescribe the initial data
+$\Gamma(0) = \Gamma_0$ and the boundary condition $\vec u = \vec 0$ on
+$\partial \Omega$.
+
+Therefore the total system can be rewritten as follows:
+\begin{subequations}
+\begin{alignat}{2}
+-2 \mu\,\nabla\,.\,\mat D(\vec u)+ \nabla\,p & = \vec f
+\quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:full_momentum} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:full_mass} \\
+\vec u & = \vec 0 \qquad &&\mbox{on } \partial\Omega\,,
+\label{eq:full_initial_velocity} \\
+[\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,,
+\label{eq:full_jump_velocity} \\
+[2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
+& = -\gamma\,\varkappa\,\vec\nu
+\quad &&\mbox{on } \Gamma(t)\,, \label{eq:full_jump_stress} \\
+(\vec{\mathcal{V}}-\vec u)\,.\,\vec{\nu} & = 0
+\quad &&\mbox{on } \Gamma(t)\,,\label{eq:full_velocity}  \\
+\Gamma(0) & = \Gamma_0 \,.\label{eq:full_initial_interface}
+\end{alignat}
+\end{subequations}
+
+\section[Weak formulation]{Weak formulation}\label{sec:stokes_weak}
+In order to obtain a weak formulation, we define the function spaces
+\begin{align*}
+\uspace &:= [H^1_0(\Omega)]^d\,,\qquad \pspace := L^2(\Omega) \qquad
+\mbox{and}\qquad
+\widehat\pspace := \{\eta\in\pspace : \int_\Omega\eta\dL{d}=0 \}\,,
+\end{align*}
+and let $(\cdot,\cdot)$ and $\langle \cdot, \cdot \rangle_{\Gamma(t)}$ denote
+the $L^2$--inner products on $\Omega$ and $\Gamma(t)$, respectively. In
+addition, we let $\mathcal{L}^d$ and $\mathcal{H}^{d-1}$ denote the Lebesgue
+measure in $\R^d$ and the $(d-1)$-dimensional Hausdorff measure, respectively.
+
+Multiplying (\ref{eq:LBop}) with a test function, and performing integration by
+parts, yields
+$$
+\left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,.
+$$
+Moreover, on noting (\ref{eq:stress_tensor}) and
+(\ref{eq:interface_jump_stress}), we have that
+\begin{align*}
+\int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec \xi \dL{d}
+& = - \left(\mat\sigma, \nabla\,\vec \xi\right)
+- \left\langle [\mat\sigma\,\vec\nu]_-^+ , \vec \xi
+  \right\rangle_{\Gamma(t)} \nonumber \\
+& = \left( p , \nabla\,.\,\vec \xi\right)
+-2 \left(\mu\,\mat D(\vec u) , \mat D(\vec \xi) \right)
++ \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
+\end{align*}
+for all $\vec \xi \in [H^1_0(\Omega)]^d$. Hence a possible weak formulation of
+(\ref{eq:full_momentum}--g) is given as follows. Given $\Gamma(0) = \Gamma_0$,
+for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
+\uspace \times \widehat\pspace \times H^1(\Gamma(t))}$ such that
+\begin{subequations}
+\begin{align}
+& 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
+- \left(p, \nabla\,.\,\vec \xi\right)
+- \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,,
+\label{eq:weaka}\\
+& \left(\nabla\,.\,\vec u, \varphi\right) = 0
+\quad \forall\ \varphi \in \widehat\pspace\,, \label{eq:weakb} \\
+&  \left\langle \vec{\mathcal{V}}
+- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:weakc} \\
+& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:weakd}
+\end{align}
+\end{subequations}
+holds for almost all times $t \in (0,T]$. Here we have observed that if
+$p \in \pspace$ is part of a solution to (\ref{eq:full_momentum}--g), then so is
+$p + c$ for an arbitrary $c\in \R$.
+
+\section[Energy bound and volume conservation]{Energy bound and volume
+conservation}\label{sec:stokes_energy}
+It is straightforward to show an a priori energy bound and a volume
+conservation property for the system (\ref{eq:weaka}--d). For the former, we
+recall from e.g.\ \cite[Lemma~2.1]{DeckelnickDE05} that
+\begin{equation}\label{eq:dtarea}
+\ddt\,\mathcal{H}^{d-1}(\Gamma(t)) = -
+\left\langle \varkappa,\vec{\mathcal{V}}\,.\,\vec\nu\right\rangle_{\Gamma(t)}.
+\end{equation}
+Hence, on choosing $\vec\xi = \vec u$ in (\ref{eq:weaka}), and noting
+(\ref{eq:weakb},c), we obtain that
+\begin{align}
+\gamma\, \ddt\,\mathcal{H}^{d-1}(\Gamma(t)) = -
+\gamma\,\left\langle \varkappa\,\vec\nu, \vec u\right\rangle_{\Gamma(t)}
+=  - 2\left(\mu\,\mat D(\vec u), \mat D(\vec u)\right) +
+\left(\vec f, \vec u\right) \,,
+\label{eq:ap1}
+\end{align}
+and so in the absence of outer forces, the interfacial energy is monotonically
+decreasing.
+
+In order to show the volume conservation property, we recall from e.g.\
+\cite[Lemma~2.1]{DeckelnickDE05} that
+\begin{align}
+\ddt \vol(\Omega_-(t)) & = \left\langle \vec{\mathcal{V}}, \vec\nu
+\right\rangle_{\Gamma(t)}\,.
+\end{align}
+Hence it follows immediately from the incompressibility condition
+(\ref{eq:weakb}) and (\ref{eq:weakc}) that
+\begin{align}
+\ddt \vol(\Omega_-(t)) & = \left\langle \vec u , \vec\nu
+\right\rangle_{\Gamma(t)}
+ = \int_{\Omega_-(t)} \nabla\,.\,\vec u \dL{d} =0\,. \label{eq:conserved}
+\end{align}
+It will be our aim to introduce a fitted finite element approximation for
+two-phase Stokes flow that satisfies discrete analogous of
+(\ref{eq:ap1}) and (\ref{eq:conserved}).
+
+\section[Finite element approximation]{Finite element
+approximation}\label{sec:stokes_fem}
+We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
+$[0,T]$ into possibly variable time steps
+$\tau_m := t_{m+1}-t_m$, $m=0 ,\ldots, M-1$. Moreover, let
+${\cal T}^m$, $\forall m\ge 0$, be a regular partitioning of the domain
+$\Omega$ into disjoint open simplices
+$\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. On ${\cal T}^m$ we define the
+finite element spaces
+\begin{equation*}
+S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
+\in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\}
+\subset H^1(\Omega),\quad k \in \mathbb{N}\,,
+\end{equation*}
+where $\mathcal{P}_k(\sigmaO^m)$ denotes the space of polynomials of degree $k$
+on $\sigmaO^m$. Moreover, $S^m_0$ is the space of piecewise constant functions
+on ${\cal T}^m$.
+
+Let $\uspace^m\subset\uspace$ and $\pspace^m\subset\pspace$ be the finite
+element spaces we use for the approximation of velocity and pressure,
+and let $\widehat\pspace^m:= \pspace^m \cap \widehat\pspace$.
+The spaces $(\uspace^m,\pspace^m)$ satisfy the LBB inf-sup condition if there
+exists a constant $C_0 \in \R_{>0}$, independent of $\mathcal{T}^m$, such that
+\begin{equation} \label{eq:LBB}
+\inf_{\varphi \in \widehat\pspace^m} \sup_{\vec \xi \in \uspace^m}
+\frac{( \varphi, \nabla \,.\,\vec \xi)} {\|\varphi\|_0\,\|\vec \xi\|_1}
+\geq C_0 > 0\,,
+\end{equation}
+see \cite[p.~114]{GiraultR86}. Here $\|\cdot\|_0 := (\cdot,\cdot)^\frac12$ and
+$\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ denote the $L^2$--norm and
+the $H^1$--norm on $\Omega$, respectively. Throughout this thesis, we will
+assume that $S^m_0\subset\pspace^m$. Then, for $d=2$, possible pairs
+$(\uspace^m,\pspace^m)$ that satisfy (\ref{eq:LBB}) are P2--P0 and P2--(P1+P0),
+i.e.\ we set $\uspace^m=[S^m_2]^d\cap\uspace$ and either $\pspace^m = S^m_0$ or
+$S^m_1+S^m_0$. We note that the choice P2--(P1+P0) requires the weak constraint
+that all simplices have a vertex in $\Omega$, see \cite{BoffiCGG12}. For $d=3$,
+pairs of spaces that satisfy $S^m_0\subset\pspace^m$ and (\ref{eq:LBB}) are
+the P3--(P2+P0) element, see \cite{BoffiCGG12}, or stabilized spaces such as
+P1$^{\mbox{face bubble}}$--P0, see \cite[Remark~8.7.1]{BoffiBF13}, which is
+also called the SMALL element.
+
+In this thesis we consider a fitted finite element approximation for the
+evolution of the interface $\Gamma(t)$. Let $\Gamma^{m}\subset\R^d$ be a
+$(d-1)$-dimensional polyhedral surface approximating the closed surface
+$\Gamma(t_m)$, $m=0 ,\ldots, M$. Let $\Omega^m_+$ denote the exterior of
+$\Gamma^m$ and let $\Omega^m_-$ be the interior of $\Gamma^m$, where we assume
+that $\Gamma^m$ has no self-intersections. Then
+$\Omega = \Omega_-^m \cup \Gamma^m \cup \Omega_+^m$, and the fitted nature of
+our method implies that
+\begin{equation} \label{eq:fittedO}
+\overline{\Omega^m_+} = \bigcup_{o \in \mathcal{T}^m_+} \overline{o}
+\quad\text{and}\quad
+\overline{\Omega^m_-} = \bigcup_{o \in \mathcal{T}^m_-} \overline{o} \,,
+\end{equation}
+where $\mathcal{T}^m = \mathcal{T}^m_+ \cup \mathcal{T}^m_-$ and
+$\mathcal{T}^m_+ \cap \mathcal{T}^m_- = \emptyset$.
+Let $\vec{\nu}^m$ denote the piecewise constant unit normal to $\Gamma^m$
+such that $\vec\nu^m$ points into $\Omega^m_+$.
+
+In order to define the parametric finite element spaces on $\Gamma^m$, we
+assume that $\Gamma^m=\bigcup_{j=1}^{J_\Gamma} \overline{\sigma^m_j}$, where
+$\{\sigma^m_j\}_{j=1}^{J_\Gamma}$ is a family of mutually disjoint open
+$(d-1)$-simplices with vertices $\{\vec{q}^m_k\}_{k=1}^{K_\Gamma}$. Following
+the notation in \cite{spurious}, see also \cite{gflows3d}, we define
+$\Vh := \{\vec\chi \in [C(\Gamma^m)]^d:\vec\chi\!\mid_{\sigma^m_j}
+\in \mathcal{P}_1(\sigma^m_j), j=1,\ldots, J_\Gamma\} =: [\Wh]^d$,
+where $\Wh \subset H^1(\Gamma^m)$ is the space of scalar continuous
+piecewise linear functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K_\Gamma}$
+denoting the standard basis of $\Wh$.
+
+Moreover we define $\pi^m: C(\Gamma^m)\to \Wh$ the standard interpolation
+operator at the nodes $\{\vec{q}_k^m\}_{k=1}^{K_\Gamma}$, and similarly
+$\vec\pi^m: [C(\Gamma^m)]^d\to \Vh$. Throughout this thesis, we parameterize
+the new surface $\Gamma^{m+1}$ over $\Gamma^m$ using a parameterization
+$\vec{X}^{m+1} \in \Vh$, so that $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$.
+Before we can state our numerical method, we need to introduce a mass lumped
+inner product on $\Gamma^m$, that is crucial for the desired tangential motion
+of vertices on $\Gamma^m$. This induced tangential motion
+will lead to good interface mesh properties.
+If $v,w \in L^\infty(\Gamma^m)$ are piecewise continuous, with possible jumps
+across the edges of $\{\sigma_j^m\}_{j=1}^{J_\Gamma}$, we define the mass
+lumped inner product $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ as
+\begin{equation} \label{eq:masslump}
+\left\langle v, w \right\rangle^h_{\Gamma^m} :=
+\tfrac1d \sum_{j=1}^{J_\Gamma} \mathcal{H}^{d-1}(\sigma^m_j)\,
+\sum_{k=1}^{d} (v\,w)((\vec{q}^m_{j_k})^-),
+\end{equation}
+where $\{\vec{q}^m_{j_k}\}_{k=1}^{d}$ are the vertices of $\sigma^m_j$, and
+where we define the limit $v((\vec{q}^m_{j_k})^-)
+:= \underset{\sigma^m_j\ni \vec{p}\to \vec{q}^m_{j_k}}{\lim}\, v(\vec{p})$. We
+naturally extend (\ref{eq:masslump}) to vector valued functions. Similarly, we
+let $\langle\cdot,\cdot\rangle_{\Gamma^m}$ denote the standard $L^2$--inner
+product on $\Gamma^m$.
+
+Then our finite element approximation, which is based on the variational
+formulation (\ref{eq:weaka}--d), is given as follows. Let $\Gamma^0$ be an
+approximation to $\Gamma(0)$. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},
+P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \widehat\pspace^m
+\times \Vh \times \Wh$ such that
+\begin{subequations}
+\begin{align}
+& 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) - \gamma\,\left\langle
+\kappa^{m+1}\,\vec\nu^m, \vec\xi\right\rangle_{\Gamma^m}= \left(\vec f^{m+1},
+\vec \xi\right) \nonumber \\
+& \hspace{10cm} \quad \forall\ \vec\xi \in \uspace^m \,,\label{eq:HGa}\\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \widehat\pspace^m\,,\label{eq:HGb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,, \label{eq:HGc} \\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:HGd}
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$. Here we have defined
+$\vec f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$, where $\vec I^m_2$
+is the standard interpolation operator onto $[S^m_2]^d$ and $\mu^m =
+\mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0$.
+We observe that (\ref{eq:HGa}--d) is a linear scheme in that it leads to a
+coupled linear system of equations for the unknowns
+$(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})$ at each time level.
+We also note that the scheme (\ref{eq:HGa}--d), in the context of an
+unfitted finite element approximation, has been considered in \cite{spurious}.
+In particular, most of the theoretical results presented in the following
+are a direct consequence of the results in \cite{spurious}.

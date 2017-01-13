@@ -1,5 +1,35 @@
 \documentclass{icthesis}
 
+\usepackage{amssymb,amsmath,amsthm,array,epsfig,lmodern,pstricks,subfig,hyperref
+,verbatim}
+
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\vol}{\mathcal{L}^d}
+\newcommand{\dH}[1]{\;{\rm d}{\cal H}^{#1}} % Hausdorff measure
+\newcommand{\dL}[1]{\;{\rm d}{\cal L}^{#1}} % Lebesgue measure
+\newcommand{\bigchi}{\ensuremath{\mathrm{\mathcal{X}}}}
+\newcommand{\charfcn}[1]{\bigchi_{#1}} % characteristic function
+\newcommand{\Vh}{\underline{V}(\Gamma^m)}
+\newcommand{\Wh}{W(\Gamma^m)}
+\newcommand{\Vht}{\underline{V}(\Gamma^h(t))}
+\newcommand{\Wht}{W(\Gamma^h(t))}
+\newcommand{\uspace}{\mathbb{U}}
+\newcommand{\pspace}{\mathbb{P}}
+\newcommand{\kspace}{\mathbb{K}}
+\newcommand{\xspace}{\mathbb{X}}
+\newcommand{\sigmaO}{o}
+\newcommand{\nabs}{\nabla_{\!s}}
+\newcommand{\id}{\rm id}
+\newcommand{\ddt}{\frac{\rm d}{{\rm d}t}}
+\newcommand{\NbulkT}{\vec{N}_{\Gamma,\Omega}^T}
+\newcommand{\Nbulk}{\vec{N}_{\Gamma,\Omega}}
+\newcommand{\errorXx}{\|\Gamma^h - \Gamma\|_{L^\infty}}
+\newcommand{\LerrorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{L^2}}
+\newcommand{\HerrorUu}[1]{\|\vec U - I^h_{#1}\,\vec u\|_{H^1}}
+\newcommand{\LerrorPp}{\|P - p\|_{L^2}}
+\newcommand{\unitn}{\vec{\rm n}}
+\newcommand{\mat}[1]{\underline{\underline{#1}}\rule{0pt}{0pt}}
+
 \begin{document}
 
 \input{frontmatter/personalize}
@@ -26,6 +56,8 @@
 \setstretch{1.2}
 
 \clearpage
-\include{chapters/references}
+\bibliographystyle{siam}
+\bibliography{../bib/robert_refs,../bib/marco_refs}
+%\include{chapters/references}
 
 \end{document}

@@ -1,4 +1,55 @@
 \chapter{\sc Introduction}
 \label{ch:introduction}
 
-\section[Section 1]{Section 1}
+\section[Free-boundary fluid flows]{Free-boundary fluid flows}
+Fluid flow problems with a moving interface are encountered in many
+applications in physics, engineering and biophysics. Typical applications are
+drops and bubbles, die swell, dam break, liquid storage tanks, dendritic growth,
+ink-jet printing, fuel injection. For this reason, developing robust and
+efficient numerical methods for these flows is an important problem and
+has attracted tremendous interest over the last decade.
+
+In these type of problems, apart from the flow solution in the bulk domain, the
+position of a portion of the boundary is also unknown. This boundary can either
+be an external boundary or an interface between sub-domains. At the
+boundary/interface, certain boundary conditions need to be fulfilled, which
+specify the position of the boundary. These conditions relate the variables of
+the flow, velocity and pressure, across the domains under consideration of
+external influences, such as for example surface tension. Numerically, in order
+to be able to compute the flow solution as well as the boundary/interface
+geometry, a measure to track the boundary starting from an initial position
+needs to be incorporated.
+
+The scenario we consider are two-phase flows, liquid-liquid or liquid-gas, in a
+$d$-dimensional computational domain $\Omega\subset\mathbb{R}^d$. This domain
+$\Omega$ contains two different immiscible fluids which occupy time dependent
+regions $\Omega_+(t)$ and $\Omega_-(t)$ and which are separated by an interface
+$\Gamma(t)$. See Figure~\ref{fig:two_phase} for an illustration.
+\begin{figure}
+\begin{center}
+\unitlength15mm
+\psset{unit=\unitlength,linewidth=1pt}
+\begin{picture}(4,4)(0,0)
+\psline(0,0)(4,0)(4,4)(0,4)(0,0)
+\pscustom[fillstyle=solid,fillcolor=lightgray!50]
+{
+\psarcn(0.75,2.5){0.75}{180}{0}
+\psarc(2.75,2.5){1.25}{180}{360}
+\psline(4,2.5)(4,0)(0,0)(0,2.5)
+}
+\psline{->}(2.75,1.25)(2.75,2)
+\put(2.9,1.5){$\vec\nu$}
+\put(1.6,2.25){{$\Gamma$}}
+\put(0.5,1){{$\Omega_-$}}
+\put(2.5,3){{$\Omega_+$}}
+\end{picture}
+\end{center}
+\caption{Two-phase flow setting.}
+\label{fig:two_phase}
+\end{figure}
+Therefore both the sub-domains themselves and the flow field are part of the
+solution. Indeed the main task in this context is to account for the interface
+$\Gamma(t)$, which separates the distinct fluid domains and is generally in
+motion. Apart from its exact position, the computation of geometrical quantities
+of $\Gamma(t)$ such as its normal vector $\nu$ and its curvature $\varkappa$ are
+of interest.
