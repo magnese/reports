@@ -22,9 +22,11 @@ needs to be incorporated.
 
 The scenario we consider are two-phase flows, liquid-liquid or liquid-gas, in a
 $d$-dimensional computational domain $\Omega\subset\mathbb{R}^d$. This domain
-$\Omega$ contains two different immiscible fluids which occupy time dependent
-regions $\Omega_+(t)$ and $\Omega_-(t)$ and which are separated by an interface
-$\Gamma(t)$. See Figure~\ref{fig:two_phase} for an illustration.
+$\Omega$ contains two different immiscible fluids which, for all $t\in[0,T]$,
+occupy time dependent regions $\Omega_+(t)$ and
+$\Omega_-(t):=\Omega\setminus\overline{\Omega}_+(t)$ and
+which are separated by an interface $(\Gamma(t))_{t\in[0,T]}$,
+$\Gamma(t)\subset\Omega$. See Figure~\ref{fig:two_phase} for an illustration.
 \begin{figure}
 \begin{center}
 \unitlength15mm
@@ -53,3 +55,103 @@ $\Gamma(t)$, which separates the distinct fluid domains and is generally in
 motion. Apart from its exact position, the computation of geometrical quantities
 of $\Gamma(t)$ such as its normal vector $\nu$ and its curvature $\varkappa$ are
 of interest.
+
+\section[Flow governing equations]{Flow governing equations}
+For what concern the bulk flow, we restrict ourselves to isothermal conditions,
+incompressible fluids and we assume that there is no change of phase. Under
+this assumption, the fluid dynamics is modeled by the incompressible
+Navier--Stokes equations.
+
+Denoting the velocity and pressure by $\vec u$ and $p$, respectively, we
+introduce the Newtonian stress tensor
+\begin{equation} \label{eq:stress_tensor}
+\mat\sigma = \mu \,(\nabla\,\vec u + (\nabla\,\vec u)^T) - p\,\mat\id
+= 2\,\mu\, \mat D(\vec u)-p\,\mat\id\,,
+\end{equation}
+where $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$,
+with $\mu_\pm \in \R_{>0}$, denotes the dynamic viscosities in the two phases,
+$\mat\id \in \R^{d \times d}$ is the identity matrix and
+$\mat D(\vec u):=\frac{1}{2}\, (\nabla\vec u+(\nabla\vec u)^T)$
+is the rate-of-deformation tensor. Moreover, let
+$\rho(t) = \rho_+\,\charfcn{\Omega_+(t)} + \rho_-\,\charfcn{\Omega_-(t)}$,
+with $\rho_\pm \in \R_{>0}$, be the fluid density.
+
+Imposing the conservation of momentum and mass in each phase, the following
+standard Navier--Stokes governing equations can be derived:
+\begin{subequations}
+\begin{alignat}{2}
+\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u)- \nabla\,.\,\mat\sigma
+& = \vec f \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_momentum} \\
+\nabla\,.\,\vec u & = 0 \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_mass}
+\end{alignat}
+\end{subequations}
+where $\vec f$ includes all external body forces referred to the unit mass of
+fluid.
+
+Substituting (\ref{eq:stress_tensor}) in (\ref{eq:ns_momentum}), we obtain the
+well known incompressible Navier--Stokes model:
+\begin{subequations}
+\begin{alignat}{2}
+\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
+\nabla\,p & = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_momentum_bis} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,.
+\label{eq:ns_mass_bis}
+\end{alignat}
+\end{subequations}
+
+To better grasp the physical meaning of the terms appearing in the momentum
+equation (\ref{eq:ns_momentum_bis}) we briefly describe them. The inertia term
+$\vec u \,.\, \nabla \vec u$ is a convection term arising from the conservation
+of momentum. The momentum of each portion of fluid needs to be conserved
+therefore it needs to move with the fluid which means that it is convected with
+the fluid. The pressure term $\nabla\,p$  is originated by the Newtonian
+constitutive equation (\ref{eq:stress_tensor}) and it represent all the forces
+resulting from pressure differences within the fluid. Finally, the friction
+term $\nabla\,.\,\mat D(\vec u)$, which again arises from the Newtonian
+constitutive equation (\ref{eq:stress_tensor}), is a diffusion operator
+equalizing the velocity of neighbouring elements. The more viscous the fluid,
+the stronger is the friction between neighbouring particles and thus the
+equalizing effect.
+
+The Reynolds number $\Rey$ is an important dimensionless quantity in fluid
+mechanics and it is defined as
+\begin{equation}\label{eq:reynolds}
+\Rey=\frac{\rho\,u_c\,L_c}{\mu}\,,
+\end{equation}
+where $L_c$ is the characteristic dimension of the problem and $u_c$ is the
+characteristic velocity of the fluid. It quantifies the ratio of inertial
+forces to viscous forces within the fluid therefor it is used to predict
+flow patterns in different fluid flow situations. If $\Rey \ll 1$ the flow is
+laminar due to the fact that viscous forces are dominant and it is
+characterized by smooth, constant fluid motion.  Otherwise, the flow is
+turbulent due to the fact that inertial forces are dominant and it tend to
+produce chaotic eddies, vortices and other flow instabilities.
+
+In the case of laminar flow, the advective term in the momentum equation
+(\ref{eq:ns_momentum}) can be neglected, giving rise to the so called Stokes
+equations
+\begin{subequations}
+\begin{alignat}{2}
+- \nabla\,.\,\mat\sigma & = \vec f \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:momentum} \\
+\nabla\,.\,\vec u & = 0 \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:mass}
+\end{alignat}
+\end{subequations}
+which for Newtonian fluids are expressed as
+\begin{subequations}
+\begin{alignat}{2}
+-2 \mu\,\nabla\,.\,\mat D(\vec u)+ \nabla\,p & = \vec f \quad &&\mbox{in }
+\Omega_\pm(t)\,,
+\label{eq:momentum_bis} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,.
+\label{eq:mass_bis}
+\end{alignat}
+\end{subequations}
+
+\section[Boundary, initial, and interface conditions]{Boundary, initial, and
+interface conditions}
+
