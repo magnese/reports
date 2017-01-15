@@ -154,4 +154,43 @@ which for Newtonian fluids are expressed as
 
 \section[Boundary, initial, and interface conditions]{Boundary, initial, and
 interface conditions}
+For the full Navier--Stokes problem (\ref{eq:ns_momentum_bis}-b), a
+divergence-free velocity field for the whole computational domain is needed as
+an initial condition therefore we impose
+\begin{equation}\label{eq:ns_ic}
+\vec u(0) = \vec u_0 \qquad \mbox{in } \Omega_\pm(t)\,.
+\end{equation}
+The initial condition is not need in the Stokes case (\ref{eq:momentum_bis}-b)
+since it is a stationary problem.
 
+In order to obtain a well-posed system, boundary conditions have to be imposed
+on the external boundary of $\partial\Omega$. Usually, we use the homogeneous
+Dirichlet condition
+\begin{equation}\label{eq:ns_bc}
+\vec u = \vec 0 \qquad \mbox{on } \partial \Omega\,,
+\end{equation}
+and/or a free-slip condition.
+
+Since we are dealing with a two-phase flow, some interface conditions are also
+needed on the unknown interface $\Gamma(t)$ which couple the velocity and
+stress between the two domains. Viscosity of the fluids leads to the continuity
+condition
+\begin{equation}\label{eq:interface_jump_velocity}
+[\vec u]_-^+ = \vec 0 \qquad \mbox{on } \Gamma(t)\,,
+\end{equation}
+where $[\vec u]_-^+ := \vec u_+ - \vec u_-$ denote the jump in velocity across
+the interface $\Gamma(t)$. Here and throughout, we employ the shorthand notation
+$\vec g_\pm := \vec g\!\mid_{\Omega_\pm(t)}$ for a function
+$\vec g : \Omega \times [0,T] \to \R^d$; and similarly for scalar and
+matrix-valued functions.
+
+The assumption that there is no change of phase leads to the dynamic interface
+condition
+\begin{equation} \label{eq:interface_velocity}
+\vec{\mathcal{V}}\,.\,\vec\nu = \vec u\,.\,\vec \nu \qquad \mbox{on }
+\Gamma(t)\,,
+\end{equation}
+given that $\vec{\mathcal{V}}$ is the velocity of the evolving interface
+$\Gamma(t)$ and where $\vec\nu(t)$ is the unit normal on $\Gamma(t)$ pointing
+into $\Omega_+(t)$. Therefore the normal velocity of the interface needs to
+match the flow normal velocity across the interface $\Gamma(t)$.
