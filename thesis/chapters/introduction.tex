@@ -53,8 +53,8 @@ Therefore both the sub-domains themselves and the flow field are part of the
 solution. Indeed the main task in this context is to account for the interface
 $\Gamma(t)$, which separates the distinct fluid domains and is generally in
 motion. Apart from its exact position, the computation of geometrical quantities
-of $\Gamma(t)$ such as its normal vector $\nu$ and its curvature $\varkappa$ are
-of interest.
+of $\Gamma(t)$ such as its normal vector $\nu$ and its mean curvature
+$\varkappa$ are of interest.
 
 \section[Flow governing equations]{Flow governing equations}
 For what concern the bulk flow, we restrict ourselves to isothermal conditions,
@@ -164,7 +164,7 @@ The initial condition is not need in the Stokes case (\ref{eq:momentum_bis}-b)
 since it is a stationary problem.
 
 In order to obtain a well-posed system, boundary conditions have to be imposed
-on the external boundary of $\partial\Omega$. Usually, we use the homogeneous
+on the bulk domain boundary $\partial\Omega$. Usually, we use the homogeneous
 Dirichlet condition
 \begin{equation}\label{eq:ns_bc}
 \vec u = \vec 0 \qquad \mbox{on } \partial \Omega\,,
@@ -194,3 +194,53 @@ given that $\vec{\mathcal{V}}$ is the velocity of the evolving interface
 $\Gamma(t)$ and where $\vec\nu(t)$ is the unit normal on $\Gamma(t)$ pointing
 into $\Omega_+(t)$. Therefore the normal velocity of the interface needs to
 match the flow normal velocity across the interface $\Gamma(t)$.
+
+The momentum conservation in a small material volume that intersects the
+interface leads to the stress balance condition
+\begin{equation}\label{eq:interface_jump_stress_div}
+[\mat\sigma\,\vec \nu]_-^+ = \nabs\,.\mat\sigma_{\Gamma} \qquad \mbox{on }
+\Gamma(t)\,,
+\end{equation}
+where $\mat\sigma_{\Gamma}$ is the interface stress tensor and $\nabs\,.$ is
+the surface divergence on $\Gamma(t)$. The operator $\nabs$ is the surface
+gradient on $\Gamma(t)$ and it is the projection of the usual gradient operator
+$\nabla$ on the surface $\Gamma(t)$. Therefore, given a smooth function $g$
+defined on a neighbourhood of $\Gamma(t)$, it is defined as
+\begin{equation}\label{eq:surface_gradient}
+\nabs\,g(\vec z)=\mat P\,\nabla\,g(\vec z)=\nabla\,g(\vec z)\,-
+\,\nabla\,g(\vec z)\,.\,\vec\nu(\vec z)\,\vec\nu(\vec z)\,,\qquad \vec z
+\in\Gamma(t)\,,
+\end{equation}
+with the usual projection operator $\mat P$ defined as
+\begin{equation}\label{eq:surface_projection}
+\mat P(\vec z)=\mat\id\,-\,\vec\nu(\vec z)\,\vec\nu(\vec z)^T\,,\qquad \vec
+z\in \Gamma(t)\,.
+\end{equation}
+For later use, we also define the Laplace--Beltrami operator $\Delta_s$ on
+$\Gamma(t)$ as $\Delta_s = \nabs\,.\,\nabs$.
+
+We restrict ourselves to the case that the only force acting on the interface
+is the surface tension contact force therefore the interface stress tensor
+$\mat\sigma_\Gamma$ has the following constitutive equation
+\begin{equation}\label{eq:interface_stress_tensor}
+\mat\sigma_{\Gamma}=\gamma\,\mat P\,,
+\end{equation}
+where $\gamma$ is the surface tension coefficient. Substituting
+(\ref{eq:interface_stress_tensor}) in (\ref{eq:interface_jump_stress_div}) we
+obtain
+\begin{equation}\label{eq:interface_stress_tensor_divergence}
+[\mat\sigma\,\vec \nu]_-^+ = \nabs\,.(\gamma\,\mat P)=\gamma\,\nabs\mat
+P+\nabs\,\gamma=-\gamma\,\varkappa\,\vec\nu + \nabs\,\gamma \qquad \mbox{on }
+\Gamma(t)\,,
+\end{equation}
+where $\varkappa = \nabla\,.\vec\nu$ is the mean curvature of $\Gamma(t)$. We
+assume that $\gamma$ is constant and therefore, from
+(\ref{eq:interface_stress_tensor_divergence}), we obtain the stress balance
+condition
+\begin{equation}\label{eq:interface_jump_stress}
+[\mat\sigma\,\vec \nu]_-^+ = -\gamma\,\varkappa\,\vec\nu \qquad \mbox{on }
+\Gamma(t)\,.
+\end{equation}
+
+Finally, in order to have a well-posed problem, one needs suitable initial
+conditions for the interface therefore we set $\Gamma(0)=\Gamma_0$.
