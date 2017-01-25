@@ -244,3 +244,19 @@ condition
 
 Finally, in order to have a well-posed problem, one needs suitable initial
 conditions for the interface therefore we set $\Gamma(0)=\Gamma_0$.
+
+\section[Interface treatment]{Interface treatment}
+The dynamics of the interface is determined by the condition
+(\ref{eq:interface_velocity}) which, however, describes the dynamics in a
+strongly implicit way since the velocity field $\vec u$ depends on the
+position of the interface itself. In numerical simulations there are
+several strategies to deal with this problem which can be divided in two
+categories depending on the viewpoint: interface capturing and interface
+tracking.
+
+Interface capturing methods use an Eulerian description of the interface which
+is defined implicitly on a fixed mesh. A characteristic scalar field $\psi$
+is used to identify the two phases as well as the interface along the boundaries
+of the individual fluid domains. Depending on the method, this scalar field may
+be, for example, a discontinuous Heaviside function or a signed-distance
+function.
