@@ -26,7 +26,9 @@ $\Omega$ contains two different immiscible fluids which, for all $t\in[0,T]$,
 occupy time dependent regions $\Omega_+(t)$ and
 $\Omega_-(t):=\Omega\setminus\overline{\Omega}_+(t)$ and
 which are separated by an interface $(\Gamma(t))_{t\in[0,T]}$,
-$\Gamma(t)\subset\Omega$. See Figure~\ref{fig:two_phase} for an illustration.
+$\Gamma(t)\subset\Omega$. For later use, we always assume that
+$(\Gamma(t))_{t\in [0,T]}$ is a sufficiently smooth evolving hypersurface
+without boundary. See Figure~\ref{fig:two_phase} for an illustration.
 \begin{figure}
 \begin{center}
 \unitlength15mm
@@ -255,8 +257,39 @@ categories depending on the viewpoint: interface capturing and interface
 tracking.
 
 Interface capturing methods use an Eulerian description of the interface which
-is defined implicitly on a fixed mesh. A characteristic scalar field $\psi$
-is used to identify the two phases as well as the interface along the boundaries
-of the individual fluid domains. Depending on the method, this scalar field may
-be, for example, a discontinuous Heaviside function or a signed-distance
-function.
+is defined implicitly. A characteristic scalar field $\psi$ is used to identify
+the two phases as well as the interface along the boundaries of the individual
+fluid domains. Depending on the method, this scalar field may be, for example,
+a discontinuous Heaviside function or a signed-distance function. The interface
+motion is taken into account using a standard advection equation
+\begin{equation}
+\frac{\partial \psi}{\partial t}+\vec u\,.\nabla\,\psi=0\,,\qquad \mbox{in }
+\Omega\,,
+\end{equation}
+which transport the scalar field with the fluid velocity $\vec u$. The most
+important methods which belong to this this category are the particle methods,
+the volume-of-fluid method, the level-set method and the phase-field method. In
+general, the great advantage of the interface capturing approaches is that they
+are inherently able to deal with topological changes of the interface. This
+allows a much more flexible interface description than in interface tracking
+approaches. On the other hand, it is challenging to treat accurately
+discontinuous quantities across the interface, to have mass conservation
+within each phase and to apply boundary conditions along the interface.
+
+Interface tracking approaches, instead, use a Lagrangian description of the
+interface which is described explicitly. The idea is to take a (virtual)
+particle on the interface at $t=t_0$ with Eulerian coordinates $\vec z(0) \in
+\Gamma_0$. Let $\vec z(t)$ be the Eulerian coordinates of this particle, with
+$t\geq t_0$. The particles on the interface are transported by the flow
+velocity $\vec u$, therefore it holds the equation
+\begin{equation}
+\frac{\partial \vec z(t)}{\partial t}=\vec u(\vec z(t),t)\,,
+\end{equation}
+which determines the path of a material particle and consequently it
+characterizes the evolution of the interface. This interface representation
+forms the basis of the interface tracking methods. In these methods a
+collection of markers is put on a given interface $\Gamma_0$ and then
+transported (numerically) by the flow velocity $\vec u$ to obtain the markers
+on the interface $\Gamma(t)$.
+
+
