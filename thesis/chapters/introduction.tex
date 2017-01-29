@@ -290,6 +290,65 @@ characterizes the evolution of the interface. This interface representation
 forms the basis of the interface tracking methods. In these methods a
 collection of markers is put on a given interface $\Gamma_0$ and then
 transported (numerically) by the flow velocity $\vec u$ to obtain the markers
-on the interface $\Gamma(t)$.
+on the interface $\Gamma(t)$. Usually, the collection of markers on $\Gamma_0$
+are the set of vertices of the triangulation of $\Gamma_0$. The great
+advantage of interface tracking approaches is that they offer an accurate and
+computationally efficient approximation of the evolving interface. Moreover,
+the imposition of boundary conditions at the interface is simple since the mesh
+nodes lyes on the interface itself. However, firstly the mesh quality will
+usually degrade quickly in the case of large deformations and secondly
+topological changes require a special treatment. In order to keep an
+acceptable mesh quality throughout the simulation, mesh smoothing techniques
+are applied and, when they are not enough,  a full remeshing is used. If
+topological changes occur, the only way to tackle the issue is to
+perform a remesh with respect to the new interface. The main consequence of
+remeshing is the need to project the field values from the old to the new
+mesh, a ceaseless source for errors, and at the same time computationally
+costly especially in dimension 3. Therefore, it is desirable to keep the
+frequency of remeshing as low as possible.
 
+In the following chapters, we always use an interface tracking approach to
+describe the interface evolution. In particular, we adopt a fitted mesh approach
+which means that the discrete interface is composed by bulk element faces.
+Consequently there is a strong coupling between the bulk mesh and the interface
+mesh.
 
+\section[Numerical challenges]{Numerical challenges}
+Two-phase flows pose enormous challenges to numerical simulation tools and
+they can not be solved reliably and accurately by the commercial softwares that
+are available nowadays. Therefore, compared to one-phase flow solvers, special
+tailor-made numerical scheme have to be developed. Below we address some causes
+of the very high numerical complexity of this problem class.
+
+The evolution of the unknown interface is determined by the simple dynamic
+condition (\ref{eq:interface_velocity}). Unfortunately, it turns out that an
+accurate numerical approximation of the geometric object representing the
+interface and its evolution is a very difficult task. This task become even
+more complicated in case of geometric singularities such as droplet break up or
+collision. Although several techniques have been developed, an accurate
+interface approximation remains a challenging task.
+
+For high Reynolds number, the flow model is strongly nonlinear therefore the
+coupling between fluid dynamics and interface evolution turns out to be strongly
+nonlinear. This nonlinearity cause difficulties for the construction of
+accurate numerical schemes for time discretization.
+
+Usually several quantities are discontinuous across the interface. Indeed, for
+example, the value of density and viscosity have jumps across the interface
+since the interface separates two different fluids. Moreover, due to surface
+tension forces, also the pressure is discontinuous across the interface. In
+most applications the stress balance (\ref{eq:interface_jump_stress_div}) and a
+jump in the viscosity across the interface typically induce a discontinuity
+across the interface of the normal derivative of the velocity. A part from
+stationary problems, the unknown interface is changing as a function of time
+therefore these discontinuities are moving. The numerical treatment of moving
+discontinuities often causes severe difficulties.
+
+The full discretization in space and in time results in a very large nonlinear
+system of equations at each time step. Most of the total computing time is
+spent solving these large nonlinear systems therefore it is crucial to use
+efficient iterative solvers. The efficiency can be largely improved by using
+special techniques that are adapted to the problem class, in the sense that the
+solver makes use of certain structural properties of the problem.
+
+\section[Numerical implementation]{Numerical implementation}
