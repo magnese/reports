@@ -352,3 +352,41 @@ special techniques that are adapted to the problem class, in the sense that the
 solver makes use of certain structural properties of the problem.
 
 \section[Numerical implementation]{Numerical implementation}
+We implement all numerical schemes from scratch in \verb|C++| within the
+\verb|DUNE| framework, see \cite{dunegridpaperI08,dunegridpaperII08}.
+\verb|DUNE|, the Distributed and Unified Numerics Environment is a modular and
+extensible toolbox for solving partial differential equations with grid-based
+methods. It supports different schemes based on finite elements, finite volumes
+and finite differences. We use the following \verb|DUNE| modules:
+\verb|dune-common| (build system, infrastructure and foundation classes),
+\verb|dune-istl| (algebraic solvers), \verb|dune-geometry| (geometric
+entities), \verb|dune-grid| (grid manager interface) and \verb|dune-fem| (FEM
+toolbox), see \cite{dunefempaper10}. More information on the library can be
+found on the official website \url{https://www.dune-project.org/}.
+
+We actively contributed to the various modules of the library providing
+upstream patches for new features and bug fixing with more than 37000 lines of
+changes.
+
+As grid manager we use \verb|ALBERTA|, see \cite{Alberta}, available here
+\url{http://www.alberta-fem.de/}. We also use the sparse factorization
+package \verb|SuiteSparse|, see \cite{Davis04}, available here
+\url{http://faculty.cse.tamu.edu/davis/suitesparse.html}.
+
+We implement the scheme described in Chapter \ref{ch:1} as a \verb|DUNE| module
+named \verb|dune-geometric-pde|, available here
+\url{https://github.com/magnese/dune-geometric-pde}, while the schemes described
+in Chapter \ref{ch:2}, Chapter \ref{ch:3} and Chapter \ref{ch:4} are implemented
+as a \verb|DUNE| module called \verb|dune-navier-stokes-two-phase|, available
+here \url{https://github.com/magnese/dune-navier-stokes-two-phase}.
+
+All the meshes are created with the library \verb|Gmsh|, see
+\cite{GeuzaineR09}, available here \url{http://gmsh.info/} and the plots are
+generated with either \verb|ParaView|, available here
+\url{http://www.paraview.org/}, or \verb|Gnuplot|, available here
+\url{http://www.gnuplot.info/}.
+
+All the simulations we report are performed on a Linux cluster equipped with
+\verb|Ubuntu 14.04.1 LTS| and compiled with \verb|g++ 5.3.0|. The CPU times
+are measured in seconds and correspond to a single thread computation on an
+Intel Xeon E5640 (2.67GHz) processor with 16 GB of main memory.
