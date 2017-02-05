@@ -1,4 +1,232 @@
-\chapter{\sc Geometric PDE}
+\chapter{\sc Geometric Evolution Equations}
 \label{ch:1}
 
-\section[Section 1]{Section 1}
+\section[Geometric PDEs]{Geometric PDEs}
+As starting point, we consider the simple problem of purely geometric evolution 
+equations. A geometric evolution equation defines the motion of a hypersurface 
+by prescribing its normal velocity in terms of its geometric quantities. These 
+problems are part of the more general time-dependent interface evolution 
+problems category, where the normal velocity depends also on field quantities
+evaluated on the analysed hypersurface. Interface evolution problems are 
+ubiquitous in modern physics and engineering.
+
+Several different methods to approximate evolving surfaces can be found in the
+literature, these methods can be divided in explicit and implicit, see e.g.
+\cite{DeckelnickDE05}. The parametric approach is an example of an explicit
+method which involves seeking a parametrization over a base surface (e.g. a
+sphere). On the other hand, the surface can be represented as the zero level set
+of a certain function giving rise to the implicit method known as level set
+method. Another implicit method is the so called phase field method which
+approximates the interface by a zero level set of a phase field satisfying a PDE
+depending on a new parameter.
+\newline
+
+We choose to use a parametric approach which consists of a description
+of the hypersurface $\Gamma(t)$ as
+\begin{equation}\label{eq:parametric_hypersurface}
+ \Gamma(t)=\vec{x}(\cdot,t)(M)
+\end{equation}
+where $M\subset\mathbb{R}^{d}$ is the reference manifold and
+\begin{equation}\label{eq:position_vector}
+ \vec{x}:M\times[0,T)\rightarrow\mathbb{R}^{d}
+\end{equation}
+is one unknown of the problem. Finally $\vec{x}(\vec{p},t)$, $\vec{p}\in M$, is
+the position vector at a certain time $t$ and at a certain point $\vec{p}$ of
+the reference manifold. All the geometrical quantities of the hypersurface (e.g.
+curvature) can be expressed as derivatives of the parametrization.
+\newline
+
+An equation which describes the motion of a surface prescribing the normal
+velocity is called \cor{geometric PDE}. More precisely a general geometric
+evolution equation has the following form
+\begin{equation}\label{eq:geometric_pde}
+ V=f(\vec{x},\vec{\nu},\varkappa),\qquad\mbox{on }\Gamma(t),
+\end{equation}
+where $\vec{\nu}$ is the normal direction and $\varkappa$ is the sum of the
+principal curvatures of $\Gamma(t)$. One of the simplest geometric PDEs is the
+one which arises from motion by \cor{mean curvature}, see e.g.
+\cite{DeckelnickDE05},
+\begin{equation}\label{eq:mean_curvature}
+ V=-\varkappa,\qquad\mbox{on }\Gamma(t).
+\end{equation}
+
+This equation describes a surface evolving in such a way that its own normal
+velocity is equal to the sum of the $d-1$ principal curvatures of $\Gamma(t)$.
+\newline
+
+Another important geometric PDE is the one which arises from motion by
+\cor{surface diffusion}
+\begin{equation}\label{eq:surface_diff}
+ V=-\Delta_{\Gamma(t)} \varkappa,\qquad\mbox{on }\Gamma(t)
+\end{equation}
+where $\Delta_{\Gamma(t)}$ is the \cor{Laplace--Beltrami} operator, also called
+surface Laplacian, defined as
+\begin{equation}\label{eq:laplace_beltrami}
+ \Delta_{\Gamma(t)}f(\vec{p}) =
+ \nabla_{\Gamma(t)}\cdot\nabla_{\Gamma(t)}f(\vec{p} ) ,\qquad
+ \vec{p}\in\Gamma(t).
+\end{equation}
+Here $\nabla_{\Gamma(t)}$ is the \cor{tangential gradient} defined as
+\begin{equation}\label{eq:tangent_gradient}
+ \nabla_{\Gamma(t)}f(\vec{p})=\nabla f(\vec{p})-\nabla
+ f(x)\cdot\vec{\nu}(\vec{p})\vec{\nu}(\vec{p}),\qquad \vec{p}\in\Gamma(t).
+\end{equation}
+
+It can be shown that both \eqref{eq:mean_curvature} and
+\eqref{eq:surface_diff} decrease the surface area of $\Gamma(t)$ over time.
+Moreover \eqref{eq:surface_diff} conserves the volume enclosed by $\Gamma(t)$,
+which means that a sphere remains exactly the same sphere when it evolves
+according to surface diffusion. See \cite{DeckelnickDE05} for more details on
+geometric evolution equations and their numerical approximation.
+
+\subsection{Finite element formulation of the interface}
+
+The \cor{Finite Element Method} which I use is based on the seminal paper
+\cite{Dziuk91} and I refer to the ones described in
+\cite{triplej,triplejMC,gflows3d}. The surface diffusion problem
+\eqref{eq:surface_diff} can be rewritten as a system of second order equations
+\begin{equation}\label{eq:surf_diff_sys}
+ \begin{cases}
+  \vec{x}_t\cdot\vec{\nu}=-\Delta_{\Gamma(t)} \varkappa,\\
+  \varkappa\vec{\nu}=\Delta_{\Gamma(t)}\vec{x},
+ \end{cases}
+\end{equation}
+where we have used the fact that the \cor{normal velocity} can be expressed as a
+function of the parametrization
+\begin{equation}
+ V=\vec{x}_t\cdot\vec{\nu}.
+\end{equation}
+The second equation, instead, is a well-known identity from surface geometry.
+\newline
+
+The FEM scheme for \eqref{eq:surf_diff_sys} from \cite{gflows3d} assumes the
+following formulation
+\begin{equation}\label{eq:fem_surf_diff}
+ \begin{cases}
+  \langle \frac{\vec{X}^{m + 1} - \vec{X}^{m}}{\tau_m},
+  \chi\vec{\nu}^m\rangle_{\Gamma^m}^{h} - \langle\nabla_{
+  \Gamma^m}\kappa^{m+1}, \nabla_{\Gamma^m}\chi \rangle_{\Gamma^m}^{h} = 0,\\
+  \langle\kappa^{m+1}\vec{\nu}^m,
+  \vec{\eta}\rangle_{\Gamma^m}^{h} + \langle\nabla_{\Gamma^m}\vec{X}^{m + 1},
+  \nabla_{\Gamma^m}\vec{\eta} \rangle_{\Gamma^m}=0
+ \end{cases}
+\end{equation}
+$\forall\vec{\eta}\in\underline{V}(\Gamma^m)$ and $\forall\chi\in W(\Gamma^m)$.
+These spaces of test functions are defined as
+\begin{equation}\label{eq:space_test_functions}
+ \underline{V}(\Gamma^m) := \{\vec{\chi}\in C(\Gamma^m,\mathbb{R}^d) :
+\vec{\chi}|_{\sigma_j^m}\textrm{ is linear }\forall j=1\rightarrow J\} :=
+[W(\Gamma^m)]^d\subset H^1(\Gamma^m,\mathbb{R}^d)
+\end{equation}
+where $W(\Gamma^m)\subset H^1(\Gamma^m)$ is the space of scalar continuous
+piecewise linear functions on $\Gamma^m$. Here $\Gamma^m$ is the polyhedral
+surface which approximates the surface $\Gamma (t^m)$ at time $t^m$ and
+$\{\sigma_j^m\}_{j=1}^J$ is a family of mutually disjoint open triangles such
+that $\Gamma^m=\cup_{j=1}^J\overline{\sigma_j^m}$.
+\newline
+
+Moreover $\langle\cdot,\cdot\rangle_{\Gamma^m}$ is the $L^2$ inner product over
+the current polyhedral surface
+\begin{equation}\label{}
+ \langle u,v\rangle_{\Gamma^m} = \int_{\Gamma^m}uv\,\mathrm{d}s,\qquad\forall
+  u,v\in L^2(\Gamma^m),
+\end{equation}
+and similarly for $\vec{u},\vec{v}\in L^2(\Gamma^m,\mathbb{R}^d)$. In addition,
+$\langle \cdot,\cdot\rangle_{\Gamma^m}^h$ is a mass lumped inner product with
+the vertices of each triangle of the mesh as quadrature points.
+\newline
+
+For what concerns the mean curvature flow, the system of second order equations
+is
+\begin{equation}\label{eq:mean_curvature_sys}
+ \begin{cases}
+  \vec{x}_t\cdot\vec{\nu}=-\varkappa,\\
+  \varkappa\vec{\nu}=\Delta_{\Gamma(t)}\vec{x},
+ \end{cases}
+\end{equation}
+and the FEM formulation from \cite{gflows3d} is
+\begin{equation}\label{eq:fem_mean_curvature}
+ \begin{cases}
+  \langle \frac{\vec{X}^{m + 1} - \vec{X}^{m}}{\tau_m},
+  \chi\vec{\nu}^m\rangle_{\Gamma^m}^{h} - \langle\kappa^{m+1}, \chi
+  \rangle_{\Gamma^m}^{h}=0,\\
+  \langle\kappa^{m+1}\vec{\nu}^m, \vec{\eta}\rangle_{\Gamma^m}^{h} +
+  \langle\nabla_{\Gamma^m}\vec{X}^{m + 1}, \nabla_{\Gamma^m}\vec{\eta}
+  \rangle_{\Gamma^m}=0.
+ \end{cases}
+\end{equation}
+
+\subsection{Algebraic formulation of the interface}
+
+As regards the mean curvature flow, \eqref{eq:fem_mean_curvature}, the
+corresponding algebraic system of equations can be written as
+
+\begin{equation}\label{eq:algebraic_mean_curvature}
+ \begin{pmatrix}
+  \tau_m \, M_m & - \, \vec{N}_{m}^{T} \\
+  \vec{N}_m & \vec{A}_m
+ \end{pmatrix}
+ \begin{pmatrix}
+  \kappa^{m + 1} \\
+  \delta \vec{X}^{m + 1}
+ \end{pmatrix}
+ =
+ \begin{pmatrix}
+  0 \\
+  - \vec{A}_m \, \vec{X}^{m}
+ \end{pmatrix} ,
+\end{equation}
+while, for the system of equations describing the surface diffusion,
+\eqref{eq:fem_surf_diff}, the algebraic system is
+\begin{equation}\label{eq:algebraic_surf_diff}
+ \begin{pmatrix}
+  \tau_m \, A_m & - \, \vec{N}_{m}^{T} \\
+  \vec{N}_m & \vec{A}_m
+ \end{pmatrix}
+ \begin{pmatrix}
+  \kappa^{m + 1} \\
+  \delta \vec{X}^{m + 1}
+ \end{pmatrix}
+ =
+ \begin{pmatrix}
+  0 \\
+  - \vec{A}_m \, \vec{X}^{m}
+ \end{pmatrix}.
+\end{equation}
+We can notice that the only difference between the above systems occurs in the
+upper-left entry of the matrix.
+\newline
+
+The entries of the matrix are defined as
+\begin{eqnarray}\label{eq:algebraic_entries}
+ \left[ M_m \right]_{kl} & := & \langle \phi_k^m \, , \phi_l^m \rangle_m^h, \\
+ \left[ \vec{N}_m \right]_{kl} & := & \int_{\Gamma^m} \pi^h \left[ \phi_k^m ,
+ \phi_l^m \right] \vec{\nu}^m \mathrm{d}s, \\
+ \left[ A_m \right]_{kl} & := & \langle \nabla_s \phi_k^m \, , \nabla_s
+ \phi_l^m \rangle_m,
+\end{eqnarray}
+where $\{\phi_k\}$ are the basis functions of the finite element space of
+piecewise linear continuous functions $W(\Gamma^m)$ and
+\begin{equation}\label{eq:algebraic_entries_vector}
+ [\vec{A}_m]_{kl} := [A_m]_{kl} \vec{Id},
+\end{equation}
+where $\vec{Id}$ is the identity matrix.
+\newline
+
+The linear systems \eqref{eq:algebraic_mean_curvature} and
+\eqref{eq:algebraic_surf_diff} are invertible under a suitable assumption on the
+triangulation at each time step, see \cite{gflows3d}. Hence they can be solved
+with a sparse factorization package such as \verb|UMFPACK|, see \cite{Davis04}.
+\newline
+
+Alternately, the algebraic system \eqref{eq:algebraic_mean_curvature} can be
+solved with a \cor{Schur complement} approach:
+\begin{subequations}
+ \begin{eqnarray}
+  \kappa^{m + 1} & = & \frac{1}{\tau_m} M_m^{-1} \vec{N}^{T}_m \, \delta
+  \vec{X}^{m + 1} \label{subeq:schur_mcf_1} , \\
+  (\vec{A}_m + \frac{1}{\tau_m} \vec{N}_m M_m^{-1} \vec{N}^{T}_m) \, \delta
+  \vec{X}^{m + 1} & = & - \vec{A}_m \, \vec{X}^{m} , \label{subeq:schur_mcf_2}
+ \end{eqnarray}
+\end{subequations}
+where \eqref{subeq:schur_mcf_2} is symmetric and positive definite.
