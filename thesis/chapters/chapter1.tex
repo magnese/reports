@@ -1,28 +1,74 @@
 \chapter{\sc Geometric Evolution Equations}
-\label{ch:1}
+\label{ch:geometric}
 
 \section[Geometric PDEs]{Geometric PDEs}
-As starting point, we consider the simple problem of purely geometric evolution 
-equations. A geometric evolution equation defines the motion of a hypersurface 
-by prescribing its normal velocity in terms of its geometric quantities. These 
-problems are part of the more general time-dependent interface evolution 
+As starting point, in order to describe the key ideas of the front tracking
+approach, we consider the simple problem of purely geometric evolution
+equations. A geometric evolution equation defines the motion of a hypersurface
+by prescribing its normal velocity in terms of its geometric quantities. These
+problems are part of the more general time-dependent interface evolution
 problems category, where the normal velocity depends also on field quantities
-evaluated on the analysed hypersurface. Interface evolution problems are 
-ubiquitous in modern physics and engineering.
+evaluated on the analysed hypersurface. A detailed description and analysis can
+be found in the review article \cite{DeckelnickDE05}.
 
-Several different methods to approximate evolving surfaces can be found in the
-literature, these methods can be divided in explicit and implicit, see e.g.
-\cite{DeckelnickDE05}. The parametric approach is an example of an explicit
-method which involves seeking a parametrization over a base surface (e.g. a
-sphere). On the other hand, the surface can be represented as the zero level set
-of a certain function giving rise to the implicit method known as level set
-method. Another implicit method is the so called phase field method which
-approximates the interface by a zero level set of a phase field satisfying a PDE
-depending on a new parameter.
-\newline
+Interface evolution problems are everywhere in modern physics and engineering.
+Several typical applications can be found in materials science such as the
+mathematical modelling of the morphology of microstructure in order to
+correctly evaluate the mechanical properties of the material or in void
+electro-stress migration where small voids or cracks contained in metallic
+materials can change their location and shape according to the presence of
+surface diffusion and electro-stress loading. Other typical applications which
+can be modelled as time-dependent interface evolution problems are the motion of
+grain boundaries which separate differing orientations of the same crystalline
+phase, or solid-liquid interfaces exhibiting dendritic structures in
+under-cooled solidification. Another research fields where these models can be
+applied is image processing to detect the separation of dark regions from a
+brighter background and to identify separating contours in order to correctly
+cluster the objects in the image. Instead, as explained in Chapter
+\ref{ch:introduction}, we apply these techniques to incompressible two-phase
+flows problem.
 
-We choose to use a parametric approach which consists of a description
-of the hypersurface $\Gamma(t)$ as
+A general geometric evolution equation has the following formulation
+\begin{equation}\label{eq:geometric_pde}
+\vec{\mathcal{V}}\,.\,\vec\nu=f(\vec{z}\,,\vec{\nu}\,,\varkappa),
+\qquad\mbox{on }\Gamma(t),
+\end{equation}
+which prescribes the normal velocity $\vec{\mathcal{V}}\,.\,\vec\nu$ of the
+interface $\Gamma(t)$ as a function depending on the position $\vec z$, its
+normal direction $\vec{\nu}$ and the sum of its principal curvatures
+$\varkappa$.
+
+The simplest geometric PDE is the one which arises from motion by mean
+curvature,
+\begin{equation}\label{eq:mean_curvature}
+\vec{\mathcal{V}}\,.\,\vec\nu=-\varkappa,\qquad\mbox{on }\Gamma(t).
+\end{equation}
+This equation describes a surface evolving in such a way that its own normal
+velocity is equal to the sum of the $d-1$ principal curvatures of $\Gamma(t)$.
+
+Another important geometric PDE is the one which arises from motion by
+surface diffusion
+\begin{equation}\label{eq:surface_diff}
+\vec{\mathcal{V}}\,.\,\vec\nu=-\Delta_s \varkappa, \qquad\mbox{on }\Gamma(t)
+\end{equation}
+where we use the Laplace--Beltrami operator $\Delta_s$ defined by
+(\ref{eq:surface_laplacian}). In this case the surface normal velocity matches
+the surface Laplacian of the mean curvature.
+
+For both models, (\ref{eq:mean_curvature}) and (\ref{eq:surface_diff}), it is
+necessary to prescribe the initial interface $\Gamma(0)=\Gamma_0$ in order to
+have a well posed problem.
+
+\section[Geometric Analysis]{Geometric analysis}
+The aim of this section is to collect some useful definitions and results from
+differential geometry. Again we refer to \cite{DeckelnickDE05} which cover the
+subject in depth.
+
+\section[Front tracking approach]{Front tracking approach}
+We always treat the interface using a front tracking approach which involves
+seeking a parametrization of the unknown interface over a reference manifold.
+More formally, the evolving hypersurface hypersurface $\Gamma(t)$ is
+parametrized as
 \begin{equation}\label{eq:parametric_hypersurface}
  \Gamma(t)=\vec{x}(\cdot,t)(M)
 \end{equation}
@@ -34,43 +80,6 @@ is one unknown of the problem. Finally $\vec{x}(\vec{p},t)$, $\vec{p}\in M$, is
 the position vector at a certain time $t$ and at a certain point $\vec{p}$ of
 the reference manifold. All the geometrical quantities of the hypersurface (e.g.
 curvature) can be expressed as derivatives of the parametrization.
-\newline
-
-An equation which describes the motion of a surface prescribing the normal
-velocity is called \cor{geometric PDE}. More precisely a general geometric
-evolution equation has the following form
-\begin{equation}\label{eq:geometric_pde}
- V=f(\vec{x},\vec{\nu},\varkappa),\qquad\mbox{on }\Gamma(t),
-\end{equation}
-where $\vec{\nu}$ is the normal direction and $\varkappa$ is the sum of the
-principal curvatures of $\Gamma(t)$. One of the simplest geometric PDEs is the
-one which arises from motion by \cor{mean curvature}, see e.g.
-\cite{DeckelnickDE05},
-\begin{equation}\label{eq:mean_curvature}
- V=-\varkappa,\qquad\mbox{on }\Gamma(t).
-\end{equation}
-
-This equation describes a surface evolving in such a way that its own normal
-velocity is equal to the sum of the $d-1$ principal curvatures of $\Gamma(t)$.
-\newline
-
-Another important geometric PDE is the one which arises from motion by
-\cor{surface diffusion}
-\begin{equation}\label{eq:surface_diff}
- V=-\Delta_{\Gamma(t)} \varkappa,\qquad\mbox{on }\Gamma(t)
-\end{equation}
-where $\Delta_{\Gamma(t)}$ is the \cor{Laplace--Beltrami} operator, also called
-surface Laplacian, defined as
-\begin{equation}\label{eq:laplace_beltrami}
- \Delta_{\Gamma(t)}f(\vec{p}) =
- \nabla_{\Gamma(t)}\cdot\nabla_{\Gamma(t)}f(\vec{p} ) ,\qquad
- \vec{p}\in\Gamma(t).
-\end{equation}
-Here $\nabla_{\Gamma(t)}$ is the \cor{tangential gradient} defined as
-\begin{equation}\label{eq:tangent_gradient}
- \nabla_{\Gamma(t)}f(\vec{p})=\nabla f(\vec{p})-\nabla
- f(x)\cdot\vec{\nu}(\vec{p})\vec{\nu}(\vec{p}),\qquad \vec{p}\in\Gamma(t).
-\end{equation}
 
 It can be shown that both \eqref{eq:mean_curvature} and
 \eqref{eq:surface_diff} decrease the surface area of $\Gamma(t)$ over time.
@@ -79,9 +88,8 @@ which means that a sphere remains exactly the same sphere when it evolves
 according to surface diffusion. See \cite{DeckelnickDE05} for more details on
 geometric evolution equations and their numerical approximation.
 
-\subsection{Finite element formulation of the interface}
-
-The \cor{Finite Element Method} which I use is based on the seminal paper
+\section[FEM discretization]{FEM discretization}
+The Finite Element Method which I use is based on the seminal paper
 \cite{Dziuk91} and I refer to the ones described in
 \cite{triplej,triplejMC,gflows3d}. The surface diffusion problem
 \eqref{eq:surface_diff} can be rewritten as a system of second order equations
@@ -91,13 +99,12 @@ The \cor{Finite Element Method} which I use is based on the seminal paper
   \varkappa\vec{\nu}=\Delta_{\Gamma(t)}\vec{x},
  \end{cases}
 \end{equation}
-where we have used the fact that the \cor{normal velocity} can be expressed as a
+where we have used the fact that the normal velocity can be expressed as a
 function of the parametrization
 \begin{equation}
  V=\vec{x}_t\cdot\vec{\nu}.
 \end{equation}
 The second equation, instead, is a well-known identity from surface geometry.
-\newline
 
 The FEM scheme for \eqref{eq:surf_diff_sys} from \cite{gflows3d} assumes the
 following formulation
@@ -123,7 +130,6 @@ piecewise linear functions on $\Gamma^m$. Here $\Gamma^m$ is the polyhedral
 surface which approximates the surface $\Gamma (t^m)$ at time $t^m$ and
 $\{\sigma_j^m\}_{j=1}^J$ is a family of mutually disjoint open triangles such
 that $\Gamma^m=\cup_{j=1}^J\overline{\sigma_j^m}$.
-\newline
 
 Moreover $\langle\cdot,\cdot\rangle_{\Gamma^m}$ is the $L^2$ inner product over
 the current polyhedral surface
@@ -134,7 +140,6 @@ the current polyhedral surface
 and similarly for $\vec{u},\vec{v}\in L^2(\Gamma^m,\mathbb{R}^d)$. In addition,
 $\langle \cdot,\cdot\rangle_{\Gamma^m}^h$ is a mass lumped inner product with
 the vertices of each triangle of the mesh as quadrature points.
-\newline
 
 For what concerns the mean curvature flow, the system of second order equations
 is
@@ -156,7 +161,7 @@ and the FEM formulation from \cite{gflows3d} is
  \end{cases}
 \end{equation}
 
-\subsection{Algebraic formulation of the interface}
+\section[Algebraic formulation]{Algebraic formulation}
 
 As regards the mean curvature flow, \eqref{eq:fem_mean_curvature}, the
 corresponding algebraic system of equations can be written as
@@ -195,7 +200,6 @@ while, for the system of equations describing the surface diffusion,
 \end{equation}
 We can notice that the only difference between the above systems occurs in the
 upper-left entry of the matrix.
-\newline
 
 The entries of the matrix are defined as
 \begin{eqnarray}\label{eq:algebraic_entries}
@@ -211,16 +215,14 @@ piecewise linear continuous functions $W(\Gamma^m)$ and
  [\vec{A}_m]_{kl} := [A_m]_{kl} \vec{Id},
 \end{equation}
 where $\vec{Id}$ is the identity matrix.
-\newline
 
 The linear systems \eqref{eq:algebraic_mean_curvature} and
 \eqref{eq:algebraic_surf_diff} are invertible under a suitable assumption on the
 triangulation at each time step, see \cite{gflows3d}. Hence they can be solved
 with a sparse factorization package such as \verb|UMFPACK|, see \cite{Davis04}.
-\newline
 
 Alternately, the algebraic system \eqref{eq:algebraic_mean_curvature} can be
-solved with a \cor{Schur complement} approach:
+solved with a Schur complement approach:
 \begin{subequations}
  \begin{eqnarray}
   \kappa^{m + 1} & = & \frac{1}{\tau_m} M_m^{-1} \vec{N}^{T}_m \, \delta
@@ -230,3 +232,5 @@ solved with a \cor{Schur complement} approach:
  \end{eqnarray}
 \end{subequations}
 where \eqref{subeq:schur_mcf_2} is symmetric and positive definite.
+
+\section[Numerical results]{Numerical results}
