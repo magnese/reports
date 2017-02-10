@@ -160,7 +160,7 @@ such that
 \begin{align}
 &\left\langle \frac{\vec{X}^{m + 1} - \vec{X}^{m}}{\tau_m},
 \chi\vec{\nu}^m\right\rangle_{\Gamma^m}^h - \left\langle\kappa^{m+1}, \chi
-\right\rangle_{\Gamma^m}=0\quad \forall\ \chi \in
+\right\rangle_{\Gamma^m}^h=0\quad \forall\ \chi \in
 \Wh\,,\label{eq:fem_mean_curvature_a}\\
 &\left\langle\kappa^{m+1}\vec{\nu}^m, \vec{\eta}\right\rangle_{\Gamma^m}^{h} +
 \left\langle\nabla_s\vec{X}^{m + 1},
@@ -193,7 +193,12 @@ lumped inner product $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ as
 where $\{\vec{q}^m_{j_k}\}_{k=1}^{d}$ are the vertices of $\sigma^m_j$, and
 where we define the limit $v((\vec{q}^m_{j_k})^-)
 := \underset{\sigma^m_j\ni \vec{p}\to \vec{q}^m_{j_k}}{\lim}\, v(\vec{p})$. We
-naturally extend (\ref{eq:masslump}) to vector valued functions.
+naturally extend (\ref{eq:masslump}) to vector valued functions. We notice that
+the second term of (\ref{eq:fem_mean_curvature_b}) is indicated as an exact
+integration. This is indeed the case because it is the product of two
+piecewise constant functions, since they are the gradient of piecewise linear
+functions, therefore the mass lumped inner product (\ref{eq:masslump}) is
+exact.
 
 Analogously, the finite element approximation for the surface diffusion problem
 (\ref{eq:surface_diff}--b) is analogue to the one obtained for the mean
@@ -252,19 +257,41 @@ We can notice that the only difference between the above systems occurs in the
 upper-left entry of the matrix.
 
 The entries of the matrix are defined as
-\begin{eqnarray}\label{eq:algebraic_entries}
+\begin{eqnarray}
 \left[ M_m \right]_{kl} & := & \langle \chi_k^m \, , \chi_l^m
-\rangle_{\Gamma^m}\,, \\
+\rangle_{\Gamma^m}^h\,,\label{eq:algebraic_entries_a} \\
 \left[ \vec{N}_m \right]_{kl} & := & \langle \chi_k^m \, \vec{\nu}^m\,,
-\chi_l^m \rangle_{\Gamma^m}^h\,, \\
+\chi_l^m \rangle_{\Gamma^m}^h\,,\label{eq:algebraic_entries_b} \\
 \left[ A_m \right]_{kl} & := & \langle \nabla_s \chi_k^m \, , \nabla_s
-\chi_l^m \rangle_{\Gamma^m}\,,
+\chi_l^m \rangle_{\Gamma^m}\,,\label{eq:algebraic_entries_c}
 \end{eqnarray}
-where $\{\chi_k\}$ are the basis functions of the finite element space of
+where $\{\chi_k^m\}$ are the basis functions of the finite element space of
 piecewise linear continuous functions $W(\Gamma^m)$ and
-\begin{equation}\label{eq:algebraic_entries_vector}
+\begin{equation}\label{eq:algebraic_entries_d}
 [\vec{A}_m]_{kl} := [A_m]_{kl} \mat \id\,.
 \end{equation}
+We notice that for entries (\ref{eq:algebraic_entries_c}) holds
+\begin{equation}
+\begin{split}
+& \langle \nabla_s \chi_k^m \, , \nabla_s \chi_l^m \rangle_{\Gamma^m} = \langle
+\nabla \chi_k^m \, -\,\nabla \chi_k^m\,.\,\vec \nu\,\vec\nu, \nabla
+\chi_l^m \, -\,\nabla \chi_l^m\,.\,\vec \nu\,\vec\nu\rangle_{\Gamma^m} = \\
+& \langle \nabla \chi_k^m \, , \nabla \chi_l^m \rangle_{\Gamma^m}\,
+- 2\, \langle \nabla \chi_k^m \,.\,\vec\nu\,\vec\nu , \nabla \chi_l^m
+\rangle_{\Gamma^m}
++\langle \nabla \chi_k^m \,.\,\vec\nu\,\vec\nu , \nabla \chi_l^m
+\,.\,\vec\nu\,\vec\nu \rangle_{\Gamma^m} = \\
+& \langle \nabla \chi_k^m \, , \nabla \chi_l^m \rangle_{\Gamma^m}
+- \langle \nabla \chi_k^m \,.\,\vec\nu\,\vec\nu , \nabla \chi_l^m
+\rangle_{\Gamma^m} =
+\langle \nabla \chi_k^m \, , \nabla \chi_l^m \rangle_{\Gamma^m}\,,
+\end{split}
+\end{equation}
+where, in the last equality, we have used the fact that $\langle \vec
+\nu\,,\,\nabla \chi_k^m  \rangle_{\Gamma^m}$. Therefore, in practice,
+(\ref{eq:algebraic_entries_c}) can be assembled as the standard Laplacian
+term $\langle \nabla \chi_k^m \, , \nabla \chi_l^m \rangle_{\Gamma^m}$.
+
 
 The linear systems (\ref{eq:algebraic_mean_curvature}) and
 (\ref{eq:algebraic_surf_diff}) are invertible under a suitable assumption on the
