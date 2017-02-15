@@ -982,6 +982,32 @@ $\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$, the domain
 $\Omega = (-1,1)^d$ and we employ uniform time steps $\tau_m=\tau$,
 $m=0,\ldots, M-1$.
 
+\begin{table*}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rllllr}
+\hline
+scheme & $\errorXx$ & $\LerrorUu2$ & $\HerrorUu2$ & $\LerrorPp$ & CPU[s] \\
+\hline
+linear (s) & 1.75666e-03 & 3.32332e-04 & 1.19203e-02 & 1.94419e-01 & 540 \\
+linear (s+r) & 1.73360e-03 & 1.63953e-04 & 7.15481e-03 & 1.97594e-01 & 385 \\
+fixpoint (s) & 1.75666e-03 & 3.32331e-04 & 1.19202e-02 & 1.94419e-01 & 631 \\
+fixpoint (s+r) & 1.73360e-03 & 1.63953e-04 & 7.15480e-03 & 1.97594e-01 & 443 \\
+ALE (s) & 1.77250e-03 & 3.79011e-04 & 1.27408e-02 & 2.00491e-01 & 220 \\
+ALE (s+r) & 1.76192e-03 & 2.32883e-04 & 8.63626e-03 & 2.03826e-01 & 192 \\
+antisym (s) & 1.75671e-03 & 3.32373e-04 & 1.19230e-02 & 1.94413e-01 & 617 \\
+antisym (s+r) & 1.73365e-03 & 1.64043e-04 & 7.16053e-03 & 1.97594e-01 & 438 \\
+\hline
+\end{tabular}
+\hspace*{-3.25cm}
+\caption{($\rho_\pm = \mu_\pm = \gamma = 1,\alpha = 0.15$) Expanding
+bubble problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
+interval $[0,1]$ for the P2--P0 element, $\tau=0.001$ and $J_\Gamma=32$
+(s) smoothing only, (s+r) smoothing and remeshing with agnle criterion set to
+20\textdegree.}
+\label{tab:expandingbubble}
+\end{table*}
+
 \bibliographystyle{siam}
 \bibliography{../../bib/robert_refs,../../bib/marco_refs}
 \end{document}
