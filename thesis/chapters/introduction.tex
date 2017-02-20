@@ -205,9 +205,9 @@ interface leads to the stress balance condition
 \end{equation}
 where $\mat\sigma_{\Gamma}$ is the interface stress tensor and $\nabs\,.$ is
 the surface divergence on $\Gamma(t)$. The operator $\nabs$ is the surface
-gradient on $\Gamma(t)$ and it is the projection of the usual gradient operator
-$\nabla$ on the surface $\Gamma(t)$. Therefore, given a smooth function $g$
-defined on a neighbourhood of $\Gamma(t)$, it is defined as
+gradient on $\Gamma(t)$ and it is the orthogonal projection of the usual
+gradient operator $\nabla$ on the surface $\Gamma(t)$. Therefore, given a
+smooth function $g$ defined on a neighbourhood of $\Gamma(t)$, it is defined as
 \begin{equation}\label{eq:surface_gradient}
 \nabs\,g(\vec z)=\mat P\,\nabla\,g(\vec z)=\nabla\,g(\vec z)\,-
 \,\nabla\,g(\vec z)\,.\,\vec\nu(\vec z)\,\vec\nu(\vec z)\,,\qquad \vec z
@@ -267,7 +267,7 @@ fluid domains. Depending on the method, this scalar field may be, for example,
 a discontinuous Heaviside function or a signed-distance function. The interface
 motion is taken into account using a standard advection equation
 \begin{equation}
-\frac{\partial \psi}{\partial t}+\vec u\,.\nabla\,\psi=0\,,\qquad \mbox{in }
+\frac{\partial \psi}{\partial t}+\vec u\,.\nabla\,\psi=0 \qquad \mbox{in }
 \Omega\,,
 \end{equation}
 which transport the scalar field with the fluid velocity $\vec u$. The most

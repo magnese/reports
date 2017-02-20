@@ -30,7 +30,7 @@ flows problem.
 
 A general geometric evolution equation has the following formulation
 \begin{equation}\label{eq:geometric_pde}
-\vec{\mathcal{V}}\,.\,\vec\nu=f(\vec{z}\,,\vec{\nu}\,,\varkappa),
+\vec{\mathcal{V}}\,.\,\vec\nu=f(\vec{z}\,,\vec{\nu}\,,\varkappa)
 \qquad\mbox{on }\Gamma(t),
 \end{equation}
 which prescribes the normal velocity $\vec{\mathcal{V}}\,.\,\vec\nu$ of the
@@ -41,7 +41,7 @@ $\varkappa$.
 The simplest geometric PDE is the one which arises from motion by mean
 curvature,
 \begin{equation}\label{eq:mean_curvature}
-\vec{\mathcal{V}}\,.\,\vec\nu=\varkappa,\qquad\mbox{on }\Gamma(t).
+\vec{\mathcal{V}}\,.\,\vec\nu=\varkappa\qquad\mbox{on }\Gamma(t).
 \end{equation}
 This equation describes a surface evolving in such a way that its own normal
 velocity is equal to the sum of the $d-1$ principal curvatures of $\Gamma(t)$.
@@ -49,7 +49,7 @@ velocity is equal to the sum of the $d-1$ principal curvatures of $\Gamma(t)$.
 Another important geometric PDE is the one which arises from motion by
 surface diffusion
 \begin{equation}\label{eq:surface_diff}
-\vec{\mathcal{V}}\,.\,\vec\nu=-\Delta_s \varkappa, \qquad\mbox{on }\Gamma(t)
+\vec{\mathcal{V}}\,.\,\vec\nu=-\Delta_s \varkappa \qquad\mbox{on }\Gamma(t)
 \end{equation}
 where we use the Laplace--Beltrami operator $\Delta_s$ defined by
 (\ref{eq:surface_laplacian}). In this case the surface normal velocity matches
@@ -63,6 +63,103 @@ have a well posed problem.
 The aim of this section is to collect some useful definitions and results from
 differential geometry. Again we refer to \cite{DeckelnickDE05} which cover the
 subject in depth.
+
+A subset $\Gamma \subset \R^d$ is called a $C^2$-hypersurface if for each point
+$\vec z_0 \in \Gamma$ there exists an open set $G \subset \R^d$ containing
+$\vec z_0$ and a function $g \in C^2(G)$ such that
+\begin{equation}
+G \cap \Gamma = \{ \vec z \in G \, | \, g(\vec z) = 0 \}
+\qquad \mbox{ and } \qquad \nabla \, G(\vec z) \neq 0\,,
+\quad \forall\ \vec z \in G \cap \Gamma \, .
+\end{equation}
+The tangent space $T_{\vec z} \Gamma$ is then the $(d-1)$-dimensional linear
+subspace of $\R^d$ that is orthogonal to $\nabla \, g(\vec z)$. It does not
+depend on the particular function $g$ which is chosen to describe $\Gamma$. A
+$C^2$-hypersurface $\Gamma \in \R^d$ is called orientable if there exists a
+vector-valued function $\vec\nu \in C^1(\Gamma, \R^d)$, i.e.~$\vec\nu \in C^1$
+in an open neighbourhood of $\Gamma$, such that $\vec\nu(\vec z) \perp T_{\vec
+z} \Gamma$ and $|\vec{\nu}(\vec z)| = 1$ for all $\vec z \in \Gamma$. In what
+follows, we shall assume that $\Gamma \subset \R^d$ is an orientable
+$C^2$-hypersurface.
+
+In order to prove some property of the surface gradient
+(\ref{eq:surface_gradient}), we employ the notation
+\begin{equation}
+\nabla_s \, g(\vec z) = (\underline{D}_1 g(\vec z), \hdots, \underline{D}_{d}
+g(\vec z))
+\end{equation}
+for the $d$ components of the surface gradient. Since $\nabla_s \, g(\vec z)$
+is the orthogonal projection of $\nabla \, g(\vec z)$ onto $T_{\vec z} \Gamma$,
+it depends only on the values of $g$ on $\Gamma$. Moreover, from
+(\ref{eq:surface_gradient}) follows that
+\begin{equation}
+\nabla_s \, g(\vec z) \,.\, \vec{\nu}(\vec z)=0\,, \qquad \vec z \in \Gamma\,.
+\end{equation}
+Similarly, if $g$ is twice differentiable in an open neighbourhood of
+$\Gamma$, the surface Laplacian (\ref{eq:surface_laplacian}) can be written as
+\begin{equation}
+\Delta_s g(\vec z) = \nabla_s\, . \,\nabla_s \, g(\vec z) =
+\sum_{i = 1}^d \underline{D}_i \underline{D}_i g(\vec z) \, ,
+\qquad \vec z \in \Gamma \, .
+\end{equation}
+
+We assume $\vec{\nu} \in C^1$ in a neighbourhood of $\Gamma$ so that we
+may introduce the matrix $\mat H(\vec z)$ with components
+\begin{equation}\label{eq:matrixHjk}
+[\mat H (\vec z)]_{jk} = - \underline{D}_j \nu_k (\vec z)\,, \qquad \vec z \in
+\Gamma \, ,
+\end{equation}
+with $1\leq j,k\leq n$. It can be shown that $\mat H(\vec z)$ is symmetric.
+Furthermore,
+\begin{equation}
+\sum_{k = 1}^{d} [\mat H(\vec z)]_{jk} \nu_k (\vec z) =
+\sum_{k = 1}^{d} - \underline{D}_j \nu_k (\vec z) \nu_k (\vec z) =
+- \tfrac{1}{2} \underline{D}_j |\vec{\nu}|^2 (\vec z) = 0 \, ,
+\end{equation}
+since $|\vec{\nu}| = 1$ on $\Gamma$. Thus, $\mat H(\vec z)$ has one
+eigenvalue which is equal to zero with corresponding eigenvector
+$\vec\nu(\vec z)$. The remaining $d - 1$ eigenvalues $\varkappa_1 (\vec z),
+\hdots, \varkappa_{d - 1} (\vec z)$ are called the principal curvatures of
+$\Gamma$ at the point $\vec z$. The mean curvature of $\Gamma$ at $\vec z$
+can then be defined as the trace of the matrix $\mat H(\vec z)$, that is
+\begin{equation}\label{eq:definitionMC}
+\varkappa (\vec z) = \sum_{j = 1}^{d} [\mat H(\vec z)]_{jj} = \sum_{j = 1}^{d -
+1} \varkappa_j (\vec z) \,.
+\end{equation}
+Note that (\ref{eq:definitionMC}) differs from the more common
+definition of mean curvature,
+$\varkappa = \frac{1}{d - 1} \sum_{j = 1}^{d - 1} \varkappa_j$.
+From (\ref{eq:matrixHjk}) we derive the following expression for mean
+curvature:
+\begin{equation}\label{eq:definition2MC}
+\varkappa (\vec z)=-\nabla_s \,.\, \vec{\nu}(\vec z) \qquad \vec z \in \Gamma\,,
+\end{equation}
+where $\nabla_s \,.\, \vec g = \sum_{j = 1}^{d} \underline{D}_j g_j$
+denotes the surface divergence of a vector field $\vec g$. In particular, if
+$\Gamma = \mathcal{S}^{d - 1}$ and the unit normal field is chosen to point away
+from $\Gamma$, i.e.~$\vec\nu(\vec z) = \vec z$, we obtain that $\varkappa = -
+(d - 1)$, on considering the particular function $g(\vec z) = z_j$, $j \in \{
+1, \hdots, d \}$ and observing that $\underline{D}_i z_j = \delta_{ij} - \nu_j
+\nu_i$.
+
+Moreover, while the sign of $\varkappa$ depends on the choice of the normal
+$\vec\nu$, the mean curvature vector $\varkappa \vec\nu$ is an invariant.
+By choosing again the particular function $f(\vec z) = z_j$, $j \in \{ 1,
+\hdots, d \}$ in (\ref{LaplaceBeltrami}) and recalling the application of the
+Laplace-Beltrami operator to each independent variable $z_j$, we deduce that
+\begin{equation}
+\Delta_s z_j = - \sum_{i = 1}^{d} \underline{D}_i (\nu_j \nu_i) =
+- (\nabla_s \,.\, \vec\nu) \nu_j - \nabla_s \, \nu_j \,.\, \vec\nu = \varkappa
+\nu_j\, ,
+\end{equation}
+\begin{equation}\label{BeltramiXHnu}
+\Delta_s \vec z = \varkappa \vec \nu \qquad \mbox{ on } \Gamma \, .
+\end{equation}
+This identity of differential geometry will be useful at a later stage
+for the presentation of finite element approximations for
+\textit{surface diffusion}, see Section \ref{numApproxGeomFlows}.
+
+
 
 In particular, see e.g.\ \cite{DeckelnickDE05}, it holds that
 \begin{equation} \label{eq:LBop}
