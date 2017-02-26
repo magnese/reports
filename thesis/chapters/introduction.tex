@@ -229,20 +229,27 @@ We restrict ourselves to the case that the only force acting on the interface
 is the surface tension contact force therefore the interface stress tensor
 $\mat\sigma_\Gamma$ has the following constitutive equation
 \begin{equation}\label{eq:interface_stress_tensor}
-\mat\sigma_{\Gamma}=\gamma\,\mat P\,,
+\mat\sigma_{\Gamma}=-\gamma\,\mat P\,,
 \end{equation}
 where $\gamma$ is the surface tension coefficient. Substituting
 (\ref{eq:interface_stress_tensor}) in (\ref{eq:interface_jump_stress_div}) we
 obtain
 \begin{equation}\label{eq:interface_stress_tensor_divergence}
-[\mat\sigma\,\vec \nu]_-^+ = \nabs\,.(\gamma\,\mat P)=\gamma\,\nabs\mat
-P+\nabs\,\gamma=-\gamma\,\varkappa\,\vec\nu + \nabs\,\gamma \qquad \mbox{on }
-\Gamma(t)\,,
+\begin{split}
+& [\mat\sigma\,\vec \nu]_-^+ = -\nabs\,.(\gamma\,\mat P)=-\gamma\,\nabs\,.\,\mat
+P-\nabs\,\gamma = \gamma\nabs\,.\,(\vec\nu\,\vec\nu^T)-\nabs\,\gamma = \\
+& \gamma\nabs\,.\,\vec\nu\,\vec\nu +\gamma\nabs\,\vec\nu\,.\,\vec\nu -
+\nabs\,\gamma = \gamma\nabs\,.\,\vec\nu\,\vec\nu - \nabs\,\gamma = \\
+& -\gamma\,\varkappa\,\vec\nu - \nabs\,\gamma \qquad \mbox{on } \Gamma(t)\,,
+\end{split}
 \end{equation}
-where $\varkappa = \nabla\,.\vec\nu$ is the mean curvature of $\Gamma(t)$. We
-assume that $\gamma$ is constant and therefore, from
-(\ref{eq:interface_stress_tensor_divergence}), we obtain the stress balance
-condition
+where we have used the fact that the surface gradient $\nabs$ is, by definition,
+always orthogonal to the surface normal $\vec\nu$ and that $\varkappa =
+-\nabs\,.\vec\nu$ is the mean curvature of $\Gamma(t)$. The projection $\mat P$
+is used, since $\mat\sigma_{\Gamma}$ should represent only contact forces that
+are tangential to the surface. We assume that $\gamma$ is constant and
+therefore, from (\ref{eq:interface_stress_tensor_divergence}), we obtain the
+stress balance condition
 \begin{equation}\label{eq:interface_jump_stress}
 [\mat\sigma\,\vec \nu]_-^+ = -\gamma\,\varkappa\,\vec\nu \qquad \mbox{on }
 \Gamma(t)\,.

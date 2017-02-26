@@ -1,5 +1,5 @@
 \chapter{\sc Geometric Evolution Equations}
-\label{ch:geometric}
+\label{ch:1}
 
 \section[Geometric PDEs]{Geometric PDEs}
 As starting point, in order to describe the key ideas of the front tracking
@@ -49,7 +49,7 @@ velocity is equal to the sum of the $d-1$ principal curvatures of $\Gamma(t)$.
 Another important geometric PDE is the one which arises from motion by
 surface diffusion
 \begin{equation}\label{eq:surface_diff}
-\vec{\mathcal{V}}\,.\,\vec\nu=-\Delta_s \varkappa \qquad\mbox{on }\Gamma(t)
+\vec{\mathcal{V}}\,.\,\vec\nu=-\Delta_s \varkappa \qquad\mbox{on }\Gamma(t)\,,
 \end{equation}
 where we use the Laplace--Beltrami operator $\Delta_s$ defined by
 (\ref{eq:surface_laplacian}). In this case the surface normal velocity matches
@@ -92,15 +92,21 @@ for the $d$ components of the surface gradient. Since $\nabla_s \, g(\vec z)$
 is the orthogonal projection of $\nabla \, g(\vec z)$ onto $T_{\vec z} \Gamma$,
 it depends only on the values of $g$ on $\Gamma$. Moreover, from
 (\ref{eq:surface_gradient}) follows that
-\begin{equation}
+\begin{equation}\label{eq:surface_gradient_comp}
 \nabla_s \, g(\vec z) \,.\, \vec{\nu}(\vec z)=0\,, \qquad \vec z \in \Gamma\,.
 \end{equation}
 Similarly, if $g$ is twice differentiable in an open neighbourhood of
 $\Gamma$, the surface Laplacian (\ref{eq:surface_laplacian}) can be written as
-\begin{equation}
+\begin{equation}\label{eq:surface_laplacian_comp}
 \Delta_s g(\vec z) = \nabla_s\, . \,\nabla_s \, g(\vec z) =
 \sum_{i = 1}^d \underline{D}_i \underline{D}_i g(\vec z) \, ,
-\qquad \vec z \in \Gamma \, .
+\qquad \vec z \in \Gamma \, ,
+\end{equation}
+while, if $\vec g$ is a differentiable vector field, the surface divergence
+can be rewritten as
+\begin{equation}
+\nabla_s \,.\, \vec g(\vec z) = \sum_{j = 1}^{d} \underline{D}_j \vec g_j
+(\vec z)\,, \qquad \vec z \in \Gamma\,.
 \end{equation}
 
 We assume $\vec{\nu} \in C^1$ in a neighbourhood of $\Gamma$ so that we
@@ -132,39 +138,33 @@ $\varkappa = \frac{1}{d - 1} \sum_{j = 1}^{d - 1} \varkappa_j$.
 From (\ref{eq:matrixHjk}) we derive the following expression for mean
 curvature:
 \begin{equation}\label{eq:definition2MC}
-\varkappa (\vec z)=-\nabla_s \,.\, \vec{\nu}(\vec z) \qquad \vec z \in \Gamma\,,
+\varkappa (\vec z)=-\nabla_s \,.\, \vec{\nu}(\vec z) \qquad \vec z \in \Gamma\,.
 \end{equation}
-where $\nabla_s \,.\, \vec g = \sum_{j = 1}^{d} \underline{D}_j g_j$
-denotes the surface divergence of a vector field $\vec g$. In particular, if
-$\Gamma = \mathcal{S}^{d - 1}$ and the unit normal field is chosen to point away
-from $\Gamma$, i.e.~$\vec\nu(\vec z) = \vec z$, we obtain that $\varkappa = -
+In particular, if $\Gamma$ is the unite sphere, $\Gamma = \mathcal{S}^{d - 1}$,
+and the unit normal field is chosen to point away from $\Gamma$,
+i.e.~$\vec\nu(\vec z) = \vec z$, we obtain that $\varkappa = -
 (d - 1)$, on considering the particular function $g(\vec z) = z_j$, $j \in \{
 1, \hdots, d \}$ and observing that $\underline{D}_i z_j = \delta_{ij} - \nu_j
-\nu_i$.
+\nu_i$. This shows that the mean curvature $\varkappa$ is positive if $\Gamma$
+is curved in the direction of the normal.
 
 Moreover, while the sign of $\varkappa$ depends on the choice of the normal
-$\vec\nu$, the mean curvature vector $\varkappa \vec\nu$ is an invariant.
-By choosing again the particular function $f(\vec z) = z_j$, $j \in \{ 1,
-\hdots, d \}$ in (\ref{LaplaceBeltrami}) and recalling the application of the
-Laplace-Beltrami operator to each independent variable $z_j$, we deduce that
+$\vec\nu$, the mean curvature vector $\varkappa \vec\nu$ is an invariant. By
+choosing again the particular function $g(\vec z) = z_j$, $j \in \{ 1,
+\hdots, d \}$ in (\ref{eq:surface_laplacian_comp}) and recalling the application
+of the Laplace-Beltrami operator to each independent variable $z_j$, we deduce
+that
 \begin{equation}
 \Delta_s z_j = - \sum_{i = 1}^{d} \underline{D}_i (\nu_j \nu_i) =
 - (\nabla_s \,.\, \vec\nu) \nu_j - \nabla_s \, \nu_j \,.\, \vec\nu = \varkappa
 \nu_j\, ,
 \end{equation}
-\begin{equation}\label{BeltramiXHnu}
-\Delta_s \vec z = \varkappa \vec \nu \qquad \mbox{ on } \Gamma \, .
-\end{equation}
-This identity of differential geometry will be useful at a later stage
-for the presentation of finite element approximations for
-\textit{surface diffusion}, see Section \ref{numApproxGeomFlows}.
-
-
-
-In particular, see e.g.\ \cite{DeckelnickDE05}, it holds that
+which leads to the identity
 \begin{equation} \label{eq:LBop}
 \Delta_s\, \vec \id = \varkappa\, \vec\nu \qquad \mbox{on $\Gamma(t)$}\,.
 \end{equation}
+This identity of differential geometry will be useful at a later stage to
+obtain a weak formulation of the surface diffusion and mean curvature problems.
 
 \section[Front tracking approach]{Front tracking approach}
 We always treat the interface using a front tracking approach which involves
@@ -388,7 +388,6 @@ where, in the last equality, we have used the fact that $\langle \vec
 \nu\,,\,\nabla \chi_k^m  \rangle_{\Gamma^m}$. Therefore, in practice,
 (\ref{eq:algebraic_entries_c}) can be assembled as the standard Laplacian
 term $\langle \nabla \chi_k^m \, , \nabla \chi_l^m \rangle_{\Gamma^m}$.
-
 
 The linear systems (\ref{eq:algebraic_mean_curvature}) and
 (\ref{eq:algebraic_surf_diff}) are invertible under a suitable assumption on the
