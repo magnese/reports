@@ -61,8 +61,8 @@ $\varkappa$ are of interest.
 \section[Flow governing equations]{Flow governing equations}
 For what concern the bulk flow, we restrict ourselves to isothermal conditions,
 incompressible fluids and we assume that there is no change of phase. Under
-this assumption, the fluid dynamics is modeled by the incompressible
-Navier--Stokes equations.
+this assumption, the fluid dynamics is modelled by the incompressible
+Navier--Stokes equations. For more details see \cite{GrossR11}.
 
 Denoting the velocity and pressure by $\vec u$ and $p$, respectively, we
 introduce the Newtonian stress tensor
@@ -200,7 +200,7 @@ match the flow normal velocity across the interface $\Gamma(t)$.
 The momentum conservation in a small material volume that intersects the
 interface leads to the stress balance condition
 \begin{equation}\label{eq:interface_jump_stress_div}
-[\mat\sigma\,\vec \nu]_-^+ = \nabs\,.\mat\sigma_{\Gamma} \qquad \mbox{on }
+[\mat\sigma\,\vec \nu]_-^+ = -\nabs\,.\mat\sigma_{\Gamma} \qquad \mbox{on }
 \Gamma(t)\,,
 \end{equation}
 where $\mat\sigma_{\Gamma}$ is the interface stress tensor and $\nabs\,.$ is
@@ -229,7 +229,7 @@ We restrict ourselves to the case that the only force acting on the interface
 is the surface tension contact force therefore the interface stress tensor
 $\mat\sigma_\Gamma$ has the following constitutive equation
 \begin{equation}\label{eq:interface_stress_tensor}
-\mat\sigma_{\Gamma}=-\gamma\,\mat P\,,
+\mat\sigma_{\Gamma}=\gamma\,\mat P\,,
 \end{equation}
 where $\gamma$ is the surface tension coefficient. Substituting
 (\ref{eq:interface_stress_tensor}) in (\ref{eq:interface_jump_stress_div}) we
@@ -249,7 +249,7 @@ always orthogonal to the surface normal $\vec\nu$ and that $\varkappa =
 is used, since $\mat\sigma_{\Gamma}$ should represent only contact forces that
 are tangential to the surface. We assume that $\gamma$ is constant and
 therefore, from (\ref{eq:interface_stress_tensor_divergence}), we obtain the
-stress balance condition
+so called clean interface model for the interfacial forces
 \begin{equation}\label{eq:interface_jump_stress}
 [\mat\sigma\,\vec \nu]_-^+ = -\gamma\,\varkappa\,\vec\nu \qquad \mbox{on }
 \Gamma(t)\,.
