@@ -36,7 +36,10 @@ A general geometric evolution equation has the following formulation
 which prescribes the normal velocity $\vec{\mathcal{V}}\,.\,\vec\nu$ of the
 interface $\Gamma(t)$ as a function depending on the position $\vec z$, its
 normal direction $\vec{\nu}$ and the sum of its principal curvatures
-$\varkappa$.
+$\varkappa$. The evolution equation (\ref{eq:geometric_pde}) prescribes only
+the normal velocity therefore the overall goal is to find a family of
+solutions $\{ \Gamma(t) \}_{t \in [0, T]}$ of closed compact and orientable
+hypersurfaces in $\R^{d}$ ($d = 2$ for curves, $d = 3$ for surfaces).
 
 The simplest geometric PDE is the one which arises from motion by mean
 curvature,
@@ -166,6 +169,121 @@ which leads to the identity
 This identity of differential geometry will be useful at a later stage to
 obtain a weak formulation of the surface diffusion and mean curvature problems.
 
+\section[Properties of geometric flows]{Properties of geometric flows}
+Here we report some fundamental properties of the mean curvature flow and
+surface diffusion. In order to derive these properties, we need a transport
+theorem for integrals. Consider a family $\{ \Gamma(t) \}_{t \in [0, T]}$
+of hypersurfaces that evolve over time. Such a family is called a
+$C^{2,1}$-family of hypersurfaces if, for each point $(\vec z_0, t_0) \in
+\R^{d} \times (0, T)$ with $\vec z_0 \in \Gamma_0$, there exists an
+open set $G \subset \R^{d}$, $\delta > 0$ and a function
+$g \in C^{2,1}(G \times (t_0 - \delta, t_0 + \delta))$ such that
+\begin{equation}
+G \cap \Gamma (t) = \{ \vec{z} \in G \, | \, g (\vec z, t) = 0 \}
+\qquad \mbox{ and } \qquad \nabla \, g (\vec z, t) \neq 0
+\quad \forall\ \vec z \in G \cap \Gamma(t) \, .
+\end{equation}
+
+Now take a family $\{ \Gamma(t) \}_{t \in [0, T]}$ of evolving hypersurfaces
+which satisfies the above assumptions and, moreover, suppose that each surface
+$\Gamma(t)$ is compact. We are interested in the time derivative of certain
+volume and area integrals. As usual, $\surfvol$ is the $(d-1)$-dimensional
+Hausdorff measure and $\vol$ is the Lebesgue measure in $\R^d$.
+
+\begin{lemma}
+Let $g \in C^1(Q)$, where $Q$ is an open set containing
+
+\begin{equation}
+\bigcup_{0 < t < T} \Gamma(t) \times \{ t \} \, .
+\end{equation}
+
+Suppose in addition that each surface $\Gamma(t)$ is the boundary of an open
+bounded subset $\Omega(t) \subset \R^{d}$. Then
+
+\begin{align}
+\ddt \int_{\Omega(t)} g \, \dL{d} & =
+\int_{\Omega(t)} \frac{\partial g}{\partial t} \, \dL{d}
++ \int_{\Gamma(t)} g \,\vec{\mathcal{V}}\,.\,\vec\nu \, \dH{d-1} \, ,
+\label{eq:variationVolume} \\
+\ddt \int_{\Gamma(t)} g \, \dH{d-1} & =
+\int_{\Gamma(t)} \frac{\partial g}{\partial t} \, \dH{d-1} -
+\int_{\Gamma(t)} g \, \vec{\mathcal{V}}\,.\,\vec\nu \varkappa \, \dH{d-1}
+\nonumber \\
+& + \int_{\Gamma(t)} \frac{\partial g}{\partial \vec{\nu}}\,
+\vec{\mathcal{V}}\,.\,\vec\nu \, \dH{d-1} \, .
+\label{eq:variationLength}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+For a proof, see \cite[\S~2.6, Lemma 2.1]{DeckelnickDE05}.
+\end{proof}
+
+The evolution of an hypersurface subject to the mean curvature flow
+(\ref{eq:mean_curvature}) exhibits the interesting area-decreasing property,
+which is obtained from the following lemma.
+
+\begin{lemma}
+Let $\Gamma(t)$ be a family of evolving hypersurfaces
+satisfying \eqref{eq:mean_curvature} and assume that each $\Gamma(t)$ is
+compact. Then
+
+\begin{equation}
+\int_{\Gamma(t)} (\vec{\mathcal{V}}\,.\,\vec\nu)^2 \, \dH{d-1} +
+\ddt \surfvol(\Gamma(t)) = 0 \, . \label{eq:lengthDecrease}
+\end{equation}
+
+\end{lemma}
+
+\begin{proof}
+Choosing $g \equiv 1$ in (\ref{eq:variationLength}) and the evolution law
+(\ref{eq:mean_curvature}) yields the desired result.
+\end{proof}
+The case $d = 2$ is usually referred to as curve shortening flow.
+
+On the other hand, the evolution of an hypersurface subject to surface
+diffusion (\ref{eq:surface_diff}) conserves, for closed hypersurfaces, the
+enclosed volume and decreases the area as obtained from the following
+lemma
+
+\begin{lemma}
+Let $\Gamma(t)$ be a family of evolving hypersurfaces
+satisfying \eqref{eq:surface_diff} and assume that each $\Gamma(t)$ is
+compact and closed. Then
+\begin{align}
+\ddt \vol(\Omega(t)) & = 0 \,, \label{eq:conservationVolume} \\
+\ddt \surfvol (\Gamma(t)) & \leq 0 \,.\label{eq:areaDecrease}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+For (\ref{eq:conservationVolume}), choosing $g \equiv 1$ in
+(\ref{eq:variationVolume}) and the evolution law (\ref{eq:surface_diff}) yields
+to
+\begin{align*}
+\ddt \vol(\Omega(t)) &= - \int_{\Gamma(t)} \vec{\mathcal{V}}\,.\,\vec\nu \,
+\dH{d-1} = \nonumber \\
+\int_{\Gamma(t)} \Delta_s \, \varkappa \, \dH{d-1} &= - \int_{\Gamma(t)}
+\nabla_s \, \varkappa \,.\, \nabla_s \, 1 \, \dH{d-1}= 0 \,.
+\end{align*}
+
+Similarly For (\ref{eq:areaDecrease}), choosing $g \equiv 1$ in
+(\ref{eq:variationLength}) and the evolution law (\ref{eq:surface_diff}) yields
+to
+\begin{equation*}
+\ddt \surfvol(\Gamma(t)) = - \int_{\Gamma(t)} \vec{\mathcal{V}}\,.\,\vec\nu
+\varkappa \, \dH{d-1} = - \int_{\Gamma(t)} |\nabs \, \varkappa|^2 \, \dH{d-1}
+\leq 0 \,.
+\end{equation*}
+\end{proof}
+
+From a physical point of view, equation (\ref{eq:lengthDecrease}) and
+(\ref{eq:areaDecrease}) are associated to the minimization of the interfacial
+energy with constant energy density 1 which is defined as
+\begin{equation}
+E(\Gamma(t)) = \int_{\Gamma(t)} 1 \, \dH{d-1} \, .
+\end{equation}
+
 \section[Front tracking approach]{Front tracking approach}
 We always treat the interface using a front tracking approach which involves
 seeking a parametrization of the unknown interface over a reference manifold.
@@ -272,11 +390,11 @@ each time level. Here $\langle\cdot,\cdot\rangle_{\Gamma^m}$ is the $L^2$ inner
 product over the current polyhedral surface
 \begin{equation}\label{}
 \langle u,v\rangle_{\Gamma^m} =
-\int_{\Gamma^m}uv\,\mathrm{d}\mathcal{H}^{d-1}\,, \qquad\forall u,v \in
+\int_{\Gamma^m}uv\,\dH{d-1}\,, \qquad\forall u,v \in
 L^2(\Gamma^m),
 \end{equation}
-where $\mathcal{H}^{d-1}$ is the $(d-1)$-dimensional Hausdorff measure, and
-similarly for $\vec{u},\vec{v}\in L^2(\Gamma^m,\mathbb{R}^d)$. In addition,
+where $\surfvol$ is the $(d-1)$-dimensional Hausdorff measure, and
+similarly for $\vec{u},\vec{v}\in L^2(\Gamma^m,\R^d)$. In addition,
 $\langle \cdot,\cdot\rangle_{\Gamma^m}^h$ is a mass lumped inner product with
 the vertices of each triangle of the mesh as quadrature points. If $v,w \in
 L^\infty(\Gamma^m)$ are piecewise continuous, with possible jumps
@@ -284,7 +402,7 @@ across the edges of $\{\sigma_j^m\}_{j=1}^{J_\Gamma}$, we define the mass
 lumped inner product $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ as
 \begin{equation} \label{eq:masslump}
 \left\langle v, w \right\rangle^h_{\Gamma^m} :=
-\tfrac1d \sum_{j=1}^{J_\Gamma} \mathcal{H}^{d-1}(\sigma^m_j)\,
+\tfrac1d \sum_{j=1}^{J_\Gamma} \surfvol(\sigma^m_j)\,
 \sum_{k=1}^{d} (v\,w)((\vec{q}^m_{j_k})^-),
 \end{equation}
 where $\{\vec{q}^m_{j_k}\}_{k=1}^{d}$ are the vertices of $\sigma^m_j$, and
@@ -320,7 +438,7 @@ corresponding algebraic system of equations can be written as
 
 \begin{equation}\label{eq:algebraic_mean_curvature}
 \begin{pmatrix}
-\tau_m \, M_m & - \, \vec{N}_{m}^{T} \\
+M_m & -\,\frac{1}{\tau_m} \, \vec{N}_{m}^{T} \\
 \vec{N}_m & \vec{A}_m
 \end{pmatrix}
 \begin{pmatrix}
@@ -337,7 +455,7 @@ while, for the system of equations describing the surface diffusion,
 (\ref{eq:fem_surf_diff_a}--b), the algebraic system is
 \begin{equation}\label{eq:algebraic_surf_diff}
 \begin{pmatrix}
-\tau_m \, A_m & - \, \vec{N}_{m}^{T} \\
+A_m & - \,\frac{1}{\tau_m}\, \vec{N}_{m}^{T} \\
 \vec{N}_m & \vec{A}_m
 \end{pmatrix}
 \begin{pmatrix}
