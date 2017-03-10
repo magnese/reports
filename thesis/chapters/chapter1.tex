@@ -466,9 +466,12 @@ A_m & - \,\frac{1}{\tau_m}\, \vec{N}_{m}^{T} \\
 \begin{pmatrix}
 0 \\
 - \vec{A}_m \, \vec{X}^{m}
-\end{pmatrix}.
+\end{pmatrix},
 \end{equation}
-We can notice that the only difference between the above systems occurs in the
+where we define the interface displacement $\delta \vec{X}^{m + 1}=\vec{X}^{m +
+1} - \vec{X}^{m}$ and we have used the trivial identity $\vec{A}_m\,\vec{X}^{m
++ 1} = \vec{A}_m\,\vec{X}^{m}+\vec{A}_m\,\delta \vec{X}^{m + 1} $. We can
+notice that the only difference between the above systems occurs in the
 upper-left entry of the matrix.
 
 The entries of the matrix are defined as
@@ -515,13 +518,65 @@ very small also for fine meshes therefore they can be solved very efficiently
 with a sparse factorization package such as \verb|UMFPACK|, see \cite{Davis04}.
 
 \section[Numerical results]{Numerical results}
+Here we report several numerical examples to benchmark the schemes
+(\ref{eq:fem_mean_curvature_a}--b) and (\ref{eq:fem_surf_diff_a}--a).
 
-It can be shown that both (\ref{eq:mean_curvature}) and
-(\ref{eq:surface_diff}) decrease the surface area of $\Gamma(t)$ over time.
-Moreover (\ref{eq:surface_diff}) conserves the volume enclosed by $\Gamma(t)$,
-which means that a sphere remains exactly the same sphere when it evolves
-according to surface diffusion. See \cite{DeckelnickDE05} for more details on
-geometric evolution equations and their numerical approximation.
+We remark that the initial mean curvature of an hypersurface can be obtained
+directly from the identity (\ref{eq:LBop}). Equivalently, the unknown
+mean curvature $\varkappa$ can be computed by solving the algebraic system
+\begin{equation}\label{eq:algebraic_initial_curvature}
+\begin{pmatrix}
+0 & -\,\frac{1}{\tau} \, \vec{N}_{0}^{T} \\
+\vec{N}_0 & \vec{A}_0
+\end{pmatrix}
+\begin{pmatrix}
+\kappa \\
+\delta \vec X
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\
+- \vec{A}_0 \, \vec{X}^{0}
+\end{pmatrix}
+.
+\end{equation}
+Indeed, the algebraic system (\ref{eq:algebraic_initial_curvature}) is the
+discretization of the stationary geometric PDE
+\begin{equation}
+\vec{\mathcal{V}}\,.\,\vec\nu=0\qquad\mbox{on }\Gamma(t)\,,
+\end{equation}
+coupled with the identity (\ref{eq:LBop}) therefore $\delta\vec X \equiv 0$ and
+(\ref{eq:algebraic_initial_curvature}) can be simply rewritten as
+\begin{equation}
+\vec{N}_0\,\kappa=- \vec{A}_0 \, \vec{X}^{0}\,,
+\end{equation}
+which is the discrete version of (\ref{eq:LBop}).
+
+\subsection[Mean curvature flow with sphere as initial condition]{Mean curvature
+flow with sphere as initial condition}
+As regards the mean curvature flow, the simplest case is to use a sphere as the
+initial condition, see \cite{Ilmanen98}. In this case, the solution to the
+geometric evolution equation is known in closed form and it is a shrinking
+sphere. Let $\Gamma(t) = \partial B_{r(t)}(\vec z_0) \subset \R^d$,
+oriented by the outer normal
+$\vec \nu(\vec{z}) = \frac{\vec z - \vec z_0}{r(t)}$.
+It is straightforward to derive that
+$ \vec{\mathcal{V}}\,.\,\vec\nu = r^{\prime}(t), \varkappa = - \frac{d -
+1}{r(t)}$ on $\Gamma(t)$, so that $\Gamma(t)$ moves by mean curvature provided
+that $r^{\prime}(t) = - \frac{d - 1}{r(t)}$. The solution of this separable
+variable ODE is easily given by
+$r(t) = \sqrt{r_0^2 - 2(d - 1)t}, \, 0 \leq t < t_e$, where $\Gamma_0 =
+\partial B_{r_0}(\vec z_0)$ and $t_e=\frac{r_0^2}{2(d - 1)}$ is the so called
+extinction time. It is worth noting that the surface $\Gamma(t)$ shrinks to a
+point as $t \rightarrow t_e$.
+
+In Fig.\ref{fig:mcf_sphere} there are 4 snapshots of the simulation at time
+$t=0.1$, $t=2.1$, $t=4.1$ and $t=6.1$ respectively. The initial sphere has
+radius $r_0=5$; obviously $d=3$ since the simulation is 3-D. In this case, the
+extinction time, is $t_e=\frac{25}{4}=6.25$. The number of mesh elements is
+74770 and there are 37387 nodes. The time step is constant and equal to
+$\tau=0.1$.
+
 
 Finally, we need to introduce a mass lumped inner product on $\Gamma^m$, that
 is crucial for the desired tangential motion of vertices on $\Gamma^m$. This
