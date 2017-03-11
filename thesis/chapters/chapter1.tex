@@ -143,7 +143,8 @@ curvature:
 \begin{equation}\label{eq:definition2MC}
 \varkappa (\vec z)=-\nabla_s \,.\, \vec{\nu}(\vec z) \qquad \vec z \in \Gamma\,.
 \end{equation}
-In particular, if $\Gamma$ is the unite sphere, $\Gamma = \mathcal{S}^{d - 1}$,
+In particular, if $\Gamma$ is the unite sphere,
+$\Gamma = \{ \vec z \in \R^d : |\vec z| = 1 \}$,
 and the unit normal field is chosen to point away from $\Gamma$,
 i.e.~$\vec\nu(\vec z) = \vec z$, we obtain that $\varkappa = -
 (d - 1)$, on considering the particular function $g(\vec z) = z_j$, $j \in \{
@@ -552,31 +553,57 @@ coupled with the identity (\ref{eq:LBop}) therefore $\delta\vec X \equiv 0$ and
 \end{equation}
 which is the discrete version of (\ref{eq:LBop}).
 
-\subsection[Mean curvature flow with sphere as initial condition]{Mean curvature
-flow with sphere as initial condition}
+\subsection[Mean curvature flow with a sphere as initial condition]
+{Mean curvature flow with a sphere as initial condition}
 As regards the mean curvature flow, the simplest case is to use a sphere as the
 initial condition, see \cite{Ilmanen98}. In this case, the solution to the
 geometric evolution equation is known in closed form and it is a shrinking
-sphere. Let $\Gamma(t) = \partial B_{r(t)}(\vec z_0) \subset \R^d$,
-oriented by the outer normal
-$\vec \nu(\vec{z}) = \frac{\vec z - \vec z_0}{r(t)}$.
-It is straightforward to derive that
-$ \vec{\mathcal{V}}\,.\,\vec\nu = r^{\prime}(t), \varkappa = - \frac{d -
+sphere. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z -\vec z_0| = r(t) \}$,
+oriented by the outer normal $\vec \nu(\vec{z}) = \frac{\vec z - \vec
+z_0}{r(t)}$. It is straightforward to derive that
+$\vec{\mathcal{V}}\,.\,\vec\nu = r^{\prime}(t), \varkappa = - \frac{d -
 1}{r(t)}$ on $\Gamma(t)$, so that $\Gamma(t)$ moves by mean curvature provided
 that $r^{\prime}(t) = - \frac{d - 1}{r(t)}$. The solution of this separable
-variable ODE is easily given by
-$r(t) = \sqrt{r_0^2 - 2(d - 1)t}, \, 0 \leq t < t_e$, where $\Gamma_0 =
-\partial B_{r_0}(\vec z_0)$ and $t_e=\frac{r_0^2}{2(d - 1)}$ is the so called
-extinction time. It is worth noting that the surface $\Gamma(t)$ shrinks to a
-point as $t \rightarrow t_e$.
+variable ODE is easily given by $r(t) = \sqrt{r_0^2 - 2(d - 1)t}, \, 0 \leq t <
+t_e$, where $\Gamma(0) = \{ \vec z \in \R^d : |\vec z -\vec z_0| = r_0 \}$ and
+$t_e=\frac{r_0^2}{2(d - 1)}$ is the so called extinction time. It is worth
+noting that the surface $\Gamma(t)$ shrinks to a point as $t \rightarrow t_e$.
 
-In Fig.\ref{fig:mcf_sphere} there are 4 snapshots of the simulation at time
-$t=0.1$, $t=2.1$, $t=4.1$ and $t=6.1$ respectively. The initial sphere has
-radius $r_0=5$; obviously $d=3$ since the simulation is 3-D. In this case, the
-extinction time, is $t_e=\frac{25}{4}=6.25$. The number of mesh elements is
-74770 and there are 37387 nodes. The time step is constant and equal to
-$\tau=0.1$.
+Figure~\ref{fig:mcf_sphere} shows the evolution of a sphere with initial radius
+$r_0=5$ at time $t=0$, $t=2$, $t=4$ and $t=6$ respectively. In this case, the
+extinction time, is $t_e=6.25$. The number of mesh elements is $J_\Gamma=3026$
+and the time step is constant and equal to $\tau=10^{-3}$.
+Figure~\ref{fig:mcf_sphere_radius} shows in red the average radius length
+over time of the sphere while the blue plot is the the exact length computed
+from the analytical solution.
 
+\begin{figure}[htbp]
+\centering
+\subfloat[$t=0$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/mcf_sphere_0.ps}}
+\quad
+\subfloat[$t=2$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/mcf_sphere_2.ps}}
+\\
+\subfloat[$t=4$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/mcf_sphere_4.ps}}
+\quad
+\subfloat[$t=6$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/mcf_sphere_6.ps}}
+\caption{Surface evolution of a sphere of initial radius $r_0=5$ subject to
+mean curvature flow.}
+\label{fig:mcf_sphere}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/mcf_sphere_radius.ps}
+\caption{Average radius of a sphere of initial radius $r_0=5$ subject to
+mean curvature flow. In blue the analytical solution while in red the computed
+one.}
+\label{fig:mcf_sphere_radius}
+\end{figure}
 
 Finally, we need to introduce a mass lumped inner product on $\Gamma^m$, that
 is crucial for the desired tangential motion of vertices on $\Gamma^m$. This
