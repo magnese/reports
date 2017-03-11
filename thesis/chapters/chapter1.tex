@@ -605,6 +605,39 @@ one.}
 \label{fig:mcf_sphere_radius}
 \end{figure}
 
+\subsection[Equidistribution property]{Equidistribution property}
 Finally, we need to introduce a mass lumped inner product on $\Gamma^m$, that
 is crucial for the desired tangential motion of vertices on $\Gamma^m$. This
 induced tangential motion will lead to good interface mesh properties.
+
+The number of mesh elements is $J_\Gamma=32$.
+
+\begin{figure}[htbp]
+\centering
+\subfloat[$t=0$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_circle_0.ps}}
+\quad
+\subfloat[$t=0.05$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_circle_005.ps}}
+\\
+\subfloat[$t=0.25$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_circle_025.ps}}
+\quad
+\subfloat[$t=10$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_circle_10.ps}}
+\caption{Surface evolution of a circle of initial radius $r_0=0.5$ subject to
+surface diffusion.}
+\label{fig:sd_circle}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/sd_circle_tau.ps}
+\caption{Time evolution of the ratio
+$\frac{\max_{\sigma\in \Gamma^m}(\surfvol(\sigma))}
+{\min_{\sigma\in\Gamma^m}(\surfvol(\sigma))}$ for a circle of initial radius
+$r_0=0.5$ subject to surface diffusion. In red $\tau=10^{-2}$, in green
+$\tau=10^{-3}$ and in blue $\tau=10^{-4}$.}
+\label{fig:sd_circle_tau}
+\end{figure}
