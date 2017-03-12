@@ -641,3 +641,50 @@ $r_0=0.5$ subject to surface diffusion. In red $\tau=10^{-2}$, in green
 $\tau=10^{-3}$ and in blue $\tau=10^{-4}$.}
 \label{fig:sd_circle_tau}
 \end{figure}
+
+\subsection[Surface diffusion with a cage as initial condition]{Surface
+diffusion with a cage as initial condition}
+Our last simulation is inspired by the test in \cite[Fig.~15]{BGN2008}. We
+investigate the evolution of a cage subject to surface diffusion. The
+dimensions of the initial surface are $4 \times 4 \times 4$, with the region
+enclosed by $\Gamma(0)$ given as the union of 12 cuboids of dimension $4 \times
+1 \times 1$. The number of mesh elements is $J_\Gamma=3816$.
+
+Here a topological change is encountered when the six holes of the
+surface are about to close to form a hollow ball.
+
+\begin{figure}[htbp]
+\centering
+\subfloat[$t=0$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_cage_0.ps}}
+\quad
+\subfloat[$t=0.2$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_cage_02.ps}}
+\\
+\subfloat[$t=0.4$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_cage_04.ps}}
+\quad
+\subfloat[$t=0.6$]{
+\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_cage_06.ps}}
+\caption{Surface evolution of a cage $4 \times 4 \times 4$ subject to surface
+diffusion.}
+\label{fig:sd_cage}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/sd_cage_06_section.ps}
+\caption{Section at $t=0.6$ of a cage $4 \times 4 \times 4$ subject to surface
+diffusion.}
+\label{fig:sd_cage_section}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/sd_cage_energy.ps}
+\caption{Surface energy evolution $\surfvol(\Gamma^m)$ of a cage $4 \times 4
+\times 4$ subject to surface diffusion.}
+\label{fig:sd_cage_energy}
+\end{figure}
