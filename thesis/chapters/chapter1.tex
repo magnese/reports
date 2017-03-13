@@ -279,9 +279,9 @@ to
 \end{proof}
 
 From a physical point of view, equation (\ref{eq:lengthDecrease}) and
-(\ref{eq:areaDecrease}) are associated to the minimization of the interfacial
+(\ref{eq:areaDecrease}) are associated to the minimization of the surface
 energy with constant energy density 1 which is defined as
-\begin{equation}
+\begin{equation}\label{eq:surface_energy}
 E(\Gamma(t)) = \int_{\Gamma(t)} 1 \, \dH{d-1} \, .
 \end{equation}
 
@@ -433,6 +433,41 @@ changed as
 \end{align}
 \end{subequations}
 
+If $\Gamma^m$ is an hypersurface without self-intersections, then there exist
+a unique solution $(\vec{X}^{m+1}, \kappa^{m+1}) \in \Vh \times \Wh$ to the
+systems (\ref{eq:fem_mean_curvature_a}--b) and (\ref{eq:fem_surf_diff_a}--b).
+See \cite[Theorem~2.1]{gflows3d} for the complete proof. Furthermore,
+the schemes (\ref{eq:fem_mean_curvature_a}--b) and
+(\ref{eq:fem_surf_diff_a}--b) are unconditionally stable. See
+\cite[Theorem~2.3]{triplej} for the case $d = 2$ and to
+\cite[Theorem~2.2]{gflows3d} for $d = 3$ for the complete proofs.
+
+As shown in \cite[Remark~2.3]{triplej} and \cite[\S~4]{gflows3d}, the
+continuous-in-time semidiscrete versions of the aforementioned finite element
+schemes conserve the enclosed volume exactly. It does not appear possible to
+prove the conservation of the enclosed volume for the fully discrete scheme
+but, from all the numerical simulations performed in this thesis, we
+experimentally observe that the enclosed volume is approximately preserved, and
+that the volume loss tends to zero as $\tau \rightarrow 0$.
+
+Finally, in \cite[Remark~2.4]{triplej} the authors proved that for $d=2$ the
+continuous-in-time semidiscrete version of (\ref{eq:fem_surf_diff_a}--b)
+will always equidistribute the vertices provided that they are not locally
+parallel. Unfortunately, it does not appear possible to prove it for fully
+discrete scheme. Nevertheless, in practice we see that over a number of time
+steps, the vertices are moved tangentially so that they will eventually be
+equidistributed. Instead in \cite[\S~4]{gflows3d} the case $d=3$ has been
+thoroughly investigated showing that the continuous-in-time semidiscrete version
+of (\ref{eq:fem_surf_diff_a}--b) guarantees good mesh properties. Again, in
+practice, we notice that it is true for the fully discrete scheme.
+
+We want to stress the fact that this equidistribution property is only
+achievable because (\ref{eq:mean_curvature}) and (\ref{eq:surface_diff})
+prescribe the velocity only in the normal direction while, in the tangential
+direction, the mesh vertices are free to move. Moreover, if instead of the mass
+lumped inner product (\ref{eq:masslump}) it is used an exact quadrature, an
+analogue of the equidistribution properties cannot be established.
+
 \section[Algebraic formulation]{Algebraic formulation}
 As regards the mean curvature flow, (\ref{eq:fem_mean_curvature_a}--b), the
 corresponding algebraic system of equations can be written as
@@ -573,9 +608,6 @@ Figure~\ref{fig:mcf_sphere} shows the evolution of a sphere with initial radius
 $r_0=5$ at time $t=0$, $t=2$, $t=4$ and $t=6$ respectively. In this case, the
 extinction time, is $t_e=6.25$. The number of mesh elements is $J_\Gamma=3026$
 and the time step is constant and equal to $\tau=10^{-3}$.
-Figure~\ref{fig:mcf_sphere_radius} shows in red the average radius length
-over time of the sphere while the blue plot is the the exact length computed
-from the analytical solution.
 
 \begin{figure}[htbp]
 \centering
@@ -595,6 +627,10 @@ mean curvature flow.}
 \label{fig:mcf_sphere}
 \end{figure}
 
+Figure~\ref{fig:mcf_sphere_radius} shows in red the average radius length
+over time of the sphere while the blue plot is the the exact length computed
+from the analytical solution.
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
@@ -606,11 +642,21 @@ one.}
 \end{figure}
 
 \subsection[Equidistribution property]{Equidistribution property}
-Finally, we need to introduce a mass lumped inner product on $\Gamma^m$, that
-is crucial for the desired tangential motion of vertices on $\Gamma^m$. This
-induced tangential motion will lead to good interface mesh properties.
+In order to show the equidistribution property of the scheme, we simulate the
+evolution, under surface diffusion, of a circle of radius $r_0=0.5$ with a very
+poor initial mesh quality. Indeed, the initial curve consists of a semi-circle
+and a single additional node on the periphery of the circle for a total number
+of mesh elements equal to $J_\Gamma=32$.
 
-The number of mesh elements is $J_\Gamma=32$.
+Figure~\ref{fig:sd_circle} shows the mesh evolution at time $t=0$, $t=0.05$,
+$t=0.25$ and $t=10$ respectively with a constant time step equal to
+$\tau=10^{-2}$. One can clearly see that although the true solution, which is a
+circle, is reached very quickly, in the remaining time the vertices are
+continually moved tangentially, which results in a further decrease in the ratio
+$\frac{\max_{\sigma\in \Gamma^m}(\surfvol(\sigma))}
+{\min_{\sigma\in\Gamma^m}(\surfvol(\sigma))}$, which approaches the optimal
+value 1. This mesh quality indicator is simply the ratio between the maximum
+and minimum segment of the hypersurface.
 
 \begin{figure}[htbp]
 \centering
@@ -630,6 +676,10 @@ surface diffusion.}
 \label{fig:sd_circle}
 \end{figure}
 
+In Figure~\ref{fig:sd_circle_tau} we see that the equidistribution velocity is
+varying inversely with the size of $\tau$. For example, when $\tau=10^{-4}$,
+the equidistribution is reached almost instantaneously.
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
@@ -642,16 +692,17 @@ $\tau=10^{-3}$ and in blue $\tau=10^{-4}$.}
 \label{fig:sd_circle_tau}
 \end{figure}
 
-\subsection[Surface diffusion with a cage as initial condition]{Surface
-diffusion with a cage as initial condition}
-Our last simulation is inspired by the test in \cite[Fig.~15]{BGN2008}. We
+\subsection[Surface diffusion with a cage as initial condition]
+{Surface diffusion with a cage as initial condition}
+Our last simulation is inspired by the test in \cite[Fig.~15]{gflows3d}. We
 investigate the evolution of a cage subject to surface diffusion. The
 dimensions of the initial surface are $4 \times 4 \times 4$, with the region
 enclosed by $\Gamma(0)$ given as the union of 12 cuboids of dimension $4 \times
-1 \times 1$. The number of mesh elements is $J_\Gamma=3816$.
+1 \times 1$.
 
-Here a topological change is encountered when the six holes of the
-surface are about to close to form a hollow ball.
+Figure~\ref{fig:sd_cage} shows the cage evolution at time $t=0$, $t=0.2$,
+$t=0.4$ and $t=0.6$ respectively. The number of mesh elements is
+$J_\Gamma=3816$ and the time step is constant and equal to $\tau=10^{-2}$.
 
 \begin{figure}[htbp]
 \centering
@@ -671,6 +722,16 @@ diffusion.}
 \label{fig:sd_cage}
 \end{figure}
 
+At time $t=0.6$ a topological change is encountered when the six holes of the
+surface are about to close to form a hollow ball.
+Figure~\ref{fig:sd_cage_section} shows a section of this hallow ball. A
+topological change breaks the front tracking approach since the reference
+manifold $\Gamma^m$ is not topological compatible with the unknown surface
+$\Gamma^{m+1}$. In practice, it is possible to apply some heuristic algorithms
+for the detection of topological changes, such as the merging of surfaces into
+one or the pinching-off of one surface from another, which can lead to a
+modified surface mesh that can be handled again with the parametric approach.
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
@@ -679,6 +740,10 @@ diffusion.}
 diffusion.}
 \label{fig:sd_cage_section}
 \end{figure}
+
+Finally, Figure~\ref{fig:sd_cage_energy} shows the evolution of the surface
+energy (\ref{eq:surface_energy}) over time. As expected, see
+(\ref{eq:areaDecrease}), this energy is monotonically decreasing.
 
 \begin{figure}[htbp]
 \centering
