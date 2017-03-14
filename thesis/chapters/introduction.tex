@@ -1,4 +1,22 @@
 \chapter{\sc Introduction}\label{ch:introduction}
+Fluid flow problems with a unknown interface are ubiquitous in physics and
+engineering. This introductory chapter is devoted to a description of the
+mathematical model used to model this type of systems together with a brief
+overview of the possible approach to describe the unknown interface.
+
+The chapter is organised as follows: in Section~\ref{sec:free_boundary_flows}
+we define what a free-boundary fluid flow is and we introduce a generic setting
+for the problem; in Section~\ref{sec:flow_equations} we present the
+Navier--Stokes equations which govern the fluid; in
+Section~\ref{sec:bc_conditions} we discuss the boundary, initial and interface
+conditions needed for the well possessedness of the problem; in
+Section~\ref{sec:interface_treatment} we briefly overview the different way to
+treat the unknown interface; in Section~\ref{sec:numerical_challenges} we detail
+the various numerical challenges posed by these type of flows; in
+Section~\ref{sec:numerical_implementation} we finally list the libraries used to
+implement the numerical schemes described in this thesis and we provide the
+links to the code developed in order to make all the results presented in this
+work reproducible.
 
 \section{Free-boundary fluid flows}\label{sec:free_boundary_flows}
 Fluid flow problems with a moving interface are encountered in many

@@ -1,9 +1,35 @@
 \chapter{\sc Geometric Evolution Equations}\label{ch:geometric_pdes}
-
-\section{Geometric PDEs}\label{sec:geometric_pdes}
 As starting point, in order to describe the key ideas of the front tracking
 approach, we consider the simple problem of purely geometric evolution
-equations. A geometric evolution equation defines the motion of a hypersurface
+equations. The overall goal of this chapter is to give the reader a brief
+overview of these time-dependent interface problems, report some useful
+definitions and theorems from differential geometry and present an efficient
+numerical method to simulate the evolution of closed hypersurfaces in the
+setting of the parametric approach. These techniques will be used extensively
+in the following chapters in order to simulate the unknown interface in the
+two-phase flow context.
+
+The chapter is organised as follows: in Section~\ref{sec:geometric_pdes} we
+give the definition of geometric evolution equation and in particular we
+confine our attention to the so called mean curvature flow and surface
+diffusion; in Section~\ref{sec:geometric_analysis} we present some definitions
+and known results from differential geometry which will be employed throughout
+the thesis; in Section~\ref{sec:geometric_flows_properties} we report some
+fundamental properties of geometric flows, recalling theoretical results already
+proven in the literature; in Section~\ref{sec:front_tracking_approach} we
+introduce, in order to describe the unknown surface, the front tracking method
+which is the technique used in all our schemes; in
+Section~\ref{sec:geometric_pdes_fem} we discuss the fully practical finite
+element approximation for the interface equations which will be used throughout
+this thesis and we recall, from the literature, the main results about
+existence, uniqueness, stability and preservation of mesh quality; in
+Section~\ref{sec:geometric_pdes_algebraic} we reformulate the discrete schemes
+as algebraic systems of equations and we briefly describe the solution technique
+adopted; in Section~\ref{sec:geometric_pdes_results} we report three different
+experiments in order to show the property of the schemes and of the flows.
+
+\section{Geometric PDEs}\label{sec:geometric_pdes}
+A geometric evolution equation defines the motion of a hypersurface
 by prescribing its normal velocity in terms of its geometric quantities. These
 problems are part of the more general time-dependent interface evolution
 problems category, where the normal velocity depends also on field quantities
