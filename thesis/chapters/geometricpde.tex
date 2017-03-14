@@ -1,7 +1,6 @@
-\chapter{\sc Geometric Evolution Equations}
-\label{ch:geometricpde}
+\chapter{\sc Geometric Evolution Equations}\label{ch:geometric_pdes}
 
-\section[Geometric PDEs]{Geometric PDEs}
+\section{Geometric PDEs}\label{sec:geometric_pdes}
 As starting point, in order to describe the key ideas of the front tracking
 approach, we consider the simple problem of purely geometric evolution
 equations. A geometric evolution equation defines the motion of a hypersurface
@@ -62,7 +61,7 @@ For both models, (\ref{eq:mean_curvature}) and (\ref{eq:surface_diff}), it is
 necessary to prescribe the initial interface $\Gamma(0)=\Gamma_0$ in order to
 have a well posed problem.
 
-\section[Geometric Analysis]{Geometric analysis}
+\section{Geometric analysis}\label{sec:geometric_analysis}
 The aim of this section is to collect some useful definitions and results from
 differential geometry. Again we refer to \cite{DeckelnickDE05} which cover the
 subject in depth.
@@ -131,16 +130,16 @@ $\vec\nu(\vec z)$. The remaining $d - 1$ eigenvalues $\varkappa_1 (\vec z),
 \hdots, \varkappa_{d - 1} (\vec z)$ are called the principal curvatures of
 $\Gamma$ at the point $\vec z$. The mean curvature of $\Gamma$ at $\vec z$
 can then be defined as the trace of the matrix $\mat H(\vec z)$, that is
-\begin{equation}\label{eq:definitionMC}
+\begin{equation}\label{eq:definition_mean_curvature}
 \varkappa (\vec z) = \sum_{j = 1}^{d} [\mat H(\vec z)]_{jj} = \sum_{j = 1}^{d -
 1} \varkappa_j (\vec z) \,.
 \end{equation}
-Note that (\ref{eq:definitionMC}) differs from the more common
+Note that (\ref{eq:definition_mean_curvature}) differs from the more common
 definition of mean curvature,
 $\varkappa = \frac{1}{d - 1} \sum_{j = 1}^{d - 1} \varkappa_j$.
 From (\ref{eq:matrixHjk}) we derive the following expression for mean
 curvature:
-\begin{equation}\label{eq:definition2MC}
+\begin{equation}
 \varkappa (\vec z)=-\nabla_s \,.\, \vec{\nu}(\vec z) \qquad \vec z \in \Gamma\,.
 \end{equation}
 In particular, if $\Gamma$ is the unite sphere,
@@ -170,7 +169,7 @@ which leads to the identity
 This identity of differential geometry will be useful at a later stage to
 obtain a weak formulation of the surface diffusion and mean curvature problems.
 
-\section[Properties of geometric flows]{Properties of geometric flows}
+\section{Properties of geometric flows}\label{sec:geometric_flows_properties}
 Here we report some fundamental properties of the mean curvature flow and
 surface diffusion. In order to derive these properties, we need a transport
 theorem for integrals. Consider a family $\{ \Gamma(t) \}_{t \in [0, T]}$
@@ -205,14 +204,14 @@ bounded subset $\Omega(t) \subset \R^{d}$. Then
 \ddt \int_{\Omega(t)} g \, \dL{d} & =
 \int_{\Omega(t)} \frac{\partial g}{\partial t} \, \dL{d}
 + \int_{\Gamma(t)} g \,\V\,.\,\vec\nu \, \dH{d-1} \, ,
-\label{eq:variationVolume} \\
+\label{eq:volume_variation} \\
 \ddt \int_{\Gamma(t)} g \, \dH{d-1} & =
 \int_{\Gamma(t)} \frac{\partial g}{\partial t} \, \dH{d-1} -
 \int_{\Gamma(t)} g \, \V\,.\,\vec\nu \varkappa \, \dH{d-1}
 \nonumber \\
 & + \int_{\Gamma(t)} \frac{\partial g}{\partial \vec{\nu}}\,
 \V\,.\,\vec\nu \, \dH{d-1} \, .
-\label{eq:variationLength}
+\label{eq:length_variation}
 \end{align}
 \end{lemma}
 
@@ -231,13 +230,13 @@ compact. Then
 
 \begin{equation}
 \int_{\Gamma(t)} (\V\,.\,\vec\nu)^2 \, \dH{d-1} +
-\ddt \surfvol(\Gamma(t)) = 0 \, . \label{eq:lengthDecrease}
+\ddt \surfvol(\Gamma(t)) = 0 \, . \label{eq:length_decrease}
 \end{equation}
 
 \end{lemma}
 
 \begin{proof}
-Choosing $g \equiv 1$ in (\ref{eq:variationLength}) and the evolution law
+Choosing $g \equiv 1$ in (\ref{eq:length_variation}) and the evolution law
 (\ref{eq:mean_curvature}) yields the desired result.
 \end{proof}
 The case $d = 2$ is usually referred to as curve shortening flow.
@@ -252,14 +251,14 @@ Let $\Gamma(t)$ be a family of evolving hypersurfaces
 satisfying \eqref{eq:surface_diff} and assume that each $\Gamma(t)$ is
 compact and closed. Then
 \begin{align}
-\ddt \vol(\Omega(t)) & = 0 \,, \label{eq:conservationVolume} \\
-\ddt \surfvol (\Gamma(t)) & \leq 0 \,.\label{eq:areaDecrease}
+\ddt \vol(\Omega(t)) & = 0 \,, \label{eq:volume_conservation} \\
+\ddt \surfvol (\Gamma(t)) & \leq 0 \,.\label{eq:area_decrease}
 \end{align}
 \end{lemma}
 
 \begin{proof}
-For (\ref{eq:conservationVolume}), choosing $g \equiv 1$ in
-(\ref{eq:variationVolume}) and the evolution law (\ref{eq:surface_diff}) yields
+For (\ref{eq:volume_conservation}), choosing $g \equiv 1$ in
+(\ref{eq:volume_variation}) and the evolution law (\ref{eq:surface_diff}) yields
 to
 \begin{align*}
 \ddt \vol(\Omega(t)) &= - \int_{\Gamma(t)} \V\,.\,\vec\nu \,
@@ -268,8 +267,8 @@ to
 \nabla_s \, \varkappa \,.\, \nabla_s \, 1 \, \dH{d-1}= 0 \,.
 \end{align*}
 
-Similarly For (\ref{eq:areaDecrease}), choosing $g \equiv 1$ in
-(\ref{eq:variationLength}) and the evolution law (\ref{eq:surface_diff}) yields
+Similarly For (\ref{eq:area_decrease}), choosing $g \equiv 1$ in
+(\ref{eq:length_variation}) and the evolution law (\ref{eq:surface_diff}) yields
 to
 \begin{equation*}
 \ddt \surfvol(\Gamma(t)) = - \int_{\Gamma(t)} \V\,.\,\vec\nu
@@ -278,14 +277,14 @@ to
 \end{equation*}
 \end{proof}
 
-From a physical point of view, equation (\ref{eq:lengthDecrease}) and
-(\ref{eq:areaDecrease}) are associated to the minimization of the surface
+From a physical point of view, equation (\ref{eq:length_decrease}) and
+(\ref{eq:area_decrease}) are associated to the minimization of the surface
 energy with constant energy density 1 which is defined as
 \begin{equation}\label{eq:surface_energy}
 E(\Gamma(t)) = \int_{\Gamma(t)} 1 \, \dH{d-1} \, .
 \end{equation}
 
-\section[Front tracking approach]{Front tracking approach}
+\section{Front tracking approach}\label{sec:front_tracking_approach}
 We always treat the interface using a front tracking approach which involves
 seeking a parametrization of the unknown interface over a reference manifold.
 More formally, we assume that $(\Gamma(t))_{t\in [0,T]}$ is a sufficiently
@@ -317,7 +316,7 @@ discrete interface is subject to. This can be viewed as setting, at every time
 step, a new reference manifold which correspond to the actual hypersurface
 configuration.
 
-\section[Finite element discretization]{Finite element discretization}
+\section{Finite element discretization}\label{sec:geometric_pdes_fem}
 The finite element discretization which we use is based on the seminal paper
 \cite{Dziuk91} and we refer to the ones described in
 \cite{triplej,triplejMC,gflows3d}. We use a different notation in order to be
@@ -389,7 +388,7 @@ and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$. We observe that
 linear system of equations for the unknowns $(\vec{X}^{m+1}, \kappa^{m+1})$ at
 each time level. Here $\langle\cdot,\cdot\rangle_{\Gamma^m}$ is the $L^2$ inner
 product over the current polyhedral surface
-\begin{equation}\label{}
+\begin{equation}
 \langle u,v\rangle_{\Gamma^m} =
 \int_{\Gamma^m}uv\,\dH{d-1}\,, \qquad\forall u,v \in
 L^2(\Gamma^m),
@@ -468,7 +467,7 @@ direction, the mesh vertices are free to move. Moreover, if instead of the mass
 lumped inner product (\ref{eq:masslump}) it is used an exact quadrature, an
 analogue of the equidistribution properties cannot be established.
 
-\section[Algebraic formulation]{Algebraic formulation}
+\section{Algebraic formulation}\label{sec:geometric_pdes_algebraic}
 As regards the mean curvature flow, (\ref{eq:fem_mean_curvature_a}--b), the
 corresponding algebraic system of equations can be written as
 
@@ -553,7 +552,7 @@ triangulation at each time step, see \cite{gflows3d}. The algebraic system
 very small also for fine meshes therefore they can be solved very efficiently
 with a sparse factorization package such as \verb|UMFPACK|, see \cite{Davis04}.
 
-\section[Numerical results]{Numerical results}
+\section{Numerical results}\label{sec:geometric_pdes_results}
 Here we report several numerical examples to benchmark the schemes
 (\ref{eq:fem_mean_curvature_a}--b) and (\ref{eq:fem_surf_diff_a}--a).
 
@@ -588,8 +587,8 @@ coupled with the identity (\ref{eq:LBop}) therefore $\delta\vec X \equiv 0$ and
 \end{equation}
 which is the discrete version of (\ref{eq:LBop}).
 
-\subsection[Mean curvature flow with a sphere as initial condition]
-{Mean curvature flow with a sphere as initial condition}
+\subsection{Mean curvature flow with a sphere as initial condition}
+\label{subsec:mc_sphere}
 As regards the mean curvature flow, the simplest case is to use a sphere as the
 initial condition, see \cite{Ilmanen98}. In this case, the solution to the
 geometric evolution equation is known in closed form and it is a shrinking
@@ -641,7 +640,7 @@ red the computed one.}
 \label{fig:mcf_sphere_radius}
 \end{figure}
 
-\subsection[Equidistribution property]{Equidistribution property}
+\subsection{Equidistribution property}\label{subsec:sd_circle}
 In order to show the equidistribution property of the scheme, we simulate the
 evolution, under surface diffusion, of a circle of radius $r_0=0.5$ with a very
 poor initial mesh quality. Indeed, the initial curve consists of a semi-circle
@@ -692,8 +691,8 @@ $\tau=10^{-3}$ and in blue $\tau=10^{-4}$.}
 \label{fig:sd_circle_tau}
 \end{figure}
 
-\subsection[Surface diffusion with a cage as initial condition]
-{Surface diffusion with a cage as initial condition}
+\subsection{Surface diffusion with a cage as initial condition}
+\label{subsec:sd_cage}
 Our last simulation is inspired by the test in \cite[Fig.~15]{gflows3d}. We
 investigate the evolution of a cage subject to surface diffusion. The
 dimensions of the initial surface are $4 \times 4 \times 4$, with the region
@@ -743,7 +742,7 @@ subject to surface diffusion.}
 
 Finally, Figure~\ref{fig:sd_cage_energy} shows the evolution of the surface
 energy (\ref{eq:surface_energy}) over time. As expected, see
-(\ref{eq:areaDecrease}), this energy is monotonically decreasing.
+(\ref{eq:area_decrease}), this energy is monotonically decreasing.
 
 \begin{figure}[htbp]
 \centering

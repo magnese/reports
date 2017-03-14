@@ -1,7 +1,6 @@
-\chapter{\sc Introduction}
-\label{ch:introduction}
+\chapter{\sc Introduction}\label{ch:introduction}
 
-\section[Free-boundary fluid flows]{Free-boundary fluid flows}
+\section{Free-boundary fluid flows}\label{sec:free_boundary_flows}
 Fluid flow problems with a moving interface are encountered in many
 applications in physics, engineering and biophysics. Typical applications are
 drops and bubbles, die swell, dam break, liquid storage tanks, dendritic growth,
@@ -58,7 +57,7 @@ motion. Apart from its exact position, the computation of geometrical quantities
 of $\Gamma(t)$ such as its normal vector $\nu$ and its mean curvature
 $\varkappa$ are of interest.
 
-\section[Flow governing equations]{Flow governing equations}
+\section{Flow governing equations}\label{sec:flow_equations}
 For what concern the bulk flow, we restrict ourselves to isothermal conditions,
 incompressible fluids and we assume that there is no change of phase. Under
 this assumption, the fluid dynamics is modelled by the incompressible
@@ -154,8 +153,7 @@ which for Newtonian fluids are expressed as
 \end{alignat}
 \end{subequations}
 
-\section[Boundary, initial, and interface conditions]{Boundary, initial, and
-interface conditions}
+\section{Boundary, initial, and interface conditions}\label{sec:bc_conditions}
 For the full Navier--Stokes problem (\ref{eq:ns_momentum_bis}-b), a
 divergence-free velocity field for the whole computational domain is needed as
 an initial condition therefore we impose
@@ -258,7 +256,7 @@ so called clean interface model for the interfacial forces
 Finally, in order to have a well-posed problem, one needs suitable initial
 conditions for the interface therefore we set $\Gamma(0)=\Gamma_0$.
 
-\section[Interface treatment]{Interface treatment}
+\section{Interface treatment}\label{sec:interface_treatment}
 The dynamics of the interface is determined by the condition
 (\ref{eq:interface_velocity}) which, however, describes the dynamics in a
 strongly implicit way since the velocity field $\vec u$ depends on the
@@ -324,7 +322,7 @@ which means that the discrete interface is composed by bulk element faces.
 Consequently there is a strong coupling between the bulk mesh and the interface
 mesh.
 
-\section[Numerical challenges]{Numerical challenges}
+\section{Numerical challenges}\label{sec:numerical_challenges}
 Two-phase flows pose enormous challenges to numerical simulation tools and
 they can not be solved reliably and accurately by the commercial softwares that
 are available nowadays. Therefore, compared to one-phase flow solvers, special
@@ -362,7 +360,7 @@ efficient iterative solvers. The efficiency can be largely improved by using
 special techniques that are adapted to the problem class, in the sense that the
 solver makes use of certain structural properties of the problem.
 
-\section[Numerical implementation]{Numerical implementation}
+\section{Numerical implementation}\label{sec:numerical_implementation}
 We implement all numerical schemes from scratch in \verb|C++| within the
 \verb|DUNE| framework, see \cite{dunegridpaperI08,dunegridpaperII08}.
 \verb|DUNE|, the Distributed and Unified Numerics Environment is a modular and
@@ -384,7 +382,7 @@ As grid manager we use \verb|ALBERTA|, see \cite{Alberta}, available here
 package \verb|SuiteSparse|, see \cite{Davis04}, available here
 \url{http://faculty.cse.tamu.edu/davis/suitesparse.html}.
 
-We implement the scheme described in Chapter \ref{ch:geometricpde} as a
+We implement the scheme described in Chapter \ref{ch:geometric_pdes} as a
 \verb|DUNE| module named \verb|dune-geometric-pde|, available here
 \url{https://github.com/magnese/dune-geometric-pde}, while the schemes described
 in Chapter \ref{ch:2}, Chapter \ref{ch:3} and Chapter \ref{ch:4} are implemented
