@@ -30,10 +30,10 @@ flows problem.
 
 A general geometric evolution equation has the following formulation
 \begin{equation}\label{eq:geometric_pde}
-\vec{\mathcal{V}}\,.\,\vec\nu=f(\vec{z}\,,\vec{\nu}\,,\varkappa)
+\V\,.\,\vec\nu=f(\vec{z}\,,\vec{\nu}\,,\varkappa)
 \qquad\mbox{on }\Gamma(t),
 \end{equation}
-which prescribes the normal velocity $\vec{\mathcal{V}}\,.\,\vec\nu$ of the
+which prescribes the normal velocity $\V\,.\,\vec\nu$ of the
 interface $\Gamma(t)$ as a function depending on the position $\vec z$, its
 normal direction $\vec{\nu}$ and the sum of its principal curvatures
 $\varkappa$. The evolution equation (\ref{eq:geometric_pde}) prescribes only
@@ -44,7 +44,7 @@ hypersurfaces in $\R^{d}$ ($d = 2$ for curves, $d = 3$ for surfaces).
 The simplest geometric PDE is the one which arises from motion by mean
 curvature,
 \begin{equation}\label{eq:mean_curvature}
-\vec{\mathcal{V}}\,.\,\vec\nu=\varkappa\qquad\mbox{on }\Gamma(t).
+\V\,.\,\vec\nu=\varkappa\qquad\mbox{on }\Gamma(t).
 \end{equation}
 This equation describes a surface evolving in such a way that its own normal
 velocity is equal to the sum of the $d-1$ principal curvatures of $\Gamma(t)$.
@@ -52,7 +52,7 @@ velocity is equal to the sum of the $d-1$ principal curvatures of $\Gamma(t)$.
 Another important geometric PDE is the one which arises from motion by
 surface diffusion
 \begin{equation}\label{eq:surface_diff}
-\vec{\mathcal{V}}\,.\,\vec\nu=-\Delta_s \varkappa \qquad\mbox{on }\Gamma(t)\,,
+\V\,.\,\vec\nu=-\Delta_s \varkappa \qquad\mbox{on }\Gamma(t)\,,
 \end{equation}
 where we use the Laplace--Beltrami operator $\Delta_s$ defined by
 (\ref{eq:surface_laplacian}). In this case the surface normal velocity matches
@@ -204,14 +204,14 @@ bounded subset $\Omega(t) \subset \R^{d}$. Then
 \begin{align}
 \ddt \int_{\Omega(t)} g \, \dL{d} & =
 \int_{\Omega(t)} \frac{\partial g}{\partial t} \, \dL{d}
-+ \int_{\Gamma(t)} g \,\vec{\mathcal{V}}\,.\,\vec\nu \, \dH{d-1} \, ,
++ \int_{\Gamma(t)} g \,\V\,.\,\vec\nu \, \dH{d-1} \, ,
 \label{eq:variationVolume} \\
 \ddt \int_{\Gamma(t)} g \, \dH{d-1} & =
 \int_{\Gamma(t)} \frac{\partial g}{\partial t} \, \dH{d-1} -
-\int_{\Gamma(t)} g \, \vec{\mathcal{V}}\,.\,\vec\nu \varkappa \, \dH{d-1}
+\int_{\Gamma(t)} g \, \V\,.\,\vec\nu \varkappa \, \dH{d-1}
 \nonumber \\
 & + \int_{\Gamma(t)} \frac{\partial g}{\partial \vec{\nu}}\,
-\vec{\mathcal{V}}\,.\,\vec\nu \, \dH{d-1} \, .
+\V\,.\,\vec\nu \, \dH{d-1} \, .
 \label{eq:variationLength}
 \end{align}
 \end{lemma}
@@ -230,7 +230,7 @@ satisfying \eqref{eq:mean_curvature} and assume that each $\Gamma(t)$ is
 compact. Then
 
 \begin{equation}
-\int_{\Gamma(t)} (\vec{\mathcal{V}}\,.\,\vec\nu)^2 \, \dH{d-1} +
+\int_{\Gamma(t)} (\V\,.\,\vec\nu)^2 \, \dH{d-1} +
 \ddt \surfvol(\Gamma(t)) = 0 \, . \label{eq:lengthDecrease}
 \end{equation}
 
@@ -262,7 +262,7 @@ For (\ref{eq:conservationVolume}), choosing $g \equiv 1$ in
 (\ref{eq:variationVolume}) and the evolution law (\ref{eq:surface_diff}) yields
 to
 \begin{align*}
-\ddt \vol(\Omega(t)) &= - \int_{\Gamma(t)} \vec{\mathcal{V}}\,.\,\vec\nu \,
+\ddt \vol(\Omega(t)) &= - \int_{\Gamma(t)} \V\,.\,\vec\nu \,
 \dH{d-1} = \nonumber \\
 \int_{\Gamma(t)} \Delta_s \, \varkappa \, \dH{d-1} &= - \int_{\Gamma(t)}
 \nabla_s \, \varkappa \,.\, \nabla_s \, 1 \, \dH{d-1}= 0 \,.
@@ -272,7 +272,7 @@ Similarly For (\ref{eq:areaDecrease}), choosing $g \equiv 1$ in
 (\ref{eq:variationLength}) and the evolution law (\ref{eq:surface_diff}) yields
 to
 \begin{equation*}
-\ddt \surfvol(\Gamma(t)) = - \int_{\Gamma(t)} \vec{\mathcal{V}}\,.\,\vec\nu
+\ddt \surfvol(\Gamma(t)) = - \int_{\Gamma(t)} \V\,.\,\vec\nu
 \varkappa \, \dH{d-1} = - \int_{\Gamma(t)} |\nabs \, \varkappa|^2 \, \dH{d-1}
 \leq 0 \,.
 \end{equation*}
@@ -299,9 +299,9 @@ $\Gamma(t)$, therefore
 The position vector $\vec x(\cdot,t)$, for every time $t$, maps a certain point
 $\vec{q}$ of the reference manifold $\Upsilon$ to its actual position
 $\vec{z}$ on $\Gamma(t)$. Therefore, from (\ref{eq:interface_parametrization}),
-we can define the velocity $\vec{\mathcal{V}}$ of $\Gamma(t)$ as
+we can define the velocity $\V$ of $\Gamma(t)$ as
 \begin{equation} \label{eq:V}
-\vec{\mathcal{V}}(\vec z, t) := \vec x_t(\vec q, t) \qquad
+\V(\vec z, t) := \vec x_t(\vec q, t) \qquad
 \forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)\,.
 \end{equation}
 
@@ -332,7 +332,7 @@ identity (\ref{eq:LBop}) we obtain the following system of PDEs
 \end{align}
 \end{subequations}
 where we have used (\ref{eq:V}) from the front tracking approach in order to
-describe the hypersurface velocity $\vec{\mathcal{V}}$.
+describe the hypersurface velocity $\V$.
 
 Analogously, the surface diffusion problem (\ref{eq:surface_diff}) can be
 rewritten as a system of second order equations
@@ -579,7 +579,7 @@ mean curvature $\varkappa$ can be computed by solving the algebraic system
 Indeed, the algebraic system (\ref{eq:algebraic_initial_curvature}) is the
 discretization of the stationary geometric PDE
 \begin{equation}
-\vec{\mathcal{V}}\,.\,\vec\nu=0\qquad\mbox{on }\Gamma(t)\,,
+\V\,.\,\vec\nu=0\qquad\mbox{on }\Gamma(t)\,,
 \end{equation}
 coupled with the identity (\ref{eq:LBop}) therefore $\delta\vec X \equiv 0$ and
 (\ref{eq:algebraic_initial_curvature}) can be simply rewritten as
@@ -596,7 +596,7 @@ geometric evolution equation is known in closed form and it is a shrinking
 sphere. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z -\vec z_0| = r(t) \}$,
 oriented by the outer normal $\vec \nu(\vec{z}) = \frac{\vec z - \vec
 z_0}{r(t)}$. It is straightforward to derive that
-$\vec{\mathcal{V}}\,.\,\vec\nu = r^{\prime}(t), \varkappa = - \frac{d -
+$\V\,.\,\vec\nu = r^{\prime}(t), \varkappa = - \frac{d -
 1}{r(t)}$ on $\Gamma(t)$, so that $\Gamma(t)$ moves by mean curvature provided
 that $r^{\prime}(t) = - \frac{d - 1}{r(t)}$. The solution of this separable
 variable ODE is easily given by $r(t) = \sqrt{r_0^2 - 2(d - 1)t}, \, 0 \leq t <
@@ -622,8 +622,8 @@ and the time step is constant and equal to $\tau=10^{-3}$.
 \quad
 \subfloat[$t=6$]{
 \includegraphics[width=.45\textwidth]{figures/geometric_pdes/mcf_sphere_6.ps}}
-\caption{Surface evolution of a sphere of initial radius $r_0=5$ subject to
-mean curvature flow.}
+\caption[Shrinking sphere experiment]{Surface evolution of a sphere of initial
+radius $r_0=5$ subject to mean curvature flow.}
 \label{fig:mcf_sphere}
 \end{figure}
 
@@ -635,9 +635,9 @@ from the analytical solution.
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/geometric_pdes/mcf_sphere_radius.ps}
-\caption{Average radius of a sphere of initial radius $r_0=5$ subject to
-mean curvature flow. In blue the analytical solution while in red the computed
-one.}
+\caption[Shrinking sphere radius]{Average radius of a sphere of initial radius
+$r_0=5$ subject to mean curvature flow. In blue the analytical solution while in
+red the computed one.}
 \label{fig:mcf_sphere_radius}
 \end{figure}
 
@@ -671,8 +671,8 @@ and minimum segment of the hypersurface.
 \quad
 \subfloat[$t=10$]{
 \includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_circle_10.ps}}
-\caption{Surface evolution of a circle of initial radius $r_0=0.5$ subject to
-surface diffusion.}
+\caption[Equidistribution property experiment]{Surface evolution of a circle of
+initial radius $r_0=0.5$ subject to surface diffusion.}
 \label{fig:sd_circle}
 \end{figure}
 
@@ -684,7 +684,7 @@ the equidistribution is reached almost instantaneously.
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/geometric_pdes/sd_circle_tau.ps}
-\caption{Time evolution of the ratio
+\caption[Equidistribution velocity]{Time evolution of the ratio
 $\frac{\max_{\sigma\in \Gamma^m}(\surfvol(\sigma))}
 {\min_{\sigma\in\Gamma^m}(\surfvol(\sigma))}$ for a circle of initial radius
 $r_0=0.5$ subject to surface diffusion. In red $\tau=10^{-2}$, in green
@@ -717,8 +717,8 @@ $J_\Gamma=3816$ and the time step is constant and equal to $\tau=10^{-2}$.
 \quad
 \subfloat[$t=0.6$]{
 \includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_cage_06.ps}}
-\caption{Surface evolution of a cage $4 \times 4 \times 4$ subject to surface
-diffusion.}
+\caption[Cage experiment]{Surface evolution of a cage $4 \times 4 \times 4$
+subject to surface diffusion.}
 \label{fig:sd_cage}
 \end{figure}
 
@@ -736,8 +736,8 @@ modified surface mesh that can be handled again with the parametric approach.
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/geometric_pdes/sd_cage_06_section.ps}
-\caption{Section at $t=0.6$ of a cage $4 \times 4 \times 4$ subject to surface
-diffusion.}
+\caption[Cage section]{Section at $t=0.6$ of a cage $4 \times 4 \times 4$
+subject to surface diffusion.}
 \label{fig:sd_cage_section}
 \end{figure}
 
@@ -749,7 +749,7 @@ energy (\ref{eq:surface_energy}) over time. As expected, see
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/geometric_pdes/sd_cage_energy.ps}
-\caption{Surface energy evolution $\surfvol(\Gamma^m)$ of a cage $4 \times 4
-\times 4$ subject to surface diffusion.}
+\caption[Cage surface energy]{Surface energy evolution $\surfvol(\Gamma^m)$ of
+a cage $4 \times 4 \times 4$ subject to surface diffusion.}
 \label{fig:sd_cage_energy}
 \end{figure}
