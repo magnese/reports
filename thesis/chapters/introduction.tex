@@ -45,7 +45,7 @@ $\Omega_-(t):=\Omega\setminus\overline{\Omega}_+(t)$ and
 which are separated by an interface $(\Gamma(t))_{t\in[0,T]}$,
 $\Gamma(t)\subset\Omega$. For later use, we always assume that
 $(\Gamma(t))_{t\in [0,T]}$ is a sufficiently smooth evolving hypersurface
-without boundary. See Figure~\ref{fig:two_phase} for an illustration.
+without boundary. See Figure~\ref{fig:two_phase_sketch} for an illustration.
 \begin{figure}
 \begin{center}
 \unitlength15mm
@@ -66,7 +66,7 @@ without boundary. See Figure~\ref{fig:two_phase} for an illustration.
 \end{picture}
 \end{center}
 \caption[Two-phase flow]{Two-phase flow setting.}
-\label{fig:two_phase}
+\label{fig:two_phase_sketch}
 \end{figure}
 Therefore both the sub-domains themselves and the flow field are part of the
 solution. Indeed the main task in this context is to account for the interface
@@ -171,6 +171,23 @@ which for Newtonian fluids are expressed as
 \end{alignat}
 \end{subequations}
 
+We finally observe that for the one-phase Navier--Stokes flow,
+$\rho_+=\rho_-=\rho$ and $\mu_+=\mu_-=\mu$, using the
+incompressibility condition (\ref{eq:ns_mass_bis}) we have
+\begin{equation}
+\nabla\,.\,\mat D(\vec u) = \nabla\,.\big(\nabla\vec u+(\nabla\vec u)^T\big) =
+\Delta \vec u + \nabla(\nabla\,.\vec u) = \Delta \vec u
+\end{equation}
+therefore the system (\ref{eq:ns_momentum_bis}--b) can be rewritten as
+\begin{subequations}
+\begin{alignat}{2}
+\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) - \mu\,\Delta\vec u+\nabla\,p
+& = \vec f \qquad \mbox{in } \Omega\,, \\
+\nabla\,.\,\vec u & = 0 \qquad \mbox{in } \Omega\,,
+\end{alignat}
+\end{subequations}
+which is the canonical form of the one-phase Navier--Stokes problem.
+
 \section{Boundary, initial, and interface conditions}\label{sec:bc_conditions}
 For the full Navier--Stokes problem (\ref{eq:ns_momentum_bis}-b), a
 divergence-free velocity field for the whole computational domain is needed as
@@ -204,7 +221,7 @@ matrix-valued functions.
 
 The assumption that there is no change of phase leads to the dynamic interface
 condition
-\begin{equation} \label{eq:interface_velocity}
+\begin{equation}\label{eq:interface_velocity}
 \V\,.\,\vec\nu = \vec u\,.\,\vec \nu \qquad \mbox{on }
 \Gamma(t)\,,
 \end{equation}
