@@ -3,7 +3,7 @@
 
 \section[Mathematical model]{Mathematical model}\label{sec:stokes_model}
 We consider two-phase Stokes flow in a given domain
-$\Omega\subset\mathbb{R}^d$, where $d=2$ or $d=3$. The domain $\Omega$ contains
+$\Omega\subset\R^d$, where $d=2$ or $d=3$. The domain $\Omega$ contains
 two different immiscible, incompressible, viscous fluids (liquid-liquid or
 liquid-gas) which for all $t\in[0,T]$ occupy time dependent regions
 $\Omega_+(t)$ and $\Omega_-(t):=\Omega\setminus\overline{\Omega}_+(t)$ and
@@ -32,10 +32,10 @@ smooth evolving hypersurface without boundary that is parameterized by
 $\vec x(\cdot,t):\Upsilon\to\R^d$, where $\Upsilon\subset \R^d$ is a given
 reference manifold, i.e.\ $\Gamma(t) = \vec x(\Upsilon,t)$. Then
 \begin{equation} \label{eq:V}
-\vec{\mathcal{V}}(\vec z, t) := \vec x_t(\vec q, t) \qquad
+\V(\vec z, t) := \vec x_t(\vec q, t) \qquad
 \forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)
 \end{equation}
-defines the velocity of $\Gamma(t)$, and $\vec{\mathcal{V}} \,.\,\vec{\nu}$ is
+defines the velocity of $\Gamma(t)$, and $\V \,.\,\vec{\nu}$ is
 the normal velocity of the evolving hypersurface $\Gamma(t)$,
 where $\vec\nu(t)$ is the unit normal on $\Gamma(t)$ pointing into
 $\Omega_+(t)$.
@@ -71,7 +71,7 @@ On the free surface $\Gamma(t)$, the following conditions need to hold:
 \label{eq:interface_jump_velocity} \\
 [\mat\sigma\,\vec \nu]_-^+ & = -\gamma\,\varkappa\,\vec\nu \qquad
 &&\mbox{on } \Gamma(t)\,, \label{eq:interface_jump_stress} \\
-\vec{\mathcal{V}}\,.\,\vec\nu &= \vec u\,.\,\vec \nu \qquad
+\V\,.\,\vec\nu &= \vec u\,.\,\vec \nu \qquad
 &&\mbox{on } \Gamma(t)\,, \label{eq:interface_velocity}
 \end{alignat}
 \end{subequations}
@@ -110,7 +110,7 @@ Therefore the total system can be rewritten as follows:
 [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
 & = -\gamma\,\varkappa\,\vec\nu
 \quad &&\mbox{on } \Gamma(t)\,, \label{eq:full_jump_stress} \\
-(\vec{\mathcal{V}}-\vec u)\,.\,\vec{\nu} & = 0
+(\V-\vec u)\,.\,\vec{\nu} & = 0
 \quad &&\mbox{on } \Gamma(t)\,,\label{eq:full_velocity}  \\
 \Gamma(0) & = \Gamma_0 \,.\label{eq:full_initial_interface}
 \end{alignat}
@@ -125,7 +125,7 @@ In order to obtain a weak formulation, we define the function spaces
 \end{align*}
 and let $(\cdot,\cdot)$ and $\langle \cdot, \cdot \rangle_{\Gamma(t)}$ denote
 the $L^2$--inner products on $\Omega$ and $\Gamma(t)$, respectively. In
-addition, we let $\mathcal{L}^d$ and $\mathcal{H}^{d-1}$ denote the Lebesgue
+addition, we let $\vol$ and $\surfvol$ denote the Lebesgue
 measure in $\R^d$ and the $(d-1)$-dimensional Hausdorff measure, respectively.
 
 Multiplying (\ref{eq:LBop}) with a test function, and performing integration by
@@ -159,7 +159,7 @@ for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 \label{eq:weaka}\\
 & \left(\nabla\,.\,\vec u, \varphi\right) = 0
 \quad \forall\ \varphi \in \widehat\pspace\,, \label{eq:weakb} \\
-&  \left\langle \vec{\mathcal{V}}
+&  \left\langle \V
 - \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
 \quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:weakc} \\
 & \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
@@ -177,13 +177,13 @@ It is straightforward to show an a priori energy bound and a volume
 conservation property for the system (\ref{eq:weaka}--d). For the former, we
 recall from e.g.\ \cite[Lemma~2.1]{DeckelnickDE05} that
 \begin{equation}\label{eq:dtarea}
-\ddt\,\mathcal{H}^{d-1}(\Gamma(t)) = -
-\left\langle \varkappa,\vec{\mathcal{V}}\,.\,\vec\nu\right\rangle_{\Gamma(t)}.
+\ddt\,\surfvol(\Gamma(t)) = -
+\left\langle \varkappa,\V\,.\,\vec\nu\right\rangle_{\Gamma(t)}.
 \end{equation}
 Hence, on choosing $\vec\xi = \vec u$ in (\ref{eq:weaka}), and noting
 (\ref{eq:weakb},c), we obtain that
 \begin{align}
-\gamma\, \ddt\,\mathcal{H}^{d-1}(\Gamma(t)) = -
+\gamma\, \ddt\,\surfvol(\Gamma(t)) = -
 \gamma\,\left\langle \varkappa\,\vec\nu, \vec u\right\rangle_{\Gamma(t)}
 =  - 2\left(\mu\,\mat D(\vec u), \mat D(\vec u)\right) +
 \left(\vec f, \vec u\right) \,,
@@ -195,7 +195,7 @@ decreasing.
 In order to show the volume conservation property, we recall from e.g.\
 \cite[Lemma~2.1]{DeckelnickDE05} that
 \begin{align}
-\ddt \vol(\Omega_-(t)) & = \left\langle \vec{\mathcal{V}}, \vec\nu
+\ddt \vol(\Omega_-(t)) & = \left\langle \V, \vec\nu
 \right\rangle_{\Gamma(t)}\,.
 \end{align}
 Hence it follows immediately from the incompressibility condition
@@ -293,7 +293,7 @@ across the edges of $\{\sigma_j^m\}_{j=1}^{J_\Gamma}$, we define the mass
 lumped inner product $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ as
 \begin{equation} \label{eq:masslump}
 \left\langle v, w \right\rangle^h_{\Gamma^m} :=
-\tfrac1d \sum_{j=1}^{J_\Gamma} \mathcal{H}^{d-1}(\sigma^m_j)\,
+\tfrac1d \sum_{j=1}^{J_\Gamma} \surfvol(\sigma^m_j)\,
 \sum_{k=1}^{d} (v\,w)((\vec{q}^m_{j_k})^-),
 \end{equation}
 where $\{\vec{q}^m_{j_k}\}_{k=1}^{d}$ are the vertices of $\sigma^m_j$, and
@@ -434,17 +434,17 @@ $(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times
 \widehat\pspace^m \times \Vh \times \Wh$ be a solution to
 {\rm (\ref{eq:HGa}--d)}. Then
 \begin{equation}\label{eq:stab}
-\gamma\, \mathcal{H}^{d-1}(\Gamma^{m+1})
+\gamma\, \surfvol(\Gamma^{m+1})
 + 2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1}) \right) \leq
-\gamma\,\mathcal{H}^{d-1}(\Gamma^m) + \tau_m\left( \vec f^{m+1}, \vec U^{m+1}
+\gamma\,\surfvol(\Gamma^m) + \tau_m\left( \vec f^{m+1}, \vec U^{m+1}
 \right).
 \end{equation}
 In addition, let $\{t_k\}_{k=0}^M$ be an arbitrary partitioning of $[0,T]$.
 Then it holds that
 \begin{equation}\label{eq:stabstab}
-\gamma\,\mathcal{H}^{d-1}(\Gamma^{m+1})
+\gamma\,\surfvol(\Gamma^{m+1})
 + 2 \sum_{k=0}^m  \tau_k\left(\mu^k\,\mat D(\vec U^{k+1}), \mat D(\vec U^{k+1})
-\right)\leq \gamma\,\mathcal{H}^{d-1}(\Gamma^0) + \sum_{k=0}^m \tau_k\left(\vec
+\right)\leq \gamma\,\surfvol(\Gamma^0) + \sum_{k=0}^m \tau_k\left(\vec
 f^{k+1}, \vec U^{k+1} \right)
 \end{equation}
 for $m=0,\ldots, M-1$.
@@ -481,7 +481,7 @@ Next we can prove that discrete stationary solution exist for our scheme.
 Let $(\uspace^m,\pspace^m)$ satisfy the LBB condition \mbox{\rm (\ref{eq:LBB})}
 and let $S^m_0 \subset \pspace^m$. Let $\vec f^{m+1} = \vec 0$. Moreover, let
 $\Gamma^m$ be a polyhedral surface with constant discrete mean curvature,
-i.e.\ there exists a constant $\overline{\kappa}\in\mathbb{R}$ such that
+i.e.\ there exists a constant $\overline{\kappa}\in\R$ such that
 \begin{equation}\label{eq:constcurv}
 \overline{\kappa} \left\langle\vec\nu^m,\vec\eta\right\rangle_{\Gamma^m}
 + \left\langle \nabs\, \vec\id,\nabs\ \vec\eta\right\rangle_{\Gamma^m}=0\quad
@@ -491,7 +491,7 @@ Then $\Gamma^m$ satisfies {\rm (\ref{eq:conformal})} and
 \begin{equation} \label{eq:solsol}
 (\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) =
 (\vec 0, -\gamma\,\overline\kappa\left[
-\charfcn{\Omega_-^m} - \frac{\mathcal{L}^d(\Omega_-^m)}{\mathcal{L}^d(\Omega)}
+\charfcn{\Omega_-^m} - \frac{\vol(\Omega_-^m)}{\vol(\Omega)}
 \right], \vec\id\!\mid_{\Gamma^m}, \overline{\kappa})
 \end{equation}
 is the unique solution to \mbox{\rm (\ref{eq:HGa}--d)}.
@@ -538,7 +538,7 @@ $\chi^h_k(\vec q^h_l(t),t) = \delta_{kl}$ for all $k,l \in
 $\{\vec{q}^h_k(t)\}_{k=1}^{K_\Gamma}$ are the vertices of $\Gamma^h(t)$.
 Similarly to (\ref{eq:V}), we can then define the discrete velocity
 \begin{equation*}
-\vec{\mathcal{V}}^h(\vec z, t):=
+\V^h(\vec z, t):=
 \sum_{k=1}^{K_\Gamma}\left[\ddt\,\vec q^h_k(t)\right] \chi^h_k(\vec z, t)
 \in \Vht\,,
 \end{equation*}
@@ -550,7 +550,7 @@ $\uspace^h(t)$ and $\pspace^h(t)$ similarly to $S^m_k$, $\uspace^m$ and
 $\pspace^m$, with the corresponding interpolation operators $I^h_k$ and discrete
 approximations $\mu^h(t) \in S^h_0(t)$. Here we recall that we assume
 $S_0^h(t)\subset\pspace^h(t)$. Then, given $\Gamma^h(0)$, for $t\in
-(0,T]$ find $\Gamma^h(t)$ and $(\vec U^h(t), P^h(t), \vec{\mathcal{V}}^h(t),
+(0,T]$ find $\Gamma^h(t)$ and $(\vec U^h(t), P^h(t), \V^h(t),
 \kappa^h(t)) \in \uspace^h(t) \times \widehat\pspace^h(t) \times \Vht \times
 \Wht$ such that
 \begin{subequations}
@@ -561,7 +561,7 @@ $S_0^h(t)\subset\pspace^h(t)$. Then, given $\Gamma^h(0)$, for $t\in
 \xi\right) \forall\ \vec\xi \in \uspace^h(t) \,, \label{eq:sda}\\
 & \left(\nabla\,.\,\vec U^h, \varphi\right)  = 0
 \quad \forall\ \varphi \in \widehat\pspace^h(t)\,, \label{eq:sdb} \\
-& \left\langle \vec{\mathcal{V}}^h , \chi\,\vec\nu^h
+& \left\langle \V^h , \chi\,\vec\nu^h
 \right\rangle_{\Gamma^h(t)}^h - \left\langle \vec U^h, \chi\,\vec\nu^h
 \right\rangle_{\Gamma^h(t)} = 0 \quad \forall\ \chi \in \Wht\,, \label{eq:sdc}
 \\
@@ -586,12 +586,12 @@ mesh defects occurring.
 Secondly, we can show that solutions to (\ref{eq:sda}--d) satisfy a discrete
 analogue of (\ref{eq:conserved}). To see this, choose $\chi = 1$ in
 (\ref{eq:sdc}) and $\varphi= (\charfcn{\Omega_-^h(t)} -
-\frac{\mathcal{L}^d(\Omega_-^h(t))}{\mathcal{L}^d(\Omega)})
+\frac{\vol(\Omega_-^h(t))}{\vol(\Omega)})
 \in \widehat\pspace^h(t)$ in (\ref{eq:sdb}), to obtain
 \begin{align*}
 \frac{\rm d}{{\rm d}t} \vol(\Omega_-^h(t))  &=
-\left\langle \vec{\mathcal{V}}^h , \vec\nu^h \right\rangle_{\Gamma^h(t)}
-= \left\langle \vec{\mathcal{V}}^h , \vec\nu^h \right\rangle^h_{\Gamma^h(t)}
+\left\langle \V^h , \vec\nu^h \right\rangle_{\Gamma^h(t)}
+= \left\langle \V^h , \vec\nu^h \right\rangle^h_{\Gamma^h(t)}
 = \left\langle \vec U^h, \vec\nu^h \right\rangle_{\Gamma^h(t)} \\ &
 = \int_{\Omega_-^h(t)} \nabla\,.\,\vec U^h \dL{d} =0\,.
 \end{align*}
@@ -698,7 +698,7 @@ example, in place of {\rm (\ref{eq:HGb})}, with $\widehat \pspace^m$ replaced by
 $\pspace^m$, we require
 \begin{equation} \label{eq:LAb}
  \left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
- \frac{\left(\varphi, 1\right)}{\mathcal{L}^d(\Omega)}\, \int_{\partial\Omega}
+ \frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial\Omega}
 (\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
 \pspace^m\,.
 \end{equation}
@@ -776,7 +776,7 @@ together with
 \begin{equation} \label{eq:radialup}
 \vec u(\vec z, t) = \vec 0 \,,\quad p(\vec z, t) =
 -\,\gamma \kappa(0)\left[\charfcn{\Omega_-(0)}
--\frac{\mathcal{L}^d(\Omega_-(0))}{\mathcal{L}^d(\Omega)} \right] ,
+-\frac{\vol(\Omega_-(0))}{\vol(\Omega)} \right] ,
 \end{equation}
 \end{subequations}
 is an exact solution to the problem (\ref{eq:full_momentum}--g) on e.g.\
@@ -794,7 +794,7 @@ together with
 \vec u(\vec z, t) = \alpha\,\frac{\vec z}{|\vec z\,|^d}\,, \quad
 p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
 {r(t)^{d-1}}\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
-\frac{\mathcal{L}^d(\Omega_-(t))}{\mathcal{L}^d(\Omega)}\right],
+\frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{equation}
 \end{subequations}
 is an exact solution to the problem (\ref{eq:full_momentum}--g) with the
