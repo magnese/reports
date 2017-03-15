@@ -2,9 +2,9 @@
 
 This chapter is extensively based on a paper we wrote, see \cite{stokesfitted}.
 
-\section[Mathematical model]{Mathematical model}\label{sec:stokes_model}
+\section{Mathematical model}\label{sec:stokes_model}
 We consider two-phase Stokes flow in a given domain $\Omega\subset\R^d$, where
-$d=2$ or $d=3$. As already described in Section~\ref{sec:free_boundary_flows},
+$d=2$ or $d=3$. As already described in \S\ref{sec:free_boundary_flows},
 the domain $\Omega$ contains two different immiscible, incompressible, viscous
 fluids (liquid-liquid or liquid-gas) which for all $t\in[0,T]$ occupy time
 dependent regions $\Omega_+(t)$ and
@@ -34,7 +34,7 @@ $d=2$.}
 The interface $\Gamma(t)$ is described with the same technique used in the
 approximation of mean curvature flow and surface diffusion, see
 Chapter~\ref{ch:geometric_pdes}. More precisely, we use a front tracking
-approach, see Section~\ref{sec:front_tracking_approach}, which parameterize the
+approach, see \S\ref{sec:front_tracking_approach}, which parametrize the
 unknown interface $\Gamma(t)$ as $\vec x(\cdot,t):\Upsilon\to\R^d$ where
 $\Upsilon\subset\R^d$ is a given reference manifold such that $\Gamma(t) = \vec
 x(\Upsilon,t)$. We always require that the evolving hypersurface is sufficiently
@@ -84,7 +84,7 @@ $\gamma>0$ is the surface tension coefficient and $\varkappa$ denotes the
 mean curvature of $\Gamma(t)$. See Chapter~\ref{ch:introduction} for more
 details.
 
-\section[Weak formulation]{Weak formulation}\label{sec:stokes_weak}
+\section{Weak formulation}\label{sec:stokes_weak}
 In order to obtain a weak formulation, we define the function spaces
 \begin{align*}
 \uspace &:= [H^1_0(\Omega)]^d\,,\qquad \pspace := L^2(\Omega) \qquad
@@ -150,8 +150,7 @@ $d=3$ which treats the mean curvature as a scalar and we discretize it
 separately from the normal $\vec\nu$ because this approach leads to good mesh
 properties and to a smaller algebraic system.
 
-\section[Energy bound and volume conservation]{Energy bound and volume
-conservation}\label{sec:stokes_energy}
+\section{Energy bound and volume conservation}\label{sec:stokes_energy}
 It is straightforward to show an a priori energy bound and a volume
 conservation property for the system (\ref{eq:weaka}--d). For the former, we
 use (\ref{eq:length_variation}) and we obtain
@@ -188,8 +187,7 @@ It will be our aim to introduce a fitted finite element approximation for
 two-phase Stokes flow that satisfies discrete analogous of
 (\ref{eq:ap1}) and (\ref{eq:conserved}).
 
-\section[Finite element approximation]{Finite element
-approximation}\label{sec:stokes_fem}
+\section{Finite element approximation}\label{sec:stokes_fem}
 We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
 $[0,T]$ into possibly variable time steps
 $\tau_m := t_{m+1}-t_m$, $m=0 ,\ldots, M-1$. Moreover, let
@@ -221,7 +219,7 @@ $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ denote the $L^2$--norm and
 the $H^1$--norm on $\Omega$, respectively. Throughout this thesis, we will
 assume that $S^m_0\subset\pspace^m$. Then, for $d=2$, possible pairs
 $(\uspace^m,\pspace^m)$ that satisfy (\ref{eq:LBB}) are P2--P0 and P2--(P1+P0),
-i.e.\ we set $\uspace^m=[S^m_2]^d\cap\uspace$ and either $\pspace^m = S^m_0$ or
+i.e. we set $\uspace^m=[S^m_2]^d\cap\uspace$ and either $\pspace^m = S^m_0$ or
 $S^m_1+S^m_0$. We note that the choice P2--(P1+P0) requires the weak constraint
 that all simplices have a vertex in $\Omega$, see \cite{BoffiCGG12}. For $d=3$,
 pairs of spaces that satisfy $S^m_0\subset\pspace^m$ and (\ref{eq:LBB}) are
@@ -305,13 +303,13 @@ In particular, most of the theoretical results presented in the following
 are a direct consequence of the results in \cite{spurious}.
 
 \section{Existence and uniqueness of a discrete solution}
+\label{sec:stokes_existence}
 \begin{theorem} \label{thm:ex}
 Let $m \in \{0,\ldots,M-1\}$ and
-let $(\uspace^m,\pspace^m)$ satisfy the LBB condition {\rm (\ref{eq:LBB})}.
+let $(\uspace^m,\pspace^m)$ satisfy the LBB condition (\ref{eq:LBB}).
 Then there exists a unique solution
 $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})
-\in \uspace^m\times \pnormspace^m \times \Vh \times \Wh$ to
-{\rm (\ref{eq:HGa}--d)}.
+\in \uspace^m\times \pnormspace^m \times \Vh \times \Wh$ to (\ref{eq:HGa}--d).
 \end{theorem}
 \begin{proof}
 As the system (\ref{eq:HGa}--d) is linear, existence follows from uniqueness.
@@ -390,7 +388,7 @@ $(\vec U^{m+1},\vec X^{m+1},\kappa^{m+1})$ to a reduced system, where the
 pressure $P^{m+1}$ is eliminated, can be shown. See \cite[Theorem~1]{spurious}
 for more details.
 
-\section{Stability}
+\section{Stability}\label{sec:stokes_stability}
 We now demonstrate that the scheme (\ref{eq:HGa}--d) satisfies an energy
 estimate, which corresponds to the bound (\ref{eq:ap1}) in the continuous case.
 In particular, we obtain an unconditional stability result for our scheme.
@@ -398,8 +396,7 @@ In particular, we obtain an unconditional stability result for our scheme.
 \begin{theorem} \label{thm:stabstab}
 Let $m \in \{0,\ldots,M-1\}$ and let
 $(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times
-\pnormspace^m \times \Vh \times \Wh$ be a solution to
-{\rm (\ref{eq:HGa}--d)}. Then
+\pnormspace^m \times \Vh \times \Wh$ be a solution to (\ref{eq:HGa}--d). Then
 \begin{equation}\label{eq:stab}
 \gamma\, \surfvol(\Gamma^{m+1})
 + 2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1}) \right) \leq
@@ -425,7 +422,7 @@ $\vec\eta=\gamma\,({\vec{X}^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ in
 (\ref{eq:HGd}). See \cite[Proof of Theorem~2]{spurious} for more details.
 \end{proof}
 
-\section{Discrete stationary solutions}
+\section{Discrete stationary solutions}\label{sec:stokes_stationary_solution}
 If the solution $(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1})$ to
 (\ref{eq:HGa}--d) is such that the interface has not moved,
 $\Gamma^{m+1} = \Gamma^m$, then it holds that
@@ -443,25 +440,43 @@ Moreover, we recall from \cite[\S4.1]{gflows3d}
 that surfaces $\Gamma^m \subset \R^3$
 that satisfy (\ref{eq:conformal}) are called conformal polyhedral surfaces.
 
-Next we can prove that discrete stationary solution exist for our scheme.
+Next we consider discrete stationary states when no outer forces act, i.e. when
+$\vec f = \vec 0$. Here, independently of the choice of $\mu_\pm$, no spurious
+velocities appear for discrete stationary solutions. Indeed,
+Theorem~\ref{thm:stabstab} has an immediate consequence.
+\begin{theorem}\label{thm:stat1}
+Let $(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times
+\pnormspace^m \times \Vh \times \Wh$ be a solution to  (\ref{eq:HGa}--d) with
+$\vec f^{m+1} = \vec 0$. If $\vec X^{m+1} = \vec X^m$, then $\vec U^{m+1} = \vec
+0$.
+\end{theorem}
+\begin{proof}
+The solution $(\vec U^{m+1}, \vec X^{m+1})$ fulfils (\ref{eq:stab}) with
+$\Gamma^{m+1}$ replaced by $\Gamma^m$ and  $\vec f^{m+1} = \vec 0$. Hence we
+obtain $(\mu^m\,\mat D (\vec U^{m+1}), \mat D(\vec U^{m+1})) = 0$, and so Korn's
+inequality implies $\vec U^{m+1} = \vec 0$.
+\end{proof}
+
+Finally, it holds that polyhedral surfaces with constant discrete mean
+curvature and zero velocity are stationary solutions
 \begin{theorem} \label{thm:stat2}
-Let $(\uspace^m,\pspace^m)$ satisfy the LBB condition \mbox{\rm (\ref{eq:LBB})}
-and let $S^m_0 \subset \pspace^m$. Let $\vec f^{m+1} = \vec 0$. Moreover, let
+Let $(\uspace^m,\pspace^m)$ satisfy the LBB condition (\ref{eq:LBB}) and let
+$S^m_0 \subset \pspace^m$. Let $\vec f^{m+1} = \vec 0$. Moreover, let
 $\Gamma^m$ be a polyhedral surface with constant discrete mean curvature,
-i.e.\ there exists a constant $\overline{\kappa}\in\R$ such that
+i.e. there exists a constant $\overline{\kappa}\in\R$ such that
 \begin{equation}\label{eq:constcurv}
 \overline{\kappa} \left\langle\vec\nu^m,\vec\eta\right\rangle_{\Gamma^m}
 + \left\langle \nabs\, \vec\id,\nabs\ \vec\eta\right\rangle_{\Gamma^m}=0\quad
 \forall \,\vec\eta\in\Vh\,.
 \end{equation}
-Then $\Gamma^m$ satisfies {\rm (\ref{eq:conformal})} and
+Then $\Gamma^m$ satisfies (\ref{eq:conformal}) and
 \begin{equation} \label{eq:solsol}
 (\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) =
 (\vec 0, -\gamma\,\overline\kappa\left[
 \charfcn{\Omega_-^m} - \frac{\vol(\Omega_-^m)}{\vol(\Omega)}
 \right], \vec\id\!\mid_{\Gamma^m}, \overline{\kappa})
 \end{equation}
-is the unique solution to \mbox{\rm (\ref{eq:HGa}--d)}.
+is the unique solution to (\ref{eq:HGa}--d).
 \end{theorem}
 \begin{proof}
 It immediately follows from (\ref{eq:constcurv}) that (\ref{eq:conformal})
@@ -486,11 +501,24 @@ Hence (\ref{eq:HGa}) also holds, and so (\ref{eq:solsol}) is the unique
 solution to (\ref{eq:HGa}--d)
 \end{proof}
 
-We remark that in practice we do observe the solution (\ref{eq:solsol}) for
-approximations of stationary spherical bubble solutions, see \S\ref{sec:41} and
-\S\ref{sec:45} for details.
+A stationary solution to the continuous problem with $\vec f = \vec 0$ is a
+circle, $d=2$, or a sphere, $d=3$, with zero velocity and a piecewise constant
+pressure with a discontinuity across the interface, see (\ref{eq:radialr}--b).
 
-\section{Semidiscrete scheme}
+For $d=2$, one can choose $\Gamma^m$ with equidistributed points on a circle as
+an approximation of this circle, i.e. a closed regular polygon.
+Such a $\Gamma^m$ has constant discrete curvature, i.e. there exists a
+$\overline{\kappa} \in \R$ such that (\ref{eq:constcurv}) is satisfied.
+Hence Theorem~\ref{thm:stat2} yields that in this situation $(\vec
+U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m,\overline{\kappa})$ is
+the unique solution to the reduced system with $\vec f^{m+1} =\vec 0$. See
+\S\ref{sec:41} for details.
+
+For $d=3$, we observe in practice that conformal approximations of the sphere,
+i.e. spherical $\Gamma^m$ satisfying (\ref{eq:conformal}), also satisfy
+(\ref{eq:constcurv}). See \S\ref{sec:45} for details.
+
+\section{Semidiscrete scheme}\label{sec:stokes_semi_fem}
 We briefly investigate a semidiscrete variant of the scheme (\ref{eq:HGa}--d)
 in order to highlight two additional important properties of the scheme: a
 good tangential distribution of mesh points, and good volume conservation.
@@ -509,7 +537,7 @@ Similarly to (\ref{eq:V}), we can then define the discrete velocity
 \sum_{k=1}^{K_\Gamma}\left[\ddt\,\vec q^h_k(t)\right] \chi^h_k(\vec z, t)
 \in \Vht\,,
 \end{equation*}
-see e.g.\ \cite[(3.3)]{tpfs}.
+see e.g. \cite[(3.3)]{tpfs}.
 For $t\in
 [0,T]$, let $\mathcal{T}^h(t)$ be a regular partitioning of $\Omega$ into
 disjoint open simplices and define the finite element spaces $S^h_k(t)$,
@@ -543,7 +571,7 @@ First of all we note that a solution $\Gamma^h(t)$ to (\ref{eq:sda}--d) clearly
 satisfies (\ref{eq:conformal}), with $\Gamma^m$ replaced by $\Gamma^h(t)$. This
 means that in 2d the polygonal curve $\Gamma^h(t)$ is equidistributed, and
 asymptotically this property is inherited by our fully discrete scheme
-(\ref{eq:HGa}--d); see e.g.\ Figure~\ref{fig:nonuniform_bubble_32_both} below.
+(\ref{eq:HGa}--d); see e.g. Figure~\ref{fig:nonuniform_bubble_32_both} below.
 In 3d the property (\ref{eq:conformal}) means that $\Gamma^h(t)$ is a
 conformal polyhedral surface, which implies that the mesh quality is good. Once
 again, we observe in practice that the fully discrete solutions to
@@ -556,7 +584,7 @@ analogue of (\ref{eq:conserved}). To see this, choose $\chi = 1$ in
 \frac{\vol(\Omega_-^h(t))}{\vol(\Omega)})
 \in \pnormspace^h(t)$ in (\ref{eq:sdb}), to obtain
 \begin{align*}
-\frac{\rm d}{{\rm d}t} \vol(\Omega_-^h(t))  &=
+\ddt \vol(\Omega_-^h(t))  &=
 \left\langle \V^h , \vec\nu^h \right\rangle_{\Gamma^h(t)}
 = \left\langle \V^h , \vec\nu^h \right\rangle^h_{\Gamma^h(t)}
 = \left\langle \vec U^h, \vec\nu^h \right\rangle_{\Gamma^h(t)} \\ &
@@ -658,10 +686,10 @@ package UMFPACK, see \cite{Davis04}. Having obtained $(\vec U^{m+1}, P^{m+1})$
 from (\ref{eq:SchurkX}), we solve (\ref{eq:SchurkXb}) for
 $(\kappa^{m+1}, \delta\vec X^{m+1})$.
 
-With a view towards some numerical test cases in Section~\ref{sec:4}, we also
+With a view towards some numerical test cases in \S\ref{sec:4}, we also
 allow for an inhomogeneous Dirichlet boundary condition $\vec g$ on
 $\partial\Omega$. In this case the linear system is suitably adjusted. For
-example, in place of {\rm (\ref{eq:HGb})}, with $\widehat \pspace^m$ replaced by
+example, in place of (\ref{eq:HGb}), with $\pnormspace^m$ replaced by
 $\pspace^m$, we require
 \begin{equation} \label{eq:LAb}
  \left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
@@ -669,6 +697,9 @@ $\pspace^m$, we require
 (\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
 \pspace^m\,.
 \end{equation}
+The proof of existence of an unique solution to the inhomogeneous system
+(\ref{eq:HGa},c,d), (\ref{eq:LAb}) is exactly the same as the proof of
+Theorem~\ref{thm:ex}.
 
 \section{Mesh generation and smoothing}
 Given the initial polyhedral surface $\Gamma^0$, we create a triangulation
@@ -722,14 +753,6 @@ Theorem~\ref{thm:stabstab} hold throughout. Of course, a remeshing of $\Gamma^m$
 would mean that Theorem~\ref{thm:stabstab} is no longer valid.
 
 \section{Numerical results} \label{sec:4}
-We implemented the scheme (\ref{eq:HGa}--d)
-with the help of the toolbox \verb|DUNE|,
-see \cite{dunegridpaperI08,dunegridpaperII08}, using the finite element module
-\verb|DUNE-FEM|, see \cite{dunefempaper10}. As grid manager we used
-\verb|ALBERTA|, see \cite{Alberta}. The CPU times which we report are measured
-in seconds and correspond to a single thread computation on an Intel Xeon E5640
-(2.67GHz) processor with 16 GB of main memory.
-
 In order to test our method, and to allow comparisons with the unfitted finite
 element approximation in \cite{spurious}, we recall the following stationary
 and expanding spherical solutions from \cite{spurious}. Let $\Gamma(t) = \{ \vec
@@ -750,7 +773,7 @@ is an exact solution to the problem (\ref{eq:full_momentum}--g) on e.g.\
 $\Omega = (-1,1)^d$. This solution is the continuous version of
 (\ref{eq:solsol}). Secondly, a nontrivial divergence free and radially symmetric
 solution $\vec u$ can be constructed on a domain that does not contain the
-origin. To this end, consider e.g.\ $\Omega = (-1,1)^d \setminus [-\frac13,
+origin. To this end, consider e.g. $\Omega = (-1,1)^d \setminus [-\frac13,
 \frac13]^d$, and let $\alpha \geq 0$ be given. Then, the expanding sphere where
 \begin{subequations}
 \begin{equation} \label{eq:radialr2}
@@ -894,7 +917,7 @@ on the right hand side of Figure~\ref{fig:meshes_expanding}.
 Details on the discretization parameters for the nearly uniform meshes are
 given in Table~\ref{tab:expandingbubble2Delements}. Here we explicitly
 state the final number of bulk elements, $J_\Omega^M$, only in the case
-$C_r = 1$, recall (\ref{eq:remesh}), i.e.\ when the bulk is remeshed after
+$C_r = 1$, recall (\ref{eq:remesh}), i.e. when the bulk is remeshed after
 every time step. Of course, when only smoothing is employed, then the number of
 bulk mesh elements is invariant, and so $J_\Omega^M = J_\Omega^0$.
 \begin{table*}
@@ -978,7 +1001,7 @@ in the error quantities. In particular, there is no deterioration of the
 observed convergence rates.
 That is why for the P2--(P1+P0) element we only
 consider the case $C_r = 1$, see
-Table~\ref{tab:expandingbubble2Dp2p1p0remesh}, i.e.\ only a simulation with
+Table~\ref{tab:expandingbubble2Dp2p1p0remesh}, i.e. only a simulation with
 remeshing at every time step.
 \begin{table*}
  \center
@@ -1152,7 +1175,7 @@ the simulation in Figure~\ref{fig:ellipse_both}.}
 \label{fig:ellipse_both_volumes}
 \end{figure}
 As a comparison, we show in Figure~\ref{fig:ellipse_smooth} the final snapshot
-of the same simulation when no remeshings are performed, i.e.\ we use $C_r=
+of the same simulation when no remeshings are performed, i.e. we use $C_r=
 \infty$ in (\ref{eq:remesh}). We clearly see that due to the strong deformation
 of the interface, this leads to elongated elements in the inner and in the
 outer phase of the bulk finite element mesh.
@@ -1222,13 +1245,13 @@ $\| \Gamma^0 - \Gamma(0) \|_{L^\infty}$, recall (\ref{eq:errorXx}). We obtain
 such an initial triangulation with the help of the numerical scheme from
 \cite{gflows3d} for surface diffusion, which is a gradient flow for
 surface area that maintains the enclosed volume. See
-e.g.\ \cite[Fig.\ 11]{gflows3d} for an evolution towards a polyhedral
+e.g. \cite[Fig. 11]{gflows3d} for an evolution towards a polyhedral
 approximation of a sphere that satisfies (\ref{eq:constcurv}), and hence also
 (\ref{eq:conformal}). We report the errors for the P2--P0 element in
 Table~\ref{tab:bubble3Dp2p0}, while Table~\ref{tab:bubble3Dp2p1p0} shows the
 same errors for the P2--(P1+P0) element. Here we note that, as yet, for
 the pairs P2--P0 and P2--(P1+P0) there exist no proofs in the literature that
-the LBB condition (\ref{eq:LBB}) holds, see e.g.\ the discussion in
+the LBB condition (\ref{eq:LBB}) holds, see e.g. the discussion in
 \cite[Remark~8.4.3]{BoffiBF13}. However, in practice we encountered no problems
 when using these spaces, and our iterative solver always converged to a
 solution of the scheme (\ref{eq:HGa}--d).
