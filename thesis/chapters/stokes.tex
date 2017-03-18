@@ -594,7 +594,7 @@ Hence solution to (\ref{eq:sda}--d) conserve the enclosed volume. Once again,
 the fully discrete scheme (\ref{eq:HGa}--d) inherits this property in the sense
 that in our simulations the volumes are always well maintained.
 
-\section{Solution method}
+\section{Algebraic system}\label{sec:stokes_algebraic_system}
 As is standard practice for the solution of linear systems arising from
 discretizations of (Navier--)Stokes equations, we avoid the complications of the
 constrained pressure space $\pnormspace^m$ in practice by considering an
@@ -628,21 +628,83 @@ P^{m+1} \\
 0 \\
 -\vec{A}_\Gamma\,\vec X^m
 \end{pmatrix} \,,
-\label{eq:lin}
+\label{eq:stokes_algebraic}
 \end{equation}
 where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec{X}^{m+1})$ here denote the
 coefficients of these finite element functions with respect to the standard
 bases of $\uspace^m$, $\pspace^m$, $\Wh$ and $\Vh$, respectively. Moreover,
 $\vec X^m$ denotes the coefficients of $\vec\id\!\mid_{\Gamma^m}$ with respect
 to the basis of $\Vh$. The definitions of the matrices and vectors in
-(\ref{eq:lin}) directly follow from (\ref{eq:HGa}--d).
+(\ref{eq:stokes_algebraic}) directly follow from (\ref{eq:HGa}--d) and are:
+\begin{align*}
+& [\vec B_\Omega]_{ij} := 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspace^m} \vec
+e_r), \mat D( \phi_i^{\uspace^m}\,\vec e_s) \right) \right)_{r,s=1}^d\,,\quad
+\vec c_i = \left( \vec f^{m+1},\phi_i^{\uspace^m}\right)\,,\\
+&[\vec C_\Omega]_{iq} := - \left( \left(\nabla\,.\,(\phi_i^{\uspace^m}\,\vec
+e_r), \phi_q^{\pspace^m} \right) \right)_{r=1}^d,\quad
+[\Nbulk]_{il} := \left\langle \phi_i^{\uspace^m}, \chi^m_l \,\vec\nu^m
+\right\rangle_{\Gamma^m} \,,\\
+& [\vec{N}_\Gamma]_{kl} := \left\langle \chi^m_l, \chi^m_k\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h \,,\quad [\vec{A}_\Gamma]_{kl} := \left\langle
+\nabs\,\chi^m_l, \nabs\,\chi^m_k \right\rangle_{\Gamma^m} \,\vec\id \,,
+\end{align*}
+where $\phi^{\uspace^m} \in \uspace^m$, $\phi^{\pspace^m} \in \pspace^m$,
+$\chi^m \in \Wh$ and we recall that $\{\vec e_r\}_{r=1}^d$ denotes the standard
+basis in $\R^d$. Note that for the submatrices we have used the convention that
+the subscripts refer to the test and trial domains, respectively. A single
+subscript is used where the two domains are the same.
 
-Note that for the submatrices we have used the convention that the subscripts
-refer to the test and trial domains, respectively. A single subscript is
-used where the two domains are the same.
+We observe the analogy of the interface part of the algebraic system,
+namely the matrices $[\vec{A}_\Gamma]$ and $[\vec{N}_\Gamma]$ and the right
+hand side term $-\vec{A}_\Gamma\,\vec X^m$, with the algebraic system arising
+from the mean curvature flow (\ref{eq:algebraic_mean_curvature}) and surface
+diffusion (\ref{eq:algebraic_surf_diff}).
 
-For the solution of (\ref{eq:lin}) we use a Schur complement approach
-that eliminates $(\kappa^{m+1}, \delta \vec X^{m+1})$ from (\ref{eq:lin}),
+The algebraic system (\ref{eq:stokes_algebraic}) is suitable when the pressure
+space is, for example, P0 or P1. Instead, when we use the space (P1+P0) or the
+space $\pdg$ for the pressure, the algebraic system assumes the following form
+\begin{equation}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_{\spadesuit} & \vec C_{\clubsuit} & -\gamma\,\Nbulk & 0\\
+\vec C^T_{\spadesuit} & 0 & 0 & 0 & 0 \\
+\vec C^T_{\clubsuit} & 0 & 0 & 0 & 0 \\
+\NbulkT & 0 & 0 & 0 & -\frac1{\tau_m}\,\vec{N}_\Gamma^T \\
+0 & 0 & 0 & \vec{N}_\Gamma & \vec{A}_\Gamma
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\
+P^{m+1}_\spadesuit \\
+P^{m+1}_\clubsuit \\
+\kappa^{m+1} \\
+\delta\vec{X}^{m+1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\vec c \\
+0 \\
+0 \\
+0 \\
+-\vec{A}_\Gamma\,\vec{X}^{m}
+\end{pmatrix} \,,
+\label{eq:stokes_algebraic_extended}
+\end{equation}
+where $\vec C_{\spadesuit}$ and $\vec C_{\clubsuit}$ have the same definition
+of $\vec C_\Omega$ in (\ref{eq:stokes_algebraic}) but over different spaces or
+domains. More precisely, in the case (P1+P0), there are two independent spaces
+for the pressure defined over the bulk domain $\Omega$ of polynomial order 1 and
+0, respectively, which means that $\vec C_{\spadesuit}=\vec C_\Omega$ and
+$\vec C_{\clubsuit}=\vec C_\Omega$ but whit different polynomial orders.
+Instead, the space $\pdg$ is a space of polynomial order 1 defined in the two
+subdomains $\Omega_-$ and $\Omega_+$ therefore $\vec C_{\spadesuit}=\vec
+C_{\Omega_-}$ and $\vec C_{\clubsuit}=\vec C_{\Omega_+}$. This space is
+equivalent to a P1 space which is continuous everywhere except across the
+interface $\Gamma$.
+
+\section{Solution method}
+For the solution of (\ref{eq:stokes_algebraic}) we use a Schur complement
+approach
+that eliminates $(\kappa^{m+1}, \delta \vec X^{m+1})$ from
+(\ref{eq:stokes_algebraic}),
 and then use an iterative solver for the remaining system in
 $(\vec U^{m+1}, P^{m+1})$. This approach has the advantage that for the
 reduced system well-known solution methods for finite element discretizations
@@ -654,7 +716,7 @@ Schur complement can be obtained as follows. Let
 \vec{N}_\Gamma & \vec{A}_\Gamma
 \end{pmatrix} \,.
 \end{equation}
-Then (\ref{eq:lin}) can be reduced to
+Then (\ref{eq:stokes_algebraic}) can be reduced to
 \begin{subequations}
 \begin{equation} \label{eq:SchurkX}
 \begin{pmatrix}
@@ -667,8 +729,8 @@ Then (\ref{eq:lin}) can be reduced to
 \end{pmatrix}
 = \begin{pmatrix}
 \vec c
--\gamma\,(\Nbulk \ 0)\, \Xi_\Gamma^{-1}\,
-\binom{0}{\vec{A}_\Gamma\,\vec X^m} \\
++\gamma\,(\Nbulk \ 0)\, \Xi_\Gamma^{-1}\,
+\binom{0}{-\vec{A}_\Gamma\,\vec X^m} \\
 0
 \end{pmatrix}
 \end{equation}
@@ -685,6 +747,10 @@ $L\,U$ decomposition, which we obtain with the help of the sparse factorization
 package UMFPACK, see \cite{Davis04}. Having obtained $(\vec U^{m+1}, P^{m+1})$
 from (\ref{eq:SchurkX}), we solve (\ref{eq:SchurkXb}) for
 $(\kappa^{m+1}, \delta\vec X^{m+1})$.
+
+We note that the interface condensed operator (\ref{eq:Xi}) is
+exactly the operator (\ref{eq:algebraic_initial_curvature}) which is the
+discretization of the stationary geometric PDE.
 
 With a view towards some numerical test cases in \S\ref{sec:4}, we also
 allow for an inhomogeneous Dirichlet boundary condition $\vec g$ on
@@ -713,7 +779,8 @@ remeshing the domain $\Omega$ completely.
 To this end, we perform the following smoothing step on $\mathcal{T}^m$, which
 is inspired by the method proposed in \cite{Ganesan06}, see also
 \cite{GanesanT08}. Having obtained $\delta \vec X^{m+1}$ from the solution of
-(\ref{eq:lin}), we solve the linear elasticity problem: Find a displacement
+(\ref{eq:stokes_algebraic}), we solve the linear elasticity problem: Find a
+displacement
 $\vec\psi \in [H^1(\Omega)]^d$ such that
 \begin{subequations}
 \begin{alignat}{2}
