@@ -700,7 +700,48 @@ C_{\Omega_-}$ and $\vec C_{\clubsuit}=\vec C_{\Omega_+}$. This space is
 equivalent to a P1 space which is continuous everywhere except across the
 interface $\Gamma$.
 
-\section{Solution method}
+Finally, with a view towards some numerical test cases in
+\S\ref{sec:stokes_results}, we also allow for an inhomogeneous Dirichlet
+boundary condition $\vec g$ on $\partial\Omega$. In this case the linear system
+is suitably adjusted. From equation (\ref{eq:full_mass}), it needs to hold that
+\begin{equation}\label{eq:mass_weak}
+ \int_{\Omega}\nabla\,.\,\vec u\, \dL{d} =
+ \int_{\partial\Omega} \vec g \,.\, \unitn \dH{d-1}\,,
+\end{equation}
+where $\unitn$ is the outer unit normal to $\Omega$ on $\partial\Omega$.
+Multiplying (\ref{eq:mass_weak}) by the test function $\varphi$ and integrating
+over the domain $\Omega$, we obtain the weak form
+\begin{equation}
+ \left(\left(\nabla\,.\,\vec u, 1\right),\varphi\right) =
+ \left(\int_{\partial\Omega} \vec g \,.\, \unitn \dH{d-1},\varphi\right)\,,
+\end{equation}
+and, rearranging the integrals,
+\begin{equation}
+ \left(\left(\nabla\,.\,\vec u, \varphi\right),1\right) =
+ \left(\int_{\partial\Omega} \vec g \,.\, \unitn \dH{d-1},\varphi\right)\,,
+\end{equation}
+which leads to
+\begin{equation}\label{eq:LAb_continuous}
+ \left(\nabla\,.\,\vec u, \varphi\right) =
+ \frac{\left(\varphi, 1\right)}{\left(1,1\right)}\, \int_{\partial\Omega}
+\vec g \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
+\pspace^m\,.
+\end{equation}
+Obviously, (\ref{eq:LAb_continuous}), is still equal to zero but, the discrete
+version assumes the form
+\begin{equation} \label{eq:LAb}
+ \left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
+ \frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial\Omega}
+(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
+\pspace^m\,,
+\end{equation}
+which is possibly not null. The equation (\ref{eq:LAb}) replaces
+(\ref{eq:HGb}), using again the unconstrained space $\pspace^m$ instead of
+$\pnormspace^m$. The proof of existence of an unique solution to the
+inhomogeneous system (\ref{eq:HGa},c,d), (\ref{eq:LAb}) is exactly the same as
+the proof of Theorem~\ref{thm:ex}.
+
+\section{Solution method}\label{sec:stokes_solution_method}
 For the solution of (\ref{eq:stokes_algebraic}) we use a Schur complement
 approach
 that eliminates $(\kappa^{m+1}, \delta \vec X^{m+1})$ from
@@ -714,9 +755,11 @@ Schur complement can be obtained as follows. Let
 \Xi_\Gamma:= \begin{pmatrix}
  0 & - \frac1{\tau_m}\,\vec{N}_\Gamma^T \\
 \vec{N}_\Gamma & \vec{A}_\Gamma
-\end{pmatrix} \,.
+\end{pmatrix} \,,
 \end{equation}
-Then (\ref{eq:stokes_algebraic}) can be reduced to
+be the interface condensed operator, which is exactly the same operator
+(\ref{eq:algebraic_initial_curvature}) arising from the discretization of the
+stationary geometric PDE. Then (\ref{eq:stokes_algebraic}) can be reduced to
 \begin{subequations}
 \begin{equation} \label{eq:SchurkX}
 \begin{pmatrix}
@@ -741,33 +784,115 @@ and
 \label{eq:SchurkXb}
 \end{equation}
 \end{subequations}
-For the solution of (\ref{eq:SchurkX}) we employ a preconditioned GMRES
-iterative solver, where for the inverse $\Xi_\Gamma^{-1}$ we employ a sparse
-$L\,U$ decomposition, which we obtain with the help of the sparse factorization
-package UMFPACK, see \cite{Davis04}. Having obtained $(\vec U^{m+1}, P^{m+1})$
-from (\ref{eq:SchurkX}), we solve (\ref{eq:SchurkXb}) for
-$(\kappa^{m+1}, \delta\vec X^{m+1})$.
 
-We note that the interface condensed operator (\ref{eq:Xi}) is
-exactly the operator (\ref{eq:algebraic_initial_curvature}) which is the
-discretization of the stationary geometric PDE.
-
-With a view towards some numerical test cases in \S\ref{sec:4}, we also
-allow for an inhomogeneous Dirichlet boundary condition $\vec g$ on
-$\partial\Omega$. In this case the linear system is suitably adjusted. For
-example, in place of (\ref{eq:HGb}), with $\pnormspace^m$ replaced by
-$\pspace^m$, we require
-\begin{equation} \label{eq:LAb}
- \left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
- \frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial\Omega}
-(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
-\pspace^m\,.
+We notice that when $\gamma = 0$ the linear system (\ref{eq:SchurkX}) becomes
+\begin{equation} \label{eq:stokes_system}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_\Omega \\
+\vec C_\Omega^T & 0
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\ P^{m+1}
+\end{pmatrix}
+= \begin{pmatrix}
+\vec c \\
+0
+\end{pmatrix}\,,
 \end{equation}
-The proof of existence of an unique solution to the inhomogeneous system
-(\ref{eq:HGa},c,d), (\ref{eq:LAb}) is exactly the same as the proof of
-Theorem~\ref{thm:ex}.
+which for $\mu_+=\mu_-$ corresponds to a discretization of the one-phase
+Stokes problem. This system is well known and a classical way to solve it is to
+use a preconditioned GMRES iteration. Therefore, we solve (\ref{eq:SchurkX}),
+which is a slight modification of (\ref{eq:stokes_system}), employing a
+preconditioned GMRES iterative solver, where for the inverse $\Xi_\Gamma^{-1}$
+we employ a sparse $L\,U$ decomposition, which we obtain with the help of the
+sparse factorization package UMFPACK, see \cite{Davis04}, in order to reuse the
+factorization. Having obtained $(\vec U^{m+1}, P^{m+1})$ from
+(\ref{eq:SchurkX}), we solve (\ref{eq:SchurkXb}) for $(\kappa^{m+1}, \delta\vec
+X^{m+1})$.
 
-\section{Mesh generation and smoothing}
+As regarding the preconditioner, see \cite{ElmanSW05} for more details, a
+possible choice is to use the preconditioner
+\begin{equation} \label{eq:ESW}
+\mathcal{P} = \begin{pmatrix}
+\vec{\mathcal{P}}_{\vec B} & \vec C_\Omega \\
+0 & -\mathcal{P}_S
+\end{pmatrix}\,,
+\end{equation}
+where $\vec{\mathcal{P}}_{\vec B}$ is some preconditioner for the matrix $\vec
+B_\Omega$, and $\mathcal{P}_S$ acts as a preconditioner for the Schur complement
+operator $S_\Omega=\vec C^T_\Omega \,\vec B_\Omega^{-1}\,\vec C_\Omega$.
+
+An application of the preconditioner (\ref{eq:ESW}) amounts to solving the
+equations
+\begin{equation*}
+\begin{pmatrix}
+\vec{\mathcal{P}}_{\vec B} & \vec C_\Omega \\
+0 & -\mathcal{P}_S
+\end{pmatrix}
+\begin{pmatrix} \vec U \\ P \end{pmatrix}
+= \begin{pmatrix} \vec v \\ q \end{pmatrix}
+\iff
+\mathcal{P}_S\,P = -q\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U = \vec v -
+\vec C_\Omega\,P\,.
+\end{equation*}
+We choose $\vec B_\Omega$  for $\vec{\mathcal{P}}_{\vec B}$ and the pressure
+mass matrix $M_\Omega$ defined as
+\begin{equation*}
+[M_\Omega]_{ij} = \left(\,\phi_j^{\pspace^m},\, \phi_i^{\pspace^m}\right)\,.
+\end{equation*}
+for $\mathcal{P}_S$.
+
+Similarly, for the algebraic system (\ref{eq:stokes_algebraic_extended}),
+(\ref{eq:SchurkX}) becomes
+\begin{subequations}
+\begin{equation} \label{eq:SchurkXP1P0}
+\begin{pmatrix}
+\vec B_\Omega + \gamma\,(\Nbulk \ 0)\,\Xi_\Gamma^{-1}\,\binom{\NbulkT}{0} &
+\vec C_\spadesuit & \vec C_\clubsuit \\
+\vec C^T_\spadesuit & 0 & 0 \\
+\vec C^T_\clubsuit & 0 & 0 \\
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\
+P^{m+1}_\spadesuit \\
+P^{m+1}_\clubsuit
+\end{pmatrix}
+= \begin{pmatrix}
+\vec c+\gamma\,(\Nbulk \ 0)\,
+\Xi_\Gamma^{-1}\,\binom{0}{-\vec{A}_\Gamma\,\vec{X}^{m}} \\
+0 \\
+0
+\end{pmatrix}
+\end{equation}
+\end{subequations}
+and an application of the preconditioner amounts to solving the equations
+\begin{equation*}
+\begin{pmatrix}
+\vec{\mathcal{P}}_{\vec B} & \vec C_\spadesuit & \vec C_\clubsuit \\
+0 & -\mathcal{P}_{S,\spadesuit} & 0 \\
+0 & 0 &-\mathcal{P}_{S,\clubsuit}
+\end{pmatrix}
+\begin{pmatrix}
+\vec U \\
+P_\spadesuit \\
+P_\clubsuit
+\end{pmatrix}
+=
+\begin{pmatrix}
+\vec v \\
+q \\
+p
+\end{pmatrix}
+\end{equation*}
+which is
+\begin{equation*}
+\mathcal{P}_{S,\spadesuit}\,P_\spadesuit =
+-q\,,\quad \mathcal{P}_{S,\clubsuit}\,P_\clubsuit =
+-p\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U =
+\vec v - \vec C_\spadesuit\,P_\spadesuit - \vec C_\clubsuit\,P_\clubsuit\,.
+\end{equation*}
+
+\section{Mesh generation and smoothing}\label{sec:stokes_smoothing}
 Given the initial polyhedral surface $\Gamma^0$, we create a triangulation
 $\mathcal{T}^0$ of $\Omega$ that is fitted to $\Gamma^0$ with the help of the
 package \verb|Gmsh|, see \cite{GeuzaineR09}. Then, for $m \geq 0$, having
@@ -787,7 +912,7 @@ $\vec\psi \in [H^1(\Omega)]^d$ such that
 \nabla\,.\,\mat S & = \vec 0 \qquad &&\mbox{in } \Omega_\pm^m\,,
 \label{eq:elasta}\\
 \vec\psi &= \delta \vec X \qquad && \mbox{on } \Gamma^m\,, \label{eq:elastb} \\
-\vec\psi\,.\,\vec{\rm n} & = 0 \qquad &&\mbox{on } \partial\Omega\,,
+\vec\psi\,.\,\unitn & = 0 \qquad &&\mbox{on } \partial\Omega\,,
 \label{eq:elastc}
 \end{alignat}
 \end{subequations}
@@ -795,7 +920,7 @@ where the stress tensor $\mat S$ is defined as
 \begin{equation} \label{eq:elasticity_tensor}
 \mat S = 2\,\mat D(\vec\psi) + (\nabla\,.\vec\psi)\,\mat\id
 \end{equation}
-and where $\vec{\rm n}$ in (\ref{eq:elastc}) is the outer unit normal to
+and where $\unitn$ in (\ref{eq:elastc}) is the outer unit normal to
 $\Omega$ on $\partial\Omega$. In practice we approximate (\ref{eq:elasta}--c)
 with piecewise linear elements and solve the resulting system of linear
 equations with the UMPFACK package, see \cite{Davis04}. The obtained discrete
@@ -808,8 +933,8 @@ the bubble making up the inner phase undergoes strong deformations, and so a
 complete remeshing of $\Omega$ becomes necessary. In order to detect the need
 for a complete remeshing, we define the criterion
 \begin{equation}\label{eq:remesh}
-\frac{\max_{\sigmaO\in {\cal T}^{m+1}}(\mathcal{H}^{d}(\sigmaO))}
-{\min_{\sigmaO\in\mathcal {T}^{m+1}}(\mathcal{H}^{d}(\sigmaO))} \geq C_r \geq 1,
+\frac{\max_{\sigmaO\in {\cal T}^{m+1}}(\vol(\sigmaO))}
+{\min_{\sigmaO\in\mathcal {T}^{m+1}}(\vol(\sigmaO))} \geq C_r \geq 1,
 \end{equation}
 where $C_r$ is a fixed constant. Of course, if we choose $C_r = 1$, then a
 remeshing would be triggered after every time step.
@@ -819,7 +944,7 @@ interface $\Gamma^m$ itself. Hence the stability results from
 Theorem~\ref{thm:stabstab} hold throughout. Of course, a remeshing of $\Gamma^m$
 would mean that Theorem~\ref{thm:stabstab} is no longer valid.
 
-\section{Numerical results} \label{sec:4}
+\section{Numerical results}\label{sec:stokes_results}
 In order to test our method, and to allow comparisons with the unfitted finite
 element approximation in \cite{spurious}, we recall the following stationary
 and expanding spherical solutions from \cite{spurious}. Let $\Gamma(t) = \{ \vec
@@ -863,9 +988,10 @@ to (\ref{eq:radialr},b) as the stationary bubble solution, and to
 In the following, unless otherwise stated, we choose the initial surface
 $\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$, the domain
 $\Omega = (-1,1)^d$ and we employ uniform time steps $\tau_m=\tau$,
-$m=0,\ldots, M-1$.
+$m=0,\ldots, M-1$. Moreover, we always set the GMRES tolerance to $10^{-12}$ and
+the restart value to 1000.
 
-Moreover, we define the errors
+Finally, we define the errors
 \begin{equation} \label{eq:errorXx}
 \errorXx := \max_{m=1,\ldots, M} \|\Gamma^m - \Gamma(t_m)\|_{L^\infty}\,,
 \end{equation}
@@ -885,7 +1011,15 @@ and
 \right]^\frac12.
 \end{equation}
 In (\ref{eq:errorPp}) we employ a quadrature rule of degree $k$, with $k=13$ in
-2d and $k=10$ in 3d, to compute the $L^2$--norms over $\Omega$.
+2d and $k=10$ in 3d, to compute the $L^2$--norms over $\Omega$. We also define
+the estimated error of convergence EOC as
+\begin{equation} \label{eq:eoc}
+\mbox{EOC}=\frac{\ln{\frac{\mbox{error}_1}{\mbox{error}_0}}}
+{\ln{\frac{\mbox{h}_1}{\mbox{h}_0}}}\,,
+\end{equation}
+where $\mbox{error}_1$ is the error computed on a triangulation finer that the
+one used to compute $\mbox{error}_0$ while $\mbox{h}_1$ and $\mbox{h}_0$ are the
+respectively mesh size.
 
 \subsection{Convergence tests in 2d} \label{sec:41}
 For the true solution (\ref{eq:radialr},b) we choose $\mu = \gamma = 1$.
