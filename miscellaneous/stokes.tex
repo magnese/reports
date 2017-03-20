@@ -47,35 +47,7 @@ hyperref}
 \captionsetup[subfigure]{labelformat=empty} % remove label subplot
 \newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}} % hide table column
 
-\begin{abstract}
-We propose a novel fitted finite element method for two-phase Stokes flow
-problems that uses piecewise linear finite elements to approximate the
-moving interface. The method can be shown to be unconditionally stable.
-Moreover, spherical stationary solutions are captured exactly by the numerical
-approximation. In addition, the meshes describing the discrete interface in
-general do not deteriorate in time, which means that in numerical simulations a
-smoothing or a remeshing of the interface mesh is not necessary. We present
-several numerical experiments for our numerical method, which demonstrate the
-accuracy and robustness of the proposed algorithm.
-\end{abstract}
-
-\begin{keywords}
-viscous incompressible two-phase flow, Stokes equations, free boundary problem,
-surface tension, finite elements, front tracking
-\end{keywords}
-
 \section{Introduction}\label{sec:introduction}
-Fluid flow problems with a moving interface are encountered in many
-applications in physics, engineering and biophysics. Developing robust and
-efficient numerical methods for these flows is an important problem and has
-attracted tremendous interest over the last decade. Apart from the usual
-difficulties arising from the numerical computation of the fluid flow in the
-bulk, the acurate approximation of the moving free interface, as well as a
-suitable description of the conditions that need to hold on the interface, pose
-serious challenges. Of particular importance is the precise inclusion of surface
-tension terms, and the correct handling of discontinuity jumps in material
-properties and pressure at the interface, in order to suppress spurious
-velocities, which are also called parasitic currents.
 
 In this paper we propose a novel finite element approximation for
 incompressible two-phase Stokes flow that naturally avoids spurious velocities.
@@ -117,38 +89,6 @@ semidiscrete scheme an equidistribution property can be shown in 2d.
 \item The fully discrete scheme uses an implicit approximation of curvature
 that leads to a linear system of equations to be solved at each time step.
 \end{itemize}
-
-Let us briefly discuss alternative approaches to the numerical approximation of
-two-phase flow problems. In this paper we use a direct description of the
-interface using a parameterization of the unknown interface. In such direct
-approaches, which are often called front-tracking methods, the interface is
-either triangulated or presented by a connected set of particles. The discrete
-interface is advected with the help of the bulk fluid velocities, and quantities
-on the interface need to be suitably coupled to the bulk equations. We refer
-e.g.\ to
-\cite{UnverdiT92,Bansch01,Tryggvason_etal01,GanesanMT07,GanesanT08,spurious}
-for further details, and to \cite{LevequeL97,Peskin02} for the related immersed
-boundary method. Another class of approaches is based on interface capturing
-methods using an indicator function to describe the interface. The volume of
-fluid (VOF) method and the level set  method fall into this category. In the
-former, the characteristic function of one of the phases is approximated
-numerically, see e.g.\ \cite{HirtN81,RenardyR02,Popinet09}; whereas in the
-latter, the interface is given as the level set of a function, which has to be
-determined, see e.g.\ \cite{SussmanSO94,Sethian99,OsherF03,GrossR07}. In phase
-field methods the interface is assumed to have a small, but positive, thickness
-and an additional parabolic equation, defined in the whole domain, has to be
-solved in these so-called diffuse interface models. We refer to
-\cite{HohenbergH77,AndersonMW98,LowengrubT98,Feng06,KaySW08,AbelsGG12,GrunK14}
-for details.
-
-The remainder of this paper is organized as follows. In
-Section~\ref{sec:problem} we present the mathematical model and the weak
-formulation on which our finite element approximation is going to be based. Our
-numerical method is presented in Section~\ref{sec:fem}, together with proofs for
-its main properties. In addition, we describe how the arising linear systems of
-equations are solved in practice, and we give details on our mesh generation and
-smoothing procedures. Finally, in Section~\ref{sec:numerical_results} we present
-several numerical simulations in 2d and 3d.
 
 \begin{figure}[htbp]
   \centering
