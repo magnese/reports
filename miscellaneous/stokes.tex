@@ -153,66 +153,6 @@ for the 2D stationary bubble problem, uniform mesh.}
 
 Since the solution is stationary, neither smoothing nor remeshing is performed.
 
-Some errors for our numerical scheme, using uniform meshes, can be seen in
-Table~\ref{tab:bubble2Dp2p0} for the P2--P0 element and in
-Table~\ref{tab:bubble2Dp2p1p0} for the P2--(P1+P0) element.
-\begin{table*}
- \center
-\begin{tabular}{llHllHl}
-\hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp0$ &
-$CPU[s]$ \\
-\hline
-0.25 & 0 & 0 & 0 & 3.67621e-02 & 4.17008e-02 & 9\\
-0.1 & 0 & 0 & 0 & 1.41195e-01 & 1.03077e-02 & 49\\
-0.05 & 0 & 0 & 0 & 4.06438e-02 & 2.56968e-03 & 378\\
-0.025 & 0 & 0 & 0 & 2.60448e-02 & 6.41969e-04 & 1967\\
-\hline
-\end{tabular}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
-interval $[0,1]$ for the P2--P0 element, uniform mesh.}
-\label{tab:bubble2Dp2p0}
-\end{table*}
-
-\begin{table*}
- \center
-\begin{tabular}{llHllHl}
-\hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ & $\errorPp1$ &
-$CPU[s]$ \\
-\hline
-0.25 & 2.40915e-02 & 9.34969e-03 & 2.26293e-02 & 5.75519e-01 & 1.54614e+00 &
-10\\
-0.1 & 1.21789e-02 & 3.44480e-03 & 1.27595e-02 & 3.99458e-01 & 1.56475e+00 & 55\\
-0.05 & 6.17055e-03 & 1.24629e-03 & 7.05100e-03 & 2.77632e-01 & 1.44776e+00 &
-282\\
-0.025 & 2.97451e-03 & 4.41980e-04 & 3.13944e-03 & 1.96901e-01 & 1.42258e+00 &
-1364\\
-\hline
-\end{tabular}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
-interval $[0,1]$ for the P2--P1 element, uniform mesh.}
-\label{tab:bubble2Dp2p1}
-\end{table*}
-
-\begin{table*}
- \center
-\begin{tabular}{llHllHl}
-\hline
-$c_l$ & $\errorXx$ & $\LerrorUu2$ & $\errorUu2$ & $\LerrorPp$ &
-$\errorPp{1,\rm{DG}}$ & $CPU[s]$ \\
-\hline
-0.25 & 0 & 0 & 0 & 3.22254e-01 & 4.17008e-02 & 41\\
-0.1 & 0 & 0 & 0 & 1.41195e-01 & 1.03077e-02 & 821\\
-0.05 & 0 & 0 & 0 & 4.06438e-02 & 2.56968e-03 & 8971\\
-0.025 & 0 & 0 & 0 & 2.60448e-02 & 6.42132e-04 & 55629\\
-\hline
-\end{tabular}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
-interval $[0,1]$ for the P2--(P1+P0) element, uniform mesh.}
-\label{tab:bubble2Dp2p1p0}
-\end{table*}
-
 Instead, in Table~\ref{tab:bubble2Dp2p0adaptive} and in
 Table~\ref{tab:bubble2Dp2p1p0adaptive} we use adaptive meshes which are fine
 close to the interface and coarse away from it. More precisely, the

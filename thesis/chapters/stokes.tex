@@ -1033,7 +1033,8 @@ Figure~\ref{fig:meshes_uniform}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]{figures/stokes/mesh_uniform.ps}
-\caption{Initial mesh for the 2d stationary bubble problem with $J_\Gamma = 32$
+\caption[Stationary bubble initial uniform 2d mesh]
+{Initial mesh for the 2d stationary bubble problem with $J_\Gamma = 32$
 interface elements.}
 \label{fig:meshes_uniform}
 \end{figure}
@@ -1055,9 +1056,44 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 128 & 0 & 0 & 2.60448e-02 & 0.64 & 1443 \\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
+\caption[Stokes 2d P2--P0 stationary bubble errors]
+{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
 interval $[0,1]$ for the P2--P0 element.}
 \label{tab:bubble2Dp2p0}
+\end{table*}
+\begin{table*}
+\center
+\begin{tabular}{rllllr}
+\hline
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
+\hline
+ 16 & 2.41133e-02 & 9.35478e-03 & 5.75614e-01 &    - &     5 \\
+ 32 & 1.21789e-02 & 3.44473e-03 & 3.99457e-01 & 0.40 &    36 \\
+ 64 & 6.17055e-03 & 1.24629e-03 & 2.77632e-01 & 0.52 &   170 \\
+128 & 2.97451e-03 & 4.41980e-04 & 1.96901e-01 & 0.50 &  1343 \\
+\hline
+\end{tabular}
+\caption[Stokes 2d P2--P1 stationary bubble errors]
+{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
+interval $[0,1]$ for the P2--P1 element.}
+\label{tab:bubble2Dp2p1}
+\end{table*}
+\begin{table*}
+\center
+\begin{tabular}{rllllr}
+\hline
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
+\hline
+ 16 & 0 & 0 & 3.22254e-01 &    - &    8 \\
+ 32 & 0 & 0 & 1.41195e-01 & 0.90 &   42 \\
+ 64 & 0 & 0 & 4.06438e-02 & 1.80 &  181 \\
+128 & 0 & 0 & 2.60448e-02 & 0.64 & 1006 \\
+\hline
+\end{tabular}
+\caption[Stokes 2d P2--$\pdg$ stationary bubble errors]
+{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
+interval $[0,1]$ for the P2--$\pdg$ element.}
+\label{tab:bubble2Dp2p1dg}
 \end{table*}
 \begin{table*}
  \center
@@ -1071,7 +1107,8 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 128 & 0 & 0 & 2.60448e-02 & 0.64 & 2151 \\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
+\caption[Stokes 2d P2--(P1+P0) stationary bubble errors]
+{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
 interval $[0,1]$ for the P2--(P1+P0) element.}
 \label{tab:bubble2Dp2p1p0}
 \end{table*}
