@@ -216,16 +216,16 @@ exists a constant $C_0 \in \R_{>0}$, independent of $\mathcal{T}^m$, such that
 \end{equation}
 see \cite[p.~114]{GiraultR86}. Here $\|\cdot\|_0 := (\cdot,\cdot)^\frac12$ and
 $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ denote the $L^2$--norm and
-the $H^1$--norm on $\Omega$, respectively. Throughout this thesis, we will
-assume that $S^m_0\subset\pspace^m$. Then, for $d=2$, possible pairs
-$(\uspace^m,\pspace^m)$ that satisfy (\ref{eq:LBB}) are P2--P0 and P2--(P1+P0),
-i.e. we set $\uspace^m=[S^m_2]^d\cap\uspace$ and either $\pspace^m = S^m_0$ or
-$S^m_1+S^m_0$. We note that the choice P2--(P1+P0) requires the weak constraint
-that all simplices have a vertex in $\Omega$, see \cite{BoffiCGG12}. For $d=3$,
-pairs of spaces that satisfy $S^m_0\subset\pspace^m$ and (\ref{eq:LBB}) are
-the P3--(P2+P0) element, see \cite{BoffiCGG12}, or stabilized spaces such as
-P1$^{\mbox{face bubble}}$--P0, see \cite[Remark~8.7.1]{BoffiBF13}, which is
-also called the SMALL element.
+the $H^1$--norm on $\Omega$, respectively. Throughout this thesis, if not
+otherwise stated, we will assume that $S^m_0\subset\pspace^m$. Then, for $d=2$,
+possible pairs $(\uspace^m,\pspace^m)$ that satisfy (\ref{eq:LBB}) are P2--P0
+and P2--(P1+P0), i.e. we set $\uspace^m=[S^m_2]^d\cap\uspace$ and either
+$\pspace^m = S^m_0$ or $S^m_1+S^m_0$. We note that the choice P2--(P1+P0)
+requires the weak constraint that all simplices have a vertex in $\Omega$, see
+\cite{BoffiCGG12}. For $d=3$, pairs of spaces that satisfy
+$S^m_0\subset\pspace^m$ and (\ref{eq:LBB}) are the P3--(P2+P0) element, see
+\cite{BoffiCGG12}, or stabilized spaces such as P1$^{\mbox{face bubble}}$--P0,
+see \cite[Remark~8.7.1]{BoffiBF13}, which is also called the SMALL element.
 
 In this thesis we consider a fitted finite element approximation for the
 evolution of the interface $\Gamma(t)$. Let $\Gamma^{m}\subset\R^d$ be a
@@ -512,11 +512,11 @@ $\overline{\kappa} \in \R$ such that (\ref{eq:constcurv}) is satisfied.
 Hence Theorem~\ref{thm:stat2} yields that in this situation $(\vec
 U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) = (\vec 0, \vec X^m,\overline{\kappa})$ is
 the unique solution to the reduced system with $\vec f^{m+1} =\vec 0$. See
-\S\ref{sec:41} for details.
+\S\ref{sec:stokes_2d_convergence_results} for details.
 
 For $d=3$, we observe in practice that conformal approximations of the sphere,
 i.e. spherical $\Gamma^m$ satisfying (\ref{eq:conformal}), also satisfy
-(\ref{eq:constcurv}). See \S\ref{sec:45} for details.
+(\ref{eq:constcurv}). See \S\ref{sec:stokes_3d_convergence_results} for details.
 
 \section{Semidiscrete scheme}\label{sec:stokes_semi_fem}
 We briefly investigate a semidiscrete variant of the scheme (\ref{eq:HGa}--d)
@@ -989,7 +989,7 @@ In the following, unless otherwise stated, we choose the initial surface
 $\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$, the domain
 $\Omega = (-1,1)^d$ and we employ uniform time steps $\tau_m=\tau$,
 $m=0,\ldots, M-1$. Moreover, we always set the GMRES tolerance to $10^{-12}$ and
-the restart value to 1000.
+the restart value to 50.
 
 Finally, we define the errors
 \begin{equation} \label{eq:errorXx}
@@ -1019,9 +1019,14 @@ the estimated error of convergence EOC as
 \end{equation}
 where $\mbox{error}_1$ is the error computed on a triangulation finer that the
 one used to compute $\mbox{error}_0$ while $\mbox{h}_1$ and $\mbox{h}_0$ are the
-respectively mesh size.
+respectively characteristic lengths. The characteristic length prescribes the
+size of the mesh elements. For example, a segment of length $L$, which defines
+an edge of the domain boundary, delimited by two points of characteristic
+length $c_l$ will be subdivided into several segments of lengths
+$\frac{L}{c_l}$ during the mesh generation. Therefore, smaller is the
+characteristic length, finer is the resulting mesh.
 
-\subsection{Convergence tests in 2d} \label{sec:41}
+\subsection{Convergence tests in 2d} \label{sec:stokes_2d_convergence_results}
 For the true solution (\ref{eq:radialr},b) we choose $\mu = \gamma = 1$.
 Therefore, the solution reduces to $r(t) =
 \frac{1}{2}$, $\vec u(\cdot, t) = \vec 0$ and $p(t) = 2\,\charfcn{\Omega_-(0)} -
@@ -1040,10 +1045,10 @@ interface elements.}
 \end{figure}
 In addition, we use a uniform time step size $\tau=10^{-2}$.
 We compute the discrete solutions to this stationary problem over the time
-interval $[0,1]$, and report on the errors for the P2--P0 and
-P2--(P1+P0) elements in
-Tables~\ref{tab:bubble2Dp2p0} and \ref{tab:bubble2Dp2p1p0},
-respectively.
+interval $[0,1]$, and report on the errors for the P2--P0, P2--P1, P2--$\pdg$
+and P2--(P1+P0) elements in Tables~\ref{tab:stokes_stationary_2d_p2p0},
+\ref{tab:stokes_stationary_2d_p2p1}, \ref{tab:stokes_stationary_2d_p2p1dg} and
+\ref{tab:stokes_stationary_2d_p2p1p0}, respectively.
 \begin{table*}
 \center
 \begin{tabular}{rllllr}
@@ -1059,7 +1064,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 \caption[Stokes 2d P2--P0 stationary bubble errors]
 {($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
 interval $[0,1]$ for the P2--P0 element.}
-\label{tab:bubble2Dp2p0}
+\label{tab:stokes_stationary_2d_p2p0}
 \end{table*}
 \begin{table*}
 \center
@@ -1076,7 +1081,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 \caption[Stokes 2d P2--P1 stationary bubble errors]
 {($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
 interval $[0,1]$ for the P2--P1 element.}
-\label{tab:bubble2Dp2p1}
+\label{tab:stokes_stationary_2d_p2p1}
 \end{table*}
 \begin{table*}
 \center
@@ -1093,7 +1098,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 \caption[Stokes 2d P2--$\pdg$ stationary bubble errors]
 {($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
 interval $[0,1]$ for the P2--$\pdg$ element.}
-\label{tab:bubble2Dp2p1dg}
+\label{tab:stokes_stationary_2d_p2p1dg}
 \end{table*}
 \begin{table*}
  \center
@@ -1110,27 +1115,34 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 \caption[Stokes 2d P2--(P1+P0) stationary bubble errors]
 {($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
 interval $[0,1]$ for the P2--(P1+P0) element.}
-\label{tab:bubble2Dp2p1p0}
+\label{tab:stokes_stationary_2d_p2p1p0}
 \end{table*}
+
 We can clearly see that the stationary nature of the true solution
-(\ref{eq:radialr},b) is captured exactly by our numerical method,
-see also Figure~\ref{fig:2d_stationary_bubble} for a visualization of the
-discrete pressure in the case $J_\Gamma = 32$. This is not surprising given the
+(\ref{eq:radialr},b) is captured exactly by our numerical method with the
+P2--P0, the P2--$\pdg$ and the P2--(P1+P0) element, see also
+Figure~\ref{fig:2d_stationary_bubble} for a visualization of the discrete
+pressure in the case $J_\Gamma = 32$. This is not surprising given the
 result of Theorem~\ref{thm:stat2}, and the fact that we use an equidistributed
 approximation $\Gamma^0$, which means that (\ref{eq:constcurv}) is satisfied.
-Of course, since the discrete solution is stationary, neither smoothing nor
-remeshing is performed for the simulations in Tables~\ref{tab:bubble2Dp2p0} and
-\ref{tab:bubble2Dp2p1p0}. We also observe that the error for the two
-approximations with the P2--P0 and the P2--(P1+P0) element, respectively,
-produce identical errors. Again, that is to be expected, since the solution
-(\ref{eq:solsol}) is such that $P^{m+1} \in S^m_0$, and so the additional
-degrees of freedom in the space $S^m_1$ are not utilized by the pressure
+Instead the element P2--P1 does not satisfy the hypothesis that $S^m_0 \subset
+\pspace^m$ of Theorem~\ref{thm:stat2} therefore the true solution is not
+captured exactly. Of course, since the discrete solution is stationary, neither
+smoothing nor remeshing is performed for the simulations in
+Tables~\ref{tab:stokes_stationary_2d_p2p0},
+\ref{tab:stokes_stationary_2d_p2p1}, \ref{tab:stokes_stationary_2d_p2p1dg} and
+\ref{tab:stokes_stationary_2d_p2p1p0}. We also observe that the error for the
+three approximations with the P2--P0, the P2--$\pdg$ and the P2--(P1+P0)
+element, respectively, produce identical errors. Again, that is to be expected,
+since the solution (\ref{eq:solsol}) is such that $P^{m+1} \in S^m_0$, and so
+the additional degrees of freedom are not utilized by the pressure
 approximation.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/stokes/2d_stationary_bubble_uniform_100.ps}
-\caption{($\mu=\gamma=1$) Pressure of the 2d stationary bubble at time $t=1$
+\caption[Stokes 2d stationary bubble pressure]
+{($\mu=\gamma=1$) Pressure of the 2d stationary bubble at time $t=1$
 for the P2--P0 element.}
 \label{fig:2d_stationary_bubble}
 \end{figure}
@@ -1464,37 +1476,36 @@ $C_r=3$ for the P2--P0 element, uniform mesh.}
 \label{fig:shear_2d_velocity}
 \end{figure}
 
-\subsection{Convergence test in 3d} \label{sec:45}
-Similarly to \S\ref{sec:41}, we perform the following convergence test for a
-stationary spherical bubble in 3d. Let $\mu = \gamma = 1$. Then the true
-solution (\ref{eq:radialr},b) reduces to
-$r(t) = \frac{1}{2}$, $\vec u(\cdot, t) = \vec 0$ and
-$p(t) = 4\,\charfcn{\Omega_-(0)} - \frac{\pi}{12}$ for all $t\geq0$. We
-approximate this stationary solution on nearly uniform meshes that feature
-$J_\Gamma = 32$, $220$ and $596$ interface elements, and
-$J_\Omega^0 = 408$, $3590$ and $20473$ bulk elements, respectively. Here, in
-contrast to the situation in 2d, we are not able to define $\Gamma^0$
-such that the vertices of $\Gamma^0$ lie on $\Gamma(0)$ and such that
-(\ref{eq:constcurv}) is satisfied. As we would like to demonstrate the ability
-of our method to recover the discrete stationary solution (\ref{eq:solsol})
-also in 3d, we choose the initial interface $\Gamma^0$ such that
-(\ref{eq:constcurv}) holds, at the expense of a nonzero initial error
+\subsection{Convergence test in 3d} \label{sec:stokes_3d_convergence_results}
+Similarly to \S\ref{sec:stokes_2d_convergence_results}, we perform the following
+convergence test for a stationary spherical bubble in 3d. Let $\mu = \gamma =
+1$. Then the true solution (\ref{eq:radialr},b) reduces to $r(t) =
+\frac{1}{2}$, $\vec u(\cdot, t) = \vec 0$ and $p(t) = 4\,\charfcn{\Omega_-(0)}
+- \frac{\pi}{12}$ for all $t\geq0$. We approximate this stationary solution on
+nearly uniform meshes that feature $J_\Gamma = 32$, $220$ and $596$ interface
+elements, and $J_\Omega^0 = 408$, $3590$ and $20473$ bulk elements,
+respectively. Here, in contrast to the situation in 2d, we are not able to
+define $\Gamma^0$ such that the vertices of $\Gamma^0$ lie on $\Gamma(0)$ and
+such that (\ref{eq:constcurv}) is satisfied. As we would like to demonstrate
+the ability of our method to recover the discrete stationary solution
+(\ref{eq:solsol}) also in 3d, we choose the initial interface $\Gamma^0$ such
+that (\ref{eq:constcurv}) holds, at the expense of a nonzero initial error
 $\| \Gamma^0 - \Gamma(0) \|_{L^\infty}$, recall (\ref{eq:errorXx}). We obtain
 such an initial triangulation with the help of the numerical scheme from
-\cite{gflows3d} for surface diffusion, which is a gradient flow for
-surface area that maintains the enclosed volume. See
-e.g. \cite[Fig. 11]{gflows3d} for an evolution towards a polyhedral
-approximation of a sphere that satisfies (\ref{eq:constcurv}), and hence also
-(\ref{eq:conformal}). We report the errors for the P2--P0 element in
-Table~\ref{tab:bubble3Dp2p0}, while Table~\ref{tab:bubble3Dp2p1p0} shows the
-same errors for the P2--(P1+P0) element. Here we note that, as yet, for
-the pairs P2--P0 and P2--(P1+P0) there exist no proofs in the literature that
-the LBB condition (\ref{eq:LBB}) holds, see e.g. the discussion in
-\cite[Remark~8.4.3]{BoffiBF13}. However, in practice we encountered no problems
-when using these spaces, and our iterative solver always converged to a
-solution of the scheme (\ref{eq:HGa}--d).
-For both sets of simulations we use the uniform time step size
-$\tau = 10^{-2}$.
+Chapter~\ref{ch:geometric_pdes} for surface diffusion, which is a gradient flow
+for surface area that maintains the enclosed volume. See e.g. \cite[Fig.
+11]{gflows3d} for an evolution towards a polyhedral approximation of a sphere
+that satisfies (\ref{eq:constcurv}), and hence also (\ref{eq:conformal}). We
+report on the errors for the P2--P0, P2--P1, P2--$\pdg$
+and P2--(P1+P0) elements in Tables~\ref{tab:stokes_stationary_3d_p2p0},
+\ref{tab:stokes_stationary_3d_p2p1}, \ref{tab:stokes_stationary_3d_p2p1dg} and
+\ref{tab:stokes_stationary_3d_p2p1p0}, respectively. Here we note that, as yet,
+for the pairs P2--P0, P2--$\pdg$ and P2--(P1+P0) there exist no proofs in the
+literature that the LBB condition (\ref{eq:LBB}) holds, see e.g. the discussion
+in \cite[Remark~8.4.3]{BoffiBF13}. However, in practice we encountered no
+problems when using these spaces, and our iterative solver always converged to a
+solution of the scheme (\ref{eq:HGa}--d). For both sets of simulations we use
+the uniform time step size $\tau = 10^{-2}$.
 \begin{table*}
 \center
 \begin{tabular}{rllllr}
@@ -1506,11 +1517,43 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 596 & 2.42857e-03 & 0 & 3.58466e-01 & 0.99 & 51604 \\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time
+\caption[Stokes 3d P2--P0 stationary bubble errors]
+{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time
 interval $[0,1]$ for the P2--P0 element.}
-\label{tab:bubble3Dp2p0}
+\label{tab:stokes_stationary_3d_p2p0}
 \end{table*}
-
+\begin{table*}
+\center
+\begin{tabular}{rllllr}
+\hline
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
+\hline
+ 32 & 1.56938e-01 & 6.01956e-02 & 2.10996e-00 &    - &   315 \\
+220 & 7.28946e-02 & 3.13992e-02 & 1.47595e-00 & 0.52 &  4231 \\
+596 & 4.04291e-02 & 1.34276e-02 & 1.09674e-00 & 0.43 & 51287 \\
+\hline
+\end{tabular}
+\caption[Stokes 3d P2--P1 stationary bubble errors]
+{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time
+interval $[0,1]$ for the P2--P1 element.}
+\label{tab:stokes_stationary_3d_p2p1}
+\end{table*}
+\begin{table*}
+\center
+\begin{tabular}{rllllr}
+\hline
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
+\hline
+ 32 & 2.97986e-02 & 0 & 1.65555e-00 &    - &    73 \\
+220 & 5.80971e-03 & 0 & 7.14269e-01 & 1.21 &  1018 \\
+596 & 2.42857e-03 & 0 & 3.58466e-01 & 0.99 & 17814 \\
+\hline
+\end{tabular}
+\caption[Stokes 3d P2--$\pdg$ stationary bubble errors]
+{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time
+interval $[0,1]$ for the P2--$\pdg$ element.}
+\label{tab:stokes_stationary_3d_p2p1dg}
+\end{table*}
 \begin{table*}
 \center
 \begin{tabular}{rllllr}
@@ -1522,15 +1565,19 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 596 & 2.42857e-03 & 0 & 3.59181e-01 & 0.99 & 121110 \\
 \hline
 \end{tabular}
-\caption{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time
+\caption[Stokes 3d P2--(P1+P0) stationary bubble errors]
+{($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time
 interval $[0,1]$ for the P2--(P1+P0) element.}
-\label{tab:bubble3Dp2p1p0}
+\label{tab:stokes_stationary_3d_p2p1p0}
 \end{table*}
 
 We note that we again recover the discrete stationary solutions
-(\ref{eq:solsol}). Here this leads to a nonzero error in the position of the
-discrete interface, because the vertices of the initial interface $\Gamma^0$ do
-not lie on $\Gamma(0)$.
+(\ref{eq:solsol}) for the P2--P0, P2--$\pdg$ and P2--(P1+P0) elements while,
+as before, the P2--P1 element does not capture exactly the true solution
+since this element does not satisfy the hypothesis that $S^m_0 \subset
+\pspace^m$ of Theorem~\ref{thm:stat2}. Here this leads to a nonzero error in
+the position of the discrete interface, because the vertices of the initial
+interface $\Gamma^0$ do not lie on $\Gamma(0)$.
 
 \subsection{Shear flow experiment in 3d}
 Finally, we also report on a 3d shear flow experiment.
