@@ -1038,7 +1038,7 @@ Figure~\ref{fig:meshes_uniform}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]{figures/stokes/mesh_uniform.ps}
-\caption[Stationary bubble initial uniform 2d mesh]
+\caption[Stokes 2d stationary bubble initial mesh]
 {Initial mesh for the 2d stationary bubble problem with $J_\Gamma = 32$
 interface elements.}
 \label{fig:meshes_uniform}
@@ -1160,7 +1160,8 @@ on the right hand side of Figure~\ref{fig:meshes_expanding}.
 \includegraphics[width=.45\textwidth]{figures/stokes/mesh_hole_uniform.ps}}\quad
 \subfloat[Adaptive mesh with $J_\Gamma = 64$]{
 \includegraphics[width=.45\textwidth]{figures/stokes/mesh_hole_adaptive.ps}}
-\caption{Initial meshes for the expanding bubble problem.}
+\caption[Stokes 2d expanding bubble initial meshes]
+{Initial meshes for the expanding bubble problem.}
 \label{fig:meshes_expanding}
 \end{figure}
 
@@ -1182,8 +1183,8 @@ $J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ for $C_r=1$ \\
 128 & 15212 & $2.5\cdot10^{-4}$ & 7272 \\
 \hline
 \end{tabular}
-\caption{Discretization parameters for the 2d expanding bubble problem,
-uniform meshes.}
+\caption[Stokes 2d expanding bubble uniform meshes parameters]
+{Discretization parameters for the 2d expanding bubble problem, uniform meshes.}
 \label{tab:expandingbubble2Delements}
 \end{table*}
 We report on the error for the P2--P0 element, when only mesh smoothings are
@@ -1290,12 +1291,17 @@ Figure~\ref{fig:expanding_bubble_uniform}.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=0$]{\includegraphics[width=.32\textwidth]
-{figures/stokes/expanding_bubble_uniform_remesh_000.ps}}
+{figures/stokes/expanding_bubble_uniform_remesh_000.ps}}\\
+\subfloat[$t=0.25$]{\includegraphics[width=.32\textwidth]
+{figures/stokes/expanding_bubble_uniform_remesh_025.ps}}\qquad
 \subfloat[$t=0.5$]{\includegraphics[width=.32\textwidth]
-{figures/stokes/expanding_bubble_uniform_remesh_050.ps}}
+{figures/stokes/expanding_bubble_uniform_remesh_050.ps}}\\
+\subfloat[$t=0.75$]{\includegraphics[width=.32\textwidth]
+{figures/stokes/expanding_bubble_uniform_remesh_075.ps}}\qquad
 \subfloat[$t=1$]{\includegraphics[width=.32\textwidth]
 {figures/stokes/expanding_bubble_uniform_remesh_100.ps}}
-\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of
+\caption[Stokes 2d expanding bubble pressure uniform mesh]
+{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of
 the 2d expanding bubble for the P2--P0 element, uniform mesh.}
 \label{fig:expanding_bubble_uniform}
 \end{figure}
@@ -1322,8 +1328,8 @@ $J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ \\
 256 & 7460 &         $10^{-3}$ & 3866 \\
 \hline
 \end{tabular}
-\caption{Discretization parameters for the 2d expanding bubble problem,
-adaptive meshes.}
+\caption[Stokes 2d expanding bubble adaptive meshes parameters]{Discretization
+parameters for the 2d expanding bubble problem, adaptive meshes.}
 \label{tab:expandingbubble2Delements_adaptive}
 \end{table*}
 The observed errors for our numerical approximation are shown in
@@ -1355,7 +1361,27 @@ adaptive mesh.}
 \end{table*}
 Comparing the error quantities in Tables~\ref{tab:expandingbubble2Dp2p0remesh}
 and \ref{tab:expandingbubble2Dp2p0adaptive} we note that there appears to be no
-advantage in using a highly refined mesh near the moving interface.
+advantage in using a highly refined mesh near the moving interface. The
+evolution of the discrete pressure solution in the case $J_\Gamma = 64$, for
+the run with $C_r = 1$, can be seen in
+Figure~\ref{fig:expanding_bubble_adaptive}.
+\begin{figure}[htbp]
+\centering
+\subfloat[$t=0$]{\includegraphics[width=.32\textwidth]
+{figures/stokes/expanding_bubble_adaptive_remesh_000.ps}}\\
+\subfloat[$t=0.25$]{\includegraphics[width=.32\textwidth]
+{figures/stokes/expanding_bubble_adaptive_remesh_025.ps}}\qquad
+\subfloat[$t=0.5$]{\includegraphics[width=.32\textwidth]
+{figures/stokes/expanding_bubble_adaptive_remesh_050.ps}}\\
+\subfloat[$t=0.75$]{\includegraphics[width=.32\textwidth]
+{figures/stokes/expanding_bubble_adaptive_remesh_075.ps}}\qquad
+\subfloat[$t=1$]{\includegraphics[width=.32\textwidth]
+{figures/stokes/expanding_bubble_adaptive_remesh_100.ps}}
+\caption[Stokes 2d expanding bubble pressure adaptive mesh]
+{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of
+the 2d expanding bubble for the P2--P0 element, adaptive mesh.}
+\label{fig:expanding_bubble_adaptive}
+\end{figure}
 
 \subsection{Equidistribution property in 2d}
 We now demonstrate the remarkable equidistribution property of our method
