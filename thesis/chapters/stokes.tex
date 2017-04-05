@@ -1325,15 +1325,15 @@ for the run with $C_r = 1$, can be seen in
 Figure~\ref{fig:expanding_bubble_uniform}.
 \begin{figure}[htbp]
 \centering
-\subfloat[$t=0$]{\includegraphics[width=.32\textwidth]
+\subfloat[$t=0$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/expanding_bubble_uniform_remesh_000.ps}}\\
-\subfloat[$t=0.25$]{\includegraphics[width=.32\textwidth]
+\subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/expanding_bubble_uniform_remesh_025.ps}}\qquad
-\subfloat[$t=0.5$]{\includegraphics[width=.32\textwidth]
+\subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/expanding_bubble_uniform_remesh_050.ps}}\\
-\subfloat[$t=0.75$]{\includegraphics[width=.32\textwidth]
+\subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/expanding_bubble_uniform_remesh_075.ps}}\qquad
-\subfloat[$t=1$]{\includegraphics[width=.32\textwidth]
+\subfloat[$t=1$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/expanding_bubble_uniform_remesh_100.ps}}
 \caption[Stokes 2d expanding bubble pressure uniform mesh]
 {($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of
@@ -1350,7 +1350,9 @@ Finally, we would also like to investigate the effect of using adaptive bulk
 meshes, that are refined close to the interface. An example mesh is shown on
 the right hand side of Figure~\ref{fig:meshes_expanding}, and we list our
 employed discretization parameters in
-Table~\ref{tab:expandingbubble2Delements_adaptive}.
+Table~\ref{tab:expandingbubble2Delements_adaptive}. Obviously the remesh
+criterion (\ref{eq:remesh}) cannot be used for an adaptive mesh since it would
+be always violated therefore we use the angle criterion ...
 \begin{table*}
 \center
 \begin{tabular}{rrrrr}
@@ -1418,15 +1420,15 @@ the run with $C_r = 1$, can be seen in
 Figure~\ref{fig:expanding_bubble_adaptive}.
 \begin{figure}[htbp]
 \centering
-\subfloat[$t=0$]{\includegraphics[width=.32\textwidth]
+\subfloat[$t=0$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/expanding_bubble_adaptive_remesh_000.ps}}\\
-\subfloat[$t=0.25$]{\includegraphics[width=.32\textwidth]
+\subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/expanding_bubble_adaptive_remesh_025.ps}}\qquad
-\subfloat[$t=0.5$]{\includegraphics[width=.32\textwidth]
+\subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/expanding_bubble_adaptive_remesh_050.ps}}\\
-\subfloat[$t=0.75$]{\includegraphics[width=.32\textwidth]
+\subfloat[$t=0.75$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/expanding_bubble_adaptive_remesh_075.ps}}\qquad
-\subfloat[$t=1$]{\includegraphics[width=.32\textwidth]
+\subfloat[$t=1$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/expanding_bubble_adaptive_remesh_100.ps}}
 \caption[Stokes 2d expanding bubble pressure adaptive mesh]
 {($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of
