@@ -1167,37 +1167,36 @@ on the right hand side of Figure~\ref{fig:meshes_expanding}.
 
 Details on the discretization parameters for the nearly uniform meshes are
 given in Table~\ref{tab:expandingbubble2Delements}. Here we explicitly
-state the final number of bulk elements, $J_\Omega^M$, only in the case
-$C_r = 1$, recall (\ref{eq:remesh}), i.e. when the bulk is remeshed after
-every time step. Of course, when only smoothing is employed, then the number of
-bulk mesh elements is invariant, and so $J_\Omega^M = J_\Omega^0$.
+state the final number of bulk elements, $J_\Omega^M$, in the case $C_r = 1$
+and $C_r = 3$, recall the remesh criterion (\ref{eq:remesh}). In the former the
+bulk is remeshed after every time step while in the latter the bulk is remeshed
+when the max--min entity volume ratio is bigger than 3. Of course, when only
+smoothing is employed, then the number of bulk mesh elements is invariant, and
+so $J_\Omega^M = J_\Omega^0$.
 \begin{table*}
 \center
-\begin{tabular}{rrrr}
+\begin{tabular}{rrrrr}
 \hline
-$J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ for $C_r=1$ \\
+$J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ for $C_r=1$ &
+$J_\Omega^M$ for $C_r=3$ \\
 \hline
- 16 &   212 & $1.6\cdot10^{-2}$ &  120 \\
- 32 &   988 &   $4\cdot10^{-3}$ &  452 \\
- 64 &  3776 &         $10^{-3}$ & 1864 \\
-128 & 15212 & $2.5\cdot10^{-4}$ & 7272 \\
+ 16 &   316 & $1.6\cdot10^{-2}$ &  120 & 184\\
+ 32 &  1016 &   $4\cdot10^{-3}$ &  452 & 468\\
+ 64 &  3916 &         $10^{-3}$ & 1864 & 1858\\
+128 & 15212 & $2.5\cdot10^{-4}$ & 7272 & \\
 \hline
 \end{tabular}
 \caption[Stokes 2d expanding bubble uniform meshes parameters]
 {Discretization parameters for the 2d expanding bubble problem, uniform meshes.}
 \label{tab:expandingbubble2Delements}
 \end{table*}
-We report on the error for the P2--P0 element, when only mesh smoothings are
-applied, in Table~\ref{tab:expandingbubble2Dp2p0smooth}. Due to the expanding
-motion of the interface, we observe that over time bulk mesh elements strongly
-deform. This leads to large CPU times and additional approximation errors. In
-particular, the strong mesh deformations for the finest run, with
-$J_\Omega^0 = J_\Omega^M = 15212$, leads to a breakdown of the convergence rate
-for the $L^2$-velocity error, and an actual increase in the $H^1$-velocity
-error.
-Hence, as a comparison, we show the errors for the same element, when the bulk
-mesh is remeshed after every time step, in
-Table~\ref{tab:expandingbubble2Dp2p0remesh}.
+We report on the error for the P2--P0, the P2--$\pdg$ and the P2--(P1+P0)
+element in Table~\ref{tab:expandingbubble2Dp2p0},
+\ref{tab:expandingbubble2Dp2p1dg} and \ref{tab:expandingbubble2Dp2p1p0},
+respectively. On the top part of the tables only mesh smoothings are applied,
+in the central part the bulk mesh is remeshed after every time step while at
+the bottom the bulk mesh is remeshed only when the criterion (\ref{eq:remesh}),
+with $C_r=3$, is not satisfied.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1206,21 +1205,31 @@ Table~\ref{tab:expandingbubble2Dp2p0remesh}.
 $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 & CPU[s] \\
 \hline
- 16 & 6.17082e-03 & 8.84787e-04 &    - & 2.50884e-02 & 4.16967e-01 &    - &
-5 \\
- 32 & 1.51156e-03 & 3.41220e-04 & 1.04 & 1.17669e-02 & 2.29638e-01 & 0.65 &
-119 \\
- 64 & 3.69491e-04 & 8.66470e-05 & 1.98 & 5.82977e-03 & 1.05959e-01 & 1.12 &
-2121 \\
-128 & 9.20954e-05 & 5.90688e-05 & 0.55 & 6.42798e-03 & 3.15158e-02 & 1.75 &
-37494 \\
+& \multicolumn{7}{c}{no remeshing} \\
+\hline
+ 16 & 5.94637e-03 & 7.26038e-04 & - & 1.98118e-02 & 4.30560e-01 & - &    9 \\
+ 32 & 1.47959e-03 & 3.39540e-04 & - & 1.17665e-02 & 2.27294e-01 & - &   98 \\
+ 64 & 3.68960e-04 & 8.66188e-05 & - & 5.82989e-03 & 1.05041e-01 & - & 1709 \\
+\hline
+& \multicolumn{7}{c}{$C_r=1$} \\
+\hline
+ 16 & 5.92441e-03 & 5.27627e-04 & - & 1.57505e-02 & 4.43442e-01 & - &  - \\
+ 32 & 1.46657e-03 & 1.05800e-04 & - & 5.26275e-03 & 2.14680e-01 & - &  - \\
+ 64 & 3.65433e-04 & 1.48680e-05 & - & 1.50695e-03 & 8.14177e-02 & - &  - \\
+\hline
+& \multicolumn{7}{c}{$C_r=3$} \\
+\hline
+ 16 & 5.94589e-03 & 5.71201e-04 & - & 1.51195e-02 & 4.44395e-01 & - &  - \\
+ 32 & 1.47176e-03 & 1.02091e-04 & - & 4.86975e-03 & 2.13617e-01 & - &  - \\
+ 64 & 3.65488e-04 & 1.50366e-05 & - & 1.50058e-03 & 8.22797e-02 & - &  - \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
+\caption[Stokes 2d P2--P0 expanding bubble uniform mesh errors]
+{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
-interval $[0,1]$ for the P2--P0 element, no remeshing and uniform mesh.}
-\label{tab:expandingbubble2Dp2p0smooth}
+interval $[0,1]$ for the P2--P0 element with uniform mesh.}
+\label{tab:expandingbubble2Dp2p0}
 \end{table*}
 \begin{table*}
 \center
@@ -1230,60 +1239,79 @@ interval $[0,1]$ for the P2--P0 element, no remeshing and uniform mesh.}
 $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 & CPU[s] \\
 \hline
- 16 & 5.96720e-03 & 5.50015e-04 &    - & 1.59994e-02 & 4.43219e-01 &    - &
-17 \\
- 32 & 1.46664e-03 & 1.05702e-04 & 1.80 & 5.25702e-03 & 2.14651e-01 & 0.79 &
-142 \\
- 64 & 3.65441e-04 & 1.48680e-05 & 2.83 & 1.50700e-03 & 8.09626e-02 & 1.41 &
-1598 \\
-128 & 9.12537e-05 & 1.80890e-06 & 3.04 & 3.59193e-04 & 3.69595e-02 & 1.13 &
-26254 \\
+& \multicolumn{7}{c}{no remeshing} \\
+\hline
+ 16 & 5.99881e-03 & 1.42557e-03 & - & 3.45859e-02 & 4.31784e-01 & - &     9 \\
+ 32 & 1.47936e-03 & 4.11514e-04 & - & 1.28088e-02 & 2.27350e-01 & - &    82 \\
+ 64 & 3.69030e-04 & 1.03424e-04 & - & 6.17291e-03 & 1.05060e-01 & - &  1391 \\
+\hline
+& \multicolumn{7}{c}{$C_r=1$} \\
+\hline
+ 16 & 5.95848e-03 & 8.38757e-04 & - & 2.23968e-02 & 4.44061e-01 & - &  - \\
+ 32 & 1.47123e-03 & 2.22736e-04 & - & 7.70628e-03 & 2.15081e-01 & - &  - \\
+ 64 & 3.65750e-04 & 2.16681e-05 & - & 1.76987e-03 & 8.15608e-02 & - &  - \\
+\hline
+& \multicolumn{7}{c}{$C_r=3$} \\
+\hline
+ 16 & 5.99703e-03 & 8.59166e-04 & - & 2.23227e-02 & 4.44656e-01 & - &  - \\
+ 32 & 1.47622e-03 & 2.03051e-04 & - & 7.04524e-03 & 2.13800e-01 & - &  - \\
+ 64 & 3.65886e-04 & 2.21067e-05 & - & 1.77973e-03 & 8.20109e-02 & - &  - \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
+\caption[Stokes 2d P2--$\pdg$ expanding bubble uniform mesh errors]
+{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
-interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and
-uniform mesh.}
-\label{tab:expandingbubble2Dp2p0remesh}
+interval $[0,1]$ for the P2--$\pdg$ element with uniform mesh.}
+\label{tab:expandingbubble2Dp2p1dg}
 \end{table*}
-We observe a dramatic improvement in the CPU times, and a significant reduction
+\begin{table*}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rllllllr}
+\hline
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
+& CPU[s] \\
+\hline
+& \multicolumn{7}{c}{no remeshing} \\
+\hline
+ 16 & 5.99532e-03 & 1.55402e-03 & - & 4.09186e-02 & 4.31782e-01 & - &    9 \\
+ 32 & 1.48145e-03 & 4.40335e-04 & - & 1.35501e-02 & 2.27375e-01 & - &   80 \\
+ 64 & 3.68601e-04 & 1.08675e-04 & - & 6.48883e-03 & 1.05064e-01 & - & 1316 \\
+\hline
+& \multicolumn{7}{c}{$C_r=1$} \\
+\hline
+ 16 & 5.96235e-03 & 8.94203e-04 & - & 2.61842e-02 & 4.44306e-01 & - &  - \\
+ 32 & 1.47265e-03 & 2.41779e-04 & - & 1.03858e-02 & 2.15011e-01 & - &  - \\
+ 64 & 3.65605e-04 & 2.33308e-05 & - & 2.02208e-03 & 8.11222e-02 & - &  - \\
+\hline
+& \multicolumn{7}{c}{$C_r=3$} \\
+\hline
+ 16 & 5.97343e-03 & 8.91171e-04 & - & 2.46402e-02 & 4.45063e-01 & - &  - \\
+ 32 & 1.47254e-03 & 2.20844e-04 & - & 9.55901e-03 & 2.13809e-01 & - &  - \\
+ 64 & 3.65587e-04 & 2.33348e-05 & - & 2.00192e-03 & 8.17655e-02 & - &  - \\
+\hline
+\end{tabular}
+\hspace*{-3.25cm}
+\caption[Stokes 2d P2--(P1+P0) expanding bubble uniform mesh errors]
+{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
+problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
+interval $[0,1]$ for the P2--(P1+P0) element with uniform mesh.}
+\label{tab:expandingbubble2Dp2p1p0}
+\end{table*}
+Due to the expanding motion of the interface, if no remesh is used, we observe
+that over time bulk mesh elements strongly deform. This leads to large CPU
+times and additional approximation errors. In particular, the strong mesh
+deformations for the finest run, with $J_\Omega^0 = J_\Omega^M = 15212$, leads
+to a breakdown of the convergence rate for the $L^2$-velocity error, and
+an actual increase in the $H^1$-velocity error. Instead, if remesh is applied,
+we observe a dramatic improvement in the CPU times, and a significant reduction
 in the error quantities. In particular, there is no deterioration of the
-observed convergence rates.
-That is why for the P2--(P1+P0) element we only
-consider the case $C_r = 1$, see
-Table~\ref{tab:expandingbubble2Dp2p1p0remesh}, i.e. only a simulation with
-remeshing at every time step.
-\begin{table*}
- \center
-\hspace*{-3.25cm}
-\begin{tabular}{rllllllr}
-\hline
-$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
-& CPU[s] \\
-\hline
- 16 & 5.96973e-03 & 9.14482e-04 &    - & 2.64868e-02 & 4.44352e-01 &    - &
-16 \\
- 32 & 1.47267e-03 & 2.41367e-04 & 1.45 & 1.03904e-02 & 2.14909e-01 & 0.79 &
-168 \\
- 64 & 3.65603e-04 & 2.33325e-05 & 3.37 & 2.02177e-03 & 8.11567e-02 & 1.40 &
-2177 \\
-128 & 9.12677e-05 & 2.42999e-06 & 3.26 & 4.31899e-04 & 3.69626e-02 & 1.13 &
-29120 \\
-\hline
-\end{tabular}
-\hspace*{-3.25cm}
-\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
-problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
-interval $[0,1]$ for the P2--(P1+P0) element, with remeshing at every time step
-and uniform mesh.}
-\label{tab:expandingbubble2Dp2p1p0remesh}
-\end{table*}
-Comparing the errors in Tables~\ref{tab:expandingbubble2Dp2p0remesh} and
-\ref{tab:expandingbubble2Dp2p1p0remesh} we note slightly larger CPU times
-for the latter, which is not surprising, and slightly larger error quantities.
-It is for this reason that for all the remaining numerical computations we will
-only consider the P2--P0 element.
+observed convergence rates.Comparing the errors in
+Tables~\ref{tab:expandingbubble2Dp2p0}, \ref{tab:expandingbubble2Dp2p1dg} and
+\ref{tab:expandingbubble2Dp2p1p0} we note that element P2--P0 and
+element P2--$\pdg$ performs, in term of CPU times and errors, almost the same
+and they slightly outperform element P2--(P1+P0).
 
 The evolution of the discrete pressure solution in the case $J_\Gamma = 32$,
 for the run with $C_r = 1$, can be seen in
@@ -1318,14 +1346,15 @@ employed discretization parameters in
 Table~\ref{tab:expandingbubble2Delements_adaptive}.
 \begin{table*}
 \center
-\begin{tabular}{rrrr}
+\begin{tabular}{rrrrr}
 \hline
-$J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ \\
+$J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ for $C_r=1$ &
+$J_\Omega^M$ for $C_r=3$ \\
 \hline
- 32 &  584 & $6.4\cdot10^{-2}$ &  234 \\
- 64 & 1020 & $1.6\cdot10^{-2}$ &  564 \\
-128 & 2506 &   $4\cdot10^{-3}$ & 1226 \\
-256 & 7460 &         $10^{-3}$ & 3866 \\
+ 32 &  460 & $6.4\cdot10^{-2}$ &  216 &  216 \\
+ 64 & 1040 & $1.6\cdot10^{-2}$ &  452 &  440 \\
+128 & 2628 &   $4\cdot10^{-3}$ & 1084 & 1384 \\
+256 & 7460 &         $10^{-3}$ & 3840 & 4004 \\
 \hline
 \end{tabular}
 \caption[Stokes 2d expanding bubble adaptive meshes parameters]{Discretization
@@ -1334,6 +1363,7 @@ parameters for the 2d expanding bubble problem, adaptive meshes.}
 \end{table*}
 The observed errors for our numerical approximation are shown in
 Table~\ref{tab:expandingbubble2Dp2p0adaptive}.
+
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1342,27 +1372,41 @@ Table~\ref{tab:expandingbubble2Dp2p0adaptive}.
 $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 & CPU[s] \\
 \hline
- 32 & 3.92051e-03 & 6.54288e-04 &    - & 1.43866e-02 & 5.58359e-01 &    - &
-5 \\
- 64 & 9.96712e-04 & 3.70951e-04 & 0.62 & 1.09825e-02 & 2.94547e-01 & 0.70 &
-25 \\
-128 & 2.60197e-04 & 2.88781e-04 & 0.36 & 9.81011e-03 & 1.51576e-01 & 0.96 &
-238 \\
-256 & 6.05795e-05 & 6.98183e-05 & 2.05 & 3.87054e-03 & 6.32656e-02 & 1.26 &
-2624 \\
+& \multicolumn{7}{c}{no remeshing} \\
+\hline
+ 32 & 4.37607e-03 & 8.78021e-04 & - & 1.81156e-02 & 5.74936e-01 & - &    3 \\
+ 64 & 9.85447e-04 & 1.01294e-04 & - & 5.67749e-03 & 2.79462e-01 & - &   18 \\
+128 & 2.42678e-04 & 2.92289e-05 & - & 2.75563e-03 & 1.48572e-01 & - &  221 \\
+256 & 6.09781e-05 & 2.55111e-05 & - & 2.58915e-03 & 7.95637e-02 & - & 3652 \\
+\hline
+& \multicolumn{7}{c}{$C_r=1$} \\
+\hline
+ 32 & 3.91561e-03 & 7.10756e-04 & - & 1.60401e-02 & 5.58280e-01 & - &  - \\
+ 64 & 1.00456e-03 & 3.71590e-04 & - & 1.11137e-02 & 2.94466e-01 & - &  - \\
+128 & 2.48565e-04 & 2.67810e-04 & - & 9.27231e-03 & 1.50823e-01 & - &  - \\
+256 & 6.04620e-05 & 7.00763e-05 & - & 3.87511e-03 & 6.32475e-02 & - &  - \\
+\hline
+& \multicolumn{7}{c}{$C_r=3$} \\
+\hline
+ 32 & 3.96937e-03 & 7.08593e-04 & - & 1.55497e-02 & 5.62013e-01 & - &  - \\
+ 64 & 1.00880e-03 & 2.93799e-04 & - & 8.94937e-03 & 2.87566e-01 & - &  - \\
+128 & 2.43658e-04 & 1.44371e-04 & - & 5.72647e-03 & 1.53910e-01 & - &  - \\
+256 & 6.10778e-05 & 6.57476e-05 & - & 3.81816e-03 & 6.73295e-02 & - &  - \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
+\caption[Stokes 2d P2--P0 expanding bubble adaptive mesh errors]
+{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
-interval $[0,1]$ for the P2--P0 element, with remeshing at every time step and
-adaptive mesh.}
+interval $[0,1]$ for the P2--P0 element with adaptive mesh.}
 \label{tab:expandingbubble2Dp2p0adaptive}
 \end{table*}
-Comparing the error quantities in Tables~\ref{tab:expandingbubble2Dp2p0remesh}
-and \ref{tab:expandingbubble2Dp2p0adaptive} we note that there appears to be no
-advantage in using a highly refined mesh near the moving interface. The
-evolution of the discrete pressure solution in the case $J_\Gamma = 64$, for
+Comparing the error quantities in Tables~\ref{tab:expandingbubble2Dp2p0},
+\ref{tab:expandingbubble2Dp2p1dg} and \ref{tab:expandingbubble2Dp2p1p0}
+against \ref{tab:expandingbubble2Dp2p0adaptive} we note that there appears to
+be no advantage in using a highly refined mesh near the moving interface.
+
+The evolution of the discrete pressure solution in the case $J_\Gamma = 64$, for
 the run with $C_r = 1$, can be seen in
 Figure~\ref{fig:expanding_bubble_adaptive}.
 \begin{figure}[htbp]

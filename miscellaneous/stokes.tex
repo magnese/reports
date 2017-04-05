@@ -383,50 +383,6 @@ uniform mesh.}
 
 \subsection{Numerical results in 3d} \label{subsec:numerical_results_3d}
 
-For the stationary bubble test we use the domain $\Omega = (-1,1)^3$ and we
-choose, for the true solution (\ref{eq:radialr},b), the parameters
-\begin{equation*}
-\mu = \gamma = 1\,.
-\end{equation*}
-Therefore, the true solution reduces to $r(t) = \frac{1}{2}$, $\vec u(\cdot, t)
-= \vec 0$ and $p(t) = 4\,\charfcn{\Omega_-(0)} - \frac{\pi}{12}$ for all
-$t\geq0$.
-
-In Table~\ref{tab:bubble3Delements} it is reported the characteristic length
-$c_l$, which prescribes the desired size of the elements, used to create the
-mesh for the stationary bubble problem, the corresponding number of interface
-elements $K_\Gamma$ generated, the corresponding number of bulk elements
-$K_\Omega$ generated and the time step $\tau$ used. The interface mesh is
-obtained applying a surface diffusion to a sphere until the surface is
-stationary which means until the displacement is 0 up to machine accuracy for
-all the nodes. The bulk mesh is uniform.
-\begin{table*}
- \center
-\begin{tabular}{llll}
-\hline
-$c_l$ & $K_\Gamma$ & $K_\Omega$ & $\tau$ \\
-\hline
-0.5 & 32 & 408 & $10^{-2}$ \\
-0.25 & 220 & 3590 & $10^{-2}$\\
-0.125 & 596 & 20473 & $10^{-2}$\\
-\hline
-\end{tabular}
-\caption{Number of interface elements ($K_\Gamma$), number of bulk elements
-($K_\Omega$) and time step ($\tau$) for a certain characteristic length ($c_l$)
-for the 3D stationary bubble problem, stationary uniform mesh.}
-\label{tab:bubble3Delements}
-\end{table*}
-
-Since the solution is stationary, neither smoothing nor remeshing is performed.
-
-
-We see that the radius error in Table~\ref{tab:bubble3Dp2p0} is terrible
-compared to the analogous test in 2D. The reason is that in 2D the initial
-discrete interface is equidistributed and its radius is exactly 0.5 while in 3D
-the mesh is equidistributed but the initial radius has already an error. This
-error is exactly the one seen in the table since the displacement is always 0 up
-to machine accuracy.
-
 Finally, we report a shear flow in the domain $\Omega=(-1,1)^3$, with a sphere
 of radius $r=0.5$ as initial interface. The initial interface mesh is a
 non-stationary sphere while the bulk mesh is uniform. We prescribe the
