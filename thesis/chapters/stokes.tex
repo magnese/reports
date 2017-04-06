@@ -1072,10 +1072,10 @@ interval $[0,1]$ for the P2--P0 element.}
 \hline
 $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 \hline
- 16 & 2.41133e-02 & 9.35478e-03 & 5.75614e-01 &    - &     5 \\
- 32 & 1.21789e-02 & 3.44473e-03 & 3.99457e-01 & 0.40 &    36 \\
- 64 & 6.17055e-03 & 1.24629e-03 & 2.77632e-01 & 0.52 &   170 \\
-128 & 2.97451e-03 & 4.41980e-04 & 1.96901e-01 & 0.50 &  1343 \\
+ 16 & 2.41133e-02 & 9.35478e-03 & 5.75614e-01 &    - &    5 \\
+ 32 & 1.21789e-02 & 3.44473e-03 & 3.99457e-01 & 0.40 &   36 \\
+ 64 & 6.17055e-03 & 1.24629e-03 & 2.77632e-01 & 0.52 &  170 \\
+128 & 2.97451e-03 & 4.41980e-04 & 1.96901e-01 & 0.50 & 1343 \\
 \hline
 \end{tabular}
 \caption[Stokes 2d P2--P1 stationary bubble errors]
@@ -1207,23 +1207,36 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{no remeshing} \\
 \hline
- 16 & 5.94637e-03 & 7.26038e-04 & - & 1.98118e-02 & 4.30560e-01 & - &    9 \\
- 32 & 1.47959e-03 & 3.39540e-04 & - & 1.17665e-02 & 2.27294e-01 & - &   98 \\
- 64 & 3.68960e-04 & 8.66188e-05 & - & 5.82989e-03 & 1.05041e-01 & - & 1709 \\
+ 16 & 5.94637e-03 & 7.26038e-04 &    - & 1.98118e-02 & 4.30560e-01 &    - &
+9 \\
+ 32 & 1.47959e-03 & 3.39540e-04 & 0.83 & 1.17665e-02 & 2.27294e-01 & 0.70 &
+98 \\
+ 64 & 3.68960e-04 & 8.66188e-05 & 1.97 & 5.82989e-03 & 1.05041e-01 & 1.11 &
+1709 \\
+128 & 9.20414e-05 & 5.87165e-05 & 0.56 & 6.24063e-03 & 3.18072e-02 & 1.72 &
+37539 \\
 \hline
 & \multicolumn{7}{c}{$C_r=1$} \\
 \hline
- 16 & 5.92441e-03 & 5.27627e-04 & - & 1.57505e-02 & 4.43442e-01 & - & - \\
- 32 & 1.46657e-03 & 1.05800e-04 & - & 5.26275e-03 & 2.14680e-01 & - & - \\
- 64 & 3.65433e-04 & 1.48680e-05 & - & 1.50695e-03 & 8.14177e-02 & - & - \\
-128 & 9.12526e-05 & 1.81107e-06 & - & 3.59374e-04 & 3.69593e-02 & - & 23465 \\
+ 16 & 5.92441e-03 & 5.27627e-04 &    - & 1.57505e-02 & 4.43442e-01 &    - &
+59 \\
+ 32 & 1.46657e-03 & 1.05800e-04 & 1.75 & 5.26275e-03 & 2.14680e-01 & 0.79 &
+100 \\
+ 64 & 3.65433e-04 & 1.48680e-05 & 2.83 & 1.50695e-03 & 8.14177e-02 & 1.40 &
+2785 \\
+128 & 9.12526e-05 & 1.81107e-06 & 3.04 & 3.59374e-04 & 3.69593e-02 & 1.14 &
+23465 \\
 \hline
 & \multicolumn{7}{c}{$C_r=3$} \\
 \hline
- 16 & 5.94589e-03 & 5.71201e-04 & - & 1.51195e-02 & 4.44395e-01 & - &  - \\
- 32 & 1.47176e-03 & 1.02091e-04 & - & 4.86975e-03 & 2.13617e-01 & - &  - \\
- 64 & 3.65488e-04 & 1.50366e-05 & - & 1.50058e-03 & 8.22797e-02 & - &  - \\
-128 & 9.12406e-05 & 1.81327e-06 & - & 3.59347e-04 & 3.69473e-02 & - & 26973 \\
+ 16 & 5.94589e-03 & 5.71201e-04 &    - & 1.51195e-02 & 4.44395e-01 &    - &
+41 \\
+ 32 & 1.47176e-03 & 1.02091e-04 & 1.88 & 4.86975e-03 & 2.13617e-01 & 0.80 &
+92 \\
+ 64 & 3.65488e-04 & 1.50366e-05 & 2.76 & 1.50058e-03 & 8.22797e-02 & 1.38 &
+1847 \\
+128 & 9.12406e-05 & 1.81327e-06 & 3.05 & 3.59347e-04 & 3.69473e-02 & 1.16 &
+26973 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
@@ -1243,24 +1256,36 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{no remeshing} \\
 \hline
- 16 & 5.99881e-03 & 1.42557e-03 & - & 3.45859e-02 & 4.31784e-01 & - &     9 \\
- 32 & 1.47936e-03 & 4.11514e-04 & - & 1.28088e-02 & 2.27350e-01 & - &    82 \\
- 64 & 3.69030e-04 & 1.03424e-04 & - & 6.17291e-03 & 1.05060e-01 & - &  1391 \\
-128 & 9.21619e-05 & 6.12532e-05 & - & 6.21616e-03 & 3.17967e-02 & - & 31042 \\
+ 16 & 5.99881e-03 & 1.42557e-03 &    - & 3.45859e-02 & 4.31784e-01 &    - &
+9 \\
+ 32 & 1.47936e-03 & 4.11514e-04 & 1.36 & 1.28088e-02 & 2.27350e-01 & 0.70 &
+82 \\
+ 64 & 3.69030e-04 & 1.03424e-04 & 1.99 & 6.17291e-03 & 1.05060e-01 & 1.11 &
+1391 \\
+128 & 9.21619e-05 & 6.12532e-05 & 0.76 & 6.21616e-03 & 3.17967e-02 & 1.72 &
+31042 \\
 \hline
 & \multicolumn{7}{c}{$C_r=1$} \\
 \hline
- 16 & 5.95848e-03 & 8.38757e-04 & - & 2.23968e-02 & 4.44061e-01 & - &  - \\
- 32 & 1.47123e-03 & 2.22736e-04 & - & 7.70628e-03 & 2.15081e-01 & - &  - \\
- 64 & 3.65750e-04 & 2.16681e-05 & - & 1.76987e-03 & 8.15608e-02 & - &  - \\
-128 & 9.12893e-05 & 2.33116e-06 & - & 3.96930e-04 & 3.69418e-02 & - & 25348 \\
+ 16 & 5.95848e-03 & 8.38757e-04 &    - & 2.23968e-02 & 4.44061e-01 &    - &
+100 \\
+ 32 & 1.47123e-03 & 2.22736e-04 & 1.45 & 7.70628e-03 & 2.15081e-01 & 0.79 &
+728 \\
+ 64 & 3.65750e-04 & 2.16681e-05 & 3.36 & 1.76987e-03 & 8.15608e-02 & 1.40 &
+3913 \\
+128 & 9.12893e-05 & 2.33116e-06 & 3.22 & 3.96930e-04 & 3.69418e-02 & 1.14 &
+25348 \\
 \hline
 & \multicolumn{7}{c}{$C_r=3$} \\
 \hline
- 16 & 5.99703e-03 & 8.59166e-04 & - & 2.23227e-02 & 4.44656e-01 & - &  - \\
- 32 & 1.47622e-03 & 2.03051e-04 & - & 7.04524e-03 & 2.13800e-01 & - &  - \\
- 64 & 3.65886e-04 & 2.21067e-05 & - & 1.77973e-03 & 8.20109e-02 & - &  - \\
-128 & 9.12664e-05 & 2.33913e-06 & - & 3.97020e-04 & 3.69351e-02 & - & 26045 \\
+ 16 & 5.99703e-03 & 8.59166e-04 &    - & 2.23227e-02 & 4.44656e-01 &    - &
+47 \\
+ 32 & 1.47622e-03 & 2.03051e-04 & 1.57 & 7.04524e-03 & 2.13800e-01 & 0.80 &
+145 \\
+ 64 & 3.65886e-04 & 2.21067e-05 & 3.20 & 1.77973e-03 & 8.20109e-02 & 1.38 &
+2449 \\
+128 & 9.12664e-05 & 2.33913e-06 & 3.24 & 3.97020e-04 & 3.69351e-02 & 1.15 &
+26045 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
@@ -1280,23 +1305,36 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{no remeshing} \\
 \hline
- 16 & 5.99532e-03 & 1.55402e-03 & - & 4.09186e-02 & 4.31782e-01 & - &    9 \\
- 32 & 1.48145e-03 & 4.40335e-04 & - & 1.35501e-02 & 2.27375e-01 & - &   80 \\
- 64 & 3.68601e-04 & 1.08675e-04 & - & 6.48883e-03 & 1.05064e-01 & - & 1316 \\
+ 16 & 5.99532e-03 & 1.55402e-03 &    - & 4.09186e-02 & 4.31782e-01 &    - &
+9 \\
+ 32 & 1.48145e-03 & 4.40335e-04 & 1.38 & 1.35501e-02 & 2.27375e-01 & 0.70 &
+80 \\
+ 64 & 3.68601e-04 & 1.08675e-04 & 2.02 & 6.48883e-03 & 1.05064e-01 & 1.11 &
+1316 \\
+128 & 9.22254e-05 & 6.25696e-05 & 0.80 & 6.07813e-03 & 3.17870e-02 & 1.72 &
+39375 \\
 \hline
 & \multicolumn{7}{c}{$C_r=1$} \\
 \hline
- 16 & 5.96235e-03 & 8.94203e-04 & - & 2.61842e-02 & 4.44306e-01 & - &  - \\
- 32 & 1.47265e-03 & 2.41779e-04 & - & 1.03858e-02 & 2.15011e-01 & - &  - \\
- 64 & 3.65605e-04 & 2.33308e-05 & - & 2.02208e-03 & 8.11222e-02 & - &  - \\
-128 & 9.12693e-05 & 2.42966e-06 & - & 4.31820e-04 & 3.69632e-02 & - & 22128 \\
+ 16 & 5.96235e-03 & 8.94203e-04 &    - & 2.61842e-02 & 4.44306e-01 &    - &
+159 \\
+ 32 & 1.47265e-03 & 2.41779e-04 & 1.43 & 1.03858e-02 & 2.15011e-01 & 0.79 &
+619 \\
+ 64 & 3.65605e-04 & 2.33308e-05 & 3.37 & 2.02208e-03 & 8.11222e-02 & 1.41 &
+5238 \\
+128 & 9.12693e-05 & 2.42966e-06 & 3.26 & 4.31820e-04 & 3.69632e-02 & 1.13 &
+22128 \\
 \hline
 & \multicolumn{7}{c}{$C_r=3$} \\
 \hline
- 16 & 5.97343e-03 & 8.91171e-04 & - & 2.46402e-02 & 4.45063e-01 & - &  - \\
- 32 & 1.47254e-03 & 2.20844e-04 & - & 9.55901e-03 & 2.13809e-01 & - &  - \\
- 64 & 3.65587e-04 & 2.33348e-05 & - & 2.00192e-03 & 8.17655e-02 & - &  - \\
-128 & 9.12663e-05 & 2.44147e-06 & - & 4.32699e-04 & 3.69512e-02 & - & 23265 \\
+ 16 & 5.97343e-03 & 8.91171e-04 &    - & 2.46402e-02 & 4.45063e-01 &    - &
+95 \\
+ 32 & 1.47254e-03 & 2.20844e-04 & 1.52 & 9.55901e-03 & 2.13809e-01 & 0.80 &
+178 \\
+ 64 & 3.65587e-04 & 2.33348e-05 & 3.24 & 2.00192e-03 & 8.17655e-02 & 1.39 &
+3068 \\
+128 & 9.12663e-05 & 2.44147e-06 & 3.26 & 4.32699e-04 & 3.69512e-02 & 1.15 &
+23265 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
@@ -1310,15 +1348,17 @@ Due to the expanding motion of the interface, if no remesh is used, we observe
 that over time bulk mesh elements strongly deform. This leads to large CPU
 times and additional approximation errors. In particular, the strong mesh
 deformations for the finest run, with $J_\Omega^0 = J_\Omega^M = 15212$, leads
-to a breakdown of the convergence rate for the $L^2$-velocity error, and
-an actual increase in the $H^1$-velocity error. Instead, if remesh is applied,
-we observe a dramatic improvement in the CPU times, and a significant reduction
-in the error quantities. In particular, there is no deterioration of the
-observed convergence rates.Comparing the errors in
-Tables~\ref{tab:expandingbubble2Dp2p0}, \ref{tab:expandingbubble2Dp2p1dg} and
-\ref{tab:expandingbubble2Dp2p1p0} we note that element P2--P0 and
-element P2--$\pdg$ performs, in term of CPU times and errors, almost the same
-and they slightly outperform element P2--(P1+P0).
+to a breakdown of the convergence rate for the $L^2$-velocity error, and, for
+the elements P2--P0 and P2--$\pdg$, an actual increase in the $H^1$-velocity
+error. Instead, if remesh is applied, we observe a dramatic improvement in the
+CPU times, and a significant reduction in the error quantities. In particular,
+there is no deterioration of the observed convergence rates. Comparing the
+errors in Tables~\ref{tab:expandingbubble2Dp2p0},
+\ref{tab:expandingbubble2Dp2p1dg} and \ref{tab:expandingbubble2Dp2p1p0} we note
+that element P2--$\pdg$ and element P2--(P1+P0) performs, in term of CPU times
+and errors, almost the same and they are slightly outperformed by element
+P2--P0, which, together with a a remesh performed at every time step, gives the
+best overall results.
 
 The evolution of the discrete pressure solution in the case $J_\Gamma = 32$,
 for the run with $C_r = 1$, can be seen in
@@ -1371,8 +1411,9 @@ parameters for the 2d expanding bubble problem, adaptive meshes.}
 \label{tab:expandingbubble2Delements_adaptive}
 \end{table*}
 The observed errors for our numerical approximation are shown in
-Table~\ref{tab:expandingbubble2Dp2p0adaptive}.
-
+Table~\ref{tab:expandingbubble2Dp2p0adaptive},
+\ref{tab:expandingbubble2Dp2p1dgadaptive} and
+\ref{tab:expandingbubble2Dp2p1p0adaptive}.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1383,24 +1424,36 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{no remeshing} \\
 \hline
- 32 & 4.37607e-03 & 8.78021e-04 & - & 1.81156e-02 & 5.74936e-01 & - &    3 \\
- 64 & 9.85447e-04 & 1.01294e-04 & - & 5.67749e-03 & 2.79462e-01 & - &   18 \\
-128 & 2.42678e-04 & 2.92289e-05 & - & 2.75563e-03 & 1.48572e-01 & - &  221 \\
-256 & 6.09781e-05 & 2.55111e-05 & - & 2.58915e-03 & 7.95637e-02 & - & 3652 \\
+ 32 & 4.37607e-03 & 8.78021e-04 &    - & 1.81156e-02 & 5.74936e-01 &    - &
+3 \\
+ 64 & 9.85447e-04 & 1.01294e-04 & 3.12 & 5.67749e-03 & 2.79462e-01 & 1.04 &
+18 \\
+128 & 2.42678e-04 & 2.92289e-05 & 1.79 & 2.75563e-03 & 1.48572e-01 & 0.91 &
+221 \\
+256 & 6.09781e-05 & 2.55111e-05 & 0.19 & 2.58915e-03 & 7.95637e-02 & 0.88 &
+3652 \\
 \hline
 & \multicolumn{7}{c}{$C_r=1$} \\
 \hline
- 32 & 3.91561e-03 & 7.10756e-04 & - & 1.60401e-02 & 5.58280e-01 & - &  - \\
- 64 & 1.00456e-03 & 3.71590e-04 & - & 1.11137e-02 & 2.94466e-01 & - &  - \\
-128 & 2.48565e-04 & 2.67810e-04 & - & 9.27231e-03 & 1.50823e-01 & - &  - \\
-256 & 6.04620e-05 & 7.00763e-05 & - & 3.87511e-03 & 6.32475e-02 & - &  - \\
+ 32 & 3.91561e-03 & 7.10756e-04 &    - & 1.60401e-02 & 5.58280e-01 &    - &
+18 \\
+ 64 & 1.00456e-03 & 3.71590e-04 & 0.94 & 1.11137e-02 & 2.94466e-01 & 0.92 &
+113 \\
+128 & 2.48565e-04 & 2.67810e-04 & 0.47 & 9.27231e-03 & 1.50823e-01 & 0.97 &
+644 \\
+256 & 6.04620e-05 & 7.00763e-05 & 1.89 & 3.87511e-03 & 6.32475e-02 & 1.23 &
+3877 \\
 \hline
 & \multicolumn{7}{c}{$C_r=20$\textdegree} \\
 \hline
- 32 & 3.96937e-03 & 7.08593e-04 & - & 1.55497e-02 & 5.62013e-01 & - &  - \\
- 64 & 1.00880e-03 & 2.93799e-04 & - & 8.94937e-03 & 2.87566e-01 & - &  - \\
-128 & 2.43658e-04 & 1.44371e-04 & - & 5.72647e-03 & 1.53910e-01 & - &  - \\
-256 & 6.10778e-05 & 6.57476e-05 & - & 3.81816e-03 & 6.73295e-02 & - &  - \\
+ 32 & 3.96937e-03 & 7.08593e-04 &    - & 1.55497e-02 & 5.62013e-01 &    - &
+4 \\
+ 64 & 1.00880e-03 & 2.93799e-04 & 1.27 & 8.94937e-03 & 2.87566e-01 & 0.97 &
+15 \\
+128 & 2.43658e-04 & 1.44371e-04 & 1.03 & 5.72647e-03 & 1.53910e-01 & 0.90 &
+154 \\
+256 & 6.10778e-05 & 6.57476e-05 & 1.11 & 3.81816e-03 & 6.73295e-02 & 1.17 &
+1441 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
@@ -1410,10 +1463,113 @@ problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
 interval $[0,1]$ for the P2--P0 element with adaptive mesh.}
 \label{tab:expandingbubble2Dp2p0adaptive}
 \end{table*}
+\begin{table*}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rllllllr}
+\hline
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
+& CPU[s] \\
+\hline
+& \multicolumn{7}{c}{no remeshing} \\
+\hline
+ 32 & 4.44770e-03 & 1.03835e-03 &    - & 2.09015e-02 & 5.74058e-01 &    - &
+2 \\
+ 64 & 9.96385e-04 & 1.24152e-04 & 3.06 & 5.85650e-03 & 2.79564e-01 & 1.04 &
+22 \\
+128 & 2.43860e-04 & 3.43865e-05 & 1.85 & 2.92915e-03 & 1.48563e-01 & 0.91 &
+209 \\
+256 & 6.09133e-05 & 2.85605e-05 & 0.26 & 2.71585e-03 & 7.95602e-02 & 0.88 &
+4281 \\
+\hline
+& \multicolumn{7}{c}{$C_r=1$} \\
+\hline
+ 32 & 4.04836e-03 & 1.03041e-03 &    - & 2.11862e-02 & 5.58428e-01 &    - &
+13 \\
+ 64 & 1.06336e-03 & 5.81260e-04 & 0.83 & 1.47843e-02 & 2.94451e-01 & 0.92 &
+52 \\
+128 & 2.64772e-04 & 4.48334e-04 & 0.37 & 1.27870e-02 & 1.50552e-01 & 0.97 &
+364 \\
+256 & 6.39800e-05 & 1.38724e-04 & 1.65 & 5.44161e-03 & 6.32714e-02 & 1.22 &
+3743 \\
+\hline
+& \multicolumn{7}{c}{$C_r=20$\textdegree} \\
+\hline
+ 32 & 4.08914e-03 & 9.75075e-04 &    - & 1.98793e-02 & 5.63360e-01 &    - &
+5 \\
+ 64 & 1.05303e-03 & 4.43826e-04 & 1.14 & 1.14591e-02 & 2.87514e-01 & 0.97 &
+13 \\
+128 & 2.50894e-04 & 2.89007e-04 & 0.62 & 8.72470e-03 & 1.54031e-01 & 0.90 &
+148 \\
+256 & 6.40185e-05 & 1.15617e-04 & 1.29 & 5.10565e-03 & 6.98979e-02 & 1.11 &
+2143 \\
+\hline
+\end{tabular}
+\hspace*{-3.25cm}
+\caption[Stokes 2d P2--$\pdg$ expanding bubble adaptive mesh errors]
+{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
+problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
+interval $[0,1]$ for the P2--$\pdg$ element with adaptive mesh.}
+\label{tab:expandingbubble2Dp2p1dgadaptive}
+\end{table*}
+\begin{table*}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rllllllr}
+\hline
+$J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
+& CPU[s] \\
+\hline
+& \multicolumn{7}{c}{no remeshing} \\
+\hline
+ 32 & 4.39967e-03 & 1.14087e-03 &    - & 2.26396e-02 & 5.73270e-01 &    - &
+6 \\
+ 64 & 9.94365e-04 & 1.34986e-04 & 3.08 & 6.01358e-03 & 2.79584e-01 & 1.04 &
+25 \\
+128 & 2.43769e-04 & 3.91547e-05 & 1.79 & 3.13728e-03 & 1.48565e-01 & 0.91 &
+210 \\
+256 & 6.08641e-05 & 3.20203e-05 & 0.28 & 2.77934e-03 & 7.95609e-02 & 0.88 &
+3798 \\
+\hline
+& \multicolumn{7}{c}{$C_r=1$} \\
+\hline
+ 32 & 3.97673e-03 & 1.16740e-03 &    - & 2.54389e-02 & 5.59015e-01 &    - &
+18 \\
+ 64 & 1.04465e-03 & 6.57166e-04 & 0.83 & 1.84165e-02 & 2.94657e-01 & 0.92 &
+81 \\
+128 & 2.64078e-04 & 5.07829e-04 & 0.37 & 1.60658e-02 & 1.50595e-01 & 0.97 &
+385 \\
+256 & 6.39339e-05 & 1.55008e-04 & 1.67 & 7.26636e-03 & 6.33057e-02 & 1.22 &
+3274 \\
+\hline
+& \multicolumn{7}{c}{$C_r=20$\textdegree} \\
+\hline
+ 32 & 4.02881e-03 & 1.12100e-03 &    - & 2.32002e-02 & 5.63527e-01 &    - &
+4 \\
+ 64 & 1.04388e-03 & 5.00129e-04 & 1.16 & 1.39060e-02 & 2.85520e-01 & 0.98 &
+18 \\
+128 & 2.49831e-04 & 3.25755e-04 & 0.62 & 1.17532e-02 & 1.54026e-01 & 0.89 &
+172 \\
+256 & 6.45554e-05 & 1.34537e-04 & 1.25 & 6.48976e-03 & 6.98821e-02 & 1.11 &
+2701 \\
+\hline
+\end{tabular}
+\hspace*{-3.25cm}
+\caption[Stokes 2d P2--(P1+P0) expanding bubble adaptive mesh errors]
+{($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
+problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
+interval $[0,1]$ for the P2--(P1+P0) element with adaptive mesh.}
+\label{tab:expandingbubble2Dp2p1p0adaptive}
+\end{table*}
 Comparing the error quantities in Tables~\ref{tab:expandingbubble2Dp2p0},
 \ref{tab:expandingbubble2Dp2p1dg} and \ref{tab:expandingbubble2Dp2p1p0}
-against \ref{tab:expandingbubble2Dp2p0adaptive} we note that there appears to
-be no advantage in using a highly refined mesh near the moving interface.
+against the ones in Tables~\ref{tab:expandingbubble2Dp2p0adaptive},
+\ref{tab:expandingbubble2Dp2p1dgadaptive} and
+\ref{tab:expandingbubble2Dp2p1p0adaptive} we note that there appears to
+be no advantage in using a highly refined mesh near the moving interface. Again
+the element which performs better in term of errors is the P2--P0 element
+which, together with the choice of $C_r=20$\textdegree, gives the best result
+in terms of accuracy and performance.
 
 The evolution of the discrete pressure solution in the case $J_\Gamma = 64$, for
 the run with $C_r = 1$, can be seen in
