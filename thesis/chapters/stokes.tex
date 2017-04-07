@@ -662,7 +662,7 @@ diffusion (\ref{eq:algebraic_surf_diff}).
 
 The algebraic system (\ref{eq:stokes_algebraic}) is suitable when the pressure
 space is, for example, P0 or P1. Instead, when we use the space (P1+P0) or the
-space $\pdg$ for the pressure, the algebraic system assumes the following form
+space \pdg for the pressure, the algebraic system assumes the following form
 \begin{equation}
 \begin{pmatrix}
 \vec B_\Omega & \vec C_{\spadesuit} & \vec C_{\clubsuit} & -\gamma\,\Nbulk & 0\\
@@ -694,7 +694,7 @@ domains. More precisely, in the case (P1+P0), there are two independent spaces
 for the pressure defined over the bulk domain $\Omega$ of polynomial order 1 and
 0, respectively, which means that $\vec C_{\spadesuit}=\vec C_\Omega$ and
 $\vec C_{\clubsuit}=\vec C_\Omega$ but whit different polynomial orders.
-Instead, the space $\pdg$ is a space of polynomial order 1 defined in the two
+Instead, the space \pdg is a space of polynomial order 1 defined in the two
 subdomains $\Omega_-$ and $\Omega_+$ therefore $\vec C_{\spadesuit}=\vec
 C_{\Omega_-}$ and $\vec C_{\clubsuit}=\vec C_{\Omega_+}$. This space is
 equivalent to a P1 space which is continuous everywhere except across the
@@ -1045,7 +1045,7 @@ interface elements.}
 \end{figure}
 In addition, we use a uniform time step size $\tau=10^{-2}$.
 We compute the discrete solutions to this stationary problem over the time
-interval $[0,1]$, and report on the errors for the P2--P0, P2--P1, P2--$\pdg$
+interval $[0,1]$, and report on the errors for the P2--P0, P2--P1, P2--\pdg
 and P2--(P1+P0) elements in Tables~\ref{tab:stokes_stationary_2d_p2p0},
 \ref{tab:stokes_stationary_2d_p2p1}, \ref{tab:stokes_stationary_2d_p2p1dg} and
 \ref{tab:stokes_stationary_2d_p2p1p0}, respectively.
@@ -1095,9 +1095,9 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 128 & 0 & 0 & 2.60448e-02 & 0.64 & 1006 \\
 \hline
 \end{tabular}
-\caption[Stokes 2d stationary bubble errors P2--$\pdg$]
+\caption[Stokes 2d stationary bubble errors P2--\pdg]
 {($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^2$ over the time
-interval $[0,1]$ for the P2--$\pdg$ element.}
+interval $[0,1]$ for the P2--\pdg element.}
 \label{tab:stokes_stationary_2d_p2p1dg}
 \end{table*}
 \begin{table*}
@@ -1120,7 +1120,7 @@ interval $[0,1]$ for the P2--(P1+P0) element.}
 
 We can clearly see that the stationary nature of the true solution
 (\ref{eq:radialr},b) is captured exactly by our numerical method with the
-P2--P0, the P2--$\pdg$ and the P2--(P1+P0) element, see also
+P2--P0, the P2--\pdg and the P2--(P1+P0) element, see also
 Figure~\ref{fig:2d_stationary_bubble} for a visualization of the discrete
 pressure in the case $J_\Gamma = 32$. This is not surprising given the
 result of Theorem~\ref{thm:stat2}, and the fact that we use an equidistributed
@@ -1132,7 +1132,7 @@ smoothing nor remeshing is performed for the simulations in
 Tables~\ref{tab:stokes_stationary_2d_p2p0},
 \ref{tab:stokes_stationary_2d_p2p1}, \ref{tab:stokes_stationary_2d_p2p1dg} and
 \ref{tab:stokes_stationary_2d_p2p1p0}. We also observe that the error for the
-three approximations with the P2--P0, the P2--$\pdg$ and the P2--(P1+P0)
+three approximations with the P2--P0, the P2--\pdg and the P2--(P1+P0)
 element, respectively, produce identical errors. Again, that is to be expected,
 since the solution (\ref{eq:solsol}) is such that $P^{m+1} \in S^m_0$, and so
 the additional degrees of freedom are not utilized by the pressure
@@ -1190,7 +1190,7 @@ $J_\Omega^M$ for $C_r=3$ \\
 {Discretization parameters for the 2d expanding bubble problem, uniform meshes.}
 \label{tab:expandingbubble2Delements}
 \end{table*}
-We report on the error for the P2--P0, the P2--$\pdg$ and the P2--(P1+P0)
+We report on the error for the P2--P0, the P2--\pdg and the P2--(P1+P0)
 element in Table~\ref{tab:expandingbubble2Dp2p0},
 \ref{tab:expandingbubble2Dp2p1dg} and \ref{tab:expandingbubble2Dp2p1p0},
 respectively. On the top part of the tables only mesh smoothings are applied,
@@ -1289,10 +1289,10 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Stokes expanding bubble uniform mesh errors P2--$\pdg$]
+\caption[Stokes expanding bubble uniform mesh errors P2--\pdg]
 {($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
-interval $[0,1]$ for the P2--$\pdg$ element with uniform mesh.}
+interval $[0,1]$ for the P2--\pdg element with uniform mesh.}
 \label{tab:expandingbubble2Dp2p1dg}
 \end{table*}
 \begin{table*}
@@ -1349,13 +1349,13 @@ that over time bulk mesh elements strongly deform. This leads to large CPU
 times and additional approximation errors. In particular, the strong mesh
 deformations for the finest run, with $J_\Omega^0 = J_\Omega^M = 15212$, leads
 to a breakdown of the convergence rate for the $L^2$-velocity error, and, for
-the elements P2--P0 and P2--$\pdg$, an actual increase in the $H^1$-velocity
+the elements P2--P0 and P2--\pdg, an actual increase in the $H^1$-velocity
 error. Instead, if remesh is applied, we observe a dramatic improvement in the
 CPU times, and a significant reduction in the error quantities. In particular,
 there is no deterioration of the observed convergence rates. Comparing the
 errors in Tables~\ref{tab:expandingbubble2Dp2p0},
 \ref{tab:expandingbubble2Dp2p1dg} and \ref{tab:expandingbubble2Dp2p1p0} we note
-that element P2--$\pdg$ and element P2--(P1+P0) performs, in term of CPU times
+that element P2--\pdg and element P2--(P1+P0) performs, in term of CPU times
 and errors, almost the same and they are slightly outperformed by element
 P2--P0, which, together with a a remesh performed at every time step, gives the
 best overall results.
@@ -1506,10 +1506,10 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Stokes expanding bubble adaptive mesh errors P2--$\pdg$]
+\caption[Stokes expanding bubble adaptive mesh errors P2--\pdg]
 {($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
-interval $[0,1]$ for the P2--$\pdg$ element with adaptive mesh.}
+interval $[0,1]$ for the P2--\pdg element with adaptive mesh.}
 \label{tab:expandingbubble2Dp2p1dgadaptive}
 \end{table*}
 \begin{table*}
@@ -1840,11 +1840,11 @@ Chapter~\ref{ch:geometric_pdes} for surface diffusion, which is a gradient flow
 for surface area that maintains the enclosed volume. See e.g. \cite[Fig.
 11]{gflows3d} for an evolution towards a polyhedral approximation of a sphere
 that satisfies (\ref{eq:constcurv}), and hence also (\ref{eq:conformal}). We
-report on the errors for the P2--P0, P2--P1, P2--$\pdg$
+report on the errors for the P2--P0, P2--P1, P2--\pdg
 and P2--(P1+P0) elements in Tables~\ref{tab:stokes_stationary_3d_p2p0},
 \ref{tab:stokes_stationary_3d_p2p1}, \ref{tab:stokes_stationary_3d_p2p1dg} and
 \ref{tab:stokes_stationary_3d_p2p1p0}, respectively. Here we note that, as yet,
-for the pairs P2--P0, P2--$\pdg$ and P2--(P1+P0) there exist no proofs in the
+for the pairs P2--P0, P2--\pdg and P2--(P1+P0) there exist no proofs in the
 literature that the LBB condition (\ref{eq:LBB}) holds, see e.g. the discussion
 in \cite[Remark~8.4.3]{BoffiBF13}. However, in practice we encountered no
 problems when using these spaces, and our iterative solver always converged to a
@@ -1893,9 +1893,9 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & $\LerrorPp$ & EOC & CPU[s] \\
 596 & 2.42857e-03 & 0 & 3.58466e-01 & 0.99 & 17814 \\
 \hline
 \end{tabular}
-\caption[Stokes 3d stationary bubble errors P2--$\pdg$]
+\caption[Stokes 3d stationary bubble errors P2--\pdg]
 {($\mu=\gamma=1$) Stationary bubble problem on $(-1,1)^3$ over the time
-interval $[0,1]$ for the P2--$\pdg$ element.}
+interval $[0,1]$ for the P2--\pdg element.}
 \label{tab:stokes_stationary_3d_p2p1dg}
 \end{table*}
 \begin{table*}
@@ -1916,7 +1916,7 @@ interval $[0,1]$ for the P2--(P1+P0) element.}
 \end{table*}
 
 We note that we again recover the discrete stationary solutions
-(\ref{eq:solsol}) for the P2--P0, P2--$\pdg$ and P2--(P1+P0) elements while,
+(\ref{eq:solsol}) for the P2--P0, P2--\pdg and P2--(P1+P0) elements while,
 as before, the P2--P1 element does not capture exactly the true solution
 since this element does not satisfy the hypothesis that $S^m_0 \subset
 \pspace^m$ of Theorem~\ref{thm:stat2}. Here this leads to a nonzero error in
