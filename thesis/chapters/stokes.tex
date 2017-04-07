@@ -1685,11 +1685,10 @@ never perform a remesh.
 \subsection{Energy decay and area conservation in 2d}
 In Figure~\ref{fig:ellipse_both} we show the pressure evolution for a
 simulation that starts with an initial ellipse, with major and minor axes of
-1.6 and 0.75. We use the
-parameters $\mu = \gamma=1$, $\tau=10^{-2}$ and $T=10$. The initial interface
-is discretized with $J_\Gamma = 40$ surface elements, and the initial bulk mesh
-has $J_\Omega^0 = 1112$ elements. We employ the P2--P0 element and use the
-remeshing parameter $C_r=3$ during the evolution.
+1.6 and 0.75. We use the parameters $\mu = \gamma=1$, $\tau=10^{-2}$ and
+$T=10$. The initial interface is discretized with $J_\Gamma = 40$ surface
+elements, and the initial bulk mesh has $J_\Omega^0 = 1112$ elements. We employ
+the P2--P0 element and use the remeshing parameter $C_r=3$ during the evolution.
 Figure~\ref{fig:ellipse_both_volumes} shows the evolution of the relative inner
 area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ and the
 evolution of the interface energy $\gamma\,\mathcal{H}^{1}(\Gamma^m)$. The
@@ -1697,17 +1696,21 @@ graphs show that the inner area is nearly conserved, and that the interface
 energy is monotonically decreasing.
 \begin{figure}[htbp]
 \centering
-\subfloat[$t=10^{-5}$]{
-\includegraphics[width=.32\textwidth]{figures/stokes/ellipse_both_000.ps}}
-\subfloat[$t=2.5$]{
-\includegraphics[width=.32\textwidth]{figures/stokes/ellipse_both_250.ps}}
-\subfloat[$t=10$]{
-\includegraphics[width=.32\textwidth]{figures/stokes/ellipse_both_1000.ps}}
-\caption{($\mu=\gamma=1$) Pressure evolution of an ellipse that evolves
-towards a circle. Here we use the P2--P0 element, and let $C_r = 3$.}
+\subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_both_000.ps}}\\
+\subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_both_250.ps}}\quad
+\subfloat[$t=5$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_both_500.ps}}\\
+\subfloat[$t=7.5$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_both_750.ps}}\quad
+\subfloat[$t=10$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_both_1000.ps}}\\
+\caption[Stokes ellipse pressure]
+{($\mu=\gamma=1$) Pressure evolution of an ellipse that evolves towards a
+circle. Here we use the P2--P0 element, and let $C_r = 3$.}
 \label{fig:ellipse_both}
 \end{figure}
-
 \begin{figure}[htbp]
 \centering
 \subfloat[$\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$]{
@@ -1716,22 +1719,46 @@ towards a circle. Here we use the P2--P0 element, and let $C_r = 3$.}
 \subfloat[$\gamma\,\mathcal{H}^{1}(\Gamma^m)$]{
 \includegraphics[width=.45\textwidth]
 {figures/stokes/ellipse_both_interface_length.ps}}
-\caption{Evolutions of the relative inner area and the interface energy for
+\caption[Stokes ellipse inner area and interface energy]
+{Evolutions of the relative inner area and the interface energy for
 the simulation in Figure~\ref{fig:ellipse_both}.}
 \label{fig:ellipse_both_volumes}
 \end{figure}
-As a comparison, we show in Figure~\ref{fig:ellipse_smooth} the final snapshot
-of the same simulation when no remeshings are performed, i.e. we use $C_r=
-\infty$ in (\ref{eq:remesh}). We clearly see that due to the strong deformation
-of the interface, this leads to elongated elements in the inner and in the
-outer phase of the bulk finite element mesh.
+
+As a comparison, we show in Figure~\ref{fig:ellipse_smooth} and
+\ref{fig:ellipse_both_volumes_smooth} the same simulation when no remeshings are
+performed, i.e. we use $C_r=\infty$ in (\ref{eq:remesh}). We clearly see that
+due to the strong deformation of the interface, this leads to elongated elements
+in the inner and in the outer phase of the bulk finite element mesh.
 \begin{figure}[htbp]
 \centering
-\subfloat[$t=10$]{\includegraphics[width=.32\textwidth]
-{figures/stokes/ellipse_smooth_1000.ps}}
-\caption{($\mu=\gamma=1$) Final pressure solution for a simulation as in
-Figure~\ref{fig:ellipse_both}, when no remeshings are performed.}
+\subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_smooth_000.ps}}\\
+\subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_smooth_250.ps}}\quad
+\subfloat[$t=5$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_smooth_500.ps}}\\
+\subfloat[$t=7.5$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_smooth_750.ps}}\quad
+\subfloat[$t=10$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_smooth_1000.ps}}\\
+\caption[Stokes ellipse pressure no remeshing]
+{($\mu=\gamma=1$) Pressure evolution of an ellipse that evolves towards a
+circle. Here we use the P2--P0 element, and no remeshing.}
 \label{fig:ellipse_smooth}
+\end{figure}
+\begin{figure}[htbp]
+\centering
+\subfloat[$\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$]{
+\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_smooth_bulk_inner_volume.ps}}
+\subfloat[$\gamma\,\mathcal{H}^{1}(\Gamma^m)$]{
+\includegraphics[width=.45\textwidth]
+{figures/stokes/ellipse_smooth_interface_length.ps}}
+\caption[Stokes ellipse inner area and interface energy no remeshing]
+{Evolutions of the relative inner area and the interface energy for
+the simulation in Figure~\ref{fig:ellipse_smooth}.}
+\label{fig:ellipse_both_volumes_smooth}
 \end{figure}
 
 \subsection{Shear flow experiment in 2d}
