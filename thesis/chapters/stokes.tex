@@ -1640,6 +1640,48 @@ let $C_r = 3$.}
 \label{fig:nonuniform_bubble_velocity_32_both}
 \end{figure}
 
+Finally, we would also like to investigate the effect of using an adaptive bulk
+mesh, which is more refined close to the interface, and performing only mesh
+smoothing. We use $J_\Gamma = 64$ elements for $\Gamma^0$ and $J_\Omega^0 =
+954$ elements for the bulk. We see from the evolution in
+Figure~\ref{fig:nonuniform_bubble_64_adaptive} that, again, we obtain an
+equidistributed approximation of a circle. Obviously, since we never perform a
+remesh, the final bulk mesh quality is very poor.
+\begin{figure}[htbp]
+\centering
+\subfloat[$t=0$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/nonuniform_bubble_64_coarse_smooth_000.ps}}\\
+\subfloat[$t=0.5$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/nonuniform_bubble_64_coarse_smooth_050.ps}}\quad
+\subfloat[$t=1$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/nonuniform_bubble_64_coarse_smooth_100.ps}}\\
+\subfloat[$t=2.5$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/nonuniform_bubble_64_coarse_smooth_250.ps}}\quad
+\subfloat[$t=5$]{\includegraphics[width=.45\textwidth]
+{figures/stokes/nonuniform_bubble_64_coarse_smooth_500.ps}}\\
+\caption[Stokes equidistribution property adaptive mesh]
+{($\mu=\gamma=1$) Mesh evolution of a nonuniform circle formed by
+$J_\Gamma = 64$ elements and adaptive bulk mesh. Here we use the P2--P0
+element, and no remeshing.}
+\label{fig:nonuniform_bubble_64_adaptive}
+\end{figure}
+In Figure~\ref{fig:nonuniform_bubble_velocity_64_coarse_smooth} is shown the
+evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$ which, again, converges to zero.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/stokes/nonuniform_bubble_velocity_64_coarse_smooth.ps}
+\caption[Stokes equidistribution velocity adaptive mesh]
+{($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution for a nonuniform
+circle formed by $J_\Gamma = 64$ elements and adaptive bulk mesh. Here we use
+the P2--P0 element, and no remeshing.}
+\label{fig:nonuniform_bubble_velocity_64_coarse_smooth}
+\end{figure}
+We notice that the evolution of the quantity $\|\vec U^m\|_{L^\infty(\Omega)}$
+is now very smooth respect to the one reported in
+Figure~\ref{fig:nonuniform_bubble_32_both} but this is not surprising since we
+never perform a remesh.
+
 \subsection{Energy decay and area conservation in 2d}
 In Figure~\ref{fig:ellipse_both} we show the pressure evolution for a
 simulation that starts with an initial ellipse, with major and minor axes of
