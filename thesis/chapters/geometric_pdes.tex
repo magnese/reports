@@ -56,7 +56,7 @@ flows problem.
 A general geometric evolution equation has the following formulation
 \begin{equation}\label{eq:geometric_pde}
 \V\,.\,\vec\nu=f(\vec{z}\,,\vec{\nu}\,,\varkappa)
-\qquad\mbox{on }\Gamma(t),
+\quad\mbox{on }\Gamma(t),
 \end{equation}
 which prescribes the normal velocity $\V\,.\,\vec\nu$ of the
 interface $\Gamma(t)$ as a function depending on the position $\vec z$, its
@@ -69,7 +69,7 @@ hypersurfaces in $\R^{d}$ ($d = 2$ for curves, $d = 3$ for surfaces).
 The simplest geometric PDE is the one which arises from motion by mean
 curvature,
 \begin{equation}\label{eq:mean_curvature}
-\V\,.\,\vec\nu=\varkappa\qquad\mbox{on }\Gamma(t).
+\V\,.\,\vec\nu=\varkappa\quad\mbox{on }\Gamma(t).
 \end{equation}
 This equation describes a surface evolving in such a way that its own normal
 velocity is equal to the sum of the $d-1$ principal curvatures of $\Gamma(t)$.
@@ -77,7 +77,7 @@ velocity is equal to the sum of the $d-1$ principal curvatures of $\Gamma(t)$.
 Another important geometric PDE is the one which arises from motion by
 surface diffusion
 \begin{equation}\label{eq:surface_diff}
-\V\,.\,\vec\nu=-\Delta_s \varkappa \qquad\mbox{on }\Gamma(t)\,,
+\V\,.\,\vec\nu=-\Delta_s \varkappa \quad\mbox{on }\Gamma(t)\,,
 \end{equation}
 where we use the Laplace--Beltrami operator $\Delta_s$ defined by
 (\ref{eq:surface_laplacian}). In this case the surface normal velocity matches
@@ -97,7 +97,7 @@ $\vec z_0 \in \Gamma$ there exists an open set $G \subset \R^d$ containing
 $\vec z_0$ and a function $g \in C^2(G)$ such that
 \begin{equation}
 G \cap \Gamma = \{ \vec z \in G \, | \, g(\vec z) = 0 \}
-\qquad \mbox{ and } \qquad \nabla \, G(\vec z) \neq 0\,,
+\quad \mbox{ and } \quad \nabla \, G(\vec z) \neq 0\,,
 \quad \forall\ \vec z \in G \cap \Gamma \, .
 \end{equation}
 The tangent space $T_{\vec z} \Gamma$ is then the $(d-1)$-dimensional linear
@@ -121,26 +121,26 @@ is the orthogonal projection of $\nabla \, g(\vec z)$ onto $T_{\vec z} \Gamma$,
 it depends only on the values of $g$ on $\Gamma$. Moreover, from
 (\ref{eq:surface_gradient}) follows that
 \begin{equation}\label{eq:surface_gradient_comp}
-\nabla_s \, g(\vec z) \,.\, \vec{\nu}(\vec z)=0\,, \qquad \vec z \in \Gamma\,.
+\nabla_s \, g(\vec z) \,.\, \vec{\nu}(\vec z)=0\,, \quad \vec z \in \Gamma\,.
 \end{equation}
 Similarly, if $g$ is twice differentiable in an open neighbourhood of
 $\Gamma$, the surface Laplacian (\ref{eq:surface_laplacian}) can be written as
 \begin{equation}\label{eq:surface_laplacian_comp}
 \Delta_s g(\vec z) = \nabla_s\, . \,\nabla_s \, g(\vec z) =
 \sum_{i = 1}^d \underline{D}_i \underline{D}_i g(\vec z) \, ,
-\qquad \vec z \in \Gamma \, ,
+\quad \vec z \in \Gamma \, ,
 \end{equation}
 while, if $\vec g$ is a differentiable vector field, the surface divergence
 can be rewritten as
 \begin{equation}
 \nabla_s \,.\, \vec g(\vec z) = \sum_{j = 1}^{d} \underline{D}_j \vec g_j
-(\vec z)\,, \qquad \vec z \in \Gamma\,.
+(\vec z)\,, \quad \vec z \in \Gamma\,.
 \end{equation}
 
 We assume $\vec{\nu} \in C^1$ in a neighbourhood of $\Gamma$ so that we
 may introduce the matrix $\mat H(\vec z)$ with components
 \begin{equation}\label{eq:matrixHjk}
-[\mat H (\vec z)]_{jk} = - \underline{D}_j \nu_k (\vec z)\,, \qquad \vec z \in
+[\mat H (\vec z)]_{jk} = - \underline{D}_j \nu_k (\vec z)\,, \quad \vec z \in
 \Gamma \, ,
 \end{equation}
 with $1\leq j,k\leq n$. It can be shown that $\mat H(\vec z)$ is symmetric.
@@ -166,7 +166,7 @@ $\varkappa = \frac{1}{d - 1} \sum_{j = 1}^{d - 1} \varkappa_j$.
 From (\ref{eq:matrixHjk}) we derive the following expression for mean
 curvature:
 \begin{equation}
-\varkappa (\vec z)=-\nabla_s \,.\, \vec{\nu}(\vec z) \qquad \vec z \in \Gamma\,.
+\varkappa (\vec z)=-\nabla_s \,.\, \vec{\nu}(\vec z) \quad \vec z \in \Gamma\,.
 \end{equation}
 In particular, if $\Gamma$ is the unite sphere,
 $\Gamma = \{ \vec z \in \R^d : |\vec z| = 1 \}$,
@@ -190,7 +190,7 @@ that
 \end{equation}
 which leads to the identity
 \begin{equation} \label{eq:LBop}
-\Delta_s\, \vec \id = \varkappa\, \vec\nu \qquad \mbox{on $\Gamma(t)$}\,.
+\Delta_s\, \vec \id = \varkappa\, \vec\nu \quad \mbox{on $\Gamma(t)$}\,.
 \end{equation}
 This identity of differential geometry will be useful at a later stage to
 obtain a weak formulation of the surface diffusion and mean curvature problems.
@@ -206,7 +206,7 @@ open set $G \subset \R^{d}$, $\delta > 0$ and a function
 $g \in C^{2,1}(G \times (t_0 - \delta, t_0 + \delta))$ such that
 \begin{equation}
 G \cap \Gamma (t) = \{ \vec{z} \in G \, | \, g (\vec z, t) = 0 \}
-\qquad \mbox{ and } \qquad \nabla \, g (\vec z, t) \neq 0
+\quad \mbox{ and } \quad \nabla \, g (\vec z, t) \neq 0
 \quad \forall\ \vec z \in G \cap \Gamma(t) \, .
 \end{equation}
 
@@ -326,7 +326,7 @@ $\vec{q}$ of the reference manifold $\Upsilon$ to its actual position
 $\vec{z}$ on $\Gamma(t)$. Therefore, from (\ref{eq:interface_parametrization}),
 we can define the velocity $\V$ of $\Gamma(t)$ as
 \begin{equation} \label{eq:V}
-\V(\vec z, t) := \vec x_t(\vec q, t) \qquad
+\V(\vec z, t) := \vec x_t(\vec q, t) \quad
 \forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)\,.
 \end{equation}
 
@@ -416,7 +416,7 @@ each time level. Here $\langle\cdot,\cdot\rangle_{\Gamma^m}$ is the $L^2$ inner
 product over the current polyhedral surface
 \begin{equation}
 \langle u,v\rangle_{\Gamma^m} =
-\int_{\Gamma^m}uv\,\dH{d-1}\,, \qquad\forall u,v \in
+\int_{\Gamma^m}uv\,\dH{d-1}\,, \quad\forall u,v \in
 L^2(\Gamma^m),
 \end{equation}
 where $\surfvol$ is the $(d-1)$-dimensional Hausdorff measure, and
@@ -604,7 +604,7 @@ mean curvature $\varkappa$ can be computed by solving the algebraic system
 Indeed, the algebraic system (\ref{eq:algebraic_initial_curvature}) is the
 discretization of the stationary geometric PDE
 \begin{equation}
-\V\,.\,\vec\nu=0\qquad\mbox{on }\Gamma(t)\,,
+\V\,.\,\vec\nu=0\quad\mbox{on }\Gamma(t)\,,
 \end{equation}
 coupled with the identity (\ref{eq:LBop}) therefore $\delta\vec X \equiv 0$ and
 (\ref{eq:algebraic_initial_curvature}) can be simply rewritten as
@@ -636,17 +636,14 @@ and the time step is constant and equal to $\tau=10^{-3}$.
 
 \begin{figure}[htbp]
 \centering
-\subfloat[$t=0$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/mcf_sphere_0.ps}}
-\quad
-\subfloat[$t=2$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/mcf_sphere_2.ps}}
-\\
-\subfloat[$t=4$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/mcf_sphere_4.ps}}
-\quad
-\subfloat[$t=6$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/mcf_sphere_6.ps}}
+\subfloat[$t=0$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/mcf_sphere_0.ps}}
+\subfloat[$t=2$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/mcf_sphere_2.ps}}\\
+\subfloat[$t=4$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/mcf_sphere_4.ps}}
+\subfloat[$t=6$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/mcf_sphere_6.ps}}
 \caption[Mean curvature flow shrinking sphere]{Surface evolution of a sphere of
 initial radius $r_0=5$ subject to mean curvature flow.}
 \label{fig:mcf_sphere}
@@ -685,17 +682,14 @@ and minimum segment of the hypersurface.
 
 \begin{figure}[htbp]
 \centering
-\subfloat[$t=0$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_circle_0.ps}}
-\quad
-\subfloat[$t=0.05$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_circle_005.ps}}
-\\
-\subfloat[$t=0.25$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_circle_025.ps}}
-\quad
-\subfloat[$t=10$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_circle_10.ps}}
+\subfloat[$t=0$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/sd_circle_0.ps}}
+\subfloat[$t=0.05$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/sd_circle_005.ps}}\\
+\subfloat[$t=0.25$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/sd_circle_025.ps}}
+\subfloat[$t=10$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/sd_circle_10.ps}}
 \caption[Surface diffusion equidistribution property]{Surface evolution of a
 circle of initial radius $r_0=0.5$ subject to surface diffusion.}
 \label{fig:sd_circle}
@@ -731,17 +725,14 @@ $J_\Gamma=3816$ and the time step is constant and equal to $\tau=10^{-2}$.
 
 \begin{figure}[htbp]
 \centering
-\subfloat[$t=0$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_cage_0.ps}}
-\quad
-\subfloat[$t=0.2$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_cage_02.ps}}
-\\
-\subfloat[$t=0.4$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_cage_04.ps}}
-\quad
-\subfloat[$t=0.6$]{
-\includegraphics[width=.45\textwidth]{figures/geometric_pdes/sd_cage_06.ps}}
+\subfloat[$t=0$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/sd_cage_0.ps}}
+\subfloat[$t=0.2$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/sd_cage_02.ps}}\\
+\subfloat[$t=0.4$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/sd_cage_04.ps}}
+\subfloat[$t=0.6$]{\includegraphics[width=.45\textwidth]
+{figures/geometric_pdes/sd_cage_06.ps}}
 \caption[Surface diffusion cage]{Surface evolution of a cage $4 \times 4 \times
 4$ subject to surface diffusion.}
 \label{fig:sd_cage}

@@ -100,9 +100,9 @@ standard Navier--Stokes governing equations can be derived:
 \begin{subequations}
 \begin{alignat}{2}
 \rho\,(\vec u_t +\vec u \,.\, \nabla \vec u)- \nabla\,.\,\mat\sigma
-& = \vec f \qquad &&\mbox{in } \Omega_\pm(t)\,,
+& = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,,
 \label{eq:ns_momentum} \\
-\nabla\,.\,\vec u & = 0 \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
 \label{eq:ns_mass}
 \end{alignat}
 \end{subequations}
@@ -154,9 +154,9 @@ In the case of laminar flow, the advective term in the momentum equation
 equations
 \begin{subequations}
 \begin{alignat}{2}
-- \nabla\,.\,\mat\sigma & = \vec f \qquad &&\mbox{in } \Omega_\pm(t)\,,
+- \nabla\,.\,\mat\sigma & = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,,
 \label{eq:momentum} \\
-\nabla\,.\,\vec u & = 0 \qquad &&\mbox{in } \Omega_\pm(t)\,,
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
 \label{eq:mass}
 \end{alignat}
 \end{subequations}
@@ -182,8 +182,8 @@ therefore the system (\ref{eq:ns_momentum_bis}--b) can be rewritten as
 \begin{subequations}
 \begin{alignat}{2}
 \rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) - \mu\,\Delta\vec u+\nabla\,p
-& = \vec f \qquad \mbox{in } \Omega\,, \\
-\nabla\,.\,\vec u & = 0 \qquad \mbox{in } \Omega\,,
+& = \vec f \quad \mbox{in } \Omega\,, \\
+\nabla\,.\,\vec u & = 0 \quad \mbox{in } \Omega\,,
 \end{alignat}
 \end{subequations}
 which is the canonical form of the one-phase Navier--Stokes problem.
@@ -193,7 +193,7 @@ For the full Navier--Stokes problem (\ref{eq:ns_momentum_bis}-b), a
 divergence-free velocity field for the whole computational domain is needed as
 an initial condition therefore we impose
 \begin{equation}\label{eq:ns_ic}
-\vec u(0) = \vec u_0 \qquad \mbox{in } \Omega_\pm(t)\,.
+\vec u(0) = \vec u_0 \quad \mbox{in } \Omega_\pm(t)\,.
 \end{equation}
 The initial condition is not need in the Stokes case (\ref{eq:momentum_bis}-b)
 since it is a stationary problem.
@@ -202,7 +202,7 @@ In order to obtain a well-posed system, boundary conditions have to be imposed
 on the bulk domain boundary $\partial\Omega$. Usually, we use the homogeneous
 Dirichlet condition
 \begin{equation}\label{eq:ns_bc}
-\vec u = \vec 0 \qquad \mbox{on } \partial \Omega\,,
+\vec u = \vec 0 \quad \mbox{on } \partial \Omega\,,
 \end{equation}
 and/or a free-slip condition.
 
@@ -211,7 +211,7 @@ needed on the unknown interface $\Gamma(t)$ which couple the velocity and
 stress between the two domains. Viscosity of the fluids leads to the continuity
 condition
 \begin{equation}\label{eq:interface_jump_velocity}
-[\vec u]_-^+ = \vec 0 \qquad \mbox{on } \Gamma(t)\,,
+[\vec u]_-^+ = \vec 0 \quad \mbox{on } \Gamma(t)\,,
 \end{equation}
 where $[\vec u]_-^+ := \vec u_+ - \vec u_-$ denote the jump in velocity across
 the interface $\Gamma(t)$. Here and throughout, we employ the shorthand notation
@@ -222,7 +222,7 @@ matrix-valued functions.
 The assumption that there is no change of phase leads to the dynamic interface
 condition
 \begin{equation}\label{eq:interface_velocity}
-\V\,.\,\vec\nu = \vec u\,.\,\vec \nu \qquad \mbox{on }
+\V\,.\,\vec\nu = \vec u\,.\,\vec \nu \quad \mbox{on }
 \Gamma(t)\,,
 \end{equation}
 given that $\V$ is the velocity of the evolving interface
@@ -233,7 +233,7 @@ match the flow normal velocity across the interface $\Gamma(t)$.
 The momentum conservation in a small material volume that intersects the
 interface leads to the stress balance condition
 \begin{equation}\label{eq:interface_jump_stress_div}
-[\mat\sigma\,\vec \nu]_-^+ = -\nabs\,.\mat\sigma_{\Gamma} \qquad \mbox{on }
+[\mat\sigma\,\vec \nu]_-^+ = -\nabs\,.\mat\sigma_{\Gamma} \quad \mbox{on }
 \Gamma(t)\,,
 \end{equation}
 where $\mat\sigma_{\Gamma}$ is the interface stress tensor and $\nabs\,.$ is
@@ -243,12 +243,12 @@ gradient operator $\nabla$ on the surface $\Gamma(t)$. Therefore, given a
 smooth function $g$ defined on a neighbourhood of $\Gamma(t)$, it is defined as
 \begin{equation}\label{eq:surface_gradient}
 \nabs\,g(\vec z)=\mat P\,\nabla\,g(\vec z)=\nabla\,g(\vec z)\,-
-\,\nabla\,g(\vec z)\,.\,\vec\nu(\vec z)\,\vec\nu(\vec z)\,,\qquad \vec z
+\,\nabla\,g(\vec z)\,.\,\vec\nu(\vec z)\,\vec\nu(\vec z)\,,\quad \vec z
 \in\Gamma(t)\,,
 \end{equation}
 with the usual projection operator $\mat P$ defined as
 \begin{equation}\label{eq:surface_projection}
-\mat P(\vec z)=\mat\id\,-\,\vec\nu(\vec z)\,\vec\nu(\vec z)^T\,,\qquad \vec
+\mat P(\vec z)=\mat\id\,-\,\vec\nu(\vec z)\,\vec\nu(\vec z)^T\,,\quad \vec
 z\in \Gamma(t)\,.
 \end{equation}
 For later use, we also define the surface Laplacian, also
@@ -273,7 +273,7 @@ obtain
 P-\nabs\,\gamma = \gamma\nabs\,.\,(\vec\nu\,\vec\nu^T)-\nabs\,\gamma = \\
 & \gamma\nabs\,.\,\vec\nu\,\vec\nu +\gamma\nabs\,\vec\nu\,.\,\vec\nu -
 \nabs\,\gamma = \gamma\nabs\,.\,\vec\nu\,\vec\nu - \nabs\,\gamma = \\
-& -\gamma\,\varkappa\,\vec\nu - \nabs\,\gamma \qquad \mbox{on } \Gamma(t)\,,
+& -\gamma\,\varkappa\,\vec\nu - \nabs\,\gamma \quad \mbox{on } \Gamma(t)\,,
 \end{split}
 \end{equation}
 where we have used the fact that the surface gradient $\nabs$ is, by definition,
@@ -284,7 +284,7 @@ are tangential to the surface. We assume that $\gamma$ is constant and
 therefore, from (\ref{eq:interface_stress_tensor_divergence}), we obtain the
 so called clean interface model for the interfacial forces
 \begin{equation}\label{eq:interface_jump_stress}
-[\mat\sigma\,\vec \nu]_-^+ = -\gamma\,\varkappa\,\vec\nu \qquad \mbox{on }
+[\mat\sigma\,\vec \nu]_-^+ = -\gamma\,\varkappa\,\vec\nu \quad \mbox{on }
 \Gamma(t)\,.
 \end{equation}
 
@@ -307,7 +307,7 @@ fluid domains. Depending on the method, this scalar field may be, for example,
 a discontinuous Heaviside function or a signed-distance function. The interface
 motion is taken into account using a standard advection equation
 \begin{equation}
-\frac{\partial \psi}{\partial t}+\vec u\,.\nabla\,\psi=0 \qquad \mbox{in }
+\frac{\partial \psi}{\partial t}+\vec u\,.\nabla\,\psi=0 \quad \mbox{in }
 \Omega\,,
 \end{equation}
 which transport the scalar field with the fluid velocity $\vec u$. The most
