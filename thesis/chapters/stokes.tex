@@ -703,43 +703,48 @@ interface $\Gamma$.
 Finally, with a view towards some numerical test cases in
 \S\ref{sec:stokes_results}, we also allow for an inhomogeneous Dirichlet
 boundary condition $\vec g$ on $\partial\Omega$. In this case the linear system
-is suitably adjusted. From equation (\ref{eq:full_mass}), it needs to hold that
-\begin{equation}\label{eq:mass_weak}
- \int_{\Omega}\nabla\,.\,\vec u\, \dL{d} =
- \int_{\partial\Omega} \vec g \,.\, \unitn \dH{d-1}\,,
+is suitably adjusted. Let $\varphi \in \pspace^m$, then we can rewrite
+$\varphi$ as
+\begin{equation}\label{eq:phi_rewriting}
+\varphi=\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}
++\frac{\left(\varphi,1\right)}{\left(1,1\right)}\,,
 \end{equation}
-where $\unitn$ is the outer unit normal to $\Omega$ on $\partial\Omega$.
-Multiplying (\ref{eq:mass_weak}) by the test function $\varphi$ and integrating
-over the domain $\Omega$, we obtain the weak form
+where $\varphi-\frac{(\varphi,1)}{(1,1)}\in\pnormspace^m$ and
+$\frac{(\varphi,1)}{(1,1)}\in\R$. Substituting (\ref{eq:phi_rewriting}) in
+(\ref{eq:HGb}) we obtain
 \begin{equation}
- \left(\left(\nabla\,.\,\vec u, 1\right),\varphi\right) =
- \left(\int_{\partial\Omega} \vec g \,.\, \unitn \dH{d-1},\varphi\right)\,,
+\left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  =
+\left(\nabla\,.\,\vec U^{m+1},
+\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right) +
+\left(\nabla\,.\,\vec U^{m+1},1\right)
+\frac{\left(\varphi,1\right)}{\left(1,1\right)}\,,
 \end{equation}
-and, rearranging the integrals,
+but, from (\ref{eq:HGb}), we have
 \begin{equation}
- \left(\left(\nabla\,.\,\vec u, \varphi\right),1\right) =
- \left(\int_{\partial\Omega} \vec g \,.\, \unitn \dH{d-1},\varphi\right)\,,
+\left(\nabla\,.\,\vec U^{m+1},
+\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right) = 0\,,
 \end{equation}
-which leads to
-\begin{equation}\label{eq:LAb_continuous}
- \left(\nabla\,.\,\vec u, \varphi\right) =
- \frac{\left(\varphi, 1\right)}{\left(1,1\right)}\, \int_{\partial\Omega}
-\vec g \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
-\pspace^m\,.
+and, noting that
+\begin{equation}
+\left(\nabla\,.\,\vec U^{m+1}, 1\right)=
+\frac{\left(\varphi,1\right)}{\left(1,1\right)}\, \int_{\partial\Omega}
+\vec U^{m+1}\,.\, \unitn \dH{d-1}=
+\frac{\left(\varphi,1\right)}{\vol(\Omega)}\, \int_{\partial\Omega}
+(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1}\,,
 \end{equation}
-Obviously, (\ref{eq:LAb_continuous}), is still equal to zero but, the discrete
-version assumes the form
+we finally deduce
 \begin{equation} \label{eq:LAb}
  \left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
  \frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial\Omega}
 (\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
-\pspace^m\,,
+\pspace^m\,.
 \end{equation}
-which is possibly not null. The equation (\ref{eq:LAb}) replaces
-(\ref{eq:HGb}), using again the unconstrained space $\pspace^m$ instead of
-$\pnormspace^m$. The proof of existence of an unique solution to the
-inhomogeneous system (\ref{eq:HGa},c,d), (\ref{eq:LAb}) is exactly the same as
-the proof of Theorem~\ref{thm:ex}.
+Therefore, when the boundary integral of the quadratic interpolation of the
+boundary data $\vec g$ is different from zero and the pressure space used is
+the unconstrained space $\pspace^m$ instead of $\pnormspace^m$ then the
+equation (\ref{eq:LAb}) replaces (\ref{eq:HGb}). The proof of existence of an
+unique solution to the inhomogeneous system (\ref{eq:HGa},c,d), (\ref{eq:LAb})
+is exactly the same as the proof of Theorem~\ref{thm:ex}.
 
 \section{Solution method}\label{sec:stokes_solution_method}
 For the solution of (\ref{eq:stokes_algebraic}) we use a Schur complement
