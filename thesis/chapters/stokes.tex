@@ -698,7 +698,10 @@ Instead, the space \pdg is a space of polynomial order 1 defined in the two
 subdomains $\Omega_-$ and $\Omega_+$ therefore $\vec C_{\spadesuit}=\vec
 C_{\Omega_-}$ and $\vec C_{\clubsuit}=\vec C_{\Omega_+}$. This space is
 equivalent to a P1 space which is continuous everywhere except across the
-interface $\Gamma$.
+interface $\Gamma$. With this choice of space, the discrete scheme fall in
+the category of XFEM, extended FEM, since the pressure space is enriched adding
+additional degree of freedoms for the nodes on the interface in order to
+capture the discontinuity of the pressure.
 
 Finally, with a view towards some numerical test cases in
 \S\ref{sec:stokes_results}, we also allow for an inhomogeneous Dirichlet
