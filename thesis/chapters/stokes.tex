@@ -898,6 +898,24 @@ which is
 \end{equation*}
 
 \section{Mesh generation and smoothing}\label{sec:stokes_smoothing}
+The mesh generation process is controlled by the characteristic lengths of the
+points describing the geometry of the domain boundary $\partial\Omega$. Each
+point has associated a characteristic length which prescribes the size of the
+mesh elements. For example, a segment of length $L$, which defines an edge of
+the domain boundary, delimited by two points of characteristic length $c_l$ will
+be subdivided into several segments of lengths $\frac{L}{c_l}$ during the mesh
+generation. Therefore, smaller is the characteristic length, finer is the
+resulting mesh. In general we use either uniform or adaptive bulk meshes. In the
+former the characteristic length $c_l$ is set to be equal to the characteristic
+length of the interface $c_{l,\Gamma}$ while in the latter the characteristic
+length is $c_l(\vec z)=\min\{8c_{l,\Gamma},\mbox{dist}(\vec z,\Gamma)\}$.
+Therefore, in the adaptive case, if the interface is far enough from the
+boundary, the resulting bulk mesh will be coarse. We define characteristic
+length of the interface $c_{l,\Gamma}$, in the 2d case, as the average length
+of the segments describing the discrete interface $\Gamma^m$ or, in the 3d case,
+as length of an equilateral triangle with area equal to the average of the
+areas of the triangles describing the discrete interface $\Gamma^m$.
+
 Given the initial polyhedral surface $\Gamma^0$, we create a triangulation
 $\mathcal{T}^0$ of $\Omega$ that is fitted to $\Gamma^0$ with the help of the
 package \verb|Gmsh|, see \cite{GeuzaineR09}. Then, for $m \geq 0$, having
@@ -936,13 +954,23 @@ compute in order to obtain $\mathcal{T}^{m+1}$.
 Occasionally the deformation of the mesh becomes too large, for instance when
 the bubble making up the inner phase undergoes strong deformations, and so a
 complete remeshing of $\Omega$ becomes necessary. In order to detect the need
-for a complete remeshing, we define the criterion
-\begin{equation}\label{eq:remesh}
+for a complete remeshing, we define the volume criterion
+\begin{equation}\label{eq:volume_criterion}
 \frac{\max_{\sigmaO\in {\cal T}^{m+1}}(\vol(\sigmaO))}
 {\min_{\sigmaO\in\mathcal {T}^{m+1}}(\vol(\sigmaO))} \geq C_r \geq 1,
 \end{equation}
 where $C_r$ is a fixed constant. Of course, if we choose $C_r = 1$, then a
-remeshing would be triggered after every time step.
+remeshing would be triggered after every time step. Obviously, the
+volume criterion (\ref{eq:volume_criterion}) cannot be used for adaptive
+meshes therefore we also define the angle criterion
+\begin{equation}\label{eq:angle_criterion}
+\min_{\sigmaO\in {\cal T}^{m+1}}\min_{\alpha\in \measuredangle(\sigmaO)}\alpha
+\leq C_r\,,
+\end{equation}
+where $\measuredangle(\sigmaO)$ is the set of all the angles of the simplex
+$\sigmaO$ which can be computed as $\alpha_{ij}=\cos^{-1}(-\vec n_i\,.\,\vec
+n_j)$, $\forall i,j\in\{0,\dots,d\}$, with $\vec n_i$ the unitary normal to the
+simplex face $i$.
 
 We stress that in all our numerical simulations we never need to remesh the
 interface $\Gamma^m$ itself. Hence the stability results from
@@ -1024,12 +1052,7 @@ the estimated error of convergence EOC as
 \end{equation}
 where $\mbox{error}_1$ is the error computed on a triangulation finer that the
 one used to compute $\mbox{error}_0$ while $\mbox{h}_1$ and $\mbox{h}_0$ are the
-respectively characteristic lengths. The characteristic length prescribes the
-size of the mesh elements. For example, a segment of length $L$, which defines
-an edge of the domain boundary, delimited by two points of characteristic
-length $c_l$ will be subdivided into several segments of lengths
-$\frac{L}{c_l}$ during the mesh generation. Therefore, smaller is the
-characteristic length, finer is the resulting mesh.
+respectively characteristic lengths.
 
 \subsection{Convergence tests in 2d} \label{sec:stokes_2d_convergence_results}
 For the true solution (\ref{eq:radialr},b) we choose $\mu = \gamma = 1$.
@@ -1173,11 +1196,11 @@ on the right hand side of Figure~\ref{fig:meshes_expanding}.
 Details on the discretization parameters for the nearly uniform meshes are
 given in Table~\ref{tab:expandingbubble2Delements}. Here we explicitly
 state the final number of bulk elements, $J_\Omega^M$, in the case $C_r = 1$
-and $C_r = 3$, recall the remesh criterion (\ref{eq:remesh}). In the former the
-bulk is remeshed after every time step while in the latter the bulk is remeshed
-when the max--min entity volume ratio is bigger than 3. Of course, when only
-smoothing is employed, then the number of bulk mesh elements is invariant, and
-so $J_\Omega^M = J_\Omega^0$.
+and $C_r = 3$, recall the remesh criterion (\ref{eq:volume_criterion}). In the
+former the bulk is remeshed after every time step while in the latter the bulk
+is remeshed when the max--min entity volume ratio is bigger than 3. Of course,
+when only smoothing is employed, then the number of bulk mesh elements is
+invariant, and so $J_\Omega^M = J_\Omega^0$.
 \begin{table*}
 \center
 \begin{tabular}{rrrrr}
@@ -1200,8 +1223,8 @@ element in Table~\ref{tab:expandingbubble2Dp2p0},
 \ref{tab:expandingbubble2Dp2p1dg} and \ref{tab:expandingbubble2Dp2p1p0},
 respectively. On the top part of the tables only mesh smoothings are applied,
 in the central part the bulk mesh is remeshed after every time step while at
-the bottom the bulk mesh is remeshed only when the criterion (\ref{eq:remesh}),
-with $C_r=3$, is not satisfied.
+the bottom the bulk mesh is remeshed only when the criterion
+(\ref{eq:volume_criterion}), with $C_r=3$, is not satisfied.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1396,8 +1419,9 @@ meshes, that are refined close to the interface. An example mesh is shown on
 the right hand side of Figure~\ref{fig:meshes_expanding}, and we list our
 employed discretization parameters in
 Table~\ref{tab:expandingbubble2Delements_adaptive}. Obviously the remesh
-criterion (\ref{eq:remesh}) cannot be used for an adaptive mesh since it would
-be always violated therefore we use the angle criterion ...
+criterion (\ref{eq:volume_criterion}) cannot be used for an adaptive mesh since
+it would be always violated therefore we use the angle criterion
+(\ref{eq:angle_criterion}) with $C_r=20$\textdegree.
 \begin{table*}
 \center
 \begin{tabular}{rrrrr}
@@ -1614,7 +1638,7 @@ Figure~\ref{fig:nonuniform_bubble_32_both} that as the interface gets closer
 and closer to an equidistributed approximation of a circle, the bulk mesh also
 becomes more uniform. For the presented simulation we used the physical
 parameters $\mu= \gamma=1$. The uniform time step size is chosen as
-$\tau=10^{-4}$ and we set $C_r=3$, recall (\ref{eq:remesh}).
+$\tau=10^{-4}$ and we set $C_r=3$, recall (\ref{eq:volume_criterion}).
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]
@@ -1734,9 +1758,10 @@ the simulation in Figure~\ref{fig:ellipse_both}.}
 
 As a comparison, we show in Figure~\ref{fig:ellipse_smooth} and
 \ref{fig:ellipse_both_volumes_smooth} the same simulation when no remeshings are
-performed, i.e. we use $C_r=\infty$ in (\ref{eq:remesh}). We clearly see that
-due to the strong deformation of the interface, this leads to elongated elements
-in the inner and in the outer phase of the bulk finite element mesh.
+performed, i.e. we use $C_r=\infty$ in (\ref{eq:volume_criterion}). We clearly
+see that due to the strong deformation of the interface, this leads to
+elongated elements in the inner and in the outer phase of the bulk finite
+element mesh.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
