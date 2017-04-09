@@ -845,7 +845,8 @@ mass matrix $M_\Omega$ defined as
 \begin{equation*}
 [M_\Omega]_{ij} = \left(\,\phi_j^{\pspace^m},\, \phi_i^{\pspace^m}\right)\,.
 \end{equation*}
-for $\mathcal{P}_S$.
+for $\mathcal{P}_S$. Again, in order to reuse the factorization, we employ a
+sparse $L\,U$ decomposition to factorize the matrices $\vec B$ and $M_\Omega$.
 
 Similarly, for the algebraic system (\ref{eq:stokes_algebraic_extended}),
 (\ref{eq:SchurkX}) becomes
@@ -896,6 +897,25 @@ which is
 -p\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U =
 \vec v - \vec C_\spadesuit\,P_\spadesuit - \vec C_\clubsuit\,P_\clubsuit\,.
 \end{equation*}
+
+Alternatively, it is possible to use the one-phase stokes matrix, see
+(\ref{eq:stokes_system}),
+\begin{equation}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_\Omega \\
+\vec C_\Omega^T & 0
+\end{pmatrix}\,
+\end{equation}
+or, for the algebraic system (\ref{eq:stokes_algebraic_extended}),
+\begin{equation}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_\spadesuit & \vec C_\clubsuit \\
+\vec C^T_\spadesuit & 0 & 0 \\
+\vec C^T_\clubsuit & 0 & 0 \\
+\end{pmatrix}
+\end{equation}
+as a preconditioner and factorize them directly with a sparse $L\,U$
+decomposition.
 
 \section{Mesh generation and smoothing}\label{sec:stokes_smoothing}
 The mesh generation process is controlled by the characteristic lengths of the
@@ -1022,7 +1042,8 @@ In the following, unless otherwise stated, we choose the initial surface
 $\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$, the domain
 $\Omega = (-1,1)^d$ and we employ uniform time steps $\tau_m=\tau$,
 $m=0,\ldots, M-1$. Moreover, we always set the GMRES tolerance to $10^{-12}$ and
-the restart value to 50.
+the restart value to 50 and, unless otherwise stated, we use the one-phase
+Stokes matrix as a preconditioner factorizing it with UMFPACK.
 
 Finally, we define the errors
 \begin{equation} \label{eq:errorXx}
