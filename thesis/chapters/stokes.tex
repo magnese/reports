@@ -583,13 +583,13 @@ analogue of (\ref{eq:conserved}). To see this, choose $\chi = 1$ in
 (\ref{eq:sdc}) and $\varphi= (\charfcn{\Omega_-^h(t)} -
 \frac{\vol(\Omega_-^h(t))}{\vol(\Omega)})
 \in \pnormspace^h(t)$ in (\ref{eq:sdb}), to obtain
-\begin{align*}
+\begin{align}\label{eq:stokes_volume_semidiscrete}
 \ddt \vol(\Omega_-^h(t))  &=
 \left\langle \V^h , \vec\nu^h \right\rangle_{\Gamma^h(t)}
 = \left\langle \V^h , \vec\nu^h \right\rangle^h_{\Gamma^h(t)}
 = \left\langle \vec U^h, \vec\nu^h \right\rangle_{\Gamma^h(t)} \\ &
 = \int_{\Omega_-^h(t)} \nabla\,.\,\vec U^h \dL{d} =0\,.
-\end{align*}
+\end{align}
 Hence solution to (\ref{eq:sda}--d) conserve the enclosed volume. Once again,
 the fully discrete scheme (\ref{eq:HGa}--d) inherits this property in the sense
 that in our simulations the volumes are always well maintained.
@@ -1179,9 +1179,12 @@ result of Theorem~\ref{thm:stat2}, and the fact that we use an equidistributed
 approximation $\Gamma^0$, which means that (\ref{eq:constcurv}) is satisfied.
 Instead the element P2--P1 does not satisfy the hypothesis that $S^m_0 \subset
 \pspace^m$ of Theorem~\ref{thm:stat2} therefore the true solution is not
-captured exactly. Of course, since the discrete solution is stationary, neither
-smoothing nor remeshing is performed for the simulations in
-Tables~\ref{tab:stokes_stationary_2d_p2p0},
+captured exactly. Moreover, since $\charfcn{\Omega_-^h(t)}\not\in\,$P1, the
+volume conservation property of the semidiscrete scheme
+(\ref{eq:stokes_volume_semidiscrete}) does not hold which implies that the
+P2--P1 element does not conserve the enclosed volume. Of course, since the
+discrete solution is stationary, neither smoothing nor remeshing is performed
+for the simulations in Tables~\ref{tab:stokes_stationary_2d_p2p0},
 \ref{tab:stokes_stationary_2d_p2p1}, \ref{tab:stokes_stationary_2d_p2p1dg} and
 \ref{tab:stokes_stationary_2d_p2p1p0}. We also observe that the error for the
 three approximations with the P2--P0, the P2--\pdg and the P2--(P1+P0)
