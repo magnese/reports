@@ -302,6 +302,47 @@ unfitted finite element approximation, has been considered in \cite{spurious}.
 In particular, most of the theoretical results presented in the following
 are a direct consequence of the results in \cite{spurious}.
 
+\section{Fitted and unfitted approach}\label{sec:stokes_fitted_unfitted}
+The key difference between \cite{spurious} and our approach is that the former
+uses an unfitted approach while the latter adopts a fitted one. In
+Figure~\ref{fig:fitted_unfitted}, from \cite[Fig.~1]{spurious}, is shown an
+example of fitted and unfitted interface meshes for a circular interface.
+\begin{figure}[htbp]
+\centering
+\subfloat[Fitted mesh]{
+\includegraphics[width=.45\textwidth]
+{figures/stokes/fitted_mesh.ps}}
+\subfloat[Unfitted mesh]{
+\includegraphics[width=.45\textwidth]
+{figures/stokes/unfitted_mesh.ps}}
+\caption[Fitted and unfitted meshes]
+{Fitted and unfitted meshes for a circular interface.}
+\label{fig:fitted_unfitted}
+\end{figure}
+In the fitted approach, the interface mesh is formed by edges, in 2d, or faces,
+in 3d, belonging to bulk elements. This means that there is a strong coupling
+between the bulk mesh and interface mesh. This is a very natural way to treat
+the problem. The pressure, and viscosity, jumps across the interface are
+captured very precisely without using any XFEM technique. Moreover, there is
+no need to transport quantities from the interface to the bulk, or vice versa.
+On the other hand, it is impossible to locally adapt the bulk mesh without
+modifying the number of elements of the interface. Also, at every interface
+deformation correspond a bulk deformation which means that smoothing and
+remeshing technique needs to be employed in order to preserve the mesh quality.
+
+Instead, in the unfitted approach, the interface mesh is completely independent
+from the bulk mesh whose bulk elements are cut by the interface elements. For
+this reason there is no need to remesh or deform the bulk mesh in order to
+preserve the correspondence with the interface. Moreover standard strategies
+for refinement and coarsening can be employed for the bulk mesh. Since the bulk
+mesh is immutable, its quality is preserved without the need of smoothing
+techniques. The downside of this approach is that the quantities computed on
+the bulk mesh, such as velocity and pressure, need to be interpolated in order
+to have their values on the interface. This also requires to find the
+intersections between the interface mesh and the bulk mesh at every time step.
+Finally, it is necessary to use some XFEM extension in order to capture
+discontinuity of quantities of interest across the interface.
+
 \section{Existence and uniqueness of a discrete solution}
 \label{sec:stokes_existence}
 \begin{theorem} \label{thm:ex}
