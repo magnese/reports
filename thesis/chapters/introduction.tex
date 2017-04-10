@@ -401,10 +401,14 @@ since the interface separates two different fluids. Moreover, due to surface
 tension forces, also the pressure is discontinuous across the interface. In
 most applications the stress balance (\ref{eq:interface_jump_stress_div}) and a
 jump in the viscosity across the interface typically induce a discontinuity
-across the interface of the normal derivative of the velocity. A part from
-stationary problems, the unknown interface is changing as a function of time
-therefore these discontinuities are moving. The numerical treatment of moving
-discontinuities often causes severe difficulties.
+across the interface of the normal derivative of the velocity. Of particular
+importance is the precise inclusion of surface tension terms, and the correct
+handling of discontinuity jumps in the material properties and in the pressure
+at the interface, in order to suppress spurious velocities, which are also
+called parasitic currents. A part from stationary problems, the unknown
+interface is changing as a function of time therefore these discontinuities are
+moving. The numerical treatment of moving discontinuities often causes severe
+difficulties.
 
 The full discretization in space and in time results in a very large nonlinear
 system of equations at each time step. Most of the total computing time is

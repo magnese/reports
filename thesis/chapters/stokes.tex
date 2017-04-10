@@ -1,27 +1,32 @@
 \chapter{\sc Two--Phase Stokes Flow}\label{ch:stokes}
-
-This chapter is extensively based on a paper we wrote, see \cite{stokesfitted}.
+We now propose a novel finite element approximation for incompressible
+two-phase Stokes flow that naturally avoids spurious velocities. Our scheme uses
+a fitted approach with piecewise linear parametric finite elements to describe
+the moving discrete interface and employs standard velocity and pressure finite
+element spaces in the bulk. This chapter is extensively based on a paper we
+wrote, see \cite{stokesfitted}.
 
 The chapter is organised as follows: in \S\ref{sec:stokes_model} we state the
-mathematical model for the two-phase Stokes flow; in \S\ref{sec:stokes_weak} we
-derive the weak formulation on which our finite element approximation is going
-to be based; in \S\ref{sec:stokes_energy} we show an energy bound and the
-volume conservation for the weak problem; in \S\ref{sec:stokes_fem} we present
-our fitted finite element discretization; in \S\ref{sec:stokes_fitted_unfitted}
-we outline the main differences between a fitted and an unfitted approach; in
-\S\ref{sec:stokes_existence} we prove the existence and uniqueness of the
-discrete approximation; in \S\ref{sec:stokes_stability} we demonstrate that our
-scheme is unconditionally stable; in \S\ref{sec:stokes_stationary_solution} show
-some proprieties of stationary solutions which will be investigated in the
-numerical experiments; in \S\ref{sec:stokes_semi_fem} we investigate the
-equidistribution property and the volume conservation of a semidiscrete variant
-of the scheme; in \S\ref{sec:stokes_algebraic_system} we describe the arising
-linear systems; in \S\ref{sec:stokes_solution_method} we explain the Schur
-complement approach used to solve the algebraic system and the preconditioners
-adopted; in \S\ref{sec:stokes_smoothing} we discuss the mesh generation process
-together with the smoothing and remeshing procedures used to preserve the mesh
-quality; in \S\ref{sec:stokes_results} we finally present several numerical
-simulations in 2d and 3d.
+mathematical model for the incompressible two-phase Stokes flow; in
+\S\ref{sec:stokes_weak} we derive the weak formulation on which our finite
+element approximation is going to be based; in \S\ref{sec:stokes_energy} we show
+an energy bound and the volume conservation for the weak problem; in
+\S\ref{sec:stokes_fem} we present our fitted finite element discretization; in
+\S\ref{sec:stokes_fitted_unfitted} we outline the main differences between a
+fitted and an unfitted approach; in \S\ref{sec:stokes_existence} we prove the
+existence and uniqueness of the discrete approximation; in
+\S\ref{sec:stokes_stability} we demonstrate that our scheme is unconditionally
+stable; in \S\ref{sec:stokes_stationary_solution} show some proprieties of
+stationary solutions which will be investigated in the numerical experiments; in
+\S\ref{sec:stokes_semi_fem} we investigate the equidistribution property and the
+volume conservation of a semidiscrete variant of the scheme; in
+\S\ref{sec:stokes_algebraic_system} we describe the arising linear systems; in
+\S\ref{sec:stokes_solution_method} we explain the Schur complement approach used
+to solve the algebraic system and the preconditioners adopted; in
+\S\ref{sec:stokes_smoothing} we discuss the mesh generation process together
+with the smoothing and remeshing procedures used to preserve the mesh quality;
+in \S\ref{sec:stokes_results} we finally present several numerical simulations
+in 2d and 3d.
 
 \section{Mathematical model}\label{sec:stokes_model}
 We consider two-phase Stokes flow in a given domain $\Omega\subset\R^d$, where
@@ -340,16 +345,18 @@ example of fitted and unfitted interface meshes for a circular interface.
 {Fitted and unfitted meshes for a circular interface.}
 \label{fig:fitted_unfitted}
 \end{figure}
-In the fitted approach, the interface mesh is formed by edges, in 2d, or faces,
-in 3d, belonging to bulk elements. This means that there is a strong coupling
-between the bulk mesh and interface mesh. This is a very natural way to treat
-the problem. The pressure, and viscosity, jumps across the interface are
-captured very precisely without using any XFEM technique. Moreover, there is
-no need to transport quantities from the interface to the bulk, or vice versa.
-On the other hand, it is impossible to locally adapt the bulk mesh without
-modifying the number of elements of the interface. Also, at every interface
-deformation correspond a bulk deformation which means that smoothing and
-remeshing technique needs to be employed in order to preserve the mesh quality.
+In the fitted approach, the interface mesh is made up of edges, in 2d, or faces,
+in 3d, of elements belonging to the bulk mesh. This means that there is a strong
+coupling between the bulk mesh and interface mesh. This is a very intuitive
+approach to treat the problem. Discontinuity jumps in the material properties
+and in the pressure are captured naturally. In particular, we do not need to
+employ an XFEM-type extension of standard bulk pressure spaces. Moreover, there
+is no need to transport quantities from the interface to the bulk, or vice
+versa. On the other hand, it is impossible to locally adapt the bulk mesh
+without modifying the number of elements of the interface. Also, at every
+interface deformation correspond a bulk deformation which means that smoothing
+and remeshing technique needs to be employed in order to preserve the mesh
+quality.
 
 Instead, in the unfitted approach, the interface mesh is completely independent
 from the bulk mesh whose bulk elements are cut by the interface elements. For
@@ -361,7 +368,7 @@ techniques. The downside of this approach is that the quantities computed on
 the bulk mesh, such as velocity and pressure, need to be interpolated in order
 to have their values on the interface. This also requires to find the
 intersections between the interface mesh and the bulk mesh at every time step.
-Finally, it is necessary to use some XFEM extension in order to capture
+Finally, it is necessary to use some XFEM-type extension in order to capture
 discontinuity of quantities of interest across the interface.
 
 \section{Existence and uniqueness of a discrete solution}
