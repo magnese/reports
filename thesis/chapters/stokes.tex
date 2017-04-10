@@ -2,6 +2,27 @@
 
 This chapter is extensively based on a paper we wrote, see \cite{stokesfitted}.
 
+The chapter is organised as follows: in \S\ref{sec:stokes_model} we state the
+mathematical model for the two-phase Stokes flow; in \S\ref{sec:stokes_weak} we
+derive the weak formulation on which our finite element approximation is going
+to be based; in \S\ref{sec:stokes_energy} we show an energy bound and the
+volume conservation for the weak problem; in \S\ref{sec:stokes_fem} we present
+our fitted finite element discretization; in \S\ref{sec:stokes_fitted_unfitted}
+we outline the main differences between a fitted and an unfitted approach; in
+\S\ref{sec:stokes_existence} we prove the existence and uniqueness of the
+discrete approximation; in \S\ref{sec:stokes_stability} we demonstrate that our
+scheme is unconditionally stable; in \S\ref{sec:stokes_stationary_solution} show
+some proprieties of stationary solutions which will be investigated in the
+numerical experiments; in \S\ref{sec:stokes_semi_fem} we investigate the
+equidistribution property and the volume conservation of a semidiscrete variant
+of the scheme; in \S\ref{sec:stokes_algebraic_system} we describe the arising
+linear systems; in \S\ref{sec:stokes_solution_method} we explain the Schur
+complement approach used to solve the algebraic system and the preconditioners
+adopted; in \S\ref{sec:stokes_smoothing} we discuss the mesh generation process
+together with the smoothing and remeshing procedures used to preserve the mesh
+quality; in \S\ref{sec:stokes_results} we finally present several numerical
+simulations in 2d and 3d.
+
 \section{Mathematical model}\label{sec:stokes_model}
 We consider two-phase Stokes flow in a given domain $\Omega\subset\R^d$, where
 $d=2$ or $d=3$. As already described in \S\ref{sec:free_boundary_flows},

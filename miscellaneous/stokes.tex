@@ -17,6 +17,87 @@
 
 \section{Miscellaneous}
 
+Fluid flow problems with a moving interface are encountered in many
+applications in physics, engineering and biophysics. Developing robust and
+efficient numerical methods for these flows is an important problem and
+has attracted tremendous interest over the last decade. Apart from the usual
+difficulties arising from the numerical computation of the fluid flow in the
+bulk, the accurate approximation of the moving free interface, as well as a
+suitable description of the conditions that need to hold on the interface,
+pose serious challenges. Of particular importance is the precise inclusion of
+surface tension terms, and the correct handling of discontinuity jumps in the
+material properties and in the pressure at the interface, in order to suppress
+spurious velocities, which are also called parasitic currents.
+
+In this paper we propose a novel finite element approximation for
+incompressible two-phase Stokes flow that naturally avoids spurious
+velocities. Our scheme is based on the numerical method introduced in
+\cite{spurious}, and so uses piecewise linear parametric finite elements to
+describe the moving discrete interface. In contrast to \cite{spurious}, where
+the interface and the bulk mesh were totally independent, here we pursue the
+fitted approach. That means that the interface discretization is always fitted
+to the bulk mesh, i.e.\ the discrete interface is made up of edges/faces of
+elements belonging to the bulk mesh. An advantage of our method is that the
+discontinuity jumps in the material properties and in the pressure are captured
+naturally. In particular, we do not need to employ an XFEM-type extension of
+standard bulk pressure spaces. Surface tension forces are discretized with the
+help of a variational approximation of curvature that was first proposed in
+\cite{triplej,gflows3d}. Combining this with an implicit treatment of the
+surface tension forces yields an unconditionally stable scheme. Interestingly,
+the formulation of curvature from \cite{triplej} leads to a tangential motion
+of vertices in practice, which guarantees equidistribution in 2d and good
+meshes in 3d. Overall, our proposed method has the following properties.
+\begin{itemize}
+\item The fully discrete scheme is unconditionally stable in the sense that the
+total surface energy is monotonically decreasing independent of the chosen time
+step size.
+\item In the absence of outer forces, any discrete solution with a stationary
+interface must have zero velocity globally, i.e.\ we can prove that there are
+no stationary solutions with spurious velocities. Similarly, discrete
+stationary solutions for spherical interfaces are attained for our scheme.
+\item For the semidiscrete continuous-in-time variant of the fully discrete
+scheme the volume
+of the two phases is conserved. The fully discrete scheme itself maintains the
+enclosed volumes well in practice.
+\item Thanks to the fitted nature of the finite element method, the pressure
+jumps at the interface are captured accurately for standard pressure finite
+element spaces without the need for XFEM extensions.
+\item The surface tension effects are included with the help of a variational
+treatment of curvature based on the Laplace--Beltrami operator.
+\item The surface mesh quality is maintained. In particular, for the
+semidiscrete scheme an equidistribution property can be shown in 2d.
+\item The fully discrete scheme uses an implicit approximation of curvature
+that leads to a coupled linear system of equations to be solved at each time
+step.
+\end{itemize}
+
+Let us briefly discuss alternative approaches to the numerical approximation of
+two-phase flow problems. In this paper we use a direct description of the
+interface.  In such direct
+approaches, which are often called front-tracking methods, the interface is
+either triangulated or presented by a connected set of particles. The discrete
+interface is advected with the help of the bulk fluid velocities, and
+quantities on the interface need to be suitably coupled to the bulk equations.
+In our situation, a finite element parameterization of the unknown interface
+is employed.
+We refer e.g.\ to
+\cite{UnverdiT92,Bansch01,Tryggvason_etal01,GanesanMT07,GanesanT08,spurious}
+for further details on front tracking methods,
+and to \cite{LevequeL97,Peskin02} for the related immersed
+boundary method. Another class of approaches is based on interface capturing
+methods using an indicator function to describe the interface. The volume of
+fluid (VOF) method and the level set method fall into this category. In the
+former, the characteristic function of one of the phases is approximated
+numerically, see e.g.\ \cite{HirtN81,RenardyR02,Popinet09}; whereas in the
+latter, the interface is given as the level set of a function, which has to be
+determined, see e.g.\ \cite{SussmanSO94,Sethian99,OsherF03,GrossR07}.
+Finally, in phase
+field methods the interface is assumed to have a small, but positive, thickness
+and an additional parabolic equation, defined in the whole domain, has to be
+solved in these so-called diffuse interface models. We refer to
+\cite{HohenbergH77,AndersonMW98,LowengrubT98,Feng06,KaySW08,AbelsGG12,GrunK14}
+for details.
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
@@ -131,4 +212,17 @@ real bottleneck therefore it is way better to use the combined
 smoothing/remeshing approach.
 
 Both element capture perfectly the jump in the pressure.
+
+We have presented a novel fitted finite element approximation for two-phase
+Stokes flow. The method uses a piecewise linear approximation of the interface
+and employs standard velocity and pressure finite element spaces in the bulk.
+
+The scheme is unconditionally stable and can capture simple stationary
+solutions exactly, which means that no spurious velocities appear. In addition,
+the discontinuous pressure jumps are captured well in general situations, and
+no pressure oscillations appear in practice.
+
+Moreover, the numerical solutions exhibit good volume conservation properties
+and the quality of the interface mesh does not deteriorate in time.
+
 \end{document}
