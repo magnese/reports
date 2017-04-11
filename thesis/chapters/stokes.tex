@@ -1067,7 +1067,9 @@ simplex face $i$.
 We stress that in all our numerical simulations we never need to remesh the
 interface $\Gamma^m$ itself. Hence the stability results from
 Theorem~\ref{thm:stabstab} hold throughout. Of course, a remeshing of $\Gamma^m$
-would mean that Theorem~\ref{thm:stabstab} is no longer valid.
+would mean that Theorem~\ref{thm:stabstab} is no longer valid because the
+quantity $\vec\eta=\gamma\,({\vec{X}^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ used in
+the proof wouldn't be well defined any more.
 
 \section{Numerical results}\label{sec:stokes_results}
 In order to test our method, and to allow comparisons with the unfitted finite
@@ -1113,9 +1115,9 @@ to (\ref{eq:radialr},b) as the stationary bubble solution, and to
 In the following, unless otherwise stated, we choose the initial surface
 $\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$, the domain
 $\Omega = (-1,1)^d$ and we employ uniform time steps $\tau_m=\tau$,
-$m=0,\ldots, M-1$. Moreover, we always set the GMRES tolerance to $10^{-12}$ and
-the restart value to 50 and, unless otherwise stated, we use the one-phase
-Stokes matrix as a preconditioner factorizing it with UMFPACK.
+$m=0,\ldots, M-1$. Moreover, unless otherwise stated, we always set the GMRES
+tolerance to $10^{-12}$ and the restart value to 50 and stated, we use the
+one-phase Stokes matrix as a preconditioner factorizing it with UMFPACK.
 
 Finally, we define the errors
 \begin{equation} \label{eq:errorXx}
