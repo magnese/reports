@@ -1987,10 +1987,10 @@ $J_\Gamma$ & \multicolumn{2}{r}{Direct UMFPACK} &
  & CPU[s] & iterations & CPU[s] & iterations & CPU[s] & iterations & CPU[s] &
 iterations \\
 \hline
- 16 &  0.06 & 6 &  0.13 & 5 &     0.94 &  349 &    1.16 &  221 \\
- 32 &  0.33 & 7 &  0.68 & 6 &    11.33 &  839 &   11.51 &  441 \\
- 64 &  1.83 & 8 &  4.16 & 8 &   138.58 & 2026 &  136.99 &  772 \\
-128 & 10.05 & 9 & 25.71 & 9 &  2079.82 & 6436 & 1442.76 & 1745 \\
+ 16 &  0.06 & 6 &  0.13 & 5 &    0.94 &  349 &    1.16 &  221 \\
+ 32 &  0.33 & 7 &  0.68 & 6 &   11.33 &  839 &   11.51 &  441 \\
+ 64 &  1.83 & 8 &  4.16 & 8 &  138.58 & 2026 &  136.99 &  772 \\
+128 & 10.05 & 9 & 25.71 & 9 & 2079.82 & 6436 & 1442.76 & 1745 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
@@ -2176,3 +2176,37 @@ $\frac{\mathcal{L}^3(\Omega^m_-)}{\mathcal{L}^3(\Omega^0_-)}$
 over time for the simulation in Figure~\ref{fig:shear_3d}.}
 \label{fig:shear_3d_bulk_inner_volume}
 \end{figure}
+
+Finally, as in the 2d case, see Table~\ref{tab:shear_3d_preconditioners}, we
+want to compare the performance of different preconditioners. In
+Table~\ref{tab:shear_3d_preconditioners} we report the CPU time, in seconds,
+and the number of GMRES iteration to solve the algebraic system
+(\ref{eq:SchurkX}) at the first time step, $m=0$. We employ uniform bulk meshes
+and the P2--P0 element. We test the direct preconditioner (\ref{eq:direct})
+factorizing it alternatively with either UMFPACK or SPQR and the block
+preconditioner (\ref{eq:ESW}) with restart value either 50 or 1000.
+\begin{table*}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rrrrrrrrr}
+\hline
+$J_\Gamma$ & \multicolumn{2}{r}{Direct UMFPACK} &
+\multicolumn{2}{r}{Direct SPQR} & \multicolumn{2}{r}{Block restart 50} &
+\multicolumn{2}{r}{Block restart 1000} \\
+\hline
+ & CPU[s] & iterations & CPU[s] & iterations & CPU[s] & iterations & CPU[s] &
+iterations \\
+\hline
+ 32 & & & & & & & & \\
+220 & & & & & & & & \\
+596 & & & & & & & & \\
+\hline
+\end{tabular}
+\hspace*{-3.25cm}
+\caption[Stokes 3d shear flow preconditioners comparison]
+{($\mu=1,\gamma=3$) Time and number of GMRES iterations to solve the algebraic
+system (\ref{eq:SchurkX}) adopting different preconditioners for the 3d
+shear flow using P2--P0 element, uniform mesh and $m=0$.}
+\label{tab:shear_3d_preconditioners}
+\end{table*}
+We observe that the 3d performance results are consistent with the 2d results.
