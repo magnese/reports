@@ -908,10 +908,12 @@ equations
 \end{pmatrix}
 \begin{pmatrix} \vec U \\ P \end{pmatrix}
 = \begin{pmatrix} \vec v \\ q \end{pmatrix}
-\iff
+\end{equation*}
+which, by backward substitution, is equivalent to
+\begin{equation}\label{eq:blocksolution}
 \mathcal{P}_S\,P = -q\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U = \vec v -
 \vec C_\Omega\,P\,.
-\end{equation*}
+\end{equation}
 We choose $\vec B_\Omega$  for $\vec{\mathcal{P}}_{\vec B}$ and the pressure
 mass matrix $M_\Omega$ defined as
 \begin{equation*}
@@ -921,7 +923,15 @@ for $\mathcal{P}_S$. Again, in order to reuse the factorization, we employ a
 sparse $L\,U$ decomposition to factorize the matrices $\vec B$ and $M_\Omega$.
 
 Similarly, for the algebraic system (\ref{eq:stokes_algebraic_extended}),
-(\ref{eq:SchurkX}) becomes
+the preconditioner (\ref{eq:ESW}) can be written as
+\begin{equation} \label{eq:ESWP1P0}
+\mathcal{P} = \begin{pmatrix}
+\vec{\mathcal{P}}_{\vec B} & \vec C_\spadesuit & \vec C_\clubsuit \\
+0 & -\mathcal{P}_{S,\spadesuit} & 0 \\
+0 & 0 &-\mathcal{P}_{S,\clubsuit}
+\end{pmatrix}\,,
+\end{equation}
+and (\ref{eq:SchurkX}) becomes
 \begin{subequations}
 \begin{equation} \label{eq:SchurkXP1P0}
 \begin{pmatrix}
@@ -940,10 +950,10 @@ P^{m+1}_\clubsuit
 \Xi_\Gamma^{-1}\,\binom{0}{-\vec{A}_\Gamma\,\vec{X}^{m}} \\
 0 \\
 0
-\end{pmatrix}
+\end{pmatrix}\,.
 \end{equation}
 \end{subequations}
-and an application of the preconditioner amounts to solving the equations
+An application of the preconditioner amounts to solving the equations
 \begin{equation*}
 \begin{pmatrix}
 \vec{\mathcal{P}}_{\vec B} & \vec C_\spadesuit & \vec C_\clubsuit \\
@@ -962,24 +972,24 @@ q \\
 p
 \end{pmatrix}
 \end{equation*}
-which is
-\begin{equation*}
+which, by backward substitution, is equivalent to
+\begin{equation}\label{eq:blocksolutionP1P0}
 \mathcal{P}_{S,\spadesuit}\,P_\spadesuit =
 -q\,,\quad \mathcal{P}_{S,\clubsuit}\,P_\clubsuit =
 -p\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U =
 \vec v - \vec C_\spadesuit\,P_\spadesuit - \vec C_\clubsuit\,P_\clubsuit\,.
-\end{equation*}
+\end{equation}
 
 Alternatively, it is possible to use the one-phase stokes matrix, see
 (\ref{eq:stokes_system}),
-\begin{equation}
+\begin{equation}\label{eq:direct}
 \begin{pmatrix}
 \vec B_\Omega & \vec C_\Omega \\
 \vec C_\Omega^T & 0
 \end{pmatrix}\,
 \end{equation}
 or, for the algebraic system (\ref{eq:stokes_algebraic_extended}),
-\begin{equation}
+\begin{equation}\label{eq:directP1P0}
 \begin{pmatrix}
 \vec B_\Omega & \vec C_\spadesuit & \vec C_\clubsuit \\
 \vec C^T_\spadesuit & 0 & 0 \\
@@ -987,7 +997,14 @@ or, for the algebraic system (\ref{eq:stokes_algebraic_extended}),
 \end{pmatrix}
 \end{equation}
 as a preconditioner and factorize them directly with a sparse $L\,U$
-decomposition.
+decomposition. The matrix (\ref{eq:direct}) has rank deficiency 1 while the
+matrix (\ref{eq:directP1P0}) has deficiency 1 for the P2--\pdg element and 2 for
+the P2--(P1+P0) element. In order to use UMFPACK to factorize the matrix the
+rank deficiency needs to be 0 therefore it is necessary to doctor the
+matrix/matrices setting, for example, an unitary value on the first diagonal
+entry of the null matrix/matrices. This rank deficiency is originated by the
+fact that the pressure is unique up to a constant. This doctoring process can be
+avoided if SPQR is used to factorize the preconditioner.
 
 \section{Mesh generation and smoothing}\label{sec:stokes_smoothing}
 The mesh generation process is controlled by the characteristic lengths of the
@@ -1947,6 +1964,55 @@ $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$
 over time for the simulation in Figure~\ref{fig:shear_2d}.}
 \label{fig:shear_2d_bulk_inner_volume}
 \end{figure}
+
+Finally we want to compare the performance of different preconditioner
+for the preconditioned GMRES used to solve the reduce system
+(\ref{eq:SchurkX}) or, depending on the pressure space,
+(\ref{eq:SchurkXP1P0}). In Table~\ref{tab:shear_2d_preconditioners} we report
+the CPU time, in seconds, and the number of GMRES iteration to solve the
+algebraic system (\ref{eq:SchurkXP1P0}) at the first time step, $m=0$. We
+employ uniform bulk meshes and the P2--(P1+P0) element. We test the direct
+preconditioner (\ref{eq:directP1P0}) factorizing it alternatively with either
+UMFPACK or SPQR and the block preconditioner (\ref{eq:ESWP1P0}) with restart
+value either 50 or 1000.
+\begin{table*}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rrrrrrrrr}
+\hline
+$J_\Gamma$ & \multicolumn{2}{r}{Direct UMFPACK} &
+\multicolumn{2}{r}{Direct SPQR} & \multicolumn{2}{r}{Block restart 50} &
+\multicolumn{2}{r}{Block restart 1000} \\
+\hline
+ & CPU[s] & iterations & CPU[s] & iterations & CPU[s] & iterations & CPU[s] &
+iterations \\
+\hline
+ 16 &  0.06 & 6 &  0.13 & 5 &     0.94 &  349 &    1.16 &  221 \\
+ 32 &  0.33 & 7 &  0.68 & 6 &    11.33 &  839 &   11.51 &  441 \\
+ 64 &  1.83 & 8 &  4.16 & 8 &   138.58 & 2026 &  136.99 &  772 \\
+128 & 10.05 & 9 & 25.71 & 9 &  2079.82 & 6436 & 1442.76 & 1745 \\
+\hline
+\end{tabular}
+\hspace*{-3.25cm}
+\caption[Stokes 2d shear flow preconditioners comparison]
+{($\mu=1,\gamma=3$) Time and number of GMRES iterations to solve the algebraic
+system (\ref{eq:SchurkXP1P0}) adopting different preconditioners for the 2d
+shear flow using P2--(P1+P0) element, uniform mesh and $m=0$.}
+\label{tab:shear_2d_preconditioners}
+\end{table*}
+We can notice that the direct preconditioner, whose matrix is equivalent to
+a one-phase Stokes discretization perform extremely well in term of CPU time
+and number of GMRES iterations. This is not very surprising since the
+preconditioner and the reduced two-phase stokes system have almost the same
+matrix therefore the number of GMRES iterations is very low. Moreover, the
+factorization is computed only once with both SPQR and UMFPACK so it is
+extremely efficient to apply the preconditioner at every GMRES iteration. On
+the other hand the block preconditioner perform very poorly requiring a very
+high number of GMRES iterations in order to converge. An increase of the
+restart value obviously reduce the number of GMRES iterations but also
+drastically increase the memory footprint. Moreover, the application of the
+preconditioner consist of doing the backward substitution
+(\ref{eq:blocksolutionP1P0}) which is expensive.
 
 \subsection{Convergence test in 3d} \label{sec:stokes_3d_convergence_results}
 Similarly to \S\ref{sec:stokes_2d_convergence_results}, we perform the following
