@@ -2177,14 +2177,15 @@ over time for the simulation in Figure~\ref{fig:shear_3d}.}
 \label{fig:shear_3d_bulk_inner_volume}
 \end{figure}
 
-Finally, as in the 2d case, see Table~\ref{tab:shear_3d_preconditioners}, we
+Finally, as in the 2d case, see Table~\ref{tab:shear_2d_preconditioners}, we
 want to compare the performance of different preconditioners. In
 Table~\ref{tab:shear_3d_preconditioners} we report the CPU time, in seconds,
 and the number of GMRES iteration to solve the algebraic system
-(\ref{eq:SchurkX}) at the first time step, $m=0$. We employ uniform bulk meshes
-and the P2--P0 element. We test the direct preconditioner (\ref{eq:direct})
-factorizing it alternatively with either UMFPACK or SPQR and the block
-preconditioner (\ref{eq:ESW}) with restart value either 50 or 1000.
+(\ref{eq:SchurkXP1P0}) at the first time step, $m=0$. We employ adaptive bulk
+meshes and the P2--(P1+P0) element. We test the direct preconditioner
+(\ref{eq:directP1P0}) factorizing it alternatively with either UMFPACK or SPQR
+and the block preconditioner (\ref{eq:ESWP1P0}) with restart value either 50 or
+1000.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -2197,16 +2198,17 @@ $J_\Gamma$ & \multicolumn{2}{r}{Direct UMFPACK} &
  & CPU[s] & iterations & CPU[s] & iterations & CPU[s] & iterations & CPU[s] &
 iterations \\
 \hline
- 32 & & & & & & & & \\
-220 & & & & & & & & \\
-596 & & & & & & & & \\
+ 32 &  0.16 & 8 &  0.26 & 5 &   1.10 & 158 &  1.17 & 130 \\
+220 &  3.56 & 7 &  4.91 & 6 &  15.31 & 234 & 14.53 & 193 \\
+596 & 13.77 & 6 & 44.44 & 6 & 101.53 & 328 & 93.00 & 266 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
 \caption[Stokes 3d shear flow preconditioners comparison]
 {($\mu=1,\gamma=3$) Time and number of GMRES iterations to solve the algebraic
-system (\ref{eq:SchurkX}) adopting different preconditioners for the 3d
-shear flow using P2--P0 element, uniform mesh and $m=0$.}
+system (\ref{eq:SchurkXP1P0}) adopting different preconditioners for the 3d
+shear flow using P2--(P1+P0) element, adaptive mesh and $m=0$.}
 \label{tab:shear_3d_preconditioners}
 \end{table*}
-We observe that the 3d performance results are consistent with the 2d results.
+We observe that also in 3d the direct preconditioners outperform the block
+preconditioner both in term of GMRES iterations and CPU time.
