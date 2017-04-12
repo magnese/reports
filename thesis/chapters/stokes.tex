@@ -1,4 +1,4 @@
-\chapter{\sc Two--Phase Stokes Flow}\label{ch:stokes}
+\chapter{\sc Two-Phase Stokes Flow}\label{ch:stokes}
 We now propose a novel finite element approximation for incompressible
 two-phase Stokes flow that naturally avoids spurious velocities. Our scheme uses
 a fitted approach with piecewise linear parametric finite elements to describe
@@ -87,19 +87,19 @@ initial data $\Gamma(0) = \Gamma_0$ and the boundary condition $\vec u = \vec
 \begin{subequations}
 \begin{alignat}{2}
 -2 \mu\,\nabla\,.\,\mat D(\vec u)+ \nabla\,p & = \vec f
-\quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:full_momentum} \\
+\quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:stokes_full_momentum} \\
 \nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
-\label{eq:full_mass} \\
+\label{eq:stokes_full_mass} \\
 \vec u & = \vec 0 \quad &&\mbox{on } \partial\Omega\,,
-\label{eq:full_initial_velocity} \\
+\label{eq:stokes_full_initial_velocity} \\
 [\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,,
-\label{eq:full_jump_velocity} \\
+\label{eq:stokes_full_jump_velocity} \\
 [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
 & = -\gamma\,\varkappa\,\vec\nu
-\quad &&\mbox{on } \Gamma(t)\,, \label{eq:full_jump_stress} \\
+\quad &&\mbox{on } \Gamma(t)\,, \label{eq:stokes_full_jump_stress} \\
 (\V-\vec u)\,.\,\vec{\nu} & = 0
-\quad &&\mbox{on } \Gamma(t)\,,\label{eq:full_velocity}  \\
-\Gamma(0) & = \Gamma_0 \,,\label{eq:full_initial_interface}
+\quad &&\mbox{on } \Gamma(t)\,,\label{eq:stokes_full_velocity}  \\
+\Gamma(0) & = \Gamma_0 \,,\label{eq:stokes_full_initial_interface}
 \end{alignat}
 \end{subequations}
 where $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$,
@@ -143,7 +143,8 @@ Moreover, on noting (\ref{eq:stress_tensor}) and
 + \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
 \end{align*}
 for all $\vec \xi \in [H^1_0(\Omega)]^d$. Hence a possible weak formulation of
-(\ref{eq:full_momentum}--g) is given as follows. Given $\Gamma(0) = \Gamma_0$,
+(\ref{eq:stokes_full_momentum}--g) is given as follows. Given $\Gamma(0) =
+\Gamma_0$,
 for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 \uspace \times \pnormspace \times H^1(\Gamma(t))}$ such that
 \begin{subequations}
@@ -164,7 +165,8 @@ for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 \end{align}
 \end{subequations}
 holds for almost all times $t \in (0,T]$. Here we have observed that if
-$p \in \pspace$ is part of a solution to (\ref{eq:full_momentum}--g), then so is
+$p \in \pspace$ is part of a solution to (\ref{eq:stokes_full_momentum}--g),
+then so is
 $p + c$ for an arbitrary $c\in \R$.
 
 We finally observe that an alternative weak formulation can be obtained
@@ -1105,7 +1107,7 @@ together with
 -\frac{\vol(\Omega_-(0))}{\vol(\Omega)} \right] ,
 \end{equation}
 \end{subequations}
-is an exact solution to the problem (\ref{eq:full_momentum}--g) on e.g.\
+is an exact solution to the problem (\ref{eq:stokes_full_momentum}--g) on e.g.\
 $\Omega = (-1,1)^d$. This solution is the continuous version of
 (\ref{eq:solsol}). Secondly, a nontrivial divergence free and radially symmetric
 solution $\vec u$ can be constructed on a domain that does not contain the
@@ -1123,8 +1125,9 @@ p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{equation}
 \end{subequations}
-is an exact solution to the problem (\ref{eq:full_momentum}--g) with the
-homogeneous right hand side in (\ref{eq:full_initial_velocity}) replaced by
+is an exact solution to the problem (\ref{eq:stokes_full_momentum}--g) with the
+homogeneous right hand side in (\ref{eq:stokes_full_initial_velocity}) replaced
+by
 $\vec g$, where $\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$. We will refer
 to (\ref{eq:radialr},b) as the stationary bubble solution, and to
 (\ref{eq:radialr2},b) as the expanding bubble solution.

@@ -1,3 +1,78 @@
-\chapter{\sc Two--Phase Navier-Stokes Flow}\label{ch:navier_stokes}
+\chapter{\sc Two-Phase Navier--Stokes Flow}\label{ch:navier_stokes}
 
-\section{Section 1}
+\section{Mathematical model}\label{sec:navier_stokes_model}
+We now consider two-phase Navier--Stokes flow in a given domain
+$\Omega\subset\R^d$, where $d=2$ or $d=3$. As already described in
+\S\ref{sec:free_boundary_flows} and \S\ref{sec:stokes_model}, the domain
+$\Omega$ contains two different immiscible, incompressible fluids
+(liquid-liquid or liquid-gas) which for all $t\in[0,T]$ occupy time
+dependent regions $\Omega_+(t)$ and
+$\Omega_-(t):=\Omega\setminus\overline{\Omega}_+(t)$ and which are separated by
+an interface $(\Gamma(t))_{t\in[0,T]}$, $\Gamma(t)\subset\Omega$.
+Consistently with two-phase Stokes flow, we limit ourselves to interfaces
+formed by closed hypersurfaces, see Figure~\ref{fig:two_phase_sketch_closed}
+for a pictorial representation in dimension $d=2$.
+
+We treat the interface $\Gamma(t)$ with the same technique used for the
+two-phase Stokes, see Chapter~\ref{ch:stokes}, therefore we use a front tracking
+approach, see \S\ref{sec:front_tracking_approach}, which parametrizes the
+unknown interface $\Gamma(t)$ as $\vec x(\cdot,t):\Upsilon\to\R^d$ where
+$\Upsilon\subset\R^d$ is a given reference manifold such that $\Gamma(t) = \vec
+x(\Upsilon,t)$. As usual, we require that the evolving hypersurface is
+sufficiently smooth and without boundary. The velocity $\V$ of $\Gamma(t)$ is
+defined by the equation (\ref{eq:V}) which we report here for the seek of
+completeness
+\begin{equation*}
+\V(\vec z, t) := \vec x_t(\vec q, t) \quad
+\forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)\,,
+\end{equation*}
+where $\V \,.\,\vec{\nu}$ is the normal velocity of the evolving hypersurface
+$\Gamma(t)$ and $\vec\nu(t)$ is the unit normal on $\Gamma(t)$ pointing into
+$\Omega_+(t)$.
+
+The fluid dynamics in the bulk domain $\Omega$ is governed by the two-phase
+Navier--Stokes model (\ref{eq:ns_momentum_bis}--b) which describes the velocity
+$\vec u$ and pressure $p$ fields of the fluid. The velocity and stress tensor,
+see (\ref{eq:stress_tensor}), needs to be coupled across the free surface
+$\Gamma(t)$ therefore we impose the interface conditions
+(\ref{eq:interface_jump_velocity}), (\ref{eq:interface_jump_stress}) and
+(\ref{eq:interface_velocity}). In order to close the system, we prescribe the
+initial data $\Gamma(0) = \Gamma_0$ and the initial velocity
+$\vec u(0) = \vec u_0$. Finally, we impose an homogeneous Dirichlet boundary
+condition on $\partial_1 \Omega$ and a free-slip condition on $\partial_2
+\Omega$, with $\partial\Omega =\partial_1\Omega \cup \partial_2\Omega$ and
+$\partial_1\Omega \cap \partial_2\Omega = \emptyset$. Therefore the total system
+can be rewritten as follows:
+\begin{subequations}
+\begin{alignat}{2}
+\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
+\nabla\,p & = \vec f
+\quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:ns_full_momentum} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_full_mass} \\
+\vec u & = \vec 0 \quad &&\mbox{on } \partial_1\Omega\,,
+\label{eq:ns_full_dirichlet} \\
+\vec u \,.\,\unitn = 0\,,
+\quad [2\,\mu\, \mat D(\vec u)-p\,\mat\id]\,\unitn\,.\,\unitt & = 0
+\quad\forall\ \unitt \in \{\unitn\}^\perp \quad &&\mbox{on }
+\partial_2\Omega\,, \label{eq:ns_full_freeslip} \\
+[\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,,
+\label{eq:ns_full_jump_velocity} \\
+[2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
+& = -\gamma\,\varkappa\,\vec\nu
+\quad &&\mbox{on } \Gamma(t)\,, \label{eq:ns_full_jump_stress} \\
+(\V-\vec u)\,.\,\vec{\nu} & = 0
+\quad &&\mbox{on } \Gamma(t)\,,\label{eq:ns_full_velocity}  \\
+\Gamma(0) & = \Gamma_0 \,,\label{eq:ns_full_initial_interface} \\
+\vec u(0) & = \vec 0 \,,\label{eq:ns_full_initial_velocity}
+\end{alignat}
+\end{subequations}
+where $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)} + \rho_-\,\charfcn{\Omega_-(t)}$,
+with $\rho_\pm \in \R_{>0}$, denotes the fluid density in the two phases,
+$\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$,
+with $\mu_\pm \in \R_{>0}$, denotes the dynamic viscosities in the two phases,
+$\mat D(\vec u):=\frac12\, (\nabla\vec u+(\nabla\vec u)^T)$
+is the rate-of-deformation tensor, $\vec f$ is a possible forcing term,
+$\gamma>0$ is the surface tension coefficient and $\varkappa$ denotes the
+mean curvature of $\Gamma(t)$. See Chapter~\ref{ch:introduction} for more
+details.
