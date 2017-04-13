@@ -52,10 +52,8 @@ can be rewritten as follows:
 \label{eq:ns_full_mass} \\
 \vec u & = \vec 0 \quad &&\mbox{on } \partial_1\Omega\,,
 \label{eq:ns_full_dirichlet} \\
-\vec u \,.\,\unitn = 0\,,
-\quad [2\,\mu\, \mat D(\vec u)-p\,\mat\id]\,\unitn\,.\,\unitt & = 0
-\quad\forall\ \unitt \in \{\unitn\}^\perp \quad &&\mbox{on }
-\partial_2\Omega\,, \label{eq:ns_full_freeslip} \\
+\vec u \,.\,\unitn & = 0 \quad &&\mbox{on } \partial_2\Omega\,,
+\label{eq:ns_full_freeslip} \\
 [\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,,
 \label{eq:ns_full_jump_velocity} \\
 [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
@@ -64,15 +62,79 @@ can be rewritten as follows:
 (\V-\vec u)\,.\,\vec{\nu} & = 0
 \quad &&\mbox{on } \Gamma(t)\,,\label{eq:ns_full_velocity}  \\
 \Gamma(0) & = \Gamma_0 \,,\label{eq:ns_full_initial_interface} \\
-\vec u(0) & = \vec 0 \,,\label{eq:ns_full_initial_velocity}
+\vec u(0) & = \vec u_0 \,,\label{eq:ns_full_initial_velocity}
 \end{alignat}
 \end{subequations}
-where $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)} + \rho_-\,\charfcn{\Omega_-(t)}$,
-with $\rho_\pm \in \R_{>0}$, denotes the fluid density in the two phases,
-$\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$,
-with $\mu_\pm \in \R_{>0}$, denotes the dynamic viscosities in the two phases,
-$\mat D(\vec u):=\frac12\, (\nabla\vec u+(\nabla\vec u)^T)$
-is the rate-of-deformation tensor, $\vec f$ is a possible forcing term,
-$\gamma>0$ is the surface tension coefficient and $\varkappa$ denotes the
-mean curvature of $\Gamma(t)$. See Chapter~\ref{ch:introduction} for more
-details.
+where $\unitn$ denotes the outer unit normal of $\partial \Omega$.
+Finally let $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)}+
+\rho_-\,\charfcn{\Omega_-(t)}$, with $\rho_\pm \in \R_{>0}$, be the fluid
+density in the two phases, let $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} +
+\mu_-\,\charfcn{\Omega_-(t)}$, with $\mu_\pm \in \R_{>0}$, be the dynamic
+viscosities in the two phases, let $\mat D(\vec u):=\frac12\, (\nabla\vec
+u+(\nabla\vec u)^T)$ be the rate-of-deformation tensor, let $\vec f$ be a
+possible forcing term, let $\gamma>0$ be the surface tension coefficient and let
+$\varkappa$ be the mean curvature of $\Gamma(t)$. See
+Chapter~\ref{ch:introduction} for more details.
+
+\section{Standard weak formulation}\label{sec:ns_weak_standard}
+A standard weak formulation of (\ref{eq:ns_full_momentum}--i) can be obtained
+proceeding analogously to the Stokes case, see \S~\ref{sec:stokes_weak}. We
+define the same function spaces
+\begin{align*}
+\uspace &:= [H^1_0(\Omega)]^d\,,\quad \pspace := L^2(\Omega) \quad
+\mbox{and}\quad
+\pnormspace := \{\eta\in\pspace : \int_\Omega\eta\dL{d}=0 \}\,,
+\end{align*}
+and, as usual, let $(\cdot,\cdot)$ and $\langle \cdot, \cdot
+\rangle_{\Gamma(t)}$ denote the $L^2$--inner products on $\Omega$ and
+$\Gamma(t)$, respectively. In addition, we let $\vol$ and $\surfvol$ denote the
+Lebesgue measure in $\R^d$ and the $(d-1)$-dimensional Hausdorff measure,
+respectively.
+
+The weak counterpart of the differential geometry identity (\ref{eq:LBop})
+can be obtained multiplying (\ref{eq:LBop}) with a test function $\vec\eta$,
+and performing integration by parts, yielding
+\begin{equation*}
+\left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,.
+\end{equation*}
+Moreover, on noting (\ref{eq:stress_tensor}) and
+(\ref{eq:interface_jump_stress}), we have that
+\begin{align*}
+\int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec \xi \dL{d}
+& = - \left(\mat\sigma, \nabla\,\vec \xi\right)
+- \left\langle [\mat\sigma\,\vec\nu]_-^+ , \vec \xi
+  \right\rangle_{\Gamma(t)} \nonumber \\
+& = \left( p , \nabla\,.\,\vec \xi\right)
+-2 \left(\mu\,\mat D(\vec u) , \mat D(\vec \xi) \right)
++ \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
+\end{align*}
+for all $\vec \xi \in [H^1_0(\Omega)]^d$.
+
+Hence, the standard weak formulation of is given as follows. Given $\Gamma(0) =
+\Gamma_0$ and $\vec u = \vec u_0$, for almost all $t\in(0,T)$ find $\Gamma(t)$
+and ${(\vec u, p, \varkappa)}$ ${\in \uspace \times \widehat\pspace \times
+H^1(\Gamma(t))}$ such that
+\begin{subequations}
+\begin{align}
+& \left(\rho\,\vec u_t, \vec \xi\right) + \left(\rho\,\vec u \,.\, \nabla \vec
+u,\vec \xi\right) + 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
+\nonumber \\
+& - \left(p, \nabla\,.\,\vec \xi\right)
+- \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,,
+\label{eq:ns_weaka}\\
+& \left(\nabla\,.\,\vec u, \varphi\right) = 0
+\quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb} \\
+&  \left\langle \V
+- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc} \\
+& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:ns_weakd}
+\end{align}
+\end{subequations}
+holds for almost all times $t \in (0,T]$. Again, we notice that if
+$p \in \pspace$ is part of a solution to (\ref{eq:ns_full_momentum}--i), then
+so is $p + c$ for an arbitrary $c\in \R$.

@@ -153,21 +153,20 @@ for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 - \left(p, \nabla\,.\,\vec \xi\right)
 - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
 = \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,,
-\label{eq:weaka}\\
+\label{eq:stokes_weaka}\\
 & \left(\nabla\,.\,\vec u, \varphi\right) = 0
-\quad \forall\ \varphi \in \pnormspace\,, \label{eq:weakb} \\
+\quad \forall\ \varphi \in \pnormspace\,, \label{eq:stokes_weakb} \\
 &  \left\langle \V
 - \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
-\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:weakc} \\
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:stokes_weakc} \\
 & \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
 + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
-= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:weakd}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:stokes_weakd}
 \end{align}
 \end{subequations}
 holds for almost all times $t \in (0,T]$. Here we have observed that if
 $p \in \pspace$ is part of a solution to (\ref{eq:stokes_full_momentum}--g),
-then so is
-$p + c$ for an arbitrary $c\in \R$.
+then so is $p + c$ for an arbitrary $c\in \R$.
 
 We finally observe that an alternative weak formulation can be obtained
 discretizing directly the vector quantity $\vec\varkappa:=\varkappa\,\vec\nu$
@@ -180,14 +179,14 @@ properties and to a smaller algebraic system.
 
 \section{Energy bound and volume conservation}\label{sec:stokes_energy}
 It is straightforward to show an a priori energy bound and a volume
-conservation property for the system (\ref{eq:weaka}--d). For the former, we
-use (\ref{eq:length_variation}) and we obtain
+conservation property for the system (\ref{eq:stokes_weaka}--d). For the former,
+we use (\ref{eq:length_variation}) and we obtain
 \begin{equation}\label{eq:dtarea}
 \ddt\,\surfvol(\Gamma(t)) = -
 \left\langle \varkappa,\V\,.\,\vec\nu\right\rangle_{\Gamma(t)}.
 \end{equation}
-Hence, on choosing $\vec\xi = \vec u$ in (\ref{eq:weaka}), and noting
-(\ref{eq:weakb},c), we obtain that
+Hence, on choosing $\vec\xi = \vec u$ in (\ref{eq:stokes_weaka}), and noting
+(\ref{eq:stokes_weakb},c), we obtain that
 \begin{align}
 \gamma\, \ddt\,\surfvol(\Gamma(t)) = -
 \gamma\,\left\langle \varkappa\,\vec\nu, \vec u\right\rangle_{\Gamma(t)}
@@ -205,7 +204,7 @@ In order to show the volume conservation property, we use
 \right\rangle_{\Gamma(t)}\,.
 \end{align}
 Hence it follows immediately from the incompressibility condition
-(\ref{eq:weakb}) and (\ref{eq:weakc}) that
+(\ref{eq:stokes_weakb}) and (\ref{eq:stokes_weakc}) that
 \begin{align}
 \ddt \vol(\Omega_-(t)) & = \left\langle \vec u , \vec\nu
 \right\rangle_{\Gamma(t)}
@@ -297,8 +296,8 @@ use the mass lumped inner product $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$, see
 the standard $L^2$--inner product on $\Gamma^m$.
 
 Then our finite element approximation, which is based on the variational
-formulation (\ref{eq:weaka}--d), is given as follows. Let $\Gamma^0$ be an
-approximation to $\Gamma(0)$. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},
+formulation (\ref{eq:stokes_weaka}--d), is given as follows. Let $\Gamma^0$ be
+an approximation to $\Gamma(0)$. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},
 P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \pnormspace^m
 \times \Vh \times \Wh$ such that
 \begin{subequations}
