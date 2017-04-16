@@ -334,7 +334,7 @@ discrete level, as well as existence/uniqueness on discrete level. For
 completeness we report the derivation of that antisymmetric weak formulation.
 
 First, we observe that for arbitrary functions $\vec v$,
-$\vec \omega$, $\vec \xi \in H^1(\Omega,\R^d)$ it holds that
+$\vec \omega$, $\vec \xi \in [H^1(\Omega)]^d$ it holds that
 \begin{align} \label{eq:tripleterm}
 [(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi
 &= (\vec v\,.\,\nabla)\,(\vec \omega\,.\,\vec \xi) -
@@ -365,7 +365,7 @@ Hence, it follows from (\ref{eq:full_momentum}),
 (\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u) \nonumber \\
 & -\langle [\rho]_-^+\vec u\,.\,\vec \nu, \vec u\,.\,\vec \xi
 \rangle_{\Gamma(t)} -(\rho\,(\nabla\,.\,\vec u ),\vec u\,.\,\vec\xi) ] \qquad
-\forall\ \vec \xi \in H^1(\Omega,{\mathbb R}^d)\,,
+\forall\ \vec \xi \in [H^1(\Omega)]^d\,,
 \end{align}
 and from (\ref{eq:full_mass}) we obtain
 \begin{align}\label{eq:advect}
@@ -373,7 +373,7 @@ and from (\ref{eq:full_mass}) we obtain
 = \tfrac{1}{2} [ (\rho\,(\vec u\,.\,\nabla)\,\vec u, \vec \xi) -
 (\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u) \nonumber \\
 & -\langle [\rho]_-^+\vec u\,.\,\vec \nu, \vec u\,.\,\vec \xi
-\rangle_{\Gamma(t)}] \qquad \forall\ \vec \xi \in H^1(\Omega,{\mathbb R}^d)\,.
+\rangle_{\Gamma(t)}] \qquad \forall\ \vec \xi \in [H^1(\Omega)]^d\,.
 \end{align}
 
 Next, on noting (\ref{eq:advect}) and using Reynolds transport theorem,
@@ -387,7 +387,7 @@ we have that
 \right\rangle_{\Gamma(t)} \nonumber \\
 &= (\rho\,\vec u_t, \vec \xi)- \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
 \vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
-\qquad \forall \vec \xi \in H^1(\Omega, {\mathbb R}^d)\,.
+\qquad \forall \vec \xi \in [H^1(\Omega)]^d\,.
 \label{eq:rhot1}
 \end{align}
 Therefore, it follows from (\ref{eq:rhot1}) that
@@ -398,7 +398,7 @@ Therefore, it follows from (\ref{eq:rhot1}) that
 + \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
 \vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
 \right]
-\qquad \forall\ \vec \xi \in H^1(\Omega, {\mathbb R}^d)\,,
+\qquad \forall\ \vec \xi \in [H^1(\Omega)]^d\,,
 \end{equation*}
 which on combining with (\ref{eq:advect}) yields that
 \begin{align} \label{eq:rhot3}
