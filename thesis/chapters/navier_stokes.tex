@@ -76,7 +76,7 @@ possible forcing term, let $\gamma>0$ be the surface tension coefficient and let
 $\varkappa$ be the mean curvature of $\Gamma(t)$. See
 Chapter~\ref{ch:introduction} for more details.
 
-\section{Standard weak formulation}\label{sec:ns_weak_standard}
+\section{Standard weak formulation}\label{sec:ns_weak}
 A standard weak formulation of (\ref{eq:ns_full_momentum}--i) can be obtained
 proceeding analogously to the Stokes case, see \S~\ref{sec:stokes_weak}. We
 define the same function spaces
@@ -140,7 +140,7 @@ $p \in \pspace$ is part of a solution to (\ref{eq:ns_full_momentum}--i), then
 so is $p + c$ for an arbitrary $c\in \R$.
 
 \section{Antisymmetric weak formulation}\label{sec:ns_weak_antisym}
-An alternative to the weak formulation derived in \S~\ref{sec:ns_weak_standard}
+An alternative to the weak formulation derived in \S~\ref{sec:ns_weak}
 can be obtained following the paper \cite{fluidfbp}. We refer to this
 alternative formulation as antisymmetric weak formulation. The authors show that
 it is easy to derive an energy bound, see \cite[eq. 3.7]{fluidfbp}, not only on
@@ -242,7 +242,7 @@ which on combining with (\ref{eq:advect}) yields that
 \quad \forall \vec \xi \in [H^1(\Omega)]^d\,.
 \end{align}
 
-Hence, an alternative weak formulation of (\ref{eq:ns_full_momentum}--i) is
+Hence, the antisymmetric weak formulation of (\ref{eq:ns_full_momentum}--i) is
 given as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for
 almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 \uspace \times \widehat\pspace \times H^1(\Gamma(t))}$ such that
@@ -255,15 +255,15 @@ almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 - \left(p, \nabla\,.\,\vec \xi\right)\nonumber \\
 & - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
 = \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,,
-\label{eq:ns_altweaka}\\
+\label{eq:ns_weaka_antisym}\\
 & \left(\nabla\,.\,\vec u, \varphi\right) = 0
-\quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_altweakb} \\
+\quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb_antisym} \\
 &  \left\langle \V
 - \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
-\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_altweakc} \\
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc_antisym} \\
 & \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
 + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
-= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:ns_altweakd}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:ns_weakd_antisym}
 \end{align}
 \end{subequations}
 holds for almost all times $t \in (0,T]$.
@@ -272,7 +272,7 @@ With a view towards some numerical test cases
 in \S~\ref{sec:ns_numerical_results}, we also allow for non divergence-free
 problem therefore (\ref{eq:advect}) is no longer valid and we need to use
 (\ref{eq:fulladvect}) to derive the antisymmetric weak formulation.
-Consequently the RHS of (\ref{eq:ns_altweaka}) requires the additional term
+Consequently the RHS of (\ref{eq:ns_weaka_antisym}) requires the additional term
 \begin{equation} \label{eq:additionalvelocityrhs}
 \tfrac{1}{2}(\rho\,(\nabla\,.\,\vec u ),\vec u\,.\,\vec\xi)\,.
 \end{equation}
@@ -351,13 +351,13 @@ variational formulation (\ref{eq:ns_weaka}--d), is given as follows. Let
 $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in \uspace^0$ be
 given. For $m=0,\ldots, M-1$, for $i=0,\ldots, \bar{i}$, with $\bar{i}$ such
 that $\|U^{m+1,\bar{i}+1}-U^{m+1,\bar{i}} \|_{L^\infty}\leq\epsilon_f$,
-where $\epsilon_f \geq 0$ and $\vec U^{m+1,0}=\vec U^m$, find $(\vec
+where $\epsilon_f \geq 0$ and $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, find $(\vec
 U^{m+1},P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \pnormspace^m
 \times \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
-& \left( \rho^{m}\,\frac{\vec U^{m+1,i+1} - \vec U^m}{\tau_m}, \vec \xi
-\right) + \left((\rho^{m}\vec U^{m+1,i}\,.\,\nabla)\,\vec U^{m+1,i+1}\,,
+& \left( \rho^{m}\,\frac{\vec U^{m+1,i+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
+\xi \right) + \left((\rho^{m}\vec U^{m+1,i}\,.\,\nabla)\,\vec U^{m+1,i+1}\,,
 \,\vec \xi \right)\nonumber \\
 & - 2\left(\mu^m\,\mat D(\vec U^{m+1,i+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
@@ -391,3 +391,72 @@ system of equations for the unknowns $(\vec U^{m+1,i+1}, P^{m+1},
 \vec{X}^{m+1}, \kappa^{m+1})$ at each iteration until $L^\infty$--error of the
 velocity $\|U^{m+1,i+1}-U^{m+1,i} \|_{L^\infty}$ is smaller than the required
 tolerance $\epsilon_f$.
+
+\section{Antisymmetric finite element approximation}\label{sec:ns_fem_antisym}
+An alternative to the standard discrete finite element approximation
+(\ref{eq:ns_HGa}--d) can be obtained using the antisymmetric weak formulation
+(\ref{eq:ns_weaka_antisym}--d).We use the same hypothesis and definitions
+employed in \S~\ref{sec:ns_fem}.
+
+We need to pay particular attention to the discretization of the time
+derivative in (\ref{eq:ns_weaka_antisym}). Indeed, the discrete counterpart of
+$\tfrac{1}{2} \ddt (\rho\,\vec u, \vec \xi)$
+\begin{equation}
+\frac{1}{2}\left(\frac{\rho^{m}\,\vec U^{m+1} - \vec I^m_0\,\rho^{m-1}
+\vec I^m_2\,\vec U^m}{\tau_m}, \vec \xi \right)\,,
+\end{equation}
+while the discrete version of $\tfrac{1}{2}(\rho\,\vec u_t, \vec \xi)$ is
+\begin{equation}
+\frac{1}{2}\left( \rho^{m}\, \frac{\vec U^{m+1} - \vec I^m_2\, \vec
+U^m}{\tau_m}, \vec \xi \right)\,.
+\end{equation}
+Since $\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in
+S^m_0$, we can rewrite the discretization of the weak time derivative
+$\tfrac{1}{2}\big[ \ddt (\rho\,\vec u, \vec \xi)+(\rho\,\vec u_t, \vec
+\xi)\big]$ in the simpler form
+\begin{equation}
+\left(\frac{\rho^{m}\,\vec U^{m+1} - \tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)
+\vec I^m_2\,\vec U^m}{\tau_m}, \vec \xi \right)\,.
+\end{equation}
+
+Then our antisymmetric finite element approximation is
+given as follows. Let $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec
+U^0\in \uspace^0$ be given. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1},
+\vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \pnormspace^m \times \Vh \times
+\Wh$ such that
+\begin{subequations}
+\begin{align}
+& \left(\frac{\rho^{m}\,\vec U^{m+1} - \tfrac{1}{2}(\vec I^m_0\,\rho^{m-1} +
+\rho^m) \vec I^m_2\,\vec U^m}{\tau_m}, \vec \xi \right) + \nonumber \\
+& \frac{1}{2}\left((\rho^{m}\,\vec I^m_2\,\vec U^{m}\,.\,\nabla)\,
+\vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^{m}\,
+\vec I^m_2 \, \vec U^{m}\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right) +
+\nonumber \\
+& - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in \uspace^m\,,
+\label{eq:ns_HGa_antisym} \\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb_antisym} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:ns_HGc_antisym}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd_antisym}
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$. Again, we have defined $\vec
+f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$, where $\vec I^m_2$ is the
+standard interpolation operator onto $[S^m_2]^d$ and
+$\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-} \in S^m_0$.
+
+We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) differs
+from the standard linear scheme (\ref{eq:ns_HGa}--d), where $\bar{i}=0$, for
+the antisymmetric rewrite of the convective term and for the density
+coefficient multiplying $\vec I^m_2\,\vec U^{m}$ in the time derivative.
+Indeed, instead of using the actual density $\rho^m$, it uses an average
+between the actual density and the interpolation of the density at the previous
+time step $\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1} + \rho^m)$.
