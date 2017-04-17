@@ -252,8 +252,8 @@ almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 + (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
 - [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u)\bigg] \nonumber \\
 & +2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
-- \left(p, \nabla\,.\,\vec \xi\right)
-- \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
+- \left(p, \nabla\,.\,\vec \xi\right)\nonumber \\
+& - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
 = \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,,
 \label{eq:ns_altweaka}\\
 & \left(\nabla\,.\,\vec u, \varphi\right) = 0
@@ -276,3 +276,118 @@ Consequently the RHS of (\ref{eq:ns_altweaka}) requires the additional term
 \begin{equation} \label{eq:additionalvelocityrhs}
 \tfrac{1}{2}(\rho\,(\nabla\,.\,\vec u ),\vec u\,.\,\vec\xi)\,.
 \end{equation}
+
+\section{Standard finite element approximation}\label{sec:ns_fem}
+In order to obtain a fully practical finite element approximation of the
+standard weak formulation (\ref{eq:ns_weaka}--d) we proceed analogously to the
+Stokes case, see \S~\ref{sec:stokes_fem}. For the benefit of the reader, we
+state again all the hypothesis and the notations used.
+
+We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
+$[0,T]$ into possibly variable time steps
+$\tau_m := t_{m+1}-t_m$, $m=0 ,\ldots, M-1$. Moreover, let
+${\cal T}^m$, $\forall m\ge 0$, be a regular partitioning of the domain
+$\Omega$ into disjoint open simplices
+$\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. On ${\cal T}^m$ we define the
+finite element spaces
+\begin{equation*}
+S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
+\in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\}
+\subset H^1(\Omega),\quad k \in \mathbb{N}\,,
+\end{equation*}
+where $\mathcal{P}_k(\sigmaO^m)$ denotes the space of polynomials of degree $k$
+on $\sigmaO^m$. Moreover, $S^m_0$ is the space of piecewise constant functions
+on ${\cal T}^m$.
+
+Let $\uspace^m\subset\uspace$ and $\pspace^m\subset\pspace$ be the finite
+element spaces we use for the approximation of velocity and pressure,
+and let $\pnormspace^m:= \pspace^m \cap \pnormspace$.
+The spaces $(\uspace^m,\pspace^m)$ satisfy the LBB inf-sup. See (\ref{eq:LBB})
+for more details.
+
+We consider a fitted finite element approximation for the
+evolution of the interface $\Gamma(t)$. Let $\Gamma^{m}\subset\R^d$ be a
+$(d-1)$-dimensional polyhedral surface approximating the closed surface
+$\Gamma(t_m)$, $m=0 ,\ldots, M$. Let $\Omega^m_+$ denote the exterior of
+$\Gamma^m$ and let $\Omega^m_-$ be the interior of $\Gamma^m$, where we assume
+that $\Gamma^m$ has no self-intersections. Then
+$\Omega = \Omega_-^m \cup \Gamma^m \cup \Omega_+^m$, and the fitted nature of
+our method implies that
+\begin{equation*}
+\overline{\Omega^m_+} = \bigcup_{o \in \mathcal{T}^m_+} \overline{o}
+\quad\text{and}\quad
+\overline{\Omega^m_-} = \bigcup_{o \in \mathcal{T}^m_-} \overline{o} \,,
+\end{equation*}
+where $\mathcal{T}^m = \mathcal{T}^m_+ \cup \mathcal{T}^m_-$ and
+$\mathcal{T}^m_+ \cap \mathcal{T}^m_- = \emptyset$.
+Let $\vec{\nu}^m$ denote the piecewise constant unit normal to $\Gamma^m$
+such that $\vec\nu^m$ points into $\Omega^m_+$.
+
+In order to define the parametric finite element spaces on $\Gamma^m$, we
+assume that $\Gamma^m=\bigcup_{j=1}^{J_\Gamma} \overline{\sigma^m_j}$, where
+$\{\sigma^m_j\}_{j=1}^{J_\Gamma}$ is a family of mutually disjoint open
+$(d-1)$-simplices with vertices $\{\vec{q}^m_k\}_{k=1}^{K_\Gamma}$. Following
+the notation in \cite{spurious}, see also \cite{gflows3d}, we define
+$\Vh := \{\vec\chi \in [C(\Gamma^m)]^d:\vec\chi\!\mid_{\sigma^m_j}
+\in \mathcal{P}_1(\sigma^m_j), j=1,\ldots, J_\Gamma\} =: [\Wh]^d$,
+where $\Wh \subset H^1(\Gamma^m)$ is the space of scalar continuous
+piecewise linear functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K_\Gamma}$
+denoting the standard basis of $\Wh$.
+
+Moreover we define $\pi^m: C(\Gamma^m)\to \Wh$ the standard interpolation
+operator at the nodes $\{\vec{q}_k^m\}_{k=1}^{K_\Gamma}$, and similarly
+$\vec\pi^m: [C(\Gamma^m)]^d\to \Vh$. Throughout this thesis, we parametrize
+the new surface $\Gamma^{m+1}$ over $\Gamma^m$ using a parametrization
+$\vec{X}^{m+1} \in \Vh$, so that $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$.
+
+In order to have the desired tangential motion of vertices on $\Gamma^m$
+that leads to good interface mesh properties, for the interface terms we again
+use the mass lumped inner product $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$, see
+(\ref{eq:masslump}). Finally, let $\langle\cdot,\cdot\rangle_{\Gamma^m}$ denote
+the standard $L^2$--inner product on $\Gamma^m$.
+
+Then our standard finite element approximation, which is based on the
+variational formulation (\ref{eq:ns_weaka}--d), is given as follows. Let
+$\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in \uspace^0$ be
+given. For $m=0,\ldots, M-1$, for $i=0,\ldots, \bar{i}$, with $\bar{i}$ such
+that $\|U^{m+1,\bar{i}+1}-U^{m+1,\bar{i}} \|_{L^\infty}\leq\epsilon_f$,
+where $\epsilon_f \geq 0$ and $\vec U^{m+1,0}=\vec U^m$, find $(\vec
+U^{m+1},P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \pnormspace^m
+\times \Vh \times \Wh$ such that
+\begin{subequations}
+\begin{align}
+& \left( \rho^{m}\,\frac{\vec U^{m+1,i+1} - \vec U^m}{\tau_m}, \vec \xi
+\right) + \left((\rho^{m}\vec U^{m+1,i}\,.\,\nabla)\,\vec U^{m+1,i+1}\,,
+\,\vec \xi \right)\nonumber \\
+& - 2\left(\mu^m\,\mat D(\vec U^{m+1,i+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in \uspace^m\,,
+\label{eq:ns_HGa} \\
+& \left(\nabla\,.\,\vec U^{m+1,i+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1,i+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,, \label{eq:ns_HGc}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd}
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$, $\vec U^{m+1}=
+\vec U^{m+1,\bar{i}+1}$. Here we have defined $\vec f^{m+1}(\cdot) := \vec
+I^m_2\,\vec f(\cdot,t_{m+1})$, where $\vec I^m_2$ is the standard interpolation
+operator onto $[S^m_2]^d$, $\mu^m = \mu_+\,\charfcn{\Omega^m_+} +
+\mu_-\,\charfcn{\Omega^m_-} \in S^m_0$ and $\rho^m =
+\rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0$.
+
+When $\bar{i}=0$, the scheme (\ref{eq:ns_HGa}--d) is a linear scheme in that it
+leads to a coupled linear system of equations for the unknowns $(\vec U^{m+1,1},
+P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})$ at each time level.
+
+Instead, if $\bar{i}>0$, the scheme (\ref{eq:ns_HGa}--d), at each time level,
+is a fixed point iterative scheme which consists of solving a coupled linear
+system of equations for the unknowns $(\vec U^{m+1,i+1}, P^{m+1},
+\vec{X}^{m+1}, \kappa^{m+1})$ at each iteration until $L^\infty$--error of the
+velocity $\|U^{m+1,i+1}-U^{m+1,i} \|_{L^\infty}$ is smaller than the required
+tolerance $\epsilon_f$.
