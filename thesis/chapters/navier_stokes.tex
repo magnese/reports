@@ -115,7 +115,7 @@ for all $\vec \xi \in [H^1_0(\Omega)]^d$.
 Hence, the standard weak formulation of (\ref{eq:ns_full_momentum}--i) is given
 as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for almost
 all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in \uspace
-\times \widehat\pspace \times H^1(\Gamma(t))}$ such that
+\times \pnormspace \times H^1(\Gamma(t))}$ such that
 \begin{subequations}
 \begin{align}
 & \left(\rho\,\vec u_t, \vec \xi\right) + \left(\rho\,\vec u \,.\, \nabla \vec
@@ -245,7 +245,7 @@ which on combining with (\ref{eq:advect}) yields that
 Hence, the antisymmetric weak formulation of (\ref{eq:ns_full_momentum}--i) is
 given as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for
 almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
-\uspace \times \widehat\pspace \times H^1(\Gamma(t))}$ such that
+\uspace \times \pnormspace \times H^1(\Gamma(t))}$ such that
 \begin{subequations}
 \begin{align}
 & \tfrac{1}{2}\bigg[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
@@ -276,6 +276,107 @@ Consequently the RHS of (\ref{eq:ns_weaka_antisym}) requires the additional term
 \begin{equation} \label{eq:additionalvelocityrhs}
 \tfrac{1}{2}(\rho\,(\nabla\,.\,\vec u ),\vec u\,.\,\vec\xi)\,.
 \end{equation}
+
+\section{ALE weak formulation}\label{sec:ns_weak_ale}
+The system of governing equations (\ref{eq:ns_full_momentum}--i) is expressed in
+term of Eulerian coordinates $\vec z$. However, it is possible to rewrite the
+velocity time derivative $\vec u_t$ respect to the so called Arbitrary
+Lagrangian Eulerian (ALE) coordinate $\vec q$.
+
+Analogously of what done in \S~\ref{sec:front_tracking_approach} to parametrize
+the interface $\Gamma(t)$, we can define the fixed reference manifolds
+$\Upsilon_{\Omega_-}$ and $\Upsilon_{\Omega_+}$ and extend the map
+(\ref{eq:interface_parametrization}) to parametrize $\Omega_-(t)$ and
+$\Omega_+(t)$  as $\Omega_-(t)=\vec x(\Upsilon_{\Omega_-},t)$ and
+$\Omega_+(t)=\vec x(\Upsilon_{\Omega_+},t)$, respectively. This extended map
+obviously still satisfy $\Gamma(t) = \vec x(\Upsilon,t)$ therefore we are using
+this abuse of notation for the map and the extend map.
+
+Now, let $h:\Omega_{\pm}(t)\times [0,T]\to \R$ be a function defined on
+the Eulerian frame, the corresponding function on the ALE frame $\hat h$ is
+defined as
+\begin{equation}\label{eq:h}
+\hat h:\Upsilon_{\Omega_\pm}\times [0,T]\to \R,\quad
+\hat h(\vec q,t)=h(\vec{x}(\vec q,t),t).
+\end{equation}
+In order to compute the time derivative of (\ref{eq:h}) with respect to the ALE
+frame, using the chain rule, we have
+\begin{equation}
+\frac{\partial\hat h(\vec q,t)}{\partial t}=\frac{\partial h(\vec x(\vec
+q,t),t)}{\partial t}=\frac{\partial h(\vec z,t)}{\partial t}+\vec x_t(\vec q,t)
+\cdot \nabla h(\vec z,t),
+\end{equation}
+therefore it holds that
+\begin{equation}
+\frac{\partial h(\vec z,t)}{\partial t} =
+\frac{\partial\hat h(\vec q,t)}{\partial t}-
+\vec x_t(\vec q,t) \cdot \nabla h(\vec z,t).
+\end{equation}
+Finally, introducing the domain velocity
+\begin{equation} \label{eq:W}
+\vec{\mathcal{W}}(\vec z, t) := \vec x_t(\vec q, t) \quad
+\forall\ \vec z = \vec x(\vec q,t) \in \Omega_\pm(t)
+\end{equation}
+and the time derivative in the ALE frame
+\begin{equation} \label{eq:ale_derivative}
+\left.\frac{\partial h(\vec z,t)}{\partial t}\right|_{\Upsilon_{\Omega_\pm}}:=
+\frac{\partial\hat h(\vec q,t)}{\partial t} \quad
+\forall\ \vec z = \vec x(\vec q,t) \in \Omega_\pm(t)
+\end{equation}
+we obtain
+\begin{equation}\label{eq:ale_dt}
+h_t =\left.h_t\right|_{\Upsilon_{\Omega_\pm}} -\vec{\mathcal{W}} \cdot \nabla h.
+\end{equation}
+The identity (\ref{eq:ale_dt}) is naturally extended to vector valued functions.
+We stress the fact that the domain velocity $\vec{\mathcal{W}}$ for the
+interface points is consistent with the interface velocity $\V$ therefore it
+holds
+\begin{equation}
+\left.\vec{\mathcal{W}}\right|_{\Gamma(t)}=\V\,.
+\end{equation}
+
+Using (\ref{eq:ale_dt}) in (\ref{eq:ns_full_momentum}), we can rewrite the
+momentum equation in the ALE frame as:
+\begin{equation}
+\begin{align}
+\rho\,(\left.\vec{u}_t\right|_{\Upsilon_{\Omega_\pm}}
++(\vec u - \vec{\mathcal{W}})\,.\, \nabla \vec u)\,
+-2 \mu\,\nabla\,.\, \mat D(\vec u)+ \nabla\,p & = \vec f
+\quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:ns_full_momentum_ale} \\
+\end{align}
+\end{equation}
+We can notice that, with respect to the original formulation, there is a
+convective-type term due to the domain movement and the time derivative is
+computed in the fixed reference frame $\Upsilon_{\Omega_\pm}$. Obviously, if
+the domain is fixed, this additional convective term is zero and the time
+derivative in the ALE frame coincide with the usual time derivative in the
+Eulerian frame.
+
+Hence, the ALE weak formulation of (\ref{eq:ns_full_momentum_ale},
+\ref{eq:ns_full_mass}--i) is given as follows. Given $\Gamma(0) = \Gamma_0$ and
+$\vec u = \vec u_0$, for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u,
+p, \varkappa)}$ ${\in \uspace \times \pnormspace \times H^1(\Gamma(t))}$ such
+that
+\begin{subequations}
+\begin{align}
+& \left(\rho\,\left.\vec{u}_t\right|_{\Upsilon_{\Omega_\pm}}, \vec \xi\right) +
+\left(\rho\,(\vec u - \vec{\mathcal{W}})\,.\, \nabla \vec u,\vec \xi\right)
++ 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right) \nonumber \\
+& - \left(p, \nabla\,.\,\vec \xi\right)
+- \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,,
+\label{eq:ns_weaka_ale}\\
+& \left(\nabla\,.\,\vec u, \varphi\right) = 0
+\quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb_ale} \\
+&  \left\langle \V
+- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc_ale} \\
+& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:ns_weakd_ale}
+\end{align}
+\end{subequations}
+holds for almost all times $t \in (0,T]$.
 
 \section{Standard finite element approximation}\label{sec:ns_fem}
 In order to obtain a fully practical finite element approximation of the
