@@ -1,17 +1,20 @@
 %
-% This template uses (open source) code,
-%   from a previous template for a thesis at Imperial, by Nigel Lawrence, Bryan Clair, Nathan Dunfield, Jamie,
-%   and also from a template by Jordan Suchow, available at github.com/suchow/Dissertate.
+% This template uses (open source) code, from a previous template for a thesis
+% at Imperial, by Nigel Lawrence, Bryan Clair, Nathan Dunfield, Jamie,
+% and also from a template by Jordan Suchow, available at
+% github.com/suchow/Dissertate.
 %
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{icthesis}
 \LoadClass[12pt,oneside,a4paper]{book}
 
-\usepackage{amsmath,amssymb,amstext,amsthm,enumerate,fancyvrb,fixltx2e,hyperref,lipsum,mathtools,setspace,tikz}
+\usepackage{amsmath,amssymb,amstext,amsthm,enumerate,fancyvrb,fixltx2e,hyperref,
+lipsum,mathtools,setspace,tikz}
 \usepackage[titletoc]{appendix}
 \usepackage[titles]{tocloft}
-\hypersetup{colorlinks,citecolor=ImperialColor,filecolor=black,linkcolor=black,urlcolor=ImperialColor}
+\hypersetup{colorlinks,citecolor=ImperialColor,filecolor=black,linkcolor=black,
+urlcolor=ImperialColor}
 
 \RequirePackage{color}
 \RequirePackage{graphicx}
@@ -59,10 +62,14 @@
 \let\oldlistoftables=\listoftables
 \let\oldlistoffigures=\listoffigures
 \let\oldbibliography=\bibliography
-\renewcommand{\tableofcontents}{\begin{singlespace}\oldtableofcontents\end{singlespace}\mainmatter}
-\renewcommand{\listoftables}{\begin{singlespace}\oldlistoftables\end{singlespace}}
-\renewcommand{\listoffigures}{\begin{singlespace}\oldlistoffigures\end{singlespace}}
-\renewcommand{\bibliography}[1]{\oldbibliography{#1}\addcontentsline{toc}{chapter}{\bibname}}
+\renewcommand{\tableofcontents}
+{\begin{singlespace}\oldtableofcontents\end{singlespace}\mainmatter}
+\renewcommand{\listoftables}
+{\begin{singlespace}\oldlistoftables\end{singlespace}}
+\renewcommand{\listoffigures}
+{\begin{singlespace}\oldlistoffigures\end{singlespace}}
+\renewcommand{\bibliography}[1]
+{\oldbibliography{#1}\addcontentsline{toc}{chapter}{\bibname}}
 \renewcommand{\cftchapfont}{\normalsize \scshape}
 \renewcommand\listfigurename{\sc List of figures}
 \renewcommand\listtablename{\sc List of tables}
@@ -151,17 +158,20 @@ Imperial College \\
 \vfill
 \noindent I certify that this thesis, and the research to which it refers,
 are the product of my own work, and that any ideas or quotations from the
-work of other people, published or otherwise, are fully acknowledged in accordance
-with the standard referencing practices of the discipline.
+work of other people, published or otherwise, are fully acknowledged in
+accordance with the standard referencing practices of the discipline.
 \vfill
 {\hfill Signed: \hrulefill}
 \vfill
 
 \chapter*{\sc Copyright}
-This text is being distributed in an ``open source'' fashion, under the GNU Free Documentation
-License (GFDL), much in the manner that open source software like the Linux operating system is distributed. This confers certain rights on you, the reader, but also
-carries certain restrictions that limit your ability to restrict the rights of others. More information about how the open
-source model operates both in general and in this particular instance can be found in the text of the GNU Free Documentation License (GFDL).
+This text is being distributed in an ``open source'' fashion, under the GNU Free
+Documentation License (GFDL), much in the manner that open source software like
+the Linux operating system is distributed. This confers certain rights on you,
+the reader, but also carries certain restrictions that limit your ability to
+restrict the rights of others. More information about how the open source model
+operates both in general and in this particular instance can be found in the
+text of the GNU Free Documentation License (GFDL).
 
 \pagestyle{plain}
 }
