@@ -354,6 +354,12 @@ Eulerian frame. Therefore $\vec{\mathcal{W}}=\vec 0$ corresponds to a pure
 Eulerian method while $\vec{\mathcal{W}}=\vec u$ corresponds to a fully
 Lagrangian scheme.
 
+In order to define the ALE weak formulation, we need to use a different
+functional setting for the test functions respect to the one used for the
+standard weak formulation, see \S~\ref{sec:ns_weak}, and the antisymmetric weak
+formulation, see \S~\ref{sec:ns_weak_antisym}. More precisely we consider the
+admissible spaces of test functions on the reference domain
+
 Hence, the ALE weak formulation of (\ref{eq:ns_full_momentum_ale},
 \ref{eq:ns_full_mass}--i) is given as follows. Given $\Gamma(0) = \Gamma_0$ and
 $\vec u = \vec u_0$, for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u,
@@ -563,3 +569,5 @@ coefficient multiplying $\vec I^m_2\,\vec U^{m}$ in the time derivative.
 Indeed, instead of using the actual density $\rho^m$, it uses an average
 between the actual density and the interpolation of the density at the previous
 time step $\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1} + \rho^m)$.
+
+\section{ALE finite element approximation}\label{sec:ns_fem_ale}

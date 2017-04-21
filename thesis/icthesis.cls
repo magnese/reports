@@ -1,5 +1,5 @@
 %
-% This template uses (open source) code, 
+% This template uses (open source) code,
 %   from a previous template for a thesis at Imperial, by Nigel Lawrence, Bryan Clair, Nathan Dunfield, Jamie,
 %   and also from a template by Jordan Suchow, available at github.com/suchow/Dissertate.
 %
@@ -20,7 +20,7 @@
 \RequirePackage{url}
 \RequirePackage{verbatim}
 \RequirePackage{fancyhdr}
-\RequirePackage[super,comma,numbers]{natbib}
+\RequirePackage[square,numbers]{natbib}
 \RequirePackage[tiny,md,sc]{titlesec}
 \pagestyle{plain}
 \RequirePackage{titling}
@@ -145,7 +145,7 @@ Imperial College \\
 \setstretch{1.2}
 \pagenumbering{roman}
 \addtocounter{page}{1}
-   
+
 \newpage
 \hphantom{1}
 \vfill
@@ -156,7 +156,7 @@ with the standard referencing practices of the discipline.
 \vfill
 {\hfill Signed: \hrulefill}
 \vfill
-   
+
 \chapter*{\sc Copyright}
 This text is being distributed in an ``open source'' fashion, under the GNU Free Documentation
 License (GFDL), much in the manner that open source software like the Linux operating system is distributed. This confers certain rights on you, the reader, but also

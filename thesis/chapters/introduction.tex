@@ -1,8 +1,8 @@
 \chapter{\sc Introduction}\label{ch:introduction}
-Fluid flow problems with a unknown interface are ubiquitous in physics and
+Fluid flow problems with an unknown interface are ubiquitous in physics and
 engineering. This introductory chapter is devoted to a description of the
 mathematical model used to model this type of systems together with a brief
-overview of the possible approach to describe the unknown interface.
+overview of the possible approaches to describe the unknown interface.
 
 The chapter is organised as follows: in \S\ref{sec:free_boundary_flows}
 we define what a free-boundary fluid flow is and we introduce a generic setting
@@ -10,9 +10,9 @@ for the problem; in \S\ref{sec:flow_equations} we present the
 Navier--Stokes equations which govern the fluid; in
 \S\ref{sec:bc_conditions} we discuss the boundary, initial and interface
 conditions needed for the well possessedness of the problem; in
-\S\ref{sec:interface_treatment} we briefly overview the different way to
+\S\ref{sec:interface_treatment} we briefly overview the different ways to
 treat the unknown interface; in \S\ref{sec:numerical_challenges} we detail
-the various numerical challenges posed by these type of flows; in
+the various numerical challenges posed by these types of flows; in
 \S\ref{sec:numerical_implementation} we finally list the libraries used to
 implement the numerical schemes described in this thesis and we provide the
 links to the code developed in order to make all the results presented in this
@@ -52,17 +52,15 @@ without boundary. See Figure~\ref{fig:two_phase_sketch} for an illustration.
 \psset{unit=\unitlength,linewidth=1pt}
 \begin{picture}(4,4)(0,0)
 \psline(0,0)(4,0)(4,4)(0,4)(0,0)
+\psline{->}(3,2)(3.5,2)
 \pscustom[fillstyle=solid,fillcolor=lightgray!50]
 {
-\psarcn(0.75,2.5){0.75}{180}{0}
-\psarc(2.75,2.5){1.25}{180}{360}
-\psline(4,2.5)(4,0)(0,0)(0,2.5)
+\psellipse(2,2)(1,1)
 }
-\psline{->}(2.75,1.25)(2.75,2)
-\put(2.9,1.5){$\vec\nu$}
-\put(1.6,2.25){{$\Gamma$}}
-\put(0.5,1){{$\Omega_-$}}
-\put(2.5,3){{$\Omega_+$}}
+\put(3.25,1.75){$\vec\nu$}
+\put(1.75,0.75){{$\Gamma$}}
+\put(1.75,2){{$\Omega_-$}}
+\put(0.5,3.25){{$\Omega_+$}}
 \end{picture}
 \end{center}
 \caption[Two-phase flow]{Two-phase flow setting.}
@@ -72,7 +70,7 @@ Therefore both the sub-domains themselves and the flow field are part of the
 solution. Indeed the main task in this context is to account for the interface
 $\Gamma(t)$, which separates the distinct fluid domains and is generally in
 motion. Apart from its exact position, the computation of geometrical quantities
-of $\Gamma(t)$ such as its normal vector $\nu$ and its mean curvature
+of $\Gamma(t)$ such as its normal vector $\vec\nu$ and its mean curvature
 $\varkappa$ are of interest.
 
 \section{Flow governing equations}\label{sec:flow_equations}
@@ -88,10 +86,12 @@ introduce the Newtonian stress tensor
 = 2\,\mu\, \mat D(\vec u)-p\,\mat\id\,,
 \end{equation}
 where $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$,
-with $\mu_\pm \in \R_{>0}$, denotes the dynamic viscosities in the two phases,
+with $\mu_\pm \in \R_{>0}$, denoting the dynamic viscosities in the two phases,
 $\mat\id \in \R^{d \times d}$ is the identity matrix and
 $\mat D(\vec u):=\frac{1}{2}\, (\nabla\vec u+(\nabla\vec u)^T)$
-is the rate-of-deformation tensor. Moreover, let
+is the rate-of-deformation tensor. Given a vector valued function $\vec
+h:\R^d\to\R^d$, we define its gradient as
+$\nabla\vec h = [\nabla h_1;\ldots;\nabla h_d]$. Moreover, let
 $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)} + \rho_-\,\charfcn{\Omega_-(t)}$,
 with $\rho_\pm \in \R_{>0}$, be the fluid density.
 
@@ -142,11 +142,11 @@ mechanics and it is defined as
 \end{equation}
 where $L_c$ is the characteristic dimension of the problem and $u_c$ is the
 characteristic velocity of the fluid. It quantifies the ratio of inertial
-forces to viscous forces within the fluid therefor it is used to predict
+forces to viscous forces within the fluid, therefore it is used to predict
 flow patterns in different fluid flow situations. If $\Rey \ll 1$ the flow is
 laminar due to the fact that viscous forces are dominant and it is
 characterized by smooth, constant fluid motion.  Otherwise, the flow is
-turbulent due to the fact that inertial forces are dominant and it tend to
+turbulent due to the fact that inertial forces are dominant and it tends to
 produce chaotic eddies, vortices and other flow instabilities.
 
 In the case of laminar flow, the advective term in the momentum equation
@@ -175,7 +175,7 @@ We finally observe that for the one-phase Navier--Stokes flow,
 $\rho_+=\rho_-=\rho$ and $\mu_+=\mu_-=\mu$, using the
 incompressibility condition (\ref{eq:ns_mass_bis}) we have
 \begin{equation}
-\nabla\,.\,\mat D(\vec u) = \nabla\,.\big(\nabla\vec u+(\nabla\vec u)^T\big) =
+2\nabla\,.\,\mat D(\vec u) = \nabla\,.\big(\nabla\vec u+(\nabla\vec u)^T\big)=
 \Delta \vec u + \nabla(\nabla\,.\vec u) = \Delta \vec u
 \end{equation}
 therefore the system (\ref{eq:ns_momentum_bis}--b) can be rewritten as
@@ -191,9 +191,9 @@ which is the canonical form of the one-phase Navier--Stokes problem.
 \section{Boundary, initial, and interface conditions}\label{sec:bc_conditions}
 For the full Navier--Stokes problem (\ref{eq:ns_momentum_bis}-b), a
 divergence-free velocity field for the whole computational domain is needed as
-an initial condition therefore we impose
+an initial condition. Therefore we impose
 \begin{equation}\label{eq:ns_ic}
-\vec u(0) = \vec u_0 \quad \mbox{in } \Omega_\pm(t)\,.
+\vec u(0) = \vec u_0 \quad \mbox{in } \Omega\,.
 \end{equation}
 The initial condition is not need in the Stokes case (\ref{eq:momentum_bis}-b)
 since it is a stationary problem.
@@ -207,7 +207,7 @@ Dirichlet condition
 and/or a free-slip condition.
 
 Since we are dealing with a two-phase flow, some interface conditions are also
-needed on the unknown interface $\Gamma(t)$ which couple the velocity and
+needed on the unknown interface $\Gamma(t)$, which couple the velocity and
 stress between the two domains. Viscosity of the fluids leads to the continuity
 condition
 \begin{equation}\label{eq:interface_jump_velocity}
@@ -239,8 +239,9 @@ interface leads to the stress balance condition
 where $\mat\sigma_{\Gamma}$ is the interface stress tensor and $\nabs\,.$ is
 the surface divergence on $\Gamma(t)$. The operator $\nabs$ is the surface
 gradient on $\Gamma(t)$ and it is the orthogonal projection of the usual
-gradient operator $\nabla$ on the surface $\Gamma(t)$. Therefore, given a
-smooth function $g$ defined on a neighbourhood of $\Gamma(t)$, it is defined as
+gradient operator $\nabla$ on the tangent space of the surface $\Gamma(t)$.
+Therefore, given a smooth function $g$ defined on a neighbourhood of
+$\Gamma(t)$, it is defined as
 \begin{equation}\label{eq:surface_gradient}
 \nabs\,g(\vec z)=\mat P\,\nabla\,g(\vec z)=\nabla\,g(\vec z)\,-
 \,\nabla\,g(\vec z)\,.\,\vec\nu(\vec z)\,\vec\nu(\vec z)\,,\quad \vec z
@@ -259,7 +260,7 @@ $\Gamma(t)$ as
 \end{equation}
 
 We restrict ourselves to the case that the only force acting on the interface
-is the surface tension contact force therefore the interface stress tensor
+is the surface tension contact force. Therefore the interface stress tensor
 $\mat\sigma_\Gamma$ has the following constitutive equation
 \begin{equation}\label{eq:interface_stress_tensor}
 \mat\sigma_{\Gamma}=\gamma\,\mat P\,,
@@ -268,13 +269,14 @@ where $\gamma$ is the surface tension coefficient. Substituting
 (\ref{eq:interface_stress_tensor}) in (\ref{eq:interface_jump_stress_div}) we
 obtain
 \begin{equation}\label{eq:interface_stress_tensor_divergence}
-\begin{split}
-& [\mat\sigma\,\vec \nu]_-^+ = -\nabs\,.(\gamma\,\mat P)=-\gamma\,\nabs\,.\,\mat
-P-\nabs\,\gamma = \gamma\nabs\,.\,(\vec\nu\,\vec\nu^T)-\nabs\,\gamma = \\
-& \gamma\nabs\,.\,\vec\nu\,\vec\nu +\gamma\nabs\,\vec\nu\,.\,\vec\nu -
-\nabs\,\gamma = \gamma\nabs\,.\,\vec\nu\,\vec\nu - \nabs\,\gamma = \\
-& -\gamma\,\varkappa\,\vec\nu - \nabs\,\gamma \quad \mbox{on } \Gamma(t)\,,
-\end{split}
+\begin{align*}
+[\mat\sigma\,\vec \nu]_-^+ &= -\nabs\,.(\gamma\,\mat P)
+= -\gamma\,\nabs\,.\,\mat P-\nabs\,\gamma
+= \gamma\nabs\,.\,(\vec\nu\,\vec\nu^T)-\nabs\,\gamma \\
+& = \gamma\nabs\,.\,\vec\nu\,\vec\nu + \gamma\nabs\,\vec\nu\,.\,\vec\nu
+- \nabs\,\gamma = \gamma\nabs\,.\,\vec\nu\,\vec\nu - \nabs\,\gamma \\
+& = -\gamma\,\varkappa\,\vec\nu - \nabs\,\gamma \quad \mbox{on } \Gamma(t)\,,
+\end{align*}
 \end{equation}
 where we have used the fact that the surface gradient $\nabs$ is, by definition,
 always orthogonal to the surface normal $\vec\nu$ and that $\varkappa =
@@ -289,18 +291,18 @@ so called clean interface model for the interfacial forces
 \end{equation}
 
 Finally, in order to have a well-posed problem, one needs suitable initial
-conditions for the interface therefore we set $\Gamma(0)=\Gamma_0$.
+conditions for the interface. Therefore we set $\Gamma(0)=\Gamma_0$.
 
 \section{Interface treatment}\label{sec:interface_treatment}
-The dynamics of the interface is determined by the condition
+The dynamics of the interface are determined by the condition
 (\ref{eq:interface_velocity}) which, however, describes the dynamics in a
 strongly implicit way since the velocity field $\vec u$ depends on the
-position of the interface itself. In numerical simulations there are
-several strategies to deal with this problem which can be divided in two
+position of the interface itself. In numerical simulations, there are
+several strategies to deal with this problem, which can be divided into two
 categories depending on the viewpoint: interface capturing and interface
 tracking.
 
-Interface capturing methods use an Eulerian description of the interface which
+Interface capturing methods use an Eulerian description of the interface, which
 is defined implicitly. A characteristic scalar field $\psi$ is used to identify
 the two phases as well as the interface along the boundaries of the individual
 fluid domains. Depending on the method, this scalar field may be, for example,
@@ -310,21 +312,21 @@ motion is taken into account using a standard advection equation
 \frac{\partial \psi}{\partial t}+\vec u\,.\nabla\,\psi=0 \quad \mbox{in }
 \Omega\,,
 \end{equation}
-which transport the scalar field with the fluid velocity $\vec u$. The most
-important methods which belong to this this category are the particle methods,
+which transports the scalar field with the fluid velocity $\vec u$. The most
+important methods, which belong to this this category, are the particle method,
 the volume-of-fluid method, the level-set method and the phase-field method.
 The particle method utilizes mass-less particles distributed in an Eulerian
 mesh to capture the fluid flow and in particular the interface position, see
-e.g \cite{Girault1976}. In the volume-of-fluid method the characteristic
+e.g \cite{Girault1976}. In the volume-of-fluid method, the characteristic
 function of one of the phases is approximated numerically, see e.g.
 \cite{HirtN81,RenardyR02,Popinet09}. In the level-set method, the interface is
 given as the level set of a function, which has to be determined, see e.g.
 \cite{SussmanSO94,Sethian99,OsherF03,GrossR07}. Instead, the phase-field method
-works with diffuse interfaces therefore the transition layer between the phases
-has a finite size. There is no tracking mechanism for the interface, but the
-phase state is included implicitly in the governing equations. The interface is
-associated with a smooth, but highly localized variation of the so-called
-phase-field variable. We refer to
+works with diffuse interfaces, and therefore the transition layer between the
+phases has a finite size. There is no tracking mechanism for the interface, but
+the phase state is included implicitly in the governing equations. The
+interface is associated with a smooth, but highly localized variation of the
+so-called phase-field variable. We refer to
 \cite{HohenbergH77,AndersonMW98,LowengrubT98,Feng06,KaySW08,AbelsGG12,GrunK14}
 for details. In general, the great advantage of the interface capturing
 approaches is that they are inherently able to deal with topological changes of
@@ -336,9 +338,9 @@ interface.
 
 Interface tracking approaches, instead, use a Lagrangian description of the
 interface which is described explicitly. The idea is to take a (virtual)
-particle on the interface at $t=t_0$ with Eulerian coordinates $\vec z(0) \in
-\Gamma_0$. Let $\vec z(t)$ be the Eulerian coordinates of this particle, with
-$t\geq t_0$. The particles on the interface are transported by the flow
+particle on the interface at time $t=t_0$ with Eulerian coordinates $\vec z(0)
+\in \Gamma_0$. Let $\vec z(t)$ be the Eulerian coordinates of this particle,
+with $t\geq t_0$. The particles on the interface are transported by the flow
 velocity $\vec u$, therefore it holds the equation
 \begin{equation}
 \frac{\partial \vec z(t)}{\partial t}=\vec u(\vec z(t),t)\,,
@@ -353,21 +355,21 @@ are the set of vertices of the triangulation of $\Gamma_0$. The great
 advantage of interface tracking approaches is that they offer an accurate and
 computationally efficient approximation of the evolving interface. Moreover,
 the imposition of boundary conditions at the interface is simple since the mesh
-nodes lyes on the interface itself. However, firstly the mesh quality will
+nodes lies on the interface itself. However, firstly the mesh quality will
 usually degrade quickly in the case of large deformations and secondly
 topological changes require a special treatment. In order to keep an
 acceptable mesh quality throughout the simulation, mesh smoothing techniques
-are applied and, when they are not enough,  a full remeshing is used. If
+are applied and, when they are not enough, a full remeshing is used. If
 topological changes occur, the only way to tackle the issue is to
-perform a remesh with respect to the new interface. The main consequence of
+perform a remeshing with respect to the new interface. The main consequence of
 remeshing is the need to project the field values from the old to the new
 mesh, a ceaseless source for errors, and at the same time computationally
 costly especially in dimension 3. Therefore, it is desirable to keep the
 frequency of remeshing as low as possible. We refer e.g. to
 \cite{UnverdiT92,Bansch01,Tryggvason_etal01,GanesanMT07,GanesanT08,spurious}
 for further details, and to \cite{LevequeL97,Peskin02} for the related immersed
-boundary method which is used to simulate fluid-structure interactions using
-Eulerian coordinate for the fluid and Lagrangian coordinate for the structure.
+boundary method, which is used to simulate fluid-structure interactions using
+Eulerian coordinates for the fluid and Lagrangian coordinates for the structure.
 
 In the following chapters, we always use an interface tracking approach to
 describe the interface evolution. In particular, we adopt a fitted mesh approach
@@ -377,26 +379,26 @@ mesh.
 
 \section{Numerical challenges}\label{sec:numerical_challenges}
 Two-phase flows pose enormous challenges to numerical simulation tools and
-they can not be solved reliably and accurately by the commercial softwares that
+they can not be solved reliably and accurately by the commercial software that
 are available nowadays. Therefore, compared to one-phase flow solvers, special
-tailor-made numerical scheme have to be developed. Below we address some causes
+tailor-made numerical schemes have to be developed. Below we address some causes
 of the very high numerical complexity of this problem class.
 
 The evolution of the unknown interface is determined by the simple dynamic
 condition (\ref{eq:interface_velocity}). Unfortunately, it turns out that an
 accurate numerical approximation of the geometric object representing the
 interface and its evolution is a very difficult task. This task become even
-more complicated in case of geometric singularities such as droplet break up or
+more complicated in cases of geometric singularities such as droplet break up or
 collision. Although several techniques have been developed, an accurate
 interface approximation remains a challenging task.
 
-For high Reynolds number, the flow model is strongly nonlinear therefore the
+For high Reynolds number, the flow model is strongly nonlinear. Therefore the
 coupling between fluid dynamics and interface evolution turns out to be strongly
 nonlinear. This nonlinearity cause difficulties for the construction of
 accurate numerical schemes for time discretization.
 
 Usually several quantities are discontinuous across the interface. Indeed, for
-example, the value of density and viscosity have jumps across the interface
+example, the value of density and viscosity have jumps across the interface,
 since the interface separates two different fluids. Moreover, due to surface
 tension forces, also the pressure is discontinuous across the interface. In
 most applications the stress balance (\ref{eq:interface_jump_stress_div}) and a
@@ -405,14 +407,14 @@ across the interface of the normal derivative of the velocity. Of particular
 importance is the precise inclusion of surface tension terms, and the correct
 handling of discontinuity jumps in the material properties and in the pressure
 at the interface, in order to suppress spurious velocities, which are also
-called parasitic currents. A part from stationary problems, the unknown
-interface is changing as a function of time therefore these discontinuities are
-moving. The numerical treatment of moving discontinuities often causes severe
-difficulties.
+called parasitic currents. Apart from stationary problems, the unknown
+interface is changing as a function of time and therefore these discontinuities
+are moving. The numerical treatment of moving discontinuities often causes
+severe difficulties.
 
 The full discretization in space and in time results in a very large nonlinear
 system of equations at each time step. Most of the total computing time is
-spent solving these large nonlinear systems therefore it is crucial to use
+spent solving these large nonlinear systems and therefore it is crucial to use
 efficient iterative solvers. The efficiency can be largely improved by using
 special techniques that are adapted to the problem class, in the sense that the
 solver makes use of certain structural properties of the problem.
@@ -453,7 +455,7 @@ generated with either \verb|ParaView|, available here
 \myurl{http://www.paraview.org/}, or \verb|Gnuplot|, available here
 \myurl{http://www.gnuplot.info/}.
 
-All the simulations we report are performed on a Linux cluster equipped with
+All the simulations we report on are performed on a Linux cluster equipped with
 \verb|Ubuntu 14.04.1 LTS| and compiled with \verb|g++ 5.3.0|. The cluster is
 heterogeneous and consist of 32 computing nodes. Each node is equipped
 with dual Xeon CPUs containing either 4 or 6 processor cores with frequency
