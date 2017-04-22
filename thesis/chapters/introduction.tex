@@ -91,7 +91,7 @@ $\mat\id \in \R^{d \times d}$ is the identity matrix and
 $\mat D(\vec u):=\frac{1}{2}\, (\nabla\vec u+(\nabla\vec u)^T)$
 is the rate-of-deformation tensor. Given a vector valued function $\vec
 h:\R^d\to\R^d$, we define its gradient as
-$\nabla\vec h = [\nabla h_1;\ldots;\nabla h_d]$. Moreover, let
+$\nabla\vec h = ((\nabla h_1)^T;\ldots;(\nabla h_d)^T)$. Moreover, let
 $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)} + \rho_-\,\charfcn{\Omega_-(t)}$,
 with $\rho_\pm \in \R_{>0}$, be the fluid density.
 
@@ -199,12 +199,19 @@ The initial condition is not need in the Stokes case (\ref{eq:momentum_bis}-b)
 since it is a stationary problem.
 
 In order to obtain a well-posed system, boundary conditions have to be imposed
-on the bulk domain boundary $\partial\Omega$. Usually, we use the homogeneous
-Dirichlet condition
-\begin{equation}\label{eq:ns_bc}
-\vec u = \vec 0 \quad \mbox{on } \partial \Omega\,,
+on the bulk domain boundary $\partial\Omega$. Let $\partial\Omega$ be
+partitioned as $\partial\Omega=\partial_1\Omega \cup \partial_2\Omega$ with
+$\partial_1\Omega \cap \partial_2\Omega = \emptyset$. We use the Dirichlet
+condition on $\partial_1 \Omega$
+\begin{equation}\label{eq:ns_bc_dirichlet}
+\vec u = \vec g \quad \mbox{on } \partial_1 \Omega\,,
 \end{equation}
-and/or a free-slip condition.
+and the free-slip condition on $\partial_2 \Omega$
+\begin{equation}\label{eq:ns_bc_freeslip}
+\vec u \,.\,\unitn = 0  \quad \mbox{on } \partial_2 \Omega\,,
+\end{equation}
+with $\unitn$ denoting the outer unit normal of $\partial \Omega$. We notice
+that the case $\vec g = \vec 0$ corresponds to the so called no-slip condition.
 
 Since we are dealing with a two-phase flow, some interface conditions are also
 needed on the unknown interface $\Gamma(t)$, which couple the velocity and
@@ -215,8 +222,8 @@ condition
 \end{equation}
 where $[\vec u]_-^+ := \vec u_+ - \vec u_-$ denote the jump in velocity across
 the interface $\Gamma(t)$. Here and throughout, we employ the shorthand notation
-$\vec g_\pm := \vec g\!\mid_{\Omega_\pm(t)}$ for a function
-$\vec g : \Omega \times [0,T] \to \R^d$; and similarly for scalar and
+$\vec h_\pm := \vec h\!\mid_{\Omega_\pm(t)}$ for a function
+$\vec h : \Omega \times [0,T] \to \R^d$; and similarly for scalar and
 matrix-valued functions.
 
 The assumption that there is no change of phase leads to the dynamic interface
@@ -240,11 +247,11 @@ where $\mat\sigma_{\Gamma}$ is the interface stress tensor and $\nabs\,.$ is
 the surface divergence on $\Gamma(t)$. The operator $\nabs$ is the surface
 gradient on $\Gamma(t)$ and it is the orthogonal projection of the usual
 gradient operator $\nabla$ on the tangent space of the surface $\Gamma(t)$.
-Therefore, given a smooth function $g$ defined on a neighbourhood of
+Therefore, given a smooth function $h$ defined on a neighbourhood of
 $\Gamma(t)$, it is defined as
 \begin{equation}\label{eq:surface_gradient}
-\nabs\,g(\vec z)=\mat P\,\nabla\,g(\vec z)=\nabla\,g(\vec z)\,-
-\,\nabla\,g(\vec z)\,.\,\vec\nu(\vec z)\,\vec\nu(\vec z)\,,\quad \vec z
+\nabs\,h(\vec z)=\mat P\,\nabla\,h(\vec z)=\nabla\,h(\vec z)\,-
+\,\nabla\,h(\vec z)\,.\,\vec\nu(\vec z)\,\vec\nu(\vec z)\,,\quad \vec z
 \in\Gamma(t)\,,
 \end{equation}
 with the usual projection operator $\mat P$ defined as
@@ -252,9 +259,10 @@ with the usual projection operator $\mat P$ defined as
 \mat P(\vec z)=\mat\id\,-\,\vec\nu(\vec z)\,\vec\nu(\vec z)^T\,,\quad \vec
 z\in \Gamma(t)\,.
 \end{equation}
-For later use, we also define the surface Laplacian, also
-known as Laplace--Beltrami operator, $\Delta_s$ on
-$\Gamma(t)$ as
+It can be shown that the definition of $\nabs\,h$ does not depend on the chosen
+extension of $h$, but only on the value of $h$ on $\Gamma(t)$. See
+\cite{DeckelnickDE05}. For later use, we also define the surface Laplacian, also
+known as Laplace--Beltrami operator, $\Delta_s$ on $\Gamma(t)$ as
 \begin{equation}\label{eq:surface_laplacian}
 \Delta_s = \nabs\,.\,\nabs\,.
 \end{equation}

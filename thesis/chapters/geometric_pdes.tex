@@ -37,21 +37,21 @@ evaluated on the analysed hypersurface. A detailed description and analysis can
 be found in the review article \cite{DeckelnickDE05}.
 
 Interface evolution problems are everywhere in modern physics and engineering.
-Several typical applications can be found in materials science such as the
+Several typical applications can be found in materials science, such as the
 mathematical modelling of the morphology of microstructure in order to
-correctly evaluate the mechanical properties of the material or in void
-electro-stress migration where small voids or cracks contained in metallic
+correctly evaluate the mechanical properties of the material, or in void
+electro-stress migration, where small voids or cracks contained in metallic
 materials can change their location and shape according to the presence of
-surface diffusion and electro-stress loading. Other typical applications which
-can be modelled as time-dependent interface evolution problems are the motion of
-grain boundaries which separate differing orientations of the same crystalline
-phase, or solid-liquid interfaces exhibiting dendritic structures in
-under-cooled solidification. Another research fields where these models can be
+surface diffusion and electro-stress loading. Other typical applications, which
+can be modelled as time-dependent interface evolution problems, are the motion
+of grain boundaries which separate differing orientations of the same
+crystalline phase, or solid-liquid interfaces exhibiting dendritic structures in
+under-cooled solidification. Another research field where these models can be
 applied is image processing to detect the separation of dark regions from a
 brighter background and to identify separating contours in order to correctly
 cluster the objects in the image. Instead, as explained in Chapter
 \ref{ch:introduction}, we apply these techniques to incompressible two-phase
-flows problem.
+flow problems.
 
 A general geometric evolution equation has the following formulation
 \begin{equation}\label{eq:geometric_pde}
@@ -89,7 +89,7 @@ have a well posed problem.
 
 \section{Geometric analysis}\label{sec:geometric_analysis}
 The aim of this section is to collect some useful definitions and results from
-differential geometry. Again we refer to \cite{DeckelnickDE05} which cover the
+differential geometry. Again we refer to \cite{DeckelnickDE05} which covers the
 subject in depth.
 
 A subset $\Gamma \subset \R^d$ is called a $C^2$-hypersurface if for each point
@@ -123,18 +123,18 @@ it depends only on the values of $g$ on $\Gamma$. Moreover, from
 \begin{equation}\label{eq:surface_gradient_comp}
 \nabla_s \, g(\vec z) \,.\, \vec{\nu}(\vec z)=0\,, \quad \vec z \in \Gamma\,.
 \end{equation}
-Similarly, if $g$ is twice differentiable in an open neighbourhood of
+Similarly, if $\vec g$ is a differentiable vector field, the surface divergence
+can be rewritten as
+\begin{equation}
+\nabla_s \,.\, \vec g(\vec z) = \sum_{j = 1}^{d} \underline{D}_j g_j (\vec z)\,,
+\quad \vec z \in \Gamma\,,
+\end{equation}
+while, if $g$ is twice differentiable in an open neighbourhood of
 $\Gamma$, the surface Laplacian (\ref{eq:surface_laplacian}) can be written as
 \begin{equation}\label{eq:surface_laplacian_comp}
 \Delta_s g(\vec z) = \nabla_s\, . \,\nabla_s \, g(\vec z) =
 \sum_{i = 1}^d \underline{D}_i \underline{D}_i g(\vec z) \, ,
-\quad \vec z \in \Gamma \, ,
-\end{equation}
-while, if $\vec g$ is a differentiable vector field, the surface divergence
-can be rewritten as
-\begin{equation}
-\nabla_s \,.\, \vec g(\vec z) = \sum_{j = 1}^{d} \underline{D}_j \vec g_j
-(\vec z)\,, \quad \vec z \in \Gamma\,.
+\quad \vec z \in \Gamma \,.
 \end{equation}
 
 We assume $\vec{\nu} \in C^1$ in a neighbourhood of $\Gamma$ so that we
@@ -161,14 +161,13 @@ can then be defined as the trace of the matrix $\mat H(\vec z)$, that is
 1} \varkappa_j (\vec z) \,.
 \end{equation}
 Note that (\ref{eq:definition_mean_curvature}) differs from the more common
-definition of mean curvature,
-$\varkappa = \frac{1}{d - 1} \sum_{j = 1}^{d - 1} \varkappa_j$.
+definition of mean curvature $\frac{1}{d - 1} \sum_{j = 1}^{d - 1} \varkappa_j$.
 From (\ref{eq:matrixHjk}) we derive the following expression for mean
 curvature:
 \begin{equation}
 \varkappa (\vec z)=-\nabla_s \,.\, \vec{\nu}(\vec z) \quad \vec z \in \Gamma\,.
 \end{equation}
-In particular, if $\Gamma$ is the unite sphere,
+In particular, if $\Gamma$ is the unit sphere,
 $\Gamma = \{ \vec z \in \R^d : |\vec z| = 1 \}$,
 and the unit normal field is chosen to point away from $\Gamma$,
 i.e.~$\vec\nu(\vec z) = \vec z$, we obtain that $\varkappa = -
@@ -227,11 +226,11 @@ Suppose in addition that each surface $\Gamma(t)$ is the boundary of an open
 bounded subset $\Omega(t) \subset \R^{d}$. Then
 
 \begin{align}
-\ddt \int_{\Omega(t)} g \, \dL{d} & =
+\ddt \int_{\Omega(t)} g \, \dL{d}  = &
 \int_{\Omega(t)} \frac{\partial g}{\partial t} \, \dL{d}
 + \int_{\Gamma(t)} g \,\V\,.\,\vec\nu \, \dH{d-1} \, ,
 \label{eq:volume_variation} \\
-\ddt \int_{\Gamma(t)} g \, \dH{d-1} & =
+\ddt \int_{\Gamma(t)} g \, \dH{d-1}  = &
 \int_{\Gamma(t)} \frac{\partial g}{\partial t} \, \dH{d-1} -
 \int_{\Gamma(t)} g \, \V\,.\,\vec\nu \varkappa \, \dH{d-1}
 \nonumber \\
@@ -285,15 +284,14 @@ compact and closed. Then
 \begin{proof}
 For (\ref{eq:volume_conservation}), choosing $g \equiv 1$ in
 (\ref{eq:volume_variation}) and the evolution law (\ref{eq:surface_diff}) yields
-to
+that
 \begin{align*}
-\ddt \vol(\Omega(t)) &= - \int_{\Gamma(t)} \V\,.\,\vec\nu \,
-\dH{d-1} = \nonumber \\
-\int_{\Gamma(t)} \Delta_s \, \varkappa \, \dH{d-1} &= - \int_{\Gamma(t)}
-\nabla_s \, \varkappa \,.\, \nabla_s \, 1 \, \dH{d-1}= 0 \,.
+\ddt \vol(\Omega(t)) & = - \int_{\Gamma(t)} \V\,.\,\vec\nu \,
+\dH{d-1} = \int_{\Gamma(t)} \Delta_s \, \varkappa \, \dH{d-1} \nonumber \\
+& = -\int_{\Gamma(t)} \nabla_s \, \varkappa \,.\, \nabla_s \, 1 \, \dH{d-1}=0\,.
 \end{align*}
 
-Similarly For (\ref{eq:area_decrease}), choosing $g \equiv 1$ in
+Similarly for (\ref{eq:area_decrease}), choosing $g \equiv 1$ in
 (\ref{eq:length_variation}) and the evolution law (\ref{eq:surface_diff}) yields
 to
 \begin{equation*}
@@ -309,9 +307,12 @@ energy with constant energy density 1 which is defined as
 \begin{equation}\label{eq:surface_energy}
 E(\Gamma(t)) = \int_{\Gamma(t)} 1 \, \dH{d-1} \, .
 \end{equation}
+We will see that surface diffusion is not dissimilar to two-phase Stokes flow
+in the case of absence of external forces, where, the surface energy
+(\ref{eq:surface_energy}) is decreased and the enclosed volume is conserved.
 
 \section{Front tracking approach}\label{sec:front_tracking_approach}
-We always treat the interface using a front tracking approach which involves
+We always treat the interface using a front tracking approach, which involves
 seeking a parametrization of the unknown interface over a reference manifold.
 More formally, we assume that $(\Gamma(t))_{t\in [0,T]}$ is a sufficiently
 smooth evolving hypersurface without boundary which is parametrized by
@@ -335,7 +336,7 @@ computed, the evolution of $\Gamma(t)$ is fully determined. Moreover, all the
 geometrical quantities of the hypersurface, e.g. curvature, can be expressed as
 derivatives of the parametrization.
 
-It is worth to notice that, at discrete level, the reference manifold
+It is worth to notice that, at the discrete level, the reference manifold
 $\Upsilon$ is never used. Indeed, instead of computing the position vector
 $\vec x(\cdot,t)$, the unknown variable is the displacement that the previous
 discrete interface is subject to. This can be viewed as setting, at every time
@@ -351,21 +352,21 @@ consistent with \cite{spurious} and \cite{stokesfitted}.
 Putting together the mean curvature flow (\ref{eq:mean_curvature}) with the
 identity (\ref{eq:LBop}) we obtain the following system of PDEs
 \begin{subequations}
-\begin{align}
-&\vec{x}_t\,.\,\vec{\nu}=\varkappa\,,\label{eq:mean_curvature_a}\\
-&\varkappa\,\vec{\nu}=\Delta_s\,\vec{x}\,,\label{eq:mean_curvature_b}
-\end{align}
+\begin{alignat}{2}
+\V &=\varkappa \quad &&\mbox{on } \Gamma(t)\,,\label{eq:mean_curvature_a}\\
+\varkappa\,\vec{\nu} &=\Delta_s\,\vec\id \quad &&\mbox{on } \Gamma(t)\,.
+\label{eq:mean_curvature_b}
+\end{alignat}
 \end{subequations}
-where we have used (\ref{eq:V}) from the front tracking approach in order to
-describe the hypersurface velocity $\V$.
 
 Analogously, the surface diffusion problem (\ref{eq:surface_diff}) can be
 rewritten as a system of second order equations
 \begin{subequations}
-\begin{align}
-&\vec{x}_t\,.\,\vec{\nu}=-\Delta_s\,\varkappa\,,\label{eq:surf_diff_a}\\
-&\varkappa\,\vec{\nu}=\Delta_s\,\vec{x}\,.\label{eq:surf_diff_b}
-\end{align}
+\begin{alignat}{2}
+\V &=-\Delta_s\,\varkappa \quad &&\mbox{on }\Gamma(t)\,,\label{eq:surf_diff_a}\\
+\varkappa\,\vec{\nu}&=\Delta_s\,\vec\id \quad &&\mbox{on }\Gamma(t)\,.
+\label{eq:surf_diff_b}
+\end{alignat}
 \end{subequations}
 In both problems (\ref{eq:mean_curvature_a}--b) and (\ref{eq:surf_diff_a}--b)
 we impose the initial condition $\Gamma(0)=\Gamma_0$.
