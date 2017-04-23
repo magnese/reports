@@ -346,7 +346,7 @@ configuration.
 \section{Finite element discretization}\label{sec:geometric_pdes_fem}
 The finite element discretization which we use is based on the seminal paper
 \cite{Dziuk91} and we refer to the ones described in
-\cite{triplej,triplejMC,gflows3d}. We use a different notation in order to be
+\cite{triplejMC,triplej,gflows3d}. We use a different notation in order to be
 consistent with \cite{spurious} and \cite{stokesfitted}.
 
 Putting together the mean curvature flow (\ref{eq:mean_curvature}) with the
@@ -389,15 +389,15 @@ piecewise linear functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K_\Gamma}$
 denoting the standard basis of $\Wh$ and with $\mathcal{P}_k(\sigma^m)$
 denoting the space of polynomials of degree $k$ on $\sigma^m$.
 
-The new surface $\Gamma^{m+1}$ is parametrized respect $\Gamma^m$ using a
-parametrization $\vec{X}^{m+1} \in \Vh$, so that $\Gamma^{m+1} =
+The new surface $\Gamma^{m+1}$ is parametrized with respect to $\Gamma^m$ using
+a parametrization $\vec{X}^{m+1} \in \Vh$, so that $\Gamma^{m+1} =
 \vec{X}^{m+1}(\Gamma^m)$.
 
-Then the finite element approximation of the mean curvature flow, which is
-based on the variational formulation (\ref{eq:mean_curvature_a}--b), is given
-as follows. Let $\Gamma^0$ be an approximation to $\Gamma(0)$. For $m=0,\ldots,
-M-1$, find $(\vec{X}^{m+1}, \kappa^{m+1}) \in \Vh \times \Wh$
-such that
+Then the finite element approximation from \cite{triplejMC,gflows3d} of the
+mean curvature flow, which is based on the variational formulation
+(\ref{eq:mean_curvature_a}--b), is given as follows. Let $\Gamma^0$ be an
+approximation to $\Gamma(0)$. For $m=0,\ldots,M-1$, find $(\vec{X}^{m+1},
+\kappa^{m+1}) \in \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
 &\left\langle \frac{\vec{X}^{m + 1} - \vec{X}^{m}}{\tau_m},
@@ -420,8 +420,7 @@ product over the current polyhedral surface
 \int_{\Gamma^m}uv\,\dH{d-1}\,, \quad\forall u,v \in
 L^2(\Gamma^m),
 \end{equation}
-where $\surfvol$ is the $(d-1)$-dimensional Hausdorff measure, and
-similarly for $\vec{u},\vec{v}\in L^2(\Gamma^m,\R^d)$. In addition,
+and similarly for $\vec{u},\vec{v}\in [L^2(\Gamma^m)]^d$. In addition,
 $\langle \cdot,\cdot\rangle_{\Gamma^m}^h$ is a mass lumped inner product with
 the vertices of each triangle of the mesh as quadrature points. If $v,w \in
 L^\infty(\Gamma^m)$ are piecewise continuous, with possible jumps
@@ -435,17 +434,17 @@ lumped inner product $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ as
 where $\{\vec{q}^m_{j_k}\}_{k=1}^{d}$ are the vertices of $\sigma^m_j$, and
 where we define the limit $v((\vec{q}^m_{j_k})^-)
 := \underset{\sigma^m_j\ni \vec{p}\to \vec{q}^m_{j_k}}{\lim}\, v(\vec{p})$. We
-naturally extend (\ref{eq:masslump}) to vector valued functions. We notice that
-the second term of (\ref{eq:fem_mean_curvature_b}) is indicated as an exact
-integration. This is indeed the case because it is the product of two
-piecewise constant functions, since they are the gradient of piecewise linear
-functions, therefore the mass lumped inner product (\ref{eq:masslump}) is
-exact.
+naturally extend (\ref{eq:masslump}) to vector valued functions. The mass
+lumped inner product is used in (\ref{eq:fem_mean_curvature_b}) to obtain good
+mesh properties. Therefore it is natural to use it also in
+(\ref{eq:fem_mean_curvature_a}). We notice that the second term of
+(\ref{eq:fem_mean_curvature_b}) is written as an exact integration which is
+indeed the case since it is the product of two piecewise constant functions.
 
-Analogously, the finite element approximation for the surface diffusion problem
-(\ref{eq:surface_diff}--b) is analogue to the one obtained for the mean
+Similarly, the finite element approximation for the surface diffusion problem
+(\ref{eq:surf_diff_a}--b) is analogue to the one obtained for the mean
 curvature flow with the linear system (\ref{eq:fem_mean_curvature_a}--b)
-changed as
+changed to
 \begin{subequations}
 \begin{align}
 &\left\langle \frac{\vec{X}^{m + 1} - \vec{X}^{m}}{\tau_m},
@@ -469,23 +468,27 @@ the schemes (\ref{eq:fem_mean_curvature_a}--b) and
 \cite[Theorem~2.2]{gflows3d} for $d = 3$ for the complete proofs.
 
 As shown in \cite[Remark~2.3]{triplej} and \cite[\S~4]{gflows3d}, the
-continuous-in-time semidiscrete versions of the aforementioned finite element
-schemes conserve the enclosed volume exactly. It does not appear possible to
-prove the conservation of the enclosed volume for the fully discrete scheme
-but, from all the numerical simulations performed in this thesis, we
-experimentally observe that the enclosed volume is approximately preserved, and
-that the volume loss tends to zero as $\tau \rightarrow 0$.
+continuous-in-time semidiscrete version of the aforementioned surface
+diffusion finite element scheme conserves the enclosed volume exactly. It does
+not appear possible to prove the conservation of the enclosed volume for the
+fully discrete scheme but, from all the numerical simulations performed in this
+thesis, we experimentally observe that the enclosed volume is approximately
+preserved, and that the volume loss tends to zero as $\tau \rightarrow 0$.
 
 Finally, in \cite[Remark~2.4]{triplej} the authors proved that for $d=2$ the
 continuous-in-time semidiscrete version of (\ref{eq:fem_surf_diff_a}--b)
 will always equidistribute the vertices provided that they are not locally
-parallel. Unfortunately, it does not appear possible to prove it for fully
-discrete scheme. Nevertheless, in practice we see that over a number of time
-steps, the vertices are moved tangentially so that they will eventually be
+parallel. Only a fully implicit scheme can achieve that also on the fully
+discrete level, see \cite{fdfi}, but a fully implicit scheme is very
+expensive without providing better accuracy for the solution. Nevertheless, in
+practice we see that for the semi-implicit schemes
+(\ref{eq:mean_curvature_a}--b) and (\ref{eq:surf_diff_a}--b )over a number of
+time steps, the vertices are moved tangentially so that they will eventually be
 equidistributed. Instead in \cite[\S~4]{gflows3d} the case $d=3$ has been
-thoroughly investigated showing that the continuous-in-time semidiscrete version
-of (\ref{eq:fem_surf_diff_a}--b) guarantees good mesh properties. Again, in
-practice, we notice that it is true for the fully discrete scheme.
+thoroughly investigated showing that the continuous-in-time semidiscrete
+versions of (\ref{eq:fem_mean_curvature_a}--b) and
+(\ref{eq:fem_surf_diff_a}--b) guarantee good mesh properties. Again, in
+practice, we notice that it is true for the fully discrete schemes.
 
 We want to stress the fact that this equidistribution property is only
 achievable because (\ref{eq:mean_curvature}) and (\ref{eq:surface_diff})
@@ -500,55 +503,55 @@ corresponding algebraic system of equations can be written as
 
 \begin{equation}\label{eq:algebraic_mean_curvature}
 \begin{pmatrix}
-M_m & -\,\frac{1}{\tau_m} \, \vec{N}_{m}^{T} \\
-\vec{N}_m & \vec{A}_m
+M_\Gamma & -\,\frac{1}{\tau_m} \, \vec N_\Gamma^T \\
+\vec N_\Gamma & \vec A_\Gamma
 \end{pmatrix}
 \begin{pmatrix}
 \kappa^{m + 1} \\
-\delta \vec{X}^{m + 1}
+\delta \vec X^{m + 1}
 \end{pmatrix}
 =
 \begin{pmatrix}
 0 \\
-- \vec{A}_m \, \vec{X}^{m}
+- \vec A_\Gamma \, \vec X^{m}
 \end{pmatrix} ,
 \end{equation}
 while, for the system of equations describing the surface diffusion,
 (\ref{eq:fem_surf_diff_a}--b), the algebraic system is
 \begin{equation}\label{eq:algebraic_surf_diff}
 \begin{pmatrix}
-A_m & - \,\frac{1}{\tau_m}\, \vec{N}_{m}^{T} \\
-\vec{N}_m & \vec{A}_m
+A_\Gamma & - \,\frac{1}{\tau_m}\, \vec N_\Gamma^T \\
+\vec N_\Gamma & \vec A_\Gamma
 \end{pmatrix}
 \begin{pmatrix}
 \kappa^{m + 1} \\
-\delta \vec{X}^{m + 1}
+\delta \vec X^{m + 1}
 \end{pmatrix}
 =
 \begin{pmatrix}
 0 \\
-- \vec{A}_m \, \vec{X}^{m}
+- \vec A_\Gamma \, \vec X^m
 \end{pmatrix},
 \end{equation}
 where we define the interface displacement $\delta \vec{X}^{m + 1}=\vec{X}^{m +
-1} - \vec{X}^{m}$ and we have used the trivial identity $\vec{A}_m\,\vec{X}^{m
-+ 1} = \vec{A}_m\,\vec{X}^{m}+\vec{A}_m\,\delta \vec{X}^{m + 1} $. We can
+1} - \vec{X}^{m}$ and we have used the trivial identity $\vec A_\Gamma\,\vec
+X^{m+1} = \vec A_\Gamma\,\vec X^m + \vec A_\Gamma\,\delta \vec X^{m+1}$. We can
 notice that the only difference between the above systems occurs in the
 upper-left entry of the matrix.
 
 The entries of the matrix are defined as
 \begin{eqnarray}
-\left[ M_m \right]_{kl} & := & \langle \chi_k^m \, , \chi_l^m
+\left[ M_\Gamma \right]_{kl} & := & \langle \chi_k^m \, , \chi_l^m
 \rangle_{\Gamma^m}^h\,,\label{eq:algebraic_entries_a} \\
-\left[ \vec{N}_m \right]_{kl} & := & \langle \chi_k^m \, \vec{\nu}^m\,,
+\left[ \vec N_\Gamma \right]_{kl} & := & \langle \chi_k^m \, \vec{\nu}^m\,,
 \chi_l^m \rangle_{\Gamma^m}^h\,,\label{eq:algebraic_entries_b} \\
-\left[ A_m \right]_{kl} & := & \langle \nabla_s \chi_k^m \, , \nabla_s
+\left[ A_\Gamma \right]_{kl} & := & \langle \nabla_s \chi_k^m \, , \nabla_s
 \chi_l^m \rangle_{\Gamma^m}\,,\label{eq:algebraic_entries_c}
 \end{eqnarray}
 where $\{\chi_k^m\}$ are the basis functions of the finite element space of
 piecewise linear continuous functions $W(\Gamma^m)$ and
 \begin{equation}\label{eq:algebraic_entries_d}
-[\vec{A}_m]_{kl} := [A_m]_{kl} \mat \id\,.
+[\vec A_\Gamma]_{kl} := [A_\Gamma]_{kl} \mat \id\,.
 \end{equation}
 We notice that for entries (\ref{eq:algebraic_entries_c}) holds
 \begin{equation}
@@ -576,12 +579,12 @@ The linear systems (\ref{eq:algebraic_mean_curvature}) and
 (\ref{eq:algebraic_surf_diff}) are invertible under a suitable assumption on the
 triangulation at each time step, see \cite{gflows3d}. The algebraic system
 (\ref{eq:algebraic_mean_curvature}) and (\ref{eq:algebraic_surf_diff}) are
-very small also for fine meshes therefore they can be solved very efficiently
+very small also for fine meshes. Therefore they can be solved very efficiently
 with a sparse factorization package such as \verb|UMFPACK|, see \cite{Davis04}.
 
 \section{Numerical results}\label{sec:geometric_pdes_results}
-Here we report several numerical examples to benchmark the schemes
-(\ref{eq:fem_mean_curvature_a}--b) and (\ref{eq:fem_surf_diff_a}--a).
+Here we report on several numerical examples to benchmark the schemes
+(\ref{eq:fem_mean_curvature_a}--b) and (\ref{eq:fem_surf_diff_a}--b).
 
 We remark that the initial mean curvature of an hypersurface can be obtained
 directly from the identity (\ref{eq:LBop}). Equivalently, the unknown
@@ -619,16 +622,22 @@ which is the discrete version of (\ref{eq:LBop}).
 As regards the mean curvature flow, the simplest case is to use a sphere as the
 initial condition, see \cite{Ilmanen98}. In this case, the solution to the
 geometric evolution equation is known in closed form and it is a shrinking
-sphere. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z -\vec z_0| = r(t) \}$,
-oriented by the outer normal $\vec \nu(\vec{z}) = \frac{\vec z - \vec
-z_0}{r(t)}$. It is straightforward to derive that
-$\V\,.\,\vec\nu = r^{\prime}(t), \varkappa = - \frac{d -
-1}{r(t)}$ on $\Gamma(t)$, so that $\Gamma(t)$ moves by mean curvature provided
-that $r^{\prime}(t) = - \frac{d - 1}{r(t)}$. The solution of this separable
-variable ODE is easily given by $r(t) = \sqrt{r_0^2 - 2(d - 1)t}, \, 0 \leq t <
-t_e$, where $\Gamma(0) = \{ \vec z \in \R^d : |\vec z -\vec z_0| = r_0 \}$ and
-$t_e=\frac{r_0^2}{2(d - 1)}$ is the so called extinction time. It is worth
-noting that the surface $\Gamma(t)$ shrinks to a point as $t \rightarrow t_e$.
+sphere. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z -\vec z_0| = r(t) \}$ be
+a sphere centered in $\vec z_0$ with radius $r(t)$ and mean curvature
+$\varkappa(t) = -\frac{d-1}{r(t)}$. Its unit outer normal is given by
+$\vec \nu(\vec{z}) = \frac{\vec z - \vec z_0}{r(t)}$. It is straightforward to
+derive that $\V\,.\,\vec\nu = r^{\prime}(t)$ on $\Gamma(t)$, so that
+$\Gamma(t)$ moves by mean curvature provided that $r^{\prime}(t) = - \frac{d -
+1}{r(t)}$. The solution of this separable variable ODE is easily given by
+\begin{equation}
+r(t) = \sqrt{r_0^2 - 2(d - 1)t}\,, \quad t\in \big[0,t_e\big)\,,
+\end{equation}
+where $\Gamma(0) = \{ \vec z \in \R^d : |\vec z -\vec z_0| = r_0 \}$ and
+\begin{equation}
+t_e=\frac{r_0^2}{2(d - 1)}
+\end{equation}
+is the so called extinction time. It is worth noting that the surface
+$\Gamma(t)$ shrinks to a point as $t \rightarrow t_e$.
 
 Figure~\ref{fig:mcf_sphere} shows the evolution of a sphere with initial radius
 $r_0=5$ at time $t=0$, $t=2$, $t=4$ and $t=6$ respectively. In this case, the
@@ -651,8 +660,8 @@ initial radius $r_0=5$ subject to mean curvature flow.}
 \end{figure}
 
 Figure~\ref{fig:mcf_sphere_radius} shows in red the average radius length
-over time of the sphere while the blue plot is the the exact length computed
-from the analytical solution.
+over time of the discrete spheres $\Gamma^m$, while the blue plot is the the
+exact radius computed from the analytical solution.
 
 \begin{figure}[htbp]
 \centering
@@ -676,10 +685,12 @@ $t=0.25$ and $t=10$ respectively with a constant time step equal to
 $\tau=10^{-2}$. One can clearly see that although the true solution, which is a
 circle, is reached very quickly, in the remaining time the vertices are
 continually moved tangentially, which results in a further decrease in the ratio
-$\frac{\max_{\sigma\in \Gamma^m}(\surfvol(\sigma))}
-{\min_{\sigma\in\Gamma^m}(\surfvol(\sigma))}$, which approaches the optimal
-value 1. This mesh quality indicator is simply the ratio between the maximum
-and minimum segment of the hypersurface.
+\begin{equation}
+\frac{\max_{\sigma\in \Gamma^m}\surfvol(\sigma)}
+{\min_{\sigma\in\Gamma^m}\surfvol(\sigma)}\,,
+\end{equation}
+which approaches the optimal value 1. This mesh quality indicator is simply the
+ratio between the maximum and minimum segment of the hypersurface.
 
 \begin{figure}[htbp]
 \centering
@@ -705,8 +716,8 @@ the equidistribution is reached almost instantaneously.
 \includegraphics[width=.45\textwidth]
 {figures/geometric_pdes/sd_circle_tau.ps}
 \caption[Surface diffusion equidistribution velocity]{Time evolution of the
-ratio $\frac{\max_{\sigma\in \Gamma^m}(\surfvol(\sigma))}
-{\min_{\sigma\in\Gamma^m}(\surfvol(\sigma))}$ for a circle of initial radius
+ratio $\frac{\max_{\sigma\in \Gamma^m}\surfvol(\sigma)}
+{\min_{\sigma\in\Gamma^m}\surfvol(\sigma)}$ for a circle of initial radius
 $r_0=0.5$ subject to surface diffusion. In red $\tau=10^{-2}$, in green
 $\tau=10^{-3}$ and in blue $\tau=10^{-4}$.}
 \label{fig:sd_circle_tau}
