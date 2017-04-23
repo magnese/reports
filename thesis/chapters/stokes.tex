@@ -1850,7 +1850,8 @@ evolution of the interface energy $\gamma\,\mathcal{H}^{1}(\Gamma^m)$. The
 graphs show that the inner area is nearly conserved, and that the interface
 energy is monotonically decreasing. We point out that, since there is no exact
 solution to the problem, we cannot show the pressure state at time $t=0$
-therefore we show the pressure state at $t=10^{-5}$.
+therefore we show the pressure state at $t=10^{-5}$, which is computed with the
+help of our scheme with one time step of size $\tau=10^{-5}$.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
@@ -2012,13 +2013,13 @@ shear flow using P2--(P1+P0) element, uniform mesh and $m=0$.}
 \label{tab:shear_2d_preconditioners}
 \end{table*}
 We can notice that the direct preconditioner, whose matrix is equivalent to
-a one-phase Stokes discretization perform extremely well in term of CPU time
+a standard Stokes discretization perform extremely well in terms of CPU time
 and number of GMRES iterations. This is not very surprising since the
 preconditioner and the reduced two-phase stokes system have almost the same
-matrix therefore the number of GMRES iterations is very low. Moreover, the
+matrix. Therefore the number of GMRES iterations is very low. Moreover, the
 factorization is computed only once with both SPQR and UMFPACK so it is
 extremely efficient to apply the preconditioner at every GMRES iteration. On
-the other hand the block preconditioner perform very poorly requiring a very
+the other hand, the block preconditioner perform very poorly requiring a very
 high number of GMRES iterations in order to converge. An increase of the
 restart value obviously reduce the number of GMRES iterations but also
 drastically increase the memory footprint. Moreover, the application of the
