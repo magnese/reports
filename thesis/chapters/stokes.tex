@@ -79,7 +79,7 @@ The fluid dynamics in the bulk domain $\Omega$ is governed by the two-phase
 Stokes model (\ref{eq:momentum_bis}--b) which describes the velocity $\vec u$
 and pressure $p$ fields of the fluid. The velocity and stress tensor, see
 (\ref{eq:stress_tensor}), needs to be coupled across the free surface
-$\Gamma(t)$ therefore we impose the interface conditions
+$\Gamma(t)$ and therefore we impose the interface conditions
 (\ref{eq:interface_jump_velocity}), (\ref{eq:interface_jump_stress}) and
 (\ref{eq:interface_velocity}). Finally, to close the system, we prescribe the
 initial data $\Gamma(0) = \Gamma_0$ and the boundary condition $\vec u = \vec
@@ -169,23 +169,25 @@ $p \in \pspace$ is part of a solution to (\ref{eq:stokes_full_momentum}--g),
 then so is $p + c$ for an arbitrary $c\in \R$.
 
 We finally observe that an alternative weak formulation can be obtained
-discretizing directly the vector quantity $\vec\varkappa:=\varkappa\,\vec\nu$
+using directly the vector quantity $\vec\varkappa:=\varkappa\,\vec\nu$
 in the identity (\ref{eq:LBop}), see in \cite{Dziuk91,Bansch01,GanesanMT07}.
 Instead, consistently with Chapter~\ref{ch:geometric_pdes}, we follow the
 approach introduced in \cite{triplej} for $d=2$ and in \cite{gflows3d} for
-$d=3$ which treats the mean curvature as a scalar and we discretize it
-separately from the normal $\vec\nu$ because this approach leads to good mesh
-properties and to a smaller algebraic system.
+$d=3$ which treats the mean curvature as a scalar and we treat it
+separately from the normal $\vec\nu$, because this approach leads to good mesh
+properties and to smaller algebraic systems.
 
 \section{Energy bound and volume conservation}\label{sec:stokes_energy}
-It is straightforward to show an a priori energy bound and a volume
-conservation property for the system (\ref{eq:stokes_weaka}--d). For the former,
-we use (\ref{eq:length_variation}) and we obtain
+It is straightforward to show an a priori energy bound, in the absence of
+external forces, and a volume conservation property for the system
+(\ref{eq:stokes_weaka}--d). For the former, we use (\ref{eq:length_variation})
+and we obtain
 \begin{equation}\label{eq:dtarea}
 \ddt\,\surfvol(\Gamma(t)) = -
 \left\langle \varkappa,\V\,.\,\vec\nu\right\rangle_{\Gamma(t)}.
 \end{equation}
-Hence, on choosing $\vec\xi = \vec u$ in (\ref{eq:stokes_weaka}), and noting
+Hence, in the case $\vec g=\vec 0$, on choosing $\vec\xi = \vec u$ in
+(\ref{eq:stokes_weaka}), and noting
 (\ref{eq:stokes_weakb},c), we obtain that
 \begin{align}
 \gamma\, \ddt\,\surfvol(\Gamma(t)) = -
@@ -224,8 +226,8 @@ $\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. On ${\cal T}^m$ we define the
 finite element spaces
 \begin{equation*}
 S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
-\in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\}
-\subset H^1(\Omega),\quad k \in \mathbb{N}\,,
+\in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\}\,,
+\quad k \in \mathbb{N}\,,
 \end{equation*}
 where $\mathcal{P}_k(\sigmaO^m)$ denotes the space of polynomials of degree $k$
 on $\sigmaO^m$. Moreover, $S^m_0$ is the space of piecewise constant functions
@@ -319,8 +321,10 @@ P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \pnormspace^m
 \end{subequations}
 and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$. Here we have defined
 $\vec f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$, where $\vec I^m_2$
-is the standard interpolation operator onto $[S^m_2]^d$ and $\mu^m =
-\mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0$.
+is the standard interpolation operator onto $[S^m_2]^d$ and
+\begin{equation}
+\mu^m =\mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
+\end{equation}
 We observe that (\ref{eq:HGa}--d) is a linear scheme in that it leads to a
 coupled linear system of equations for the unknowns
 $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})$ at each time level.
@@ -353,24 +357,24 @@ approach to treat the problem. Discontinuity jumps in the material properties
 and in the pressure are captured naturally. In particular, we do not need to
 employ an XFEM-type extension of standard bulk pressure spaces. Moreover, there
 is no need to transport quantities from the interface to the bulk, or vice
-versa. On the other hand, it is impossible to locally adapt the bulk mesh
-without modifying the number of elements of the interface. Also, at every
-interface deformation correspond a bulk deformation which means that smoothing
-and remeshing technique needs to be employed in order to preserve the mesh
-quality.
+versa. On the other hand, it is not possible to locally refine the bulk mesh
+close to the interface without modifying the number of elements of the
+interface. Also, every interface deformation corresponds to a bulk deformation,
+which means that smoothing and remeshing techniques need to be employed in
+order to preserve the bulk mesh quality.
 
 Instead, in the unfitted approach, the interface mesh is completely independent
-from the bulk mesh whose bulk elements are cut by the interface elements. For
-this reason there is no need to remesh or deform the bulk mesh in order to
-preserve the correspondence with the interface. Moreover standard strategies
-for refinement and coarsening can be employed for the bulk mesh. Since the bulk
-mesh is immutable, its quality is preserved without the need of smoothing
-techniques. The downside of this approach is that the quantities computed on
-the bulk mesh, such as velocity and pressure, need to be interpolated in order
-to have their values on the interface. This also requires to find the
-intersections between the interface mesh and the bulk mesh at every time step.
-Finally, it is necessary to use some XFEM-type extension in order to capture
-discontinuity of quantities of interest across the interface.
+from the bulk mesh. In particular, there exist bulk elements which are cut by
+the interface elements. For this reason there is no need to remesh or deform
+the bulk mesh in order to preserve the correspondence with the interface.
+Moreover, standard strategies for refinement and coarsening can be employed for
+the bulk mesh. Since the bulk mesh is immutable, its quality is preserved
+without the need of smoothing techniques. The downside of this approach is that
+the quantities computed on the bulk mesh, such as velocity and pressure, need
+to be interpolated in order to have their values on the interface. This also
+requires to find the intersections between the interface mesh and the bulk mesh
+at every time step. Finally, it is necessary to use some XFEM-type extension in
+order to capture discontinuity of quantities of interest across the interface.
 
 \section{Existence and uniqueness of a discrete solution}
 \label{sec:stokes_existence}
@@ -591,7 +595,8 @@ i.e. spherical $\Gamma^m$ satisfying (\ref{eq:conformal}), also satisfy
 \section{Semidiscrete scheme}\label{sec:stokes_semi_fem}
 We briefly investigate a semidiscrete variant of the scheme (\ref{eq:HGa}--d)
 in order to highlight two additional important properties of the scheme: a
-good tangential distribution of mesh points, and good volume conservation.
+good tangential distribution of mesh points, and good volume conservation. For
+simplicity, we assume $\vec g=\vec 0$ throughout this section.
 
 Let $(\Gamma^h(t))_{t\in[0,T]}$ be a family of polyhedral surfaces, with
 outer normal $\vec\nu^h(t)$.
@@ -662,7 +667,8 @@ analogue of (\ref{eq:conserved}). To see this, choose $\chi = 1$ in
 \end{align}
 Hence solution to (\ref{eq:sda}--d) conserve the enclosed volume. Once again,
 the fully discrete scheme (\ref{eq:HGa}--d) inherits this property in the sense
-that in our simulations the volumes are always well maintained.
+that in our simulations the volumes are always well maintained, with the
+observed relative volume loss tending to zero as $\tau\to 0$.
 
 \section{Algebraic system}\label{sec:stokes_algebraic_system}
 As is standard practice for the solution of linear systems arising from
@@ -897,8 +903,9 @@ possible choice is to use the preconditioner
 \end{pmatrix}\,,
 \end{equation}
 where $\vec{\mathcal{P}}_{\vec B}$ is some preconditioner for the matrix $\vec
-B_\Omega$, and $\mathcal{P}_S$ acts as a preconditioner for the Schur complement
-operator $S_\Omega=\vec C^T_\Omega \,\vec B_\Omega^{-1}\,\vec C_\Omega$.
+B_\Omega$, and $\mathcal{P}_S$ acts as a preconditioner for the bulk Schur
+complement operator $S_\Omega=\vec C^T_\Omega \,\vec B_\Omega^{-1}\,\vec
+C_\Omega$.
 
 An application of the preconditioner (\ref{eq:ESW}) amounts to solving the
 equations
@@ -924,7 +931,7 @@ for $\mathcal{P}_S$. Again, in order to reuse the factorization, we employ a
 sparse $L\,U$ decomposition to factorize the matrices $\vec B$ and $M_\Omega$.
 
 Similarly, for the algebraic system (\ref{eq:stokes_algebraic_extended}),
-the preconditioner (\ref{eq:ESW}) can be written as
+we can use the preconditioner
 \begin{equation} \label{eq:ESWP1P0}
 \mathcal{P} = \begin{pmatrix}
 \vec{\mathcal{P}}_{\vec B} & \vec C_\spadesuit & \vec C_\clubsuit \\
@@ -981,7 +988,7 @@ which, by backward substitution, is equivalent to
 \vec v - \vec C_\spadesuit\,P_\spadesuit - \vec C_\clubsuit\,P_\clubsuit\,.
 \end{equation}
 
-Alternatively, it is possible to use the one-phase stokes matrix, see
+Alternatively, it is possible to use the standard Stokes matrix, see
 (\ref{eq:stokes_system}),
 \begin{equation}\label{eq:direct}
 \begin{pmatrix}
@@ -1008,31 +1015,33 @@ fact that the pressure is unique up to a constant. This doctoring process can be
 avoided if SPQR is used to factorize the preconditioner.
 
 \section{Mesh generation and smoothing}\label{sec:stokes_smoothing}
+Given the initial polyhedral surface $\Gamma^0$, we create a triangulation
+$\mathcal{T}^0$ of $\Omega$ that is fitted to $\Gamma^0$ with the help of the
+package \verb|Gmsh|, see \cite{GeuzaineR09}.
+
 The mesh generation process is controlled by the characteristic lengths of the
 points describing the geometry of the domain boundary $\partial\Omega$. Each
 point has associated a characteristic length which prescribes the size of the
 mesh elements. For example, a segment of length $L$, which defines an edge of
 the domain boundary, delimited by two points of characteristic length $c_l$ will
 be subdivided into several segments of lengths $\frac{L}{c_l}$ during the mesh
-generation. Therefore, smaller is the characteristic length, finer is the
-resulting mesh. In general we use either uniform or adaptive bulk meshes. In the
-former the characteristic length $c_l$ is set to be equal to the characteristic
-length of the interface $c_{l,\Gamma}$ while in the latter the characteristic
-length is $c_l(\vec z)=\min\{8c_{l,\Gamma},\mbox{dist}(\vec z,\Gamma)\}$.
-Therefore, in the adaptive case, if the interface is far enough from the
-boundary, the resulting bulk mesh will be coarse. We define characteristic
-length of the interface $c_{l,\Gamma}$, in the 2d case, as the average length
-of the segments describing the discrete interface $\Gamma^m$ or, in the 3d case,
-as length of an equilateral triangle with area equal to the average of the
-areas of the triangles describing the discrete interface $\Gamma^m$.
+generation. Therefore, the smaller is the characteristic length, the finer is
+the resulting mesh. In general we use either uniform or adaptive bulk meshes.
+In the former case, the characteristic length $c_l$ is set to be equal to the
+characteristic length of the interface $c_{l,\Gamma}$, while in the latter case
+the characteristic length is $c_l(\vec z)=\min\{8c_{l,\Gamma},\mbox{dist}(\vec
+z,\Gamma)\}$. Therefore, in the adaptive case, if the interface is far enough
+from the boundary, the resulting bulk mesh will be coarse. We define the
+characteristic length of the interface $c_{l,\Gamma}$, in the 2d case, as the
+average length of the segments describing the discrete interface $\Gamma^m$ or,
+in the 3d case, as the length of an equilateral triangle with area equal to the
+average of the areas of the triangles describing the discrete interface
+$\Gamma^m$.
 
-Given the initial polyhedral surface $\Gamma^0$, we create a triangulation
-$\mathcal{T}^0$ of $\Omega$ that is fitted to $\Gamma^0$ with the help of the
-package \verb|Gmsh|, see \cite{GeuzaineR09}. Then, for $m \geq 0$, having
-computed the new interface $\Gamma^{m+1}$, we would like to obtain a bulk
-triangulation $\mathcal{T}^{m+1}$ that is fitted to $\Gamma^{m+1}$, and ideally
-is close to $\mathcal{T}^m$. This is to avoid unnecessary overhead from
-remeshing the domain $\Omega$ completely.
+Then, for $m \geq 0$, having computed the new interface $\Gamma^{m+1}$, we
+would like to obtain a bulk triangulation $\mathcal{T}^{m+1}$ that is fitted to
+$\Gamma^{m+1}$, and ideally is close to $\mathcal{T}^m$. This is to avoid
+unnecessary overhead from remeshing the domain $\Omega$ completely.
 
 To this end, we perform the following smoothing step on $\mathcal{T}^m$, which
 is inspired by the method proposed in \cite{Ganesan06}, see also
@@ -1066,28 +1075,29 @@ the bubble making up the inner phase undergoes strong deformations, and so a
 complete remeshing of $\Omega$ becomes necessary. In order to detect the need
 for a complete remeshing, we define the volume criterion
 \begin{equation}\label{eq:volume_criterion}
-\frac{\max_{\sigmaO\in {\cal T}^{m+1}}(\vol(\sigmaO))}
-{\min_{\sigmaO\in\mathcal {T}^{m+1}}(\vol(\sigmaO))} \geq C_r \geq 1,
+\frac{\max_{\sigmaO\in {\cal T}^{m+1}}\vol(\sigmaO)}
+{\min_{\sigmaO\in\mathcal {T}^{m+1}}\vol(\sigmaO)} \geq C_v \geq 1,
 \end{equation}
-where $C_r$ is a fixed constant. Of course, if we choose $C_r = 1$, then a
+where $C_v$ is a fixed constant. Of course, if we choose $C_v = 1$, then a
 remeshing would be triggered after every time step. Obviously, the
 volume criterion (\ref{eq:volume_criterion}) cannot be used for adaptive
 meshes therefore we also define the angle criterion
 \begin{equation}\label{eq:angle_criterion}
 \min_{\sigmaO\in {\cal T}^{m+1}}\min_{\alpha\in \measuredangle(\sigmaO)}\alpha
-\leq C_r\,,
+\leq C_a\,,
 \end{equation}
 where $\measuredangle(\sigmaO)$ is the set of all the angles of the simplex
 $\sigmaO$ which can be computed as $\alpha_{ij}=\cos^{-1}(-\vec n_i\,.\,\vec
 n_j)$, $\forall i,j\in\{0,\dots,d\}$, with $\vec n_i$ the unitary normal to the
-simplex face $i$.
+simplex face $i$. Of course, if we chose $C_a=20$\textdegree, then a remeshing
+is triggered after every time step.
 
 We stress that in all our numerical simulations we never need to remesh the
 interface $\Gamma^m$ itself. Hence the stability results from
 Theorem~\ref{thm:stabstab} hold throughout. Of course, a remeshing of $\Gamma^m$
-would mean that Theorem~\ref{thm:stabstab} is no longer valid because the
-quantity $\vec\eta=\gamma\,({\vec{X}^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ used in
-the proof wouldn't be well defined any more.
+would mean that (\ref{eq:stab}) in Theorem~\ref{thm:stabstab} is no longer
+valid because the re-meshed interface $\hat{\Gamma}^m$ differs from the
+computed $\Gamma^m$.
 
 \section{Numerical results}\label{sec:stokes_results}
 In order to test our method, and to allow comparisons with the unfitted finite
@@ -1107,11 +1117,12 @@ together with
 \end{equation}
 \end{subequations}
 is an exact solution to the problem (\ref{eq:stokes_full_momentum}--g) on e.g.\
-$\Omega = (-1,1)^d$. This solution is the continuous version of
-(\ref{eq:solsol}). Secondly, a nontrivial divergence free and radially symmetric
-solution $\vec u$ can be constructed on a domain that does not contain the
-origin. To this end, consider e.g. $\Omega = (-1,1)^d \setminus [-\frac13,
-\frac13]^d$, and let $\alpha \geq 0$ be given. Then, the expanding sphere where
+$\Omega = (-1,1)^d$ with $\vec f=\vec 0$ and $\vec g = \vec 0$. This solution
+is the continuous version of (\ref{eq:solsol}). Secondly, a nontrivial
+divergence free and radially symmetric solution $\vec u$ can be constructed on
+a domain that does not contain the origin. To this end, consider e.g. $\Omega =
+(-1,1)^d \setminus [-\frac13,\frac13]^d$, and let $\alpha \geq 0$ be given.
+Then, the expanding sphere where
 \begin{subequations}
 \begin{equation} \label{eq:radialr2}
 r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
@@ -1124,11 +1135,9 @@ p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{equation}
 \end{subequations}
-is an exact solution to the problem (\ref{eq:stokes_full_momentum}--g) with the
-homogeneous right hand side in (\ref{eq:stokes_full_initial_velocity}) replaced
-by
-$\vec g$, where $\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$. We will refer
-to (\ref{eq:radialr},b) as the stationary bubble solution, and to
+is an exact solution to the problem (\ref{eq:stokes_full_momentum}--g) with
+$\vec f = \vec 0$ and $\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$. We will
+refer to (\ref{eq:radialr},b) as the stationary bubble solution, and to
 (\ref{eq:radialr2},b) as the expanding bubble solution.
 
 In the following, unless otherwise stated, we choose the initial surface
@@ -1166,7 +1175,7 @@ the estimated error of convergence EOC as
 \end{equation}
 where $\mbox{error}_1$ is the error computed on a triangulation finer that the
 one used to compute $\mbox{error}_0$ while $\mbox{h}_1$ and $\mbox{h}_0$ are the
-respectively characteristic lengths.
+respective characteristic lengths.
 
 \subsection{Convergence tests in 2d} \label{sec:stokes_2d_convergence_results}
 For the true solution (\ref{eq:radialr},b) we choose $\mu = \gamma = 1$.
@@ -1312,8 +1321,8 @@ on the right hand side of Figure~\ref{fig:meshes_expanding}.
 
 Details on the discretization parameters for the nearly uniform meshes are
 given in Table~\ref{tab:expandingbubble2Delements}. Here we explicitly
-state the final number of bulk elements, $J_\Omega^M$, in the case $C_r = 1$
-and $C_r = 3$, recall the remesh criterion (\ref{eq:volume_criterion}). In the
+state the final number of bulk elements, $J_\Omega^M$, in the case $C_v = 1$
+and $C_v = 3$, recall the remesh criterion (\ref{eq:volume_criterion}). In the
 former the bulk is remeshed after every time step while in the latter the bulk
 is remeshed when the max--min entity volume ratio is bigger than 3. Of course,
 when only smoothing is employed, then the number of bulk mesh elements is
@@ -1322,8 +1331,8 @@ invariant, and so $J_\Omega^M = J_\Omega^0$.
 \center
 \begin{tabular}{rrrrr}
 \hline
-$J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ for $C_r=1$ &
-$J_\Omega^M$ for $C_r=3$ \\
+$J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ for $C_v=1$ &
+$J_\Omega^M$ for $C_v=3$ \\
 \hline
  16 &   316 & $1.6\cdot10^{-2}$ &  120 &  184 \\
  32 &  1016 &   $4\cdot10^{-3}$ &  452 &  468 \\
@@ -1341,7 +1350,7 @@ element in Table~\ref{tab:expandingbubble2Dp2p0},
 respectively. On the top part of the tables only mesh smoothings are applied,
 in the central part the bulk mesh is remeshed after every time step while at
 the bottom the bulk mesh is remeshed only when the criterion
-(\ref{eq:volume_criterion}), with $C_r=3$, is not satisfied.
+(\ref{eq:volume_criterion}), with $C_v=3$, is not satisfied.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1361,7 +1370,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 128 & 9.20414e-05 & 5.87165e-05 & 0.56 & 6.24063e-03 & 3.18072e-02 & 1.72 &
 37539 \\
 \hline
-& \multicolumn{7}{c}{$C_r=1$} \\
+& \multicolumn{7}{c}{$C_v=1$} \\
 \hline
  16 & 5.92441e-03 & 5.27627e-04 &    - & 1.57505e-02 & 4.43442e-01 &    - &
 59 \\
@@ -1372,7 +1381,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 128 & 9.12526e-05 & 1.81107e-06 & 3.04 & 3.59374e-04 & 3.69593e-02 & 1.14 &
 23465 \\
 \hline
-& \multicolumn{7}{c}{$C_r=3$} \\
+& \multicolumn{7}{c}{$C_v=3$} \\
 \hline
  16 & 5.94589e-03 & 5.71201e-04 &    - & 1.51195e-02 & 4.44395e-01 &    - &
 41 \\
@@ -1410,7 +1419,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 128 & 9.21619e-05 & 6.12532e-05 & 0.76 & 6.21616e-03 & 3.17967e-02 & 1.72 &
 31042 \\
 \hline
-& \multicolumn{7}{c}{$C_r=1$} \\
+& \multicolumn{7}{c}{$C_v=1$} \\
 \hline
  16 & 5.95848e-03 & 8.38757e-04 &    - & 2.23968e-02 & 4.44061e-01 &    - &
 100 \\
@@ -1421,7 +1430,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 128 & 9.12893e-05 & 2.33116e-06 & 3.22 & 3.96930e-04 & 3.69418e-02 & 1.14 &
 25348 \\
 \hline
-& \multicolumn{7}{c}{$C_r=3$} \\
+& \multicolumn{7}{c}{$C_v=3$} \\
 \hline
  16 & 5.99703e-03 & 8.59166e-04 &    - & 2.23227e-02 & 4.44656e-01 &    - &
 47 \\
@@ -1459,7 +1468,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 128 & 9.22254e-05 & 6.25696e-05 & 0.80 & 6.07813e-03 & 3.17870e-02 & 1.72 &
 39375 \\
 \hline
-& \multicolumn{7}{c}{$C_r=1$} \\
+& \multicolumn{7}{c}{$C_v=1$} \\
 \hline
  16 & 5.96235e-03 & 8.94203e-04 &    - & 2.61842e-02 & 4.44306e-01 &    - &
 159 \\
@@ -1470,7 +1479,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 128 & 9.12693e-05 & 2.42966e-06 & 3.26 & 4.31820e-04 & 3.69632e-02 & 1.13 &
 22128 \\
 \hline
-& \multicolumn{7}{c}{$C_r=3$} \\
+& \multicolumn{7}{c}{$C_v=3$} \\
 \hline
  16 & 5.97343e-03 & 8.91171e-04 &    - & 2.46402e-02 & 4.45063e-01 &    - &
 95 \\
@@ -1506,7 +1515,7 @@ P2--P0, which, together with a a remesh performed at every time step, gives the
 best overall results.
 
 The evolution of the discrete pressure solution in the case $J_\Gamma = 32$,
-for the run with $C_r = 1$, can be seen in
+for the run with $C_v = 1$, can be seen in
 Figure~\ref{fig:expanding_bubble_uniform}.
 \begin{figure}[htbp]
 \centering
@@ -1538,13 +1547,13 @@ employed discretization parameters in
 Table~\ref{tab:expandingbubble2Delements_adaptive}. Obviously the remesh
 criterion (\ref{eq:volume_criterion}) cannot be used for an adaptive mesh since
 it would be always violated therefore we use the angle criterion
-(\ref{eq:angle_criterion}) with $C_r=20$\textdegree.
+(\ref{eq:angle_criterion}) with $C_a=20$\textdegree.
 \begin{table*}
 \center
 \begin{tabular}{rrrrr}
 \hline
-$J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ for $C_r=1$ &
-$J_\Omega^M$ for $C_r=20$\textdegree \\
+$J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ for $C_a=60$\textdegree &
+$J_\Omega^M$ for $C_a=20$\textdegree \\
 \hline
  32 &  460 & $6.4\cdot10^{-2}$ &  216 &  216 \\
  64 & 1040 & $1.6\cdot10^{-2}$ &  452 &  440 \\
@@ -1579,7 +1588,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 256 & 6.09781e-05 & 2.55111e-05 & 0.19 & 2.58915e-03 & 7.95637e-02 & 0.88 &
 3652 \\
 \hline
-& \multicolumn{7}{c}{$C_r=1$} \\
+& \multicolumn{7}{c}{$C_a=60$\textdegree} \\
 \hline
  32 & 3.91561e-03 & 7.10756e-04 &    - & 1.60401e-02 & 5.58280e-01 &    - &
 18 \\
@@ -1590,7 +1599,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 256 & 6.04620e-05 & 7.00763e-05 & 1.89 & 3.87511e-03 & 6.32475e-02 & 1.23 &
 3877 \\
 \hline
-& \multicolumn{7}{c}{$C_r=20$\textdegree} \\
+& \multicolumn{7}{c}{$C_a=20$\textdegree} \\
 \hline
  32 & 3.96937e-03 & 7.08593e-04 &    - & 1.55497e-02 & 5.62013e-01 &    - &
 4 \\
@@ -1628,7 +1637,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 256 & 6.09133e-05 & 2.85605e-05 & 0.26 & 2.71585e-03 & 7.95602e-02 & 0.88 &
 4281 \\
 \hline
-& \multicolumn{7}{c}{$C_r=1$} \\
+& \multicolumn{7}{c}{$C_a=60$\textdegree} \\
 \hline
  32 & 4.04836e-03 & 1.03041e-03 &    - & 2.11862e-02 & 5.58428e-01 &    - &
 13 \\
@@ -1639,7 +1648,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 256 & 6.39800e-05 & 1.38724e-04 & 1.65 & 5.44161e-03 & 6.32714e-02 & 1.22 &
 3743 \\
 \hline
-& \multicolumn{7}{c}{$C_r=20$\textdegree} \\
+& \multicolumn{7}{c}{$C_a=20$\textdegree} \\
 \hline
  32 & 4.08914e-03 & 9.75075e-04 &    - & 1.98793e-02 & 5.63360e-01 &    - &
 5 \\
@@ -1677,7 +1686,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 256 & 6.08641e-05 & 3.20203e-05 & 0.28 & 2.77934e-03 & 7.95609e-02 & 0.88 &
 3798 \\
 \hline
-& \multicolumn{7}{c}{$C_r=1$} \\
+& \multicolumn{7}{c}{$C_a=60$\textdegree} \\
 \hline
  32 & 3.97673e-03 & 1.16740e-03 &    - & 2.54389e-02 & 5.59015e-01 &    - &
 18 \\
@@ -1688,7 +1697,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 256 & 6.39339e-05 & 1.55008e-04 & 1.67 & 7.26636e-03 & 6.33057e-02 & 1.22 &
 3274 \\
 \hline
-& \multicolumn{7}{c}{$C_r=20$\textdegree} \\
+& \multicolumn{7}{c}{$C_a=20$\textdegree} \\
 \hline
  32 & 4.02881e-03 & 1.12100e-03 &    - & 2.32002e-02 & 5.63527e-01 &    - &
 4 \\
@@ -1714,11 +1723,11 @@ against the ones in Tables~\ref{tab:expandingbubble2Dp2p0adaptive},
 \ref{tab:expandingbubble2Dp2p1p0adaptive} we note that there appears to
 be no advantage in using a highly refined mesh near the moving interface. Again
 the element which performs better in term of errors is the P2--P0 element
-which, together with the choice of $C_r=20$\textdegree, gives the best result
+which, together with the choice of $C_a=20$\textdegree, gives the best result
 in terms of accuracy and performance.
 
 The evolution of the discrete pressure solution in the case $J_\Gamma = 64$, for
-the run with $C_r = 1$, can be seen in
+the run with $C_a=60$\textdegree, can be seen in
 Figure~\ref{fig:expanding_bubble_adaptive}.
 \begin{figure}[htbp]
 \centering
@@ -1755,7 +1764,7 @@ Figure~\ref{fig:nonuniform_bubble_32_both} that as the interface gets closer
 and closer to an equidistributed approximation of a circle, the bulk mesh also
 becomes more uniform. For the presented simulation we used the physical
 parameters $\mu= \gamma=1$. The uniform time step size is chosen as
-$\tau=10^{-4}$ and we set $C_r=3$, recall (\ref{eq:volume_criterion}).
+$\tau=10^{-4}$ and we set $C_v=3$, recall (\ref{eq:volume_criterion}).
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=0$]{\includegraphics[width=.45\textwidth]
@@ -1770,7 +1779,7 @@ $\tau=10^{-4}$ and we set $C_r=3$, recall (\ref{eq:volume_criterion}).
 {figures/stokes/nonuniform_bubble_32_both_500.ps}}
 \caption[Stokes equidistribution property]
 {($\mu=\gamma=1$) Mesh evolution of a nonuniform circle formed by
-$J_\Gamma = 32$ elements. Here we use the P2--P0 element, and let $C_r = 3$.}
+$J_\Gamma = 32$ elements. Here we use the P2--P0 element, and let $C_v = 3$.}
 \label{fig:nonuniform_bubble_32_both}
 \end{figure}
 In Figure~\ref{fig:nonuniform_bubble_velocity_32_both} is shown the evolution of
@@ -1782,7 +1791,7 @@ $\|\vec U^m\|_{L^\infty(\Omega)}$ which, as expected, converges to zero.
 \caption[Stokes equidistribution velocity]
 {($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution for a nonuniform
 circle formed by $J_\Gamma = 32$ elements. Here we use the P2--P0 element, and
-let $C_r = 3$.}
+let $C_v = 3$.}
 \label{fig:nonuniform_bubble_velocity_32_both}
 \end{figure}
 
@@ -1834,7 +1843,7 @@ simulation that starts with an initial ellipse, with major and minor axes of
 1.6 and 0.75. We use the parameters $\mu = \gamma=1$, $\tau=10^{-2}$ and
 $T=10$. The initial interface is discretized with $J_\Gamma = 40$ surface
 elements, and the initial bulk mesh has $J_\Omega^0 = 1112$ elements. We employ
-the P2--P0 element and use the remeshing parameter $C_r=3$ during the evolution.
+the P2--P0 element and use the remeshing parameter $C_v=3$ during the evolution.
 Figure~\ref{fig:ellipse_both_volumes} shows the evolution of the relative inner
 area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ and the
 evolution of the interface energy $\gamma\,\mathcal{H}^{1}(\Gamma^m)$. The
@@ -1856,7 +1865,7 @@ therefore we show the pressure state at $t=10^{-5}$.
 {figures/stokes/ellipse_both_1000.ps}}
 \caption[Stokes ellipse pressure]
 {($\mu=\gamma=1$) Pressure evolution of an ellipse that evolves towards a
-circle. Here we use the P2--P0 element, and let $C_r = 3$.}
+circle. Here we use the P2--P0 element, and let $C_v = 3$.}
 \label{fig:ellipse_both}
 \end{figure}
 \begin{figure}[htbp]
@@ -1875,7 +1884,7 @@ the simulation in Figure~\ref{fig:ellipse_both}.}
 
 As a comparison, we show in Figure~\ref{fig:ellipse_smooth} and
 \ref{fig:ellipse_both_volumes_smooth} the same simulation when no remeshings are
-performed, i.e. we use $C_r=\infty$ in (\ref{eq:volume_criterion}). We clearly
+performed, i.e. we use $C_v=\infty$ in (\ref{eq:volume_criterion}). We clearly
 see that due to the strong deformation of the interface, this leads to
 elongated elements in the inner and in the outer phase of the bulk finite
 element mesh.
@@ -1920,7 +1929,7 @@ and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$.
 The initial interface is discretized with $J_\Gamma = 64$ surface elements,
 and the initial bulk mesh has $J_\Omega^0 = 4240$ elements. In
 Figure~\ref{fig:shear_2d} we show the evolution of the discrete pressures
-for a simulation with $C_r=3$ for the P2--P0 element, while the velocities
+for a simulation with $C_v=3$ for the P2--P0 element, while the velocities
 are visualized in Figure~\ref{fig:shear_2d_velocity}.
 \begin{figure}[htbp]
 \centering
@@ -1933,7 +1942,7 @@ are visualized in Figure~\ref{fig:shear_2d_velocity}.
 \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/2d_shear_500.ps}}
 \caption[Stokes 2d shear flow pressure]
-{($\mu=1,\gamma=3$) Pressure evolution for the 2d shear flow with $C_r=3$ for
+{($\mu=1,\gamma=3$) Pressure evolution for the 2d shear flow with $C_v=3$ for
 the P2--P0 element, uniform mesh.}
 \label{fig:shear_2d}
 \end{figure}
@@ -1948,7 +1957,7 @@ the P2--P0 element, uniform mesh.}
 \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/2d_shear_velocity_500.ps}}
 \caption[Stokes 2d shear flow velocity]
-{($\mu=1,\gamma=3$) Velocity vector field for the 2d shear flow with $C_r=3$
+{($\mu=1,\gamma=3$) Velocity vector field for the 2d shear flow with $C_v=3$
 for the P2--P0 element, uniform mesh.}
 \label{fig:shear_2d_velocity}
 \end{figure}
@@ -2129,7 +2138,7 @@ inhomogeneous Dirichlet boundary condition
 \end{equation*}
 and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$.
 In Figure~\ref{fig:shear_3d} we show the evolution of the discrete interface
-for a simulation with $C_r=3$ for the P2--P0 element, while the velocities
+for a simulation with $C_v=3$ for the P2--P0 element, while the velocities
 are visualized in Figure~\ref{fig:shear_3d_velocity}.
 \begin{figure}[htbp]
 \centering
@@ -2144,7 +2153,7 @@ are visualized in Figure~\ref{fig:shear_3d_velocity}.
 \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/3d_shear_500.ps}}
 \caption[Stokes 3d shear flow interface]
-{($\mu=1,\gamma=3$) Interface evolution for the 3d shear flow with $C_r=3$ for
+{($\mu=1,\gamma=3$) Interface evolution for the 3d shear flow with $C_v=3$ for
 the P2--P0 element, uniform mesh.}
 \label{fig:shear_3d}
 \end{figure}
@@ -2160,7 +2169,7 @@ the P2--P0 element, uniform mesh.}
 {figures/stokes/3d_shear_velocity_500.ps}}
 \caption[Stokes 3d shear flow velocity]
 {($\mu=1,\gamma=3$) Velocity vector field in the plane normal to $(0,1,0)^T$
-and passing through the origin for the 3d shear flow with $C_r=3$ for the
+and passing through the origin for the 3d shear flow with $C_v=3$ for the
 P2--P0 element, uniform mesh.}
 \label{fig:shear_3d_velocity}
 \end{figure}
