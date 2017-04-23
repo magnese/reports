@@ -6,11 +6,11 @@ overview of the possible approaches to describe the unknown interface.
 
 The chapter is organised as follows: in \S\ref{sec:free_boundary_flows}
 we define what a free-boundary fluid flow is and we introduce a generic setting
-for the problem; in \S\ref{sec:flow_equations} we present the
-Navier--Stokes equations which govern the fluid; in
-\S\ref{sec:bc_conditions} we discuss the boundary, initial and interface
-conditions needed for the well possessedness of the problem; in
-\S\ref{sec:interface_treatment} we briefly overview the different ways to
+for the problem; in \S\ref{sec:one_phase_model} we present the one-phase
+Navier--Stokes equations and their physical meaning; in
+\S\ref{sec:two_phase_model} we discuss the two-phase Navier--Stokes case
+and the interface conditions needed for the well possessedness of the problem;
+in \S\ref{sec:interface_treatment} we briefly overview the different ways to
 treat the unknown interface; in \S\ref{sec:numerical_challenges} we detail
 the various numerical challenges posed by these types of flows; in
 \S\ref{sec:numerical_implementation} we finally list the libraries used to
@@ -73,11 +73,12 @@ motion. Apart from its exact position, the computation of geometrical quantities
 of $\Gamma(t)$ such as its normal vector $\vec\nu$ and its mean curvature
 $\varkappa$ are of interest.
 
-\section{Flow governing equations}\label{sec:flow_equations}
-For what concern the bulk flow, we restrict ourselves to isothermal conditions,
-incompressible fluids and we assume that there is no change of phase. Under
-this assumption, the fluid dynamics is modelled by the incompressible
-Navier--Stokes equations. For more details see \cite{GrossR11}.
+\section{One-phase Navier--Stokes model}\label{sec:one_phase_model}
+Before describing the full two-phase Navier--Stokes model, we start introducing
+the simpler one-phase case where the full domain $\Omega$ is occupied by one
+fluid only. We restrict ourselves to isothermal conditions, incompressible
+fluids and we assume that there is no change of phase. For more details see
+\cite{GrossR11}.
 
 Denoting the velocity and pressure by $\vec u$ and $p$, respectively, we
 introduce the Newtonian stress tensor
@@ -85,51 +86,49 @@ introduce the Newtonian stress tensor
 \mat\sigma = \mu \,(\nabla\,\vec u + (\nabla\,\vec u)^T) - p\,\mat\id
 = 2\,\mu\, \mat D(\vec u)-p\,\mat\id\,,
 \end{equation}
-where $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$,
-with $\mu_\pm \in \R_{>0}$, denoting the dynamic viscosities in the two phases,
-$\mat\id \in \R^{d \times d}$ is the identity matrix and
+where $\mat\id \in \R^{d \times d}$ is the identity matrix and
 $\mat D(\vec u):=\frac{1}{2}\, (\nabla\vec u+(\nabla\vec u)^T)$
 is the rate-of-deformation tensor. Given a vector valued function $\vec
 h:\R^d\to\R^d$, we define its gradient as
 $\nabla\vec h = ((\nabla h_1)^T;\ldots;(\nabla h_d)^T)$. Moreover, let
-$\rho(t) = \rho_+\,\charfcn{\Omega_+(t)} + \rho_-\,\charfcn{\Omega_-(t)}$,
-with $\rho_\pm \in \R_{>0}$, be the fluid density.
+$\mu$, with $\mu \in \R_{>0}$, be the fluid dynamic viscosity and let $\rho$,
+with $\rho \in \R_{>0}$, be the fluid density.
 
-Imposing the conservation of momentum and mass in each phase, the following
-standard Navier--Stokes governing equations can be derived:
+Imposing the conservation of momentum and mass, the following standard
+Navier--Stokes governing equations can be derived:
 \begin{subequations}
 \begin{alignat}{2}
 \rho\,(\vec u_t +\vec u \,.\, \nabla \vec u)- \nabla\,.\,\mat\sigma
-& = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,,
-\label{eq:ns_momentum} \\
-\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
-\label{eq:ns_mass}
+& = \vec f \quad &&\mbox{in } \Omega\,,
+\label{eq:ns_momentum_one_phase} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega\,,
+\label{eq:ns_mass_one_phase}
 \end{alignat}
 \end{subequations}
 where $\vec f$ includes all external body forces referred to the unit mass of
 fluid.
 
-Substituting (\ref{eq:stress_tensor}) in (\ref{eq:ns_momentum}), we obtain the
-well known incompressible Navier--Stokes model:
+Substituting (\ref{eq:stress_tensor}) in (\ref{eq:ns_momentum_one_phase}), we
+obtain the well known one-phase incompressible Navier--Stokes model:
 \begin{subequations}
 \begin{alignat}{2}
 \rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
-\nabla\,p & = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,,
-\label{eq:ns_momentum_bis} \\
-\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,.
-\label{eq:ns_mass_bis}
+\nabla\,p & = \vec f \quad &&\mbox{in } \Omega\,,
+\label{eq:ns_momentum_bis_one_phase} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega\,.
+\label{eq:ns_mass_bis_one_phase}
 \end{alignat}
 \end{subequations}
 
 To better grasp the physical meaning of the terms appearing in the momentum
-equation (\ref{eq:ns_momentum_bis}) we briefly describe them. The inertia term
-$\vec u \,.\, \nabla \vec u$ is a convection term arising from the conservation
-of momentum. The momentum of each portion of fluid needs to be conserved
-therefore it needs to move with the fluid which means that it is convected with
-the fluid. The pressure term $\nabla\,p$  is originated by the Newtonian
-constitutive equation (\ref{eq:stress_tensor}) and it represent all the forces
-resulting from pressure differences within the fluid. Finally, the friction
-term $\nabla\,.\,\mat D(\vec u)$, which again arises from the Newtonian
+equation (\ref{eq:ns_momentum_bis_one_phase}) we briefly describe them. The
+inertia term $\vec u \,.\, \nabla \vec u$ is a convection term arising from the
+conservation of momentum. The momentum of each portion of fluid needs to be
+conserved therefore it needs to move with the fluid which means that it is
+convected with the fluid. The pressure term $\nabla\,p$  is originated by the
+Newtonian constitutive equation (\ref{eq:stress_tensor}) and it represent all
+the forces resulting from pressure differences within the fluid. Finally, the
+friction term $\nabla\,.\,\mat D(\vec u)$, which again arises from the Newtonian
 constitutive equation (\ref{eq:stress_tensor}), is a diffusion operator
 equalizing the velocity of neighbouring elements. The more viscous the fluid,
 the stronger is the friction between neighbouring particles and thus the
@@ -150,35 +149,34 @@ turbulent due to the fact that inertial forces are dominant and it tends to
 produce chaotic eddies, vortices and other flow instabilities.
 
 In the case of laminar flow, the advective term in the momentum equation
-(\ref{eq:ns_momentum}) can be neglected, giving rise to the so called Stokes
-equations
+(\ref{eq:ns_momentum_one_phase}) can be neglected, giving rise to the so called
+Stokes equations
 \begin{subequations}
 \begin{alignat}{2}
-- \nabla\,.\,\mat\sigma & = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,,
-\label{eq:momentum} \\
-\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
-\label{eq:mass}
+- \nabla\,.\,\mat\sigma & = \vec f \quad &&\mbox{in } \Omega\,,
+\label{eq:momentum_one_phase} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega\,,
+\label{eq:mass_one_phase}
 \end{alignat}
 \end{subequations}
 which for Newtonian fluids are expressed as
 \begin{subequations}
 \begin{alignat}{2}
 -2 \mu\,\nabla\,.\,\mat D(\vec u)+ \nabla\,p & = \vec f \quad &&\mbox{in }
-\Omega_\pm(t)\,,
-\label{eq:momentum_bis} \\
-\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,.
-\label{eq:mass_bis}
+\Omega\,,
+\label{eq:momentum_bis_one_phase} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega\,.
+\label{eq:mass_bis_one_phase}
 \end{alignat}
 \end{subequations}
 
-We finally observe that for the one-phase Navier--Stokes flow,
-$\rho_+=\rho_-=\rho$ and $\mu_+=\mu_-=\mu$, using the
-incompressibility condition (\ref{eq:ns_mass_bis}) we have
+We finally observe that, using the incompressibility condition
+(\ref{eq:ns_mass_bis_one_phase}) we have
 \begin{equation}
 2\nabla\,.\,\mat D(\vec u) = \nabla\,.\big(\nabla\vec u+(\nabla\vec u)^T\big)=
 \Delta \vec u + \nabla(\nabla\,.\vec u) = \Delta \vec u
 \end{equation}
-therefore the system (\ref{eq:ns_momentum_bis}--b) can be rewritten as
+therefore the system (\ref{eq:ns_momentum_bis_one_phase}--b) can be rewritten as
 \begin{subequations}
 \begin{alignat}{2}
 \rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) - \mu\,\Delta\vec u+\nabla\,p
@@ -186,17 +184,24 @@ therefore the system (\ref{eq:ns_momentum_bis}--b) can be rewritten as
 \nabla\,.\,\vec u & = 0 \quad \mbox{in } \Omega\,,
 \end{alignat}
 \end{subequations}
-which is the canonical form of the one-phase Navier--Stokes problem.
+which is the canonical form of the one-phase Navier--Stokes problem and the
+system (\ref{eq:momentum_bis_one_phase}--b) can be rewritten as
+\begin{subequations}
+\begin{alignat}{2}
+- \mu\,\Delta\vec u+\nabla\,p & = \vec f \quad \mbox{in } \Omega\,, \\
+\nabla\,.\,\vec u & = 0 \quad \mbox{in } \Omega\,,
+\end{alignat}
+\end{subequations}
+which is the canonical form of the one-phase Stokes problem.
 
-\section{Boundary, initial, and interface conditions}\label{sec:bc_conditions}
-For the full Navier--Stokes problem (\ref{eq:ns_momentum_bis}-b), a
+For the full Navier--Stokes problem (\ref{eq:ns_momentum_bis_one_phase}-b), a
 divergence-free velocity field for the whole computational domain is needed as
 an initial condition. Therefore we impose
 \begin{equation}\label{eq:ns_ic}
 \vec u(0) = \vec u_0 \quad \mbox{in } \Omega\,.
 \end{equation}
-The initial condition is not need in the Stokes case (\ref{eq:momentum_bis}-b)
-since it is a stationary problem.
+The initial condition is not need in the Stokes case
+(\ref{eq:momentum_bis_one_phase}-b) since it is a stationary problem.
 
 In order to obtain a well-posed system, boundary conditions have to be imposed
 on the bulk domain boundary $\partial\Omega$. Let $\partial\Omega$ be
@@ -213,10 +218,48 @@ and the free-slip condition on $\partial_2 \Omega$
 with $\unitn$ denoting the outer unit normal of $\partial \Omega$. We notice
 that the case $\vec g = \vec 0$ corresponds to the so called no-slip condition.
 
-Since we are dealing with a two-phase flow, some interface conditions are also
-needed on the unknown interface $\Gamma(t)$, which couple the velocity and
-stress between the two domains. Viscosity of the fluids leads to the continuity
-condition
+\section{Two-phase Navier--Stokes model}\label{sec:two_phase_model}
+We now consider two-phase flows, i.e., the domain $\Omega$ contains two
+different immiscible incompressible phases which may move in time
+and have different densities and dynamic viscosities. As mentioned before, we
+assume isothermal conditions and both phases to be pure substances. Furthermore,
+we do not consider reaction, mass transfer or phase transition. For more details
+see again \cite{GrossR11}.
+
+Each fluid phase is governed by the Navier--Stokes equations
+(\ref{eq:ns_momentum_bis_one_phase}--b), or by the Stokes equations
+(\ref{eq:momentum_bis_one_phase}--b). Therefore the two-phase Navier--Stokes
+model is simply
+\begin{subequations}
+\begin{alignat}{2}
+\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
+\nabla\,p & = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_momentum_bis} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_mass_bis}
+\end{alignat}
+\end{subequations}
+where $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$,
+with $\mu_\pm \in \R_{>0}$, is the dynamic viscosity and
+$\rho(t) = \rho_+\,\charfcn{\Omega_+(t)} + \rho_-\,\charfcn{\Omega_-(t)}$,
+with $\rho_\pm \in \R_{>0}$, is the fluid density. Analogously, the two-phase
+Stokes model is
+\begin{subequations}
+\begin{alignat}{2}
+-2 \mu\,\nabla\,.\,\mat D(\vec u)+ \nabla\,p & = \vec f \quad &&\mbox{in }
+\Omega_\pm(t)\,,
+\label{eq:momentum_bis} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,.
+\label{eq:mass_bis}
+\end{alignat}
+\end{subequations}
+
+In addition to the initial condition (\ref{eq:ns_ic}), which is needed
+only in the Navier--Stokes case, and to the boundary conditions
+(\ref{eq:ns_bc_dirichlet}) and (\ref{eq:ns_bc_freeslip}), some interface
+conditions are also needed on the unknown interface $\Gamma(t)$, which couple
+the velocity and stress between the two domains. Viscosity of the fluids leads
+to the continuity condition
 \begin{equation}\label{eq:interface_jump_velocity}
 [\vec u]_-^+ = \vec 0 \quad \mbox{on } \Gamma(t)\,,
 \end{equation}
@@ -293,13 +336,37 @@ is used, since $\mat\sigma_{\Gamma}$ should represent only contact forces that
 are tangential to the surface. We assume that $\gamma$ is constant and
 therefore, from (\ref{eq:interface_stress_tensor_divergence}), we obtain the
 so called clean interface model for the interfacial forces
-\begin{equation}\label{eq:interface_jump_stress}
+\begin{equation}
 [\mat\sigma\,\vec \nu]_-^+ = -\gamma\,\varkappa\,\vec\nu \quad \mbox{on }
-\Gamma(t)\,.
+\Gamma(t)\,,
+\end{equation}
+which, in the case of Newtonian stress tensor (\ref{eq:stress_tensor}), assumes
+the form
+\begin{equation}\label{eq:interface_jump_stress}
+[2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
+= -\gamma\,\varkappa\,\vec\nu \quad \mbox{on } \Gamma(t)\,.
 \end{equation}
 
-Finally, in order to have a well-posed problem, one needs suitable initial
+Moreover, in order to have a well-posed problem, one needs suitable initial
 conditions for the interface. Therefore we set $\Gamma(0)=\Gamma_0$.
+
+Finally, we can formulate the two-phase Navier--Stokes model, with the
+necessary initial, boundary and interface conditions, as
+\begin{subequations}
+\begin{alignat}{2}
+\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
+\nabla\,p & = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,, \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,, \\
+\vec u & = \vec 0 \quad &&\mbox{on } \partial_1\Omega\,, \\
+\vec u \,.\,\unitn & = 0 \quad &&\mbox{on } \partial_2\Omega\,, \\
+[\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,, \\
+[2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
+& = -\gamma\,\varkappa\,\vec\nu \quad &&\mbox{on } \Gamma(t)\,, \\
+(\V-\vec u)\,.\,\vec{\nu} & = 0 \quad &&\mbox{on } \Gamma(t)\,, \\
+\Gamma(0) & = \Gamma_0 \,, \\
+\vec u(0) & = \vec u_0 \,.
+\end{alignat}
+\end{subequations}
 
 \section{Interface treatment}\label{sec:interface_treatment}
 The dynamics of the interface are determined by the condition
