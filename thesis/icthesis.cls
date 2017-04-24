@@ -9,8 +9,8 @@
 \ProvidesClass{icthesis}
 \LoadClass[12pt,oneside,a4paper]{book}
 
-\usepackage{amsmath,amssymb,amstext,amsthm,enumerate,fancyvrb,fixltx2e,hyperref,
-lipsum,mathtools,setspace,tikz}
+\usepackage{amsmath,amssymb,amstext,amsthm,enumerate,fancyvrb,hyperref,lipsum,
+mathtools,setspace,tikz}
 \usepackage[titletoc]{appendix}
 \usepackage[titles]{tocloft}
 \hypersetup{colorlinks,citecolor=ImperialColor,filecolor=black,linkcolor=black,
