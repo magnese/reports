@@ -194,6 +194,27 @@ which leads to the identity
 This identity of differential geometry will be useful at a later stage to
 obtain a weak formulation of the surface diffusion and mean curvature problems.
 
+For later use, we also introduce the integration by part formula
+\begin{lemma}
+Let $\Gamma$ be a compact hypersurface. Moreover, let $h$ and $g$ continuously
+differentiable in a neighbourhood of $\Gamma$. Then it holds
+\begin{equation}\label{eq:integration_by_part}
+\int_\Gamma \nabs h\,.\,\nabs g \dH{d-1} =-\int_\Gamma h\,\Delta_s g\dH{d-1}\,.
+\end{equation}
+
+\begin{proof}
+It holds, from \cite{GilbargT83},
+\begin{equation*}
+\int_\Gamma \underline{D}_i\,h \dH{d-1} = \int_\Gamma
+h\varkappa\nu_i\dH{d-1}\,,
+\quad i=1,\ldots,d\,.
+\end{equation*}
+Applying it with $h\underline{D}_i\,g$, summing from $i=1,\ldots,d$ and taking
+into account that $\nabs\nu_i\,.\,\vec \nu=0$ we obtain the desired result.
+\end{proof}
+
+\end{lemma}
+
 \section{Properties of geometric flows}\label{sec:geometric_flows_properties}
 Here we report some fundamental properties of the mean curvature flow and
 surface diffusion. In order to derive these properties, we need a transport
@@ -208,6 +229,19 @@ G \cap \Gamma (t) = \{ \vec{z} \in G \, | \, g (\vec z, t) = 0 \}
 \quad \mbox{ and } \quad \nabla \, g (\vec z, t) \neq 0
 \quad \forall\ \vec z \in G \cap \Gamma(t) \, .
 \end{equation}
+Moreover, suppose that each $\Gamma(t)$ is oriented by a unit normal field $\vec
+\nu(\cdot,t)\in C^1(\Gamma(t),\R^d)$ and that $\vec \nu\in
+C^0(\cup_{0<t<T}\Gamma(t)\times\{t\},\R^d)$.
+
+We define the velocity at a point $(\vec z_0,t_0)$, with $\vec z_0\in
+\Gamma(t_0)$, as
+\begin{equation}
+\V(\vec z_0,t_0)= \vec \phi_t(t_0)\,, \quad
+\mbox{with }\vec \phi(t_0)=\vec z_0\,,
+\end{equation}
+where $\vec \phi\in C^1((t_0 - \delta, t_0 + \delta),\R^d)$ and
+$\vec \phi(t)\in\Gamma(t)$ for $|t-t_0|<\delta$. It can be shown that $\V(\vec
+z_0,t_0)$ is independent of the particular choice of $\vec \phi$.
 
 Now take a family $\{ \Gamma(t) \}_{t \in [0, T]}$ of evolving hypersurfaces
 which satisfies the above assumptions and, moreover, suppose that each surface
@@ -250,7 +284,7 @@ which is obtained from the following lemma.
 
 \begin{lemma}
 Let $\Gamma(t)$ be a family of evolving hypersurfaces
-satisfying \eqref{eq:mean_curvature} and assume that each $\Gamma(t)$ is
+satisfying (\ref{eq:mean_curvature}) and assume that each $\Gamma(t)$ is
 compact. Then
 
 \begin{equation}
@@ -272,8 +306,8 @@ enclosed volume and decreases the area as obtained from the following
 lemma
 
 \begin{lemma}
-Let $\Gamma(t)$ be a family of evolving hypersurfaces
-satisfying \eqref{eq:surface_diff} and assume that each $\Gamma(t)$ is
+Let $\Gamma(t)$ be a family of evolving hypersurfaces satisfying
+(\ref{eq:surface_diff}) and assume that each $\Gamma(t)$ is
 compact and closed. Then
 \begin{align}
 \ddt \vol(\Omega(t)) & = 0 \,, \label{eq:volume_conservation} \\
@@ -288,8 +322,10 @@ that
 \begin{align*}
 \ddt \vol(\Omega(t)) & = - \int_{\Gamma(t)} \V\,.\,\vec\nu \,
 \dH{d-1} = \int_{\Gamma(t)} \Delta_s \, \varkappa \, \dH{d-1} \nonumber \\
-& = -\int_{\Gamma(t)} \nabla_s \, \varkappa \,.\, \nabla_s \, 1 \, \dH{d-1}=0\,.
+& = -\int_{\Gamma(t)} \nabla_s \, \varkappa \,.\, \nabla_s \, 1 \, \dH{d-1}=0\,,
 \end{align*}
+where the third equality is obtained with the integration by part formula
+(\ref{eq:integration_by_part}).
 
 Similarly for (\ref{eq:area_decrease}), choosing $g \equiv 1$ in
 (\ref{eq:length_variation}) and the evolution law (\ref{eq:surface_diff}) yields
@@ -553,27 +589,8 @@ piecewise linear continuous functions $W(\Gamma^m)$ and
 \begin{equation}\label{eq:algebraic_entries_d}
 [\vec A_\Gamma]_{kl} := [A_\Gamma]_{kl} \mat \id\,.
 \end{equation}
-We notice that for entries (\ref{eq:algebraic_entries_c}) holds
-\begin{equation}
-\begin{split}
-& \langle \nabla_s \chi_k^m \, , \nabla_s \chi_l^m \rangle_{\Gamma^m} = \langle
-\nabla \chi_k^m \, -\,\nabla \chi_k^m\,.\,\vec \nu\,\vec\nu, \nabla
-\chi_l^m \, -\,\nabla \chi_l^m\,.\,\vec \nu\,\vec\nu\rangle_{\Gamma^m} = \\
-& \langle \nabla \chi_k^m \, , \nabla \chi_l^m \rangle_{\Gamma^m}\,
-- 2\, \langle \nabla \chi_k^m \,.\,\vec\nu\,\vec\nu , \nabla \chi_l^m
-\rangle_{\Gamma^m}
-+\langle \nabla \chi_k^m \,.\,\vec\nu\,\vec\nu , \nabla \chi_l^m
-\,.\,\vec\nu\,\vec\nu \rangle_{\Gamma^m} = \\
-& \langle \nabla \chi_k^m \, , \nabla \chi_l^m \rangle_{\Gamma^m}
-- \langle \nabla \chi_k^m \,.\,\vec\nu\,\vec\nu , \nabla \chi_l^m
-\rangle_{\Gamma^m} =
-\langle \nabla \chi_k^m \, , \nabla \chi_l^m \rangle_{\Gamma^m}\,,
-\end{split}
-\end{equation}
-where, in the last equality, we have used the fact that $\langle \vec
-\nu\,,\,\nabla \chi_k^m  \rangle_{\Gamma^m}$. Therefore, in practice,
-(\ref{eq:algebraic_entries_c}) can be assembled as the standard Laplacian
-term $\langle \nabla \chi_k^m \, , \nabla \chi_l^m \rangle_{\Gamma^m}$.
+In practice, (\ref{eq:algebraic_entries_c}) can be assembled as the standard
+Laplacian term.
 
 The linear systems (\ref{eq:algebraic_mean_curvature}) and
 (\ref{eq:algebraic_surf_diff}) are invertible under a suitable assumption on the
@@ -586,36 +603,30 @@ with a sparse factorization package such as \verb|UMFPACK|, see \cite{Davis04}.
 Here we report on several numerical examples to benchmark the schemes
 (\ref{eq:fem_mean_curvature_a}--b) and (\ref{eq:fem_surf_diff_a}--b).
 
-We remark that the initial mean curvature of an hypersurface can be obtained
-directly from the identity (\ref{eq:LBop}). Equivalently, the unknown
-mean curvature $\varkappa$ can be computed by solving the algebraic system
+With a view towards our numerical simulations, we want to be able to compute
+the initial mean curvature $\kappa^0$ of an initial surface $\Gamma^0$ in
+order to plot it. This initial mean curvature $\kappa^0$ can be computed by
+solving the algebraic system
 \begin{equation}\label{eq:algebraic_initial_curvature}
 \begin{pmatrix}
-0 & -\,\frac{1}{\tau} \, \vec{N}_{0}^{T} \\
-\vec{N}_0 & \vec{A}_0
+0 & -\vec N_\Gamma^{T} \\
+\vec{N}_\Gamma & \vec A_\Gamma
 \end{pmatrix}
 \begin{pmatrix}
-\kappa \\
-\delta \vec X
+\kappa^0 \\
+\delta \vec X^0
 \end{pmatrix}
 =
 \begin{pmatrix}
 0 \\
-- \vec{A}_0 \, \vec{X}^{0}
+- \vec A_\Gamma \, \vec X^0
 \end{pmatrix}
-.
+\,,
 \end{equation}
-Indeed, the algebraic system (\ref{eq:algebraic_initial_curvature}) is the
-discretization of the stationary geometric PDE
+which is the discretization of the stationary geometric PDE
 \begin{equation}
-\V\,.\,\vec\nu=0\quad\mbox{on }\Gamma(t)\,,
+\V\,.\,\vec\nu=0\quad\mbox{on }\Gamma(t)\,.
 \end{equation}
-coupled with the identity (\ref{eq:LBop}) therefore $\delta\vec X \equiv 0$ and
-(\ref{eq:algebraic_initial_curvature}) can be simply rewritten as
-\begin{equation}
-\vec{N}_0\,\kappa=- \vec{A}_0 \, \vec{X}^{0}\,,
-\end{equation}
-which is the discrete version of (\ref{eq:LBop}).
 
 \subsection{Mean curvature flow with a sphere as initial condition}
 \label{subsec:mc_sphere}
@@ -752,13 +763,16 @@ $J_\Gamma=3816$ and the time step is constant and equal to $\tau=10^{-2}$.
 
 At time $t=0.6$ a topological change is encountered when the six holes of the
 surface are about to close to form a hollow ball.
-Figure~\ref{fig:sd_cage_section} shows a section of this hallow ball. A
-topological change breaks the front tracking approach since the reference
-manifold $\Gamma^m$ is not topological compatible with the unknown surface
-$\Gamma^{m+1}$. In practice, it is possible to apply some heuristic algorithms
-for the detection of topological changes, such as the merging of surfaces into
-one or the pinching-off of one surface from another, which can lead to a
-modified surface mesh that can be handled again with the parametric approach.
+Figure~\ref{fig:sd_cage_section} shows a section of this hallow ball. This
+hallow ball is still topological equivalent with the cage, i.e. genus is 5.
+Indeed we can see 6 very long and thin strands of elements, which connect the
+inner ball with the outer ball.  A topological change breaks the front tracking
+approach since the reference manifold $\Gamma^m$ is not topological compatible
+with the unknown surface $\Gamma^{m+1}$. In practice, it is possible to apply
+some heuristic algorithms for the detection of topological changes, such as the
+merging of surfaces into one or the pinching-off of one surface from another,
+which can lead to a modified surface mesh that can be handled again with the
+parametric approach, see \cite{Sacconi}.
 
 \begin{figure}[htbp]
 \centering

@@ -90,7 +90,7 @@ where $\mat\id \in \R^{d \times d}$ is the identity matrix and
 $\mat D(\vec u):=\frac{1}{2}\, (\nabla\vec u+(\nabla\vec u)^T)$
 is the rate-of-deformation tensor. Given a vector valued function $\vec
 h:\R^d\to\R^d$, we define its gradient as
-$\nabla\vec h = ((\nabla h_1)^T;\ldots;(\nabla h_d)^T)$. Moreover, let
+$\nabla\vec h = (\nabla h_1 \ldots \nabla h_d)$. Moreover, let
 $\mu$, with $\mu \in \R_{>0}$, be the fluid dynamic viscosity and let $\rho$,
 with $\rho \in \R_{>0}$, be the fluid density.
 
@@ -106,7 +106,11 @@ Navier--Stokes governing equations can be derived:
 \end{alignat}
 \end{subequations}
 where $\vec f$ includes all external body forces referred to the unit mass of
-fluid.
+fluid. We define the divergence of a tensor $\mat H:\R^d\to\R^{d \times d}$ as
+\begin{equation}
+\big[\nabla\,.\,\mat H\big]_i=\sum_{j=1}^d{
+\frac{\partial\big[\mat H\big]_{ij}}{\partial z_j}}\,, \quad 1\leq i\leq d\,.
+\end{equation}
 
 Substituting (\ref{eq:stress_tensor}) in (\ref{eq:ns_momentum_one_phase}), we
 obtain the well known one-phase incompressible Navier--Stokes model:
