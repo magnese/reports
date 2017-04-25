@@ -63,17 +63,24 @@ and pressure $p$ fields of the fluid. The velocity and stress tensor, see
 (\ref{eq:stress_tensor}), needs to be coupled across the free surface
 $\Gamma(t)$ and therefore we impose the interface conditions
 (\ref{eq:interface_jump_velocity}), (\ref{eq:interface_jump_stress}) and
-(\ref{eq:interface_velocity}). Finally, to close the system, we prescribe the
-initial data $\Gamma(0) = \Gamma_0$ and the boundary condition $\vec u = \vec
-0$ on $\partial \Omega$. Therefore the total system can be rewritten as follows:
+(\ref{eq:interface_velocity}). Let $\partial\Omega$ be
+partitioned as $\partial\Omega=\partial_1\Omega \cup \partial_2\Omega$ with
+$\partial_1\Omega \cap \partial_2\Omega = \emptyset$. We impose, on
+$\partial_1 \Omega$, the Dirichlet condition $\vec u = \vec g$ and, on
+$\partial_2 \Omega$, the free-slip condition $\vec u \,.\,\unitn = 0$,
+with $\unitn$ denoting the outer unit normal of $\partial \Omega$. Finally, to
+close the system, we prescribe the initial data $\Gamma(0) = \Gamma_0$.
+Therefore the total system can be rewritten as follows:
 \begin{subequations}
 \begin{alignat}{2}
 -2 \mu\,\nabla\,.\,\mat D(\vec u)+ \nabla\,p & = \vec f
 \quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:stokes_full_momentum} \\
 \nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
 \label{eq:stokes_full_mass} \\
-\vec u & = \vec 0 \quad &&\mbox{on } \partial\Omega\,,
-\label{eq:stokes_full_initial_velocity} \\
+\vec u & = \vec g \quad &&\mbox{on } \partial_1\Omega\,,
+\label{eq:stokes_full_dirichlet}\\
+\vec u \,.\,\unitn & = 0 \quad &&\mbox{on } \partial_2\Omega\,,
+\label{eq:stokes_full_freeslip}\\
 [\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,,
 \label{eq:stokes_full_jump_velocity} \\
 [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
@@ -93,11 +100,13 @@ mean curvature of $\Gamma(t)$. See Chapter~\ref{ch:introduction} for more
 details.
 
 \section{Weak formulation}\label{sec:stokes_weak}
-In order to obtain a weak formulation, we define the function spaces
+In order to obtain a weak formulation, we define the function spaces, for a
+given $\vec b \in [H^1_0(\Omega)]^d$,
 \begin{align*}
-\uspace &:= [H^1_0(\Omega)]^d\,,\quad \pspace := L^2(\Omega) \quad
-\mbox{and}\quad
-\pnormspace := \{\eta\in\pspace : \int_\Omega\eta\dL{d}=0 \}\,,
+\uspace b &:= \{\vec \phi\in[H^1_0(\Omega)]^d:\vec \phi =\vec
+g\quad \mbox{on }\partial_1\Omega\}\,,\\
+\pspace &:= L^2(\Omega)\,,\\
+\pnormspace &:= \{\eta\in\pspace : \int_\Omega\eta\dL{d}=0 \}\,,
 \end{align*}
 and let, as usual, $(\cdot,\cdot)$ and $\langle \cdot, \cdot
 \rangle_{\Gamma(t)}$ denote the $L^2$--inner products on $\Omega$ and
@@ -124,17 +133,17 @@ Moreover, on noting (\ref{eq:stress_tensor}) and
 -2 \left(\mu\,\mat D(\vec u) , \mat D(\vec \xi) \right)
 + \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
 \end{align*}
-for all $\vec \xi \in [H^1_0(\Omega)]^d$. Hence a possible weak formulation of
-(\ref{eq:stokes_full_momentum}--g) is given as follows. Given $\Gamma(0) =
+for all $\vec \xi \in \uspace 0$. Hence a possible weak formulation of
+(\ref{eq:stokes_full_momentum}--h) is given as follows. Given $\Gamma(0) =
 \Gamma_0$,
 for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
-\uspace \times \pnormspace \times H^1(\Gamma(t))}$ such that
+\uspace g \times \pnormspace \times H^1(\Gamma(t))}$ such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
 - \left(p, \nabla\,.\,\vec \xi\right)
 - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
-= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace \,,
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace 0 \,,
 \label{eq:stokes_weaka}\\
 & \left(\nabla\,.\,\vec u, \varphi\right) = 0
 \quad \forall\ \varphi \in \pnormspace\,, \label{eq:stokes_weakb} \\
@@ -147,7 +156,7 @@ for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 \end{align}
 \end{subequations}
 holds for almost all times $t \in (0,T]$. Here we have observed that if
-$p \in \pspace$ is part of a solution to (\ref{eq:stokes_full_momentum}--g),
+$p \in \pspace$ is part of a solution to (\ref{eq:stokes_full_momentum}--h),
 then so is $p + c$ for an arbitrary $c\in \R$.
 
 We finally observe that an alternative weak formulation can be obtained
@@ -200,10 +209,9 @@ two-phase Stokes flow that satisfies discrete analogous of
 
 \section{Finite element approximation}\label{sec:stokes_fem}
 We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
-$[0,T]$ into possibly variable time steps
-$\tau_m := t_{m+1}-t_m$, $m=0 ,\ldots, M-1$. Moreover, let
-${\cal T}^m$, $\forall m\ge 0$, be a regular partitioning of the domain
-$\Omega$ into disjoint open simplices
+$[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0
+,\ldots, M-1$. Moreover, let ${\cal T}^m$, $\forall m\ge 0$, be a regular
+partitioning of the domain $\Omega$ into disjoint open simplices
 $\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. On ${\cal T}^m$ we define the
 finite element spaces
 \begin{equation*}
@@ -213,15 +221,17 @@ S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
 \end{equation*}
 where $\mathcal{P}_k(\sigmaO^m)$ denotes the space of polynomials of degree $k$
 on $\sigmaO^m$. Moreover, $S^m_0$ is the space of piecewise constant functions
-on ${\cal T}^m$.
+on ${\cal T}^m$. For later use, we also define $\vec I^m_k$ to be the standard
+interpolation operator onto $[S^m_k]^d$.
 
-Let $\uspace^m\subset\uspace$ and $\pspace^m\subset\pspace$ be the finite
-element spaces we use for the approximation of velocity and pressure,
-and let $\pnormspace^m:= \pspace^m \cap \pnormspace$.
-The spaces $(\uspace^m,\pspace^m)$ satisfy the LBB inf-sup condition if there
-exists a constant $C_0 \in \R_{>0}$, independent of $\mathcal{T}^m$, such that
+Let $\uspacedisc{g}{m}\subset\uspacesimple(\vec{I}_k^m\vec g)$ and
+$\pspace^m\subset\pspace$ be the finite element spaces we use for the
+approximation of velocity and pressure, and let $\pnormspace^m:= \pspace^m \cap
+\pnormspace$. The spaces $(\uspacedisc{0}{m},\pspace^m)$ satisfy the LBB
+inf-sup condition if there exists a constant $C_0 \in \R_{>0}$, independent of
+$\mathcal{T}^m$, such that
 \begin{equation} \label{eq:LBB}
-\inf_{\varphi \in \pnormspace^m} \sup_{\vec \xi \in \uspace^m}
+\inf_{\varphi \in \pnormspace^m} \sup_{\vec \xi \in \uspacedisc{0}{m}}
 \frac{( \varphi, \nabla \,.\,\vec \xi)} {\|\varphi\|_0\,\|\vec \xi\|_1}
 \geq C_0 > 0\,,
 \end{equation}
@@ -229,11 +239,11 @@ see \cite[p.~114]{GiraultR86}. Here $\|\cdot\|_0 := (\cdot,\cdot)^\frac12$ and
 $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ denote the $L^2$--norm and
 the $H^1$--norm on $\Omega$, respectively. Throughout this thesis, if not
 otherwise stated, we will assume that $S^m_0\subset\pspace^m$. Then, for $d=2$,
-possible pairs $(\uspace^m,\pspace^m)$ that satisfy (\ref{eq:LBB}) are P2--P0
-and P2--(P1+P0), i.e. we set $\uspace^m=[S^m_2]^d\cap\uspace$ and either
-$\pspace^m = S^m_0$ or $S^m_1+S^m_0$. We note that the choice P2--(P1+P0)
-requires the weak constraint that all simplices have a vertex in $\Omega$, see
-\cite{BoffiCGG12}. For $d=3$, pairs of spaces that satisfy
+possible pairs $(\uspacedisc{0}{m},\pspace^m)$ that satisfy (\ref{eq:LBB}) are
+P2--P0 and P2--(P1+P0), i.e. we set $\uspacedisc{0}{m}=[S^m_2]^d\cap\uspace{0}$
+and either $\pspace^m = S^m_0$ or $S^m_1+S^m_0$. We note that the choice
+P2--(P1+P0) requires the weak constraint that all simplices have a vertex in
+$\Omega$, see \cite{BoffiCGG12}. For $d=3$, pairs of spaces that satisfy
 $S^m_0\subset\pspace^m$ and (\ref{eq:LBB}) are the P3--(P2+P0) element, see
 \cite{BoffiCGG12}, or stabilized spaces such as P1$^{\mbox{face bubble}}$--P0,
 see \cite[Remark~8.7.1]{BoffiBF13}, which is also called the SMALL element.
@@ -282,15 +292,15 @@ the standard $L^2$--inner product on $\Gamma^m$.
 Then our finite element approximation, which is based on the variational
 formulation (\ref{eq:stokes_weaka}--d), is given as follows. Let $\Gamma^0$ be
 an approximation to $\Gamma(0)$. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},
-P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \pnormspace^m
+P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m
 \times \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
 & - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
-= \left(\vec f^{m+1},\vec \xi\right) \quad \forall\ \vec\xi \in \uspace^m\,,
-\label{eq:HGa}\\
+= \left(\vec f^{m+1},\vec \xi\right) \quad \forall\ \vec\xi \in
+\uspacedisc{0}{m}\,, \label{eq:HGa}\\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
 \quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:HGb} \\
 &  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
@@ -302,8 +312,7 @@ P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times \pnormspace^m
 \end{align}
 \end{subequations}
 and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$. Here we have defined
-$\vec f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$, where $\vec I^m_2$
-is the standard interpolation operator onto $[S^m_2]^d$ and
+$\vec f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$ and
 \begin{equation}
 \mu^m =\mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
 \end{equation}
@@ -362,21 +371,23 @@ order to capture discontinuity of quantities of interest across the interface.
 \label{sec:stokes_existence}
 \begin{theorem} \label{thm:ex}
 Let $m \in \{0,\ldots,M-1\}$ and
-let $(\uspace^m,\pspace^m)$ satisfy the LBB condition (\ref{eq:LBB}).
+let $(\uspacedisc{0}{m},\pspace^m)$ satisfy the LBB condition (\ref{eq:LBB}).
 Then there exists a unique solution
 $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})
-\in \uspace^m\times \pnormspace^m \times \Vh \times \Wh$ to (\ref{eq:HGa}--d).
+\in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$ to
+(\ref{eq:HGa}--d).
 \end{theorem}
 \begin{proof}
 As the system (\ref{eq:HGa}--d) is linear, existence follows from uniqueness.
 In order to establish the latter, we consider the system: Find $(\vec U, P,
-\vec{X}, \kappa) \in \uspace^m\times\pnormspace^m \times \Vh \times \Wh$
+\vec{X}, \kappa) \in \uspacedisc{0}{m}\times\pnormspace^m \times \Vh \times \Wh$
 such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu^m\,\mat D(\vec U), \mat D(\vec \xi) \right)
 - \left(P, \nabla\,.\,\vec \xi\right) - \gamma\,\left\langle \kappa\,\vec\nu^m,
-\vec\xi\right\rangle_{\Gamma^m} = 0 \quad \forall\ \vec\xi \in \uspace^m \,,
+\vec\xi\right\rangle_{\Gamma^m} = 0 \quad \forall\ \vec\xi \in
+\uspacedisc{0}{m} \,,
 \label{eq:proofa}\\
 & \left(\nabla\,.\,\vec U, \varphi\right)  = 0 \quad
 \forall\ \varphi \in \pnormspace^m\,, \label{eq:proofb} \\
@@ -434,11 +445,13 @@ that
 and so $\kappa = 0 \in \Wh$. Finally, it follows from (\ref{eq:proofa}) with
 $\vec U = \vec 0$ and $\kappa = 0$, on recalling (\ref{eq:LBB}), that $P = 0$.
 Hence there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1},$
-$\kappa^{m+1}) \in \uspace^m\times \pnormspace^m \times \Vh \times \Wh$ to
+$\kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
+to
 (\ref{eq:HGa}--d).
 \end{proof}
 
-We note that if $(\uspace^m,\pspace^m)$ does not satisfy the LBB condition
+We note that if $(\uspacedisc{0}{m},\pspace^m)$ does not satisfy the LBB
+condition
 (\ref{eq:LBB}), then existence and uniqueness of the solution
 $(\vec U^{m+1},\vec X^{m+1},\kappa^{m+1})$ to a reduced system, where the
 pressure $P^{m+1}$ is eliminated, can be shown. See \cite[Theorem~1]{spurious}
@@ -450,8 +463,8 @@ estimate, which corresponds to the bound (\ref{eq:ap1}) in the continuous case.
 In particular, we obtain an unconditional stability result for our scheme.
 
 \begin{theorem} \label{thm:stabstab}
-Let $m \in \{0,\ldots,M-1\}$ and let
-$(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times
+Let $\vec g=\vec 0$. Let $m \in \{0,\ldots,M-1\}$ and let
+$(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
 \pnormspace^m \times \Vh \times \Wh$ be a solution to (\ref{eq:HGa}--d). Then
 \begin{equation}\label{eq:stab}
 \gamma\, \surfvol(\Gamma^{m+1})
@@ -470,10 +483,9 @@ f^{k+1}, \vec U^{k+1} \right)
 for $m=0,\ldots, M-1$.
 \end{theorem}
 \begin{proof}
-The desired results follow from choosing $\vec\xi = \vec U^{m+1} \in \uspace^m$
-in (\ref{eq:HGa}),
-$\varphi = P^{m+1} \in \pnormspace^m$ in (\ref{eq:HGb}),
-$\chi = \gamma\,\kappa^{m+1}$ in (\ref{eq:HGc}) and
+The desired results follow from choosing $\vec\xi = \vec U^{m+1} \in
+\uspacedisc{0}{m}$ in (\ref{eq:HGa}), $\varphi = P^{m+1} \in \pnormspace^m$ in
+(\ref{eq:HGb}), $\chi = \gamma\,\kappa^{m+1}$ in (\ref{eq:HGc}) and
 $\vec\eta=\gamma\,({\vec{X}^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ in
 (\ref{eq:HGd}). See \cite[Proof of Theorem~2]{spurious} for more details.
 \end{proof}
@@ -501,7 +513,8 @@ $\vec f = \vec 0$. Here, independently of the choice of $\mu_\pm$, no spurious
 velocities appear for discrete stationary solutions. Indeed,
 Theorem~\ref{thm:stabstab} has an immediate consequence.
 \begin{theorem}\label{thm:stat1}
-Let $(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspace^m\times
+Let $\vec g=\vec 0$. Let $(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1})
+\in \uspacedisc{0}{m}\times
 \pnormspace^m \times \Vh \times \Wh$ be a solution to  (\ref{eq:HGa}--d) with
 $\vec f^{m+1} = \vec 0$. If $\vec X^{m+1} = \vec X^m$, then $\vec U^{m+1} = \vec
 0$.
@@ -516,7 +529,8 @@ inequality implies $\vec U^{m+1} = \vec 0$.
 Finally, it holds that polyhedral surfaces with constant discrete mean
 curvature and zero velocity are stationary solutions
 \begin{theorem} \label{thm:stat2}
-Let $(\uspace^m,\pspace^m)$ satisfy the LBB condition (\ref{eq:LBB}) and let
+Let $\vec g=\vec 0$. Let $(\uspacedisc{0}{m},\pspace^m)$ satisfy the LBB
+condition (\ref{eq:LBB}) and let
 $S^m_0 \subset \pspace^m$. Let $\vec f^{m+1} = \vec 0$. Moreover, let
 $\Gamma^m$ be a polyhedral surface with constant discrete mean curvature,
 i.e. there exists a constant $\overline{\kappa}\in\R$ such that
@@ -551,10 +565,10 @@ divergence theorem implies that
 \charfcn{\Omega_-^m}\right)
 = \left(\nabla\,.\,\vec\xi, P^{m+1} \right)
 \end{equation*}
-for all $\vec\xi \in \uspace^m$, where we have observed that $P^{m+1}$ differs
-from $- \gamma\,\overline\kappa\,\charfcn{\Omega_-^m}$ only by a constant.
-Hence (\ref{eq:HGa}) also holds, and so (\ref{eq:solsol}) is the unique
-solution to (\ref{eq:HGa}--d)
+for all $\vec\xi \in \uspacedisc{0}{m}$, where we have observed that $P^{m+1}$
+differs from $- \gamma\,\overline\kappa\,\charfcn{\Omega_-^m}$ only by a
+constant. Hence (\ref{eq:HGa}) also holds, and so (\ref{eq:solsol}) is the
+unique solution to (\ref{eq:HGa}--d)
 \end{proof}
 
 A stationary solution to the continuous problem with $\vec f = \vec 0$ is a
@@ -594,23 +608,21 @@ Similarly to (\ref{eq:V}), we can then define the discrete velocity
 \sum_{k=1}^{K_\Gamma}\left[\ddt\,\vec q^h_k(t)\right] \chi^h_k(\vec z, t)
 \in \Vht\,,
 \end{equation*}
-see e.g. \cite[(3.3)]{tpfs}.
-For $t\in
-[0,T]$, let $\mathcal{T}^h(t)$ be a regular partitioning of $\Omega$ into
-disjoint open simplices and define the finite element spaces $S^h_k(t)$,
-$\uspace^h(t)$ and $\pspace^h(t)$ similarly to $S^m_k$, $\uspace^m$ and
-$\pspace^m$, with the corresponding interpolation operators $I^h_k$ and discrete
-approximations $\mu^h(t) \in S^h_0(t)$. Here we recall that we assume
-$S_0^h(t)\subset\pspace^h(t)$. Then, given $\Gamma^h(0)$, for $t\in
-(0,T]$ find $\Gamma^h(t)$ and $(\vec U^h(t), P^h(t), \V^h(t),
-\kappa^h(t)) \in \uspace^h(t) \times \pnormspace^h(t) \times \Vht \times
-\Wht$ such that
+see e.g. \cite[(3.3)]{tpfs}. For $t\in [0,T]$, let $\mathcal{T}^h(t)$ be a
+regular partitioning of $\Omega$ into disjoint open simplices and define the
+finite element spaces $S^h_k(t)$, $\uspacesimple^h(t)$ and $\pspace^h(t)$
+similarly to $S^m_k$, $\uspacedisc{0}{m}$ and $\pspace^m$, with the
+corresponding interpolation operators $I^h_k$ and discrete approximations
+$\mu^h(t) \in S^h_0(t)$. Here we recall that we assume
+$S_0^h(t)\subset\pspace^h(t)$. Then, given $\Gamma^h(0)$, for $t\in (0,T]$ find
+$\Gamma^h(t)$ and $(\vec U^h(t), P^h(t), \V^h(t), \kappa^h(t)) \in
+\uspacesimple^h(t) \times \pnormspace^h(t) \times \Vht \times \Wht$ such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu^h\,\mat D(\vec U^h), \mat D(\vec \xi) \right)
 - \left(P^h, \nabla\,.\,\vec \xi\right) - \gamma\,\left\langle
 \kappa^h\,\vec\nu^h, \vec\xi\right\rangle_{\Gamma^h(t)} = \left(\vec f^h, \vec
-\xi\right) \forall\ \vec\xi \in \uspace^h(t) \,, \label{eq:sda}\\
+\xi\right) \forall\ \vec\xi \in \uspacesimple^h(t) \,, \label{eq:sda}\\
 & \left(\nabla\,.\,\vec U^h, \varphi\right)  = 0
 \quad \forall\ \varphi \in \pnormspace^h(t)\,, \label{eq:sdb} \\
 & \left\langle \V^h , \chi\,\vec\nu^h
@@ -663,7 +675,7 @@ then projected into the space of zero mean functions. The linear system
 formulated as:
 
 Find $(\vec U^{m+1},P^{m+1}, \kappa^{m+1},\delta\vec{X}^{m+1})\in
-(\R^d)^{K^m_\uspace}\times \R^{K^m_\pspace} \times \R^{K_\Gamma}\,\times
+(\R^d)^{K^m_\uspacesimple}\times \R^{K^m_\pspace} \times \R^{K_\Gamma}\,\times
 (\R^d)^{K_\Gamma}$, where $\vec X^{m+1} = \vec X^m+ \delta\vec X^{m+1}$, such
 that
 \begin{equation}
@@ -690,23 +702,28 @@ P^{m+1} \\
 \end{equation}
 where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec{X}^{m+1})$ here denote the
 coefficients of these finite element functions with respect to the standard
-bases of $\uspace^m$, $\pspace^m$, $\Wh$ and $\Vh$, respectively. Moreover,
+bases of $\uspacedisc{0}{m}$, $\pspace^m$, $\Wh$ and $\Vh$, respectively.
+Moreover,
 $\vec X^m$ denotes the coefficients of $\vec\id\!\mid_{\Gamma^m}$ with respect
 to the basis of $\Vh$. The definitions of the matrices and vectors in
 (\ref{eq:stokes_algebraic}) directly follow from (\ref{eq:HGa}--d) and are:
 \begin{align*}
-& [\vec B_\Omega]_{ij} := 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspace^m} \vec
-e_r), \mat D( \phi_i^{\uspace^m}\,\vec e_s) \right) \right)_{r,s=1}^d\,,\quad
-\vec c_i = \left( \vec f^{m+1},\phi_i^{\uspace^m}\right)\,,\\
-&[\vec C_\Omega]_{iq} := - \left( \left(\nabla\,.\,(\phi_i^{\uspace^m}\,\vec
+& [\vec B_\Omega]_{ij} := 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacedisc{0}{m}}
+\vec
+e_r), \mat D( \phi_i^{\uspacedisc{0}{m}}\,\vec e_s) \right)
+\right)_{r,s=1}^d\,,\quad
+\vec c_i = \left( \vec f^{m+1},\phi_i^{\uspacedisc{0}{m}}\right)\,,\\
+&[\vec C_\Omega]_{iq} := - \left(
+\left(\nabla\,.\,(\phi_i^{\uspacedisc{0}{m}}\,\vec
 e_r), \phi_q^{\pspace^m} \right) \right)_{r=1}^d,\quad
-[\Nbulk]_{il} := \left\langle \phi_i^{\uspace^m}, \chi^m_l \,\vec\nu^m
+[\Nbulk]_{il} := \left\langle \phi_i^{\uspacedisc{0}{m}}, \chi^m_l \,\vec\nu^m
 \right\rangle_{\Gamma^m} \,,\\
 & [\vec{N}_\Gamma]_{kl} := \left\langle \chi^m_l, \chi^m_k\,\vec\nu^m
 \right\rangle_{\Gamma^m}^h \,,\quad [\vec{A}_\Gamma]_{kl} := \left\langle
 \nabs\,\chi^m_l, \nabs\,\chi^m_k \right\rangle_{\Gamma^m} \,\vec\id \,,
 \end{align*}
-where $\phi^{\uspace^m} \in \uspace^m$, $\phi^{\pspace^m} \in \pspace^m$,
+where $\phi^{\uspacedisc{0}{m}} \in \uspacedisc{0}{m}$, $\phi^{\pspace^m} \in
+\pspace^m$,
 $\chi^m \in \Wh$ and we recall that $\{\vec e_r\}_{r=1}^d$ denotes the standard
 basis in $\R^d$. Note that for the submatrices we have used the convention that
 the subscripts refer to the test and trial domains, respectively. A single
@@ -762,10 +779,9 @@ additional degree of freedoms for the nodes on the interface in order to
 capture the discontinuity of the pressure.
 
 Finally, with a view towards some numerical test cases in
-\S\ref{sec:stokes_results}, we also allow for an inhomogeneous Dirichlet
-boundary condition $\vec g$ on $\partial\Omega$. In this case the linear system
-is suitably adjusted. Let $\varphi \in \pspace^m$, then we can rewrite
-$\varphi$ as
+\S\ref{sec:stokes_results}, the linear system needs to be suitably adjusted when
+the Dirichlet boundary data $\vec g$ is different from zero. Let $\varphi \in
+\pspace^m$, then we can rewrite $\varphi$ as
 \begin{equation}\label{eq:phi_rewriting}
 \varphi=\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}
 +\frac{\left(\varphi,1\right)}{\left(1,1\right)}\,,
@@ -790,13 +806,13 @@ and, noting that
 \left(\nabla\,.\,\vec U^{m+1}, 1\right)=
 \frac{\left(\varphi,1\right)}{\left(1,1\right)}\, \int_{\partial\Omega}
 \vec U^{m+1}\,.\, \unitn \dH{d-1}=
-\frac{\left(\varphi,1\right)}{\vol(\Omega)}\, \int_{\partial\Omega}
+\frac{\left(\varphi,1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
 (\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1}\,,
 \end{equation}
 we finally deduce
 \begin{equation} \label{eq:LAb}
  \left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
- \frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial\Omega}
+ \frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
 (\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
 \pspace^m\,.
 \end{equation}
@@ -1098,7 +1114,7 @@ together with
 -\frac{\vol(\Omega_-(0))}{\vol(\Omega)} \right] ,
 \end{equation}
 \end{subequations}
-is an exact solution to the problem (\ref{eq:stokes_full_momentum}--g) on e.g.\
+is an exact solution to the problem (\ref{eq:stokes_full_momentum}--h) on e.g.\
 $\Omega = (-1,1)^d$ with $\vec f=\vec 0$ and $\vec g = \vec 0$. This solution
 is the continuous version of (\ref{eq:solsol}). Secondly, a nontrivial
 divergence free and radially symmetric solution $\vec u$ can be constructed on
@@ -1117,7 +1133,7 @@ p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{equation}
 \end{subequations}
-is an exact solution to the problem (\ref{eq:stokes_full_momentum}--g) with
+is an exact solution to the problem (\ref{eq:stokes_full_momentum}--h) with
 $\vec f = \vec 0$ and $\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$. We will
 refer to (\ref{eq:radialr},b) as the stationary bubble solution, and to
 (\ref{eq:radialr2},b) as the expanding bubble solution.
