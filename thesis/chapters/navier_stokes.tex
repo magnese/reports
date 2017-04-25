@@ -159,8 +159,8 @@ S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
 \end{equation*}
 where $\mathcal{P}_k(\sigmaO^m)$ denotes the space of polynomials of degree $k$
 on $\sigmaO^m$. Moreover, $S^m_0$ is the space of piecewise constant functions
-on ${\cal T}^m$.  For later use, we also define $\vec I^m_k$ to be the standard
-interpolation operator onto $[S^m_k]^d$.
+on ${\cal T}^m$ and let $\vec I^m_k$ be the standard interpolation operator
+onto $[S^m_k]^d$.
 
 Let $\uspacedisc{g}{m}\subset\uspacesimple(\vec I_k^m\vec g)$ and
 $\pspace^m\subset\pspace$ be the finite element spaces we use for the
@@ -241,8 +241,14 @@ U^{m+1},P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times
 \end{subequations}
 and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$, $\vec U^{m+1}=
 \vec U^{m+1,\bar{i}+1}$. Here we have defined $\vec f^{m+1}(\cdot) := \vec
-I^m_2\,\vec f(\cdot,t_{m+1})$ and $\rho^m = \rho_+\,\charfcn{\Omega^m_+} +
-\rho_-\,\charfcn{\Omega^m_-}\in S^m_0$.
+I^m_2\,\vec f(\cdot,t_{m+1})$,
+\begin{equation}
+\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
+\end{equation}
+and
+\begin{equation}
+\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
+\end{equation}
 
 When $\bar{i}=0$, the scheme (\ref{eq:ns_HGa}--d) is a linear scheme in that it
 leads to a coupled linear system of equations for the unknowns $(\vec U^{m+1,1},
@@ -451,9 +457,14 @@ U^{m+1},P^{m+1},
 \end{align}
 \end{subequations}
 and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$. Again, we have defined $\vec
-f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$, where $\vec I^m_2$ is the
-standard interpolation operator onto $[S^m_2]^d$ and
-$\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-} \in S^m_0$.
+f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$,
+\begin{equation}
+\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
+\end{equation}
+and
+\begin{equation}
+\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
+\end{equation}
 
 We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) differs
 from the standard linear scheme (\ref{eq:ns_HGa}--d), where $\bar{i}=0$, for
