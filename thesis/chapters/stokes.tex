@@ -57,15 +57,15 @@ where $\V \,.\,\vec{\nu}$ is the normal velocity of the evolving hypersurface
 $\Gamma(t)$ and $\vec\nu(t)$ is the unit normal on $\Gamma(t)$ pointing into
 $\Omega_+(t)$.
 
-The fluid dynamics in the bulk domain $\Omega$ is governed by the two-phase
-Stokes model (\ref{eq:momentum_bis}--b) which describes the velocity $\vec u$
-and pressure $p$ fields of the fluid. The velocity and stress tensor, see
-(\ref{eq:stress_tensor}), needs to be coupled across the free surface
+\sloppy The fluid dynamics in the bulk domain $\Omega$ is governed by the
+two-phase Stokes model (\ref{eq:momentum_bis}--b) which describes the velocity
+$\vec u$ and pressure $p$ fields of the fluid. The velocity and stress tensor,
+see (\ref{eq:stress_tensor}), needs to be coupled across the free surface
 $\Gamma(t)$ and therefore we impose the interface conditions
 (\ref{eq:interface_jump_velocity}), (\ref{eq:interface_jump_stress}) and
 (\ref{eq:interface_velocity}). Let $\partial\Omega$ be
 partitioned as $\partial\Omega=\partial_1\Omega \cup \partial_2\Omega$ with
-$\partial_1\Omega \cap \partial_2\Omega = \emptyset$. We impose, on
+${\partial_1\Omega \cap \partial_2\Omega = \emptyset}$. We impose, on
 $\partial_1 \Omega$, the Dirichlet condition $\vec u = \vec g$ and, on
 $\partial_2 \Omega$, the free-slip condition $\vec u \,.\,\unitn = 0$,
 with $\unitn$ denoting the outer unit normal of $\partial \Omega$. Finally, to
@@ -134,10 +134,10 @@ Moreover, on noting (\ref{eq:stress_tensor}) and
 + \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
 \end{align*}
 for all $\vec \xi \in \uspace 0$. Hence a possible weak formulation of
-(\ref{eq:stokes_full_momentum}--h) is given as follows. Given $\Gamma(0) =
-\Gamma_0$,
-for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
-\uspace g \times \pnormspace \times H^1(\Gamma(t))}$ such that
+(\ref{eq:stokes_full_momentum}--h) is given as follows.
+\sloppy Given $\Gamma(0) = \Gamma_0$, for almost all $t\in(0,T)$ find
+$\Gamma(t)$ and ${(\vec u, p, \varkappa) \in \uspace g \times \pnormspace
+\times H^1(\Gamma(t))}$ such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
@@ -239,16 +239,23 @@ see \cite[p.~114]{GiraultR86}. Here $\|\cdot\|_0 := (\cdot,\cdot)^\frac12$ and
 $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ denote the $L^2$--norm and
 the $H^1$--norm on $\Omega$, respectively. Throughout this thesis, if not
 otherwise stated, we will assume that $\charfcn{\Omega^m_-}\in\pspace^m$. Then,
-for $d=2$,
-possible pairs $(\uspacedisc{0}{m},\pspace^m)$ that satisfy (\ref{eq:LBB}) are
-P2--P0 and P2--(P1+P0), i.e. we set $\uspacedisc{0}{m}=[S^m_2]^d\cap\uspace{0}$
-and either $\pspace^m = S^m_0$ or $S^m_1+S^m_0$. We note that the choice
-P2--(P1+P0) requires the weak constraint that all simplices have a vertex in
-$\Omega$, see \cite{BoffiCGG12}. For $d=3$, pairs of spaces that satisfy
-$\charfcn{\Omega^m_-}\in\pspace^m$ and (\ref{eq:LBB}) are the P3--(P2+P0)
-element, see \cite{BoffiCGG12}, or stabilized spaces such as P1$^{\mbox{face
-bubble}}$--P0, see \cite[Remark~8.7.1]{BoffiBF13}, which is also called the
-SMALL element.
+for $d=2$, possible pairs $(\uspacedisc{0}{m},\pspace^m)$ that satisfy
+(\ref{eq:LBB}) are P2--P0 and P2--(P1+P0), i.e. we set
+$\uspacedisc{0}{m}=[S^m_2]^d\cap\uspace{0}$ and either $\pspace^m = S^m_0$ or
+$S^m_1+S^m_0$. We note that the choice P2--(P1+P0) requires the weak constraint
+that all simplices have a vertex in $\Omega$, see \cite{BoffiCGG12}. For $d=3$,
+pairs of spaces that satisfy $\charfcn{\Omega^m_-}\in\pspace^m$ and
+(\ref{eq:LBB}) are the P3--(P2+P0) element, see \cite{BoffiCGG12}, or stabilized
+spaces such as P1$^{\mbox{face bubble}}$--P0, see
+\cite[Remark~8.7.1]{BoffiBF13}, which is also called the SMALL element. With a
+view towards our numerical simulations, we also introduce the pairs P2--\pdg
+where the space \pdg is a space of polynomial order 1 defined in the two
+subdomains $\Omega_-^m$ and $\Omega_+^m$. This space is equivalent to a P1 space
+which is continuous everywhere except across the interface $\Gamma^m$. With this
+choice of space, the discrete scheme fall in the category of XFEM, extended
+FEM, since the pressure space is enriched adding additional degree of freedoms
+for the nodes on the interface in order to capture the discontinuity of the
+pressure.
 
 In this thesis we consider a fitted finite element approximation for the
 evolution of the interface $\Gamma(t)$. Let $\Gamma^{m}\subset\R^d$ be a
@@ -291,11 +298,11 @@ use the mass lumped inner product $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$, see
 (\ref{eq:masslump}). Finally, let $\langle\cdot,\cdot\rangle_{\Gamma^m}$ denote
 the standard $L^2$--inner product on $\Gamma^m$.
 
-Then our finite element approximation, which is based on the variational
-formulation (\ref{eq:stokes_weaka}--d), is given as follows. Let $\Gamma^0$ be
-an approximation to $\Gamma(0)$. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},
-P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m
-\times \Vh \times \Wh$ such that
+\sloppy Then our finite element approximation, which is based on the variational
+formulation (\ref{eq:stokes_weaka}--d), assumes the following formulation. Let
+$\Gamma^0$ be an approximation to the initial interface $\Gamma(0)$. For
+$m=0,\ldots, M-1$, find ${(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})
+\in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh}$ such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
@@ -372,18 +379,17 @@ order to capture discontinuity of quantities of interest across the interface.
 \section{Existence and uniqueness of a discrete solution}
 \label{sec:stokes_existence}
 \begin{theorem} \label{thm:ex}
-Let $m \in \{0,\ldots,M-1\}$ and
-let $(\uspacedisc{0}{m},\pspace^m)$ satisfy the LBB condition (\ref{eq:LBB}).
-Then there exists a unique solution
+Let $m \in \{0,\ldots,M-1\}$ and let $(\uspacedisc{0}{m},\pspace^m)$ satisfy
+the LBB condition (\ref{eq:LBB}). Then there exists a unique solution
 $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})
 \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$ to
 (\ref{eq:HGa}--d).
 \end{theorem}
 \begin{proof}
-As the system (\ref{eq:HGa}--d) is linear, existence follows from uniqueness.
-In order to establish the latter, we consider the system: Find $(\vec U, P,
-\vec{X}, \kappa) \in \uspacedisc{0}{m}\times\pnormspace^m \times \Vh \times \Wh$
-such that
+\sloppy As the system (\ref{eq:HGa}--d) is linear, existence follows from
+uniqueness. In order to establish the latter, we consider the system: Find
+${(\vec U, P, \vec{X}, \kappa) \in \uspacedisc{0}{m}\times\pnormspace^m \times
+\Vh \times \Wh}$ such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu^m\,\mat D(\vec U), \mat D(\vec \xi) \right)
@@ -465,9 +471,9 @@ estimate, which corresponds to the bound (\ref{eq:ap1}) in the continuous case.
 In particular, we obtain an unconditional stability result for our scheme.
 
 \begin{theorem} \label{thm:stabstab}
-Let $\vec g=\vec 0$. Let $m \in \{0,\ldots,M-1\}$ and let
-$(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
-\pnormspace^m \times \Vh \times \Wh$ be a solution to (\ref{eq:HGa}--d). Then
+\sloppy Let $\vec g=\vec 0$. Moreover let $m \in \{0,\ldots,M-1\}$ and let
+${(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
+\pnormspace^m \times \Vh \times \Wh}$ be a solution to (\ref{eq:HGa}--d). Then
 \begin{equation}\label{eq:stab}
 \gamma\, \surfvol(\Gamma^{m+1})
 + 2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1}) \right) \leq
@@ -475,6 +481,7 @@ $(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
 \right).
 \end{equation}
 In addition, let $\{t_k\}_{k=0}^M$ be an arbitrary partitioning of $[0,T]$.
+
 Then it holds that
 \begin{equation}\label{eq:stabstab}
 \gamma\,\surfvol(\Gamma^{m+1})
@@ -769,14 +776,8 @@ domains. More precisely, in the case (P1+P0), there are two independent spaces
 for the pressure defined over the bulk domain $\Omega$ of polynomial order 1 and
 0, respectively, which means that $\vec C_{\spadesuit}=\vec C_\Omega$ and
 $\vec C_{\clubsuit}=\vec C_\Omega$ but whit different polynomial orders.
-Instead, the space \pdg is a space of polynomial order 1 defined in the two
-subdomains $\Omega_-$ and $\Omega_+$ therefore $\vec C_{\spadesuit}=\vec
-C_{\Omega_-}$ and $\vec C_{\clubsuit}=\vec C_{\Omega_+}$. This space is
-equivalent to a P1 space which is continuous everywhere except across the
-interface $\Gamma$. With this choice of space, the discrete scheme fall in
-the category of XFEM, extended FEM, since the pressure space is enriched adding
-additional degree of freedoms for the nodes on the interface in order to
-capture the discontinuity of the pressure.
+Instead, for the space \pdg, $\vec C_{\spadesuit}=\vec C_{\Omega_-}$ and $\vec
+C_{\clubsuit}=\vec C_{\Omega_+}$.
 
 Finally, with a view towards some numerical test cases in
 \S\ref{sec:stokes_results}, the linear system needs to be suitably adjusted when
