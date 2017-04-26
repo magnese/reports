@@ -55,16 +55,16 @@ flow problems.
 
 A general geometric evolution equation has the following formulation
 \begin{equation}\label{eq:geometric_pde}
-\V\,.\,\vec\nu=f(\vec{z}\,,\vec{\nu}\,,\varkappa)
+\V\,.\,\vec\nu=f(\vec z\,,\vec \nu\,,\varkappa)
 \quad\mbox{on }\Gamma(t),
 \end{equation}
 which prescribes the normal velocity $\V\,.\,\vec\nu$ of the
 interface $\Gamma(t)$ as a function depending on the position $\vec z$, its
-normal direction $\vec{\nu}$ and the sum of its principal curvatures
+normal direction $\vec \nu$ and the sum of its principal curvatures
 $\varkappa$. The evolution equation (\ref{eq:geometric_pde}) prescribes only
 the normal velocity therefore the overall goal is to find a family of
 solutions $\{ \Gamma(t) \}_{t \in [0, T]}$ of closed compact and orientable
-hypersurfaces in $\R^{d}$ ($d = 2$ for curves, $d = 3$ for surfaces).
+hypersurfaces in $\R^d$ ($d = 2$ for curves, $d = 3$ for surfaces).
 
 The simplest geometric PDE is the one which arises from motion by mean
 curvature,
@@ -106,7 +106,7 @@ depend on the particular function $g$ which is chosen to describe $\Gamma$. A
 $C^2$-hypersurface $\Gamma \in \R^d$ is called orientable if there exists a
 vector-valued function $\vec\nu \in C^1(\Gamma, \R^d)$, i.e.~$\vec\nu \in C^1$
 in an open neighbourhood of $\Gamma$, such that $\vec\nu(\vec z) \perp T_{\vec
-z} \Gamma$ and $|\vec{\nu}(\vec z)| = 1$ for all $\vec z \in \Gamma$. In what
+z} \Gamma$ and $|\vec \nu(\vec z)| = 1$ for all $\vec z \in \Gamma$. In what
 follows, we shall assume that $\Gamma \subset \R^d$ is an orientable
 $C^2$-hypersurface.
 
@@ -121,12 +121,12 @@ is the orthogonal projection of $\nabla \, g(\vec z)$ onto $T_{\vec z} \Gamma$,
 it depends only on the values of $g$ on $\Gamma$. Moreover, from
 (\ref{eq:surface_gradient}) follows that
 \begin{equation}\label{eq:surface_gradient_comp}
-\nabla_s \, g(\vec z) \,.\, \vec{\nu}(\vec z)=0\,, \quad \vec z \in \Gamma\,.
+\nabla_s \, g(\vec z) \,.\, \vec \nu(\vec z)=0\,, \quad \vec z \in \Gamma\,.
 \end{equation}
 Similarly, if $\vec g$ is a differentiable vector field, the surface divergence
 can be rewritten as
 \begin{equation}
-\nabla_s \,.\, \vec g(\vec z) = \sum_{j = 1}^{d} \underline{D}_j g_j (\vec z)\,,
+\nabla_s \,.\, \vec g(\vec z) = \sum_{j = 1}^d \underline{D}_j g_j (\vec z)\,,
 \quad \vec z \in \Gamma\,,
 \end{equation}
 while, if $g$ is twice differentiable in an open neighbourhood of
@@ -137,7 +137,7 @@ $\Gamma$, the surface Laplacian (\ref{eq:surface_laplacian}) can be written as
 \quad \vec z \in \Gamma \,.
 \end{equation}
 
-We assume $\vec{\nu} \in C^1$ in a neighbourhood of $\Gamma$ so that we
+We assume $\vec \nu \in C^1$ in a neighbourhood of $\Gamma$ so that we
 may introduce the matrix $\mat H(\vec z)$ with components
 \begin{equation}\label{eq:matrixHjk}
 [\mat H (\vec z)]_{jk} = - \underline{D}_j \nu_k (\vec z)\,, \quad \vec z \in
@@ -146,18 +146,18 @@ may introduce the matrix $\mat H(\vec z)$ with components
 with $1\leq j,k\leq n$. It can be shown that $\mat H(\vec z)$ is symmetric.
 Furthermore,
 \begin{equation}
-\sum_{k = 1}^{d} [\mat H(\vec z)]_{jk} \nu_k (\vec z) =
-\sum_{k = 1}^{d} - \underline{D}_j \nu_k (\vec z) \nu_k (\vec z) =
-- \tfrac{1}{2} \underline{D}_j |\vec{\nu}|^2 (\vec z) = 0 \, ,
+\sum_{k = 1}^d [\mat H(\vec z)]_{jk} \nu_k (\vec z) =
+\sum_{k = 1}^d - \underline{D}_j \nu_k (\vec z) \nu_k (\vec z) =
+- \tfrac{1}{2} \underline{D}_j |\vec \nu|^2 (\vec z) = 0 \, ,
 \end{equation}
-since $|\vec{\nu}| = 1$ on $\Gamma$. Thus, $\mat H(\vec z)$ has one
+since $|\vec \nu| = 1$ on $\Gamma$. Thus, $\mat H(\vec z)$ has one
 eigenvalue which is equal to zero with corresponding eigenvector
 $\vec\nu(\vec z)$. The remaining $d - 1$ eigenvalues $\varkappa_1 (\vec z),
 \hdots, \varkappa_{d - 1} (\vec z)$ are called the principal curvatures of
 $\Gamma$ at the point $\vec z$. The mean curvature of $\Gamma$ at $\vec z$
 can then be defined as the trace of the matrix $\mat H(\vec z)$, that is
 \begin{equation}\label{eq:definition_mean_curvature}
-\varkappa (\vec z) = \sum_{j = 1}^{d} [\mat H(\vec z)]_{jj} = \sum_{j = 1}^{d -
+\varkappa (\vec z) = \sum_{j = 1}^d [\mat H(\vec z)]_{jj} = \sum_{j = 1}^{d -
 1} \varkappa_j (\vec z) \,.
 \end{equation}
 Note that (\ref{eq:definition_mean_curvature}) differs from the more common
@@ -165,7 +165,7 @@ definition of mean curvature $\frac{1}{d - 1} \sum_{j = 1}^{d - 1} \varkappa_j$.
 From (\ref{eq:matrixHjk}) we derive the following expression for mean
 curvature:
 \begin{equation}
-\varkappa (\vec z)=-\nabla_s \,.\, \vec{\nu}(\vec z) \quad \vec z \in \Gamma\,.
+\varkappa (\vec z)=-\nabla_s \,.\, \vec \nu(\vec z) \quad \vec z \in \Gamma\,.
 \end{equation}
 In particular, if $\Gamma$ is the unit sphere,
 $\Gamma = \{ \vec z \in \R^d : |\vec z| = 1 \}$,
@@ -183,7 +183,7 @@ choosing again the particular function $g(\vec z) = z_j$, $j \in \{ 1,
 of the Laplace-Beltrami operator to each independent variable $z_j$, we deduce
 that
 \begin{equation}
-\Delta_s z_j = - \sum_{i = 1}^{d} \underline{D}_i (\nu_j \nu_i) =
+\Delta_s z_j = - \sum_{i = 1}^d \underline{D}_i (\nu_j \nu_i) =
 - (\nabla_s \,.\, \vec\nu) \nu_j - \nabla_s \, \nu_j \,.\, \vec\nu = \varkappa
 \nu_j\, ,
 \end{equation}
@@ -221,11 +221,11 @@ surface diffusion. In order to derive these properties, we need a transport
 theorem for integrals. Consider a family $\{ \Gamma(t) \}_{t \in [0, T]}$
 of hypersurfaces that evolve over time. Such a family is called a
 $C^{2,1}$-family of hypersurfaces if, for each point $(\vec z_0, t_0) \in
-\R^{d} \times (0, T)$ with $\vec z_0 \in \Gamma_0$, there exists an
-open set $G \subset \R^{d}$, $\delta > 0$ and a function
+\R^d \times (0, T)$ with $\vec z_0 \in \Gamma_0$, there exists an
+open set $G \subset \R^d$, $\delta > 0$ and a function
 $g \in C^{2,1}(G \times (t_0 - \delta, t_0 + \delta))$ such that
 \begin{equation}
-G \cap \Gamma (t) = \{ \vec{z} \in G \, | \, g (\vec z, t) = 0 \}
+G \cap \Gamma (t) = \{ \vec z \in G \, | \, g (\vec z, t) = 0 \}
 \quad \mbox{ and } \quad \nabla \, g (\vec z, t) \neq 0
 \quad \forall\ \vec z \in G \cap \Gamma(t) \, .
 \end{equation}
@@ -257,7 +257,7 @@ Let $g \in C^1(Q)$, where $Q$ is an open set containing
 \end{equation}
 
 Suppose in addition that each surface $\Gamma(t)$ is the boundary of an open
-bounded subset $\Omega(t) \subset \R^{d}$. Then
+bounded subset $\Omega(t) \subset \R^d$. Then
 
 \begin{align}
 \ddt \int_{\Omega(t)} g \, \dL{d}  = &
@@ -268,7 +268,7 @@ bounded subset $\Omega(t) \subset \R^{d}$. Then
 \int_{\Gamma(t)} \frac{\partial g}{\partial t} \, \dH{d-1} -
 \int_{\Gamma(t)} g \, \V\,.\,\vec\nu \varkappa \, \dH{d-1}
 \nonumber \\
-& + \int_{\Gamma(t)} \frac{\partial g}{\partial \vec{\nu}}\,
+& + \int_{\Gamma(t)} \frac{\partial g}{\partial \vec \nu}\,
 \V\,.\,\vec\nu \, \dH{d-1} \, .
 \label{eq:length_variation}
 \end{align}
@@ -359,8 +359,8 @@ $\Gamma(t)$, therefore
 \Gamma(t) = \vec x(\Upsilon,t)\,.
 \end{equation}
 The position vector $\vec x(\cdot,t)$, for every time $t$, maps a certain point
-$\vec{q}$ of the reference manifold $\Upsilon$ to its actual position
-$\vec{z}$ on $\Gamma(t)$. Therefore, from (\ref{eq:interface_parametrization}),
+$\vec q$ of the reference manifold $\Upsilon$ to its actual position
+$\vec z$ on $\Gamma(t)$. Therefore, from (\ref{eq:interface_parametrization}),
 we can define the velocity $\V$ of $\Gamma(t)$ as
 \begin{equation} \label{eq:V}
 \V(\vec z, t) := \vec x_t(\vec q, t) \quad
@@ -390,7 +390,7 @@ identity (\ref{eq:LBop}) we obtain the following system of PDEs
 \begin{subequations}
 \begin{alignat}{2}
 \V &=\varkappa \quad &&\mbox{on } \Gamma(t)\,,\label{eq:mean_curvature_a}\\
-\varkappa\,\vec{\nu} &=\Delta_s\,\vec\id \quad &&\mbox{on } \Gamma(t)\,.
+\varkappa\,\vec \nu &=\Delta_s\,\vec\id \quad &&\mbox{on } \Gamma(t)\,.
 \label{eq:mean_curvature_b}
 \end{alignat}
 \end{subequations}
@@ -400,7 +400,7 @@ rewritten as a system of second order equations
 \begin{subequations}
 \begin{alignat}{2}
 \V &=-\Delta_s\,\varkappa \quad &&\mbox{on }\Gamma(t)\,,\label{eq:surf_diff_a}\\
-\varkappa\,\vec{\nu}&=\Delta_s\,\vec\id \quad &&\mbox{on }\Gamma(t)\,.
+\varkappa\,\vec \nu&=\Delta_s\,\vec\id \quad &&\mbox{on }\Gamma(t)\,.
 \label{eq:surf_diff_b}
 \end{alignat}
 \end{subequations}
@@ -414,7 +414,7 @@ $\tau_m := t_{m+1}-t_m$, $m=0,\ldots, M-1$.
 In order to define the parametric finite element spaces on $\Gamma^m$, we
 assume that $\Gamma^m=\bigcup_{j=1}^{J_\Gamma} \overline{\sigma^m_j}$, where
 $\{\sigma^m_j\}_{j=1}^{J_\Gamma}$ is a family of mutually disjoint open
-$(d-1)$-simplices with vertices $\{\vec{q}^m_k\}_{k=1}^{K_\Gamma}$. We also
+$(d-1)$-simplices with vertices $\{\vec q^m_k\}_{k=1}^{K_\Gamma}$. We also
 define the function space
 \begin{equation}
 \Vh := \{\vec\chi \in [C(\Gamma^m)]^d:\vec\chi\!\mid_{\sigma^m_j}
@@ -426,29 +426,29 @@ denoting the standard basis of $\Wh$ and with $\mathcal{P}_k(\sigma^m)$
 denoting the space of polynomials of degree $k$ on $\sigma^m$.
 
 The new surface $\Gamma^{m+1}$ is parametrized with respect to $\Gamma^m$ using
-the parametrization $\vec{X}^{m+1} \in \Vh$, so that $\Gamma^{m+1} =
-\vec{X}^{m+1}(\Gamma^m)$.
+the parametrization $\vec X^{m+1} \in \Vh$, so that $\Gamma^{m+1} =
+\vec X^{m+1}(\Gamma^m)$.
 
 Then the finite element approximation from \cite{triplejMC,gflows3d} of the
 mean curvature flow, which is based on the variational formulation
 (\ref{eq:mean_curvature_a}--b), is given as follows. Let $\Gamma^0$ be an
-approximation to $\Gamma(0)$. For $m=0,\ldots,M-1$, find $(\vec{X}^{m+1},
+approximation to $\Gamma(0)$. For $m=0,\ldots,M-1$, find $(\vec X^{m+1},
 \kappa^{m+1}) \in \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
-&\left\langle \frac{\vec{X}^{m + 1} - \vec{X}^{m}}{\tau_m},
-\chi\vec{\nu}^m\right\rangle_{\Gamma^m}^h - \left\langle\kappa^{m+1}, \chi
+&\left\langle \frac{\vec X^{m + 1} - \vec X^m}{\tau_m},
+\chi\vec \nu^m\right\rangle_{\Gamma^m}^h - \left\langle\kappa^{m+1}, \chi
 \right\rangle_{\Gamma^m}^h=0\quad \forall\ \chi \in
 \Wh\,,\label{eq:fem_mean_curvature_a}\\
-&\left\langle\kappa^{m+1}\vec{\nu}^m, \vec{\eta}\right\rangle_{\Gamma^m}^{h} +
-\left\langle\nabla_s\vec{X}^{m + 1},
-\nabla_s\vec{\eta}\right\rangle_{\Gamma^m}=0\quad \forall\ \vec\eta \in \Vh,
+&\left\langle\kappa^{m+1}\vec \nu^m, \vec \eta\right\rangle_{\Gamma^m}^h +
+\left\langle\nabla_s\vec X^{m + 1},
+\nabla_s\vec \eta\right\rangle_{\Gamma^m}=0\quad \forall\ \vec\eta \in \Vh,
 \label{eq:fem_mean_curvature_b}
 \end{align}
 \end{subequations}
-and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$. We observe that
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. We observe that
 (\ref{eq:fem_mean_curvature_a}--b) is a linear scheme in that it leads to a
-linear system of equations for the unknowns $(\vec{X}^{m+1}, \kappa^{m+1})$ at
+linear system of equations for the unknowns $(\vec X^{m+1}, \kappa^{m+1})$ at
 each time level. Here $\langle\cdot,\cdot\rangle_{\Gamma^m}$ is the $L^2$ inner
 product over the current polyhedral surface
 \begin{equation}
@@ -456,7 +456,7 @@ product over the current polyhedral surface
 \int_{\Gamma^m}uv\,\dH{d-1}\,, \quad\forall u,v \in
 L^2(\Gamma^m),
 \end{equation}
-and similarly for $\vec{u},\vec{v}\in [L^2(\Gamma^m)]^d$. In addition,
+and similarly for $\vec u,\vec v\in [L^2(\Gamma^m)]^d$. In addition,
 $\langle \cdot,\cdot\rangle_{\Gamma^m}^h$ is a mass lumped inner product with
 the vertices of each triangle of the mesh as quadrature points. If $v,w \in
 L^\infty(\Gamma^m)$ are piecewise continuous, with possible jumps
@@ -465,11 +465,11 @@ lumped inner product $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ as
 \begin{equation} \label{eq:masslump}
 \left\langle v, w \right\rangle^h_{\Gamma^m} :=
 \tfrac1d \sum_{j=1}^{J_\Gamma} \surfvol(\sigma^m_j)\,
-\sum_{k=1}^{d} (v\,w)((\vec{q}^m_{j_k})^-),
+\sum_{k=1}^d (v\,w)((\vec q^m_{j_k})^-),
 \end{equation}
-where $\{\vec{q}^m_{j_k}\}_{k=1}^{d}$ are the vertices of $\sigma^m_j$, and
-where we define the limit $v((\vec{q}^m_{j_k})^-)
-:= \underset{\sigma^m_j\ni \vec{p}\to \vec{q}^m_{j_k}}{\lim}\, v(\vec{p})$. We
+where $\{\vec q^m_{j_k}\}_{k=1}^d$ are the vertices of $\sigma^m_j$, and
+where we define the limit $v((\vec q^m_{j_k})^-)
+:= \underset{\sigma^m_j\ni \vec p\to \vec q^m_{j_k}}{\lim}\, v(\vec p)$. We
 naturally extend (\ref{eq:masslump}) to vector valued functions. The mass
 lumped inner product is used in (\ref{eq:fem_mean_curvature_b}) to obtain good
 mesh properties. Therefore it is natural to use it also in
@@ -483,19 +483,19 @@ curvature flow with the linear system (\ref{eq:fem_mean_curvature_a}--b)
 changed to
 \begin{subequations}
 \begin{align}
-&\left\langle \frac{\vec{X}^{m + 1} - \vec{X}^{m}}{\tau_m},
-\chi\vec{\nu}^m\right\rangle_{\Gamma^m}^{h} - \left\langle\nabla_s\kappa^{m+1},
+&\left\langle \frac{\vec X^{m + 1} - \vec X^m}{\tau_m},
+\chi\vec \nu^m\right\rangle_{\Gamma^m}^h - \left\langle\nabla_s\kappa^{m+1},
 \nabla_s\chi\right\rangle_{\Gamma^m}=0\quad \forall\ \chi \in
 \Wh\,,\label{eq:fem_surf_diff_a}\\
-&\left\langle\kappa^{m+1}\vec{\nu}^m, \vec{\eta}\right\rangle_{\Gamma^m}^{h} +
-\left\langle\nabla_s\vec{X}^{m + 1},
-\nabla_s\vec{\eta}\right\rangle_{\Gamma^m}=0\quad \forall\ \vec\eta \in \Vh\,.
+&\left\langle\kappa^{m+1}\vec \nu^m, \vec \eta\right\rangle_{\Gamma^m}^h +
+\left\langle\nabla_s\vec X^{m + 1},
+\nabla_s\vec \eta\right\rangle_{\Gamma^m}=0\quad \forall\ \vec\eta \in \Vh\,.
 \label{eq:fem_surf_diff_b}
 \end{align}
 \end{subequations}
 
 If $\Gamma^m$ is an hypersurface without self-intersections, then there exist
-a unique solution $(\vec{X}^{m+1}, \kappa^{m+1}) \in \Vh \times \Wh$ to the
+a unique solution $(\vec X^{m+1}, \kappa^{m+1}) \in \Vh \times \Wh$ to the
 systems (\ref{eq:fem_mean_curvature_a}--b) and (\ref{eq:fem_surf_diff_a}--b).
 See \cite[Theorem~2.1]{gflows3d} for the complete proof. Furthermore,
 the schemes (\ref{eq:fem_mean_curvature_a}--b) and
@@ -549,7 +549,7 @@ M_\Gamma & -\,\frac{1}{\tau_m} \, \vec N_\Gamma^T \\
 =
 \begin{pmatrix}
 0 \\
-- \vec A_\Gamma \, \vec X^{m}
+- \vec A_\Gamma \, \vec X^m
 \end{pmatrix} ,
 \end{equation}
 while, for the system of equations describing the surface diffusion,
@@ -569,8 +569,8 @@ A_\Gamma & - \,\frac{1}{\tau_m}\, \vec N_\Gamma^T \\
 - \vec A_\Gamma \, \vec X^m
 \end{pmatrix},
 \end{equation}
-where we define the interface displacement $\delta \vec{X}^{m + 1}=\vec{X}^{m +
-1} - \vec{X}^{m}$ and we have used the trivial identity $\vec A_\Gamma\,\vec
+where we define the interface displacement $\delta \vec X^{m + 1}=\vec X^{m +
+1} - \vec X^m$ and we have used the trivial identity $\vec A_\Gamma\,\vec
 X^{m+1} = \vec A_\Gamma\,\vec X^m + \vec A_\Gamma\,\delta \vec X^{m+1}$. We can
 notice that the only difference between the above systems occurs in the
 upper-left entry of the matrix.
@@ -579,7 +579,7 @@ The entries of the matrix are defined as
 \begin{eqnarray}
 \left[ M_\Gamma \right]_{kl} & := & \langle \chi_k^m \, , \chi_l^m
 \rangle_{\Gamma^m}^h\,,\label{eq:algebraic_entries_a} \\
-\left[ \vec N_\Gamma \right]_{kl} & := & \langle \chi_k^m \, \vec{\nu}^m\,,
+\left[ \vec N_\Gamma \right]_{kl} & := & \langle \chi_k^m \, \vec \nu^m\,,
 \chi_l^m \rangle_{\Gamma^m}^h\,,\label{eq:algebraic_entries_b} \\
 \left[ A_\Gamma \right]_{kl} & := & \langle \nabla_s \chi_k^m \, , \nabla_s
 \chi_l^m \rangle_{\Gamma^m}\,,\label{eq:algebraic_entries_c}
@@ -610,7 +610,7 @@ solving the algebraic system
 \begin{equation}\label{eq:algebraic_initial_curvature}
 \begin{pmatrix}
 0 & -\vec N_\Gamma^{T} \\
-\vec{N}_\Gamma & \vec A_\Gamma
+\vec N_\Gamma & \vec A_\Gamma
 \end{pmatrix}
 \begin{pmatrix}
 \kappa^0 \\
@@ -636,7 +636,7 @@ geometric evolution equation is known in closed form and it is a shrinking
 sphere. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z -\vec z_0| = r(t) \}$ be
 a sphere centered in $\vec z_0$ with radius $r(t)$ and mean curvature
 $\varkappa(t) = -\frac{d-1}{r(t)}$. Its unit outer normal is given by
-$\vec \nu(\vec{z}) = \frac{\vec z - \vec z_0}{r(t)}$. It is straightforward to
+$\vec \nu(\vec z) = \frac{\vec z - \vec z_0}{r(t)}$. It is straightforward to
 derive that $\V\,.\,\vec\nu = r^{\prime}(t)$ on $\Gamma(t)$, so that
 $\Gamma(t)$ moves by mean curvature provided that $r^{\prime}(t) = - \frac{d -
 1}{r(t)}$. The solution of this separable variable ODE is easily given by

@@ -53,7 +53,7 @@ the reader
 \V(\vec z, t) := \vec x_t(\vec q, t) \quad
 \forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)\,,
 \end{equation*}
-where $\V \,.\,\vec{\nu}$ is the normal velocity of the evolving hypersurface
+where $\V \,.\,\vec \nu$ is the normal velocity of the evolving hypersurface
 $\Gamma(t)$ and $\vec\nu(t)$ is the unit normal on $\Gamma(t)$ pointing into
 $\Omega_+(t)$.
 
@@ -86,7 +86,7 @@ Therefore the total system can be rewritten as follows:
 [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
 & = -\gamma\,\varkappa\,\vec\nu
 \quad &&\mbox{on } \Gamma(t)\,, \label{eq:stokes_full_jump_stress} \\
-(\V-\vec u)\,.\,\vec{\nu} & = 0
+(\V-\vec u)\,.\,\vec \nu & = 0
 \quad &&\mbox{on } \Gamma(t)\,,\label{eq:stokes_full_velocity}  \\
 \Gamma(0) & = \Gamma_0 \,,\label{eq:stokes_full_initial_interface}
 \end{alignat}
@@ -224,7 +224,7 @@ on $\sigmaO^m$. Moreover, $S^m_0$ is the space of piecewise constant functions
 on ${\cal T}^m$. For later use, we also define $\vec I^m_k$ to be the standard
 interpolation operator onto $[S^m_k]^d$.
 
-Let $\uspacedisc{g}{m}\subset\uspacesimple(\vec{I}_k^m\vec g)$ and
+Let $\uspacedisc{g}{m}\subset\uspacesimple(\vec I_k^m\vec g)$ and
 $\pspace^m\subset\pspace$ be the finite element spaces we use for the
 approximation of velocity and pressure, and let $\pnormspace^m:= \pspace^m \cap
 \pnormspace$. The spaces $(\uspacedisc{0}{m},\pspace^m)$ satisfy the LBB
@@ -258,7 +258,7 @@ for the nodes on the interface in order to capture the discontinuity of the
 pressure.
 
 In this thesis we consider a fitted finite element approximation for the
-evolution of the interface $\Gamma(t)$. Let $\Gamma^{m}\subset\R^d$ be a
+evolution of the interface $\Gamma(t)$. Let $\Gamma^m\subset\R^d$ be a
 $(d-1)$-dimensional polyhedral surface approximating the closed surface
 $\Gamma(t_m)$, $m=0 ,\ldots, M$. Let $\Omega^m_+$ denote the exterior of
 $\Gamma^m$ and let $\Omega^m_-$ be the interior of $\Gamma^m$, where we assume
@@ -272,13 +272,13 @@ our method implies that
 \end{equation}
 where $\mathcal{T}^m = \mathcal{T}^m_+ \cup \mathcal{T}^m_-$ and
 $\mathcal{T}^m_+ \cap \mathcal{T}^m_- = \emptyset$.
-Let $\vec{\nu}^m$ denote the piecewise constant unit normal to $\Gamma^m$
+Let $\vec \nu^m$ denote the piecewise constant unit normal to $\Gamma^m$
 such that $\vec\nu^m$ points into $\Omega^m_+$.
 
 In order to define the parametric finite element spaces on $\Gamma^m$, we
 assume that $\Gamma^m=\bigcup_{j=1}^{J_\Gamma} \overline{\sigma^m_j}$, where
 $\{\sigma^m_j\}_{j=1}^{J_\Gamma}$ is a family of mutually disjoint open
-$(d-1)$-simplices with vertices $\{\vec{q}^m_k\}_{k=1}^{K_\Gamma}$. Following
+$(d-1)$-simplices with vertices $\{\vec q^m_k\}_{k=1}^{K_\Gamma}$. Following
 the notation in \cite{spurious}, see also \cite{gflows3d}, we define
 $\Vh := \{\vec\chi \in [C(\Gamma^m)]^d:\vec\chi\!\mid_{\sigma^m_j}
 \in \mathcal{P}_1(\sigma^m_j), j=1,\ldots, J_\Gamma\} =: [\Wh]^d$,
@@ -287,10 +287,10 @@ piecewise linear functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K_\Gamma}$
 denoting the standard basis of $\Wh$.
 
 Moreover we define $\pi^m: C(\Gamma^m)\to \Wh$ the standard interpolation
-operator at the nodes $\{\vec{q}_k^m\}_{k=1}^{K_\Gamma}$, and similarly
+operator at the nodes $\{\vec q_k^m\}_{k=1}^{K_\Gamma}$, and similarly
 $\vec\pi^m: [C(\Gamma^m)]^d\to \Vh$. Throughout this thesis, we parametrize
 the new surface $\Gamma^{m+1}$ over $\Gamma^m$ using a parametrization
-$\vec{X}^{m+1} \in \Vh$, so that $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$.
+$\vec X^{m+1} \in \Vh$, so that $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
 
 In order to have the desired tangential motion of vertices on $\Gamma^m$
 that leads to good interface mesh properties, for the interface terms we again
@@ -301,7 +301,7 @@ the standard $L^2$--inner product on $\Gamma^m$.
 \sloppy Then our finite element approximation, which is based on the variational
 formulation (\ref{eq:stokes_weaka}--d), assumes the following formulation. Let
 $\Gamma^0$ be an approximation to the initial interface $\Gamma(0)$. For
-$m=0,\ldots, M-1$, find ${(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})
+$m=0,\ldots, M-1$, find ${(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh}$ such that
 \begin{subequations}
 \begin{align}
@@ -320,14 +320,14 @@ $m=0,\ldots, M-1$, find ${(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})
 0 \quad \forall\ \vec\eta \in \Vh \label{eq:HGd}
 \end{align}
 \end{subequations}
-and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$. Here we have defined
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Here we have defined
 $\vec f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$ and
 \begin{equation}
 \mu^m =\mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
 \end{equation}
 We observe that (\ref{eq:HGa}--d) is a linear scheme in that it leads to a
 coupled linear system of equations for the unknowns
-$(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})$ at each time level.
+$(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})$ at each time level.
 We also note that the scheme (\ref{eq:HGa}--d), in the context of an
 unfitted finite element approximation, has been considered in \cite{spurious}.
 In particular, most of the theoretical results presented in the following
@@ -381,14 +381,14 @@ order to capture discontinuity of quantities of interest across the interface.
 \begin{theorem} \label{thm:ex}
 Let $m \in \{0,\ldots,M-1\}$ and let $(\uspacedisc{0}{m},\pspace^m)$ satisfy
 the LBB condition (\ref{eq:LBB}). Then there exists a unique solution
-$(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})
+$(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$ to
 (\ref{eq:HGa}--d).
 \end{theorem}
 \begin{proof}
 \sloppy As the system (\ref{eq:HGa}--d) is linear, existence follows from
 uniqueness. In order to establish the latter, we consider the system: Find
-${(\vec U, P, \vec{X}, \kappa) \in \uspacedisc{0}{m}\times\pnormspace^m \times
+${(\vec U, P, \vec X, \kappa) \in \uspacedisc{0}{m}\times\pnormspace^m \times
 \Vh \times \Wh}$ such that
 \begin{subequations}
 \begin{align}
@@ -409,14 +409,14 @@ ${(\vec U, P, \vec{X}, \kappa) \in \uspacedisc{0}{m}\times\pnormspace^m \times
 \end{subequations}
 Choosing $\vec\xi=\vec U$ in (\ref{eq:proofa}), $\varphi =  P$ in
 (\ref{eq:proofb}), $\chi = \gamma\,\kappa$ in (\ref{eq:proofc}) and
-$\vec\eta=\gamma\,\vec{X}$ in (\ref{eq:proofd}) yields that
+$\vec\eta=\gamma\,\vec X$ in (\ref{eq:proofd}) yields that
 \begin{equation}
 2\,\tau_m\left(\mu^m\,\mat D(\vec U), \mat D(\vec U) \right)
-+ \gamma\,\left\langle \nabs\,\vec{X}, \nabs\,\vec{X} \right\rangle_{\Gamma^m}
++ \gamma\,\left\langle \nabs\,\vec X, \nabs\,\vec X \right\rangle_{\Gamma^m}
 =0\,. \label{eq:proof2}
 \end{equation}
 It immediately follows from (\ref{eq:proof2}) and a Korn's inequality that
-$\vec U = \vec 0$. In addition, it holds that $\vec{X}$ is equal to a constant
+$\vec U = \vec 0$. In addition, it holds that $\vec X$ is equal to a constant
 on $\Gamma^m$, which satisfies, on recalling (\ref{eq:proofc}) and $\vec U =
 \vec 0$, that
 \begin{equation} \label{eq:Xconst}
@@ -452,7 +452,7 @@ that
 \end{align*}
 and so $\kappa = 0 \in \Wh$. Finally, it follows from (\ref{eq:proofa}) with
 $\vec U = \vec 0$ and $\kappa = 0$, on recalling (\ref{eq:LBB}), that $P = 0$.
-Hence there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec{X}^{m+1},$
+Hence there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1},$
 $\kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
 to
 (\ref{eq:HGa}--d).
@@ -472,7 +472,7 @@ In particular, we obtain an unconditional stability result for our scheme.
 
 \begin{theorem} \label{thm:stabstab}
 \sloppy Let $\vec g=\vec 0$. Moreover let $m \in \{0,\ldots,M-1\}$ and let
-${(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
+${(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
 \pnormspace^m \times \Vh \times \Wh}$ be a solution to (\ref{eq:HGa}--d). Then
 \begin{equation}\label{eq:stab}
 \gamma\, \surfvol(\Gamma^{m+1})
@@ -495,7 +495,7 @@ for $m=0,\ldots, M-1$.
 The desired results follow from choosing $\vec\xi = \vec U^{m+1} \in
 \uspacedisc{0}{m}$ in (\ref{eq:HGa}), $\varphi = P^{m+1} \in \pnormspace^m$ in
 (\ref{eq:HGb}), $\chi = \gamma\,\kappa^{m+1}$ in (\ref{eq:HGc}) and
-$\vec\eta=\gamma\,({\vec{X}^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ in
+$\vec\eta=\gamma\,({\vec X^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ in
 (\ref{eq:HGd}). See \cite[Proof of Theorem~2]{spurious} for more details.
 \end{proof}
 
@@ -504,9 +504,9 @@ If the solution $(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1})$ to
 (\ref{eq:HGa}--d) is such that the interface has not moved,
 $\Gamma^{m+1} = \Gamma^m$, then it holds that
 \begin{equation}\label{eq:conformal}
-\exists\ \zeta \in \Wh \ : \quad \left\langle \zeta\,\vec\nu^{m}, \vec\eta
-\right\rangle_{\Gamma^{m}}^h + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta
-\right\rangle_{\Gamma^{m}} = 0 \quad \forall\ \vec\eta \in \Vh \,.
+\exists\ \zeta \in \Wh \ : \quad \left\langle \zeta\,\vec\nu^m, \vec\eta
+\right\rangle_{\Gamma^m}^h + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta
+\right\rangle_{\Gamma^m} = 0 \quad \forall\ \vec\eta \in \Vh \,.
 \end{equation}
 We recall from \cite[Remark~2.4]{triplej} that (\ref{eq:conformal}) in the
 case $d=2$ implies that $\Gamma^m$ is equidistributed, with the possible
@@ -522,7 +522,7 @@ $\vec f = \vec 0$. Here, independently of the choice of $\mu_\pm$, no spurious
 velocities appear for discrete stationary solutions. Indeed,
 Theorem~\ref{thm:stabstab} has an immediate consequence.
 \begin{theorem}\label{thm:stat1}
-Let $\vec g=\vec 0$. Let $(\vec U^{m+1},P^{m+1},\vec{X}^{m+1}, \kappa^{m+1})
+Let $\vec g=\vec 0$. Let $(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1})
 \in \uspacedisc{0}{m}\times
 \pnormspace^m \times \Vh \times \Wh$ be a solution to  (\ref{eq:HGa}--d) with
 $\vec f^{m+1} = \vec 0$. If $\vec X^{m+1} = \vec X^m$, then $\vec U^{m+1} = \vec
@@ -608,7 +608,7 @@ outer normal $\vec\nu^h(t)$. We also define the piecewise linear finite element
 spaces $\Wht$ and $\Vht$, with $\{\chi^h_k(\cdot,t)\}_{k=1}^{K_\Gamma}$
 denoting the standard basis of the former. Hence $\chi^h_k(\vec q^h_l(t),t) =
 \delta_{kl}$ for all $k,l \in \{1,\ldots,K_\Gamma\}$ and $t \in [0,T]$, where
-$\{\vec{q}^h_k(t)\}_{k=1}^{K_\Gamma}$ are the vertices of $\Gamma^h(t)$.
+$\{\vec q^h_k(t)\}_{k=1}^{K_\Gamma}$ are the vertices of $\Gamma^h(t)$.
 Similarly to (\ref{eq:V}), we can then define the discrete velocity
 \begin{equation*}
 \V^h(\vec z, t):=
@@ -675,114 +675,11 @@ observed relative volume loss tending to zero as $\tau\to 0$.
 As is standard practice for the solution of linear systems arising from
 discretizations of (Navier--)Stokes equations, we avoid the complications of the
 constrained pressure space $\pnormspace^m$ in practice by considering an
-overdetermined linear system with $\pspace^m$ instead.
-In a post-processing step the computed pressure is
-then projected into the space of zero mean functions. The linear system
-(\ref{eq:HGa}--d), with $\pnormspace^m$ replaced by $\pspace^m$, can be
-formulated as:
-
-Find $(\vec U^{m+1},P^{m+1}, \kappa^{m+1},\delta\vec{X}^{m+1})\in
-(\R^d)^{K^m_\uspacesimple}\times \R^{K^m_\pspace} \times \R^{K_\Gamma}\,\times
-(\R^d)^{K_\Gamma}$, where $\vec X^{m+1} = \vec X^m+ \delta\vec X^{m+1}$, such
-that
-\begin{equation}
-\begin{pmatrix}
-\vec B_\Omega & \vec C_\Omega & -\gamma\,\Nbulk & 0 \\
-\vec C^T_\Omega & 0 & 0 & 0 \\
-\NbulkT & 0 & 0 & -\frac1{\tau_m}\,\vec{N}_\Gamma^T \\
-0 & 0 & \vec{N}_\Gamma & \vec{A}_\Gamma
-\end{pmatrix}
-\begin{pmatrix}
-\vec U^{m+1} \\
-P^{m+1} \\
-\kappa^{m+1} \\
-\delta\vec{X}^{m+1}
-\end{pmatrix}
-=
-\begin{pmatrix}
-\vec c \\
-0 \\
-0 \\
--\vec{A}_\Gamma\,\vec X^m
-\end{pmatrix} \,,
-\label{eq:stokes_algebraic}
-\end{equation}
-where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec{X}^{m+1})$ here denote the
-coefficients of these finite element functions with respect to the standard
-bases of $\uspacedisc{0}{m}$, $\pspace^m$, $\Wh$ and $\Vh$, respectively.
-Moreover,
-$\vec X^m$ denotes the coefficients of $\vec\id\!\mid_{\Gamma^m}$ with respect
-to the basis of $\Vh$. The definitions of the matrices and vectors in
-(\ref{eq:stokes_algebraic}) directly follow from (\ref{eq:HGa}--d) and are:
-\begin{align*}
-& [\vec B_\Omega]_{ij} := 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacedisc{0}{m}}
-\vec
-e_r), \mat D( \phi_i^{\uspacedisc{0}{m}}\,\vec e_s) \right)
-\right)_{r,s=1}^d\,,\quad
-\vec c_i = \left( \vec f^{m+1},\phi_i^{\uspacedisc{0}{m}}\right)\,,\\
-&[\vec C_\Omega]_{iq} := - \left(
-\left(\nabla\,.\,(\phi_i^{\uspacedisc{0}{m}}\,\vec
-e_r), \phi_q^{\pspace^m} \right) \right)_{r=1}^d,\quad
-[\Nbulk]_{il} := \left\langle \phi_i^{\uspacedisc{0}{m}}, \chi^m_l \,\vec\nu^m
-\right\rangle_{\Gamma^m} \,,\\
-& [\vec{N}_\Gamma]_{kl} := \left\langle \chi^m_l, \chi^m_k\,\vec\nu^m
-\right\rangle_{\Gamma^m}^h \,,\quad [\vec{A}_\Gamma]_{kl} := \left\langle
-\nabs\,\chi^m_l, \nabs\,\chi^m_k \right\rangle_{\Gamma^m} \,\vec\id \,,
-\end{align*}
-where $\phi^{\uspacedisc{0}{m}} \in \uspacedisc{0}{m}$, $\phi^{\pspace^m} \in
-\pspace^m$,
-$\chi^m \in \Wh$ and we recall that $\{\vec e_r\}_{r=1}^d$ denotes the standard
-basis in $\R^d$. Note that for the submatrices we have used the convention that
-the subscripts refer to the test and trial domains, respectively. A single
-subscript is used where the two domains are the same.
-
-We observe the analogy of the interface part of the algebraic system,
-namely the matrices $[\vec{A}_\Gamma]$ and $[\vec{N}_\Gamma]$ and the right
-hand side term $-\vec{A}_\Gamma\,\vec X^m$, with the algebraic system arising
-from the mean curvature flow (\ref{eq:algebraic_mean_curvature}) and surface
-diffusion (\ref{eq:algebraic_surf_diff}).
-
-The algebraic system (\ref{eq:stokes_algebraic}) is suitable when the pressure
-space is, for example, P0 or P1. Instead, when we use the space (P1+P0) or the
-space \pdg for the pressure, the algebraic system assumes the following form
-\begin{equation}
-\begin{pmatrix}
-\vec B_\Omega & \vec C_{\spadesuit} & \vec C_{\clubsuit} & -\gamma\,\Nbulk & 0\\
-\vec C^T_{\spadesuit} & 0 & 0 & 0 & 0 \\
-\vec C^T_{\clubsuit} & 0 & 0 & 0 & 0 \\
-\NbulkT & 0 & 0 & 0 & -\frac1{\tau_m}\,\vec{N}_\Gamma^T \\
-0 & 0 & 0 & \vec{N}_\Gamma & \vec{A}_\Gamma
-\end{pmatrix}
-\begin{pmatrix}
-\vec U^{m+1} \\
-P^{m+1}_\spadesuit \\
-P^{m+1}_\clubsuit \\
-\kappa^{m+1} \\
-\delta\vec{X}^{m+1}
-\end{pmatrix}
-=
-\begin{pmatrix}
-\vec c \\
-0 \\
-0 \\
-0 \\
--\vec{A}_\Gamma\,\vec{X}^{m}
-\end{pmatrix} \,,
-\label{eq:stokes_algebraic_extended}
-\end{equation}
-where $\vec C_{\spadesuit}$ and $\vec C_{\clubsuit}$ have the same definition
-of $\vec C_\Omega$ in (\ref{eq:stokes_algebraic}) but over different spaces or
-domains. More precisely, in the case (P1+P0), there are two independent spaces
-for the pressure defined over the bulk domain $\Omega$ of polynomial order 1 and
-0, respectively, which means that $\vec C_{\spadesuit}=\vec C_\Omega$ and
-$\vec C_{\clubsuit}=\vec C_\Omega$ but whit different polynomial orders.
-Instead, for the space \pdg, $\vec C_{\spadesuit}=\vec C_{\Omega_-}$ and $\vec
-C_{\clubsuit}=\vec C_{\Omega_+}$.
-
-Finally, with a view towards some numerical test cases in
-\S\ref{sec:stokes_results}, the linear system needs to be suitably adjusted when
-the Dirichlet boundary data $\vec g$ is different from zero. Let $\varphi \in
-\pspace^m$, then we can rewrite $\varphi$ as
+overdetermined linear system with $\pspace^m$ instead. In a post-processing step
+the computed pressure is then projected into the space of zero mean
+functions. The adoption of the unconstrained pressure space $\pspace^m$
+requires particular care when the Dirichlet boundary data $\vec g$ is different
+from zero. Indeed, let $\varphi \in \pspace^m$, then we can rewrite $\varphi$ as
 \begin{equation}\label{eq:phi_rewriting}
 \varphi=\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}
 +\frac{\left(\varphi,1\right)}{\left(1,1\right)}\,,
@@ -820,24 +717,113 @@ we finally deduce
 Therefore, when the inhomogeneous boundary data $\vec g$ is non-quadratic and,
 as in our case, the pressure space used is the unconstrained space $\pspace^m$
 instead of $\pnormspace^m$, then the equation (\ref{eq:LAb}) replaces
-(\ref{eq:HGb}). The proof of existence of an unique solution to the
-inhomogeneous system (\ref{eq:HGa},c,d), (\ref{eq:LAb}) is exactly the same as
-the proof of Theorem~\ref{thm:ex}.
+(\ref{eq:HGb}) and the resulting weak formulation is
+\begin{subequations}
+\begin{align}
+& 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
+- \left(p, \nabla\,.\,\vec \xi\right)
+- \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace 0 \,,
+\label{eq:HGcorrecteda}\\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
+ \frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
+(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
+\pspace^m\,, \label{eq:HGcorrectedb} \\
+&  \left\langle \V - \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:HGcorrectedc} \\
+& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,. \label{eq:HGcorrectedd}
+\end{align}
+\end{subequations}
+Let $\uspacesimple^m$ be unconstrained velocity space, with basis
+$\{\phi_i^{\uspacesimple^m}\}_{i=1}^{K^m_\uspacesimple}$. Moreover, let
+$\{\phi_i^{\pspace^m}\}_{i=1}^{K^m_\pspace}$ span the unconstrained pressure
+space $\pspace^m$ and let
+$\{\chi_i^m\}_{i=1}^{K_\Gamma}$ be the basis of $\Wh$. Then, ignoring for now
+the Dirichlet and free-slip boundary condition, the resulting linear system can
+be formulated as: Find ${(\vec U^{m+1},P^{m+1},
+\kappa^{m+1},\delta\vec X^{m+1})\in (\R^d)^{K^m_\uspacesimple}\times
+\R^{K^m_\pspace} \times \R^{K_\Gamma}\,\times (\R^d)^{K_\Gamma}}$, where $\vec
+X^{m+1} = \vec X^m+ \delta\vec X^{m+1}$, such that
+\begin{equation}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_\Omega & -\gamma\,\Nbulk & 0 \\
+\vec C^T_\Omega & 0 & 0 & 0 \\
+\NbulkT & 0 & 0 & -\frac1{\tau_m}\,\vec N_\Gamma^T \\
+0 & 0 & \vec N_\Gamma & \vec A_\Gamma
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\
+P^{m+1} \\
+\kappa^{m+1} \\
+\delta\vec X^{m+1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\vec c \\
+\vec \beta \\
+0 \\
+-\vec A_\Gamma\,\vec X^m
+\end{pmatrix} \,,
+\label{eq:stokes_algebraic}
+\end{equation}
+where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec X^{m+1})$ here denote the
+coefficients of these finite element functions with respect to the
+aforementioned functions. Moreover, $\vec X^m$ denotes the coefficients of
+$\vec\id\!\mid_{\Gamma^m}$ with respect to the basis of $\Vh$. The definitions
+of the matrices and vectors in (\ref{eq:stokes_algebraic}) directly follow from
+(\ref{eq:HGcorrecteda}--d) and are:
+\begin{align*}
+& [\vec B_\Omega]_{ij} := 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m}
+\vec e_r), \mat D( \phi_i^{\uspacesimple^m}\,\vec e_s) \right)
+\right)_{r,s=1}^d\,,\quad
+\vec c_i = \left( \vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,,\\
+&[\vec C_\Omega]_{iq} := - \left(
+\left(\nabla\,.\,(\phi_i^{\uspacesimple^m}\,\vec
+e_r), \phi_q^{\pspace^m} \right) \right)_{r=1}^d,\quad
+[\Nbulk]_{il} := \left\langle \phi_i^{\uspacesimple^m}, \chi^m_l \,\vec\nu^m
+\right\rangle_{\Gamma^m} \,,\\
+& \vec \beta_i := \frac{\left(\phi_i^{\pspace^m},1\right)}{\left(1,1\right)}
+\left\langle \vec I_2^m\,\vec g,\unitn\right\rangle_{\partial_1\Omega}\,,\quad
+[\vec N_\Gamma]_{kl} := \left\langle \chi^m_l, \chi^m_k\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h \,,\\
+& [\vec A_\Gamma]_{kl} := \left\langle \nabs\,\chi^m_l, \nabs\,\chi^m_k
+\right\rangle_{\Gamma^m} \,\vec\id \,,
+\end{align*}
+where $\{\vec e_r\}_{r=1}^d$ denotes the standard basis in $\R^d$. Note that
+for the submatrices we have used the convention that the subscripts refer to
+the test and trial domains, respectively. A single subscript is used where the
+two domains are the same.
+
+The Dirichlet boundary condition is imposed doctoring the matrix and the
+right-hand side of algebraic system (\ref{eq:stokes_algebraic}). The matrix
+doctoring process consists on zeroing the rows which correspond to the Dirichlet
+boundary degree of freedoms and setting an unitary value on the correspondent
+diagonal entries. The vector doctoring process consists on setting the Dirichlet
+boundary data on the correspondent right-hand side entries. Similarly, the
+free-slip boundary condition is enforced doctoring the matrix entries which
+correspond to the degree of freedoms of the basis functions perpendicular to
+$\partial_2\Omega$. Instead, the right-hand side is left unchanged.
+
+We observe the analogy of the interface part of the algebraic system,
+namely the matrices $[\vec A_\Gamma]$ and $[\vec N_\Gamma]$ and the right-hand
+side term $-\vec A_\Gamma\,\vec X^m$, with the algebraic system arising
+from the mean curvature flow (\ref{eq:algebraic_mean_curvature}) and surface
+diffusion (\ref{eq:algebraic_surf_diff}).
 
 \section{Solution method}\label{sec:stokes_solution_method}
 For the solution of (\ref{eq:stokes_algebraic}) we use a Schur complement
-approach
-that eliminates $(\kappa^{m+1}, \delta \vec X^{m+1})$ from
-(\ref{eq:stokes_algebraic}),
-and then use an iterative solver for the remaining system in
-$(\vec U^{m+1}, P^{m+1})$. This approach has the advantage that for the
-reduced system well-known solution methods for finite element discretizations
-for standard (Navier--)Stokes discretizations may be employed. The desired
-Schur complement can be obtained as follows. Let
+approach that eliminates $(\kappa^{m+1}, \delta \vec X^{m+1})$ from
+(\ref{eq:stokes_algebraic}), and then use an iterative solver for the remaining
+system in $(\vec U^{m+1}, P^{m+1})$. This approach has the advantage that for
+the reduced system well-known solution methods for finite element
+discretizations for standard (Navier--)Stokes discretizations may be employed.
+The desired Schur complement can be obtained as follows. Let
 \begin{equation} \label{eq:Xi}
 \Xi_\Gamma:= \begin{pmatrix}
- 0 & - \frac1{\tau_m}\,\vec{N}_\Gamma^T \\
-\vec{N}_\Gamma & \vec{A}_\Gamma
+ 0 & - \frac1{\tau_m}\,\vec N_\Gamma^T \\
+\vec N_\Gamma & \vec A_\Gamma
 \end{pmatrix} \,,
 \end{equation}
 be the interface condensed operator, which is exactly the same operator
@@ -856,14 +842,14 @@ stationary geometric PDE. Then (\ref{eq:stokes_algebraic}) can be reduced to
 = \begin{pmatrix}
 \vec c
 +\gamma\,(\Nbulk \ 0)\, \Xi_\Gamma^{-1}\,
-\binom{0}{-\vec{A}_\Gamma\,\vec X^m} \\
-0
+\binom{0}{-\vec A_\Gamma\,\vec X^m} \\
+\vec \beta
 \end{pmatrix}
 \end{equation}
 and
 \begin{equation}
-\binom{\kappa^{m+1}}{\delta\vec{X}^{m+1}} = \Xi_\Gamma^{-1}\,
-\binom{-\NbulkT\,\vec U^{m+1}}{-\vec{A}_\Gamma\,\vec X^m}\,.
+\binom{\kappa^{m+1}}{\delta\vec X^{m+1}} = \Xi_\Gamma^{-1}\,
+\binom{-\NbulkT\,\vec U^{m+1}}{-\vec A_\Gamma\,\vec X^m}\,.
 \label{eq:SchurkXb}
 \end{equation}
 \end{subequations}
@@ -879,14 +865,14 @@ We notice that when $\gamma = 0$ the linear system (\ref{eq:SchurkX}) becomes
 \end{pmatrix}
 = \begin{pmatrix}
 \vec c \\
-0
+\vec \beta
 \end{pmatrix}\,,
 \end{equation}
 which for $\mu_+=\mu_-$ corresponds to a discretization of the one-phase
 Stokes problem. This system is well known and a classical way to solve it is to
 use a preconditioned GMRES iteration. Therefore, we solve (\ref{eq:SchurkX}),
 which is a slight modification of (\ref{eq:stokes_system}), employing a
-preconditioned GMRES iterative solver, where for the inverse $\Xi_\Gamma^{-1}$
+preconditioned GMRES iterative solver. For the inverse $\Xi_\Gamma^{-1}$
 we employ a sparse $L\,U$ decomposition, which we obtain with the help of the
 sparse factorization package UMFPACK, see \cite{Davis04}, in order to reuse the
 factorization. Having obtained $(\vec U^{m+1}, P^{m+1})$ from
@@ -929,8 +915,61 @@ mass matrix $M_\Omega$ defined as
 for $\mathcal{P}_S$. Again, in order to reuse the factorization, we employ a
 sparse $L\,U$ decomposition to factorize the matrices $\vec B$ and $M_\Omega$.
 
-Similarly, for the algebraic system (\ref{eq:stokes_algebraic_extended}),
-we can use the preconditioner
+Alternatively, it is possible to use the standard Stokes matrix, see
+(\ref{eq:stokes_system}),
+\begin{equation}\label{eq:direct}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_\Omega \\
+\vec C_\Omega^T & 0
+\end{pmatrix}\,
+\end{equation}
+as a preconditioner and factorize them directly with a sparse $L\,U$
+decomposition. Since in the Stokes problem the pressure solution is unique up
+to a constant, the matrix (\ref{eq:direct}) has rank deficiency 1. Therefore,
+in order to use UMFPACK to factorize the matrix, the rank deficiency needs to be
+reduced to 0. This can be achieved using a matrix doctoring which consists on
+setting, for example, an unitary value on the first diagonal entry of the null
+matrix. This doctoring process can be avoided if SPQR is used to factorize the
+preconditioner since SPQR can decompose also singular matrices. We stress the
+fact that the rank deficiency is exactly 1 only for LBB stable pairs otherwise
+the rank deficiency may be much higher.
+
+The algebraic system (\ref{eq:stokes_algebraic}) is suitable adjusted when we
+use (P1+P0) or \pdg as pressure space. Indeed it assumes the following form
+\begin{equation}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_{\spadesuit} & \vec C_{\clubsuit} & -\gamma\,\Nbulk & 0\\
+\vec C^T_{\spadesuit} & 0 & 0 & 0 & 0 \\
+\vec C^T_{\clubsuit} & 0 & 0 & 0 & 0 \\
+\NbulkT & 0 & 0 & 0 & -\frac1{\tau_m}\,\vec N_\Gamma^T \\
+0 & 0 & 0 & \vec N_\Gamma & \vec A_\Gamma
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\
+P^{m+1}_\spadesuit \\
+P^{m+1}_\clubsuit \\
+\kappa^{m+1} \\
+\delta\vec X^{m+1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\vec c \\
+\vec \beta_\spadesuit \\
+\vec \beta_\clubsuit \\
+0 \\
+-\vec A_\Gamma\,\vec X^m
+\end{pmatrix} \,,
+\label{eq:stokes_algebraic_extended}
+\end{equation}
+where $\vec C_{\spadesuit}$ and $\vec C_{\clubsuit}$ have the same definition
+of $\vec C_\Omega$ in (\ref{eq:stokes_algebraic}) but over different spaces.
+More precisely, in the case (P1+P0), there are two independent spaces for the
+pressure of polynomial order 1 and 0, respectively. Instead, in the case \pdg,
+both spaces have polynomial degree 1 but the basis functions support is
+$\Omega_-$ and $\Omega_+$, respectively.
+
+A suitable preconditioner for the algebraic system
+(\ref{eq:stokes_algebraic_extended}) is then
 \begin{equation} \label{eq:ESWP1P0}
 \mathcal{P} = \begin{pmatrix}
 \vec{\mathcal{P}}_{\vec B} & \vec C_\spadesuit & \vec C_\clubsuit \\
@@ -938,7 +977,7 @@ we can use the preconditioner
 0 & 0 &-\mathcal{P}_{S,\clubsuit}
 \end{pmatrix}\,,
 \end{equation}
-and (\ref{eq:SchurkX}) becomes
+while the reduced system becomes
 \begin{subequations}
 \begin{equation} \label{eq:SchurkXP1P0}
 \begin{pmatrix}
@@ -954,9 +993,9 @@ P^{m+1}_\clubsuit
 \end{pmatrix}
 = \begin{pmatrix}
 \vec c+\gamma\,(\Nbulk \ 0)\,
-\Xi_\Gamma^{-1}\,\binom{0}{-\vec{A}_\Gamma\,\vec{X}^{m}} \\
-0 \\
-0
+\Xi_\Gamma^{-1}\,\binom{0}{-\vec A_\Gamma\,\vec X^m} \\
+\vec \beta_\spadesuit \\
+\vec \beta_\clubsuit
 \end{pmatrix}\,.
 \end{equation}
 \end{subequations}
@@ -987,15 +1026,7 @@ which, by backward substitution, is equivalent to
 \vec v - \vec C_\spadesuit\,P_\spadesuit - \vec C_\clubsuit\,P_\clubsuit\,.
 \end{equation}
 
-Alternatively, it is possible to use the standard Stokes matrix, see
-(\ref{eq:stokes_system}),
-\begin{equation}\label{eq:direct}
-\begin{pmatrix}
-\vec B_\Omega & \vec C_\Omega \\
-\vec C_\Omega^T & 0
-\end{pmatrix}\,
-\end{equation}
-or, for the algebraic system (\ref{eq:stokes_algebraic_extended}),
+Alternatively, as before, it is possible to use the standard Stokes matrix
 \begin{equation}\label{eq:directP1P0}
 \begin{pmatrix}
 \vec B_\Omega & \vec C_\spadesuit & \vec C_\clubsuit \\
@@ -1004,14 +1035,12 @@ or, for the algebraic system (\ref{eq:stokes_algebraic_extended}),
 \end{pmatrix}
 \end{equation}
 as a preconditioner and factorize them directly with a sparse $L\,U$
-decomposition. The matrix (\ref{eq:direct}) has rank deficiency 1 while the
-matrix (\ref{eq:directP1P0}) has deficiency 1 for the P2--\pdg element and 2 for
-the P2--(P1+P0) element. In order to use UMFPACK to factorize the matrix the
-rank deficiency needs to be 0 therefore it is necessary to doctor the
-matrix/matrices setting, for example, an unitary value on the first diagonal
-entry of the null matrix/matrices. This rank deficiency is originated by the
-fact that the pressure is unique up to a constant. This doctoring process can be
-avoided if SPQR is used to factorize the preconditioner.
+decomposition. The matrix (\ref{eq:directP1P0}) has rank deficiency 1 for the
+P2--\pdg element and 2 for the P2--(P1+P0) element. Therefore, in the case
+P2--\pdg, only the first null diagonal matrix is doctored while, in
+the case P2--(P1+P0), both null diagonal matrices are doctored. Again, we
+point out that the doctoring is not needed when SPQR is used to factorize the
+preconditioner.
 
 \section{Mesh generation and smoothing}\label{sec:stokes_smoothing}
 Given the initial polyhedral surface $\Gamma^0$, we create a triangulation
@@ -1151,7 +1180,7 @@ Finally, we define the errors
 \errorXx := \max_{m=1,\ldots, M} \|\Gamma^m - \Gamma(t_m)\|_{L^\infty}\,,
 \end{equation}
 where $\|\Gamma^m - \Gamma(t_m)\|_{L^\infty} :=
-\max_{k=1,\ldots, K_\Gamma} {\rm dist}( \vec{q}^m_k, \Gamma(t_m))$,
+\max_{k=1,\ldots, K_\Gamma} {\rm dist}( \vec q^m_k, \Gamma(t_m))$,
 \begin{equation} \label{eq:errorLUu}
 \LerrorUu2 := \left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
 t_m)\|_{L^2(\Omega)}^2 \right]^\frac12,
@@ -1311,7 +1340,7 @@ For the expanding bubble test, we fix $\Omega = (-1,1)^2 \setminus
 consider two different bulk mesh strategies. Either we use a nearly uniform
 mesh, as shown on the left of Figure~\ref{fig:meshes_expanding}, or an adaptive
 mesh that uses a finer resolution close to the interface, see the example mesh
-on the right hand side of Figure~\ref{fig:meshes_expanding}.
+on the right-hand side of Figure~\ref{fig:meshes_expanding}.
 \begin{figure}[htbp]
 \centering
 \subfloat[Uniform mesh with $J_\Gamma = 32$]{
@@ -1546,7 +1575,7 @@ Figure~6 in that paper.
 
 Finally, we would also like to investigate the effect of using adaptive bulk
 meshes, that are refined close to the interface. An example mesh is shown on
-the right hand side of Figure~\ref{fig:meshes_expanding}, and we list our
+the right-hand side of Figure~\ref{fig:meshes_expanding}, and we list our
 employed discretization parameters in
 Table~\ref{tab:expandingbubble2Delements_adaptive}. Obviously the remesh
 criterion (\ref{eq:volume_criterion}) cannot be used for an adaptive mesh since

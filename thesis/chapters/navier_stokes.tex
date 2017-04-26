@@ -26,7 +26,7 @@ completeness
 \V(\vec z, t) := \vec x_t(\vec q, t) \quad
 \forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)\,,
 \end{equation*}
-where $\V \,.\,\vec{\nu}$ is the normal velocity of the evolving hypersurface
+where $\V \,.\,\vec \nu$ is the normal velocity of the evolving hypersurface
 $\Gamma(t)$ and $\vec\nu(t)$ is the unit normal on $\Gamma(t)$ pointing into
 $\Omega_+(t)$.
 
@@ -60,7 +60,7 @@ $\partial \Omega$. As usual, it holds that $\partial\Omega =\partial_1\Omega
 [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
 & = -\gamma\,\varkappa\,\vec\nu
 \quad &&\mbox{on } \Gamma(t)\,, \label{eq:ns_full_jump_stress} \\
-(\V-\vec u)\,.\,\vec{\nu} & = 0
+(\V-\vec u)\,.\,\vec \nu & = 0
 \quad &&\mbox{on } \Gamma(t)\,,\label{eq:ns_full_velocity}  \\
 \Gamma(0) & = \Gamma_0 \,,\label{eq:ns_full_initial_interface} \\
 \vec u(0) & = \vec u_0 \,.\label{eq:ns_full_initial_velocity}
@@ -169,7 +169,7 @@ approximation of velocity and pressure, and let $\pnormspace^m:= \pspace^m \cap
 inf-sup. See (\ref{eq:LBB}) for more details.
 
 We consider a fitted finite element approximation for the
-evolution of the interface $\Gamma(t)$. Let $\Gamma^{m}\subset\R^d$ be a
+evolution of the interface $\Gamma(t)$. Let $\Gamma^m\subset\R^d$ be a
 $(d-1)$-dimensional polyhedral surface approximating the closed surface
 $\Gamma(t_m)$, $m=0 ,\ldots, M$. Let $\Omega^m_+$ denote the exterior of
 $\Gamma^m$ and let $\Omega^m_-$ be the interior of $\Gamma^m$, where we assume
@@ -183,13 +183,13 @@ our method implies that
 \end{equation*}
 where $\mathcal{T}^m = \mathcal{T}^m_+ \cup \mathcal{T}^m_-$ and
 $\mathcal{T}^m_+ \cap \mathcal{T}^m_- = \emptyset$.
-Let $\vec{\nu}^m$ denote the piecewise constant unit normal to $\Gamma^m$
+Let $\vec \nu^m$ denote the piecewise constant unit normal to $\Gamma^m$
 such that $\vec\nu^m$ points into $\Omega^m_+$.
 
 In order to define the parametric finite element spaces on $\Gamma^m$, we
 assume that $\Gamma^m=\bigcup_{j=1}^{J_\Gamma} \overline{\sigma^m_j}$, where
 $\{\sigma^m_j\}_{j=1}^{J_\Gamma}$ is a family of mutually disjoint open
-$(d-1)$-simplices with vertices $\{\vec{q}^m_k\}_{k=1}^{K_\Gamma}$. Following
+$(d-1)$-simplices with vertices $\{\vec q^m_k\}_{k=1}^{K_\Gamma}$. Following
 the notation in \cite{spurious}, see also \cite{gflows3d}, we define
 $\Vh := \{\vec\chi \in [C(\Gamma^m)]^d:\vec\chi\!\mid_{\sigma^m_j}
 \in \mathcal{P}_1(\sigma^m_j), j=1,\ldots, J_\Gamma\} =: [\Wh]^d$,
@@ -198,10 +198,10 @@ piecewise linear functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K_\Gamma}$
 denoting the standard basis of $\Wh$.
 
 Moreover we define $\pi^m: C(\Gamma^m)\to \Wh$ the standard interpolation
-operator at the nodes $\{\vec{q}_k^m\}_{k=1}^{K_\Gamma}$, and similarly
+operator at the nodes $\{\vec q_k^m\}_{k=1}^{K_\Gamma}$, and similarly
 $\vec\pi^m: [C(\Gamma^m)]^d\to \Vh$. Throughout this thesis, we parametrize
 the new surface $\Gamma^{m+1}$ over $\Gamma^m$ using a parametrization
-$\vec{X}^{m+1} \in \Vh$, so that $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$.
+$\vec X^{m+1} \in \Vh$, so that $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
 
 In order to have the desired tangential motion of vertices on $\Gamma^m$
 that leads to good interface mesh properties, for the interface terms we again
@@ -215,13 +215,13 @@ $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$
 be given. For $m=0,\ldots, M-1$, for $i=0,\ldots, \bar{i}$, with $\bar{i}$ such
 that $\|U^{m+1,\bar{i}+1}-U^{m+1,\bar{i}} \|_{L^\infty}\leq\epsilon_f$,
 where $\epsilon_f \geq 0$ and $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, find $(\vec
-U^{m+1},P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times
+U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times
 \pnormspace^m
 \times \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
-& \left( \rho^{m}\,\frac{\vec U^{m+1,i+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
-\xi \right) + \left((\rho^{m}\vec U^{m+1,i}\,.\,\nabla)\,\vec U^{m+1,i+1}\,,
+& \left( \rho^m\,\frac{\vec U^{m+1,i+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
+\xi \right) + \left((\rho^m\vec U^{m+1,i}\,.\,\nabla)\,\vec U^{m+1,i+1}\,,
 \,\vec \xi \right)\nonumber \\
 & - 2\left(\mu^m\,\mat D(\vec U^{m+1,i+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
@@ -239,7 +239,7 @@ U^{m+1},P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times
 0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd}
 \end{align}
 \end{subequations}
-and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$, $\vec U^{m+1}=
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$, $\vec U^{m+1}=
 \vec U^{m+1,\bar{i}+1}$. Here we have defined $\vec f^{m+1}(\cdot) := \vec
 I^m_2\,\vec f(\cdot,t_{m+1})$,
 \begin{equation}
@@ -252,12 +252,12 @@ and
 
 When $\bar{i}=0$, the scheme (\ref{eq:ns_HGa}--d) is a linear scheme in that it
 leads to a coupled linear system of equations for the unknowns $(\vec U^{m+1,1},
-P^{m+1}, \vec{X}^{m+1}, \kappa^{m+1})$ at each time level.
+P^{m+1}, \vec X^{m+1}, \kappa^{m+1})$ at each time level.
 
 Instead, if $\bar{i}>0$, the scheme (\ref{eq:ns_HGa}--d), at each time level,
 is a fixed point iterative scheme which consists of solving a coupled linear
 system of equations for the unknowns $(\vec U^{m+1,i+1}, P^{m+1},
-\vec{X}^{m+1}, \kappa^{m+1})$ at each iteration until $L^\infty$--error of the
+\vec X^{m+1}, \kappa^{m+1})$ at each iteration until $L^\infty$--error of the
 velocity $\|U^{m+1,i+1}-U^{m+1,i} \|_{L^\infty}$ is smaller than the required
 tolerance $\epsilon_f$.
 
@@ -409,12 +409,12 @@ We need to pay particular attention to the discretization of the time
 derivative in (\ref{eq:ns_weaka_antisym}). Indeed, the discrete counterpart of
 $\tfrac{1}{2} \ddt (\rho\,\vec u, \vec \xi)$
 \begin{equation}
-\frac{1}{2}\left(\frac{\rho^{m}\,\vec U^{m+1} - \vec I^m_0\,\rho^{m-1}
+\frac{1}{2}\left(\frac{\rho^m\,\vec U^{m+1} - \vec I^m_0\,\rho^{m-1}
 \vec I^m_2\,\vec U^m}{\tau_m}, \vec \xi \right)\,,
 \end{equation}
 while the discrete version of $\tfrac{1}{2}(\rho\,\vec u_t, \vec \xi)$ is
 \begin{equation}
-\frac{1}{2}\left( \rho^{m}\, \frac{\vec U^{m+1} - \vec I^m_2\, \vec
+\frac{1}{2}\left( \rho^m\, \frac{\vec U^{m+1} - \vec I^m_2\, \vec
 U^m}{\tau_m}, \vec \xi \right)\,.
 \end{equation}
 Since $\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in
@@ -422,7 +422,7 @@ S^m_0$, we can rewrite the discretization of the weak time derivative
 $\tfrac{1}{2}\big[ \ddt (\rho\,\vec u, \vec \xi)+(\rho\,\vec u_t, \vec
 \xi)\big]$ in the simpler form
 \begin{equation}
-\left(\frac{\rho^{m}\,\vec U^{m+1} - \tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)
+\left(\frac{\rho^m\,\vec U^{m+1} - \tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)
 \vec I^m_2\,\vec U^m}{\tau_m}, \vec \xi \right)\,.
 \end{equation}
 
@@ -430,15 +430,15 @@ Then our antisymmetric finite element approximation is
 given as follows. Let $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec
 U^0\in \uspacedisc{g}{0}$ be given. For $m=0,\ldots, M-1$, find $(\vec
 U^{m+1},P^{m+1},
-\vec{X}^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times
+\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times
 \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
-& \left(\frac{\rho^{m}\,\vec U^{m+1} - \tfrac{1}{2}(\vec I^m_0\,\rho^{m-1} +
+& \left(\frac{\rho^m\,\vec U^{m+1} - \tfrac{1}{2}(\vec I^m_0\,\rho^{m-1} +
 \rho^m) \vec I^m_2\,\vec U^m}{\tau_m}, \vec \xi \right) + \nonumber \\
-& \frac{1}{2}\left((\rho^{m}\,\vec I^m_2\,\vec U^{m}\,.\,\nabla)\,
-\vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^{m}\,
-\vec I^m_2 \, \vec U^{m}\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right) +
+& \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
+\vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
+\vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right) +
 \nonumber \\
 & - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
@@ -456,7 +456,7 @@ U^{m+1},P^{m+1},
 0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd_antisym}
 \end{align}
 \end{subequations}
-and set $\Gamma^{m+1} = \vec{X}^{m+1}(\Gamma^m)$. Again, we have defined $\vec
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Again, we have defined $\vec
 f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$,
 \begin{equation}
 \mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
@@ -469,7 +469,7 @@ and
 We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) differs
 from the standard linear scheme (\ref{eq:ns_HGa}--d), where $\bar{i}=0$, for
 the antisymmetric rewrite of the convective term and for the density
-coefficient multiplying $\vec I^m_2\,\vec U^{m}$ in the time derivative.
+coefficient multiplying $\vec I^m_2\,\vec U^m$ in the time derivative.
 Indeed, instead of using the actual density $\rho^m$, it uses an average
 between the actual density and the interpolation of the density at the previous
 time step $\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1} + \rho^m)$.
@@ -494,7 +494,7 @@ the Eulerian frame, the corresponding function on the ALE frame $\hat h$ is
 defined as
 \begin{equation}\label{eq:h}
 \hat h:\Upsilon_{\Omega_\pm}\times [0,T]\to \R,\quad
-\hat h(\vec q,t)=h(\vec{x}(\vec q,t),t).
+\hat h(\vec q,t)=h(\vec x(\vec q,t),t).
 \end{equation}
 In order to compute the time derivative of (\ref{eq:h}) with respect to the ALE
 frame, using the chain rule, we have
@@ -536,7 +536,7 @@ Using (\ref{eq:ale_dt}) in (\ref{eq:ns_full_momentum}), we can rewrite the
 momentum equation in the ALE frame as:
 \begin{equation}
 \begin{align}
-\rho\,(\left.\vec{u}_t\right|_{\Upsilon_{\Omega_\pm}}
+\rho\,(\left.\vec u_t\right|_{\Upsilon_{\Omega_\pm}}
 +(\vec u - \vec{\mathcal{W}})\,.\, \nabla \vec u)\,
 -2 \mu\,\nabla\,.\, \mat D(\vec u)+ \nabla\,p & = \vec f
 \quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:ns_full_momentum_ale} \\
@@ -564,7 +564,7 @@ p, \varkappa)}$ ${\in \uspace g \times \pnormspace \times H^1(\Gamma(t))}$
 such that
 \begin{subequations}
 \begin{align}
-& \left(\rho\,\left.\vec{u}_t\right|_{\Upsilon_{\Omega_\pm}}, \vec \xi\right) +
+& \left(\rho\,\left.\vec u_t\right|_{\Upsilon_{\Omega_\pm}}, \vec \xi\right) +
 \left(\rho\,(\vec u - \vec{\mathcal{W}})\,.\, \nabla \vec u,\vec \xi\right)
 + 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right) \nonumber \\
 & - \left(p, \nabla\,.\,\vec \xi\right)
