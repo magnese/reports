@@ -870,12 +870,16 @@ We notice that when $\gamma = 0$ the linear system (\ref{eq:SchurkX}) becomes
 \end{equation}
 which for $\mu_+=\mu_-$ corresponds to a discretization of the one-phase
 Stokes problem. This system is well known and a classical way to solve it is to
-use a preconditioned GMRES iteration. Therefore, we solve (\ref{eq:SchurkX}),
-which is a slight modification of (\ref{eq:stokes_system}), employing a
-preconditioned GMRES iterative solver. For the inverse $\Xi_\Gamma^{-1}$
-we employ a sparse $L\,U$ decomposition, which we obtain with the help of the
-sparse factorization package UMFPACK, see \cite{Davis04}, in order to reuse the
-factorization. Having obtained $(\vec U^{m+1}, P^{m+1})$ from
+use a preconditioned GMRES iteration. The generalized minimal residual method
+(GMRES) is an iterative method for non-symmetric systems. It generates a
+sequence of orthogonal vectors using the Arnoldi method which is a modified
+Gram-Schmidt orthogonalization applied to a Krylov subspace with minimal
+residual. See \cite{BarrettBCetal94} for more details. Therefore, we solve
+(\ref{eq:SchurkX}), which is a slight modification of (\ref{eq:stokes_system}),
+employing a preconditioned GMRES iterative solver. For the inverse
+$\Xi_\Gamma^{-1}$ we employ a sparse $L\,U$ decomposition, which we obtain with
+the help of the sparse factorization package UMFPACK, see \cite{Davis04}, in
+order to reuse the factorization. Having obtained $(\vec U^{m+1}, P^{m+1})$ from
 (\ref{eq:SchurkX}), we solve (\ref{eq:SchurkXb}) for $(\kappa^{m+1}, \delta\vec
 X^{m+1})$.
 
@@ -917,7 +921,7 @@ sparse $L\,U$ decomposition to factorize the matrices $\vec B$ and $M_\Omega$.
 
 Alternatively, it is possible to use the standard Stokes matrix, see
 (\ref{eq:stokes_system}),
-\begin{equation}\label{eq:direct}
+\begin{equation}\label{eq:stokes_direct_precond}
 \begin{pmatrix}
 \vec B_\Omega & \vec C_\Omega \\
 \vec C_\Omega^T & 0
@@ -925,14 +929,14 @@ Alternatively, it is possible to use the standard Stokes matrix, see
 \end{equation}
 as a preconditioner and factorize them directly with a sparse $L\,U$
 decomposition. Since in the Stokes problem the pressure solution is unique up
-to a constant, the matrix (\ref{eq:direct}) has rank deficiency 1. Therefore,
-in order to use UMFPACK to factorize the matrix, the rank deficiency needs to be
-reduced to 0. This can be achieved using a matrix doctoring which consists on
-setting, for example, an unitary value on the first diagonal entry of the null
-matrix. This doctoring process can be avoided if SPQR is used to factorize the
-preconditioner since SPQR can decompose also singular matrices. We stress the
-fact that the rank deficiency is exactly 1 only for LBB stable pairs otherwise
-the rank deficiency may be much higher.
+to a constant, the matrix (\ref{eq:stokes_direct_precond}) has rank deficiency
+1. Therefore, in order to use UMFPACK to factorize the matrix, the rank
+deficiency needs to be reduced to 0. This can be achieved using a matrix
+doctoring which consists on setting, for example, an unitary value on the first
+diagonal entry of the null matrix. This doctoring process can be avoided if SPQR
+is used to factorize the preconditioner since SPQR can decompose also singular
+matrices. We stress the fact that the rank deficiency is exactly 1 only for LBB
+stable pairs otherwise the rank deficiency may be much higher.
 
 The algebraic system (\ref{eq:stokes_algebraic}) is suitable adjusted when we
 use (P1+P0) or \pdg as pressure space. Indeed it assumes the following form
@@ -970,7 +974,7 @@ $\Omega_-$ and $\Omega_+$, respectively.
 
 A suitable preconditioner for the algebraic system
 (\ref{eq:stokes_algebraic_extended}) is then
-\begin{equation} \label{eq:ESWP1P0}
+\begin{equation} \label{eq:ESW_extended}
 \mathcal{P} = \begin{pmatrix}
 \vec{\mathcal{P}}_{\vec B} & \vec C_\spadesuit & \vec C_\clubsuit \\
 0 & -\mathcal{P}_{S,\spadesuit} & 0 \\
@@ -979,7 +983,7 @@ A suitable preconditioner for the algebraic system
 \end{equation}
 while the reduced system becomes
 \begin{subequations}
-\begin{equation} \label{eq:SchurkXP1P0}
+\begin{equation} \label{eq:SchurkX_extended}
 \begin{pmatrix}
 \vec B_\Omega + \gamma\,(\Nbulk \ 0)\,\Xi_\Gamma^{-1}\,\binom{\NbulkT}{0} &
 \vec C_\spadesuit & \vec C_\clubsuit \\
@@ -1019,7 +1023,7 @@ p
 \end{pmatrix}
 \end{equation*}
 which, by backward substitution, is equivalent to
-\begin{equation}\label{eq:blocksolutionP1P0}
+\begin{equation}\label{eq:blocksolution_extended}
 \mathcal{P}_{S,\spadesuit}\,P_\spadesuit =
 -q\,,\quad \mathcal{P}_{S,\clubsuit}\,P_\clubsuit =
 -p\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U =
@@ -1027,7 +1031,7 @@ which, by backward substitution, is equivalent to
 \end{equation}
 
 Alternatively, as before, it is possible to use the standard Stokes matrix
-\begin{equation}\label{eq:directP1P0}
+\begin{equation}\label{eq:stokes_direct_precond_extended}
 \begin{pmatrix}
 \vec B_\Omega & \vec C_\spadesuit & \vec C_\clubsuit \\
 \vec C^T_\spadesuit & 0 & 0 \\
@@ -1035,12 +1039,12 @@ Alternatively, as before, it is possible to use the standard Stokes matrix
 \end{pmatrix}
 \end{equation}
 as a preconditioner and factorize them directly with a sparse $L\,U$
-decomposition. The matrix (\ref{eq:directP1P0}) has rank deficiency 1 for the
-P2--\pdg element and 2 for the P2--(P1+P0) element. Therefore, in the case
-P2--\pdg, only the first null diagonal matrix is doctored while, in
-the case P2--(P1+P0), both null diagonal matrices are doctored. Again, we
-point out that the doctoring is not needed when SPQR is used to factorize the
-preconditioner.
+decomposition. The matrix (\ref{eq:stokes_direct_precond_extended}) has rank
+deficiency 1 for the P2--\pdg element and 2 for the P2--(P1+P0) element.
+Therefore, in the case P2--\pdg, only the first null diagonal matrix is
+doctored while, in the case P2--(P1+P0), both null diagonal matrices are
+doctored. Again, we point out that the doctoring is not needed when SPQR is used
+to factorize the preconditioner.
 
 \section{Mesh generation and smoothing}\label{sec:stokes_smoothing}
 Given the initial polyhedral surface $\Gamma^0$, we create a triangulation
@@ -1168,12 +1172,18 @@ $\vec f = \vec 0$ and $\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$. We will
 refer to (\ref{eq:radialr},b) as the stationary bubble solution, and to
 (\ref{eq:radialr2},b) as the expanding bubble solution.
 
-In the following, unless otherwise stated, we choose the initial surface
-$\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = \frac12 \}$, the domain
-$\Omega = (-1,1)^d$ and we employ uniform time steps $\tau_m=\tau$,
-$m=0,\ldots, M-1$. Moreover, unless otherwise stated, we always set the GMRES
-tolerance to $10^{-12}$ and the restart value to 50 and stated, we use the
-one-phase Stokes matrix as a preconditioner factorizing it with UMFPACK.
+In our numerical simulations, unless otherwise stated, we use the following
+settings. We choose the initial surface $\Gamma(0) = \{ \vec z \in \R^d : |\vec
+z| = \frac12 \}$, the domain $\Omega = (-1,1)^d$ and we employ uniform time
+steps $\tau_m=\tau$, $m=0,\ldots, M-1$. Moreover, we set the GMRES tolerance to
+tol $=10^{-12}$ and the restart value to 50. We use the Stokes matrix
+(\ref{eq:stokes_direct_precond}) or, depending on the pressure space,
+(\ref{eq:stokes_direct_precond_extended}) as a preconditioner factorizing it
+with UMFPACK. We point out that the restart value corresponds to the size
+of the Krylov subspace used by the GMRES method while the tolerance is the
+value for the stopping criterion. More precisely, the GMRES iteration ends when
+the ratio between the norm of the preconditioned actual residual and the norm
+of the preconditioned initial residual is smaller than the required tolerance.
 
 Finally, we define the errors
 \begin{equation} \label{eq:errorXx}
@@ -2013,13 +2023,13 @@ over time for the simulation in Figure~\ref{fig:shear_2d}.}
 Finally we want to compare the performance of different preconditioner
 for the preconditioned GMRES used to solve the reduce system
 (\ref{eq:SchurkX}) or, depending on the pressure space,
-(\ref{eq:SchurkXP1P0}). In Table~\ref{tab:shear_2d_preconditioners} we report
-the CPU time, in seconds, and the number of GMRES iteration to solve the
-algebraic system (\ref{eq:SchurkXP1P0}) at the first time step, $m=0$. We
+(\ref{eq:SchurkX_extended}). In Table~\ref{tab:shear_2d_preconditioners} we
+report the CPU time, in seconds, and the number of GMRES iteration to solve the
+algebraic system (\ref{eq:SchurkX_extended}) at the first time step, $m=0$. We
 employ uniform bulk meshes and the P2--(P1+P0) element. We test the direct
-preconditioner (\ref{eq:directP1P0}) factorizing it alternatively with either
-UMFPACK or SPQR and the block preconditioner (\ref{eq:ESWP1P0}) with restart
-value either 50 or 1000.
+preconditioner (\ref{eq:stokes_direct_precond_extended}) factorizing it
+alternatively with either UMFPACK or SPQR and the block preconditioner
+(\ref{eq:ESW_extended}) with restart value either 50 or 1000.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -2041,7 +2051,7 @@ iterations \\
 \hspace*{-3.25cm}
 \caption[Stokes 2d shear flow preconditioners comparison]
 {($\mu=1,\gamma=3$) Time and number of GMRES iterations to solve the algebraic
-system (\ref{eq:SchurkXP1P0}) adopting different preconditioners for the 2d
+system (\ref{eq:SchurkX_extended}) adopting different preconditioners for the 2d
 shear flow using P2--(P1+P0) element, uniform mesh and $m=0$.}
 \label{tab:shear_2d_preconditioners}
 \end{table*}
@@ -2057,7 +2067,7 @@ high number of GMRES iterations in order to converge. An increase of the
 restart value obviously reduce the number of GMRES iterations but also
 drastically increase the memory footprint. Moreover, the application of the
 preconditioner consist of doing the backward substitution
-(\ref{eq:blocksolutionP1P0}) which is expensive.
+(\ref{eq:blocksolution_extended}) which is expensive.
 
 \subsection{Convergence test in 3d} \label{sec:stokes_3d_convergence_results}
 Similarly to \S\ref{sec:stokes_2d_convergence_results}, we perform the following
@@ -2226,11 +2236,11 @@ Finally, as in the 2d case, see Table~\ref{tab:shear_2d_preconditioners}, we
 want to compare the performance of different preconditioners. In
 Table~\ref{tab:shear_3d_preconditioners} we report the CPU time, in seconds,
 and the number of GMRES iteration to solve the algebraic system
-(\ref{eq:SchurkXP1P0}) at the first time step, $m=0$. We employ adaptive bulk
-meshes and the P2--(P1+P0) element. We test the direct preconditioner
-(\ref{eq:directP1P0}) factorizing it alternatively with either UMFPACK or SPQR
-and the block preconditioner (\ref{eq:ESWP1P0}) with restart value either 50 or
-1000.
+(\ref{eq:SchurkX_extended}) at the first time step, $m=0$. We employ adaptive
+bulk meshes and the P2--(P1+P0) element. We test the direct preconditioner
+(\ref{eq:stokes_direct_precond_extended}) factorizing it alternatively with
+either UMFPACK or SPQR and the block preconditioner (\ref{eq:ESW_extended})
+with restart value either 50 or 1000.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -2251,7 +2261,7 @@ iterations \\
 \hspace*{-3.25cm}
 \caption[Stokes 3d shear flow preconditioners comparison]
 {($\mu=1,\gamma=3$) Time and number of GMRES iterations to solve the algebraic
-system (\ref{eq:SchurkXP1P0}) adopting different preconditioners for the 3d
+system (\ref{eq:SchurkX_extended}) adopting different preconditioners for the 3d
 shear flow using P2--(P1+P0) element, adaptive mesh and $m=0$.}
 \label{tab:shear_3d_preconditioners}
 \end{table*}
