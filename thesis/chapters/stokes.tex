@@ -2056,17 +2056,17 @@ shear flow using P2--(P1+P0) element, uniform mesh and $m=0$.}
 \label{tab:shear_2d_preconditioners}
 \end{table*}
 We can notice that the direct preconditioner, whose matrix is equivalent to
-a standard Stokes discretization perform extremely well in terms of CPU time
-and number of GMRES iterations. This is not very surprising since the
-preconditioner and the reduced two-phase stokes system have almost the same
-matrix. Therefore the number of GMRES iterations is very low. Moreover, the
-factorization is computed only once with both SPQR and UMFPACK so it is
-extremely efficient to apply the preconditioner at every GMRES iteration. On
-the other hand, the block preconditioner perform very poorly requiring a very
-high number of GMRES iterations in order to converge. An increase of the
-restart value obviously reduce the number of GMRES iterations but also
-drastically increase the memory footprint. Moreover, the application of the
-preconditioner consist of doing the backward substitution
+the standard Stokes discretization (\ref{eq:stokes_system}) perform extremely
+well in terms of CPU time and number of GMRES iterations. This is not very
+surprising since the preconditioner and the reduced two-phase stokes system
+have almost the same matrix. Therefore the number of GMRES iterations is very
+low. Moreover, the factorization is computed only once with both SPQR and
+UMFPACK so it is extremely efficient to apply the preconditioner at every GMRES
+iteration. On the other hand, the block preconditioner perform very poorly
+requiring a very high number of GMRES iterations in order to converge. An
+increase of the restart value obviously reduce the number of GMRES iterations
+but also drastically increase the memory footprint. Moreover, the application
+of the preconditioner consist of doing the backward substitution
 (\ref{eq:blocksolution_extended}) which is expensive.
 
 \subsection{Convergence test in 3d} \label{sec:stokes_3d_convergence_results}
@@ -2084,13 +2084,29 @@ the ability of our method to recover the discrete stationary solution
 (\ref{eq:solsol}) also in 3d, we choose the initial interface $\Gamma^0$ such
 that (\ref{eq:constcurv}) holds, at the expense of a nonzero initial error
 $\| \Gamma^0 - \Gamma(0) \|_{L^\infty}$, recall (\ref{eq:errorXx}). We obtain
-such an initial triangulation with the help of the numerical scheme from
-Chapter~\ref{ch:geometric_pdes} for surface diffusion, which is a gradient flow
-for surface area that maintains the enclosed volume. See e.g. \cite[Fig.
-11]{gflows3d} for an evolution towards a polyhedral approximation of a sphere
-that satisfies (\ref{eq:constcurv}), and hence also (\ref{eq:conformal}). We
-report on the errors for the P2--P0, P2--P1, P2--\pdg
-and P2--(P1+P0) elements in Tables~\ref{tab:stokes_stationary_3d_p2p0},
+such an initial triangulation with the help of the numerical scheme
+(\ref{eq:fem_surf_diff_a}--b)from Chapter~\ref{ch:geometric_pdes} for surface
+diffusion, which is a gradient flow for surface area that maintains the
+enclosed volume. See Figure~\ref{fig:conformal_sphere}, or
+\cite[Fig. 11]{gflows3d}, for an evolution towards a polyhedral approximation
+of a sphere that satisfies (\ref{eq:constcurv}), and hence also
+(\ref{eq:conformal}). The sphere in Figure~\ref{fig:conformal_sphere} has
+$J_\Gamma = 596$ elements and, as usual, the initial triangulation is created
+with GMSH.
+\begin{figure}[htbp]
+\centering
+\subfloat[GMSH sphere triangulation]
+{\includegraphics[width=.45\textwidth]{figures/stokes/sphere_596.ps}}
+\subfloat[Conformal polyhedral sphere triangulation]
+{\includegraphics[width=.45\textwidth]{figures/stokes/sphere_stationary_596.ps}}
+\caption[Conformal polyhedral sphere triangulation]{Initial triangulation of
+a sphere created by GMSH and conformal polyhedral sphere after surface
+diffusion.}
+\label{fig:conformal_sphere}
+\end{figure}
+
+We report on the errors for the P2--P0, P2--P1, P2--\pdg and P2--(P1+P0)
+elements in Tables~\ref{tab:stokes_stationary_3d_p2p0},
 \ref{tab:stokes_stationary_3d_p2p1}, \ref{tab:stokes_stationary_3d_p2p1dg} and
 \ref{tab:stokes_stationary_3d_p2p1p0}, respectively. Here we note that, as yet,
 for the pairs P2--P0, P2--\pdg and P2--(P1+P0) there exist no proofs in the
