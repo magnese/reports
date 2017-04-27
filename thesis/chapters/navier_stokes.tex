@@ -78,7 +78,7 @@ Chapter~\ref{ch:introduction} for more details.
 
 \section{Standard weak formulation}\label{sec:ns_weak}
 A standard weak formulation of (\ref{eq:ns_full_momentum}--i) can be obtained
-proceeding analogously to the Stokes case, see \S~\ref{sec:stokes_weak}. We
+proceeding analogously to the Stokes case, see \S\ref{sec:stokes_weak}. We
 define the same function spaces
 \begin{align*}
 \uspace b &:= \{\vec \phi\in[H^1_0(\Omega)]^d:\vec \phi =\vec
@@ -143,7 +143,7 @@ so is $p + c$ for an arbitrary $c\in \R$.
 \section{Standard finite element approximation}\label{sec:ns_fem}
 In order to obtain a fully practical finite element approximation of the
 standard weak formulation (\ref{eq:ns_weaka}--d) we proceed analogously to the
-Stokes case, see \S~\ref{sec:stokes_fem}. For the benefit of the reader, we
+Stokes case, see \S\ref{sec:stokes_fem}. For the benefit of the reader, we
 state again all the hypothesis and the notations used.
 
 We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
@@ -256,7 +256,7 @@ velocity $\|U^{m+1,i+1}-U^{m+1,i} \|_{L^\infty}$ is smaller than the required
 tolerance $\epsilon_f$.
 
 \section{Antisymmetric weak formulation}\label{sec:ns_weak_antisym}
-An alternative to the weak formulation derived in \S~\ref{sec:ns_weak}
+An alternative to the weak formulation derived in \S\ref{sec:ns_weak}
 can be obtained following the paper \cite{fluidfbp}. We refer to this
 alternative formulation as antisymmetric weak formulation. The authors show that
 it is easy to derive an energy bound, see \cite[eq. 3.7]{fluidfbp}, not only on
@@ -385,7 +385,7 @@ almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 holds for almost all times $t \in (0,T]$.
 
 With a view towards some numerical test cases
-in \S~\ref{sec:ns_numerical_results}, we also allow for non divergence-free
+in \S\ref{sec:ns_numerical_results}, we also allow for non divergence-free
 problem therefore (\ref{eq:advect}) is no longer valid and we need to use
 (\ref{eq:fulladvect}) to derive the antisymmetric weak formulation.
 Consequently the RHS of (\ref{eq:ns_weaka_antisym}) requires the additional term
@@ -397,7 +397,7 @@ Consequently the RHS of (\ref{eq:ns_weaka_antisym}) requires the additional term
 An alternative to the standard discrete finite element approximation
 (\ref{eq:ns_HGa}--d) can be obtained using the antisymmetric weak formulation
 (\ref{eq:ns_weaka_antisym}--d).We use the same hypothesis and definitions
-employed in \S~\ref{sec:ns_fem}.
+employed in \S\ref{sec:ns_fem}.
 
 We need to pay particular attention to the discretization of the time
 derivative in (\ref{eq:ns_weaka_antisym}). Indeed, the discrete counterpart of
@@ -474,21 +474,16 @@ term of Eulerian coordinates $\vec z$. However, it is possible to rewrite the
 velocity time derivative $\vec u_t$ respect to the so called Arbitrary
 Lagrangian Eulerian (ALE) coordinate $\vec q$.
 
-Analogously of what done in \S~\ref{sec:front_tracking_approach} to parametrize
-the interface $\Gamma(t)$, we can define the fixed reference manifolds
-$\Upsilon_{\Omega_-}$ and $\Upsilon_{\Omega_+}$ and extend the map
-(\ref{eq:interface_parametrization}) to parametrize $\Omega_-(t)$ and
-$\Omega_+(t)$  as $\Omega_-(t)=\vec x(\Upsilon_{\Omega_-},t)$ and
-$\Omega_+(t)=\vec x(\Upsilon_{\Omega_+},t)$, respectively. This extended map
-obviously still satisfy $\Gamma(t) = \vec x(\Upsilon,t)$ therefore we are using
-this abuse of notation for the map and the extend map.
+Analogously of what done in \S\ref{sec:front_tracking_approach} to parametrize
+the interface $\Gamma(t)$, we can define the fixed reference manifold
+$\D$ and extend the map (\ref{eq:interface_parametrization}) to
+parametrize $\Omega$ as $\Omega=\vec x(\D,t)$. This extended map obviously
+still satisfy $\Gamma(t) = \vec x(\Upsilon,t)$.
 
-Now, let $h:\Omega_{\pm}(t)\times [0,T]\to \R$ be a function defined on
-the Eulerian frame, the corresponding function on the ALE frame $\hat h$ is
-defined as
+Now, let $h:\Omega\times [0,T]\to \R$ be a function defined on the Eulerian
+frame, the corresponding function on the ALE frame $\hat h$ is defined as
 \begin{equation}\label{eq:h}
-\hat h:\Upsilon_{\Omega_\pm}\times [0,T]\to \R,\quad
-\hat h(\vec q,t)=h(\vec x(\vec q,t),t).
+\hat h:\D\times [0,T]\to \R,\quad \hat h(\vec q,t)=h(\vec x(\vec q,t),t).
 \end{equation}
 In order to compute the time derivative of (\ref{eq:h}) with respect to the ALE
 frame, using the chain rule, we have
@@ -505,50 +500,47 @@ therefore it holds that
 \end{equation}
 Finally, introducing the domain velocity
 \begin{equation} \label{eq:W}
-\vec{\mathcal{W}}(\vec z, t) := \vec x_t(\vec q, t) \quad
-\forall\ \vec z = \vec x(\vec q,t) \in \Omega_\pm(t)
+\W(\vec z, t) := \vec x_t(\vec q, t) \quad \forall\ \vec z = \vec x(\vec q,t)
+\in \Omega
 \end{equation}
 and the time derivative in the ALE frame
 \begin{equation} \label{eq:ale_derivative}
-\left.\frac{\partial h(\vec z,t)}{\partial t}\right|_{\Upsilon_{\Omega_\pm}}:=
+\left.\frac{\partial h(\vec z,t)}{\partial t}\right|_{\D}:=
 \frac{\partial\hat h(\vec q,t)}{\partial t} \quad
-\forall\ \vec z = \vec x(\vec q,t) \in \Omega_\pm(t)
+\forall\ \vec z = \vec x(\vec q,t) \in \Omega
 \end{equation}
 we obtain
 \begin{equation}\label{eq:ale_dt}
-h_t =\left.h_t\right|_{\Upsilon_{\Omega_\pm}} -\vec{\mathcal{W}} \cdot \nabla h.
+h_t =\left.h_t\right|_{\D} -\vec{\mathcal{W}} \cdot \nabla h.
 \end{equation}
 The identity (\ref{eq:ale_dt}) is naturally extended to vector valued functions.
-We stress the fact that the domain velocity $\vec{\mathcal{W}}$ for the
-interface points is consistent with the interface velocity $\V$ therefore it
-holds
+We stress the fact that the domain velocity $\W$ for the interface points is
+consistent with the interface velocity $\V$. Therefore it holds
 \begin{equation}
-\left.\vec{\mathcal{W}}\right|_{\Gamma(t)}=\V\,.
+\left.\W \right|_{\Gamma(t)}=\V\,.
 \end{equation}
 
 Using (\ref{eq:ale_dt}) in (\ref{eq:ns_full_momentum}), we can rewrite the
 momentum equation in the ALE frame as:
 \begin{equation}
 \begin{align}
-\rho\,(\left.\vec u_t\right|_{\Upsilon_{\Omega_\pm}}
-+(\vec u - \vec{\mathcal{W}})\,.\, \nabla \vec u)\,
+\rho\,(\left.\vec u_t\right|_{\D} +(\vec u - \W)\,.\, \nabla \vec u)\,
 -2 \mu\,\nabla\,.\, \mat D(\vec u)+ \nabla\,p & = \vec f
 \quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:ns_full_momentum_ale} \\
 \end{align}
 \end{equation}
 We can notice that, with respect to the original formulation, there is a
 convective-type term due to the domain movement and the time derivative is
-computed in the fixed reference frame $\Upsilon_{\Omega_\pm}$. Obviously, if
-the domain is fixed, this additional convective term is zero and the time
-derivative in the ALE frame coincide with the usual time derivative in the
-Eulerian frame. Therefore $\vec{\mathcal{W}}=\vec 0$ corresponds to a pure
-Eulerian method while $\vec{\mathcal{W}}=\vec u$ corresponds to a fully
-Lagrangian scheme.
+computed in the fixed reference frame $\D$. Obviously, if the domain is fixed,
+this additional convective term is zero and the time derivative in the ALE
+frame coincide with the usual time derivative in the Eulerian frame. Therefore
+$\W=\vec 0$ corresponds to a pure Eulerian method while $\W=\vec u$ corresponds
+to a fully Lagrangian scheme.
 
 In order to define the ALE weak formulation, we need to use a different
 functional setting for the test functions respect to the one used for the
-standard weak formulation, see \S~\ref{sec:ns_weak}, and the antisymmetric weak
-formulation, see \S~\ref{sec:ns_weak_antisym}. More precisely we consider the
+standard weak formulation, see \S\ref{sec:ns_weak}, and the antisymmetric weak
+formulation, see \S\ref{sec:ns_weak_antisym}. More precisely we consider the
 admissible spaces of test functions on the reference domain
 
 Hence, the ALE weak formulation of (\ref{eq:ns_full_momentum_ale},
@@ -558,8 +550,8 @@ p, \varkappa)}$ ${\in \uspace g \times \pnormspace \times H^1(\Gamma(t))}$
 such that
 \begin{subequations}
 \begin{align}
-& \left(\rho\,\left.\vec u_t\right|_{\Upsilon_{\Omega_\pm}}, \vec \xi\right) +
-\left(\rho\,(\vec u - \vec{\mathcal{W}})\,.\, \nabla \vec u,\vec \xi\right)
+& \left(\rho\,\left.\vec u_t\right|_{\D}, \vec \xi\right) +
+\left(\rho\,(\vec u - \W)\,.\, \nabla \vec u,\vec \xi\right)
 + 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right) \nonumber \\
 & - \left(p, \nabla\,.\,\vec \xi\right)
 - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
