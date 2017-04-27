@@ -1058,17 +1058,18 @@ mesh elements. For example, a segment of length $L$, which defines an edge of
 the domain boundary, delimited by two points of characteristic length $c_l$ will
 be subdivided into several segments of lengths $\frac{L}{c_l}$ during the mesh
 generation. Therefore, the smaller is the characteristic length, the finer is
-the resulting mesh. In general we use either uniform or adaptive bulk meshes.
-In the former case, the characteristic length $c_l$ is set to be equal to the
-characteristic length of the interface $c_{l,\Gamma}$, while in the latter case
-the characteristic length is $c_l(\vec z)=\min\{8c_{l,\Gamma},\mbox{dist}(\vec
-z,\Gamma)\}$. Therefore, in the adaptive case, if the interface is far enough
-from the boundary, the resulting bulk mesh will be coarse. We define the
-characteristic length of the interface $c_{l,\Gamma}$, in the 2d case, as the
-average length of the segments describing the discrete interface $\Gamma^m$ or,
-in the 3d case, as the length of an equilateral triangle with area equal to the
-average of the areas of the triangles describing the discrete interface
-$\Gamma^m$.
+the resulting mesh. When the characteristic lengths of two points defining an
+edge are different, GMSH performs an interpolation process. In general we use
+either uniform or adaptive bulk meshes. In the former case, the characteristic
+length $c_l$ is set to be equal to the characteristic length of the interface
+$c_{l,\Gamma}$, while in the latter case the characteristic length is $c_l(\vec
+z)=\min\{8c_{l,\Gamma},\mbox{dist}(\vec z,\Gamma)\}$. Therefore, in the
+adaptive case, if the interface is far enough from the boundary, the resulting
+bulk mesh will be coarse. We define the characteristic length of the interface
+$c_{l,\Gamma}$, in the 2d case, as the average length of the segments
+describing the discrete interface $\Gamma^m$ or, in the 3d case, as the length
+of an equilateral triangle with area equal to the average of the areas of the
+triangles describing the discrete interface $\Gamma^m$.
 
 Then, for $m \geq 0$, having computed the new interface $\Gamma^{m+1}$, we
 would like to obtain a bulk triangulation $\mathcal{T}^{m+1}$ that is fitted to
