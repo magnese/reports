@@ -499,9 +499,27 @@ a unique solution $(\vec X^{m+1}, \kappa^{m+1}) \in \Vh \times \Wh$ to the
 systems (\ref{eq:fem_mean_curvature_a}--b) and (\ref{eq:fem_surf_diff_a}--b).
 See \cite[Theorem~2.1]{gflows3d} for the complete proof. Furthermore,
 the schemes (\ref{eq:fem_mean_curvature_a}--b) and
-(\ref{eq:fem_surf_diff_a}--b) are unconditionally stable. See
-\cite[Theorem~2.3]{triplej} for the case $d = 2$ and to
-\cite[Theorem~2.2]{gflows3d} for $d = 3$ for the complete proofs.
+(\ref{eq:fem_surf_diff_a}--b) are unconditionally stable. Indeed it holds
+\begin{theorem}
+Let $\{(\vec X^m, \kappa^m)\}_{m=1}^M$ be the unique solution to the scheme
+(\ref{eq:fem_mean_curvature_a}--b) and let $\{\Gamma^m\}_{m=1}^M$
+be without self-intersections. Then for ${k=1,\ldots,M}$ we have that
+\begin{equation*}
+|\Gamma^k|+\sum_{m=0}^{k-1} \tau_m(|k^{m+1}|_{\Gamma^m}^h)^2\leq|\Gamma^0|\,.
+\end{equation*}
+Moreover, let $\{(\vec X^m, \kappa^m)\}_{m=1}^M$ be the unique solution to the
+scheme (\ref{eq:fem_surf_diff_a}--b) and let $\{\Gamma^m\}_{m=1}^M$ be without
+self-intersections. Then for $k=1,\ldots,M$ we have that
+\begin{equation*}
+|\Gamma^k|+\sum_{m=0}^{k-1}\tau_m|\nabs k^{m+1}|_{\Gamma^m}^2\leq|\Gamma^0|\,.
+\end{equation*}
+
+\begin{proof}
+See \cite[Theorem~2.3]{triplej} for the case $d = 2$ and to
+\cite[Theorem~2.2]{gflows3d} for the case $d = 3$.
+\end{proof}
+
+\end{theorem}
 
 As shown in \cite[Remark~2.3]{triplej} and \cite[\S~4]{gflows3d}, the
 continuous-in-time semidiscrete version of the aforementioned surface

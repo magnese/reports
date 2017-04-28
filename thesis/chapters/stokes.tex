@@ -488,11 +488,24 @@ f^{k+1}, \vec U^{k+1} \right)
 for $m=0,\ldots, M-1$.
 \end{theorem}
 \begin{proof}
-The desired results follow from choosing $\vec\xi = \vec U^{m+1} \in
-\uspacedisc{0}{m}$ in (\ref{eq:HGa}), $\varphi = P^{m+1} \in \pnormspace^m$ in
-(\ref{eq:HGb}), $\chi = \gamma\,\kappa^{m+1}$ in (\ref{eq:HGc}) and
-$\vec\eta=\gamma\,({\vec X^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ in
-(\ref{eq:HGd}). See \cite[Proof of Theorem~2]{spurious} for more details.
+Choosing $\vec\xi = \vec U^{m+1} \in \uspacedisc{0}{m}$ in (\ref{eq:HGa}),
+$\varphi = P^{m+1} \in \pnormspace^m$ in (\ref{eq:HGb}),
+$\chi = \gamma\,\kappa^{m+1}$ in (\ref{eq:HGc}) and
+$\vec\eta=\gamma\,({\vec X^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ in (\ref{eq:HGd})
+yields that
+\begin{align*}
+& 2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1}) \right)
++ \gamma\,\left\langle \nabs\,\vec X^{m+1}, \nabs\,(\vec X^{m+1} - \vec X^m)
+\right\rangle_{\Gamma^m} \nonumber \\
+& \qquad = \tau_m\left(\vec f^{m+1}, \vec U^{m+1} \right)\,.
+\end{align*}
+Hence (\ref{eq:stab}) follows immediately, where we have used the result that
+$\left\langle \nabs\,\vec X^{m+1}, \nabs\,(\vec X^{m+1} - \vec X^m)
+\right\rangle_{\Gamma^m} \geq \surfvol(\Gamma^{m+1}) - \surfvol(\Gamma^m)$,
+see e.g.\ \cite[Proof of Theorem~2.3]{triplej} and
+\cite[Proof of Theorem~2.2]{gflows3d} for the proofs for $d=2$ and $d=3$,
+respectively. The desired result (\ref{eq:stabstab}) immediately follows from
+(\ref{eq:stab}).
 \end{proof}
 
 \section{Discrete stationary solutions}\label{sec:stokes_stationary_solution}
