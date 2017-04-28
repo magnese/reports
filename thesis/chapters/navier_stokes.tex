@@ -542,6 +542,15 @@ functional setting for the test functions respect to the one used for the
 standard weak formulation, see \S\ref{sec:ns_weak}, and the antisymmetric weak
 formulation, see \S\ref{sec:ns_weak_antisym}. More precisely we consider the
 admissible spaces of test functions on the reference domain
+\begin{align*}
+\widehat{\uspace{b}} &:= \{\vec \phi\in[H^1_0(\D)]^d:\vec \phi =\vec
+g\quad \mbox{on }\partial_1\D\}\,,\\
+\hat{\pspace} &:= L^2(\D)\,,\\
+\widetilde{\hat\pspace} &:= \{\eta\in\hat\pspace : \int_\D\eta\dL{d}=0 \}\,,
+\end{align*}
+for a given $\vec b \in [H^1_0(\D)]^d$. We notice that the boundary
+of $\Omega$ is not time dependent which implies that
+$\partial_1\Omega=\partial_1\D$.
 
 Hence, the ALE weak formulation of (\ref{eq:ns_full_momentum_ale},
 \ref{eq:ns_full_mass}--i) is given as follows. Given $\Gamma(0) = \Gamma_0$ and
