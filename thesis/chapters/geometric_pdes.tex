@@ -201,6 +201,7 @@ differentiable in a neighbourhood of $\Gamma$. Then it holds
 \begin{equation}\label{eq:integration_by_part}
 \int_\Gamma \nabs h\,.\,\nabs g \dH{d-1} =-\int_\Gamma h\,\Delta_s g\dH{d-1}\,.
 \end{equation}
+\end{lemma}
 
 \begin{proof}
 It holds, from \cite{GilbargT83},
@@ -212,8 +213,6 @@ h\varkappa\nu_i\dH{d-1}\,,
 Applying it with $h\underline{D}_i\,g$, summing from $i=1,\ldots,d$ and taking
 into account that $\nabs\nu_i\,.\,\vec \nu=0$ we obtain the desired result.
 \end{proof}
-
-\end{lemma}
 
 \section{Properties of geometric flows}\label{sec:geometric_flows_properties}
 Here we report some fundamental properties of the mean curvature flow and
@@ -288,7 +287,7 @@ satisfying (\ref{eq:mean_curvature}) and assume that each $\Gamma(t)$ is
 compact. Then
 
 \begin{equation}
-\int_{\Gamma(t)} (\V\,.\,\vec\nu)^2 \, \dH{d-1} +
+\int_{\Gamma(t)} \varkappa^2 \, \dH{d-1} +
 \ddt \surfvol(\Gamma(t)) = 0 \, . \label{eq:length_decrease}
 \end{equation}
 
@@ -296,7 +295,11 @@ compact. Then
 
 \begin{proof}
 Choosing $g \equiv 1$ in (\ref{eq:length_variation}) and the evolution law
-(\ref{eq:mean_curvature}) yields the desired result.
+(\ref{eq:mean_curvature}) yields
+\begin{equation*}
+\int_{\Gamma(t)} (\V\,.\,\vec\nu)^2 \,\dH{d-1} +\ddt \surfvol(\Gamma(t)) = 0\,,
+\end{equation*}
+and hence the desired result follow immediately.
 \end{proof}
 The case $d = 2$ is usually referred to as curve shortening flow.
 
@@ -311,7 +314,8 @@ Let $\Gamma(t)$ be a family of evolving hypersurfaces satisfying
 compact and closed. Then
 \begin{align}
 \ddt \vol(\Omega(t)) & = 0 \,, \label{eq:volume_conservation} \\
-\ddt \surfvol (\Gamma(t)) & \leq 0 \,.\label{eq:area_decrease}
+\int_{\Gamma(t)} |\nabs \, \varkappa|^2 \, \dH{d-1} + \ddt \surfvol (\Gamma(t))
+& = 0 \,.\label{eq:area_decrease}
 \end{align}
 \end{lemma}
 
@@ -332,8 +336,7 @@ Similarly for (\ref{eq:area_decrease}), choosing $g \equiv 1$ in
 to
 \begin{equation*}
 \ddt \surfvol(\Gamma(t)) = - \int_{\Gamma(t)} \V\,.\,\vec\nu
-\varkappa \, \dH{d-1} = - \int_{\Gamma(t)} |\nabs \, \varkappa|^2 \, \dH{d-1}
-\leq 0 \,.
+\varkappa \, \dH{d-1} = - \int_{\Gamma(t)} |\nabs \, \varkappa|^2 \, \dH{d-1}\,.
 \end{equation*}
 \end{proof}
 
@@ -513,13 +516,12 @@ self-intersections. Then for $k=1,\ldots,M$ we have that
 \begin{equation*}
 |\Gamma^k|+\sum_{m=0}^{k-1}\tau_m|\nabs k^{m+1}|_{\Gamma^m}^2\leq|\Gamma^0|\,.
 \end{equation*}
+\end{theorem}
 
 \begin{proof}
 See \cite[Theorem~2.3]{triplej} for the case $d = 2$ and to
 \cite[Theorem~2.2]{gflows3d} for the case $d = 3$.
 \end{proof}
-
-\end{theorem}
 
 As shown in \cite[Remark~2.3]{triplej} and \cite[\S~4]{gflows3d}, the
 continuous-in-time semidiscrete version of the aforementioned surface
