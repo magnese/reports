@@ -213,8 +213,9 @@ We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
 $[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0
 ,\ldots, M-1$. Moreover, let ${\cal T}^m$, $\forall m\ge 0$, be a regular
 partitioning of the domain $\Omega$ into disjoint open simplices
-$\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. On ${\cal T}^m$ we define the
-finite element spaces
+$\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. From now on, the domain $\Omega$
+which we consider is the polyhedral domain defined by the triangulation ${\cal
+T}^m$. On ${\cal T}^m$ we define the finite element spaces
 \begin{equation*}
 S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
 \in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\}\,,
@@ -409,12 +410,19 @@ $\vec\eta=\gamma\,\vec X$ in (\ref{eq:proofd}) yields that
 \begin{equation}
 2\,\tau_m\left(\mu^m\,\mat D(\vec U), \mat D(\vec U) \right)
 + \gamma\,\left\langle \nabs\,\vec X, \nabs\,\vec X \right\rangle_{\Gamma^m}
-=0\,. \label{eq:proof2}
+=0\,, \label{eq:proof2}
 \end{equation}
-It immediately follows from (\ref{eq:proof2}) and a Korn's inequality that
-$\vec U = \vec 0$. In addition, it holds that $\vec X$ is equal to a constant
-on $\Gamma^m$, which satisfies, on recalling (\ref{eq:proofc}) and $\vec U =
-\vec 0$, that
+which implies that $\mat D(\vec U) = \mat 0$. We know that the kernel of
+$\mat D$ is the space of rigid motions
+\begin{equation}
+RM=\{\vec \alpha + \mathcal A \vec z:\vec \alpha \in \R^d\,,
+\mathcal A \mbox{ anti-symmetric matrix in }\R^{d\times d} \}\,,
+\end{equation}
+see \cite{Mardal2006}. Given that $\vec U \in RM$, in particular we have that
+$\vec U$ is linear in $\vec z$. Therefore $\vec U$ is constant and, in order
+to fulfil the boundary conditions, it needs to be $\vec U = \vec 0$. In
+addition, it holds that $\vec X$ is equal to a constant on $\Gamma^m$, which
+satisfies, on recalling (\ref{eq:proofc}) and $\vec U = \vec 0$, that
 \begin{equation} \label{eq:Xconst}
 \left\langle \vec X, \chi\,\vec\nu^m \right\rangle_{\Gamma^m}^h = 0
 \quad\forall\ \chi \in \Wh\,.
@@ -450,16 +458,49 @@ and so $\kappa = 0 \in \Wh$. Finally, it follows from (\ref{eq:proofa}) with
 $\vec U = \vec 0$ and $\kappa = 0$, on recalling (\ref{eq:LBB}), that $P = 0$.
 Hence there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1},$
 $\kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
-to
-(\ref{eq:HGa}--d).
+to (\ref{eq:HGa}--d).
 \end{proof}
 
 We note that if $(\uspacedisc{0}{m},\pspace^m)$ does not satisfy the LBB
-condition
-(\ref{eq:LBB}), then existence and uniqueness of the solution
+condition (\ref{eq:LBB}), then existence and uniqueness of the solution
 $(\vec U^{m+1},\vec X^{m+1},\kappa^{m+1})$ to a reduced system, where the
-pressure $P^{m+1}$ is eliminated, can be shown. See \cite[Theorem~1]{spurious}
-for more details.
+pressure $P^{m+1}$ is eliminated, can be shown. More precisely, let
+\begin{equation}
+\uspacesimple^m_0(\vec g) :=
+\{ \vec U \in \uspacedisc{g}{m} : (\nabla\,.\,\vec U, \varphi) = 0
+\quad \forall \varphi \in \pspace^m \}\,.
+\end{equation}
+Then any solution $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
+\in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
+to (\ref{eq:HGa}--d) is such that $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1})
+\in \uspacesimple^m_0(\vec g)\times \Vh \times \Wh$ satisfies
+\begin{subequations}
+\begin{align}
+& 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\vec f^{m+1},\vec \xi\right) \quad \forall\ \vec\xi \in
+\uspacesimple^m_0(\vec 0)\,, \label{eq:reda}\\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:redb} \\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:redc}
+\end{align}
+\end{subequations}
+
+\begin{theorem} \label{thm:stabreduced}
+Let $m \in \{0,\ldots,M-1\}$. Then there exists a unique solution
+$(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in \uspacesimple^m_0(\vec g)
+\times \Vh \times \Wh$ to (\ref{eq:reda}--c).
+\end{theorem}
+\begin{proof}
+As $\uspacesimple^m_0(\vec g)$ is a subspace of $\uspacedisc{g}{m}$, existence
+to the linear system (\ref{eq:reda}--c) follows from uniqueness, which is easy
+to show. In fact, similarly to the proof of Theorem~\ref{thm:ex} we obtain
+(\ref{eq:proof2}) and hence the desired uniqueness result.
+\end{proof}
 
 \section{Stability}\label{sec:stokes_stability}
 We now demonstrate that the scheme (\ref{eq:HGa}--d) satisfies an energy
@@ -540,8 +581,8 @@ $\vec f^{m+1} = \vec 0$. If $\vec X^{m+1} = \vec X^m$, then $\vec U^{m+1} = \vec
 \begin{proof}
 The solution $(\vec U^{m+1}, \vec X^{m+1})$ fulfils (\ref{eq:stab}) with
 $\Gamma^{m+1}$ replaced by $\Gamma^m$ and  $\vec f^{m+1} = \vec 0$. Hence we
-obtain $(\mu^m\,\mat D (\vec U^{m+1}), \mat D(\vec U^{m+1})) = 0$, and so Korn's
-inequality implies $\vec U^{m+1} = \vec 0$.
+obtain $(\mu^m\,\mat D (\vec U^{m+1}), \mat D(\vec U^{m+1})) = 0$, and so, as
+shown in Theorem~\ref{thm:ex}, it implies $\vec U^{m+1} = \vec 0$.
 \end{proof}
 
 Finally, it holds that polyhedral surfaces with constant discrete mean
