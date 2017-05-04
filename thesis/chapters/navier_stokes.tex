@@ -40,10 +40,13 @@ $\Gamma(t)$ therefore we impose the interface conditions
 initial data $\Gamma(0) = \Gamma_0$ and the initial velocity
 $\vec u(0) = \vec u_0$. Finally, we impose the Dirichlet condition $\vec u =
 \vec g$ on $\partial_1 \Omega$ and the free-slip condition $\vec u \,.\,\unitn =
-0$ on $\partial_2 \Omega$, with $\unitn$ denoting the outer unit normal of
-$\partial \Omega$. As usual, it holds that $\partial\Omega =\partial_1\Omega
-\cup \partial_2\Omega$ and $\partial_1\Omega \cap \partial_2\Omega =
-\emptyset$. Therefore the total system can be rewritten as follows:
+0$ and $\mat\sigma\,\unitn\,.\,\unitt = 0$, $\forall \unitt \in
+\{\unitn\}^\perp$, on $\partial_2 \Omega$, with $\unitn$ denoting the outer
+unit normal of $\partial \Omega$ and $\{\unitn\}^\perp := \{ \unitt \in \R^d :
+\unitt \,.\,\unitn = 0\}$ As usual, it holds that
+$\partial\Omega =\partial_1\Omega \cup \partial_2\Omega$ and $\partial_1\Omega
+\cap \partial_2\Omega = \emptyset$. Therefore the total system can be rewritten
+as follows:
 \begin{subequations}
 \begin{alignat}{2}
 \rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
@@ -53,8 +56,9 @@ $\partial \Omega$. As usual, it holds that $\partial\Omega =\partial_1\Omega
 \label{eq:ns_full_mass} \\
 \vec u & = \vec g \quad &&\mbox{on } \partial_1\Omega\,,
 \label{eq:ns_full_dirichlet} \\
-\vec u \,.\,\unitn & = 0 \quad &&\mbox{on } \partial_2\Omega\,,
-\label{eq:ns_full_freeslip} \\
+\vec u \,.\,\unitn = 0 \,,\quad \mat\sigma\,\unitn\,.\,\unitt & = 0
+\quad\forall \unitt \in \{\unitn\}^\perp \quad && \mbox{on } \partial_2\Omega\,,
+\label{eq:ns_full_freeslip}\\
 [\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,,
 \label{eq:ns_full_jump_velocity} \\
 [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+

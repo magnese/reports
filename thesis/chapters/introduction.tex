@@ -210,17 +210,24 @@ The initial condition is not need in the Stokes case
 In order to obtain a well-posed system, boundary conditions have to be imposed
 on the bulk domain boundary $\partial\Omega$. Let $\partial\Omega$ be
 partitioned as $\partial\Omega=\partial_1\Omega \cup \partial_2\Omega$ with
-$\partial_1\Omega \cap \partial_2\Omega = \emptyset$. We use the Dirichlet
-condition on $\partial_1 \Omega$
+$\partial_1\Omega \cap \partial_2\Omega = \emptyset$. On $\partial_1 \Omega$
+we use the Dirichlet condition
 \begin{equation}\label{eq:ns_bc_dirichlet}
 \vec u = \vec g \quad \mbox{on } \partial_1 \Omega\,,
 \end{equation}
-and the free-slip condition on $\partial_2 \Omega$
+and we notice that the case $\vec g = \vec 0$ corresponds to the so called
+no-slip condition. Instead, on $\partial_2 \Omega$ we prescribe the free-slip
+condition
 \begin{equation}\label{eq:ns_bc_freeslip}
-\vec u \,.\,\unitn = 0  \quad \mbox{on } \partial_2 \Omega\,,
+\vec u \,.\,\unitn = 0\,,\quad \mat\sigma\,\unitn\,.\,\unitt = 0
+\quad\forall \unitt \in \{\unitn\}^\perp \quad \mbox{on } \partial_2 \Omega\,,
 \end{equation}
-with $\unitn$ denoting the outer unit normal of $\partial \Omega$. We notice
-that the case $\vec g = \vec 0$ corresponds to the so called no-slip condition.
+with $\unitn$ denoting the outer unit normal of $\partial \Omega$ and
+$\{\unitn\}^\perp := \{ \unitt \in \R^d : \unitt \,.\,\unitn = 0\}$. The
+second term in (\ref{eq:ns_bc_freeslip}) can be derived from the balance of
+kinetic energy prescribing a null power transfer through $\partial_2\Omega$.
+Therefore, (\ref{eq:ns_bc_freeslip}) is an energy preserving boundary condition,
+see \cite{Bothe2013} for more details.
 
 \section{Two-phase Navier--Stokes model}\label{sec:two_phase_model}
 We now consider two-phase flows, i.e., the domain $\Omega$ contains two
@@ -362,7 +369,9 @@ necessary initial, boundary and interface conditions, as
 \nabla\,p & = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,, \\
 \nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,, \\
 \vec u & = \vec g \quad &&\mbox{on } \partial_1\Omega\,, \\
-\vec u \,.\,\unitn & = 0 \quad &&\mbox{on } \partial_2\Omega\,, \\
+\vec u \,.\,\unitn = 0\,,\quad \mat\sigma\,\unitn\,.\,\unitt & = 0
+\quad\forall \unitt \in \{\unitn\}^\perp \quad &&
+\mbox{on }\partial_2\Omega\,,\\
 [\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,, \\
 [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
 & = -\gamma\,\varkappa\,\vec\nu \quad &&\mbox{on } \Gamma(t)\,, \\

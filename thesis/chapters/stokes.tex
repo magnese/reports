@@ -67,8 +67,10 @@ $\Gamma(t)$ and therefore we impose the interface conditions
 partitioned as $\partial\Omega=\partial_1\Omega \cup \partial_2\Omega$ with
 ${\partial_1\Omega \cap \partial_2\Omega = \emptyset}$. We impose, on
 $\partial_1 \Omega$, the Dirichlet condition $\vec u = \vec g$ and, on
-$\partial_2 \Omega$, the free-slip condition $\vec u \,.\,\unitn = 0$,
-with $\unitn$ denoting the outer unit normal of $\partial \Omega$. Finally, to
+$\partial_2 \Omega$, the free-slip condition $\vec u \,.\,\unitn = 0$ and
+$\mat\sigma\,\unitn\,.\,\unitt = 0$, $\forall \unitt \in \{\unitn\}^\perp$,
+with $\unitn$ denoting the outer unit normal of $\partial \Omega$ and
+$\{\unitn\}^\perp := \{ \unitt \in \R^d : \unitt \,.\,\unitn = 0\}$. Finally, to
 close the system, we prescribe the initial data $\Gamma(0) = \Gamma_0$.
 Therefore the total system can be rewritten as follows:
 \begin{subequations}
@@ -79,7 +81,8 @@ Therefore the total system can be rewritten as follows:
 \label{eq:stokes_full_mass} \\
 \vec u & = \vec g \quad &&\mbox{on } \partial_1\Omega\,,
 \label{eq:stokes_full_dirichlet}\\
-\vec u \,.\,\unitn & = 0 \quad &&\mbox{on } \partial_2\Omega\,,
+\vec u \,.\,\unitn = 0 \,,\quad \mat\sigma\,\unitn\,.\,\unitt & = 0
+\quad\forall \unitt \in \{\unitn\}^\perp \quad && \mbox{on } \partial_2\Omega\,,
 \label{eq:stokes_full_freeslip}\\
 [\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,,
 \label{eq:stokes_full_jump_velocity} \\
