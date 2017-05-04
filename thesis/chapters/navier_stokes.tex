@@ -80,7 +80,7 @@ possible forcing term, let $\gamma>0$ be the surface tension coefficient and let
 $\varkappa$ be the mean curvature of $\Gamma(t)$. See
 Chapter~\ref{ch:introduction} for more details.
 
-\section{Standard weak formulation}\label{sec:ns_weak}
+\section{Weak formulation}\label{sec:ns_weak}
 A standard weak formulation of (\ref{eq:ns_full_momentum}--i) can be obtained
 proceeding analogously to the Stokes case, see \S\ref{sec:stokes_weak}. We
 define the same function spaces
@@ -144,132 +144,13 @@ holds for almost all times $t \in (0,T]$. Again, we notice that if
 $p \in \pspace$ is part of a solution to (\ref{eq:ns_full_momentum}--i), then
 so is $p + c$ for an arbitrary $c\in \R$.
 
-\section{Standard finite element approximation}\label{sec:ns_fem}
-In order to obtain a fully practical finite element approximation of the
-standard weak formulation (\ref{eq:ns_weaka}--d) we proceed analogously to the
-Stokes case, see \S\ref{sec:stokes_fem}. For the benefit of the reader, we
-state again all the hypothesis and the notations used.
-
-We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
-$[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0
-,\ldots, M-1$. Moreover, let ${\cal T}^m$, $\forall m\ge 0$, be a regular
-partitioning of the domain $\Omega$ into disjoint open simplices $\sigmaO^m_j$,
-$j = 1 ,\ldots, J^m_\Omega$. From now on, the domain $\Omega$ which we consider
-is the polyhedral domain defined by the triangulation ${\cal T}^m$ On ${\cal
-T}^m$ we define the finite element spaces
-\begin{equation*}
-S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
-\in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\}\,,
-\quad k \in \mathbb{N}\,,
-\end{equation*}
-where $\mathcal{P}_k(\sigmaO^m)$ denotes the space of polynomials of degree $k$
-on $\sigmaO^m$. Moreover, $S^m_0$ is the space of piecewise constant functions
-on ${\cal T}^m$ and let $\vec I^m_k$ be the standard interpolation operator
-onto $[S^m_k]^d$.
-
-Let $\uspacedisc{g}{m}\subset\uspacesimple(\vec I_k^m\vec g)$ and
-$\pspace^m\subset\pspace$ be the finite element spaces we use for the
-approximation of velocity and pressure, and let $\pnormspace^m:= \pspace^m \cap
-\pnormspace$. The spaces $(\uspacedisc{0}{m},\pspace^m)$ satisfy the LBB
-inf-sup. See (\ref{eq:LBB}) for more details.
-
-We consider a fitted finite element approximation for the evolution of the
-interface $\Gamma(t)$. Let $\Gamma^m\subset\R^d$ be a $(d-1)$-dimensional
-polyhedral surface approximating the closed surface $\Gamma(t_m)$, $m=0
-,\ldots, M$. Let $\Omega^m_+$ denote the exterior of $\Gamma^m$ and let
-$\Omega^m_-$ be the interior of $\Gamma^m$, where we assume that $\Gamma^m$ has
-no self-intersections. Then $\Omega = \Omega_-^m \cup \Gamma^m \cup
-\Omega_+^m$, and the fitted nature of
-our method implies that
-\begin{equation*}
-\overline{\Omega^m_+} = \bigcup_{o \in \mathcal{T}^m_+} \overline{o}
-\quad\text{and}\quad
-\overline{\Omega^m_-} = \bigcup_{o \in \mathcal{T}^m_-} \overline{o} \,,
-\end{equation*}
-where $\mathcal{T}^m = \mathcal{T}^m_+ \cup \mathcal{T}^m_-$ and
-$\mathcal{T}^m_+ \cap \mathcal{T}^m_- = \emptyset$. Let $\vec \nu^m$ denote the
-piecewise constant unit normal to $\Gamma^m$ such that $\vec\nu^m$ points into
-$\Omega^m_+$.
-
-In order to define the parametric finite element spaces on $\Gamma^m$, we
-proceed analogously to the mean curvature flow and surface diffusion problems,
-see \S\ref{sec:geometric_pdes_fem}. Therefore we assume that
-$\Gamma^m=\bigcup_{j=1}^{J_\Gamma} \overline{\sigma^m_j}$, where
-$\{\sigma^m_j\}_{j=1}^{J_\Gamma}$ is a family of mutually disjoint open
-$(d-1)$-simplices with vertices $\{\vec q^m_k\}_{k=1}^{K_\Gamma}$. Then
-we define $\Vh := \{\vec\chi \in [C(\Gamma^m)]^d:\vec\chi\!\mid_{\sigma^m_j}
-\in \mathcal{P}_1(\sigma^m_j), j=1,\ldots, J_\Gamma\} =: [\Wh]^d$, where $\Wh
-\subset H^1(\Gamma^m)$ is the space of scalar continuous piecewise linear
-functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K_\Gamma}$ denoting the
-standard basis of $\Wh$. As usual, we parametrize the new surface
-$\Gamma^{m+1}$ over $\Gamma^m$ using a parametrization $\vec X^{m+1} \in \Vh$,
-so that $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Finally, let
-$\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ be the mass lumped inner product on
-$\Gamma^m$, see (\ref{eq:masslump}), and let
-$\langle\cdot,\cdot\rangle_{\Gamma^m}$ denote the standard $L^2$--inner product
-on $\Gamma^m$.
-
-Then our standard finite element approximation, which is based on the
-variational formulation (\ref{eq:ns_weaka}--d), is given as follows. Let
-$\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$
-be given. For $m=0,\ldots, M-1$, for $i=0,\ldots, \bar{i}$, with $\bar{i}$ such
-that $\|U^{m+1,\bar{i}+1}-U^{m+1,\bar{i}} \|_{L^\infty}\leq\epsilon_f$,
-where $\epsilon_f \geq 0$ and $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, find $(\vec
-U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times
-\pnormspace^m
-\times \Vh \times \Wh$ such that
-\begin{subequations}
-\begin{align}
-& \left( \rho^m\,\frac{\vec U^{m+1,i+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
-\xi \right) + \left((\rho^m\vec U^{m+1,i}\,.\,\nabla)\,\vec U^{m+1,i+1}\,,
-\,\vec \xi \right)\nonumber \\
-& - 2\left(\mu^m\,\mat D(\vec U^{m+1,i+1}), \mat D(\vec \xi) \right)
-- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
-& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
-= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
-\uspacedisc{0}{m}\,,
-\label{eq:ns_HGa} \\
-& \left(\nabla\,.\,\vec U^{m+1,i+1}, \varphi\right)  = 0
-\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb} \\
-&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1,i+1}, \chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,, \label{eq:ns_HGc}\\
-& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
-+ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
-0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd}
-\end{align}
-\end{subequations}
-and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$, $\vec U^{m+1}=
-\vec U^{m+1,\bar{i}+1}$. Here we have defined $\vec f^{m+1}(\cdot) := \vec
-I^m_2\,\vec f(\cdot,t_{m+1})$,
-\begin{equation}
-\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
-\end{equation}
-and
-\begin{equation}
-\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
-\end{equation}
-
-When $\bar{i}=0$, the scheme (\ref{eq:ns_HGa}--d) is a linear scheme in that it
-leads to a coupled linear system of equations for the unknowns $(\vec U^{m+1,1},
-P^{m+1}, \vec X^{m+1}, \kappa^{m+1})$ at each time level.
-
-Instead, if $\bar{i}>0$, the scheme (\ref{eq:ns_HGa}--d), at each time level,
-is a fixed point iterative scheme which consists of solving a coupled linear
-system of equations for the unknowns $(\vec U^{m+1,i+1}, P^{m+1},
-\vec X^{m+1}, \kappa^{m+1})$ at each iteration until $L^\infty$--error of the
-velocity $\|U^{m+1,i+1}-U^{m+1,i} \|_{L^\infty}$ is smaller than the required
-tolerance $\epsilon_f$.
-
-\section{Antisymmetric weak formulation}\label{sec:ns_weak_antisym}
-An alternative to the weak formulation derived in \S\ref{sec:ns_weak}
-can be obtained following the paper \cite{fluidfbp}. We refer to this
-alternative formulation as antisymmetric weak formulation. The authors show that
-it is easy to derive an energy bound, see \cite[eq. 3.7]{fluidfbp}, not only on
-the continuous level but also on discrete level, as well as
-existence/uniqueness on discrete level. In order to obtain this alternative
-weak formulation, we want to rewrite the term $\left(\rho\,\vec u_t, \vec
-\xi\right) + \left(\rho\,\vec u \,.\, \nabla \vec u,\vec \xi\right)$ in
+An alternative to the weak formulation (\ref{eq:ns_weaka}--d) can be obtained
+following the paper \cite{fluidfbp}. We refer to this alternative formulation
+as antisymmetric weak formulation. The authors show that it is easy to derive
+an energy bound not only on the continuous level but also on discrete level, as
+well as existence/uniqueness on discrete level. In order to obtain this
+alternative weak formulation, we want to rewrite the term $\left(\rho\,\vec u_t,
+\vec \xi\right) + \left(\rho\,\vec u \,.\, \nabla \vec u,\vec \xi\right)$ in
 (\ref{eq:ns_weaka}) in an equivalent antisymmetric form.
 
 First, we observe that for arbitrary functions $\vec v$,
@@ -400,10 +281,69 @@ Consequently the RHS of (\ref{eq:ns_weaka_antisym}) requires the additional term
 \end{equation}
 
 \section{Antisymmetric finite element approximation}\label{sec:ns_fem_antisym}
-An alternative to the standard discrete finite element approximation
-(\ref{eq:ns_HGa}--d) can be obtained using the antisymmetric weak formulation
-(\ref{eq:ns_weaka_antisym}--d).We use the same hypothesis and definitions
-employed in \S\ref{sec:ns_fem}.
+In order to obtain a fully practical finite element approximation of the
+antisymmetric weak formulation (\ref{eq:ns_weaka_antisym}--d) we proceed
+analogously to the Stokes case, see \S\ref{sec:stokes_fem}. For the benefit of
+the reader, we state again all the hypothesis and the notations used.
+
+We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
+$[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0
+,\ldots, M-1$. Moreover, let ${\cal T}^m$, $\forall m\ge 0$, be a regular
+partitioning of the domain $\Omega$ into disjoint open simplices $\sigmaO^m_j$,
+$j = 1 ,\ldots, J^m_\Omega$. From now on, the domain $\Omega$ which we consider
+is the polyhedral domain defined by the triangulation ${\cal T}^m$ On ${\cal
+T}^m$ we define the finite element spaces
+\begin{equation*}
+S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
+\in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\}\,,
+\quad k \in \mathbb{N}\,,
+\end{equation*}
+where $\mathcal{P}_k(\sigmaO^m)$ denotes the space of polynomials of degree $k$
+on $\sigmaO^m$. Moreover, $S^m_0$ is the space of piecewise constant functions
+on ${\cal T}^m$ and let $\vec I^m_k$ be the standard interpolation operator
+onto $[S^m_k]^d$.
+
+Let $\uspacedisc{g}{m}\subset\uspacesimple(\vec I_k^m\vec g)$ and
+$\pspace^m\subset\pspace$ be the finite element spaces we use for the
+approximation of velocity and pressure, and let $\pnormspace^m:= \pspace^m \cap
+\pnormspace$. The spaces $(\uspacedisc{0}{m},\pspace^m)$ satisfy the LBB
+inf-sup. See (\ref{eq:LBB}) for more details.
+
+We consider a fitted finite element approximation for the evolution of the
+interface $\Gamma(t)$. Let $\Gamma^m\subset\R^d$ be a $(d-1)$-dimensional
+polyhedral surface approximating the closed surface $\Gamma(t_m)$, $m=0
+,\ldots, M$. Let $\Omega^m_+$ denote the exterior of $\Gamma^m$ and let
+$\Omega^m_-$ be the interior of $\Gamma^m$, where we assume that $\Gamma^m$ has
+no self-intersections. Then $\Omega = \Omega_-^m \cup \Gamma^m \cup
+\Omega_+^m$, and the fitted nature of
+our method implies that
+\begin{equation*}
+\overline{\Omega^m_+} = \bigcup_{o \in \mathcal{T}^m_+} \overline{o}
+\quad\text{and}\quad
+\overline{\Omega^m_-} = \bigcup_{o \in \mathcal{T}^m_-} \overline{o} \,,
+\end{equation*}
+where $\mathcal{T}^m = \mathcal{T}^m_+ \cup \mathcal{T}^m_-$ and
+$\mathcal{T}^m_+ \cap \mathcal{T}^m_- = \emptyset$. Let $\vec \nu^m$ denote the
+piecewise constant unit normal to $\Gamma^m$ such that $\vec\nu^m$ points into
+$\Omega^m_+$.
+
+In order to define the parametric finite element spaces on $\Gamma^m$, we
+proceed analogously to the mean curvature flow and surface diffusion problems,
+see \S\ref{sec:geometric_pdes_fem}. Therefore we assume that
+$\Gamma^m=\bigcup_{j=1}^{J_\Gamma} \overline{\sigma^m_j}$, where
+$\{\sigma^m_j\}_{j=1}^{J_\Gamma}$ is a family of mutually disjoint open
+$(d-1)$-simplices with vertices $\{\vec q^m_k\}_{k=1}^{K_\Gamma}$. Then
+we define $\Vh := \{\vec\chi \in [C(\Gamma^m)]^d:\vec\chi\!\mid_{\sigma^m_j}
+\in \mathcal{P}_1(\sigma^m_j), j=1,\ldots, J_\Gamma\} =: [\Wh]^d$, where $\Wh
+\subset H^1(\Gamma^m)$ is the space of scalar continuous piecewise linear
+functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K_\Gamma}$ denoting the
+standard basis of $\Wh$. As usual, we parametrize the new surface
+$\Gamma^{m+1}$ over $\Gamma^m$ using a parametrization $\vec X^{m+1} \in \Vh$,
+so that $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Finally, let
+$\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ be the mass lumped inner product on
+$\Gamma^m$, see (\ref{eq:masslump}), and let
+$\langle\cdot,\cdot\rangle_{\Gamma^m}$ denote the standard $L^2$--inner product
+on $\Gamma^m$.
 
 We need to pay particular attention to the discretization of the time
 derivative in (\ref{eq:ns_weaka_antisym}). Indeed, the discrete counterpart of
@@ -426,10 +366,9 @@ $\tfrac{1}{2}\big[ \ddt (\rho\,\vec u, \vec \xi)+(\rho\,\vec u_t, \vec
 \vec I^m_2\,\vec U^m}{\tau_m}, \vec \xi \right)\,.
 \end{equation}
 
-Then our antisymmetric finite element approximation is
-given as follows. Let $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec
-U^0\in \uspacedisc{g}{0}$ be given. For $m=0,\ldots, M-1$, find $(\vec
-U^{m+1},P^{m+1},
+Then our antisymmetric finite element approximation is given as follows. Let
+$\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in
+\uspacedisc{g}{0}$ be given. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1},
 \vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times
 \Vh \times \Wh$ such that
 \begin{subequations}
@@ -456,6 +395,49 @@ U^{m+1},P^{m+1},
 0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd_antisym}
 \end{align}
 \end{subequations}
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.  Here we have defined
+$\vec f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$,
+\begin{equation}
+\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
+\end{equation}
+and
+\begin{equation}
+\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
+\end{equation}
+
+\section{Standard finite element approximation}\label{sec:ns_fem}
+An alternative to the antisymmetric discrete finite element approximation
+(\ref{eq:ns_HGa_antisym}--d) can be obtained using the standard weak
+formulation (\ref{eq:ns_weaka}--d). We use the same hypothesis and
+definitions employed in \S\ref{sec:ns_fem_antisym}.
+
+Then our standard finite element approximation, which is based on the
+variational formulation (\ref{eq:ns_weaka}--d), is given as follows. Let
+$\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$
+be given. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1},
+\kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
+such that
+\begin{subequations}
+\begin{align}
+& \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
+\xi \right) + \left((\rho^m\vec I^m_2\vec U^m\,.\,\nabla)\,\vec U^{m+1}\,,
+\,\vec \xi \right)\nonumber \\
+& - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
+\uspacedisc{0}{m}\,,
+\label{eq:ns_HGa} \\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,, \label{eq:ns_HGc}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd}
+\end{align}
+\end{subequations}
 and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Again, we have defined $\vec
 f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$,
 \begin{equation}
@@ -466,13 +448,46 @@ and
 \rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
 \end{equation}
 
+Since the convective term is treated explicitly, the scheme
+(\ref{eq:ns_HGa}--d) is a linear scheme that leads to a coupled linear system of
+equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})$
+at each time level.
+
 We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) differs
-from the standard linear scheme (\ref{eq:ns_HGa}--d), where $\bar{i}=0$, for
-the antisymmetric rewrite of the convective term and for the density
-coefficient multiplying $\vec I^m_2\,\vec U^m$ in the time derivative.
-Indeed, instead of using the actual density $\rho^m$, it uses an average
-between the actual density and the interpolation of the density at the previous
-time step $\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1} + \rho^m)$.
+from the standard linear scheme (\ref{eq:ns_HGa}--d), for the antisymmetric
+rewrite of the convective term and for the density coefficient multiplying
+$\vec I^m_2\,\vec U^m$ in the time derivative. Indeed, instead of using the
+actual density $\rho^m$, it uses an average between the actual density and the
+interpolation of the density at the previous time step $\tfrac{1}{2}(\vec
+I^m_0\,\rho^{m-1} + \rho^m)$.
+
+Alternatively, the convective term in (\ref{eq:ns_HGimpa}) can be treated
+implicitly and the finite element approximation (\ref{eq:ns_HGa}--d) becomes
+\begin{subequations}
+\begin{align}
+& \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
+\xi \right) + \left((\rho^m \vec U^{m+1}\,.\,\nabla)\,\vec U^{m+1}\,,
+\,\vec \xi \right)\nonumber \\
+& - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
+\uspacedisc{0}{m}\,,
+\label{eq:ns_HGimpa} \\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGimpb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:ns_HGimpc}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh\,. \label{eq:ns_HGimpd}
+\end{align}
+\end{subequations}
+The scheme (\ref{eq:ns_HGimpa}--d) is a nonlinear scheme that leads to a coupled
+nonlinear system of equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec
+X^{m+1}, \kappa^{m+1})$ at each time level.
 
 \section{ALE weak formulation}\label{sec:ns_weak_ale}
 The system of governing equations (\ref{eq:ns_full_momentum}--i) is expressed in
@@ -585,3 +600,89 @@ such that
 holds for almost all times $t \in (0,T]$.
 
 \section{ALE finite element approximation}\label{sec:ns_fem_ale}
+
+\section{Solution method}\label{sec:ns_solution_method}
+The linear algebraic system arising from (\ref{eq:ns_HGa}--d) and
+(\ref{eq:ns_HGa_antisym}--d) is identical to the two-phase Stokes
+algebraic system (\ref{eq:stokes_algebraic}) with the only modification in
+the definition of the terms $\vec B_{\Omega}$ and $\vec c$. Indeed, for
+standard linear scheme (\ref{eq:ns_HGa}--d) these terms become
+\begin{align*}
+[\vec B_\Omega]_{ij} := & \left( \frac{\rho^m}{\tau_m} \phi_j^{\uspacesimple^m},
+\phi_i^{\uspacesimple^m} \right)\mat \id
++ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m} \vec e_r),
+\mat D(\phi_i^{\uspacesimple^m}\,\vec e_s) \right) \right)_{r,s=1}^d\\
+& + \left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
+\phi_j^{\uspacesimple^m},
+\phi_i^{\uspacesimple^m} \right)\mat \id \,,\\
+\vec c_i := &\left( \frac{\rho^m}{\tau_m}\vec I_2^m\vec U^m +
+\vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,,
+\end{align*}
+while for the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) these terms
+become
+\begin{align*}
+[\vec B_\Omega]_{ij} := & \left( \frac{\rho^m}{\tau_m} \phi_j^{\uspacesimple^m},
+\phi_i^{\uspacesimple^m} \right)\mat \id
++ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m} \vec e_r),
+\mat D(\phi_i^{\uspacesimple^m}\,\vec e_s) \right) \right)_{r,s=1}^d\\
+& + \frac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
+\phi_j^{\uspacesimple^m}, \phi_i^{\uspacesimple^m} \right)\mat \id
+-\frac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
+\phi_i^{\uspacesimple^m}, \phi_j^{\uspacesimple^m} \right)\mat \id \,,\\
+\vec c_i := &\left( \frac{\vec I_0^m\rho^{m-1}+\rho^m}{2\tau_m}\vec I_2^m
+\vec U^m + \vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
+\end{align*}
+Then the resulting algebraic system can be solved using the same technique
+introduced in \S\ref{sec:stokes_solution_method}.
+
+Then our standard finite element approximation, which is based on the
+variational formulation (\ref{eq:ns_weaka}--d), is given as follows. Let
+$\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$
+be given. For $m=0,\ldots, M-1$, for $i=0,\ldots, \bar{i}$, with $\bar{i}$ such
+that $\|U^{m+1,\bar{i}+1}-U^{m+1,\bar{i}} \|_{L^\infty}\leq\epsilon_f$,
+where $\epsilon_f \geq 0$ and $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, find $(\vec
+U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times
+\pnormspace^m
+\times \Vh \times \Wh$ such that
+\begin{subequations}
+\begin{align}
+& \left( \rho^m\,\frac{\vec U^{m+1,i+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
+\xi \right) + \left((\rho^m\vec U^{m+1,i}\,.\,\nabla)\,\vec U^{m+1,i+1}\,,
+\,\vec \xi \right)\nonumber \\
+& - 2\left(\mu^m\,\mat D(\vec U^{m+1,i+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
+\uspacedisc{0}{m}\,,
+\label{eq:ns_HGa} \\
+& \left(\nabla\,.\,\vec U^{m+1,i+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1,i+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,, \label{eq:ns_HGc}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd}
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$, $\vec U^{m+1}=
+\vec U^{m+1,\bar{i}+1}$. Here we have defined $\vec f^{m+1}(\cdot) := \vec
+I^m_2\,\vec f(\cdot,t_{m+1})$,
+\begin{equation}
+\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
+\end{equation}
+and
+\begin{equation}
+\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
+\end{equation}
+
+When $\bar{i}=0$, the scheme (\ref{eq:ns_HGa}--d) is a linear scheme in that it
+leads to a coupled linear system of equations for the unknowns $(\vec U^{m+1,1},
+P^{m+1}, \vec X^{m+1}, \kappa^{m+1})$ at each time level.
+
+Instead, if $\bar{i}>0$, the scheme (\ref{eq:ns_HGa}--d), at each time level,
+is a fixed point iterative scheme which consists of solving a coupled linear
+system of equations for the unknowns $(\vec U^{m+1,i+1}, P^{m+1},
+\vec X^{m+1}, \kappa^{m+1})$ at each iteration until $L^\infty$--error of the
+velocity $\|U^{m+1,i+1}-U^{m+1,i} \|_{L^\infty}$ is smaller than the required
+tolerance $\epsilon_f$.

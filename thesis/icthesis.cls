@@ -9,8 +9,8 @@
 \ProvidesClass{icthesis}
 \LoadClass[12pt,oneside,a4paper]{book}
 
-\usepackage{amsmath,amssymb,amstext,amsthm,enumerate,fancyvrb,hyperref,lipsum,
-mathtools,setspace,tikz}
+\usepackage{amsmath,amssymb,amstext,amsthm,enumerate,fancyvrb,hyperref,mathtools
+,setspace,tikz}
 \usepackage[titletoc]{appendix}
 \usepackage[titles]{tocloft}
 \hypersetup{colorlinks,citecolor=ImperialColor,filecolor=black,linkcolor=black,
@@ -44,17 +44,6 @@ urlcolor=ImperialColor}
 \newtheorem{proposition}[lemma]{Proposition}
 \newtheorem{corollary}[lemma]{Corollary}
 \newtheorem{conjecture}[lemma]{Conjecture}
-
-\DeclareMathOperator{\Symm}{Symm}
-\DeclareMathOperator{\ind}{ind}
-\DeclareMathOperator{\End}{End}
-\DeclareMathOperator{\Ker}{ker}
-\DeclareMathOperator{\Gal}{Gal}
-\DeclareMathOperator{\GL}{GL}
-\DeclareMathOperator{\SL}{SL}
-\DeclareMathOperator{\Img}{im}
-\DeclareMathOperator{\GCD}{gcd}
-\DeclareMathOperator{\Ind}{ind}
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 

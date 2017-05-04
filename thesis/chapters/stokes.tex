@@ -424,7 +424,7 @@ which implies that $\mat D(\vec U) = \mat 0$. We know that the kernel of
 $\mat D$ is the space of rigid motions
 \begin{equation}
 RM=\{\vec \alpha + \mathcal A \vec z:\vec \alpha \in \R^d\,,
-\mathcal A \mbox{ anti-symmetric matrix in }\R^{d\times d} \}\,,
+\mathcal A \mbox{ antisymmetric matrix in }\R^{d\times d} \}\,,
 \end{equation}
 see \cite{Mardal2006}. Given that $\vec U \in RM$, in particular we have that
 $\vec U$ is linear in $\vec z$. Therefore $\vec U$ is constant and, in order
@@ -729,7 +729,7 @@ the fully discrete scheme (\ref{eq:HGa}--d) inherits this property in the sense
 that in our simulations the volumes are always well maintained, with the
 observed relative volume loss tending to zero as $\tau\to 0$.
 
-\section{Algebraic system}\label{sec:stokes_algebraic_system}
+\section{Algebraic formulation}\label{sec:stokes_algebraic_system}
 As is standard practice for the solution of linear systems arising from
 discretizations of (Navier--)Stokes equations, we avoid the complications of the
 constrained pressure space $\pnormspace^m$ in practice by considering an
@@ -836,7 +836,7 @@ of the matrices and vectors in (\ref{eq:stokes_algebraic}) directly follow from
 & [\vec B_\Omega]_{ij} := 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m}
 \vec e_r), \mat D( \phi_i^{\uspacesimple^m}\,\vec e_s) \right)
 \right)_{r,s=1}^d\,,\quad
-\vec c_i = \left( \vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,,\\
+\vec c_i := \left( \vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,,\\
 &[\vec C_\Omega]_{iq} := - \left(
 \left(\nabla\,.\,(\phi_i^{\uspacesimple^m}\,\vec
 e_r), \phi_q^{\pspace^m} \right) \right)_{r=1}^d,\quad
