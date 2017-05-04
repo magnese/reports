@@ -136,7 +136,12 @@ Moreover, on noting (\ref{eq:stress_tensor}) and
 -2 \left(\mu\,\mat D(\vec u) , \mat D(\vec \xi) \right)
 + \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
 \end{align*}
-for all $\vec \xi \in \uspace 0$. Hence a possible weak formulation of
+for all $\vec \xi \in \uspace 0$. We notice that in the first equality we used
+the standard integration by part formula where, given that the stress tensor
+$\mat\sigma$ is discontinuous across the interface $\Gamma(t)$, we have the
+additional term $\left\langle [\mat\sigma\,\vec\nu]_-^+ , \vec \xi
+\right\rangle_{\Gamma(t)}$ which arises from the weak derivative of a
+discontinuous function. Hence a possible weak formulation of
 (\ref{eq:stokes_full_momentum}--h) is given as follows.
 \sloppy Given $\Gamma(0) = \Gamma_0$, for almost all $t\in(0,T)$ find
 $\Gamma(t)$ and ${(\vec u, p, \varkappa) \in \uspace g \times \pnormspace
