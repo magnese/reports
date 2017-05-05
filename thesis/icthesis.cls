@@ -145,7 +145,7 @@ Imperial College \\
 \newpage
 \hphantom{1}
 \vfill
-\noindent I certify that this thesis, and the research to which it refers,
+I certify that this thesis, and the research to which it refers,
 are the product of my own work, and that any ideas or quotations from the
 work of other people, published or otherwise, are fully acknowledged in
 accordance with the standard referencing practices of the discipline.

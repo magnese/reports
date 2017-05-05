@@ -411,7 +411,7 @@ An alternative to the antisymmetric discrete finite element approximation
 formulation (\ref{eq:ns_weaka}--d). We use the same hypothesis and
 definitions employed in \S\ref{sec:ns_fem_antisym}.
 
-Then our standard finite element approximation, which is based on the
+Then our explicit standard finite element approximation, which is based on the
 variational formulation (\ref{eq:ns_weaka}--d), is given as follows. Let
 $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$
 be given. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1},
@@ -454,7 +454,7 @@ equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})$
 at each time level.
 
 We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) differs
-from the standard linear scheme (\ref{eq:ns_HGa}--d), for the antisymmetric
+from the explicit standard scheme (\ref{eq:ns_HGa}--d), for the antisymmetric
 rewrite of the convective term and for the density coefficient multiplying
 $\vec I^m_2\,\vec U^m$ in the time derivative. Indeed, instead of using the
 actual density $\rho^m$, it uses an average between the actual density and the
@@ -605,13 +605,13 @@ holds for almost all times $t \in (0,T]$.
 The linear algebraic system arising from (\ref{eq:ns_HGa}--d) and
 (\ref{eq:ns_HGa_antisym}--d) is identical to the two-phase Stokes
 algebraic system (\ref{eq:stokes_algebraic}) with the only modification in
-the definition of the terms $\vec B_{\Omega}$ and $\vec c$. Indeed, for
-standard linear scheme (\ref{eq:ns_HGa}--d) these terms become
+the terms $\vec B_{\Omega}$ and $\vec c$. Indeed, for explicit standard scheme
+(\ref{eq:ns_HGa}--d) these terms become
 \begin{align*}
 [\vec B_\Omega]_{ij} := & \left( \frac{\rho^m}{\tau_m} \phi_j^{\uspacesimple^m},
 \phi_i^{\uspacesimple^m} \right)\mat \id
-+ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m} \vec e_r),
-\mat D(\phi_i^{\uspacesimple^m}\,\vec e_s) \right) \right)_{r,s=1}^d\\
++ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m} \vec e_q),
+\mat D(\phi_i^{\uspacesimple^m}\,\vec e_r) \right) \right)_{q,r=1}^d\\
 & + \left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
 \phi_j^{\uspacesimple^m},
 \phi_i^{\uspacesimple^m} \right)\mat \id \,,\\
@@ -623,8 +623,8 @@ become
 \begin{align*}
 [\vec B_\Omega]_{ij} := & \left( \frac{\rho^m}{\tau_m} \phi_j^{\uspacesimple^m},
 \phi_i^{\uspacesimple^m} \right)\mat \id
-+ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m} \vec e_r),
-\mat D(\phi_i^{\uspacesimple^m}\,\vec e_s) \right) \right)_{r,s=1}^d\\
++ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m} \vec e_q),
+\mat D(\phi_i^{\uspacesimple^m}\,\vec e_r) \right) \right)_{q,r=1}^d\\
 & + \frac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
 \phi_j^{\uspacesimple^m}, \phi_i^{\uspacesimple^m} \right)\mat \id
 -\frac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
@@ -635,54 +635,56 @@ become
 Then the resulting algebraic system can be solved using the same technique
 introduced in \S\ref{sec:stokes_solution_method}.
 
-Then our standard finite element approximation, which is based on the
-variational formulation (\ref{eq:ns_weaka}--d), is given as follows. Let
-$\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$
-be given. For $m=0,\ldots, M-1$, for $i=0,\ldots, \bar{i}$, with $\bar{i}$ such
-that $\|U^{m+1,\bar{i}+1}-U^{m+1,\bar{i}} \|_{L^\infty}\leq\epsilon_f$,
-where $\epsilon_f \geq 0$ and $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, find $(\vec
-U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times
-\pnormspace^m
-\times \Vh \times \Wh$ such that
+Instead, in order to solve the implicit standard scheme (\ref{eq:ns_HGimpa}--d)
+we use a fixed point iteration. Therefore we can reformulate the scheme
+(\ref{eq:ns_HGimpa}--d) as follow. Let $\Gamma^0$, an approximation to
+$\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$ be given. For $m=0,\ldots,
+M-1$, set $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, $s=0$ and $\epsilon_f
+\geq 0$. Then, find $(\vec U^{m+1,s+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
+\uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
-& \left( \rho^m\,\frac{\vec U^{m+1,i+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
-\xi \right) + \left((\rho^m\vec U^{m+1,i}\,.\,\nabla)\,\vec U^{m+1,i+1}\,,
+& \left( \rho^m\,\frac{\vec U^{m+1,s+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
+\xi \right) + \left((\rho^m\vec U^{m+1,s}\,.\,\nabla)\,\vec U^{m+1,s+1}\,,
 \,\vec \xi \right)\nonumber \\
-& - 2\left(\mu^m\,\mat D(\vec U^{m+1,i+1}), \mat D(\vec \xi) \right)
+& - 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
 & - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
 = \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
 \uspacedisc{0}{m}\,,
-\label{eq:ns_HGa} \\
-& \left(\nabla\,.\,\vec U^{m+1,i+1}, \varphi\right)  = 0
-\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb} \\
+\label{eq:ns_HGfixedpointa} \\
+& \left(\nabla\,.\,\vec U^{m+1,s+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGfixedpointb} \\
 &  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1,i+1}, \chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,, \label{eq:ns_HGc}\\
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1,s+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:ns_HGfixedpointc}\\
 & \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
 + \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
-0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd}
+0 \quad \forall\ \vec\eta \in \Vh\,, \label{eq:ns_HGfixedpointd}
 \end{align}
 \end{subequations}
-and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$, $\vec U^{m+1}=
-\vec U^{m+1,\bar{i}+1}$. Here we have defined $\vec f^{m+1}(\cdot) := \vec
-I^m_2\,\vec f(\cdot,t_{m+1})$,
-\begin{equation}
-\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
-\end{equation}
-and
-\begin{equation}
-\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
-\end{equation}
-
-When $\bar{i}=0$, the scheme (\ref{eq:ns_HGa}--d) is a linear scheme in that it
-leads to a coupled linear system of equations for the unknowns $(\vec U^{m+1,1},
-P^{m+1}, \vec X^{m+1}, \kappa^{m+1})$ at each time level.
-
-Instead, if $\bar{i}>0$, the scheme (\ref{eq:ns_HGa}--d), at each time level,
-is a fixed point iterative scheme which consists of solving a coupled linear
-system of equations for the unknowns $(\vec U^{m+1,i+1}, P^{m+1},
-\vec X^{m+1}, \kappa^{m+1})$ at each iteration until $L^\infty$--error of the
-velocity $\|U^{m+1,i+1}-U^{m+1,i} \|_{L^\infty}$ is smaller than the required
-tolerance $\epsilon_f$.
+and increment $s$, until $\|U^{m+1,s+1}-U^{m+1,s}\|_{L^\infty} \leq\epsilon_f$.
+Finally, set ${\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)}$ and $\vec U^{m+1}= \vec
+U^{m+1,s+1}$. The scheme (\ref{eq:ns_HGfixedpointa}--d), at each time
+level $m$, is a fixed point iteration which consists of solving a coupled
+linear system of equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1},
+\vec X^{m+1}, \kappa^{m+1})$ at each step $s$ until $L^\infty$--error of the
+velocity $\|U^{m+1,s+1}-U^{m+1,s} \|_{L^\infty}$ is smaller than the required
+tolerance $\epsilon_f$. Obviously, in the case that the fixed point iteration
+performs only one step, (\ref{eq:ns_HGfixedpointa}--d) reduces to the explicit
+standard scheme (\ref{eq:ns_HGa}--d). Again, at every step, the linear algebraic
+system arising from (\ref{eq:ns_HGfixedpointa}--d) is identical to the two-phase
+Stokes algebraic system (\ref{eq:stokes_algebraic}) with the only modification
+in the the terms $\vec B_{\Omega}$ and $\vec c$ which become
+\begin{align*}
+[\vec B_\Omega]_{ij} := & \left( \frac{\rho^m}{\tau_m} \phi_j^{\uspacesimple^m},
+\phi_i^{\uspacesimple^m} \right)\mat \id
++ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m} \vec e_q),
+\mat D(\phi_i^{\uspacesimple^m}\,\vec e_r) \right) \right)_{q,r=1}^d\\
+& + \left( \left(\rho^m \vec U^{m+1,s}\,.\,\nabla \right)
+\phi_j^{\uspacesimple^m},
+\phi_i^{\uspacesimple^m} \right)\mat \id \,,\\
+\vec c_i := &\left( \frac{\rho^m}{\tau_m}\vec I_2^m\vec U^m +
+\vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
+\end{align*}
