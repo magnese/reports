@@ -691,3 +691,80 @@ in the the terms $\vec B_{\Omega}$ and $\vec c$ which become
 \vec c_i := &\left( \frac{\rho^m}{\tau_m}\vec I_2^m\vec U^m +
 \vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
 \end{align*}
+
+\section{Velocity interpolation}\label{sec:ns_velocity_interpolation}
+
+\section{Numerical results}\label{sec:ns_results}
+In order to test our method, we recall the following expanding spherical
+solutions. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z| = r(t)\}$ be a sphere
+of radius $r(t)$ and curvature $\kappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
+$\alpha,\alpha_1,\alpha_2,\gamma\in \R_{\geq 0}$ be given.
+
+Firstly, the expanding sphere where
+\begin{equation} \label{eq:r_benchmark1}
+r(t) = \mathrm{e}^{\alpha\,t}\,r(0)\,,
+\end{equation}
+together with
+\begin{equation} \label{eq:up_benchmark1}
+\vec u(\vec z, t) = \alpha\,\vec z \,, \quad
+p(\vec z, t) = -\,\bigg(\gamma - 2\,\alpha\,\frac{\mu_+ - \mu_-}
+{d-1}r(t)\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+\frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
+\end{equation}
+is an exact solution to the problem (\ref{eq:ns_full_momentum}--i), with
+(\ref{eq:ns_full_mass}) replaced by ${\nabla\,.\,\vec u = \alpha\,d}$, on
+e.g.\ $\Omega = (-1,1)^d$  with $\vec f(\vec z, t) = \rho\,\alpha^2\,\vec z$
+and $\vec g = \alpha\,\vec z$ on $\partial_1\Omega=\partial\Omega$.
+
+Alternatively, the expanding sphere where
+\begin{equation} \label{eq:r_benchmark2}
+r(t) = \mathrm{e}^{\alpha_1\,t}\,r(0)\,,
+\end{equation}
+together with
+\begin{align} \label{eq:up_benchmark2}
+& \vec u(\vec z, t) = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}(|\vec
+z|^2-r(t)^2)\bigg)\,\vec z\,, \\
+& p(\vec z, t) = -\,\bigg(\gamma - 4\,\alpha_2\,\frac{\mu_+}{d-1}r(t)^3
+\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+\frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
+\end{align}
+is an exact solution to the problem (\ref{eq:ns_full_momentum}--i), with
+(\ref{eq:ns_full_mass}) replaced by ${\nabla\,.\,\vec u = \big( \alpha_1 +
+\alpha_2\charfcn{\Omega_+(t)}\big(\frac{2+d}{d}|\vec z|^2-r(t)^2\big)\big)d}$,
+on e.g.\ $\Omega = (-1,1)^d$  with
+\begin{align}
+\vec f(\vec z, t) = &
+\rho\,\bigg(\alpha_1^2\,+\charfcn{\Omega_+(t)}\bigg(-2\alpha_1\alpha_2r(t)^2 +
+2\alpha_1\alpha_2\big(2|\vec z|^2-r(t)^2\big) \nonumber \\
+& +\alpha_2^2\big(|\vec z|^2-r(t)^2\big)\big(3|\vec z|^2 -
+r(t)^2\big)-4(d+1)\alpha_2\frac{\mu_+}{\rho}\bigg)\bigg)\vec z\,
+\end{align}
+and $\vec g = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}(|\vec
+z|^2-r(t)^2)\bigg)\,\vec z$ on $\partial_1\Omega=\partial\Omega$.
+
+Finally, a nontrivial divergence free and radially symmetric solution $\vec u$
+can be constructed on a domain that does not contain the origin. To this end,
+consider e.g.\ $\Omega = (-1,1)^d \setminus [-\frac13, \frac13]^d$. Then, the
+expanding sphere where
+\begin{equation} \label{eq:r_benchmark3}
+r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
+\end{equation}
+together with
+\begin{equation} \label{eq:up_benchmark3}
+\vec u(\vec z, t) = \alpha\,\frac{\vec z}{|\vec z\,|^d}\,, \quad
+p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
+{r(t)^{d-1}}\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+\frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
+\end{equation}
+is an exact solution to the problem (\ref{eq:ns_full_momentum}--i) with
+$\vec f(\vec z, t) = (1-d)\alpha^2\frac{\vec z}{|\vec z|^{2d}}$ and $\vec g(\vec
+z) = \alpha\,|\vec z|^{-d}\,\vec z$ on $\partial_1\Omega=\partial\Omega$.
+
+In our numerical simulations, unless otherwise stated, we use the following
+settings. We choose the initial surface $\Gamma(0) = \{ \vec z \in \R^d : |\vec
+z| = \frac12 \}$, the domain $\Omega = (-1,1)^d$ and we employ uniform time
+steps $\tau_m=\tau$, $m=0,\ldots, M-1$. Moreover, we set the GMRES tolerance to
+tol $=10^{-12}$ and the restart value to 50. We use the Stokes matrix
+(\ref{eq:stokes_direct_precond}) or, depending on the pressure space,
+(\ref{eq:stokes_direct_precond_extended}) as a preconditioner factorizing it
+with UMFPACK.

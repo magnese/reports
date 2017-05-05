@@ -1195,7 +1195,10 @@ In order to test our method, and to allow comparisons with the unfitted finite
 element approximation in \cite{spurious}, we recall the following stationary
 and expanding spherical solutions from \cite{spurious}. Let $\Gamma(t) = \{ \vec
 z \in \R^d : |\vec z| = r(t)\}$ be a sphere of radius $r(t)$ and curvature
-$\kappa(t) = -\,\frac{d-1}{r(t)}$. Firstly, the stationary sphere where
+$\kappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let $\alpha,\gamma\in \R_{\geq 0}$
+be given.
+
+Firstly, the stationary sphere where
 \begin{subequations}
 \begin{equation} \label{eq:radialr}
 r(t) = r(0)\,,
@@ -1213,8 +1216,7 @@ $\partial_1\Omega=\partial\Omega$. This solution is the continuous version of
 (\ref{eq:solsol}). Secondly, a nontrivial divergence free and radially
 symmetric solution $\vec u$ can be constructed on a domain that does not
 contain the origin. To this end, consider e.g. $\Omega = (-1,1)^d \setminus
-[-\frac13,\frac13]^d$, and let $\alpha \geq 0$ be given. Then, the expanding
-sphere where
+[-\frac13,\frac13]^d$. Then, the expanding sphere where
 \begin{subequations}
 \begin{equation} \label{eq:radialr2}
 r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
