@@ -1208,12 +1208,13 @@ together with
 \end{equation}
 \end{subequations}
 is an exact solution to the problem (\ref{eq:stokes_full_momentum}--h) on e.g.\
-$\Omega = (-1,1)^d$ with $\vec f=\vec 0$ and $\vec g = \vec 0$. This solution
-is the continuous version of (\ref{eq:solsol}). Secondly, a nontrivial
-divergence free and radially symmetric solution $\vec u$ can be constructed on
-a domain that does not contain the origin. To this end, consider e.g. $\Omega =
-(-1,1)^d \setminus [-\frac13,\frac13]^d$, and let $\alpha \geq 0$ be given.
-Then, the expanding sphere where
+$\Omega = (-1,1)^d$ with $\vec f=\vec 0$ and $\vec g = \vec 0$ on
+$\partial_1\Omega=\partial\Omega$. This solution is the continuous version of
+(\ref{eq:solsol}). Secondly, a nontrivial divergence free and radially
+symmetric solution $\vec u$ can be constructed on a domain that does not
+contain the origin. To this end, consider e.g. $\Omega = (-1,1)^d \setminus
+[-\frac13,\frac13]^d$, and let $\alpha \geq 0$ be given. Then, the expanding
+sphere where
 \begin{subequations}
 \begin{equation} \label{eq:radialr2}
 r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
@@ -1227,9 +1228,10 @@ p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
 \end{equation}
 \end{subequations}
 is an exact solution to the problem (\ref{eq:stokes_full_momentum}--h) with
-$\vec f = \vec 0$ and $\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$. We will
-refer to (\ref{eq:radialr},b) as the stationary bubble solution, and to
-(\ref{eq:radialr2},b) as the expanding bubble solution.
+$\vec f = \vec 0$ and $\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$ on
+$\partial_1\Omega=\partial\Omega$. We will refer to (\ref{eq:radialr},b) as the
+stationary bubble solution, and to (\ref{eq:radialr2},b) as the expanding bubble
+solution.
 
 In our numerical simulations, unless otherwise stated, we use the following
 settings. We choose the initial surface $\Gamma(0) = \{ \vec z \in \R^d : |\vec
@@ -2026,7 +2028,7 @@ the simulation in Figure~\ref{fig:ellipse_smooth}.}
 As the final 2d numerical simulation we present a shear flow experiment. Here
 we prescribe the inhomogeneous Dirichlet boundary condition
 \begin{equation*}
-\vec g(\vec z)=(z_2,0)^T\quad \mbox{on }\partial\Omega\,,
+\vec g(\vec z)=(z_2,0)^T\quad \mbox{on }\partial_1\Omega=\partial\Omega\,,
 \end{equation*}
 and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$.
 The initial interface is discretized with $J_\Gamma = 64$ surface elements,
@@ -2251,7 +2253,7 @@ The initial interface mesh has $J_\Gamma = 596$ elements, while the nearly
 uniform bulk mesh is made up of $J_\Omega^0 = 19641$ elements. We prescribe the
 inhomogeneous Dirichlet boundary condition
 \begin{equation*}
-\vec g(\vec z)=(z_3,0,0)^T\quad \mbox{on }\partial\Omega\,,
+\vec g(\vec z)=(z_3,0,0)^T\quad \mbox{on }\partial_1\Omega=\partial\Omega\,,
 \end{equation*}
 and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$.
 In Figure~\ref{fig:shear_3d} we show the evolution of the discrete interface
