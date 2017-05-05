@@ -405,6 +405,9 @@ and
 \rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
 \end{equation}
 
+\section{Existence, uniqueness and stability of a discrete solution}
+\label{sec:ns_existence}
+
 \section{Standard finite element approximation}\label{sec:ns_fem}
 An alternative to the antisymmetric discrete finite element approximation
 (\ref{eq:ns_HGa_antisym}--d) can be obtained using the standard weak
@@ -560,9 +563,9 @@ to a fully Lagrangian scheme.
 
 In order to define the ALE weak formulation, we need to use a different
 functional setting for the test functions respect to the one used for the
-standard weak formulation, see \S\ref{sec:ns_weak}, and the antisymmetric weak
-formulation, see \S\ref{sec:ns_weak_antisym}. More precisely we consider the
-admissible spaces of test functions on the reference domain
+standard weak formulation and antisymmetric weak formulation, see
+\S\ref{sec:ns_weak}. More precisely we consider the admissible spaces of test
+functions on the reference domain
 \begin{align*}
 \widehat{\uspace{b}} &:= \{\vec \phi\in[H^1_0(\D)]^d:\vec \phi =\vec
 g\quad \mbox{on }\partial_1\D\}\,,\\
