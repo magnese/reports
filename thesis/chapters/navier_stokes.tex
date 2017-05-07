@@ -768,3 +768,31 @@ tol $=10^{-12}$ and the restart value to 50. We use the Stokes matrix
 (\ref{eq:stokes_direct_precond}) or, depending on the pressure space,
 (\ref{eq:stokes_direct_precond_extended}) as a preconditioner factorizing it
 with UMFPACK.
+
+Finally, for later use, we define some benchmark quantities for the continuous
+solution $(\vec u, p, \Gamma)$ of (\ref{eq:ns_full_momentum}--i). Let
+\begin{equation}
+z_c(t) = \frac{1}{\vol(\Omega_-(t))}\int_{\Omega_-(t)} z_d \dL{d}
+\end{equation}
+denotes the $d$-component of the bubble's centre of mass, where $z_d$ is the
+$d$-component of the position vector $\vec z$. Let $\strikes(t)$ denotes the
+degree of sphericity of $\Gamma(t)$, which is defined as the ratio between the
+surface volume of a volume-equivalent hypersphere and $\surfvol(\Gamma(t))$. Let
+\begin{equation}
+V_c(t) = \frac{1}{\vol(\Omega_-(t))}\int_{\Omega_-(t)} u_d(t) \dL{d}
+\end{equation}
+denotes the bubble's rise velocity, where $u_d(t)$ is the $d$-component of
+$\vec u$. Therefore, the discrete counterpart of $d$-component of the bubble's
+centre of mass is
+\begin{equation}
+z_c^m = \frac{1}{\vol(\Omega_-^m)}\,\int_{\Omega_-^m} z_d^{m} \dL{d}\,,
+\end{equation}
+while the degree of sphericity becomes
+\begin{equation}
+\strikes^m =\frac{\pi^{\frac{1}{d}}[2\,d\,\vol(\Omega_-^m)]^\frac{d-1}{d}}
+{\surfvol(\Gamma^m)}\,
+\end{equation}
+and the bubble's rise velocity assumes the following form
+\begin{equation}
+V^m_c = \frac{1}{\vol(\Omega_-^{m-1})}\,\int_{\Omega_-^{m-1}}U^m_d\dL{d}\,.
+\end{equation}
