@@ -692,8 +692,6 @@ in the the terms $\vec B_{\Omega}$ and $\vec c$ which become
 \vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
 \end{align*}
 
-\section{Velocity interpolation}\label{sec:ns_velocity_interpolation}
-
 \section{Numerical results}\label{sec:ns_results}
 In order to test our method, we recall the following expanding spherical
 solutions. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z| = r(t)\}$ be a sphere
@@ -767,7 +765,9 @@ steps $\tau_m=\tau$, $m=0,\ldots, M-1$. Moreover, we set the GMRES tolerance to
 tol $=10^{-12}$ and the restart value to 50. We use the Stokes matrix
 (\ref{eq:stokes_direct_precond}) or, depending on the pressure space,
 (\ref{eq:stokes_direct_precond_extended}) as a preconditioner factorizing it
-with UMFPACK.
+with UMFPACK. Moreover, we use the errors (\ref{eq:errorXx}),
+(\ref{eq:errorLUu}), (\ref{eq:errorHUu}), (\ref{eq:errorPp}) and the estimated
+error of convergence EOC (\ref{eq:eoc}).
 
 Finally, for later use, we define some benchmark quantities for the continuous
 solution $(\vec u, p, \Gamma)$ of (\ref{eq:ns_full_momentum}--i). Let
@@ -794,5 +794,41 @@ while the degree of sphericity becomes
 \end{equation}
 and the bubble's rise velocity assumes the following form
 \begin{equation}
-V^m_c = \frac{1}{\vol(\Omega_-^{m-1})}\,\int_{\Omega_-^{m-1}}U^m_d\dL{d}\,.
+V^m_c = \frac{1}{\vol(\Omega_-^m)}\,\int_{\Omega_-^m}U^m_d\dL{d}\,,
 \end{equation}
+where $U^m_d$ is the $d$-component of $\vec U^m$ evaluated on $\Omega^m$.
+
+\subsection{Rising bubble experiment in 2d} \label{sec:2d_rising_bubble_results}
+We use the same  setup described in \cite{HysingTKPBGT09}, see Figure~2 there,
+which is ${\Omega = (0,1) \times (0,2)}$ with $\partial_1\Omega = [0,1] \times
+\{0,2\}$ and $\partial_2\Omega = \{0,1\} \times (0,2)$. Moreover, let the
+initial interface be ${\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\frac{1}{2},
+\frac{1}{2})^T| = \frac{1}{4}\}}$. The physical parameters from the test case 1
+in \cite[Table~I]{HysingTKPBGT09} are then given by
+\begin{equation} \label{eq:Hysing1}
+\rho_+ = 1000\,,\quad \rho_- = 100\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
+\gamma = 24.5\,,
+\end{equation}
+with $\vec f = -0.98\,\rho\,\vec e_2$ and $\vec g=\vec 0$. The time interval
+chosen for the simulations is $[0,3]$, we adopt an uniform time step size
+$\tau=10^{-3}$ and nearly uniform bulk meshes. Moreover, we set
+$C_a=20$\textdegree, recall (\ref{eq:angle_criterion}).
+
+We list our employed discretization parameters in
+Table~\ref{tab:risingbubble2Delements}.
+\begin{table*}
+\center
+\begin{tabular}{rrrrrr}
+\hline
+$J_\Gamma$ & $J_\Omega^0$ & $J_\Omega^M$ explicit & $J_\Omega^M$ implicit &
+$J_\Omega^M$ antisymmetric & $J_\Omega^M$ ALE \\
+\hline
+ 32 & & & & & \\
+ 64 & & & & & \\
+128 & & & & & \\
+\hline
+\end{tabular}
+\caption[Navier--Stokes 3d rising bubble meshes parameters]
+{Discretization parameters for the 2d rising bubble experiment.}
+\label{tab:risingbubble2Delements}
+\end{table*}

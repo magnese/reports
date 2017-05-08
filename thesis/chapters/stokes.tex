@@ -1118,7 +1118,7 @@ be subdivided into several segments of lengths $\frac{L}{c_l}$ during the mesh
 generation. Therefore, the smaller is the characteristic length, the finer is
 the resulting mesh. When the characteristic lengths of two points defining an
 edge are different, \verb|Gmsh| performs an interpolation process. In general we
-use either uniform or adaptive bulk meshes. In the former case, the
+use either nearly uniform or adaptive bulk meshes. In the former case, the
 characteristic length $c_l$ is set to be equal to the characteristic length of
 the interface $c_{l,\Gamma}$, while in the latter case the characteristic
 length is $c_l(\vec z)=\min\{8c_{l,\Gamma},\mbox{dist}(\vec z,\Gamma)\}$.
@@ -1447,7 +1447,8 @@ $J_\Omega^M$ for $C_v=3$ \\
 \hline
 \end{tabular}
 \caption[Stokes expanding bubble uniform meshes parameters]
-{Discretization parameters for the 2d expanding bubble problem, uniform meshes.}
+{Discretization parameters for the 2d expanding bubble problem, nearly uniform
+meshes.}
 \label{tab:expandingbubble2Delements}
 \end{table*}
 We report on the error for the P2--P0, the P2--\pdg and the P2--(P1+P0)
@@ -1503,7 +1504,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \caption[Stokes expanding bubble uniform mesh errors P2--P0]
 {($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
-interval $[0,1]$ for the P2--P0 element with uniform mesh.}
+interval $[0,1]$ for the P2--P0 element with nearly uniform mesh.}
 \label{tab:expandingbubble2Dp2p0}
 \end{table*}
 \begin{table*}
@@ -1552,7 +1553,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \caption[Stokes expanding bubble uniform mesh errors P2--\pdg]
 {($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
-interval $[0,1]$ for the P2--\pdg element with uniform mesh.}
+interval $[0,1]$ for the P2--\pdg element with nearly uniform mesh.}
 \label{tab:expandingbubble2Dp2p1dg}
 \end{table*}
 \begin{table*}
@@ -1601,7 +1602,7 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \caption[Stokes expanding bubble uniform mesh errors P2--(P1+P0)]
 {($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Expanding bubble
 problem on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$ over the time
-interval $[0,1]$ for the P2--(P1+P0) element with uniform mesh.}
+interval $[0,1]$ for the P2--(P1+P0) element with nearly uniform mesh.}
 \label{tab:expandingbubble2Dp2p1p0}
 \end{table*}
 Due to the expanding motion of the interface, if no remesh is used, we observe
@@ -1637,7 +1638,7 @@ Figure~\ref{fig:expanding_bubble_uniform}.
 {figures/stokes/expanding_bubble_uniform_remesh_100.ps}}
 \caption[Stokes expanding bubble pressure uniform mesh]
 {($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of
-the 2d expanding bubble for the P2--P0 element, uniform mesh.}
+the 2d expanding bubble for the P2--P0 element, nearly uniform mesh.}
 \label{fig:expanding_bubble_uniform}
 \end{figure}
 Here we note that the discontinuous jump in the pressure at the interface is
@@ -1948,10 +1949,11 @@ In Figure~\ref{fig:ellipse_both} we show the pressure evolution for a
 simulation that starts with an initial ellipse, with major and minor axes of
 1.6 and 0.75. We use the parameters $\mu = \gamma=1$, $\tau=10^{-2}$ and
 $T=10$. The initial interface is discretized with $J_\Gamma = 40$ surface
-elements, and the initial bulk mesh has $J_\Omega^0 = 1112$ elements. We employ
-the P2--P0 element and use the remeshing parameter $C_v=3$ during the evolution.
-Figure~\ref{fig:ellipse_both_volumes} shows the evolution of the relative inner
-area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ and the
+elements while the initial bulk mesh is nearly uniform and it has $J_\Omega^0 =
+1112$ elements. We employ the P2--P0 element and use the remeshing parameter
+$C_v=3$ during the evolution. Figure~\ref{fig:ellipse_both_volumes} shows the
+evolution of the relative inner area
+$\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ and the
 evolution of the interface energy $\gamma\,\mathcal{H}^{1}(\Gamma^m)$. The
 graphs show that the inner area is nearly conserved, and that the interface
 energy is monotonically decreasing. We point out that, since there is no exact
@@ -2034,8 +2036,8 @@ we prescribe the inhomogeneous Dirichlet boundary condition
 \end{equation*}
 and we use the parameters $\mu=1$, $\gamma=3$, $\tau=10^{-2}$ and $T=5$.
 The initial interface is discretized with $J_\Gamma = 64$ surface elements,
-and the initial bulk mesh has $J_\Omega^0 = 4240$ elements. In
-Figure~\ref{fig:shear_2d} we show the evolution of the discrete pressures
+and the initial bulk mesh is nearly uniform with $J_\Omega^0 = 4240$ elements.
+In Figure~\ref{fig:shear_2d} we show the evolution of the discrete pressures
 for a simulation with $C_v=3$ for the P2--P0 element, while the velocities
 are visualized in Figure~\ref{fig:shear_2d_velocity}.
 \begin{figure}[htbp]
@@ -2050,7 +2052,7 @@ are visualized in Figure~\ref{fig:shear_2d_velocity}.
 {figures/stokes/2d_shear_500.ps}}
 \caption[Stokes 2d shear flow pressure]
 {($\mu=1,\gamma=3$) Pressure evolution for the 2d shear flow with $C_v=3$ for
-the P2--P0 element, uniform mesh.}
+the P2--P0 element, nearly uniform mesh.}
 \label{fig:shear_2d}
 \end{figure}
 \begin{figure}[htbp]
@@ -2065,7 +2067,7 @@ the P2--P0 element, uniform mesh.}
 {figures/stokes/2d_shear_velocity_500.ps}}
 \caption[Stokes 2d shear flow velocity]
 {($\mu=1,\gamma=3$) Velocity vector field for the 2d shear flow with $C_v=3$
-for the P2--P0 element, uniform mesh.}
+for the P2--P0 element, nearly uniform mesh.}
 \label{fig:shear_2d_velocity}
 \end{figure}
 
@@ -2089,8 +2091,8 @@ for the preconditioned GMRES used to solve the reduce system
 (\ref{eq:SchurkX_extended}). In Table~\ref{tab:shear_2d_preconditioners} we
 report the CPU time, in seconds, and the number of GMRES iteration to solve the
 algebraic system (\ref{eq:SchurkX_extended}) at the first time step, $m=0$. We
-employ uniform bulk meshes and the P2--(P1+P0) element. We test the direct
-preconditioner (\ref{eq:stokes_direct_precond_extended}) factorizing it
+employ nearly uniform bulk meshes and the P2--(P1+P0) element. We test the
+direct preconditioner (\ref{eq:stokes_direct_precond_extended}) factorizing it
 alternatively with either UMFPACK or SPQR and the block preconditioner
 (\ref{eq:ESW_extended}) with restart value either 50 or 1000.
 \begin{table*}
@@ -2115,7 +2117,7 @@ iterations \\
 \caption[Stokes 2d shear flow preconditioners comparison]
 {($\mu=1,\gamma=3$) Time and number of GMRES iterations to solve the algebraic
 system (\ref{eq:SchurkX_extended}) adopting different preconditioners for the 2d
-shear flow using P2--(P1+P0) element, uniform mesh and $m=0$.}
+shear flow using P2--(P1+P0) element, nearly uniform mesh and $m=0$.}
 \label{tab:shear_2d_preconditioners}
 \end{table*}
 We can notice that the direct preconditioner, whose matrix is equivalent to
@@ -2250,10 +2252,10 @@ to a nonzero error in the position of the discrete interface, because the
 vertices of the initial interface $\Gamma^0$ do not lie on $\Gamma(0)$.
 
 \subsection{Shear flow experiment in 3d}
-Finally, we also report on a 3d shear flow experiment.
-The initial interface mesh has $J_\Gamma = 596$ elements, while the nearly
-uniform bulk mesh is made up of $J_\Omega^0 = 19641$ elements. We prescribe the
-inhomogeneous Dirichlet boundary condition
+Finally, we also report on a 3d shear flow experiment. The initial interface
+mesh has $J_\Gamma = 596$ elements, while the nearly uniform bulk mesh is made
+up of $J_\Omega^0 = 19641$ elements. We prescribe the inhomogeneous Dirichlet
+boundary condition
 \begin{equation*}
 \vec g(\vec z)=(z_3,0,0)^T\quad \mbox{on }\partial_1\Omega=\partial\Omega\,,
 \end{equation*}
@@ -2275,7 +2277,7 @@ are visualized in Figure~\ref{fig:shear_3d_velocity}.
 {figures/stokes/3d_shear_500.ps}}
 \caption[Stokes 3d shear flow interface]
 {($\mu=1,\gamma=3$) Interface evolution for the 3d shear flow with $C_v=3$ for
-the P2--P0 element, uniform mesh.}
+the P2--P0 element, nearly uniform mesh.}
 \label{fig:shear_3d}
 \end{figure}
 \begin{figure}[htbp]
@@ -2291,7 +2293,7 @@ the P2--P0 element, uniform mesh.}
 \caption[Stokes 3d shear flow velocity]
 {($\mu=1,\gamma=3$) Velocity vector field in the plane normal to $(0,1,0)^T$
 and passing through the origin for the 3d shear flow with $C_v=3$ for the
-P2--P0 element, uniform mesh.}
+P2--P0 element, nearly uniform mesh.}
 \label{fig:shear_3d_velocity}
 \end{figure}
 
