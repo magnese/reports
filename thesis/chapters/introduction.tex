@@ -88,9 +88,8 @@ introduce the Newtonian stress tensor
 \end{equation}
 where $\mat\id \in \R^{d \times d}$ is the identity matrix and
 $\mat D(\vec u):=\frac{1}{2}\, (\nabla\vec u+(\nabla\vec u)^T)$
-is the rate-of-deformation tensor. Given a vector valued function $\vec
-h:\R^d\to\R^d$, we define its gradient as
-$\nabla\vec h = (\nabla h_1 \ldots \nabla h_d)$. Moreover, let
+is the rate-of-deformation tensor with $[\nabla\vec u ]_{ij} =
+\frac{\partial u_i}{\partial z_j}$, $1\leq i,j \leq d$. Moreover, let
 $\mu$, with $\mu \in \R_{>0}$, be the fluid dynamic viscosity and let $\rho$,
 with $\rho \in \R_{>0}$, be the fluid density.
 
@@ -98,7 +97,7 @@ Imposing the conservation of momentum and mass, the following standard
 Navier--Stokes governing equations can be derived:
 \begin{subequations}
 \begin{alignat}{2}
-\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u)- \nabla\,.\,\mat\sigma
+\rho\,(\vec u_t +(\vec u \,.\, \nabla) \vec u)- \nabla\,.\,\mat\sigma
 & = \vec f \quad &&\mbox{in } \Omega\,,
 \label{eq:ns_momentum_one_phase} \\
 \nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega\,,
@@ -106,7 +105,8 @@ Navier--Stokes governing equations can be derived:
 \end{alignat}
 \end{subequations}
 where $\vec f$ includes all external body forces referred to the unit mass of
-fluid. We define the divergence of a tensor $\mat H:\R^d\to\R^{d \times d}$ as
+fluid. For later use, we define the divergence of a tensor $\mat H:\R^d\to\R^{d
+\times d}$ as the vector with entries
 \begin{equation}
 \big[\nabla\,.\,\mat H\big]_i=\sum_{j=1}^d{
 \frac{\partial\big[\mat H\big]_{ij}}{\partial z_j}}\,, \quad 1\leq i\leq d\,.
@@ -116,7 +116,7 @@ Substituting (\ref{eq:stress_tensor}) in (\ref{eq:ns_momentum_one_phase}), we
 obtain the well known one-phase incompressible Navier--Stokes model:
 \begin{subequations}
 \begin{alignat}{2}
-\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
+\rho\,(\vec u_t +(\vec u \,.\, \nabla)\vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
 \nabla\,p & = \vec f \quad &&\mbox{in } \Omega\,,
 \label{eq:ns_momentum_bis_one_phase} \\
 \nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega\,.
@@ -175,15 +175,15 @@ which for Newtonian fluids are expressed as
 \end{subequations}
 
 We finally observe that, using the incompressibility condition
-(\ref{eq:ns_mass_bis_one_phase}) we have
+(\ref{eq:ns_mass_bis_one_phase}) we have that
 \begin{equation}
 2\nabla\,.\,\mat D(\vec u) = \nabla\,.\big(\nabla\vec u+(\nabla\vec u)^T\big)=
-\Delta \vec u + \nabla(\nabla\,.\vec u) = \Delta \vec u
+\Delta \vec u + \nabla(\nabla\,.\vec u) = \Delta \vec u\,.
 \end{equation}
-therefore the system (\ref{eq:ns_momentum_bis_one_phase}--b) can be rewritten as
+Therefore the system (\ref{eq:ns_momentum_bis_one_phase}--b) can be rewritten as
 \begin{subequations}
 \begin{alignat}{2}
-\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) - \mu\,\Delta\vec u+\nabla\,p
+\rho\,(\vec u_t +(\vec u \,.\, \nabla) \vec u) - \mu\,\Delta\vec u+\nabla\,p
 & = \vec f \quad \mbox{in } \Omega\,, \\
 \nabla\,.\,\vec u & = 0 \quad \mbox{in } \Omega\,,
 \end{alignat}
@@ -204,7 +204,7 @@ an initial condition. Therefore we impose
 \begin{equation}\label{eq:ns_ic}
 \vec u(0) = \vec u_0 \quad \mbox{in } \Omega\,.
 \end{equation}
-The initial condition is not need in the Stokes case
+The initial condition is not needed in the Stokes case
 (\ref{eq:momentum_bis_one_phase}-b) since it is a stationary problem.
 
 In order to obtain a well-posed system, boundary conditions have to be imposed
@@ -243,7 +243,7 @@ Each fluid phase is governed by the Navier--Stokes equations
 model is simply
 \begin{subequations}
 \begin{alignat}{2}
-\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
+\rho\,(\vec u_t +(\vec u \,.\, \nabla)\vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
 \nabla\,p & = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,,
 \label{eq:ns_momentum_bis} \\
 \nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
@@ -304,19 +304,19 @@ gradient operator $\nabla$ on the tangent space of the surface $\Gamma(t)$.
 Therefore, given a smooth function $h$ defined on a neighbourhood of
 $\Gamma(t)$, it is defined as
 \begin{equation}\label{eq:surface_gradient}
-\nabs\,h(\vec z)=\mat P\,\nabla\,h(\vec z)=\nabla\,h(\vec z)\,-
+\nabs\,h(\vec z)=\mat P(\vec z)\,\nabla\,h(\vec z)=\nabla\,h(\vec z)\,-
 \,\nabla\,h(\vec z)\,.\,\vec\nu(\vec z)\,\vec\nu(\vec z)\,,\quad \vec z
 \in\Gamma(t)\,,
 \end{equation}
 with the usual projection operator $\mat P$ defined as
 \begin{equation}\label{eq:surface_projection}
-\mat P(\vec z)=\mat\id\,-\,\vec\nu(\vec z)\,\vec\nu(\vec z)^T\,,\quad \vec
-z\in \Gamma(t)\,.
+\mat P=\mat\id\,-\,\vec\nu\,\vec\nu\,^T\quad \mbox{on } \Gamma(t)\,.
 \end{equation}
 It can be shown that the definition of $\nabs\,h$ does not depend on the chosen
 extension of $h$, but only on the value of $h$ on $\Gamma(t)$. See
-\cite{DeckelnickDE05}. For later use, we also define the surface Laplacian, also
-known as Laplace--Beltrami operator, $\Delta_s$ on $\Gamma(t)$ as
+\cite[\S~2.1]{DeckelnickDE05}. For later use, we also define the surface
+Laplacian, also known as Laplace--Beltrami operator, $\Delta_s$ on $\Gamma(t)$
+as
 \begin{equation}\label{eq:surface_laplacian}
 \Delta_s = \nabs\,.\,\nabs\,.
 \end{equation}
@@ -365,7 +365,7 @@ Finally, we can formulate the two-phase Navier--Stokes model, with the
 necessary initial, boundary and interface conditions, as
 \begin{subequations}
 \begin{alignat}{2}
-\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
+\rho\,(\vec u_t +(\vec u \,.\, \nabla)\vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
 \nabla\,p & = \vec f \quad &&\mbox{in } \Omega_\pm(t)\,, \\
 \nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,, \\
 \vec u & = \vec g \quad &&\mbox{on } \partial_1\Omega\,, \\
@@ -377,7 +377,7 @@ necessary initial, boundary and interface conditions, as
 & = -\gamma\,\varkappa\,\vec\nu \quad &&\mbox{on } \Gamma(t)\,, \\
 (\V-\vec u)\,.\,\vec \nu & = 0 \quad &&\mbox{on } \Gamma(t)\,, \\
 \Gamma(0) & = \Gamma_0 \,, \\
-\vec u(0) & = \vec u_0 \,.
+\rho(0)\vec u(0) & = \rho_0\vec u_0 \,.
 \end{alignat}
 \end{subequations}
 
@@ -443,7 +443,7 @@ are the set of vertices of the triangulation of $\Gamma_0$. The great
 advantage of interface tracking approaches is that they offer an accurate and
 computationally efficient approximation of the evolving interface. Moreover,
 the imposition of boundary conditions at the interface is simple since the mesh
-nodes lies on the interface itself. However, firstly the mesh quality will
+nodes lie on the interface itself. However, firstly the mesh quality will
 usually degrade quickly in the case of large deformations and secondly
 topological changes require a special treatment. In order to keep an
 acceptable mesh quality throughout the simulation, mesh smoothing techniques

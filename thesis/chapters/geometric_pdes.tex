@@ -89,7 +89,7 @@ have a well posed problem.
 
 \section{Geometric analysis}\label{sec:geometric_analysis}
 The aim of this section is to collect some useful definitions and results from
-differential geometry. Again we refer to \cite{DeckelnickDE05} which covers the
+differential geometry. Again we refer to \cite{DeckelnickDE05}, which covers the
 subject in depth.
 
 A subset $\Gamma \subset \R^d$ is called a $C^2$-hypersurface if for each point
@@ -118,13 +118,13 @@ g(\vec z))
 \end{equation}
 for the $d$ components of the surface gradient. Since $\nabla_s \, g(\vec z)$
 is the orthogonal projection of $\nabla \, g(\vec z)$ onto $T_{\vec z} \Gamma$,
-it depends only on the values of $g$ on $\Gamma$. Moreover, from
+it depends only on the values of $g$ on $\Gamma$ and from
 (\ref{eq:surface_gradient}) follows that
 \begin{equation}\label{eq:surface_gradient_comp}
 \nabla_s \, g(\vec z) \,.\, \vec \nu(\vec z)=0\,, \quad \vec z \in \Gamma\,.
 \end{equation}
-Similarly, if $\vec g$ is a differentiable vector field, the surface divergence
-can be rewritten as
+Moreover, if $\vec g$ is a differentiable vector field, the surface divergence
+can be written as
 \begin{equation}
 \nabla_s \,.\, \vec g(\vec z) = \sum_{j = 1}^d \underline{D}_j g_j (\vec z)\,,
 \quad \vec z \in \Gamma\,,
@@ -196,8 +196,8 @@ obtain a weak formulation of the surface diffusion and mean curvature problems.
 
 For later use, we also introduce the integration by part formula
 \begin{lemma}
-Let $\Gamma$ be a compact hypersurface. Moreover, let $h$ and $g$ continuously
-differentiable in a neighbourhood of $\Gamma$. Then it holds
+Let $\Gamma$ be a hypersurface without boundary. Moreover, let $h$ and $g$
+continuously differentiable in a neighbourhood of $\Gamma$. Then it holds
 \begin{equation}\label{eq:integration_by_part}
 \int_\Gamma \nabs h\,.\,\nabs g \dH{d-1} =-\int_\Gamma h\,\Delta_s g\dH{d-1}\,.
 \end{equation}
@@ -234,7 +234,7 @@ C^0(\cup_{0<t<T}\Gamma(t)\times\{t\},\R^d)$.
 
 We define the velocity at a point $(\vec z_0,t_0)$, with $\vec z_0\in
 \Gamma(t_0)$, as
-\begin{equation}
+\begin{equation}\label{eq:Vphi}
 \V(\vec z_0,t_0)= \vec \phi_t(t_0)\,, \quad
 \mbox{with }\vec \phi(t_0)=\vec z_0\,,
 \end{equation}
@@ -282,8 +282,8 @@ The evolution of an hypersurface subject to the mean curvature flow
 which is obtained from the following lemma.
 
 \begin{lemma}
-Let $\Gamma(t)$ be a family of evolving hypersurfaces
-satisfying (\ref{eq:mean_curvature}) and assume that each $\Gamma(t)$ is
+Let $\Gamma(t)$ be a family of evolving hypersurfaces satisfying
+(\ref{eq:mean_curvature}) and assume that each $\Gamma(t)$ is
 compact. Then
 
 \begin{equation}
@@ -299,7 +299,7 @@ Choosing $g \equiv 1$ in (\ref{eq:length_variation}) and the evolution law
 \begin{equation*}
 \int_{\Gamma(t)} (\V\,.\,\vec\nu)^2 \,\dH{d-1} +\ddt \surfvol(\Gamma(t)) = 0\,,
 \end{equation*}
-and hence the desired result follow immediately.
+and hence the desired result follow immediately from (\ref{eq:mean_curvature}).
 \end{proof}
 The case $d = 2$ is usually referred to as curve shortening flow.
 
@@ -346,8 +346,8 @@ energy with constant energy density 1 which is defined as
 \begin{equation}\label{eq:surface_energy}
 E(\Gamma(t)) = \int_{\Gamma(t)} 1 \, \dH{d-1} \, .
 \end{equation}
-We will see that surface diffusion is not dissimilar to two-phase Stokes flow
-in the case of absence of external forces, where, the surface energy
+We will see that surface diffusion is not dissimilar to two-phase Stokes flow,
+in that in the absence of external forces the surface energy
 (\ref{eq:surface_energy}) is decreased and the enclosed volume is conserved.
 
 \section{Front tracking approach}\label{sec:front_tracking_approach}
@@ -363,8 +363,8 @@ $\Gamma(t)$, therefore
 \end{equation}
 The position vector $\vec x(\cdot,t)$, for every time $t$, maps a certain point
 $\vec q$ of the reference manifold $\Upsilon$ to its actual position
-$\vec z$ on $\Gamma(t)$. Therefore, from (\ref{eq:interface_parametrization}),
-we can define the velocity $\V$ of $\Gamma(t)$ as
+$\vec z$ on $\Gamma(t)$. Therefore, using (\ref{eq:interface_parametrization}),
+we can rewrite the surface velocity (\ref{eq:Vphi}) as
 \begin{equation} \label{eq:V}
 \V(\vec z, t) := \vec x_t(\vec q, t) \quad
 \forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)\,.
@@ -392,7 +392,8 @@ Putting together the mean curvature flow (\ref{eq:mean_curvature}) with the
 identity (\ref{eq:LBop}) we obtain the following system of PDEs
 \begin{subequations}
 \begin{alignat}{2}
-\V &=\varkappa \quad &&\mbox{on } \Gamma(t)\,,\label{eq:mean_curvature_a}\\
+\V\,.\,\vec\nu &=\varkappa \quad &&\mbox{on } \Gamma(t)\,,
+\label{eq:mean_curvature_a} \\
 \varkappa\,\vec \nu &=\Delta_s\,\vec\id \quad &&\mbox{on } \Gamma(t)\,.
 \label{eq:mean_curvature_b}
 \end{alignat}
@@ -402,7 +403,8 @@ Analogously, the surface diffusion problem (\ref{eq:surface_diff}) can be
 rewritten as a system of second order equations
 \begin{subequations}
 \begin{alignat}{2}
-\V &=-\Delta_s\,\varkappa \quad &&\mbox{on }\Gamma(t)\,,\label{eq:surf_diff_a}\\
+\V\,.\,\vec\nu &=-\Delta_s\,\varkappa \quad &&\mbox{on }\Gamma(t)\,,
+\label{eq:surf_diff_a} \\
 \varkappa\,\vec \nu&=\Delta_s\,\vec\id \quad &&\mbox{on }\Gamma(t)\,.
 \label{eq:surf_diff_b}
 \end{alignat}
@@ -481,7 +483,7 @@ mesh properties. Therefore it is natural to use it also in
 indeed the case since it is the product of two piecewise constant functions.
 
 Similarly, the finite element approximation for the surface diffusion problem
-(\ref{eq:surf_diff_a}--b) is analogue to the one obtained for the mean
+(\ref{eq:surf_diff_a}--b) is analogous to the one obtained for the mean
 curvature flow with the linear system (\ref{eq:fem_mean_curvature_a}--b)
 changed to
 \begin{subequations}
@@ -497,7 +499,7 @@ changed to
 \end{align}
 \end{subequations}
 
-If $\Gamma^m$ is an hypersurface without self-intersections, then there exist
+If $\Gamma^m$ is an hypersurface without self-intersections, then there exists
 a unique solution $(\vec X^{m+1}, \kappa^{m+1}) \in \Vh \times \Wh$ to the
 systems (\ref{eq:fem_mean_curvature_a}--b) and (\ref{eq:fem_surf_diff_a}--b).
 See \cite[Theorem~2.1]{gflows3d} for the complete proof. Furthermore,
@@ -538,7 +540,7 @@ parallel. Only a fully implicit scheme can achieve that also on the fully
 discrete level, see \cite{fdfi}, but a fully implicit scheme is very
 expensive without providing better accuracy for the solution. Nevertheless, in
 practice we see that for the semi-implicit schemes
-(\ref{eq:mean_curvature_a}--b) and (\ref{eq:surf_diff_a}--b )over a number of
+(\ref{eq:mean_curvature_a}--b) and (\ref{eq:surf_diff_a}--b) over a number of
 time steps, the vertices are moved tangentially so that they will eventually be
 equidistributed. Instead in \cite[\S~4]{gflows3d} the case $d=3$ has been
 thoroughly investigated showing that the continuous-in-time semidiscrete
@@ -610,9 +612,10 @@ piecewise linear continuous functions $W(\Gamma^m)$ and
 [\vec A_\Gamma]_{kl} := [A_\Gamma]_{kl} \mat \id\,.
 \end{equation}
 Since the entries of $A_\Gamma$ can be assembled by summing up the contributions
-over all the elements and each contribution is a planar integral in $\R^d$ with
-the integrand being a constant, we notice that (\ref{eq:algebraic_entries_c})
-can be assembled as the standard Laplacian term.
+to (\ref{eq:algebraic_entries_c}) over all the elements, and since each
+contribution is a planar integral in $\R^d$ with the integrand being a
+constant, we notice that (\ref{eq:algebraic_entries_c}) can be assembled in a
+straightforward way.
 
 The linear systems (\ref{eq:algebraic_mean_curvature}) and
 (\ref{eq:algebraic_surf_diff}) are invertible under a suitable assumption on the
@@ -645,10 +648,12 @@ solving the algebraic system
 \end{pmatrix}
 \,,
 \end{equation}
-which is the discretization of the stationary geometric PDE
+which is a discretization of the stationary geometric PDE
 \begin{equation}
-\V\,.\,\vec\nu=0\quad\mbox{on }\Gamma(t)\,.
+\V\,.\,\vec\nu=0\quad\mbox{on }\Gamma(t)\,,
 \end{equation}
+in the flavour of (\ref{eq:fem_mean_curvature_a}--b) for the mean curvature
+flow (\ref{eq:mean_curvature}).
 
 \subsection{Mean curvature flow with a sphere as initial condition}
 \label{subsec:mc_sphere}

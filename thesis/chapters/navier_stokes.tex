@@ -1,4 +1,6 @@
-\chapter{\sc Two-Phase Navier--Stokes Flow}\label{ch:navier_stokes}
+\chapter[Two-Phase Navier--Stokes Flow Standard FEMs]
+{\sc Standard Finite Element Approximations for Two-Phase Navier--Stokes
+Flow}\label{ch:navier_stokes}
 
 \section{Mathematical model}\label{sec:navier_stokes_model}
 We now consider two-phase Navier--Stokes flow in a given domain
@@ -20,7 +22,7 @@ unknown interface $\Gamma(t)$ as $\vec x(\cdot,t):\Upsilon\to\R^d$ where
 $\Upsilon\subset\R^d$ is a given reference manifold such that $\Gamma(t) = \vec
 x(\Upsilon,t)$. As usual, we require that the evolving hypersurface is
 sufficiently smooth and without boundary. The velocity $\V$ of $\Gamma(t)$ is
-defined by the equation (\ref{eq:V}) which we report here for the seek of
+defined by the equation (\ref{eq:V}) which we report here for the sake of
 completeness
 \begin{equation*}
 \V(\vec z, t) := \vec x_t(\vec q, t) \quad
@@ -33,7 +35,7 @@ $\Omega_+(t)$.
 The fluid dynamics in the bulk domain $\Omega$ is governed by the two-phase
 Navier--Stokes model (\ref{eq:ns_momentum_bis}--b) which describes the velocity
 $\vec u$ and pressure $p$ fields of the fluid. The velocity and stress tensor,
-see (\ref{eq:stress_tensor}), needs to be coupled across the free surface
+see (\ref{eq:stress_tensor}), need to be coupled across the free surface
 $\Gamma(t)$ therefore we impose the interface conditions
 (\ref{eq:interface_jump_velocity}), (\ref{eq:interface_jump_stress}) and
 (\ref{eq:interface_velocity}). In order to close the system, we prescribe the
@@ -49,7 +51,7 @@ $\partial\Omega =\partial_1\Omega \cup \partial_2\Omega$ and $\partial_1\Omega
 as follows:
 \begin{subequations}
 \begin{alignat}{2}
-\rho\,(\vec u_t +\vec u \,.\, \nabla \vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
+\rho\,(\vec u_t +(\vec u \,.\, \nabla)\vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
 \nabla\,p & = \vec f
 \quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:ns_full_momentum} \\
 \nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
@@ -70,7 +72,7 @@ as follows:
 \vec u(0) & = \vec u_0 \,.\label{eq:ns_full_initial_velocity}
 \end{alignat}
 \end{subequations}
-Finally let $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)}+
+Here we let $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)}+
 \rho_-\,\charfcn{\Omega_-(t)}$, with $\rho_\pm \in \R_{>0}$, be the fluid
 density in the two phases, let $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} +
 \mu_-\,\charfcn{\Omega_-(t)}$, with $\mu_\pm \in \R_{>0}$, be the dynamic
@@ -123,7 +125,7 @@ all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 \uspace g \times \pnormspace \times H^1(\Gamma(t))}$ such that
 \begin{subequations}
 \begin{align}
-& \left(\rho\,\vec u_t, \vec \xi\right) + \left(\rho\,\vec u \,.\, \nabla \vec
+& \left(\rho\,\vec u_t, \vec \xi\right) + \left(\rho\,(\vec u \,.\, \nabla) \vec
 u,\vec \xi\right) + 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
 \nonumber \\
 & - \left(p, \nabla\,.\,\vec \xi\right)
@@ -150,7 +152,7 @@ as antisymmetric weak formulation. The authors show that it is easy to derive
 an energy bound not only on the continuous level but also on discrete level, as
 well as existence/uniqueness on discrete level. In order to obtain this
 alternative weak formulation, we want to rewrite the term $\left(\rho\,\vec u_t,
-\vec \xi\right) + \left(\rho\,\vec u \,.\, \nabla \vec u,\vec \xi\right)$ in
+\vec \xi\right) + \left(\rho\,(\vec u \,.\, \nabla) \vec u,\vec \xi\right)$ in
 (\ref{eq:ns_weaka}) in an equivalent antisymmetric form.
 
 First, we observe that for arbitrary functions $\vec v$,
