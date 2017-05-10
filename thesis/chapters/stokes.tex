@@ -130,15 +130,22 @@ yielding to
 \end{equation}
 Moreover, on noting (\ref{eq:stress_tensor}) and
 (\ref{eq:interface_jump_stress}), we have that
-\begin{align}\label{eq:weak_stress_jump}
-\int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec \xi \dL{d}
-& = - \left(\mat\sigma, \nabla\,\vec \xi\right)
-- \left\langle [\mat\sigma\,\vec\nu]_-^+ , \vec \xi
-  \right\rangle_{\Gamma(t)} \nonumber \\
-& = \left( p , \nabla\,.\,\vec \xi\right)
+\begin{equation}\label{eq:weak_stress_jump}
+\begin{align*}
+& \int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec \xi \dL{d}
+= - \left(\mat\sigma, \nabla\,\vec \xi\right)
+- \left\langle [\mat\sigma\,\vec\nu]_-^+ , \vec \xi \right\rangle_{\Gamma(t)} \\
+& \qquad = - \left(2\,\mu\, \mat D(\vec u)-p\,\mat\id, \nabla\,\vec \xi\right)
+- \left\langle [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ , \vec \xi
+\right\rangle_{\Gamma(t)} \\
+& \qquad = \left(p\,\mat\id, \nabla\,\vec \xi\right) -2 \left(\mu\,
+\mat D(\vec u), \nabla\,\vec \xi\right) + \gamma \left\langle \varkappa\,
+\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)} \\
+& \qquad = \left( p , \nabla\,.\,\vec \xi\right)
 -2 \left(\mu\,\mat D(\vec u) , \mat D(\vec \xi) \right)
 + \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
-\end{align}
+\end{align*}
+\end{equation}
 for all $\vec \xi \in \uspace 0$. We notice that in the first equality we used
 the standard integration by parts on $\Omega_+(t)$ and $\Omega_-(t)$
 separately. Hence a possible weak formulation of
@@ -782,32 +789,37 @@ we finally deduce
 Therefore, when the inhomogeneous boundary data $\vec g$ is non-quadratic and,
 as in our case, the pressure space used is the unconstrained space $\pspace^m$
 instead of $\pnormspace^m$, then the equation (\ref{eq:LAb}) replaces
-(\ref{eq:HGb}) and the resulting weak formulation is
+(\ref{eq:HGb}) and the resulting finite element approximation is: for
+$m=0,\ldots, M-1$, find ${(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
+\in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh}$ such that
 \begin{subequations}
 \begin{align}
-& 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
-- \left(p, \nabla\,.\,\vec \xi\right)
-- \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
-= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace 0 \,,
-\label{eq:HGcorrecteda}\\
-& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
- \frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
-(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
-\pspace^m\,, \label{eq:HGcorrectedb} \\
-&  \left\langle \V - \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
-\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:HGcorrectedc} \\
-& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
-+ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
-= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,. \label{eq:HGcorrectedd}
+& 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\vec f^{m+1},\vec \xi\right) \quad \forall\ \vec\xi \in
+\uspacedisc{0}{m}\,, \label{eq:HGcorrecteda}\\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  =
+\frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
+(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1}
+\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:HGcorrectedb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:HGcorrectedc} \\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:HGcorrectedd}
 \end{align}
 \end{subequations}
-Let $\uspacesimple^m$ be unconstrained velocity space, with basis
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
+
+Let $\uspacesimple^m$ be the unconstrained velocity space, with basis
 $\{\phi_i^{\uspacesimple^m}\}_{i=1}^{K^m_\uspacesimple}$. Moreover, let
 $\{\phi_i^{\pspace^m}\}_{i=1}^{K^m_\pspace}$ span the unconstrained pressure
-space $\pspace^m$ and let
-$\{\chi_i^m\}_{i=1}^{K_\Gamma}$ be the basis of $\Wh$. Then, ignoring for now
-the Dirichlet and free-slip boundary condition, the resulting linear system can
-be formulated as: Find ${(\vec U^{m+1},P^{m+1},
+space $\pspace^m$ and let $\{\chi_i^m\}_{i=1}^{K_\Gamma}$ be the basis of
+$\Wh$. Then, ignoring for now the Dirichlet and free-slip boundary condition,
+the resulting linear system can be formulated as: Find ${(\vec U^{m+1},P^{m+1},
 \kappa^{m+1},\delta\vec X^{m+1})\in (\R^d)^{K^m_\uspacesimple}\times
 \R^{K^m_\pspace} \times \R^{K_\Gamma}\,\times (\R^d)^{K_\Gamma}}$, where $\vec
 X^{m+1} = \vec X^m+ \delta\vec X^{m+1}$, such that
@@ -835,7 +847,7 @@ P^{m+1} \\
 \end{equation}
 where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec X^{m+1})$ here denote the
 coefficients of these finite element functions with respect to the
-aforementioned functions. Moreover, $\vec X^m$ denotes the coefficients of
+aforementioned basis functions. Moreover, $\vec X^m$ denotes the coefficients of
 $\vec\id\!\mid_{\Gamma^m}$ with respect to the basis of $\Vh$. The definitions
 of the matrices and vectors in (\ref{eq:stokes_algebraic}) directly follow from
 (\ref{eq:HGcorrecteda}--d) and are:
@@ -861,15 +873,18 @@ for the submatrices we have used the convention that the subscripts refer to
 the test and trial domains, respectively. A single subscript is used where the
 two domains are the same.
 
-The Dirichlet boundary condition is imposed doctoring the matrix and the
-right-hand side of algebraic system (\ref{eq:stokes_algebraic}). The matrix
+The Dirichlet boundary condition can be imposed by doctoring the matrix and the
+right-hand side of the algebraic system (\ref{eq:stokes_algebraic}). The matrix
 doctoring process consists on zeroing the rows which correspond to the Dirichlet
-boundary degree of freedoms and setting an unitary value on the correspondent
-diagonal entries. The vector doctoring process consists on setting the Dirichlet
-boundary data on the correspondent right-hand side entries. Similarly, the
-free-slip boundary condition is enforced doctoring the matrix entries which
-correspond to the degree of freedoms of the basis functions perpendicular to
-$\partial_2\Omega$. Instead, the right-hand side is left unchanged.
+boundary degree of freedoms in $\vec B_\Omega$, $\vec C_\Omega$ and $\Nbulk$ in
+the first block row of (\ref{eq:stokes_algebraic}) and setting a unitary value
+on the correspondent diagonal entries in $\vec B_\Omega$. The vector doctoring
+process consists on setting the Dirichlet boundary data on the correspondent
+right-hand side entries in $\vec c$. Similarly, the free-slip boundary
+condition is enforced doctoring the matrix entries corresponding to the degree
+of freedoms of the basis functions $\phi_i^{\uspacesimple^m}\vec e_q$ defined on
+part of $\partial_2\Omega$ which satisfy $\vec e_q=\unitn$. Instead, the
+right-hand side is left unchanged.
 
 We observe the analogy of the interface part of the algebraic system,
 namely the matrices $[\vec A_\Gamma]$ and $[\vec N_\Gamma]$ and the right-hand
@@ -1002,13 +1017,14 @@ sparse $L\,U$ decomposition. Since in the Stokes problem the pressure
 solution is only unique up to a constant, the matrix
 (\ref{eq:stokes_direct_precond}) is singular. In particular, if LBB holds, the
 matrix has rank deficiency 1. Therefore, in order to use UMFPACK to factorize
-the matrix, the rank
-deficiency needs to be reduced to 0. This can be achieved using a matrix
-doctoring which consists on setting, for example, an unitary value on the first
-diagonal entry of the null matrix. This doctoring process can be avoided if SPQR
-is used to factorize the preconditioner since SPQR can decompose also singular
-matrices. We stress the fact that the rank deficiency is exactly 1 only for LBB
-stable pairs otherwise the rank deficiency may be much higher.
+the matrix, the rank deficiency needs to be reduced to 0. This can be achieved
+using a matrix doctoring which consists on zeroing, for example, the first
+row of the second block row of (\ref{eq:stokes_direct_precond}) and setting an
+unitary value on the first diagonal entry in the null matrix. This doctoring
+process can be avoided if SPQR is used to factorize the preconditioner since
+SPQR can decompose also singular matrices. Indeed, SPQR is a sparse
+factorization package, see \cite{Davis11}, performing a QR decomposition which
+can be used to solve the least squares problem.
 
 The algebraic system (\ref{eq:stokes_algebraic}) can be rewritten when we
 use (P1+P0) or \pdg as pressure space. Indeed it assumes the following form
