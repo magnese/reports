@@ -130,22 +130,21 @@ yielding to
 \end{equation}
 Moreover, on noting (\ref{eq:stress_tensor}) and
 (\ref{eq:interface_jump_stress}), we have that
-\begin{equation}\label{eq:weak_stress_jump}
-\begin{align*}
+\begin{align}\label{eq:weak_stress_jump}
 & \int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec \xi \dL{d}
 = - \left(\mat\sigma, \nabla\,\vec \xi\right)
-- \left\langle [\mat\sigma\,\vec\nu]_-^+ , \vec \xi \right\rangle_{\Gamma(t)} \\
+- \left\langle [\mat\sigma\,\vec\nu]_-^+ , \vec \xi \right\rangle_{\Gamma(t)}
+\nonumber \\
 & \qquad = - \left(2\,\mu\, \mat D(\vec u)-p\,\mat\id, \nabla\,\vec \xi\right)
 - \left\langle [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ , \vec \xi
-\right\rangle_{\Gamma(t)} \\
+\right\rangle_{\Gamma(t)} \nonumber \\
 & \qquad = \left(p\,\mat\id, \nabla\,\vec \xi\right) -2 \left(\mu\,
 \mat D(\vec u), \nabla\,\vec \xi\right) + \gamma \left\langle \varkappa\,
-\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)} \\
+\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)} \nonumber \\
 & \qquad = \left( p , \nabla\,.\,\vec \xi\right)
 -2 \left(\mu\,\mat D(\vec u) , \mat D(\vec \xi) \right)
 + \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
-\end{align*}
-\end{equation}
+\end{align}
 for all $\vec \xi \in \uspace 0$. We notice that in the first equality we used
 the standard integration by parts on $\Omega_+(t)$ and $\Omega_-(t)$
 separately. Hence a possible weak formulation of
@@ -320,7 +319,8 @@ $m=0,\ldots, M-1$, find ${(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \begin{align}
 & 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
-& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+& \qquad - \gamma\,\left\langle
+\kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
 = \left(\vec f^{m+1},\vec \xi\right) \quad \forall\ \vec\xi \in
 \uspacedisc{0}{m}\,, \label{eq:HGa}\\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
@@ -796,7 +796,8 @@ $m=0,\ldots, M-1$, find ${(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \begin{align}
 & 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
-& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+& \qquad - \gamma\,\left\langle
+\kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
 = \left(\vec f^{m+1},\vec \xi\right) \quad \forall\ \vec\xi \in
 \uspacedisc{0}{m}\,, \label{eq:HGcorrecteda}\\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  =
@@ -910,8 +911,7 @@ be the interface condensed operator, which is exactly the same operator
 (\ref{eq:algebraic_initial_curvature}) arising from the discretization of the
 stationary geometric PDE. Then (\ref{eq:stokes_algebraic}) can be reduced to
 \begin{subequations}
-\begin{equation} \label{eq:SchurkX}
-\begin{align*}
+\begin{align}\label{eq:SchurkX}
 &
 \begin{pmatrix}
 \vec B_\Omega + \gamma\,(\Nbulk \ 0)\,\Xi_\Gamma^{-1}\,
@@ -921,7 +921,7 @@ stationary geometric PDE. Then (\ref{eq:stokes_algebraic}) can be reduced to
 \begin{pmatrix}
 \vec U^{m+1} \\ P^{m+1}
 \end{pmatrix}
-= \\
+= \nonumber \\
 & \qquad
 \begin{pmatrix}
 \vec c
@@ -929,8 +929,7 @@ stationary geometric PDE. Then (\ref{eq:stokes_algebraic}) can be reduced to
 \binom{0}{-\vec A_\Gamma\,\vec X^m} \\
 \vec \beta
 \end{pmatrix}
-\end{align*}
-\end{equation}
+\end{align}
 and
 \begin{equation}
 \binom{\kappa^{m+1}}{\delta\vec X^{m+1}} = \Xi_\Gamma^{-1}\,
@@ -1070,8 +1069,7 @@ A suitable preconditioner for the algebraic system
 \end{pmatrix}\,,
 \end{equation}
 while the reduced system (\ref{eq:SchurkX}) becomes
-\begin{equation} \label{eq:SchurkX_extended}
-\begin{align*}
+\begin{align}\label{eq:SchurkX_extended}
 &
 \begin{pmatrix}
 \vec B_\Omega + \gamma\,(\Nbulk \ 0)\,\Xi_\Gamma^{-1}\,\binom{\NbulkT}{0} &
@@ -1084,7 +1082,7 @@ while the reduced system (\ref{eq:SchurkX}) becomes
 P^{m+1}_\spadesuit \\
 P^{m+1}_\clubsuit
 \end{pmatrix}
-= \\
+= \nonumber \\
 & \qquad
 \begin{pmatrix}
 \vec c+\gamma\,(\Nbulk \ 0)\,
@@ -1092,8 +1090,7 @@ P^{m+1}_\clubsuit
 \vec \beta_\spadesuit \\
 \vec \beta_\clubsuit
 \end{pmatrix}\,.
-\end{align*}
-\end{equation}
+\end{align}
 An application of the preconditioner (\ref{eq:ESW_extended}) amounts to solving
 the equations
 \begin{equation*}

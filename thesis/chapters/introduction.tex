@@ -126,8 +126,8 @@ obtain the well known one-phase incompressible Navier--Stokes model:
 
 To better grasp the physical meaning of the terms appearing in the momentum
 equation (\ref{eq:ns_momentum_bis_one_phase}) we briefly describe them. The
-inertia term $\vec u \,.\, \nabla \vec u$ is a convection term arising from the
-conservation of momentum. The momentum of each portion of fluid needs to be
+inertia term $(\vec u \,.\, \nabla) \vec u$ is a convection term arising from
+the conservation of momentum. The momentum of each portion of fluid needs to be
 conserved therefore it needs to move with the fluid which means that it is
 convected with the fluid. The pressure term $\nabla\,p$  is originated by the
 Newtonian constitutive equation (\ref{eq:stress_tensor}) and it represent all
@@ -207,9 +207,9 @@ an initial condition. Therefore we impose
 The initial condition is not needed in the Stokes case
 (\ref{eq:momentum_bis_one_phase}-b) since it is a stationary problem.
 
-In order to obtain a well-posed system, boundary conditions have to be imposed
-on the bulk domain boundary $\partial\Omega$. Let $\partial\Omega$ be
-partitioned as $\partial\Omega=\partial_1\Omega \cup \partial_2\Omega$ with
+\sloppy In order to obtain a well-posed system, boundary conditions have to be
+imposed on the bulk domain boundary $\partial\Omega$. Let $\partial\Omega$ be
+partitioned as ${\partial\Omega=\partial_1\Omega \cup \partial_2\Omega}$ with
 $\partial_1\Omega \cap \partial_2\Omega = \emptyset$. On $\partial_1 \Omega$
 we use the Dirichlet condition
 \begin{equation}\label{eq:ns_bc_dirichlet}
@@ -330,16 +330,14 @@ $\mat\sigma_\Gamma$ has the following constitutive equation
 where $\gamma$ is the surface tension coefficient. Substituting
 (\ref{eq:interface_stress_tensor}) in (\ref{eq:interface_jump_stress_div}) we
 obtain
-\begin{equation}\label{eq:interface_stress_tensor_divergence}
-\begin{align*}
+\begin{align}\label{eq:interface_stress_tensor_divergence}
 [\mat\sigma\,\vec \nu]_-^+ &= -\nabs\,.(\gamma\,\mat P)
 = -\gamma\,\nabs\,.\,\mat P-\nabs\,\gamma
-= \gamma\nabs\,.\,(\vec\nu\,\vec\nu^T)-\nabs\,\gamma \\
+= \gamma\nabs\,.\,(\vec\nu\,\vec\nu^T)-\nabs\,\gamma \nonumber \\
 & = \gamma\nabs\,.\,\vec\nu\,\vec\nu + \gamma\nabs\,\vec\nu\,.\,\vec\nu
-- \nabs\,\gamma = \gamma\nabs\,.\,\vec\nu\,\vec\nu - \nabs\,\gamma \\
+- \nabs\,\gamma = \gamma\nabs\,.\,\vec\nu\,\vec\nu - \nabs\,\gamma \nonumber \\
 & = -\gamma\,\varkappa\,\vec\nu - \nabs\,\gamma \quad \mbox{on } \Gamma(t)\,,
-\end{align*}
-\end{equation}
+\end{align}
 where we have used the fact that the surface gradient $\nabs$ is, by definition,
 always orthogonal to the surface normal $\vec\nu$ and that $\varkappa =
 -\nabs\,.\vec\nu$ is the mean curvature of $\Gamma(t)$. The projection $\mat P$

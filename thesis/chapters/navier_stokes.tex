@@ -109,7 +109,7 @@ $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in \uspace g \times \pnormspace
 & \left(\rho\,\vec u_t, \vec \xi\right) + \left(\rho\,(\vec u \,.\, \nabla) \vec
 u,\vec \xi\right) + 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
 \nonumber \\
-& - \left(p, \nabla\,.\,\vec \xi\right)
+& \qquad - \left(p, \nabla\,.\,\vec \xi\right)
 - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
 = \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace 0 \,,
 \label{eq:ns_weaka}\\
@@ -137,7 +137,7 @@ alternative weak formulation, we want to rewrite the term $\left(\rho\,\vec u_t,
 (\ref{eq:ns_weaka}) in an equivalent antisymmetric form.
 
 First, we observe that for arbitrary functions $\vec v$,
-$\vec \omega$, $\vec \xi \in \uspace 0$ it holds that
+$\vec \omega$, $\vec \xi \in [H^1(\Omega)]^d$ it holds that
 \begin{align}\label{eq:tripleterm}
 & [(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi
  = (\vec v\,.\,\nabla)\,(\vec \omega\,.\,\vec \xi) -
@@ -153,26 +153,24 @@ $\vec \omega$, $\vec \xi \in \uspace 0$ it holds that
 \end{align}
 
 Choosing $\vec v = \vec \omega = \vec u$ in (\ref{eq:tripleterm}) and
-substituting it in the convection term $\left(\rho\,\vec u \,.\, \nabla \vec
-u,\vec \xi\right)$ we obtain
+substituting it in the convection term $\left(\rho\,(\vec u \,.\, \nabla)
+\vec u,\vec \xi\right)$ we obtain
 \begin{equation}\label{eq:ns_advect_tripleterm}
 ( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi) =
-\tfrac{1}{2}(\rho\,\vec u , \nabla(\vec u\,.\,\vec \xi))
+\tfrac{1}{2}(\rho,(\vec u\,.\,\nabla)(\vec u\,.\,\vec \xi))
 + \tfrac{1}{2}(\rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi)
 -\tfrac{1}{2}(\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u)\,.
 \end{equation}
 
-Then we have for any $\vec v \in \uspace 0$ that
+Then we have for any $\vec v \in [H^1(\Omega)]^d$ and
+$\phi\in W_0^{1,\frac{3}{2}}(\Omega)$ that
 \begin{align}\label{eq:ibp0}
 ( \rho,(\vec v \,.\,\nabla)\,\phi) & = (\rho, \nabla\,.\,(\phi\,\vec v))
 - (\rho\,(\nabla\,.\,\vec v), \phi) \nonumber \\ & =
 - \left\langle [\rho]_-^+\,\vec v\,.\,\vec \nu,
   \phi \right\rangle_{\Gamma(t)}
-- (\rho\,(\nabla\,.\,\vec v), \phi)
+- (\rho\,(\nabla\,.\,\vec v), \phi)\,.
 \end{align}
-which holds for all $\phi\in W^{1,\frac{3}{2}}(\Omega)$, and it is
-precisely this regularity that will be needed in order to derive
-(\ref{eq:advect}) below.
 
 Hence, it follows from taking $\phi = \vec u\,.\,\vec\xi$ and $\vec v = \vec u$
 in (\ref{eq:ibp0}) and applying it to the first term on the right-hand side of
@@ -182,16 +180,16 @@ in (\ref{eq:ibp0}) and applying it to the first term on the right-hand side of
 -\tfrac{1}{2}\langle [\rho]_-^+\vec u\,.\,\vec \nu, \vec u\,.\,\vec \xi
 \rangle_{\Gamma(t)}
 -\tfrac{1}{2}(\rho\,(\nabla\,.\,\vec u ),\vec u\,.\,\vec\xi) \nonumber \\
-& \tfrac{1}{2}(\rho\,(\vec u\,.\,\nabla)\,\vec u, \vec \xi)
+& \qquad +\tfrac{1}{2}(\rho\,(\vec u\,.\,\nabla)\,\vec u, \vec \xi)
 -\tfrac{1}{2}(\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u)
 \quad \forall\ \vec \xi \in \uspace 0\,,
 \end{align}
 and, using the incompressibility condition (\ref{eq:ns_full_mass}), we obtain
 \begin{align}\label{eq:advect}
-& ( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi)
-= \tfrac{1}{2} [ (\rho\,(\vec u\,.\,\nabla)\,\vec u, \vec \xi) -
+( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi)
+= & \tfrac{1}{2} [ (\rho\,(\vec u\,.\,\nabla)\,\vec u, \vec \xi) -
 (\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u) \nonumber \\
-& -\langle [\rho]_-^+\vec u\,.\,\vec \nu, \vec u\,.\,\vec \xi
+& \qquad -\langle [\rho]_-^+\vec u\,.\,\vec \nu, \vec u\,.\,\vec \xi
 \rangle_{\Gamma(t)}] \quad \forall\ \vec \xi \in \uspace 0\,.
 \end{align}
 
