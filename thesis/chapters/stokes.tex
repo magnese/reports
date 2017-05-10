@@ -105,10 +105,11 @@ details.
 
 \section{Weak formulation}\label{sec:stokes_weak}
 In order to obtain a weak formulation, we define the function spaces, for a
-given $\vec b \in [H^1_0(\Omega)]^d$,
+given $\vec b \in [H^1(\Omega)]^d$,
 \begin{align*}
-\uspace b &:= \{\vec \phi\in[H^1_0(\Omega)]^d:\vec \phi =\vec
-g\quad \mbox{on }\partial_1\Omega\}\,,\\
+\uspace b &:= \{\vec \phi\in[H^1(\Omega)]^d:
+\vec \phi =\vec b\quad \mbox{on }\partial_1\Omega\,,
+\quad \vec \phi\,.\,\unitn=0 \quad \mbox{on }\partial_2\Omega\}\,,\\
 \pspace &:= L^2(\Omega)\,,\\
 \pnormspace &:= \{\eta\in\pspace : \int_\Omega\eta\dL{d}=0 \}\,,
 \end{align*}
@@ -120,15 +121,16 @@ respectively.
 
 We also need a weak form of the differential geometry identity
 (\ref{eq:LBop}) which can be obtained by multiplying (\ref{eq:LBop}) with a
-test function and performing integration by parts yielding to
-$$
+test function and performing integration by parts (\ref{eq:integration_by_part})
+yielding to
+\begin{equation}\label{eq:weak_nabs_id}
 \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
 + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
 = 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,.
-$$
+\end{equation}
 Moreover, on noting (\ref{eq:stress_tensor}) and
 (\ref{eq:interface_jump_stress}), we have that
-\begin{align*}
+\begin{align}\label{eq:weak_stress_jump}
 \int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec \xi \dL{d}
 & = - \left(\mat\sigma, \nabla\,\vec \xi\right)
 - \left\langle [\mat\sigma\,\vec\nu]_-^+ , \vec \xi
@@ -136,13 +138,10 @@ Moreover, on noting (\ref{eq:stress_tensor}) and
 & = \left( p , \nabla\,.\,\vec \xi\right)
 -2 \left(\mu\,\mat D(\vec u) , \mat D(\vec \xi) \right)
 + \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
-\end{align*}
+\end{align}
 for all $\vec \xi \in \uspace 0$. We notice that in the first equality we used
-the standard integration by part formula where, given that the stress tensor
-$\mat\sigma$ is discontinuous across the interface $\Gamma(t)$, we have the
-additional term $\left\langle [\mat\sigma\,\vec\nu]_-^+ , \vec \xi
-\right\rangle_{\Gamma(t)}$ which arises from the weak derivative of a
-discontinuous function. Hence a possible weak formulation of
+the standard integration by parts on $\Omega_+(t)$ and $\Omega_-(t)$
+separately. Hence a possible weak formulation of
 (\ref{eq:stokes_full_momentum}--h) is given as follows.
 \sloppy Given $\Gamma(0) = \Gamma_0$, for almost all $t\in(0,T)$ find
 $\Gamma(t)$ and ${(\vec u, p, \varkappa) \in \uspace g \times \pnormspace
@@ -166,14 +165,16 @@ $\Gamma(t)$ and ${(\vec u, p, \varkappa) \in \uspace g \times \pnormspace
 \end{subequations}
 holds for almost all times $t \in (0,T]$. Here we have observed that if
 $p \in \pspace$ is part of a solution to (\ref{eq:stokes_full_momentum}--h),
-then so is $p + c$ for an arbitrary $c\in \R$.
+then so is $p + c$ for an arbitrary $c\in \R$. We also note the natural
+compatibility condition $\int_{\partial_1\Omega}\vec g\,.\,\unitn=0$ for a
+solution to (\ref{eq:stokes_weaka}--d) to exist.
 
 We finally observe that an alternative weak formulation can be obtained
 using directly the vector quantity $\vec\varkappa:=\varkappa\,\vec\nu$
-in the identity (\ref{eq:LBop}), see in \cite{Dziuk91,Bansch01,GanesanMT07}.
+in the identity (\ref{eq:LBop}), see \cite{Dziuk91,Bansch01,GanesanMT07}.
 Instead, consistently with Chapter~\ref{ch:geometric_pdes}, we follow the
 approach introduced in \cite{triplej} for $d=2$ and in \cite{gflows3d} for
-$d=3$ which treats the mean curvature as a scalar and we treat it
+$d=3$, which treats the mean curvature as a scalar and we treat it
 separately from the normal $\vec\nu$, because this approach leads to good mesh
 properties and to smaller algebraic systems.
 
@@ -186,9 +187,8 @@ and we obtain
 \ddt\,\surfvol(\Gamma(t)) = -
 \left\langle \varkappa,\V\,.\,\vec\nu\right\rangle_{\Gamma(t)}.
 \end{equation}
-Hence, in the case $\vec g=\vec 0$, on choosing $\vec\xi = \vec u$ in
-(\ref{eq:stokes_weaka}), and noting
-(\ref{eq:stokes_weakb},c), we obtain that
+Hence, in the case $\vec g=\vec 0$, on choosing $\vec\xi = \vec u\in\uspace{0}$
+in (\ref{eq:stokes_weaka}), and noting (\ref{eq:stokes_weakb},c), we obtain that
 \begin{align}
 \gamma\, \ddt\,\surfvol(\Gamma(t)) = -
 \gamma\,\left\langle \varkappa\,\vec\nu, \vec u\right\rangle_{\Gamma(t)}
@@ -259,11 +259,11 @@ pairs of spaces that satisfy $\charfcn{\Omega^m_-}\in\pspace^m$ and
 (\ref{eq:LBB}) are the P3--(P2+P0) element, see \cite{BoffiCGG12}, or stabilized
 spaces such as P1$^{\mbox{face bubble}}$--P0, see
 \cite[Remark~8.7.1]{BoffiBF13}, which is also called the SMALL element. With a
-view towards our numerical simulations, we also introduce the pairs P2--\pdg
-where the space \pdg is a space of polynomial order 1 defined in the two
+view towards our numerical simulations, we also introduce the pairs P2--\pdg,
+where the space \pdg is a space of polynomials of order 1 defined in the two
 subdomains $\Omega_-^m$ and $\Omega_+^m$. This space is equivalent to a P1 space
 which is continuous everywhere except across the interface $\Gamma^m$. With this
-choice of space, the discrete scheme fall in the category of XFEM, extended
+choice of space, the discrete scheme falls in the category of XFEM, extended
 FEM, since the pressure space is enriched adding additional degree of freedoms
 for the nodes on the interface in order to capture the discontinuity of the
 pressure.
@@ -428,9 +428,10 @@ RM=\{\vec \alpha + \mathcal A \vec z:\vec \alpha \in \R^d\,,
 \mathcal A \mbox{ antisymmetric matrix in }\R^{d\times d} \}\,,
 \end{equation}
 see \cite{Mardal2006}. Given that $\vec U \in RM$, in particular we have that
-$\vec U$ is linear in $\vec z$. Therefore $\vec U$ is constant and, in order
-to fulfil the boundary conditions, it needs to be $\vec U = \vec 0$. In
-addition, it holds that $\vec X$ is equal to a constant on $\Gamma^m$, which
+$\vec U(\vec z)$ is linear in $\vec z$. Moreover, $\vec U\in\uspacedisc{0}{m}$
+means that $\vec U(\vec z)=\vec z$ for every corner $\vec z$ of $\Omega^m$.
+Therefore $\vec U(\vec z)=\vec 0$ for all $\vec z\in\Omega^m$. In addition, it
+holds that $\vec X$ is equal to a constant on $\Gamma^m$, which
 satisfies, on recalling (\ref{eq:proofc}) and $\vec U = \vec 0$, that
 \begin{equation} \label{eq:Xconst}
 \left\langle \vec X, \chi\,\vec\nu^m \right\rangle_{\Gamma^m}^h = 0
@@ -482,7 +483,7 @@ pressure $P^{m+1}$ is eliminated, can be shown. More precisely, let
 Then any solution $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
 to (\ref{eq:HGa}--d) is such that $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1})
-\in \uspacesimple^m_0(\vec g)\times \Vh \times \Wh$ satisfies
+\in \uspacesimple^m_0(\vec g)\times \Vh \times \Wh$ with
 \begin{subequations}
 \begin{align}
 & 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
@@ -500,15 +501,15 @@ to (\ref{eq:HGa}--d) is such that $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \end{subequations}
 
 \begin{theorem} \label{thm:stabreduced}
-Let $m \in \{0,\ldots,M-1\}$. Then there exists a unique solution
-$(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in \uspacesimple^m_0(\vec g)
-\times \Vh \times \Wh$ to (\ref{eq:reda}--c).
+Let $m \in \{0,\ldots,M-1\}$ and let $\uspacesimple^m_0(\vec g)$ be non-empty.
+Then there exists a unique solution $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1})
+\in \uspacesimple^m_0(\vec g) \times \Vh \times \Wh$ to (\ref{eq:reda}--c).
 \end{theorem}
 \begin{proof}
-As $\uspacesimple^m_0(\vec g)$ is a subspace of $\uspacedisc{g}{m}$, existence
-to the linear system (\ref{eq:reda}--c) follows from uniqueness, which is easy
-to show. In fact, similarly to the proof of Theorem~\ref{thm:ex} we obtain
-(\ref{eq:proof2}) and hence the desired uniqueness result.
+As $\uspacesimple^m_0(\vec g)$ is an affine subspace of $\uspacedisc{g}{m}$,
+existence to the linear system (\ref{eq:reda}--c) follows from uniqueness,
+which is easy to show. In fact, similarly to the proof of Theorem~\ref{thm:ex}
+we obtain (\ref{eq:proof2}) and hence the desired uniqueness result.
 \end{proof}
 
 \section{Stability}\label{sec:stokes_stability}
@@ -521,19 +522,23 @@ In particular, we obtain an unconditional stability result for our scheme.
 ${(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
 \pnormspace^m \times \Vh \times \Wh}$ be a solution to (\ref{eq:HGa}--d). Then
 \begin{equation}\label{eq:stab}
-\gamma\, \surfvol(\Gamma^{m+1})
-+ 2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1}) \right) \leq
-\gamma\,\surfvol(\Gamma^m) + \tau_m\left( \vec f^{m+1}, \vec U^{m+1}
+\begin{align*}
+& \gamma\, \surfvol(\Gamma^{m+1})+ 2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}),
+\mat D(\vec U^{m+1}) \right) \leq \\
+& \qquad \gamma\,\surfvol(\Gamma^m) + \tau_m\left( \vec f^{m+1}, \vec U^{m+1}
 \right).
+\end{align*}
 \end{equation}
 In addition, let $\{t_k\}_{k=0}^M$ be an arbitrary partitioning of $[0,T]$.
 
 Then it holds that
 \begin{equation}\label{eq:stabstab}
-\gamma\,\surfvol(\Gamma^{m+1})
-+ 2 \sum_{k=0}^m  \tau_k\left(\mu^k\,\mat D(\vec U^{k+1}), \mat D(\vec U^{k+1})
-\right)\leq \gamma\,\surfvol(\Gamma^0) + \sum_{k=0}^m \tau_k\left(\vec
-f^{k+1}, \vec U^{k+1} \right)
+\begin{align*}
+& \gamma\,\surfvol(\Gamma^{m+1}) + 2 \sum_{k=0}^m  \tau_k\left(\mu^k\,
+\mat D(\vec U^{k+1}), \mat D(\vec U^{k+1}) \right)\leq \\
+& \qquad \gamma\,\surfvol(\Gamma^0) + \sum_{k=0}^m \tau_k\left(\vec f^{k+1},
+\vec U^{k+1} \right)
+\end{align*}
 \end{equation}
 for $m=0,\ldots, M-1$.
 \end{theorem}
@@ -590,8 +595,9 @@ $\vec f^{m+1} = \vec 0$. If $\vec X^{m+1} = \vec X^m$, then $\vec U^{m+1} = \vec
 \begin{proof}
 The solution $(\vec U^{m+1}, \vec X^{m+1})$ fulfils (\ref{eq:stab}) with
 $\Gamma^{m+1}$ replaced by $\Gamma^m$ and  $\vec f^{m+1} = \vec 0$. Hence we
-obtain $(\mu^m\,\mat D (\vec U^{m+1}), \mat D(\vec U^{m+1})) = 0$, and so, as
-shown in Theorem~\ref{thm:ex}, it implies $\vec U^{m+1} = \vec 0$.
+obtain $(\mu^m\,\mat D (\vec U^{m+1}), \mat D(\vec U^{m+1})) = 0$ which implies
+$\mat D(\vec U^{m+1}) = \mat 0$. Therefore, as shown in Theorem~\ref{thm:ex},
+it implies $\vec U^{m+1} = \vec 0$.
 \end{proof}
 
 Finally, it holds that polyhedral surfaces with constant discrete mean
@@ -890,6 +896,8 @@ be the interface condensed operator, which is exactly the same operator
 stationary geometric PDE. Then (\ref{eq:stokes_algebraic}) can be reduced to
 \begin{subequations}
 \begin{equation} \label{eq:SchurkX}
+\begin{align*}
+&
 \begin{pmatrix}
 \vec B_\Omega + \gamma\,(\Nbulk \ 0)\,\Xi_\Gamma^{-1}\,
 \binom{\NbulkT}{0} & \vec C_\Omega \\
@@ -898,12 +906,15 @@ stationary geometric PDE. Then (\ref{eq:stokes_algebraic}) can be reduced to
 \begin{pmatrix}
 \vec U^{m+1} \\ P^{m+1}
 \end{pmatrix}
-= \begin{pmatrix}
+= \\
+& \qquad
+\begin{pmatrix}
 \vec c
 +\gamma\,(\Nbulk \ 0)\, \Xi_\Gamma^{-1}\,
 \binom{0}{-\vec A_\Gamma\,\vec X^m} \\
 \vec \beta
 \end{pmatrix}
+\end{align*}
 \end{equation}
 and
 \begin{equation}
@@ -986,10 +997,12 @@ Alternatively, it is possible to use the standard Stokes matrix, see
 \vec C_\Omega^T & 0
 \end{pmatrix}\,
 \end{equation}
-as a preconditioner and factorize them directly with a sparse $L\,U$
-decomposition. Since in the Stokes problem the pressure solution is unique up
-to a constant, the matrix (\ref{eq:stokes_direct_precond}) has rank deficiency
-1. Therefore, in order to use UMFPACK to factorize the matrix, the rank
+as a preconditioner for (\ref{eq:SchurkX}) and factorize it directly with a
+sparse $L\,U$ decomposition. Since in the Stokes problem the pressure
+solution is only unique up to a constant, the matrix
+(\ref{eq:stokes_direct_precond}) is singular. In particular, if LBB holds, the
+matrix has rank deficiency 1. Therefore, in order to use UMFPACK to factorize
+the matrix, the rank
 deficiency needs to be reduced to 0. This can be achieved using a matrix
 doctoring which consists on setting, for example, an unitary value on the first
 diagonal entry of the null matrix. This doctoring process can be avoided if SPQR
@@ -997,7 +1010,7 @@ is used to factorize the preconditioner since SPQR can decompose also singular
 matrices. We stress the fact that the rank deficiency is exactly 1 only for LBB
 stable pairs otherwise the rank deficiency may be much higher.
 
-The algebraic system (\ref{eq:stokes_algebraic}) is suitable adjusted when we
+The algebraic system (\ref{eq:stokes_algebraic}) can be rewritten when we
 use (P1+P0) or \pdg as pressure space. Indeed it assumes the following form
 \begin{equation}
 \begin{pmatrix}
@@ -1025,11 +1038,11 @@ P^{m+1}_\clubsuit \\
 \label{eq:stokes_algebraic_extended}
 \end{equation}
 where $\vec C_{\spadesuit}$ and $\vec C_{\clubsuit}$ have the same definition
-of $\vec C_\Omega$ in (\ref{eq:stokes_algebraic}) but over different spaces.
-More precisely, in the case (P1+P0), there are two independent spaces for the
-pressure of polynomial order 1 and 0, respectively. Instead, in the case \pdg,
-both spaces have polynomial degree 1 but the basis functions support is
-$\Omega_-$ and $\Omega_+$, respectively.
+of $\vec C_\Omega$ in (\ref{eq:stokes_algebraic}) but now in terms of bases of
+different spaces. More precisely, in the case (P1+P0), there are two
+independent spaces for the pressure of polynomial order 1 and 0, respectively.
+Instead, in the case \pdg, both spaces have polynomial degree 1 but the basis
+functions support is $\Omega_-$ and $\Omega_+$, respectively.
 
 A suitable preconditioner for the algebraic system
 (\ref{eq:stokes_algebraic_extended}) is then
@@ -1040,9 +1053,10 @@ A suitable preconditioner for the algebraic system
 0 & 0 &-\mathcal{P}_{S,\clubsuit}
 \end{pmatrix}\,,
 \end{equation}
-while the reduced system becomes
-\begin{subequations}
+while the reduced system (\ref{eq:SchurkX}) becomes
 \begin{equation} \label{eq:SchurkX_extended}
+\begin{align*}
+&
 \begin{pmatrix}
 \vec B_\Omega + \gamma\,(\Nbulk \ 0)\,\Xi_\Gamma^{-1}\,\binom{\NbulkT}{0} &
 \vec C_\spadesuit & \vec C_\clubsuit \\
@@ -1054,15 +1068,18 @@ while the reduced system becomes
 P^{m+1}_\spadesuit \\
 P^{m+1}_\clubsuit
 \end{pmatrix}
-= \begin{pmatrix}
+= \\
+& \qquad
+\begin{pmatrix}
 \vec c+\gamma\,(\Nbulk \ 0)\,
 \Xi_\Gamma^{-1}\,\binom{0}{-\vec A_\Gamma\,\vec X^m} \\
 \vec \beta_\spadesuit \\
 \vec \beta_\clubsuit
 \end{pmatrix}\,.
+\end{align*}
 \end{equation}
-\end{subequations}
-An application of the preconditioner amounts to solving the equations
+An application of the preconditioner (\ref{eq:ESW_extended}) amounts to solving
+the equations
 \begin{equation*}
 \begin{pmatrix}
 \vec{\mathcal{P}}_{\vec B} & \vec C_\spadesuit & \vec C_\clubsuit \\
@@ -1097,13 +1114,16 @@ Alternatively, as before, it is possible to use the standard Stokes matrix
 \vec C^T_\clubsuit & 0 & 0 \\
 \end{pmatrix}
 \end{equation}
-as a preconditioner and factorize them directly with a sparse $L\,U$
-decomposition. The matrix (\ref{eq:stokes_direct_precond_extended}) has rank
-deficiency 1 for the P2--\pdg element and 2 for the P2--(P1+P0) element.
-Therefore, in the case P2--\pdg, only the first null diagonal matrix is
-doctored while, in the case P2--(P1+P0), both null diagonal matrices are
-doctored. Again, we point out that the doctoring is not needed when SPQR is used
-to factorize the preconditioner.
+as a preconditioner for (\ref{eq:SchurkX_extended}) and factorize them directly
+with a sparse $L\,U$ decomposition. The matrix
+(\ref{eq:stokes_direct_precond_extended}), if LBB holds, has rank deficiency 1
+for the P2--\pdg element and 2 for the P2--(P1+P0) element. Therefore, in the
+case P2--\pdg, only the block entry in position $(2,2)$ of
+(\ref{eq:stokes_direct_precond_extended}) is doctored while, in the case
+P2--(P1+P0), the block entries in position in position $(2,2)$ and $(3,3)$ of
+(\ref{eq:stokes_direct_precond_extended}) are doctored. Again, we point out
+that the doctoring is not needed when SPQR is used to factorize the
+preconditioner.
 
 \section{Mesh generation and smoothing}\label{sec:stokes_smoothing}
 Given the initial polyhedral surface $\Gamma^0$, we create a triangulation
@@ -1181,7 +1201,7 @@ meshes therefore we also define the angle criterion
 where $\measuredangle(\sigmaO)$ is the set of all the angles of the simplex
 $\sigmaO$ which can be computed as $\alpha_{ij}=\cos^{-1}(-\vec n_i\,.\,\vec
 n_j)$, $\forall i,j\in\{0,\dots,d\}$, with $\vec n_i$ the unitary normal to the
-simplex face $i$. Of course, if we chose $C_a=20$\textdegree, then a remeshing
+simplex face $i$. Of course, if we chose $C_a=60$\textdegree, then a remeshing
 is triggered after every time step.
 
 We stress that in all our numerical simulations we never need to remesh the
