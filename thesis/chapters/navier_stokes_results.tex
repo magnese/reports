@@ -1,0 +1,192 @@
+\chapter{\sc Two-Phase Navier--Stokes Flow Numerical Results}
+\label{ch:ns_results}
+
+\section{Exact solutions}\label{sec:ns_exact_solutions}
+In order to test our method, we recall the following expanding spherical
+solutions. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z| = r(t)\}$ be a sphere
+of radius $r(t)$ and curvature $\kappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
+$\alpha,\alpha_1,\alpha_2,\gamma\in \R_{\geq 0}$ be given. Here, we also allow
+non divergence-free problem. Therefore, in the continuous model
+(\ref{eq:ns_full_momentum}--i), the incompressibility condition
+(\ref{eq:ns_full_mass}) is replaced by
+\begin{equation}\label{eq:ns_compressible}
+\nabla\,.\,\vec u = f_{\rm{div}}\,.
+\end{equation}
+
+Firstly, the expanding sphere where
+\begin{equation} \label{eq:r_benchmark1}
+r(t) = \mathrm{e}^{\alpha\,t}\,r(0)\,,
+\end{equation}
+together with
+\begin{equation} \label{eq:up_benchmark1}
+\vec u(\vec z, t) = \alpha\,\vec z \,, \quad
+p(\vec z, t) = -\,\bigg(\gamma - 2\,\alpha\,\frac{\mu_+ - \mu_-}
+{d-1}r(t)\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+\frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
+\end{equation}
+is an exact solution to the problem (\ref{eq:ns_full_momentum}--i), with
+(\ref{eq:ns_full_mass}) replaced by (\ref{eq:ns_compressible}), on
+e.g.\ $\Omega = (-1,1)^d$  with $\vec f(\vec z, t) = \rho\,\alpha^2\,\vec z$,
+$f_{\rm{div}} = \alpha\,d$ and $\vec g = \alpha\,\vec z$ on
+$\partial_1\Omega=\partial\Omega$.
+
+Alternatively, the expanding sphere where
+\begin{equation} \label{eq:r_benchmark2}
+r(t) = \mathrm{e}^{\alpha_1\,t}\,r(0)\,,
+\end{equation}
+together with
+\begin{align} \label{eq:up_benchmark2}
+& \vec u(\vec z, t) = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}(|\vec
+z|^2-r(t)^2)\bigg)\,\vec z\,, \\
+& p(\vec z, t) = -\,\bigg(\gamma - 4\,\alpha_2\,\frac{\mu_+}{d-1}r(t)^3
+\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+\frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
+\end{align}
+is an exact solution to the problem (\ref{eq:ns_full_momentum}--i), with
+(\ref{eq:ns_full_mass}) replaced by (\ref{eq:ns_compressible}), on e.g.\ $\Omega
+= (-1,1)^d$ with
+\begin{align}
+\vec f(\vec z, t) = &
+\rho\,\bigg(\alpha_1^2\,+\charfcn{\Omega_+(t)}\bigg(-2\alpha_1\alpha_2r(t)^2 +
+2\alpha_1\alpha_2\big(2|\vec z|^2-r(t)^2\big) \nonumber \\
+& +\alpha_2^2\big(|\vec z|^2-r(t)^2\big)\big(3|\vec z|^2 -
+r(t)^2\big)-4(d+1)\alpha_2\frac{\mu_+}{\rho}\bigg)\bigg)\vec z\,,
+\end{align}
+\begin{equation}
+f_{\rm{div}} = \big( \alpha_1
++ \alpha_2\charfcn{\Omega_+(t)}\big(\frac{2+d}{d}|\vec z|^2-r(t)^2\big)\big)d
+\end{equation}
+and
+\begin{equation}
+\vec g = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}(|\vec
+z|^2-r(t)^2)\bigg)\,\vec z
+\end{equation}
+on $\partial_1\Omega=\partial\Omega$.
+
+Finally, a nontrivial divergence free and radially symmetric solution $\vec u$
+can be constructed on a domain that does not contain the origin. To this end,
+consider e.g.\ $\Omega = (-1,1)^d \setminus [-\frac13, \frac13]^d$. Then, the
+expanding sphere where
+\begin{equation} \label{eq:r_benchmark3}
+r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
+\end{equation}
+together with
+\begin{equation} \label{eq:up_benchmark3}
+\vec u(\vec z, t) = \alpha\,\frac{\vec z}{|\vec z\,|^d}\,, \quad
+p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
+{r(t)^{d-1}}\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+\frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
+\end{equation}
+is an exact solution to the problem (\ref{eq:ns_full_momentum}--i) with
+$\vec f(\vec z, t) = (1-d)\alpha^2\frac{\vec z}{|\vec z|^{2d}}$ and $\vec g(\vec
+z) = \alpha\,|\vec z|^{-d}\,\vec z$ on $\partial_1\Omega=\partial\Omega$.
+
+\section{Non divergence-free antisymmetric scheme}
+Some exact solution presented in \S\ref{sec:ns_exact_solutions} are non
+divergence-free which means that $\nabla\,.\,\vec u = f_{\rm{div}}$ in
+$\Omega_\pm(t)$. Consequently, (\ref{eq:advect}) is no longer valid and we need
+to use (\ref{eq:fulladvect}) to derive the antisymmetric weak formulation.
+Therefore an additional term $\tfrac{1}{2}(\rho\,f_{\rm{div}}\,\vec
+u,\vec\xi)$ appears in the momentum equation (\ref{eq:ns_weaka_antisym}).
+Hence, the weak antisymmetric formulation (\ref{eq:ns_weaka_antisym}--d) is
+replaced by
+\begin{subequations}
+\begin{align}
+& \tfrac{1}{2}\bigg[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
++ (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
+- [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u)
++ (\rho\,f_{\rm{div}}\,\vec u,\vec\xi) \bigg] \nonumber \\
+& \qquad +2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
+- \left(p, \nabla\,.\,\vec \xi\right)\nonumber \\
+& \qquad - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi
+\right\rangle_{\Gamma(t)}
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace 0 \,,
+\label{eq:ns_weaka_antisym_div}\\
+& \left(\nabla\,.\,\vec u, \varphi\right) = f_{\rm{div}}
+\quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb_antisym_div} \\
+&  \left\langle \V
+- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc_antisym_div} \\
+& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in
+[H^1(\Gamma(t))]^d\,.\label{eq:ns_weakd_antisym_div}
+\end{align}
+\end{subequations}
+
+\section{Benchmark quantities}\label{sec:benchmark_quantities}
+In our numerical simulations, unless otherwise stated, we use the following
+settings. We choose the initial surface $\Gamma(0) = \{ \vec z \in \R^d : |\vec
+z| = \frac12 \}$, the domain $\Omega = (-1,1)^d$ and we employ uniform time
+steps $\tau_m=\tau$, $m=0,\ldots, M-1$. Moreover, we set the GMRES tolerance to
+tol $=10^{-12}$ and the restart value to 50. We use the Stokes matrix
+(\ref{eq:stokes_direct_precond}) or, depending on the pressure space,
+(\ref{eq:stokes_direct_precond_extended}) as a preconditioner factorizing it
+with UMFPACK. Moreover, we use the errors (\ref{eq:errorXx}),
+(\ref{eq:errorLUu}), (\ref{eq:errorHUu}), (\ref{eq:errorPp}) and the estimated
+error of convergence EOC (\ref{eq:eoc}). See \S\ref{sec:errors} for more
+details.
+
+For later use, we define some benchmark quantities for the continuous
+solution $(\vec u, p, \Gamma)$ of (\ref{eq:ns_full_momentum}--i). Let
+\begin{equation}
+z_c(t) = \frac{1}{\vol(\Omega_-(t))}\int_{\Omega_-(t)} z_d \dL{d}
+\end{equation}
+denotes the $d$-component of the bubble's centre of mass, where $z_d$ is the
+$d$-component of the position vector $\vec z$. Let $\strikes(t)$ denotes the
+degree of sphericity of $\Gamma(t)$, which is defined as the ratio between the
+surface volume of a volume-equivalent hypersphere and $\surfvol(\Gamma(t))$. Let
+\begin{equation}
+V_c(t) = \frac{1}{\vol(\Omega_-(t))}\int_{\Omega_-(t)} u_d(t) \dL{d}
+\end{equation}
+denotes the bubble's rise velocity, where $u_d(t)$ is the $d$-component of
+$\vec u$. Therefore, the discrete counterpart of $d$-component of the bubble's
+centre of mass is
+\begin{equation}
+z_c^m = \frac{1}{\vol(\Omega_-^m)}\,\int_{\Omega_-^m} z_d^{m} \dL{d}\,,
+\end{equation}
+while the degree of sphericity becomes
+\begin{equation}
+\strikes^m =\frac{\pi^{\frac{1}{d}}[2\,d\,\vol(\Omega_-^m)]^\frac{d-1}{d}}
+{\surfvol(\Gamma^m)}\,
+\end{equation}
+and the bubble's rise velocity assumes the following form
+\begin{equation}
+V^m_c = \frac{1}{\vol(\Omega_-^m)}\,\int_{\Omega_-^m}U^m_d\dL{d}\,,
+\end{equation}
+where $U^m_d$ is the $d$-component of $\vec U^m$ evaluated on $\Omega^m$.
+
+\section{Rising bubble experiment in 2d}\label{sec:2d_rising_bubble_results}
+We use the same  setup described in \cite{HysingTKPBGT09}, see Figure~2 there,
+which is ${\Omega = (0,1) \times (0,2)}$ with $\partial_1\Omega = [0,1] \times
+\{0,2\}$ and $\partial_2\Omega = \{0,1\} \times (0,2)$. Moreover, let the
+initial interface be ${\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\frac{1}{2},
+\frac{1}{2})^T| = \frac{1}{4}\}}$. The physical parameters from the test case 1
+in \cite[Table~I]{HysingTKPBGT09} are then given by
+\begin{equation} \label{eq:Hysing1}
+\rho_+ = 1000\,,\quad \rho_- = 100\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
+\gamma = 24.5\,,
+\end{equation}
+with $\vec f = -0.98\,\rho\,\vec e_2$ and $\vec g=\vec 0$. The time interval
+chosen for the simulations is $[0,3]$, we adopt an uniform time step size
+$\tau=10^{-3}$ and nearly uniform bulk meshes. Moreover, we set
+$C_a=20$\textdegree, recall (\ref{eq:angle_criterion}).
+
+We list our employed discretization parameters in
+Table~\ref{tab:risingbubble2Delements}.
+\begin{table*}
+\center
+\begin{tabular}{rrrrrr}
+\hline
+$J_\Gamma$ & $J_\Omega^0$ & $J_\Omega^M$ explicit & $J_\Omega^M$ implicit &
+$J_\Omega^M$ antisymmetric & $J_\Omega^M$ ALE \\
+\hline
+ 32 & & & & & \\
+ 64 & & & & & \\
+128 & & & & & \\
+\hline
+\end{tabular}
+\caption[Navier--Stokes 3d rising bubble meshes parameters]
+{Discretization parameters for the 2d rising bubble experiment.}
+\label{tab:risingbubble2Delements}
+\end{table*}
