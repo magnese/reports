@@ -235,9 +235,10 @@ almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 & \tfrac{1}{2}\bigg[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
 + (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
 - [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u)\bigg] \nonumber \\
-& +2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
+& \qquad +2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
 - \left(p, \nabla\,.\,\vec \xi\right)\nonumber \\
-& - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
+& \qquad - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi
+\right\rangle_{\Gamma(t)}
 = \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace 0 \,,
 \label{eq:ns_weaka_antisym}\\
 & \left(\nabla\,.\,\vec u, \varphi\right) = 0
@@ -252,14 +253,37 @@ almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 \end{subequations}
 holds for almost all times $t \in (0,T]$.
 
-With a view towards some numerical test cases
-in \S\ref{sec:ns_numerical_results}, we also allow for non divergence-free
-problem therefore (\ref{eq:advect}) is no longer valid and we need to use
-(\ref{eq:fulladvect}) to derive the antisymmetric weak formulation.
-Consequently the RHS of (\ref{eq:ns_weaka_antisym}) requires the additional term
-\begin{equation} \label{eq:additionalvelocityrhs}
-\tfrac{1}{2}(\rho\,(\nabla\,.\,\vec u ),\vec u\,.\,\vec\xi)\,.
-\end{equation}
+With a view towards some numerical test cases in
+\S\ref{sec:ns_numerical_results}, we also allow for non divergence-free
+problem where $\nabla\,.\,\vec u = f_{\rm{div}}$ in $\Omega_\pm(t)$. Therefore
+(\ref{eq:advect}) is no longer valid and we need to use
+(\ref{eq:fulladvect}) to derive the antisymmetric weak formulation which leads
+to the additional term $\tfrac{1}{2}(\rho\,f_{\rm{div}}\,\vec u,\vec\xi)$ in the
+momentum equation (\ref{eq:ns_weaka_antisym}). Consequently
+(\ref{eq:ns_weaka_antisym}--d) is replaced by
+\begin{subequations}
+\begin{align}
+& \tfrac{1}{2}\bigg[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
++ (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
+- [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u)
++ (\rho\,f_{\rm{div}}\,\vec u,\vec\xi) \bigg] \nonumber \\
+& \qquad +2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
+- \left(p, \nabla\,.\,\vec \xi\right)\nonumber \\
+& \qquad - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi
+\right\rangle_{\Gamma(t)}
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace 0 \,,
+\label{eq:ns_weaka_antisym_div}\\
+& \left(\nabla\,.\,\vec u, \varphi\right) = 0
+\quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb_antisym_div} \\
+&  \left\langle \V
+- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc_antisym_div} \\
+& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in
+[H^1(\Gamma(t))]^d\,.\label{eq:ns_weakd_antisym_div}
+\end{align}
+\end{subequations}
 
 \section{Antisymmetric finite element approximation}\label{sec:ns_fem_antisym}
 In order to obtain a fully practical finite element approximation of the
@@ -267,13 +291,14 @@ antisymmetric weak formulation (\ref{eq:ns_weaka_antisym}--d) we proceed
 analogously to the Stokes case, see \S\ref{sec:stokes_fem}. For the benefit of
 the reader, we state again all the hypothesis and the notations used.
 
-We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
-$[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0
-,\ldots, M-1$. Moreover, let ${\cal T}^m$, $\forall m\ge 0$, be a regular
-partitioning of the domain $\Omega$ into disjoint open simplices $\sigmaO^m_j$,
-$j = 1 ,\ldots, J^m_\Omega$. From now on, the domain $\Omega$ which we consider
-is the polyhedral domain defined by the triangulation ${\cal T}^m$ On ${\cal
-T}^m$ we define the finite element spaces
+Here, in order to have a consistent finite element approximation, we consider
+the partitioning $t_m =m\,\tau$, $m=0,\ldots, M$, of $[0,T]$ into uniform time
+steps $\tau=\frac{T}{M}$, see \cite{fluidfbp}. Moreover, let ${\cal T}^m$,
+$\forall m\ge 0$, be a regular partitioning of the domain $\Omega$ into
+disjoint open simplices $\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. From now
+on, the domain $\Omega$ which we consider is the polyhedral domain defined by
+the triangulation ${\cal T}^m$ On ${\cal T}^m$ we define the finite element
+spaces
 \begin{equation*}
 S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
 \in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\}\,,
@@ -328,23 +353,27 @@ on $\Gamma^m$.
 
 We need to pay particular attention to the discretization of the time
 derivative in (\ref{eq:ns_weaka_antisym}). Indeed, the discrete counterpart of
-$\tfrac{1}{2} \ddt (\rho\,\vec u, \vec \xi)$
-\begin{equation}
+$\tfrac{1}{2} \ddt (\rho\,\vec u, \vec \xi)$ is
+\begin{equation}\label{eq:antysim_time_derivative_a}
 \frac{1}{2}\left(\frac{\rho^m\,\vec U^{m+1} - \vec I^m_0\,\rho^{m-1}
-\vec I^m_2\,\vec U^m}{\tau_m}, \vec \xi \right)\,,
+\vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\,,
 \end{equation}
 while the discrete version of $\tfrac{1}{2}(\rho\,\vec u_t, \vec \xi)$ is
-\begin{equation}
-\frac{1}{2}\left( \rho^m\, \frac{\vec U^{m+1} - \vec I^m_2\, \vec
-U^m}{\tau_m}, \vec \xi \right)\,.
+\begin{equation}\label{eq:antysim_time_derivative_b}
+\frac{1}{2}\left( \vec I^m_0\,\rho^{m-1}\, \frac{\vec U^{m+1} - \vec I^m_2\,
+\vec U^m}{\tau}, \vec \xi \right)\,.
 \end{equation}
-Since $\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in
+We notice that in (\ref{eq:antysim_time_derivative_b}), instead of using the
+actual density $\rho^m$, we use the density at the previous time step
+$\rho^{m-1}$ and we interpolate it on the current bulk grid $\Omega_\pm^m$. This
+is needed to prove stability over one time step. Since
+$\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in
 S^m_0$, we can rewrite the discretization of the weak time derivative
-$\tfrac{1}{2}\big[ \ddt (\rho\,\vec u, \vec \xi)+(\rho\,\vec u_t, \vec
-\xi)\big]$ in the simpler form
+$\tfrac{1}{2}\big[ \ddt (\rho\,\vec u, \vec \xi)+(\rho\,\vec u_t, \vec\xi)\big]$
+in the simpler form
 \begin{equation}
-\left(\frac{\rho^m\,\vec U^{m+1} - \tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)
-\vec I^m_2\,\vec U^m}{\tau_m}, \vec \xi \right)\,.
+\left(\frac{\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+\vec I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\,.
 \end{equation}
 
 Then our antisymmetric finite element approximation is given as follows. Let
@@ -354,20 +383,21 @@ $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in
 \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
-& \left(\frac{\rho^m\,\vec U^{m+1} - \tfrac{1}{2}(\vec I^m_0\,\rho^{m-1} +
-\rho^m) \vec I^m_2\,\vec U^m}{\tau_m}, \vec \xi \right) + \nonumber \\
-& \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
+& \left(\frac{\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+\vec I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
+& \qquad + \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
 \vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
-\vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right) +
+\vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right)
 \nonumber \\
-& - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+& \qquad - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
-& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+& \qquad - \gamma\,\left\langle
+\kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
 = \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
 \uspacedisc{0}{m}\,,\label{eq:ns_HGa_antisym} \\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
 \quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb_antisym} \\
-&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau} ,\chi\,\vec\nu^m
 \right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
 \right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
 \label{eq:ns_HGc_antisym}\\
