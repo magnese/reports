@@ -525,13 +525,11 @@ consistent with the interface velocity $\V$. Therefore it holds
 
 Using (\ref{eq:ale_dt}) in (\ref{eq:ns_full_momentum}), we can rewrite the
 momentum equation in the ALE frame as:
-\begin{equation}
 \begin{align}
 \rho\,(\left.\vec u_t\right|_{\D} +(\vec u - \W)\,.\, \nabla \vec u)\,
 -2 \mu\,\nabla\,.\, \mat D(\vec u)+ \nabla\,p & = \vec f
 \quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:ns_full_momentum_ale} \\
 \end{align}
-\end{equation}
 We can notice that, with respect to the original formulation, there is a
 convective-type term due to the domain movement and the time derivative is
 computed in the fixed reference frame $\D$. Obviously, if the domain is fixed,

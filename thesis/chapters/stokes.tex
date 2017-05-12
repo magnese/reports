@@ -526,25 +526,21 @@ In particular, we obtain an unconditional stability result for our scheme.
 \sloppy Let $\vec g=\vec 0$. Moreover let $m \in \{0,\ldots,M-1\}$ and let
 ${(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
 \pnormspace^m \times \Vh \times \Wh}$ be a solution to (\ref{eq:HGa}--d). Then
-\begin{equation}\label{eq:stab}
-\begin{align*}
+\begin{align}\label{eq:stab}
 & \gamma\, \surfvol(\Gamma^{m+1})+ 2\,\tau_m\left(\mu^m\,\mat D(\vec U^{m+1}),
 \mat D(\vec U^{m+1}) \right) \leq \\
 & \qquad \gamma\,\surfvol(\Gamma^m) + \tau_m\left( \vec f^{m+1}, \vec U^{m+1}
 \right).
-\end{align*}
-\end{equation}
+\end{align}
 In addition, let $\{t_k\}_{k=0}^M$ be an arbitrary partitioning of $[0,T]$.
 
 Then it holds that
-\begin{equation}\label{eq:stabstab}
-\begin{align*}
+\begin{align}\label{eq:stabstab}
 & \gamma\,\surfvol(\Gamma^{m+1}) + 2 \sum_{k=0}^m  \tau_k\left(\mu^k\,
 \mat D(\vec U^{k+1}), \mat D(\vec U^{k+1}) \right)\leq \\
 & \qquad \gamma\,\surfvol(\Gamma^0) + \sum_{k=0}^m \tau_k\left(\vec f^{k+1},
 \vec U^{k+1} \right)
-\end{align*}
-\end{equation}
+\end{align}
 for $m=0,\ldots, M-1$.
 \end{theorem}
 \begin{proof}
