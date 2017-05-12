@@ -171,9 +171,27 @@ $\phi\in W_0^{1,\frac{3}{2}}(\Omega)$ that
   \phi \right\rangle_{\Gamma(t)}
 - (\rho\,(\nabla\,.\,\vec v), \phi)\,.
 \end{align}
+Here we notice that (\ref{eq:ibp0}) is well defined. Indeed, $\phi\in
+W_0^{1,\frac{3}{2}}(\Omega)$ implies that its trace is in
+$L^{\frac{3}{2}}(\partial\Omega)$. Moreover, given that
+$\vec v \in [H^1(\Omega)]^d$, it holds that $\vec v\,.\,\vec\nu \in
+[H^{\frac{1}{2}}(\partial\Omega)]^d$, which implies, thanks to the continuous
+embedding theorems \cite[Theorem~6.5 and 6.7]{DINEZZA2012}, that $\vec
+v\,.\,\vec\nu \in [L^4(\partial\Omega)]^d$. But we know, using the
+H\"{o}lder inequality, that the term $\left\langle [\rho]_-^+\,\vec v\,.\,
+\vec \nu, \phi \right\rangle_{\Gamma(t)}$ is well defined if
+$\vec v\,.\,\vec\nu$ is at least in $L^3(\partial\Omega)$, which is indeed the
+case.
 
-Hence, it follows from taking $\phi = \vec u\,.\,\vec\xi$ and $\vec v = \vec u$
-in (\ref{eq:ibp0}) and applying it to the first term on the right-hand side of
+Moreover, if $\vec u\in [H^1(\Omega)]^d$ and $\vec \xi \in \uspace{0}$ then
+$\vec u\,.\,\vec\xi \in W_0^{1,\frac{3}{2}}(\Omega)$. Indeed, $H^1(\Omega)$ is
+compactly embedded in $L^6(\Omega)$, for $d=2$ or $d=3$. By the
+generalized H\"{o}lder inequality we know that $(\nabla h)\omega\in
+L^{\frac{3}{2}}(\Omega)$ if $h\in H^1(\Omega)$ and $\omega\in L^6(\Omega)$.
+Therefore $\nabla(\vec u\,.\,\vec \xi)\in L^{\frac{3}{2}}(\Omega)$ which implies
+$\vec u\,.\,\vec \xi \in W_0^{1,\frac{3}{2}}(\Omega)$. Hence, it follows from
+taking $\phi = \vec u\,.\,\vec\xi$ and $\vec v = \vec u$ in (\ref{eq:ibp0}) and
+applying it to the first term on the right-hand side of
 (\ref{eq:ns_advect_tripleterm}) that
 \begin{align}\label{eq:fulladvect}
 ( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi) = &
@@ -386,12 +404,19 @@ and
 
 \section{Existence, uniqueness and stability of a discrete solution}
 \label{sec:ns_existence}
+TODO: Discuss interpolation of $\vec U^m$, stress difference to unfitted case,
+where stability if no coarsening in bulk mesh. Describe strategies for
+interpolation. State that stability holds only without remeshing
+(interpolation!)
 
 \section{Standard finite element approximation}\label{sec:ns_fem}
 An alternative to the antisymmetric discrete finite element approximation
 (\ref{eq:ns_HGa_antisym}--d) can be obtained using the standard weak
 formulation (\ref{eq:ns_weaka}--d). We use the same hypothesis and
-definitions employed in \S\ref{sec:ns_fem_antisym}.
+definitions employed in \S\ref{sec:ns_fem_antisym}. Then only difference is
+that we consider the more general partitioning  $0= t_0 < t_1 < \ldots <
+t_{M-1} < t_M = T$ of $[0,T]$ into possibly variable time steps $\tau_m :=
+t_{m+1}-t_m$, $m=0 ,\ldots, M-1$.
 
 Then our explicit standard finite element approximation, which is based on the
 variational formulation (\ref{eq:ns_weaka}--d), is given as follows. Let
@@ -402,14 +427,14 @@ such that
 \begin{subequations}
 \begin{align}
 & \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
-\xi \right) + \left((\rho^m\vec I^m_2\vec U^m\,.\,\nabla)\,\vec U^{m+1}\,,
+\xi \right) + \left(\rho^m(\vec I^m_2\vec U^m\,.\,\nabla)\,\vec U^{m+1}\,,
 \,\vec \xi \right)\nonumber \\
-& - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+& \qquad - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
-& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+& \qquad - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
+\vec\xi\right\rangle_{\Gamma^m}
 = \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
-\uspacedisc{0}{m}\,,
-\label{eq:ns_HGa} \\
+\uspacedisc{0}{m}\,, \label{eq:ns_HGa} \\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
 \quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb} \\
 &  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
@@ -437,25 +462,26 @@ at each time level.
 
 We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) differs
 from the explicit standard scheme (\ref{eq:ns_HGa}--d), for the antisymmetric
-rewrite of the convective term and for the density coefficient multiplying
-$\vec I^m_2\,\vec U^m$ in the time derivative. Indeed, instead of using the
-actual density $\rho^m$, it uses an average between the actual density and the
-interpolation of the density at the previous time step $\tfrac{1}{2}(\vec
-I^m_0\,\rho^{m-1} + \rho^m)$.
+rewrite of the convective term and for the density coefficients in the time
+derivative. Indeed, instead of using the actual density $\rho^m$, it uses an
+average between the actual density and the interpolation of the density at the
+previous time step $\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1} + \rho^m)$ for what
+concern $\vec U^{m+1}$ and it uses directly the density interpolation
+$\vec I^m_0\,\rho^{m-1}$ for $\vec I^m_2\vec U^m$.
 
 Alternatively, the convective term in (\ref{eq:ns_HGimpa}) can be treated
 implicitly and the finite element approximation (\ref{eq:ns_HGa}--d) becomes
 \begin{subequations}
 \begin{align}
 & \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
-\xi \right) + \left((\rho^m \vec U^{m+1}\,.\,\nabla)\,\vec U^{m+1}\,,
+\xi \right) + \left(\rho^m( \vec U^{m+1}\,.\,\nabla)\,\vec U^{m+1}\,,
 \,\vec \xi \right)\nonumber \\
-& - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+& \qquad- 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
-& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+& \qquad - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
+\vec\xi\right\rangle_{\Gamma^m}
 = \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
-\uspacedisc{0}{m}\,,
-\label{eq:ns_HGimpa} \\
+\uspacedisc{0}{m}\,, \label{eq:ns_HGimpa} \\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
 \quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGimpb} \\
 &  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
@@ -474,14 +500,14 @@ X^{m+1}, \kappa^{m+1})$ at each time level.
 \section{ALE weak formulation}\label{sec:ns_weak_ale}
 The system of governing equations (\ref{eq:ns_full_momentum}--i) is expressed in
 term of Eulerian coordinates $\vec z$. However, it is possible to rewrite the
-velocity time derivative $\vec u_t$ respect to the so called Arbitrary
+velocity time derivative $\vec u_t$ with respect to the so called Arbitrary
 Lagrangian Eulerian (ALE) coordinate $\vec q$.
 
-Analogously of what done in \S\ref{sec:front_tracking_approach} to parametrize
-the interface $\Gamma(t)$, we can define the fixed reference manifold
-$\D$ and extend the map (\ref{eq:interface_parametrization}) to
+Analogously to what is done in \S\ref{sec:front_tracking_approach} to
+parametrize the interface $\Gamma(t)$, we can define the fixed reference
+manifold $\D$ and extend the map (\ref{eq:interface_parametrization}) to
 parametrize $\Omega$ as $\Omega=\vec x(\D,t)$. This extended map obviously
-still satisfy $\Gamma(t) = \vec x(\Upsilon,t)$.
+still satisfy $\Gamma(t) = \vec x(\Upsilon,t)$, given that $\Upsilon\subset\D$.
 
 Now, let $h:\Omega\times [0,T]\to \R$ be a function defined on the Eulerian
 frame, the corresponding function on the ALE frame $\hat h$ is defined as
@@ -528,18 +554,18 @@ momentum equation in the ALE frame as:
 \begin{align}
 \rho\,(\left.\vec u_t\right|_{\D} +(\vec u - \W)\,.\, \nabla \vec u)\,
 -2 \mu\,\nabla\,.\, \mat D(\vec u)+ \nabla\,p & = \vec f
-\quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:ns_full_momentum_ale} \\
+\quad &&\mbox{in } \Omega_\pm(t)\,. \label{eq:ns_full_momentum_ale} \\
 \end{align}
 We can notice that, with respect to the original formulation, there is a
 convective-type term due to the domain movement and the time derivative is
 computed in the fixed reference frame $\D$. Obviously, if the domain is fixed,
 this additional convective term is zero and the time derivative in the ALE
 frame coincide with the usual time derivative in the Eulerian frame. Therefore
-$\W=\vec 0$ corresponds to a pure Eulerian method while $\W=\vec u$ corresponds
+$\W=\vec 0$ corresponds to a pure Eulerian method, while $\W=\vec u$ corresponds
 to a fully Lagrangian scheme.
 
 In order to define the ALE weak formulation, we need to use a different
-functional setting for the test functions respect to the one used for the
+functional setting for the test functions with respect to the one used for the
 standard weak formulation and antisymmetric weak formulation, see
 \S\ref{sec:ns_weak}. More precisely we consider the admissible spaces of test
 functions on the reference domain
