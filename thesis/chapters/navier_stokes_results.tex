@@ -190,3 +190,159 @@ $J_\Omega^M$ antisymmetric & $J_\Omega^M$ ALE \\
 {Discretization parameters for the 2d rising bubble experiment.}
 \label{tab:risingbubble2Delements}
 \end{table*}
+
+\begin{table*}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rlll}
+\hline
+ & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\
+\hline
+& \multicolumn{3}{c}{explicit} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ & 0.898635 &  &  \\
+$t_{\strikes = \strikes_{\min}}$ & 2.156 &  &  \\
+$V_{c,\max}$ & 0.237178 & & \\
+$t_{V_c = V_{c,\max}}$ & 1.019 &  & \\
+$z_c(t=3)$ & 1.0857 &  & \\
+CPU & 13664 & & \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{implicit} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ &  &  &  \\
+$t_{\strikes = \strikes_{\min}}$ &  &  &  \\
+$V_{c,\max}$ & & & \\
+$t_{V_c = V_{c,\max}}$ &  &  & \\
+$z_c(t=3)$ & &  & \\
+CPU &  & & \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{antisymmetric} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ &  &  &  \\
+$t_{\strikes = \strikes_{\min}}$ &  &  &  \\
+$V_{c,\max}$ & & & \\
+$t_{V_c = V_{c,\max}}$ &  &  & \\
+$z_c(t=3)$ & &  & \\
+CPU &  & & \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{ALE} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ &  &  &  \\
+$t_{\strikes = \strikes_{\min}}$ &  &  &  \\
+$V_{c,\max}$ & & & \\
+$t_{V_c = V_{c,\max}}$ &  &  & \\
+$z_c(t=3)$ & &  & \\
+CPU &  & & \\
+\hline
+\end{tabular}
+\hspace*{-3.25cm}
+\caption[Navier--Stokes rising bubble benchmark quantities P2--P0]
+{($\rho_+ = 1000\,,\rho_- = 100\,,\mu_+ = 10\,,\mu_- =1\,,\gamma = 24.5\,$)
+Rising bubble problem on ${\Omega = (0,1) \times (0,2)}$ over the time interval
+$[0,3]$ for the P2--P0 element.}
+\label{tab:risingbubble2Dp2p0}
+\end{table*}
+
+\begin{table*}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rlll}
+\hline
+ & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\
+\hline
+& \multicolumn{3}{c}{explicit} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ &  &  &  \\
+$t_{\strikes = \strikes_{\min}}$ &  &  &  \\
+$V_{c,\max}$ & & & \\
+$t_{V_c = V_{c,\max}}$ &  &  & \\
+$z_c(t=3)$ & &  & \\
+CPU &  & & \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{implicit} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ &  &  &  \\
+$t_{\strikes = \strikes_{\min}}$ &  &  &  \\
+$V_{c,\max}$ & & & \\
+$t_{V_c = V_{c,\max}}$ &  &  & \\
+$z_c(t=3)$ & &  & \\
+CPU &  & & \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{antisymmetric} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ &  &  &  \\
+$t_{\strikes = \strikes_{\min}}$ &  &  &  \\
+$V_{c,\max}$ & & & \\
+$t_{V_c = V_{c,\max}}$ &  &  & \\
+$z_c(t=3)$ & &  & \\
+CPU &  & & \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{ALE} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ &  &  &  \\
+$t_{\strikes = \strikes_{\min}}$ &  &  &  \\
+$V_{c,\max}$ & & & \\
+$t_{V_c = V_{c,\max}}$ &  &  & \\
+$z_c(t=3)$ & &  & \\
+CPU &  & & \\
+\hline
+\end{tabular}
+\hspace*{-3.25cm}
+\caption[Navier--Stokes rising bubble benchmark quantities P2--\pdg]
+{($\rho_+ = 1000\,,\rho_- = 100\,,\mu_+ = 10\,,\mu_- =1\,,\gamma = 24.5\,$)
+Rising bubble problem on ${\Omega = (0,1) \times (0,2)}$ over the time interval
+$[0,3]$ for the P2--\pdg element.}
+\label{tab:risingbubble2Dp2p1dg}
+\end{table*}
+
+\begin{table*}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rlll}
+\hline
+ & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\
+\hline
+& \multicolumn{3}{c}{explicit} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ &  &  &  \\
+$t_{\strikes = \strikes_{\min}}$ &  &  &  \\
+$V_{c,\max}$ & & & \\
+$t_{V_c = V_{c,\max}}$ &  &  & \\
+$z_c(t=3)$ & &  & \\
+CPU &  & & \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{implicit} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ &  &  &  \\
+$t_{\strikes = \strikes_{\min}}$ &  &  &  \\
+$V_{c,\max}$ & & & \\
+$t_{V_c = V_{c,\max}}$ &  &  & \\
+$z_c(t=3)$ & &  & \\
+CPU &  & & \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{antisymmetric} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ &  &  &  \\
+$t_{\strikes = \strikes_{\min}}$ &  &  &  \\
+$V_{c,\max}$ & & & \\
+$t_{V_c = V_{c,\max}}$ &  &  & \\
+$z_c(t=3)$ & &  & \\
+CPU &  & & \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{ALE} \\
+\cmidrule{2-4}
+$\strikes_{\min}$ &  &  &  \\
+$t_{\strikes = \strikes_{\min}}$ &  &  &  \\
+$V_{c,\max}$ & & & \\
+$t_{V_c = V_{c,\max}}$ &  &  & \\
+$z_c(t=3)$ & &  & \\
+CPU &  & & \\
+\hline
+\end{tabular}
+\hspace*{-3.25cm}
+\caption[Navier--Stokes rising bubble benchmark quantities P2--(P1+P0)]
+{($\rho_+ = 1000\,,\rho_- = 100\,,\mu_+ = 10\,,\mu_- =1\,,\gamma = 24.5\,$)
+Rising bubble problem on ${\Omega = (0,1) \times (0,2)}$ over the time interval
+$[0,3]$ for the P2--(P1+P0) element.}
+\label{tab:risingbubble2Dp2p1p0}
+\end{table*}
