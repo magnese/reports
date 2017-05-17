@@ -186,7 +186,7 @@ $J_\Omega^M$ antisymmetric & $J_\Omega^M$ ALE \\
 128 & & & & & \\
 \hline
 \end{tabular}
-\caption[Navier--Stokes 3d rising bubble meshes parameters]
+\caption[Navier--Stokes 2d rising bubble meshes parameters]
 {Discretization parameters for the 2d rising bubble experiment.}
 \label{tab:risingbubble2Delements}
 \end{table*}
@@ -236,10 +236,11 @@ CPU                              &  13329 &  80065 & 318217 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Navier--Stokes rising bubble benchmark quantities P2--P0]
+\caption[Navier--Stokes 2d rising bubble benchmark values P2--P0]
 {($\rho_+ = 1000\,,\rho_- = 100\,,\mu_+ = 10\,,\mu_- =1\,,\gamma = 24.5\,$)
 Rising bubble problem on ${\Omega = (0,1) \times (0,2)}$ over the time interval
-$[0,3]$ for the P2--P0 element.}
+$[0,3]$ for the P2--P0 element, with nearly uniform meshes and
+$C_a=20$\textdegree.}
 \label{tab:risingbubble2Dp2p0}
 \end{table*}
 
@@ -288,10 +289,11 @@ CPU                              &  12116 &  74586 & 245194 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Navier--Stokes rising bubble benchmark quantities P2--\pdg]
+\caption[Navier--Stokes 2d rising bubble benchmark values P2--\pdg]
 {($\rho_+ = 1000\,,\rho_- = 100\,,\mu_+ = 10\,,\mu_- =1\,,\gamma = 24.5\,$)
 Rising bubble problem on ${\Omega = (0,1) \times (0,2)}$ over the time interval
-$[0,3]$ for the P2--\pdg element.}
+$[0,3]$ for the P2--\pdg element, with nearly uniform meshes and
+$C_a=20$\textdegree.}
 \label{tab:risingbubble2Dp2p1dg}
 \end{table*}
 
@@ -340,12 +342,30 @@ CPU                              &  10449 &  74099 & 410704 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Navier--Stokes rising bubble benchmark quantities P2--(P1+P0)]
+\caption[Navier--Stokes 2d rising bubble benchmark values P2--(P1+P0)]
 {($\rho_+ = 1000\,,\rho_- = 100\,,\mu_+ = 10\,,\mu_- =1\,,\gamma = 24.5\,$)
 Rising bubble problem on ${\Omega = (0,1) \times (0,2)}$ over the time interval
-$[0,3]$ for the P2--(P1+P0) element.}
+$[0,3]$ for the P2--(P1+P0) element, with nearly uniform meshes and
+$C_a=20$\textdegree.}
 \label{tab:risingbubble2Dp2p1p0}
 \end{table*}
+
+\begin{figure}[htbp]
+\centering
+\subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/2d_rising_bubble_pressure_0.ps}}
+\subfloat[$t=1$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/2d_rising_bubble_pressure_1.ps}}\\
+\subfloat[$t=2$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/2d_rising_bubble_pressure_2.ps}}
+\subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/2d_rising_bubble_pressure_3.ps}}
+\caption[Navier--Stokes 2d rising bubble pressure]
+{($\rho_+ = 1000\,,\rho_- = 100\,,\mu_+ = 10\,,\mu_- =1\,,\gamma = 24.5\,$)
+Pressure evolution for the 2d rising bubble for the P2--\pdg element and the
+implicit scheme, with nearly uniform mesh and $C_a=20$\textdegree.}
+\label{fig:rising_bubble_2d_pressure}
+\end{figure}
 
 \begin{figure}[htbp]
 \centering
@@ -353,8 +373,8 @@ $[0,3]$ for the P2--(P1+P0) element.}
 {figures/navier_stokes/2d_rising_bubble_sphericity.ps}
 \caption[Navier--Stokes 2d rising bubble sphericity]
 {A plot of the sphericity $\strikes$ over time for the simulation in
-Figure~\ref{} for the explicit (orange), implicit (red), ALE (blue) and
-antisymmetric (green) schemes.}
+Figure~\ref{fig:rising_bubble_2d_pressure} for the explicit (orange), implicit
+(red), ALE (blue) and antisymmetric (green) schemes.}
 \label{fig:rising_bubble_2d_bulk_sphericity}
 \end{figure}
 
@@ -364,8 +384,8 @@ antisymmetric (green) schemes.}
 {figures/navier_stokes/2d_rising_bubble_rising_velocity.ps}
 \caption[Navier--Stokes 2d rising bubble rising velocity]
 {A plot of the rising velocity $V_c$ over time for the simulation in
-Figure~\ref{} for the explicit (orange), implicit (red), ALE (blue) and
-antisymmetric (green) schemes.}
+Figure~\ref{fig:rising_bubble_2d_pressure} for the explicit (orange), implicit
+(red), ALE (blue) and antisymmetric (green) schemes.}
 \label{fig:rising_bubble_2d_bulk_rising_velocity}
 \end{figure}
 
@@ -374,9 +394,9 @@ antisymmetric (green) schemes.}
 \includegraphics[width=.45\textwidth]
 {figures/navier_stokes/2d_rising_bubble_barycenter.ps}
 \caption[Navier--Stokes 2d rising bubble barycenter]
-{A plot of the barycenter $z_c$ over time for the simulation in Figure~\ref{}
-for the explicit (orange), implicit (red), ALE (blue) and antisymmetric (green)
-schemes.}
+{A plot of the barycenter $z_c$ over time for the simulation in
+Figure~\ref{fig:rising_bubble_2d_pressure} for the explicit (orange), implicit
+(red), ALE (blue) and antisymmetric (green) schemes.}
 \label{fig:rising_bubble_2d_bulk_barycenter}
 \end{figure}
 
@@ -387,7 +407,8 @@ schemes.}
 \caption[Navier--Stokes 2d rising bubble inner area]
 {A plot of the relative inner area
 $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$
-over time for the simulation in Figure~\ref{} for the explicit (orange),
-implicit (red), ALE (blue) and antisymmetric (green) schemes.}
+over time for the simulation in Figure~\ref{fig:rising_bubble_2d_pressure} for
+the explicit (orange), implicit (red), ALE (blue) and antisymmetric (green)
+schemes.}
 \label{fig:rising_bubble_2d_bulk_inner_volume}
 \end{figure}
