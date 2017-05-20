@@ -157,10 +157,10 @@ V^m_c = \frac{1}{\vol(\Omega_-^m)}\,\int_{\Omega_-^m}U^m_d\dL{d}\,,
 where $U^m_d$ is the $d$-component of $\vec U^m$ evaluated on $\Omega^m$.
 
 \section{Rising bubble experiment in 2d}\label{sec:2d_rising_bubble_results}
-We use the same  setup described in \cite{HysingTKPBGT09}, see Figure~2 there,
-which is ${\Omega = (0,1) \times (0,2)}$ with $\partial_1\Omega = [0,1] \times
-\{0,2\}$ and $\partial_2\Omega = \{0,1\} \times (0,2)$. Moreover, let the
-initial interface be ${\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\frac{1}{2},
+We use the same  setup described in \cite[Figure~2]{HysingTKPBGT09}, which is
+${\Omega = (0,1) \times (0,2)}$ with $\partial_1\Omega = [0,1] \times \{0,2\}$
+and $\partial_2\Omega = \{0,1\} \times (0,2)$. Moreover, let the initial
+interface be ${\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\frac{1}{2},
 \frac{1}{2})^T| = \frac{1}{4}\}}$. The physical parameters from the test case 1
 in \cite[Table~I]{HysingTKPBGT09} are then given by
 \begin{equation} \label{eq:Hysing1}
@@ -181,9 +181,9 @@ Table~\ref{tab:risingbubble2Delements}.
 $J_\Gamma$ & $J_\Omega^0$ & $J_\Omega^M$ explicit & $J_\Omega^M$ implicit &
 $J_\Omega^M$ antisymmetric & $J_\Omega^M$ ALE \\
 \hline
- 32 & & & & & \\
- 64 & & & & & \\
-128 & & & & & \\
+ 32 &  2210 &  1796 &  1796 &  1826 &  1870 \\
+ 64 &  8822 &  7378 &  7500 &  7410 &  7368 \\
+128 & 35092 & 28358 & 29210 & 28018 & 28982 \\
 \hline
 \end{tabular}
 \caption[Navier--Stokes 2d rising bubble meshes parameters]
@@ -350,6 +350,11 @@ $C_a=20$\textdegree.}
 \label{tab:risingbubble2Dp2p1p0}
 \end{table*}
 
+Moreover, we notice that, in all the simulations, the number of remeshing
+performed during the full time interval is always between 2 and 4. This means
+that, in each simulation adopting the ALE scheme, the velocity is interpolated,
+at worst, only 4 times.
+
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
@@ -365,6 +370,23 @@ $C_a=20$\textdegree.}
 Pressure evolution for the 2d rising bubble for the P2--\pdg element and the
 implicit scheme, with nearly uniform mesh and $C_a=20$\textdegree.}
 \label{fig:rising_bubble_2d_pressure}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/2d_rising_bubble_velocity_0.ps}}
+\subfloat[$t=1$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/2d_rising_bubble_velocity_1.ps}}\\
+\subfloat[$t=2$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/2d_rising_bubble_velocity_2.ps}}
+\subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/2d_rising_bubble_velocity_3.ps}}
+\caption[Navier--Stokes 2d rising bubble velocity]
+{($\rho_+ = 1000\,,\rho_- = 100\,,\mu_+ = 10\,,\mu_- =1\,,\gamma = 24.5\,$)
+Velocity vector field for the 2d rising bubble for the P2--\pdg element and
+the implicit scheme, with nearly uniform mesh and $C_a=20$\textdegree.}
+\label{fig:rising_bubble_2d_velocity}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -406,9 +428,8 @@ Figure~\ref{fig:rising_bubble_2d_pressure} for the explicit (orange), implicit
 {figures/navier_stokes/2d_rising_bubble_inner_volume.ps}
 \caption[Navier--Stokes 2d rising bubble inner area]
 {A plot of the relative inner area
-$\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$
-over time for the simulation in Figure~\ref{fig:rising_bubble_2d_pressure} for
-the explicit (orange), implicit (red), ALE (blue) and antisymmetric (green)
-schemes.}
+$\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
+simulation in Figure~\ref{fig:rising_bubble_2d_pressure} for the explicit
+(orange), implicit (red), ALE (blue) and antisymmetric (green) schemes.}
 \label{fig:rising_bubble_2d_bulk_inner_volume}
 \end{figure}
