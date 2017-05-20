@@ -1,15 +1,31 @@
 \chapter{\sc Two-Phase Stokes Flow Numerical Results}\label{ch:stokes_results}
-In  this chapter we present several numerical simulations in 2d and 3d.
+In order to test our method, and to allow comparisons with the unfitted finite
+element approximation in \cite{spurious}, we now present several numerical
+experiments in 2d and 3d.
+
+The chapter is organised as follows: in \S\ref{sec:stokes_exact_solutions} we
+state two exact solutions to the two-phase Stokes problem and we verify that
+they are indeed solutions; in \S\ref{sec:errors} we describe the general
+settings for the simulations and we define the error estimators used; in
+\S\ref{sec:stokes_2d_convergence_results} we report on the convergence test in
+2d; in \S\ref{sec:stokes_2d_equidistributon} we show that interface mesh points
+are naturally equidistributed by our scheme; in \S\ref{sec:stokes_2d_energy} we
+show that our scheme conserve the enclosed volume and that the surface energy
+monotonically decays; in \S\ref{sec:stokes_2d_shear} we present a shear
+flow experiment in 2d; in \S\ref{sec:stokes_3d_convergence_results} we report on
+the convergence test in 3d; in \S\ref{sec:stokes_3d_shear} we finally present a
+shear flow experiment in 3d.
 
 \section{Exact solutions}\label{sec:stokes_exact_solutions}
-In order to test our method, and to allow comparisons with the unfitted finite
-element approximation in \cite{spurious}, we recall the following stationary
-and expanding spherical solutions from \cite{spurious}. Let $\Gamma(t) = \{ \vec
-z \in \R^d : |\vec z| = r(t)\}$ be a sphere of radius $r(t)$ and curvature
-$\kappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let $\alpha,\gamma\in \R_{\geq 0}$
-be given.
+We recall the following stationary and expanding spherical solutions
+from \cite{spurious}. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z| = r(t)\}$
+be a sphere of radius $r(t)$  and mean curvature $\varkappa(t) =
+-\frac{d-1}{r(t)}$. Moreover let $\alpha,\gamma\in \R_{\geq 0}$ be given. We
+will refer to (\ref{eq:radialr},b) as the stationary bubble solution, and to
+(\ref{eq:radialr2},b) as the expanding bubble solution.
 
-Firstly, the stationary sphere where
+\subsection{Stationary bubble}
+The stationary sphere where
 \begin{subequations}
 \begin{equation} \label{eq:radialr}
 r(t) = r(0)\,,
@@ -17,7 +33,7 @@ r(t) = r(0)\,,
 together with
 \begin{equation} \label{eq:radialup}
 \vec u(\vec z, t) = \vec 0 \,,\quad p(\vec z, t) =
--\,\gamma \kappa(0)\left[\charfcn{\Omega_-(0)}
+-\,\gamma \varkappa(0)\left[\charfcn{\Omega_-(0)}
 -\frac{\vol(\Omega_-(0))}{\vol(\Omega)} \right] ,
 \end{equation}
 \end{subequations}
@@ -26,10 +42,25 @@ $\Omega = (-1,1)^d$ with $\vec f=\vec 0$ and $\vec g = \vec 0$ on
 $\partial_1\Omega=\partial\Omega$. This solution is the continuous version of
 (\ref{eq:solsol}).
 
-Secondly, a nontrivial divergence free and radially
-symmetric solution $\vec u$ can be constructed on a domain that does not
-contain the origin. To this end, consider e.g. $\Omega = (-1,1)^d \setminus
-[-\frac13,\frac13]^d$. Then, the expanding sphere where
+It is trivial to verify that (\ref{eq:radialr},b) is indeed an exact solution.
+Firstly, given that the velocity $\vec u$ is constant and the pressure $p$ is
+constant in each phase, the momentum equation (\ref{eq:stokes_full_momentum})
+automatically holds if $\vec f=\vec 0$ and the mass equation
+(\ref{eq:stokes_full_mass}) is satisfied. Finally, also the stress balance
+(\ref{eq:stokes_full_jump_stress}) holds since, substituting
+(\ref{eq:radialup}) in (\ref{eq:stokes_full_jump_stress}), we obtain
+\begin{align*}
+[2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ = & [- p\,\vec \nu]_-^+ \\
+= & -\gamma \varkappa(0)\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\vec \nu
+-\gamma \varkappa(0)\vec \nu +
+\gamma \varkappa(0)\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\vec \nu \\
+= & -\gamma \varkappa(0)\vec \nu\,.
+\end{align*}
+\subsection{Expanding bubble}
+A nontrivial divergence free and radially symmetric solution $\vec u$ can be
+constructed on a domain that does not contain the origin. To this end, consider
+e.g. $\Omega = (-1,1)^d \setminus [-\frac13,\frac13]^d$. Then, the expanding
+sphere where
 \begin{subequations}
 \begin{equation} \label{eq:radialr2}
 r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
@@ -38,17 +69,43 @@ together with
 \begin{equation} \label{eq:radialup2}
 \vec u(\vec z, t) = \alpha\,\frac{\vec z}{|\vec z\,|^d}\,, \quad
 p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
-{r(t)^{d-1}}\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+{r(t)^{d-1}}\bigg)\,\varkappa(t)\,\left[ \charfcn{\Omega_-(t)} -
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{equation}
 \end{subequations}
 is an exact solution to the problem (\ref{eq:stokes_full_momentum}--h) with
 $\vec f = \vec 0$ and $\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$ on
-$\partial_1\Omega=\partial\Omega$. We will refer to (\ref{eq:radialr},b) as the
-stationary bubble solution, and to (\ref{eq:radialr2},b) as the expanding bubble
-solution.
+$\partial_1\Omega=\partial\Omega$.
 
-\section{Error estimators}\label{sec:errors}
+We now verify that (\ref{eq:radialr2},b) is indeed an exact solution. Firstly,
+we have that
+\begin{equation*}
+\frac{\partial u_i}{\partial z_j}=\alpha\frac{\delta_{ij}|\vec z\,|^d
+- d z_i z_j |\vec z\,|^{d-2}}{|\vec z\,|^{2d}}\,.
+\end{equation*}
+Since $\frac{\partial u_i}{\partial z_j}=\frac{\partial u_j}{\partial z_i}$,
+the components of the rate-of-deformation tensor are simply
+\begin{equation*}
+\big[\mat D(\vec u) \big]_{ij} = \frac{1}{2}\bigg(\frac{\partial
+u_i}{\partial z_j} + \frac{\partial u_j}{\partial z_i}\bigg)=\frac{\partial
+u_i}{\partial z_j}\,.
+\end{equation*}
+Then, it holds
+\begin{equation*}
+\nabla\,.\,\mat D(\vec u) =\sum_{i=1}^d\frac{\partial}{\partial z_i}
+\frac{\partial u_i}{\partial z_i} = \alpha\sum_{i=1}^d \frac{\partial}{\partial
+z_i}\big(|\vec z\,|^{-d}-dz_i^2|\vec z\,|^{-d-2}\big)=
+\end{equation*}
+
+The mass equation (\ref{eq:stokes_full_mass}) is also satisfied since we have
+\begin{equation*}
+\nabla\,.\,\vec u=\sum_{i=1}^d\frac{\partial u_i}{\partial z_i} = \alpha
+\sum_{i=1}^d\frac{|\vec z\,|^d - d z^2_i|\vec z\,|^{d-2}}{|\vec z \,|^{2d}} =
+\alpha \frac{d|\vec z\,|^d - d |\vec z\,|^2|\vec z\,|^{d-2}}{|\vec z\,|^{2d}} =
+0\,.
+\end{equation*}
+
+\section{Settings and error estimators}\label{sec:errors}
 In our numerical simulations, unless otherwise stated, we use the following
 settings. We choose the initial surface $\Gamma(0) = \{ \vec z \in \R^d : |\vec
 z| = \frac12 \}$, the domain $\Omega = (-1,1)^d$ and we employ uniform time
@@ -669,7 +726,7 @@ the 2d expanding bubble for the P2--P0 element, adaptive mesh.}
 \label{fig:expanding_bubble_adaptive}
 \end{figure}
 
-\section{Equidistribution property in 2d}
+\section{Equidistribution property in 2d}\label{sec:stokes_2d_equidistributon}
 We now demonstrate the remarkable equidistribution property of our method
 showing that the circular, equidistributed numerical steady state solution is
 recovered by our method even if we choose a very nonuniform initial interface
@@ -759,7 +816,7 @@ is now very smooth respect to the one reported in
 Figure~\ref{fig:nonuniform_bubble_32_both} but this is not surprising since we
 never perform a remesh.
 
-\section{Energy decay and area conservation in 2d}
+\section{Energy decay and area conservation in 2d}\label{sec:stokes_2d_energy}
 In Figure~\ref{fig:ellipse_both} we show the pressure evolution for a
 simulation that starts with an initial ellipse, with major and minor axes of
 1.6 and 0.75. We use the parameters $\mu = \gamma=1$, $\tau=10^{-2}$ and
@@ -843,7 +900,7 @@ the simulation in Figure~\ref{fig:ellipse_smooth}.}
 \label{fig:ellipse_both_volumes_smooth}
 \end{figure}
 
-\section{Shear flow experiment in 2d}
+\section{Shear flow experiment in 2d}\label{sec:stokes_2d_shear}
 As the final 2d numerical simulation we present a shear flow experiment. Here
 we prescribe the inhomogeneous Dirichlet boundary condition
 \begin{equation*}
@@ -1066,7 +1123,7 @@ $\charfcn{\Omega^m_-}\in\pspace^m$ of Theorem~\ref{thm:stat2}. Here this leads
 to a nonzero error in the position of the discrete interface, because the
 vertices of the initial interface $\Gamma^0$ do not lie on $\Gamma(0)$.
 
-\section{Shear flow experiment in 3d}
+\section{Shear flow experiment in 3d}\label{sec:stokes_3d_shear}
 Finally, we also report on a 3d shear flow experiment. The initial interface
 mesh has $J_\Gamma = 596$ elements, while the nearly uniform bulk mesh is made
 up of $J_\Omega^0 = 19641$ elements. We prescribe the inhomogeneous Dirichlet
