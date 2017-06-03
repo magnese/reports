@@ -454,9 +454,8 @@ linear system of equations for the unknowns $(\vec X^{m+1}, \kappa^{m+1})$ at
 each time level. Here $\langle\cdot,\cdot\rangle_{\Gamma^m}$ is the $L^2$ inner
 product over the current polyhedral surface
 \begin{equation}
-\langle u,v\rangle_{\Gamma^m} =
-\int_{\Gamma^m}uv\,\dH{d-1}\,, \quad\forall u,v \in
-L^2(\Gamma^m),
+\langle u,v\rangle_{\Gamma^m} = \int_{\Gamma^m}uv\,\dH{d-1}\,,
+\quad \forall u,v \in L^2(\Gamma^m),
 \end{equation}
 and similarly for $\vec u,\vec v\in [L^2(\Gamma^m)]^d$. In addition,
 $\langle \cdot,\cdot\rangle_{\Gamma^m}^h$ is a mass lumped inner product with
@@ -474,10 +473,36 @@ where we define the limit $v((\vec q^m_{j_k})^-)
 := \underset{\sigma^m_j\ni \vec p\to \vec q^m_{j_k}}{\lim}\, v(\vec p)$. We
 naturally extend (\ref{eq:masslump}) to vector valued functions. The mass
 lumped inner product is used in (\ref{eq:fem_mean_curvature_b}) to obtain good
-mesh properties. Therefore it is natural to use it also in
-(\ref{eq:fem_mean_curvature_a}). We notice that the second term of
-(\ref{eq:fem_mean_curvature_b}) is written as an exact integration which is
-indeed the case since it is the product of two piecewise constant functions.
+mesh properties. For stability it is then necessary to use mass lumping on the
+first term in (\ref{eq:fem_mean_curvature_a}), which makes it the natural
+choice also for the second term. In fact, choosing $\chi=\kappa^{m+1}$ in
+(\ref{eq:fem_mean_curvature_a}) and $\vec \eta=\vec X^{m+1} -
+\vec\id\!\mid_{\Gamma^m}$ in (\ref{eq:fem_mean_curvature_b}), summing the
+two equations, yields that
+\begin{equation*}
+\left\langle \nabs\,\vec X^{m+1}, \nabs\,(\vec X^{m+1} - \vec X^m)
+\right\rangle_{\Gamma^m} +
+\tau_m\langle \kappa^{m+1},\kappa^{m+1}\rangle^h_{\Gamma^m}=0\,.
+\end{equation*}
+Using the inequality
+\begin{equation}\label{eq:delta_length_inequality}
+\left\langle \nabs\,\vec X^{m+1}, \nabs\,(\vec X^{m+1} - \vec X^m)
+\right\rangle_{\Gamma^m} \geq \surfvol(\Gamma^{m+1}) - \surfvol(\Gamma^m)\,,
+\end{equation}
+see e.g.\ \cite[Proof of Theorem~2.3]{triplej} and
+\cite[Proof of Theorem~2.2]{gflows3d} for the proofs for $d=2$ and $d=3$,
+respectively, we obtain
+\begin{equation*}
+-\tau_m \langle \kappa^{m+1},\kappa^{m+1}\rangle^h_{\Gamma^m}
+\geq \surfvol(\Gamma^{m+1}) - \surfvol(\Gamma^m)\,,
+\end{equation*}
+and, summing for $m=0,\ldots,k-1$, we finally obtain
+\begin{equation*}
+\surfvol(\Gamma^k)+\sum_{m=0}^{k-1} \tau_m(|k^{m+1}|_{\Gamma^m}^h)^2 \leq
+\surfvol(\Gamma^0)\,,
+\end{equation*}
+for ${k=1,\ldots,M}$. Hence the scheme (\ref{eq:fem_mean_curvature_a}--b) is
+unconditionally stable.
 
 Similarly, the finite element approximation for the surface diffusion problem
 (\ref{eq:surf_diff_a}--b) is analogous to the one obtained for the mean
@@ -499,28 +524,16 @@ changed to
 If $\Gamma^m$ is an hypersurface without self-intersections, then there exists
 a unique solution $(\vec X^{m+1}, \kappa^{m+1}) \in \Vh \times \Wh$ to the
 systems (\ref{eq:fem_mean_curvature_a}--b) and (\ref{eq:fem_surf_diff_a}--b).
-See \cite[Theorem~2.1]{gflows3d} for the complete proof. Furthermore,
-the schemes (\ref{eq:fem_mean_curvature_a}--b) and
-(\ref{eq:fem_surf_diff_a}--b) are unconditionally stable. Indeed it holds
-\begin{theorem}
-Let $\{(\vec X^m, \kappa^m)\}_{m=1}^M$ be the unique solution to the scheme
-(\ref{eq:fem_mean_curvature_a}--b) and let $\{\Gamma^m\}_{m=1}^M$
-be without self-intersections. Then for ${k=1,\ldots,M}$ we have that
+See \cite[Theorem~2.1]{gflows3d} for the complete proof. Moreover, similarly to
+before, choosing $\chi=\kappa^{m+1}$ in (\ref{eq:fem_surf_diff_a}) and
+$\vec \eta=\vec X^{m+1} - \vec\id\!\mid_{\Gamma^m}$ in
+(\ref{eq:fem_surf_diff_b}), yields that
 \begin{equation*}
-|\Gamma^k|+\sum_{m=0}^{k-1} \tau_m(|k^{m+1}|_{\Gamma^m}^h)^2\leq|\Gamma^0|\,.
+\surfvol(\Gamma^k)+\sum_{m=0}^{k-1}\tau_m|\nabs k^{m+1}|_{\Gamma^m}^2 \leq
+\surfvol(\Gamma^0)\,,
 \end{equation*}
-Moreover, let $\{(\vec X^m, \kappa^m)\}_{m=1}^M$ be the unique solution to the
-scheme (\ref{eq:fem_surf_diff_a}--b) and let $\{\Gamma^m\}_{m=1}^M$ be without
-self-intersections. Then for $k=1,\ldots,M$ we have that
-\begin{equation*}
-|\Gamma^k|+\sum_{m=0}^{k-1}\tau_m|\nabs k^{m+1}|_{\Gamma^m}^2\leq|\Gamma^0|\,.
-\end{equation*}
-\end{theorem}
-
-\begin{proof}
-See \cite[Theorem~2.3]{triplej} for the case $d = 2$ and to
-\cite[Theorem~2.2]{gflows3d} for the case $d = 3$.
-\end{proof}
+for ${k=1,\ldots,M}$. Hence also the scheme (\ref{eq:fem_surf_diff_a}--b) is
+unconditionally stable.
 
 As shown in \cite[Remark~2.3]{triplej} and \cite[\S~4]{gflows3d}, the
 continuous-in-time semidiscrete version of the aforementioned surface
