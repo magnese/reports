@@ -407,12 +407,12 @@ e.g \cite{Girault1976}. In the volume-of-fluid method, the characteristic
 function of one of the phases is approximated numerically, see e.g.
 \cite{HirtN81,RenardyR02,Popinet09}. In the level-set method, the interface is
 given as the level set of a function, which has to be determined, see e.g.
-\cite{SussmanSO94,Sethian99,OsherF03,GrossR07}. Instead, the phase-field method
-works with diffuse interfaces, and therefore the transition layer between the
-phases has a finite size. There is no tracking mechanism for the interface, but
-the phase state is included implicitly in the governing equations. The
-interface is associated with a smooth, but highly localized variation of the
-so-called phase-field variable. We refer to
+\cite{SussmanSO94,Sethian99,OsherF03,GrossR07,Svacek17}. Instead, the
+phase-field method works with diffuse interfaces, and therefore the transition
+layer between the phases has a finite size. There is no tracking mechanism for
+the interface, but the phase state is included implicitly in the governing
+equations. The interface is associated with a smooth, but highly localized
+variation of the so-called phase-field variable. We refer to
 \cite{HohenbergH77,AndersonMW98,LowengrubT98,Feng06,KaySW08,AbelsGG12,GrunK14}
 for details. In general, the great advantage of the interface capturing
 approaches is that they are inherently able to deal with topological changes of
@@ -452,10 +452,11 @@ remeshing is the need to project the field values from the old to the new
 mesh, a ceaseless source for errors, and at the same time computationally
 costly especially in dimension 3. Therefore, it is desirable to keep the
 frequency of remeshing as low as possible. We refer e.g. to
-\cite{UnverdiT92,Bansch01,Tryggvason_etal01,GanesanMT07,GanesanT08,spurious}
-for further details, and to \cite{LevequeL97,Peskin02} for the related immersed
-boundary method, which is used to simulate fluid-structure interactions using
-Eulerian coordinates for the fluid and Lagrangian coordinates for the structure.
+\cite{UnverdiT92,Bansch01,Tryggvason_etal01,GanesanMT07,GanesanT08,spurious,
+fluidfbp} for further details, and to \cite{LevequeL97,Peskin02} for the
+related immersed boundary method, which is used to simulate fluid-structure
+interactions using Eulerian coordinates for the fluid and Lagrangian
+coordinates for the structure.
 
 In the following chapters, we always use an interface tracking approach to
 describe the interface evolution. In particular, we adopt a fitted mesh approach
