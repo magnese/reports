@@ -22,7 +22,9 @@ which is the technique used in all our schemes; in
 \S\ref{sec:geometric_pdes_fem} we discuss the fully practical finite
 element approximation for the interface equations which will be used throughout
 this thesis and we recall, from the literature, the main results about
-existence, uniqueness, stability and preservation of mesh quality; in
+existence, uniqueness and stability; in \S\ref{sec:geometric_pdes_semi_fem} we
+investigate the equidistribution property and the volume conservation of a
+semidiscrete variant of the surface diffusion discretization; in
 \S\ref{sec:geometric_pdes_algebraic} we reformulate the discrete schemes
 as algebraic systems of equations and we briefly describe the solution technique
 adopted; in \S\ref{sec:geometric_pdes_results} we report on three different
@@ -271,7 +273,7 @@ bounded subset $\Omega(t) \subset \R^d$. Then
 \end{lemma}
 
 \begin{proof}
-For a proof, see \cite[\S~2.6, Lemma 2.1]{DeckelnickDE05}.
+For a proof, see \cite[\S2.6, Lemma 2.1]{DeckelnickDE05}.
 \end{proof}
 
 The evolution of an hypersurface subject to the mean curvature flow
@@ -438,13 +440,13 @@ approximation to $\Gamma(0)$. For $m=0,\ldots,M-1$, find $(\vec X^{m+1},
 \kappa^{m+1}) \in \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
-&\left\langle \frac{\vec X^{m + 1} - \vec X^m}{\tau_m},
+\left\langle \frac{\vec X^{m + 1} - \vec X^m}{\tau_m},
 \chi\vec \nu^m\right\rangle_{\Gamma^m}^h - \left\langle\kappa^{m+1}, \chi
-\right\rangle_{\Gamma^m}^h=0\quad \forall\ \chi \in
+\right\rangle_{\Gamma^m}^h =& 0\quad \forall\ \chi \in
 \Wh\,,\label{eq:fem_mean_curvature_a}\\
-&\left\langle\kappa^{m+1}\vec \nu^m, \vec \eta\right\rangle_{\Gamma^m}^h +
+\left\langle\kappa^{m+1}\vec \nu^m, \vec \eta\right\rangle_{\Gamma^m}^h +
 \left\langle\nabla_s\vec X^{m + 1},
-\nabla_s\vec \eta\right\rangle_{\Gamma^m}=0\quad \forall\ \vec\eta \in \Vh,
+\nabla_s\vec \eta\right\rangle_{\Gamma^m} =& 0\quad \forall\ \vec\eta \in \Vh,
 \label{eq:fem_mean_curvature_b}
 \end{align}
 \end{subequations}
@@ -473,8 +475,9 @@ where we define the limit $v((\vec q^m_{j_k})^-)
 := \underset{\sigma^m_j\ni \vec p\to \vec q^m_{j_k}}{\lim}\, v(\vec p)$. We
 naturally extend (\ref{eq:masslump}) to vector valued functions. The mass
 lumped inner product is used in (\ref{eq:fem_mean_curvature_b}) to obtain good
-mesh properties. For stability it is then necessary to use mass lumping on the
-first term in (\ref{eq:fem_mean_curvature_a}), which makes it the natural
+mesh properties, see \S\ref{sec:geometric_pdes_semi_fem}. For stability it is
+then necessary to use mass lumping on the first term in
+(\ref{eq:fem_mean_curvature_a}), which makes it the natural
 choice also for the second term. In fact, choosing $\chi=\kappa^{m+1}$ in
 (\ref{eq:fem_mean_curvature_a}) and $\vec \eta=\vec X^{m+1} -
 \vec\id\!\mid_{\Gamma^m}$ in (\ref{eq:fem_mean_curvature_b}), summing the
@@ -510,13 +513,13 @@ curvature flow with the linear system (\ref{eq:fem_mean_curvature_a}--b)
 changed to
 \begin{subequations}
 \begin{align}
-&\left\langle \frac{\vec X^{m + 1} - \vec X^m}{\tau_m},
+\left\langle \frac{\vec X^{m + 1} - \vec X^m}{\tau_m},
 \chi\vec \nu^m\right\rangle_{\Gamma^m}^h - \left\langle\nabla_s\kappa^{m+1},
-\nabla_s\chi\right\rangle_{\Gamma^m}=0\quad \forall\ \chi \in
+\nabla_s\chi\right\rangle_{\Gamma^m} =& 0\quad \forall\ \chi \in
 \Wh\,,\label{eq:fem_surf_diff_a}\\
-&\left\langle\kappa^{m+1}\vec \nu^m, \vec \eta\right\rangle_{\Gamma^m}^h +
+\left\langle\kappa^{m+1}\vec \nu^m, \vec \eta\right\rangle_{\Gamma^m}^h +
 \left\langle\nabla_s\vec X^{m + 1},
-\nabla_s\vec \eta\right\rangle_{\Gamma^m}=0\quad \forall\ \vec\eta \in \Vh\,.
+\nabla_s\vec \eta\right\rangle_{\Gamma^m} =& 0\quad \forall\ \vec\eta \in\Vh\,.
 \label{eq:fem_surf_diff_b}
 \end{align}
 \end{subequations}
@@ -535,28 +538,103 @@ $\vec \eta=\vec X^{m+1} - \vec\id\!\mid_{\Gamma^m}$ in
 for ${k=1,\ldots,M}$. Hence also the scheme (\ref{eq:fem_surf_diff_a}--b) is
 unconditionally stable.
 
-As shown in \cite[Remark~2.3]{triplej} and \cite[\S~4]{gflows3d}, the
-continuous-in-time semidiscrete version of the aforementioned surface
-diffusion finite element scheme conserves the enclosed volume exactly. It does
-not appear possible to prove the conservation of the enclosed volume for the
-fully discrete scheme but, from all the numerical simulations performed in this
-thesis, we experimentally observe that the enclosed volume is approximately
-preserved, and that the volume loss tends to zero as $\tau \to 0$.
+\section{Semidiscrete scheme}\label{sec:geometric_pdes_semi_fem}
+As shown in \cite[Remark~2.3]{triplej} and \cite[\S4]{gflows3d}, it is
+worthwhile to consider continuous-in-time semidiscrete versions of the
+aforementioned finite element schemes. For example, the finite element
+approximation of the surface diffusion problem (\ref{eq:fem_surf_diff_a}--b)
+can be replaced by the following one. Given $\Gamma^h(0)$, for $t\in (0,T]$
+find $\{\vec X^h, \kappa^h \} \in \Vht \times \Wht$ such that
+\begin{subequations}
+\begin{align}
+\langle \vec X^h_t, \chi \, \vec \nu^h \rangle_{\Gamma^h(t)}^h -
+\langle \nabla_s \, \kappa^h , \nabla_s \, \chi \rangle_{\Gamma^h(t)} =& 0
+\quad \forall \chi \in \Wht\,, \label{eq:semidisa} \\
+\langle \kappa^h \,\vec \nu^h, \vec \eta \rangle^h_{\Gamma^h(t)} +
+\langle \nabla_s \, \vec X^h,\nabla_s \, \vec \eta \rangle_{\Gamma^h(t)} =& 0
+\quad \forall \vec \eta \in \Vht\,, \label{eq:semidisb}
+\end{align}
+\end{subequations}
+where we always integrate over the current surface $\Gamma^h(t)$, with normal
+$\vec \nu^h(t)$, described by the identity function $\vec X^h(t) \in \Vht$. In
+addition, $\langle \cdot,\cdot \rangle^{(h)}_{\Gamma^h(t)}$ is the
+continuous-in-time counterpart of $\langle\cdot,\cdot\rangle_{\Gamma^m}^{(h)}$
+where $\Gamma^m$ and $\vec X^m$ are replaced by $\Gamma^h(t)$ and
+$\vec X^h(t)$, respectively.
 
-Finally, in \cite[Remark~2.4]{triplej} the authors proved that for $d=2$ the
-continuous-in-time semidiscrete version of (\ref{eq:fem_surf_diff_a}--b)
-will always equidistribute the vertices provided that they are not locally
-parallel. Only a fully implicit scheme can achieve that also on the fully
-discrete level, see \cite{fdfi}, but a fully implicit scheme is very
-expensive without providing better accuracy for the solution. Nevertheless, in
-practice we see that for the semi-implicit schemes
+Firstly, choosing $\chi \equiv 1$ in (\ref{eq:semidisa}) and recalling the mass
+lumped inner product (\ref{eq:masslump}), we have that
+\begin{equation}\label{eq:vol}
+0 = \langle \vec X^h_t, \vec \nu^h \rangle^h_{\Gamma^h(t)}
+= \int_{\Gamma^h(t)} \vec X^h_t \, \cdot \, \vec \nu^h \dH{d-1}
+= \frac {d}{dt} \, \vol(\Omega^h(t)) \,,
+\end{equation}
+where $\Omega^h(t) \subset \R^d$ is open bounded set whose boundary is
+given by $\Gamma^h(t)$. Therefore, the continuous-in-time semidiscrete version
+of the aforementioned surface diffusion finite element scheme conserves the
+enclosed volume exactly. It does not appear possible to prove the conservation
+of the enclosed volume for the fully discrete scheme but, from all the
+numerical simulations performed in this thesis, we experimentally observe that
+the enclosed volume is approximately preserved, and that the volume loss tends
+to zero as $\tau \to 0$.
+
+We now investigate an equidistribution property for the scheme
+(\ref{eq:fem_surf_diff_a}--b), see \cite[Remark~2.4]{triplej} and
+\cite[Theorem~3.2]{NurnbergS14} for more details.
+\begin{theorem}\label{thm:equidistribution_property}
+Let $d = 2$ and let $\{ \vec q_k^h \}_{k = 1}^{K_{\Gamma}^h}$ denote the
+sequentially ordered vertices on $\Gamma^h(t)$. Let $\{ \vec X^h, \kappa^h \}$
+be a solution to the system (\ref{eq:semidisa}--b), and set
+$\vec h_k(t) := \vec q^h_k(t) - \vec q^h_{k - 1}(t)$.
+Then it holds that
+\begin{equation}\label{eq:equidistribSemidis}
+|\vec h_k(t)| = |\vec h_{k - 1}(t)| \quad \mbox{if} \quad
+\vec h_k(t) \nparallel \vec h _{k - 1}(t) \quad k = 1, \ldots, K_{\Gamma}^h \, .
+\end{equation}
+\end{theorem}
+\begin{proof}
+Choosing $\vec \eta = (\vec h_{k + 1} + \vec h_k) \, \phi_k \in \Vht$ in
+(\ref{eq:semidisb}), where $\{ \phi_l \}_{l = 1}^{K_{\Gamma}^h}$ denote the
+basis functions of $\Wht$, and recalling \ref{eq:masslump}, we obtain that for
+$k = 1,\ldots,K_{\Gamma}^h$
+\begin{equation}\label{eq:intermEquidis_first}
+0 = \langle \nabla_s \, \vec X^h, \nabla_s \, [ (\vec h_{k + 1} + \vec h_k)
+\, \phi_k ] \rangle_{\Gamma^h(t)}\, .
+\end{equation}
+
+The integral in (\ref{eq:intermEquidis_first}) can now be easily computed by
+hand, since the support of $\phi_k$ is given by $[\vec q_{k - 1}, \, \vec q_k]
+\cup [\vec q_k, \, \vec q_{k + 1}]$. On noting that
+$\nabla_s \, \phi_k = \frac{1}{|\vec h_k|}$ on $[\vec q_{k - 1}, \, \vec q_k]$
+and $\nabla_s \, \phi_k = - \, \frac{1}{|\vec h_{k + 1}|}$ on $[\vec q_k, \,
+\vec q_{k + 1}]$, we then deduce that
+\begin{equation}\label{eq:intermEquidis}
+\Big [ \frac{\vec h_{k + 1}}{|\vec h_{k + 1}|} -\frac{\vec h_k}{|\vec h_k|}
+\ \Big ] \cdot \, (\vec h_{k + 1} + \vec h_k) = 0 \, .
+\end{equation}
+It immediately follows from (\ref{eq:intermEquidis}) that
+\begin{equation}\label{eq:TM}
+(|\vec h_{k + 1}| - |\vec h_k|) (|\vec h_{k + 1}| \, |\vec h_k|
+- \, \vec h_{k + 1} \, \cdot \, \vec h_k) = 0 \, ,
+\end{equation}
+which means that the desired result (\ref{eq:equidistribSemidis}) follows
+directly from the Cauchy-Schwarz inequality.
+\end{proof}
+Therefore, in the $d=2$ case, the continuous-in-time semidiscrete version of
+(\ref{eq:fem_surf_diff_a}--b) will always equidistribute the vertices provided
+that they are not locally parallel. Only a fully implicit scheme can achieve
+that also on the fully discrete level, see \cite{fdfi}, but a fully implicit
+scheme is very expensive without providing better accuracy for the solution.
+Nevertheless, in practice we see that for the semi-implicit schemes
 (\ref{eq:mean_curvature_a}--b) and (\ref{eq:surf_diff_a}--b) over a number of
 time steps, the vertices are moved tangentially so that they will eventually be
-equidistributed. Instead in \cite[\S~4]{gflows3d} the case $d=3$ has been
-thoroughly investigated showing that the continuous-in-time semidiscrete
-versions of (\ref{eq:fem_mean_curvature_a}--b) and
-(\ref{eq:fem_surf_diff_a}--b) guarantee good mesh properties. Again, in
-practice, we notice that it is true for the fully discrete schemes.
+equidistributed.
+
+Instead in \cite[\S4]{gflows3d} the case $d=3$ has been thoroughly investigated
+showing that the continuous-in-time semidiscrete versions of
+(\ref{eq:fem_mean_curvature_a}--b) and (\ref{eq:fem_surf_diff_a}--b) guarantee
+good mesh properties. Again, in practice, we notice that it is true for the
+fully discrete schemes.
 
 We want to stress the fact that this equidistribution property is only
 achievable because (\ref{eq:mean_curvature}) and (\ref{eq:surface_diff})
@@ -568,7 +646,6 @@ analogue of the equidistribution properties cannot be established.
 \section{Algebraic formulation}\label{sec:geometric_pdes_algebraic}
 As regards the mean curvature flow, (\ref{eq:fem_mean_curvature_a}--b), the
 corresponding algebraic system of equations can be written as
-
 \begin{equation}\label{eq:algebraic_mean_curvature}
 \begin{pmatrix}
 M_\Gamma & -\,\frac{1}{\tau_m} \, \vec N_\Gamma^T \\
