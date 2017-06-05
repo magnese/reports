@@ -1,47 +1,54 @@
 \chapter{\sc Two-Phase Navier--Stokes Flow Numerical Results}
 \label{ch:ns_results}
+In order to test our method, and to allow comparisons with the unfitted finite
+element approximation in \cite{fluidfbp}, we now present several numerical
+experiments in 2d and 3d.
 
 \section{Exact solutions}\label{sec:ns_exact_solutions}
-In order to test our method, we recall the following expanding spherical
-solutions. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z| = r(t)\}$ be a sphere
-of radius $r(t)$ and curvature $\kappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
+Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z| = r(t)\}$ be a sphere of radius
+$r(t)$ and curvature $\kappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
 $\alpha,\alpha_1,\alpha_2,\gamma\in \R_{\geq 0}$ be given. Here, we also allow
-non divergence-free problem. Therefore, in the continuous model
-(\ref{eq:ns_full_momentum}--i), the incompressibility condition
-(\ref{eq:ns_full_mass}) is replaced by
+non divergence-free problem. Therefore, for the non divergence-free cases, the
+incompressibility condition (\ref{eq:ns_full_mass}) is replaced by
 \begin{equation}\label{eq:ns_compressible}
 \nabla\,.\,\vec u = f_{\rm{div}}\,.
 \end{equation}
 
-Firstly, the expanding sphere where
-\begin{equation} \label{eq:r_benchmark1}
+\subsection{Expanding bubble I}
+The expanding sphere where
+\begin{subequations}
+\begin{equation} \label{eq:ns_sol_1_r}
 r(t) = \mathrm{e}^{\alpha\,t}\,r(0)\,,
 \end{equation}
 together with
-\begin{equation} \label{eq:up_benchmark1}
+\begin{equation} \label{eq:ns_sol_1_up}
 \vec u(\vec z, t) = \alpha\,\vec z \,, \quad
 p(\vec z, t) = -\,\bigg(\gamma - 2\,\alpha\,\frac{\mu_+ - \mu_-}
 {d-1}r(t)\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{equation}
+\end{subequations}
 is an exact solution to the problem (\ref{eq:ns_full_momentum}--i), with
 (\ref{eq:ns_full_mass}) replaced by (\ref{eq:ns_compressible}), on
 e.g.\ $\Omega = (-1,1)^d$  with $\vec f(\vec z, t) = \rho\,\alpha^2\,\vec z$,
 $f_{\rm{div}} = \alpha\,d$ and $\vec g = \alpha\,\vec z$ on
 $\partial_1\Omega=\partial\Omega$.
 
-Alternatively, the expanding sphere where
-\begin{equation} \label{eq:r_benchmark2}
+\subsection{Expanding bubble II}
+The expanding sphere where
+\begin{subequations}
+\begin{equation} \label{eq:ns_sol_2_r}
 r(t) = \mathrm{e}^{\alpha_1\,t}\,r(0)\,,
 \end{equation}
 together with
-\begin{align} \label{eq:up_benchmark2}
+\begin{align} \label{eq:ns_sol_2_up}
 & \vec u(\vec z, t) = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}(|\vec
 z|^2-r(t)^2)\bigg)\,\vec z\,, \\
 & p(\vec z, t) = -\,\bigg(\gamma - 4\,\alpha_2\,\frac{\mu_+}{d-1}r(t)^3
 \bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{align}
+\end{subequations}
 is an exact solution to the problem (\ref{eq:ns_full_momentum}--i), with
 (\ref{eq:ns_full_mass}) replaced by (\ref{eq:ns_compressible}), on e.g.\ $\Omega
 = (-1,1)^d$ with
@@ -50,12 +57,10 @@ is an exact solution to the problem (\ref{eq:ns_full_momentum}--i), with
 \rho\,\bigg(\alpha_1^2\,+\charfcn{\Omega_+(t)}\bigg(-2\alpha_1\alpha_2r(t)^2 +
 2\alpha_1\alpha_2\big(2|\vec z|^2-r(t)^2\big) \nonumber \\
 & +\alpha_2^2\big(|\vec z|^2-r(t)^2\big)\big(3|\vec z|^2 -
-r(t)^2\big)-4(d+1)\alpha_2\frac{\mu_+}{\rho}\bigg)\bigg)\vec z\,,
-\end{align}
-\begin{equation}
-f_{\rm{div}} = \big( \alpha_1
+r(t)^2\big)-4(d+1)\alpha_2\frac{\mu_+}{\rho}\bigg)\bigg)\vec z\,, \\
+f_{\rm{div}} = & \big( \alpha_1
 + \alpha_2\charfcn{\Omega_+(t)}\big(\frac{2+d}{d}|\vec z|^2-r(t)^2\big)\big)d
-\end{equation}
+\end{align}
 and
 \begin{equation}
 \vec g = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}(|\vec
@@ -63,23 +68,35 @@ z|^2-r(t)^2)\bigg)\,\vec z
 \end{equation}
 on $\partial_1\Omega=\partial\Omega$.
 
-Finally, a nontrivial divergence free and radially symmetric solution $\vec u$
+\subsection{Expanding bubble III}
+A nontrivial divergence free and radially symmetric solution $\vec u$
 can be constructed on a domain that does not contain the origin. To this end,
 consider e.g.\ $\Omega = (-1,1)^d \setminus [-\frac13, \frac13]^d$. Then, the
 expanding sphere where
-\begin{equation} \label{eq:r_benchmark3}
+\begin{subequations}
+\begin{equation} \label{eq:ns_sol_3_r}
 r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
 \end{equation}
 together with
-\begin{equation} \label{eq:up_benchmark3}
+\begin{equation} \label{eq:ns_sol_3_up}
 \vec u(\vec z, t) = \alpha\,\frac{\vec z}{|\vec z\,|^d}\,, \quad
 p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
 {r(t)^{d-1}}\bigg)\,\kappa(t)\,\left[ \charfcn{\Omega_-(t)} -
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{equation}
+\end{subequations}
 is an exact solution to the problem (\ref{eq:ns_full_momentum}--i) with
 $\vec f(\vec z, t) = (1-d)\alpha^2\frac{\vec z}{|\vec z|^{2d}}$ and $\vec g(\vec
 z) = \alpha\,|\vec z|^{-d}\,\vec z$ on $\partial_1\Omega=\partial\Omega$.
+
+We notice that the exact solution (\ref{eq:ns_sol_3_r},b) is identical to the
+expanding bubble solution of the two-phase Stokes problem presented in
+\S\ref{sec:stokes_expanding}. The only change is the forcing term $\vec f$
+which is now inhomogeneous. Therefore, in order to verify that
+(\ref{eq:ns_sol_3_r},b) is indeed an exact solution also to the two-phase
+Navier--Stokes problem, it is sufficient to check that the time derivative plus
+the convective term in the momentum equation (\ref{eq:ns_full_momentum}) add up
+to $\vec f$.
 
 \section{Non divergence-free antisymmetric scheme}
 Some exact solution presented in \S\ref{sec:ns_exact_solutions} are non
