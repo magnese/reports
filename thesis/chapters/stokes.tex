@@ -17,7 +17,7 @@ an energy bound and the volume conservation for the weak problem; in
 fitted and an unfitted approach; in \S\ref{sec:stokes_existence} we prove the
 existence and uniqueness of the discrete approximation; in
 \S\ref{sec:stokes_stability} we demonstrate that our scheme is unconditionally
-stable; in \S\ref{sec:stokes_stationary_solution} we show some proprieties of
+stable; in \S\ref{sec:stokes_stationary_solution} we show some properties of
 stationary solutions which will be investigated in the numerical experiments; in
 \S\ref{sec:stokes_semi_fem} we investigate the equidistribution property and the
 volume conservation of a semidiscrete variant of the scheme; in
@@ -118,9 +118,9 @@ Lebesgue measure in $\R^d$ and the $(d-1)$-dimensional Hausdorff measure,
 respectively.
 
 We also need a weak form of the differential geometry identity
-(\ref{eq:LBop}) which can be obtained by multiplying (\ref{eq:LBop}) with a
-test function and performing integration by parts (\ref{eq:integration_by_part})
-yielding to
+(\ref{eq:LBop}), which can be obtained by multiplying (\ref{eq:LBop}) with a
+test function and performing integration by parts,
+recall (\ref{eq:integration_by_part}), leading to
 \begin{equation}\label{eq:weak_nabs_id}
 \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
 + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
@@ -170,8 +170,8 @@ $\Gamma(t)$ and ${(\vec u, p, \varkappa) \in \uspace g \times \pnormspace
 holds for almost all times $t \in (0,T]$. Here we have observed that if
 $p \in \pspace$ is part of a solution to (\ref{eq:stokes_full_momentum}--h),
 then so is $p + c$ for an arbitrary $c\in \R$. We also note the natural
-compatibility condition $\int_{\partial_1\Omega}\vec g\,.\,\unitn=0$ for a
-solution to (\ref{eq:stokes_weaka}--d) to exist.
+compatibility condition $\int_{\partial_1\Omega}\vec g\,.\,\unitn\dH{d-1}=0$ 
+for a solution to (\ref{eq:stokes_weaka}--d) to exist.
 
 We finally observe that an alternative weak formulation can be obtained
 using directly the vector quantity $\vec\varkappa:=\varkappa\,\vec\nu$
@@ -268,9 +268,9 @@ where the space \pdg is a space of polynomials of order 1 defined in the two
 subdomains $\Omega_-^m$ and $\Omega_+^m$. This space is equivalent to a P1 space
 which is continuous everywhere except across the interface $\Gamma^m$. With this
 choice of space, the discrete scheme falls in the category of XFEM, extended
-FEM, since the pressure space is enriched adding additional degree of freedoms
-for the nodes on the interface in order to capture the discontinuity of the
-pressure.
+FEM, since the pressure space is enriched by adding additional degrees of 
+freedom for the nodes on the interface in order to better capture the 
+discontinuity of the pressure.
 
 In this thesis we consider a fitted finite element approximation for the
 evolution of the interface $\Gamma(t)$. Let $\Gamma^m\subset\R^d$ be a
@@ -434,8 +434,8 @@ RM=\{\vec \alpha + \mathcal A \vec z:\vec \alpha \in \R^d\,,
 \end{equation}
 see \cite{Mardal2006}. Given that $\vec U \in RM$, in particular we have that
 $\vec U(\vec z)$ is linear in $\vec z$. Moreover, $\vec U\in\uspacedisc{0}{m}$
-means that $\vec U(\vec z)=\vec z$ for every corner $\vec z$ of $\Omega^m$.
-Therefore $\vec U(\vec z)=\vec 0$ for all $\vec z\in\Omega^m$. In addition, it
+means that $\vec U(\vec z)=\vec 0$ for every corner $\vec z$ of $\Omega$.
+Therefore $\vec U(\vec z)=\vec 0$ for all $\vec z\in\Omega$. In addition, it
 holds that $\vec X$ is equal to a constant on $\Gamma^m$, which
 satisfies, on recalling (\ref{eq:proofc}) and $\vec U = \vec 0$, that
 \begin{equation} \label{eq:Xconst}
@@ -569,7 +569,8 @@ $\Gamma^{m+1} = \Gamma^m$, then it holds that
 \right\rangle_{\Gamma^m}^h + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta
 \right\rangle_{\Gamma^m} = 0 \quad \forall\ \vec\eta \in \Vh \,.
 \end{equation}
-We recall that Theorem~\ref{thm:equidistribution_property} states that
+We recall that the proof of Theorem~\ref{thm:equidistribution_property} 
+shows that
 (\ref{eq:conformal}), in the case $d=2$, implies that $\Gamma^m$ is
 equidistributed, with the possible exception of elements $\sigma^m_j$ that are
 locally parallel to each other; see also \cite[Theorem~2.2]{fdfi}. Moreover, we
@@ -591,8 +592,8 @@ $\vec f^{m+1} = \vec 0$. If $\vec X^{m+1} = \vec X^m$, then $\vec U^{m+1} = \vec
 The solution $(\vec U^{m+1}, \vec X^{m+1})$ fulfils (\ref{eq:stab}) with
 $\Gamma^{m+1}$ replaced by $\Gamma^m$ and  $\vec f^{m+1} = \vec 0$. Hence we
 obtain $(\mu^m\,\mat D (\vec U^{m+1}), \mat D(\vec U^{m+1})) = 0$ which implies
-$\mat D(\vec U^{m+1}) = \mat 0$. Therefore, as shown in Theorem~\ref{thm:ex},
-it implies $\vec U^{m+1} = \vec 0$.
+$\mat D(\vec U^{m+1}) = \mat 0$. Therefore, as shown in the proof of 
+Theorem~\ref{thm:ex}, it implies $\vec U^{m+1} = \vec 0$.
 \end{proof}
 
 Finally, it holds that polyhedral surfaces with constant discrete mean
@@ -662,6 +663,9 @@ We briefly investigate a semidiscrete variant of the scheme (\ref{eq:HGa}--d)
 in order to highlight two additional important properties of the scheme: a
 good tangential distribution of mesh points, and good volume conservation. For
 simplicity, we assume $\vec g=\vec 0$ throughout this section.
+
+TODO: Move some of this stuff to earlier.
+\footnote{Marco: TODO.}
 
 Let $(\Gamma^h(t))_{t\in[0,T]}$ be a family of polyhedral surfaces, with
 outer normal $\vec\nu^h(t)$. We also define the piecewise linear finite element
@@ -777,9 +781,9 @@ we finally deduce
 Therefore, when the inhomogeneous boundary data $\vec g$ is non-quadratic and,
 as in our case, the pressure space used is the unconstrained space $\pspace^m$
 instead of $\pnormspace^m$, then the equation (\ref{eq:LAb}) replaces
-(\ref{eq:HGb}) and the resulting finite element approximation is: for
+(\ref{eq:HGb}) and the resulting finite element approximation is: For
 $m=0,\ldots, M-1$, find ${(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
-\in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh}$ such that
+\in \uspacedisc{g}{m}\times \pspace^m \times \Vh \times \Wh}$ such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
@@ -791,7 +795,7 @@ $m=0,\ldots, M-1$, find ${(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  =
 \frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
 (\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1}
-\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:HGcorrectedb} \\
+\quad \forall\ \varphi \in \pspace^m\,,\label{eq:HGcorrectedb} \\
 &  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
 \right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
 \right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
@@ -807,7 +811,7 @@ Let $\uspacesimple^m$ be the unconstrained velocity space, with basis
 $\{\phi_i^{\uspacesimple^m}\}_{i=1}^{K^m_\uspacesimple}$. Moreover, let
 $\{\phi_i^{\pspace^m}\}_{i=1}^{K^m_\pspace}$ span the unconstrained pressure
 space $\pspace^m$ and let $\{\chi_i^m\}_{i=1}^{K_\Gamma}$ be the basis of
-$\Wh$. Then, ignoring for now the Dirichlet and free-slip boundary condition,
+$\Wh$. Then, ignoring for now the Dirichlet and free-slip boundary conditions,
 the resulting linear system can be formulated as: Find ${(\vec U^{m+1},P^{m+1},
 \kappa^{m+1},\delta\vec X^{m+1})\in (\R^d)^{K^m_\uspacesimple}\times
 \R^{K^m_\pspace} \times \R^{K_\Gamma}\,\times (\R^d)^{K_\Gamma}}$, where $\vec
@@ -836,7 +840,8 @@ P^{m+1} \\
 \end{equation}
 where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec X^{m+1})$ here denote the
 coefficients of these finite element functions with respect to the
-aforementioned basis functions. Moreover, $\vec X^m$ denotes the coefficients of
+aforementioned (basis) functions. 
+Moreover, $\vec X^m$ denotes the coefficients of
 $\vec\id\!\mid_{\Gamma^m}$ with respect to the basis of $\Vh$. The definitions
 of the matrices and vectors in (\ref{eq:stokes_algebraic}) directly follow from
 (\ref{eq:HGcorrecteda}--d) and are:
@@ -865,15 +870,17 @@ two domains are the same.
 The Dirichlet boundary condition can be imposed by doctoring the matrix and the
 right-hand side of the algebraic system (\ref{eq:stokes_algebraic}). The matrix
 doctoring process consists on zeroing the rows which correspond to the Dirichlet
-boundary degree of freedoms in $\vec B_\Omega$, $\vec C_\Omega$ and $\Nbulk$ in
+boundary degrees of freedom in $\vec B_\Omega$, $\vec C_\Omega$ and $\Nbulk$ in
 the first block row of (\ref{eq:stokes_algebraic}) and setting a unitary value
 on the correspondent diagonal entries in $\vec B_\Omega$. The vector doctoring
 process consists on setting the Dirichlet boundary data on the correspondent
 right-hand side entries in $\vec c$. Similarly, the free-slip boundary
-condition is enforced doctoring the matrix entries corresponding to the degree
-of freedoms of the basis functions $\phi_i^{\uspacesimple^m}\vec e_q$ defined on
-part of $\partial_2\Omega$ which satisfy $\vec e_q=\unitn$. Instead, the
-right-hand side is left unchanged.
+condition is enforced by doctoring the matrix entries corresponding to 
+the degrees of freedom of the basis functions 
+$\phi_i^{\uspacesimple^m}\vec e_q$ associated with vertices that lie on
+parts of $\partial_2\Omega$ that satisfy $\vec e_q=\unitn$. Of course,
+the corresponding entries in the right-hand side vector $\vec c$ are set to
+zero.
 
 We observe the analogy of the interface part of the algebraic system,
 namely the matrices $[\vec A_\Gamma]$ and $[\vec N_\Gamma]$ and the right-hand
@@ -1005,9 +1012,10 @@ solution is only unique up to a constant, the matrix
 (\ref{eq:stokes_direct_precond}) is singular. In particular, if LBB holds, the
 matrix has rank deficiency 1. Therefore, in order to use UMFPACK to factorize
 the matrix, the rank deficiency needs to be reduced to 0. This can be achieved
-using a matrix doctoring which consists on zeroing, for example, the first
-row of the second block row of (\ref{eq:stokes_direct_precond}) and setting an
-unitary value on the first diagonal entry in the null matrix. This doctoring
+by fixing a degree of freedom in the discrete pressure. For example, by
+using a matrix doctoring which replaces the first row of the second block row 
+of (\ref{eq:stokes_direct_precond}) with the corresponding row of the identity
+matrix. This doctoring
 process can be avoided if SPQR is used to factorize the preconditioner since
 SPQR can decompose also singular matrices. Indeed, SPQR is a sparse
 factorization package, see \cite{Davis11}, performing a QR decomposition which
@@ -1045,7 +1053,7 @@ of $\vec C_\Omega$ in (\ref{eq:stokes_algebraic}) but now in terms of bases of
 different spaces. More precisely, in the case (P1+P0), there are two
 independent spaces for the pressure of polynomial order 1 and 0, respectively.
 Instead, in the case \pdg, both spaces have polynomial degree 1 but the basis
-functions support is $\Omega_-$ and $\Omega_+$, respectively.
+functions support is restricted to $\Omega_-^m$ and $\Omega_+^m$, respectively.
 
 A suitable preconditioner for the algebraic system
 (\ref{eq:stokes_algebraic_extended}) is then

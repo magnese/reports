@@ -120,8 +120,8 @@ g(\vec z))
 \end{equation}
 for the $d$ components of the surface gradient. Since $\nabla_s \, g(\vec z)$
 is the orthogonal projection of $\nabla \, g(\vec z)$ onto $T_{\vec z} \Gamma$,
-it depends only on the values of $g$ on $\Gamma$ and from
-(\ref{eq:surface_gradient}) follows that
+it depends only on the values of $g$ on $\Gamma$, and from
+(\ref{eq:surface_gradient}) it follows that
 \begin{equation}\label{eq:surface_gradient_comp}
 \nabla_s \, g(\vec z) \,.\, \vec \nu(\vec z)=0\,, \quad \vec z \in \Gamma\,.
 \end{equation}
@@ -200,18 +200,21 @@ For later use, we also introduce the integration by part formula
 Let $\Gamma$ be a hypersurface without boundary. Moreover, let $h$ and $g$
 continuously differentiable in a neighbourhood of $\Gamma$. Then it holds
 \begin{equation}\label{eq:integration_by_part}
-\int_\Gamma \nabs h\,.\,\nabs g \dH{d-1} =-\int_\Gamma h\,\Delta_s g\dH{d-1}\,.
+\int_\Gamma \nabs\, h\,.\,\nabs\, g \dH{d-1} 
+=-\int_\Gamma h\,\Delta_s\, g\dH{d-1}\,.
 \end{equation}
 \end{lemma}
 
 \begin{proof}
-It holds, from \cite{GilbargT83},
+It holds, from \cite[Lemma~16.1]{GilbargT01},
 \begin{equation*}
-\int_\Gamma \underline{D}_i\,h \dH{d-1} = \int_\Gamma h\varkappa\nu_i\dH{d-1}\,,
+\int_\Gamma \underline{D}_i\,\eta \dH{d-1} = 
+\int_\Gamma \eta\,\varkappa\,\nu_i\dH{d-1}\,,
 \quad 1 \leq i \leq d\,.
 \end{equation*}
-Applying it with $h\underline{D}_i\,g$, summing for all $i$ and taking into
-account that $\nabs\nu_i\,.\,\vec \nu=0$ we obtain the desired result.
+Applying it with $\eta=h\,\underline{D}_i\,g$, 
+summing for all $i$ and taking into
+account that $\nabs\,g\,.\,\vec \nu=0$ we obtain the desired result.
 \end{proof}
 
 \section{Properties of geometric flows}\label{sec:geometric_flows_properties}
@@ -298,7 +301,7 @@ Choosing $g \equiv 1$ in (\ref{eq:length_variation}) and the evolution law
 \begin{equation*}
 \int_{\Gamma(t)} (\V\,.\,\vec\nu)^2 \,\dH{d-1} +\ddt \surfvol(\Gamma(t)) = 0\,,
 \end{equation*}
-and hence the desired result follow immediately from (\ref{eq:mean_curvature}).
+and hence the desired result follows immediately from (\ref{eq:mean_curvature}).
 \end{proof}
 The case $d = 2$ is usually referred to as curve shortening flow.
 
@@ -363,7 +366,7 @@ $\Gamma(t)$, therefore
 The position vector $\vec x(\cdot,t)$, for every time $t$, maps a certain point
 $\vec q$ of the reference manifold $\Upsilon$ to its actual position
 $\vec z$ on $\Gamma(t)$. Therefore, using (\ref{eq:interface_parametrization}),
-we can rewrite the surface velocity (\ref{eq:Vphi}) as
+we can define the surface velocity (\ref{eq:Vphi}) alternatively as
 \begin{equation} \label{eq:V}
 \V(\vec z, t) := \vec x_t(\vec q, t) \quad
 \forall\ \vec z = \vec x(\vec q,t) \in \Gamma(t)\,.
@@ -475,12 +478,13 @@ where we define the limit $v((\vec q^m_{j_k})^-)
 := \underset{\sigma^m_j\ni \vec p\to \vec q^m_{j_k}}{\lim}\, v(\vec p)$. We
 naturally extend (\ref{eq:masslump}) to vector valued functions. The mass
 lumped inner product is used in (\ref{eq:fem_mean_curvature_b}) to obtain good
-mesh properties, see \S\ref{sec:geometric_pdes_semi_fem}. For stability it is
+mesh properties, see \S\ref{sec:geometric_pdes_semi_fem} below. 
+For stability it is
 then necessary to use mass lumping on the first term in
 (\ref{eq:fem_mean_curvature_a}), which makes it the natural
 choice also for the second term. In fact, choosing $\chi=\kappa^{m+1}$ in
 (\ref{eq:fem_mean_curvature_a}) and $\vec \eta=\vec X^{m+1} -
-\vec\id\!\mid_{\Gamma^m}$ in (\ref{eq:fem_mean_curvature_b}), summing the
+\vec\id\!\mid_{\Gamma^m}$ in (\ref{eq:fem_mean_curvature_b}), and summing the
 two equations, yields that
 \begin{equation*}
 \left\langle \nabs\,\vec X^{m+1}, \nabs\,(\vec X^{m+1} - \vec X^m)
@@ -496,13 +500,15 @@ see e.g.\ \cite[Proof of Theorem~2.3]{triplej} and
 \cite[Proof of Theorem~2.2]{gflows3d} for the proofs for $d=2$ and $d=3$,
 respectively, we obtain
 \begin{equation*}
--\tau_m \langle \kappa^{m+1},\kappa^{m+1}\rangle^h_{\Gamma^m}
-\geq \surfvol(\Gamma^{m+1}) - \surfvol(\Gamma^m)\,,
+\surfvol(\Gamma^{m+1}) +
+\tau_m \langle \kappa^{m+1},\kappa^{m+1}\rangle^h_{\Gamma^m}
+\leq \surfvol(\Gamma^m)\,,
 \end{equation*}
 and, summing for $m=0,\ldots,k-1$, we finally obtain
 \begin{equation*}
-\surfvol(\Gamma^k)+\sum_{m=0}^{k-1} \tau_m(|k^{m+1}|_{\Gamma^m}^h)^2 \leq
-\surfvol(\Gamma^0)\,,
+\surfvol(\Gamma^k)+\sum_{m=0}^{k-1} \tau_m
+\langle \kappa^{m+1},\kappa^{m+1}\rangle^h_{\Gamma^m}
+\leq \surfvol(\Gamma^0)\,,
 \end{equation*}
 for ${k=1,\ldots,M}$. Hence the scheme (\ref{eq:fem_mean_curvature_a}--b) is
 unconditionally stable.
@@ -532,42 +538,45 @@ before, choosing $\chi=\kappa^{m+1}$ in (\ref{eq:fem_surf_diff_a}) and
 $\vec \eta=\vec X^{m+1} - \vec\id\!\mid_{\Gamma^m}$ in
 (\ref{eq:fem_surf_diff_b}), yields that
 \begin{equation*}
-\surfvol(\Gamma^k)+\sum_{m=0}^{k-1}\tau_m|\nabs k^{m+1}|_{\Gamma^m}^2 \leq
-\surfvol(\Gamma^0)\,,
+\surfvol(\Gamma^k)+\sum_{m=0}^{k-1}\tau_m
+\langle \nabs\,\kappa^{m+1},\nabs\,\kappa^{m+1}\rangle_{\Gamma^m}
+\leq \surfvol(\Gamma^0)\,,
 \end{equation*}
 for ${k=1,\ldots,M}$. Hence also the scheme (\ref{eq:fem_surf_diff_a}--b) is
 unconditionally stable.
 
 \section{Semidiscrete scheme}\label{sec:geometric_pdes_semi_fem}
+TODO: Move parametric semidiscrete definitions here.
+\footnote{Marco: TODO.}
+
 As shown in \cite[Remark~2.3]{triplej} and \cite[\S4]{gflows3d}, it is
 worthwhile to consider continuous-in-time semidiscrete versions of the
 aforementioned finite element schemes. For example, the finite element
 approximation of the surface diffusion problem (\ref{eq:fem_surf_diff_a}--b)
 can be replaced by the following one. Given $\Gamma^h(0)$, for $t\in (0,T]$
-find $\{\vec X^h, \kappa^h \} \in \Vht \times \Wht$ such that
+find $\Gamma^h(t)$ and $\kappa^h \in \Wht$ such that
 \begin{subequations}
 \begin{align}
-\langle \vec X^h_t, \chi \, \vec \nu^h \rangle_{\Gamma^h(t)}^h -
+\langle \vec{\mathcal{V}}^h, \chi \, \vec \nu^h \rangle_{\Gamma^h(t)}^h -
 \langle \nabla_s \, \kappa^h , \nabla_s \, \chi \rangle_{\Gamma^h(t)} =& 0
-\quad \forall \chi \in \Wht\,, \label{eq:semidisa} \\
+\quad \forall\ \chi \in \Wht\,, \label{eq:semidisa} \\
 \langle \kappa^h \,\vec \nu^h, \vec \eta \rangle^h_{\Gamma^h(t)} +
-\langle \nabla_s \, \vec X^h,\nabla_s \, \vec \eta \rangle_{\Gamma^h(t)} =& 0
-\quad \forall \vec \eta \in \Vht\,, \label{eq:semidisb}
+\langle \nabla_s \, \vec \id,\nabla_s \, \vec \eta \rangle_{\Gamma^h(t)} =& 0
+\quad \forall\ \vec \eta \in \Vht\,, \label{eq:semidisb}
 \end{align}
 \end{subequations}
 where we always integrate over the current surface $\Gamma^h(t)$, with normal
-$\vec \nu^h(t)$, described by the identity function $\vec X^h(t) \in \Vht$. In
+$\vec \nu^h(t)$. In
 addition, $\langle \cdot,\cdot \rangle^{(h)}_{\Gamma^h(t)}$ is the
 continuous-in-time counterpart of $\langle\cdot,\cdot\rangle_{\Gamma^m}^{(h)}$
-where $\Gamma^m$ and $\vec X^m$ are replaced by $\Gamma^h(t)$ and
-$\vec X^h(t)$, respectively.
+where $\Gamma^m$ is replaced by $\Gamma^h(t)$.
 
 Firstly, choosing $\chi \equiv 1$ in (\ref{eq:semidisa}) and recalling the mass
 lumped inner product (\ref{eq:masslump}), we have that
 \begin{equation}\label{eq:vol}
-0 = \langle \vec X^h_t, \vec \nu^h \rangle^h_{\Gamma^h(t)}
-= \int_{\Gamma^h(t)} \vec X^h_t \, \cdot \, \vec \nu^h \dH{d-1}
-= \frac {d}{dt} \, \vol(\Omega^h(t)) \,,
+0 = \langle \vec{\mathcal{V}}^h, \vec \nu^h \rangle^h_{\Gamma^h(t)}
+= \int_{\Gamma^h(t)} \vec{\mathcal{V}}^h\, \cdot \, \vec \nu^h \dH{d-1}
+= \ddt \, \vol(\Omega^h(t)) \,,
 \end{equation}
 where $\Omega^h(t) \subset \R^d$ is open bounded set whose boundary is
 given by $\Gamma^h(t)$. Therefore, the continuous-in-time semidiscrete version
@@ -583,7 +592,8 @@ We now investigate an equidistribution property for the scheme
 \cite[Theorem~3.2]{NurnbergS14} for more details.
 \begin{theorem}\label{thm:equidistribution_property}
 Let $d = 2$ and let $\{ \vec q_k^h \}_{k = 1}^{K_{\Gamma}^h}$ denote the
-sequentially ordered vertices on $\Gamma^h(t)$. Let $\{ \vec X^h, \kappa^h \}$
+sequentially ordered vertices on $\Gamma^h(t)$. Let 
+$( \Gamma^h(t), \kappa^h(t) )$
 be a solution to the system (\ref{eq:semidisa}--b), and set
 $\vec h_k(t) := \vec q^h_k(t) - \vec q^h_{k - 1}(t)$.
 Then it holds that
@@ -598,7 +608,7 @@ Choosing $\vec \eta = (\vec h_{k + 1} + \vec h_k) \, \phi_k \in \Vht$ in
 basis functions of $\Wht$, and recalling \ref{eq:masslump}, we obtain that for
 $k = 1,\ldots,K_{\Gamma}^h$
 \begin{equation}\label{eq:intermEquidis_first}
-0 = \langle \nabla_s \, \vec X^h, \nabla_s \, [ (\vec h_{k + 1} + \vec h_k)
+0 = \langle \nabla_s \, \vec \id, \nabla_s \, [ (\vec h_{k + 1} + \vec h_k)
 \, \phi_k ] \rangle_{\Gamma^h(t)}\, .
 \end{equation}
 

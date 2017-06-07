@@ -175,9 +175,9 @@ Here we notice that (\ref{eq:ibp0}) is well defined. Indeed, $\phi\in
 W_0^{1,\frac{3}{2}}(\Omega)$ implies that its trace is in
 $L^{\frac{3}{2}}(\partial\Omega)$. Moreover, given that
 $\vec v \in [H^1(\Omega)]^d$, it holds that $\vec v\,.\,\vec\nu \in
-[H^{\frac{1}{2}}(\partial\Omega)]^d$, which implies, thanks to the continuous
+H^{\frac{1}{2}}(\partial\Omega)$, which implies, thanks to the continuous
 embedding theorems \cite[Theorem~6.5 and 6.7]{DINEZZA2012}, that $\vec
-v\,.\,\vec\nu \in [L^4(\partial\Omega)]^d$. But we know, using the
+v\,.\,\vec\nu \in L^4(\partial\Omega)$. But we know, using the
 H\"{o}lder inequality, that the term $\left\langle [\rho]_-^+\,\vec v\,.\,
 \vec \nu, \phi \right\rangle_{\Gamma(t)}$ is well defined if
 $\vec v\,.\,\vec\nu$ is at least in $L^3(\partial\Omega)$, which is indeed the
@@ -186,9 +186,10 @@ case.
 Moreover, if $\vec u\in [H^1(\Omega)]^d$ and $\vec \xi \in \uspace{0}$ then
 $\vec u\,.\,\vec\xi \in W_0^{1,\frac{3}{2}}(\Omega)$. Indeed, $H^1(\Omega)$ is
 compactly embedded in $L^6(\Omega)$, for $d=2$ or $d=3$. By the
-generalized H\"{o}lder inequality we know that $(\nabla h)\omega\in
-L^{\frac{3}{2}}(\Omega)$ if $h\in H^1(\Omega)$ and $\omega\in L^6(\Omega)$.
-Therefore $\nabla(\vec u\,.\,\vec \xi)\in L^{\frac{3}{2}}(\Omega)$ which implies
+generalized H\"{o}lder inequality we know that $(\nabla h)\,\omega\in
+[L^{\frac{3}{2}}(\Omega)]^d$ if $h\in H^1(\Omega)$ and $\omega\in L^6(\Omega)$.
+Therefore $\nabla\,(\vec u\,.\,\vec \xi)\in [L^{\frac{3}{2}}(\Omega)]^d$,
+which implies
 $\vec u\,.\,\vec \xi \in W_0^{1,\frac{3}{2}}(\Omega)$. Hence, it follows from
 taking $\phi = \vec u\,.\,\vec\xi$ and $\vec v = \vec u$ in (\ref{eq:ibp0}) and
 applying it to the first term on the right-hand side of
@@ -498,6 +499,10 @@ nonlinear system of equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec
 X^{m+1}, \kappa^{m+1})$ at each time level.
 
 \section{ALE weak formulation}\label{sec:ns_weak_ale}
+
+TODO: Make into separate chapter.
+\footnote{Marco: TODO.}
+
 The system of governing equations (\ref{eq:ns_full_momentum}--i) is expressed in
 term of Eulerian coordinates $\vec z$. However, it is possible to rewrite the
 velocity time derivative $\vec u_t$ with respect to the so called Arbitrary

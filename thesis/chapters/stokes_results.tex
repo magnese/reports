@@ -43,7 +43,7 @@ $\partial_1\Omega=\partial\Omega$. This solution is the continuous version of
 (\ref{eq:solsol}).
 
 It is trivial to verify that (\ref{eq:radialr},b) is indeed an exact solution.
-Firstly, given that the velocity $\vec u$ is constant and the pressure $p$ is
+Firstly, given that the velocity $\vec u$ is zero and the pressure $p$ is
 constant in each phase, the momentum equation (\ref{eq:stokes_full_momentum})
 automatically holds if $\vec f=\vec 0$ and the mass equation
 (\ref{eq:stokes_full_mass}) is satisfied. Finally, also the stress balance
@@ -51,10 +51,11 @@ automatically holds if $\vec f=\vec 0$ and the mass equation
 (\ref{eq:radialup}) in (\ref{eq:stokes_full_jump_stress}), we obtain
 \begin{align*}
 [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ = & [- p\,\vec \nu]_-^+ \\
-= & -\gamma \varkappa(0)\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\vec \nu
--\gamma \varkappa(0)\vec \nu +
-\gamma \varkappa(0)\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\vec \nu \\
-= & -\gamma \varkappa(0)\vec \nu\,.
+= & -\gamma\, \varkappa(0)\,\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\,\vec \nu
+-\gamma\, \varkappa(0)\,\vec \nu +
+\gamma\, \varkappa(0)\,\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\,\vec \nu \\
+= & -\gamma\, \varkappa(0)\,\vec \nu
+= -\gamma\,\varkappa\,\vec\nu \quad \text{on }\ \Gamma(t)\,.
 \end{align*}
 \subsection{Expanding bubble}\label{sec:stokes_expanding}
 A nontrivial divergence free and radially symmetric solution $\vec u$ can be
