@@ -170,7 +170,7 @@ $\Gamma(t)$ and ${(\vec u, p, \varkappa) \in \uspace g \times \pnormspace
 holds for almost all times $t \in (0,T]$. Here we have observed that if
 $p \in \pspace$ is part of a solution to (\ref{eq:stokes_full_momentum}--h),
 then so is $p + c$ for an arbitrary $c\in \R$. We also note the natural
-compatibility condition $\int_{\partial_1\Omega}\vec g\,.\,\unitn\dH{d-1}=0$ 
+compatibility condition $\int_{\partial_1\Omega}\vec g\,.\,\unitn\dH{d-1}=0$
 for a solution to (\ref{eq:stokes_weaka}--d) to exist.
 
 We finally observe that an alternative weak formulation can be obtained
@@ -268,8 +268,8 @@ where the space \pdg is a space of polynomials of order 1 defined in the two
 subdomains $\Omega_-^m$ and $\Omega_+^m$. This space is equivalent to a P1 space
 which is continuous everywhere except across the interface $\Gamma^m$. With this
 choice of space, the discrete scheme falls in the category of XFEM, extended
-FEM, since the pressure space is enriched by adding additional degrees of 
-freedom for the nodes on the interface in order to better capture the 
+FEM, since the pressure space is enriched by adding additional degrees of
+freedom for the nodes on the interface in order to better capture the
 discontinuity of the pressure.
 
 In this thesis we consider a fitted finite element approximation for the
@@ -569,7 +569,7 @@ $\Gamma^{m+1} = \Gamma^m$, then it holds that
 \right\rangle_{\Gamma^m}^h + \left\langle \nabs\,\vec \id, \nabs\,\vec \eta
 \right\rangle_{\Gamma^m} = 0 \quad \forall\ \vec\eta \in \Vh \,.
 \end{equation}
-We recall that the proof of Theorem~\ref{thm:equidistribution_property} 
+We recall that the proof of Theorem~\ref{thm:equidistribution_property}
 shows that
 (\ref{eq:conformal}), in the case $d=2$, implies that $\Gamma^m$ is
 equidistributed, with the possible exception of elements $\sigma^m_j$ that are
@@ -592,7 +592,7 @@ $\vec f^{m+1} = \vec 0$. If $\vec X^{m+1} = \vec X^m$, then $\vec U^{m+1} = \vec
 The solution $(\vec U^{m+1}, \vec X^{m+1})$ fulfils (\ref{eq:stab}) with
 $\Gamma^{m+1}$ replaced by $\Gamma^m$ and  $\vec f^{m+1} = \vec 0$. Hence we
 obtain $(\mu^m\,\mat D (\vec U^{m+1}), \mat D(\vec U^{m+1})) = 0$ which implies
-$\mat D(\vec U^{m+1}) = \mat 0$. Therefore, as shown in the proof of 
+$\mat D(\vec U^{m+1}) = \mat 0$. Therefore, as shown in the proof of
 Theorem~\ref{thm:ex}, it implies $\vec U^{m+1} = \vec 0$.
 \end{proof}
 
@@ -840,7 +840,7 @@ P^{m+1} \\
 \end{equation}
 where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec X^{m+1})$ here denote the
 coefficients of these finite element functions with respect to the
-aforementioned (basis) functions. 
+aforementioned (basis) functions.
 Moreover, $\vec X^m$ denotes the coefficients of
 $\vec\id\!\mid_{\Gamma^m}$ with respect to the basis of $\Vh$. The definitions
 of the matrices and vectors in (\ref{eq:stokes_algebraic}) directly follow from
@@ -875,8 +875,8 @@ the first block row of (\ref{eq:stokes_algebraic}) and setting a unitary value
 on the correspondent diagonal entries in $\vec B_\Omega$. The vector doctoring
 process consists on setting the Dirichlet boundary data on the correspondent
 right-hand side entries in $\vec c$. Similarly, the free-slip boundary
-condition is enforced by doctoring the matrix entries corresponding to 
-the degrees of freedom of the basis functions 
+condition is enforced by doctoring the matrix entries corresponding to
+the degrees of freedom of the basis functions
 $\phi_i^{\uspacesimple^m}\vec e_q$ associated with vertices that lie on
 parts of $\partial_2\Omega$ that satisfy $\vec e_q=\unitn$. Of course,
 the corresponding entries in the right-hand side vector $\vec c$ are set to
@@ -1013,7 +1013,7 @@ solution is only unique up to a constant, the matrix
 matrix has rank deficiency 1. Therefore, in order to use UMFPACK to factorize
 the matrix, the rank deficiency needs to be reduced to 0. This can be achieved
 by fixing a degree of freedom in the discrete pressure. For example, by
-using a matrix doctoring which replaces the first row of the second block row 
+using a matrix doctoring which replaces the first row of the second block row
 of (\ref{eq:stokes_direct_precond}) with the corresponding row of the identity
 matrix. This doctoring
 process can be avoided if SPQR is used to factorize the preconditioner since
