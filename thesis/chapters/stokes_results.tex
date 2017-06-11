@@ -18,7 +18,7 @@ shear flow experiment in 3d.
 
 \section{Exact solutions}\label{sec:stokes_exact_solutions}
 We recall the following stationary and expanding spherical solutions
-from \cite{spurious}. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z| = r(t)\}$
+from \cite{spurious}. Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$
 be a sphere of radius $r(t)$  and mean curvature $\varkappa(t) =
 -\frac{d-1}{r(t)}$. Moreover let $\alpha,\gamma\in \R_{\geq 0}$ be given. We
 will refer to (\ref{eq:radialr},b) as the stationary bubble solution, and to
@@ -75,15 +75,21 @@ p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
 \end{equation}
 \end{subequations}
 is an exact solution to the problem (\ref{eq:stokes_full_momentum}--h) with
-$\vec f = \vec 0$ and $\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$ on
+$\vec f = \vec 0$ and $\vec g(\vec z) = \alpha\,|\vec z\,|^{-d}\,\vec z$ on
 $\partial_1\Omega=\partial\Omega$.
 
 We now verify that (\ref{eq:radialr2},b) is indeed an exact solution. Firstly,
 we have that
 \begin{equation*}
-\frac{\partial u_i}{\partial z_j}=\alpha\frac{\delta_{ij}|\vec z\,|^d
-- d z_i z_j |\vec z\,|^{d-2}}{|\vec z\,|^{2d}}\,.
+\frac{\partial u_i}{\partial z_j}=\alpha\frac{\delta_{ij}
+- d z_i z_j |\vec z\,|^{-2}}{|\vec z\,|^d}
 \end{equation*}
+and
+\begin{equation*}
+\frac{\partial^2 u_i}{\partial z_j^2}=\alpha d
+\frac{-2\delta_{ij}z_j-z_i + (d+2)z_i z_j^2|\vec z\,|^{-2}}{|\vec z\,|^{d+2}}\,.
+\end{equation*}
+
 Since $\frac{\partial u_i}{\partial z_j}=\frac{\partial u_j}{\partial z_i}$,
 the components of the rate-of-deformation tensor are simply
 \begin{equation*}
@@ -93,21 +99,20 @@ u_i}{\partial z_j}\,.
 \end{equation*}
 Then, it holds
 \begin{align*}
-\nabla\,.\,\mat D(\vec u) = & \sum_{i=1}^d\frac{\partial}{\partial z_i}
-\frac{\partial u_i}{\partial z_i} = \alpha\sum_{i=1}^d \frac{\partial}{\partial
-z_i}\big(|\vec z\,|^{-d}-dz_i^2|\vec z\,|^{-d-2}\big) \\
-= & \alpha\sum_{i=1}^d\bigg[ -3dz_i|\vec z\,|^{-d-2}+dz_i^3(d+2)|
-\vec z\,|^{-d-4}\bigg] \\
-= & \alpha d |\vec z\,|^{-d-4}\sum_{i=1}^d\bigg[-3 z_i|\vec z\,|^2 +
-(d+2)z_i^3\bigg]
+\big[\nabla\,.\,\mat D(\vec u)\big]_i = &
+\sum_{j=1}^d\frac{\partial}{\partial z_j} \frac{\partial u_i}{\partial z_j}
+= \frac{\alpha d}{|\vec z\,|^{d+2}}\sum_{j=1}^d\big(-2\delta_{ij}z_j- z_i
++(d+2)z_i z_j^2 |\vec z\,|^{-2}\big)\\
+= & \frac{\alpha d}{|\vec z\,|^{d+2}}\big(-2z_i- dz_i+(d+2)z_i\big)=0\,.
 \end{align*}
+Therefore, given that the pressure $p$ is constant in each phase, the momentum
+equation (\ref{eq:stokes_full_momentum}) holds if $\vec f=\vec 0$.
 
 The mass equation (\ref{eq:stokes_full_mass}) is also satisfied since we have
 \begin{equation*}
-\nabla\,.\,\vec u=\sum_{i=1}^d\frac{\partial u_i}{\partial z_i} = \alpha
-\sum_{i=1}^d\frac{|\vec z\,|^d - d z^2_i|\vec z\,|^{d-2}}{|\vec z \,|^{2d}} =
-\alpha \frac{d|\vec z\,|^d - d |\vec z\,|^2|\vec z\,|^{d-2}}{|\vec z\,|^{2d}} =
-0\,.
+\nabla\,.\,\vec u=\sum_{j=1}^d\frac{\partial u_j}{\partial z_j} =
+\sum_{j=1}^d\alpha\frac{1 - d z^2_j|\vec z\,|^{-2}}{|\vec z \,|^d} =
+\frac{\alpha}{|\vec z\,|^d} \big(d - d |\vec z\,|^2|\vec z\,|^{-2}\big) = 0\,.
 \end{equation*}
 
 \section{Settings and error estimators}\label{sec:errors}

@@ -5,7 +5,7 @@ element approximation in \cite{fluidfbp}, we now present several numerical
 experiments in 2d and 3d.
 
 \section{Exact solutions}\label{sec:ns_exact_solutions}
-Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z| = r(t)\}$ be a sphere of radius
+Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$ be a sphere of radius
 $r(t)$ and curvature $\kappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
 $\alpha,\alpha_1,\alpha_2,\gamma\in \R_{\geq 0}$ be given. Here, we also allow
 non divergence-free problem. Therefore, for the non divergence-free cases, the
@@ -55,11 +55,11 @@ is an exact solution to the problem (\ref{eq:ns_full_momentum}--i), with
 \begin{align}
 \vec f(\vec z, t) = &
 \rho\,\bigg(\alpha_1^2\,+\charfcn{\Omega_+(t)}\bigg(-2\alpha_1\alpha_2r(t)^2 +
-2\alpha_1\alpha_2\big(2|\vec z|^2-r(t)^2\big) \nonumber \\
-& +\alpha_2^2\big(|\vec z|^2-r(t)^2\big)\big(3|\vec z|^2 -
+2\alpha_1\alpha_2\big(2|\vec z\,|^2-r(t)^2\big) \nonumber \\
+& +\alpha_2^2\big(|\vec z\,|^2-r(t)^2\big)\big(3|\vec z\,|^2 -
 r(t)^2\big)-4(d+1)\alpha_2\frac{\mu_+}{\rho}\bigg)\bigg)\vec z\,, \\
 f_{\rm{div}} = & \big( \alpha_1
-+ \alpha_2\charfcn{\Omega_+(t)}\big(\frac{2+d}{d}|\vec z|^2-r(t)^2\big)\big)d
++ \alpha_2\charfcn{\Omega_+(t)}\big(\frac{2+d}{d}|\vec z\,|^2-r(t)^2\big)\big)d
 \end{align}
 and
 \begin{equation}
@@ -86,8 +86,9 @@ p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
 \end{equation}
 \end{subequations}
 is an exact solution to the problem (\ref{eq:ns_full_momentum}--i) with
-$\vec f(\vec z, t) = (1-d)\alpha^2\frac{\vec z}{|\vec z|^{2d}}$ and $\vec g(\vec
-z) = \alpha\,|\vec z|^{-d}\,\vec z$ on $\partial_1\Omega=\partial\Omega$.
+$\vec f(\vec z, t) = \rho\,(1-d)\alpha^2\frac{\vec z}{|\vec z\,|^{2d}}$ and
+$\vec g(\vec z) = \alpha\,|\vec z\,|^{-d}\,\vec z$ on
+$\partial_1\Omega=\partial\Omega$.
 
 We notice that the exact solution (\ref{eq:ns_sol_3_r},b) is identical to the
 expanding bubble solution of the two-phase Stokes problem presented in
@@ -96,7 +97,23 @@ which is now inhomogeneous. Therefore, in order to verify that
 (\ref{eq:ns_sol_3_r},b) is indeed an exact solution also to the two-phase
 Navier--Stokes problem, it is sufficient to check that the time derivative plus
 the convective term in the momentum equation (\ref{eq:ns_full_momentum}) add up
-to $\vec f$.
+to $\vec f$. Firstly, we compute the $i$ component of the convective term as
+\begin{align*}
+\big[(\vec u \,.\, \nabla)\vec u\big]_i =&
+\sum_{j=1}^d\alpha\frac{z_j}{|\vec z\,|^d}\frac{\partial u_i}{\partial z_j} =
+\sum_{j=1}^d\alpha\frac{z_j}{|\vec z\,|^d}\bigg(\alpha\frac{\delta_{ij}
+- d z_i z_j |\vec z\,|^{-2}}{|\vec z\,|^{d}}\bigg) \\
+=& \frac{\alpha^2}{|\vec z\,|^{2d}} \sum_{j=1}^d \big( \delta_{ij}z_j
+- d z_j^2 z_i |\vec z\,|^{-2}\big) = \frac{\alpha^2}{|\vec z\,|^{2d}}
+(z_i - d z_i) \\
+=& \frac{\alpha^2}{|\vec z\,|^{2d}}(1-d) z_i\,.
+\end{align*}
+Therefore, given that $\vec u$ does not depend on time, we have
+\begin{align*}
+\rho\,(\vec u_t +(\vec u \,.\, \nabla)\vec u)=\rho\,(1-d)\alpha^2
+\frac{\vec z}{|\vec z\,|^{2d}}\,,
+\end{align*}
+which is indeed the value of forcing term $\vec f$.
 
 \section{Non divergence-free antisymmetric scheme}
 Some exact solution presented in \S\ref{sec:ns_exact_solutions} are non
