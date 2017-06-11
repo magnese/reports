@@ -46,17 +46,19 @@ It is trivial to verify that (\ref{eq:radialr},b) is indeed an exact solution.
 Firstly, given that the velocity $\vec u$ is zero and the pressure $p$ is
 constant in each phase, the momentum equation (\ref{eq:stokes_full_momentum})
 automatically holds if $\vec f=\vec 0$ and the mass equation
-(\ref{eq:stokes_full_mass}) is satisfied. Finally, also the stress balance
+(\ref{eq:stokes_full_mass}) is satisfied. Moreover, also the stress balance
 (\ref{eq:stokes_full_jump_stress}) holds since, substituting
 (\ref{eq:radialup}) in (\ref{eq:stokes_full_jump_stress}), we obtain
 \begin{align*}
-[2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ = & [- p\,\vec \nu]_-^+ \\
-= & -\gamma\, \varkappa(0)\,\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\,\vec \nu
--\gamma\, \varkappa(0)\,\vec \nu +
-\gamma\, \varkappa(0)\,\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\,\vec \nu \\
-= & -\gamma\, \varkappa(0)\,\vec \nu
-= -\gamma\,\varkappa\,\vec\nu \quad \text{on }\ \Gamma(t)\,.
+[2\mu \mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ = & [- p\,\vec \nu]_-^+ \\
+= & -\gamma \varkappa(0)\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\vec \nu
+-\gamma \varkappa(0) \vec \nu +
+\gamma \varkappa(0)\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\vec \nu \\
+= & -\gamma \varkappa(0)\vec \nu = -\gamma\varkappa \vec\nu\,.
 \end{align*}
+Finally, the dynamic interface condition (\ref{eq:stokes_full_velocity}) is
+trivially satisfied since the interface is stationary and $\vec u$ is zero.
+
 \subsection{Expanding bubble}\label{sec:stokes_expanding}
 A nontrivial divergence free and radially symmetric solution $\vec u$ can be
 constructed on a domain that does not contain the origin. To this end, consider
@@ -89,7 +91,6 @@ and
 \frac{\partial^2 u_i}{\partial z_j^2}=\alpha d
 \frac{-2\delta_{ij}z_j-z_i + (d+2)z_i z_j^2|\vec z\,|^{-2}}{|\vec z\,|^{d+2}}\,.
 \end{equation*}
-
 Since $\frac{\partial u_i}{\partial z_j}=\frac{\partial u_j}{\partial z_i}$,
 the components of the rate-of-deformation tensor are simply
 \begin{equation*}
@@ -106,14 +107,49 @@ Then, it holds
 = & \frac{\alpha d}{|\vec z\,|^{d+2}}\big(-2z_i- dz_i+(d+2)z_i\big)=0\,.
 \end{align*}
 Therefore, given that the pressure $p$ is constant in each phase, the momentum
-equation (\ref{eq:stokes_full_momentum}) holds if $\vec f=\vec 0$.
-
-The mass equation (\ref{eq:stokes_full_mass}) is also satisfied since we have
+equation (\ref{eq:stokes_full_momentum}) holds if $\vec f=\vec 0$. Also the
+mass equation (\ref{eq:stokes_full_mass}) is satisfied since we have
 \begin{equation*}
 \nabla\,.\,\vec u=\sum_{j=1}^d\frac{\partial u_j}{\partial z_j} =
 \sum_{j=1}^d\alpha\frac{1 - d z^2_j|\vec z\,|^{-2}}{|\vec z \,|^d} =
 \frac{\alpha}{|\vec z\,|^d} \big(d - d |\vec z\,|^2|\vec z\,|^{-2}\big) = 0\,.
 \end{equation*}
+Moreover, also the stress balance
+(\ref{eq:stokes_full_jump_stress}) holds since, substituting
+(\ref{eq:radialup2}) in (\ref{eq:stokes_full_jump_stress}), we obtain for the
+$i$ component
+\begin{align*}
+& [[2\mu \mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_i]_-^+ =
+[2\mu \sum_{j=1}^d\frac{\partial u_i}{\partial z_j}\,.\,\nu_j - p\nu_i]_-^+
+= \bigg[2\mu\sum_{j=1}^d\frac{\partial u_i}{\partial z_j}
+\frac{z_j}{|\vec z\,|}\bigg]_-^+ -\bigg[ p\nu_i\bigg]_-^+ \\
+& \qquad = \bigg[2\mu\sum_{j=1}^d\bigg(\alpha \frac{\delta_{ij}z_j-dz_iz_j^2|
+\vec z\,|^{-2}}{|\vec z\,|^{d+1}}\bigg)\bigg]_-^+
+-\bigg(\gamma +2 \alpha \frac{\mu_+ - \mu_-}{r^{d-1}}\bigg)\varkappa\nu_i \\
+& \qquad = \bigg[2\mu \alpha \frac{z_i-dz_i}{|\vec z\,|^{d+1}}\bigg]_-^+
+-\gamma \varkappa \nu_i - 2\alpha\frac{\mu_+ -
+\mu_-}{|\vec z\,|^{d-1}}\frac{1-d}{|\vec z\,|}\frac{z_i}{|\vec z\,|} \\
+& \qquad = 2\alpha \frac{(\mu_+-\mu_-)(1-d)z_i}{|\vec z\,|^{d+1}}
+-\gamma \varkappa \nu_i - 2\alpha\frac{(\mu_+-\mu_-)(1-d)z_i}{|\vec
+z\,|^{d+1}} = -\gamma \varkappa \nu_i\,.
+\end{align*}
+Finally, the dynamic interface condition (\ref{eq:stokes_full_velocity}) is
+satisfied since the fluid velocity on the interface along the normal direction
+is
+\begin{equation*}
+\vec u\,.\,\vec \nu \!\mid_\Gamma=\alpha\frac{\vec z}{|\vec z \,|^d}\,.\,
+\frac{\vec z}{|\vec z \,|}=\alpha\frac{r^2}{r^{d+1}}=\alpha r^{1-d}\,,
+\end{equation*}
+while the interface velocity along the normal direction is
+\begin{equation*}
+\V\,.\,\vec \nu=r_t=\alpha r^{1-d}\,,
+\end{equation*}
+where we have used
+\begin{equation*}
+r^d=r_0^d+\alpha t d \iff d r^{d-1}r^\prime=\alpha d \iff r^\prime=\alpha
+r^{1-d}\,,
+\end{equation*}
+with $r_0=r(0)$.
 
 \section{Settings and error estimators}\label{sec:errors}
 In our numerical simulations, unless otherwise stated, we use the following
