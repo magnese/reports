@@ -546,15 +546,28 @@ for ${k=1,\ldots,M}$. Hence also the scheme (\ref{eq:fem_surf_diff_a}--b) is
 unconditionally stable.
 
 \section{Semidiscrete scheme}\label{sec:geometric_pdes_semi_fem}
-TODO: Move parametric semidiscrete definitions here.
-\footnote{Marco: TODO.}
-
 As shown in \cite[Remark~2.3]{triplej} and \cite[\S4]{gflows3d}, it is
 worthwhile to consider continuous-in-time semidiscrete versions of the
-aforementioned finite element schemes. For example, the finite element
-approximation of the surface diffusion problem (\ref{eq:fem_surf_diff_a}--b)
-can be replaced by the following one. Given $\Gamma^h(0)$, for $t\in (0,T]$
-find $\Gamma^h(t)$ and $\kappa^h \in \Wht$ such that
+aforementioned finite element schemes.
+
+Firstly, let $(\Gamma^h(t))_{t\in[0,T]}$ be a family of polyhedral surfaces,
+with outer normal $\vec\nu^h(t)$. We also define the piecewise linear finite
+element spaces $\Wht$ and $\Vht$, with $\{\chi^h_k(\cdot,t)\}_{k=1}^{K_\Gamma}$
+denoting the standard basis of the former. Hence $\chi^h_k(\vec q^h_l(t),t) =
+\delta_{kl}$ for all $k,l \in \{1,\ldots,K_\Gamma\}$ and $t \in [0,T]$, where
+$\{\vec q^h_k(t)\}_{k=1}^{K_\Gamma}$ are the vertices of $\Gamma^h(t)$.
+Similarly to (\ref{eq:V}), we can then define the discrete velocity
+\begin{equation*}
+\V^h(\vec z, t):=
+\sum_{k=1}^{K_\Gamma}\left[\ddt\,\vec q^h_k(t)\right] \chi^h_k(\vec z, t)
+\in \Vht\,,
+\end{equation*}
+see e.g. \cite[(3.3)]{tpfs}.
+
+Then, the finite element approximation of the surface diffusion problem
+(\ref{eq:fem_surf_diff_a}--b) can be replaced by the following one. Given
+$\Gamma^h(0)$, for $t\in (0,T]$ find $\Gamma^h(t)$ and $\kappa^h \in \Wht$ such
+that
 \begin{subequations}
 \begin{align}
 \langle \vec{\mathcal{V}}^h, \chi \, \vec \nu^h \rangle_{\Gamma^h(t)}^h -

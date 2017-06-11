@@ -664,30 +664,28 @@ in order to highlight two additional important properties of the scheme: a
 good tangential distribution of mesh points, and good volume conservation. For
 simplicity, we assume $\vec g=\vec 0$ throughout this section.
 
-TODO: Move some of this stuff to earlier.
-\footnote{Marco: TODO.}
-
-Let $(\Gamma^h(t))_{t\in[0,T]}$ be a family of polyhedral surfaces, with
+Consistently with \S\ref{sec:geometric_pdes_semi_fem}, let
+$(\Gamma^h(t))_{t\in[0,T]}$ be a family of polyhedral surfaces, with
 outer normal $\vec\nu^h(t)$. We also define the piecewise linear finite element
 spaces $\Wht$ and $\Vht$, with $\{\chi^h_k(\cdot,t)\}_{k=1}^{K_\Gamma}$
 denoting the standard basis of the former. Hence $\chi^h_k(\vec q^h_l(t),t) =
 \delta_{kl}$ for all $k,l \in \{1,\ldots,K_\Gamma\}$ and $t \in [0,T]$, where
 $\{\vec q^h_k(t)\}_{k=1}^{K_\Gamma}$ are the vertices of $\Gamma^h(t)$.
-Similarly to (\ref{eq:V}), we can then define the discrete velocity
+We also recall the discrete velocity
 \begin{equation*}
 \V^h(\vec z, t):=
 \sum_{k=1}^{K_\Gamma}\left[\ddt\,\vec q^h_k(t)\right] \chi^h_k(\vec z, t)
-\in \Vht\,,
+\in \Vht\,.
 \end{equation*}
-see e.g. \cite[(3.3)]{tpfs}. For $t\in [0,T]$, let $\mathcal{T}^h(t)$ be a
-regular partitioning of $\Omega$ into disjoint open simplices and define the
-finite element spaces $S^h_k(t)$, $\uspacesimple^h(t)$ and $\pspace^h(t)$
-similarly to $S^m_k$, $\uspacedisc{0}{m}$ and $\pspace^m$, with the
-corresponding interpolation operators $I^h_k$ and discrete approximations
-$\mu^h(t) \in S^h_0(t)$. Here we recall that we assume
-$\charfcn{\Omega^h_-(t)}\in\pspace^h(t)$. Then, given $\Gamma^h(0)$, for $t\in
-(0,T]$ find $\Gamma^h(t)$ and $(\vec U^h(t), P^h(t), \V^h(t), \kappa^h(t)) \in
-\uspacesimple^h(t) \times \pnormspace^h(t) \times \Vht \times \Wht$ such that
+For $t\in [0,T]$, let $\mathcal{T}^h(t)$ be a regular partitioning of $\Omega$
+into disjoint open simplices and define the finite element spaces $S^h_k(t)$,
+$\uspacesimple^h(t)$ and $\pspace^h(t)$ similarly to $S^m_k$,
+$\uspacedisc{0}{m}$ and $\pspace^m$, with the corresponding interpolation
+operators $I^h_k$ and discrete approximations $\mu^h(t) \in S^h_0(t)$. Here we
+recall that we assume $\charfcn{\Omega^h_-(t)}\in\pspace^h(t)$. Then, given
+$\Gamma^h(0)$, for $t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h(t), P^h(t),
+\V^h(t), \kappa^h(t)) \in \uspacesimple^h(t) \times \pnormspace^h(t) \times
+\Vht \times \Wht$ such that
 \begin{subequations}
 \begin{align}
 & 2\left(\mu^h\,\mat D(\vec U^h), \mat D(\vec \xi) \right)
