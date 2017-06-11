@@ -115,12 +115,59 @@ Therefore, given that $\vec u$ does not depend on time, we have
 \end{align*}
 which is indeed the value of forcing term $\vec f$.
 
-\section{Non divergence-free antisymmetric scheme}
+\section{Non divergence-free scheme modifications}
 Some exact solution presented in \S\ref{sec:ns_exact_solutions} are non
 divergence-free which means that $\nabla\,.\,\vec u = f_{\rm{div}}$ in
-$\Omega_\pm(t)$. Consequently, (\ref{eq:advect}) is no longer valid and we need
-to use (\ref{eq:fulladvect}) to derive the antisymmetric weak formulation.
-Therefore an additional term $\tfrac{1}{2}(\rho\,f_{\rm{div}}\,\vec
+$\Omega_\pm(t)$. This leads to an additional term in the right-hand side of the
+continuity equation for the discrete schemes (\ref{eq:ns_HGa_antisym}--d),
+(\ref{eq:ns_HGa}--d), (\ref{eq:ns_HGimpa}--d) and (\ref{eq:ale_HGa}--d). We
+now derive the correction term only for antisymmetric scheme
+(\ref{eq:ns_HGa_antisym}--d) since, for the other three schemes, the
+derivation is analogous.
+
+As for the two-phase Stokes flow, we use the unconstrained pressure space
+$\pspace^m$. Therefore, we rewrite $\varphi\in \pspace^m$ as
+\begin{equation}\label{eq:phi_rewriting_bis}
+\varphi=\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}
++\frac{\left(\varphi,1\right)}{\left(1,1\right)}\,,
+\end{equation}
+where $\varphi-\frac{(\varphi,1)}{(1,1)}\in\pnormspace^m$ and
+$\frac{(\varphi,1)}{(1,1)}\in\R$. Substituting (\ref{eq:phi_rewriting_bis}) in
+(\ref{eq:ns_HGb_antisym}) we obtain
+\begin{equation}
+\left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  =
+\left(\nabla\,.\,\vec U^{m+1},
+\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right) +
+\left(\nabla\,.\,\vec U^{m+1},1\right)
+\frac{\left(\varphi,1\right)}{\left(1,1\right)}\,,
+\end{equation}
+but, given that
+\begin{equation}
+\left(\nabla\,.\,\vec U^{m+1},
+\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right) =
+\left(\,f_{\rm{div}},
+\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right)\,,
+\end{equation}
+and using (\ref{eq:div_to_line_integral}), we finally obtain
+\begin{equation}\label{eq:LAb_nondivfree}
+\left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
+\left(\,f_{\rm{div}},
+\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right)+
+\frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
+(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
+\pspace^m\,.
+\end{equation}
+We notice that the first term in the right-hand side of
+(\ref{eq:LAb_nondivfree}) is the correction due to the fact that the velocity is
+non divergence-free, while the second term is the usual correction arising
+from an inhomogeneous boundary data $\vec g$. We also notice that, if
+$f_{\rm{div}}$ is constant, the first term in the right-hand side of
+(\ref{eq:LAb_nondivfree}) is zero since $f_{\rm{div}}$ can be moved outside
+the integral and what remains is simply the mean of a zero-mean function.
+
+Additionally, only for the antisymmetric case,  (\ref{eq:advect}) is no longer
+valid and we need to use (\ref{eq:fulladvect}) to derive the antisymmetric weak
+formulation. Therefore an additional term $\tfrac{1}{2}(\rho\,f_{\rm{div}}\,\vec
 u,\vec\xi)$ appears in the momentum equation (\ref{eq:ns_weaka_antisym}).
 Hence, the weak antisymmetric formulation (\ref{eq:ns_weaka_antisym}--d) is
 replaced by
@@ -136,7 +183,7 @@ replaced by
 = \left(\vec f, \vec \xi\right)+(\rho\,f_{\rm{div}}\,\vec u,\vec\xi)
 \quad \forall\ \vec\xi \in \uspace 0 \,,
 \label{eq:ns_weaka_antisym_div}\\
-& \left(\nabla\,.\,\vec u, \varphi\right) = f_{\rm{div}}
+& \left(\nabla\,.\,\vec u, \varphi\right) = \left(f_{\rm{div}},\varphi\right)
 \quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb_antisym_div} \\
 &  \left\langle \V
 - \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
@@ -147,6 +194,36 @@ replaced by
 [H^1(\Gamma(t))]^d\,.\label{eq:ns_weakd_antisym_div}
 \end{align}
 \end{subequations}
+Therefore, the antisymmetric discrete scheme in the non divergence-free case
+reads as follow. Let $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec
+U^0\in \uspacedisc{g}{0}$ be given. For $m=0,\ldots, M-1$, find $(\vec
+U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times
+\pnormspace^m \times \Vh \times \Wh$ such that
+\begin{subequations}
+\begin{align}
+& \left(\frac{\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+\vec I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
+& \qquad + \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
+\vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
+\vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right)
+\nonumber \\
+& \qquad - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& \qquad - \gamma\,\left\langle
+\kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
+\uspacedisc{0}{m}\,,\\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \pnormspace^m\,, \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
 
 \section{Benchmark quantities}\label{sec:benchmark_quantities}
 In our numerical simulations, unless otherwise stated, we use the following
