@@ -162,8 +162,8 @@ We notice that the first term in the right-hand side of
 non divergence-free, while the second term is the usual correction arising
 from an inhomogeneous boundary data $\vec g$. We also notice that, if
 $f_{\rm{div}}$ is constant, the first term in the right-hand side of
-(\ref{eq:LAb_nondivfree}) is zero since $f_{\rm{div}}$ can be moved outside
-the integral and what remains is simply the mean of a zero-mean function.
+(\ref{eq:LAb_nondivfree}) is zero since $f_{\rm{div}}$ can be taken out
+from the integral and what remains is simply the mean of a zero-mean function.
 
 Additionally, only for the antisymmetric case,  (\ref{eq:advect}) is no longer
 valid and we need to use (\ref{eq:fulladvect}) to derive the antisymmetric weak
@@ -194,11 +194,11 @@ replaced by
 [H^1(\Gamma(t))]^d\,.\label{eq:ns_weakd_antisym_div}
 \end{align}
 \end{subequations}
-Therefore, the antisymmetric discrete scheme in the non divergence-free case
-reads as follow. Let $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec
-U^0\in \uspacedisc{g}{0}$ be given. For $m=0,\ldots, M-1$, find $(\vec
-U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times
-\pnormspace^m \times \Vh \times \Wh$ such that
+Therefore, the antisymmetric discrete scheme in the non divergence-free case,
+using the unconstrained pressure space, reads as follow. Let $\Gamma^0$, an
+approximation to $\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$ be given. For
+$m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
+\uspacedisc{g}{m}\times \pspace^m \times \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
 & \left(\frac{\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
@@ -211,10 +211,14 @@ U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
 & \qquad - \gamma\,\left\langle
 \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
-= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
+= \left(\vec f^{m+1}, \vec \xi\right)
++\left(\rho\,f_{\rm{div}}\,\vec u,\vec\xi\right) \quad \forall\ \vec\xi \in
 \uspacedisc{0}{m}\,,\\
-& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
-\quad \forall\ \varphi \in \pnormspace^m\,, \\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = \left(\,f_{\rm{div}},
+\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right) \nonumber \\
+& \qquad +\frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
+(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1}
+\quad \forall\ \varphi \in \pspace^m\,, \\
 &  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau} ,\chi\,\vec\nu^m
 \right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
 \right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,\\
