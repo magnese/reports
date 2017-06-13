@@ -45,7 +45,7 @@ $\partial_1\Omega=\partial\Omega$. This solution is the continuous version of
 It is trivial to verify that (\ref{eq:radialr},b) is indeed an exact solution.
 Firstly, given that the velocity $\vec u$ is zero and the pressure $p$ is
 constant in each phase, the momentum equation (\ref{eq:stokes_full_momentum})
-automatically holds if $\vec f=\vec 0$ and the mass equation
+automatically holds if $\vec f=\vec 0$ and the continuity equation
 (\ref{eq:stokes_full_mass}) is satisfied. Moreover, also the stress balance
 (\ref{eq:stokes_full_jump_stress}) holds since, substituting
 (\ref{eq:radialup}) in (\ref{eq:stokes_full_jump_stress}), we obtain
@@ -108,7 +108,7 @@ Then, it holds
 \end{align*}
 Therefore, given that the pressure $p$ is constant in each phase, the momentum
 equation (\ref{eq:stokes_full_momentum}) holds if $\vec f=\vec 0$. Also the
-mass equation (\ref{eq:stokes_full_mass}) is satisfied since we have
+continuity equation (\ref{eq:stokes_full_mass}) is satisfied since we have
 \begin{equation*}
 \nabla\,.\,\vec u=\sum_{j=1}^d\frac{\partial u_j}{\partial z_j} =
 \sum_{j=1}^d\alpha\frac{1 - d z^2_j|\vec z\,|^{-2}}{|\vec z \,|^d} =
@@ -120,7 +120,7 @@ Moreover, also the stress balance
 $i$ component
 \begin{align*}
 & [[2\mu \mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_i]_-^+ =
-[2\mu \sum_{j=1}^d\frac{\partial u_i}{\partial z_j}\,.\,\nu_j - p\nu_i]_-^+
+\bigg[2\mu \sum_{j=1}^d\frac{\partial u_i}{\partial z_j}\nu_j - p\nu_i\bigg]_-^+
 = \bigg[2\mu\sum_{j=1}^d\frac{\partial u_i}{\partial z_j}
 \frac{z_j}{|\vec z\,|}\bigg]_-^+ -\bigg[ p\nu_i\bigg]_-^+ \\
 & \qquad = \bigg[2\mu\sum_{j=1}^d\bigg(\alpha \frac{\delta_{ij}z_j-dz_iz_j^2|
@@ -142,7 +142,7 @@ is
 \end{equation*}
 while the interface velocity along the normal direction is
 \begin{equation*}
-\V\,.\,\vec \nu=r_t=\alpha r^{1-d}\,,
+\V\,.\,\vec \nu=r^\prime=\alpha r^{1-d}\,,
 \end{equation*}
 where we have used
 \begin{equation*}

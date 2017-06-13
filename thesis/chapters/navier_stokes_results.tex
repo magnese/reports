@@ -34,6 +34,63 @@ e.g.\ $\Omega = (-1,1)^d$  with $\vec f(\vec z, t) = \rho\,\alpha^2\,\vec z$,
 $f_{\rm{div}} = \alpha\,d$ and $\vec g = \alpha\,\vec z$ on
 $\partial_1\Omega=\partial\Omega$.
 
+We now verify that (\ref{eq:ns_sol_1_r},b) is indeed an exact solution. Firstly,
+given that
+\begin{equation*}
+\frac{\partial u_i}{\partial z_j}=\alpha\delta_{ij}\,,
+\end{equation*}
+the components of the rate-of-deformation tensor are simply
+\begin{equation*}
+\big[\mat D(\vec u) \big]_{ij} = \frac{1}{2}\bigg(\frac{\partial
+u_i}{\partial z_j} + \frac{\partial u_j}{\partial
+z_i}\bigg)=\alpha\delta_{ij}\,,
+\end{equation*}
+and it holds
+\begin{align*}
+\nabla\,.\,\mat D(\vec u) = \vec 0\,,
+\end{align*}
+Therefore, given that the pressure $p$ is constant in each phase and that
+$\vec u$ does not depend on time, the momentum equation
+(\ref{eq:ns_full_momentum}) reduces simply to
+\begin{align*}
+\rho(\vec u \,.\, \nabla)\vec u=\rho\,\alpha^2\,\vec z
+\end{align*}
+which is indeed the value of forcing term $\vec f$. Also the non
+divergence-free continuity equation (\ref{eq:ns_compressible}) is satisfied
+since we have
+\begin{equation*}
+\nabla\,.\,\vec u=\sum_{j=1}^d\frac{\partial u_j}{\partial z_j} =
+\sum_{j=1}^d\alpha=\alpha d \,,
+\end{equation*}
+which is indeed equal to $f_{\rm{div}}$.
+Moreover, also the stress balance
+(\ref{eq:ns_full_jump_stress}) holds since, substituting
+(\ref{eq:ns_sol_1_up}) in (\ref{eq:ns_full_jump_stress}), we obtain for the
+$i$ component
+\begin{align*}
+& [[2\mu \mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_i]_-^+ =
+\bigg[2\mu \sum_{j=1}^d\frac{\partial u_i}{\partial z_j}\nu_j - p\nu_i\bigg]_-^+
+= \bigg[2\mu\sum_{j=1}^d\alpha\delta_{ij}\nu_j\bigg]_-^+
+-\bigg[p\nu_i\bigg]_-^+ \\
+& \qquad = \bigg[2\mu\alpha\nu_i\bigg]_-^+
+-\bigg(\gamma -2 \alpha \frac{\mu_+ - \mu_-}{d-1}r\bigg)\varkappa\nu_i \\
+& \qquad = 2\alpha(\mu_+-\mu_-)\nu_i -\gamma \varkappa \nu_i +
+2\alpha\frac{\mu_+ - \mu_-}{d-1}r\frac{1-d}{r}\nu_i \\
+& \qquad = 2\alpha(\mu_+-\mu_-)\nu_i -\gamma \varkappa \nu_i -
+2\alpha(\mu_+-\mu_-)\nu_i = -\gamma \varkappa \nu_i\,.
+\end{align*}
+Finally, the dynamic interface condition (\ref{eq:ns_full_velocity}) is
+satisfied since the fluid velocity on the interface along the normal direction
+is
+\begin{equation*}
+\vec u\,.\,\vec \nu \!\mid_\Gamma=\alpha\vec z\,.\, \frac{\vec z}{|\vec z\,|} =
+\alpha|\vec z\,|=\alpha r\,,
+\end{equation*}
+while the interface velocity along the normal direction is
+\begin{equation*}
+\V\,.\,\vec \nu=r^\prime=\alpha r\,.
+\end{equation*}
+
 \subsection{Expanding bubble II}
 The expanding sphere where
 \begin{subequations}
