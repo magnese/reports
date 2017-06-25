@@ -155,7 +155,8 @@ with $r_0=r(0)$.
 In our numerical simulations, unless otherwise stated, we use the following
 settings. We choose the initial surface $\Gamma(0) = \{ \vec z \in \R^d : |\vec
 z| = \frac12 \}$, the domain $\Omega = (-1,1)^d$ and we employ uniform time
-steps $\tau_m=\tau$, $m=0,\ldots, M-1$. Moreover, we set the GMRES tolerance to
+steps $\tau_m=\tau$, $m=0,\ldots, M-1$. We compute the discrete solutions
+over the time interval $[0,1]$. Moreover, we set the GMRES tolerance to
 tol $=10^{-12}$ and the restart value to 50. We use the Stokes matrix
 (\ref{eq:stokes_direct_precond}) or, depending on the pressure space,
 (\ref{eq:stokes_direct_precond_extended}) as a preconditioner factorizing it
@@ -214,8 +215,7 @@ interface elements.}
 \label{fig:meshes_uniform}
 \end{figure}
 In addition, we use a uniform time step size $\tau=10^{-2}$.
-We compute the discrete solutions to this stationary problem over the time
-interval $[0,1]$, and report on the errors for the P2--P0, P2--P1, P2--\pdg
+We report on the errors for the P2--P0, P2--P1, P2--\pdg
 and P2--(P1+P0) elements in Tables~\ref{tab:stokes_stationary_2d_p2p0},
 \ref{tab:stokes_stationary_2d_p2p1}, \ref{tab:stokes_stationary_2d_p2p1dg} and
 \ref{tab:stokes_stationary_2d_p2p1p0}, respectively.
@@ -346,11 +346,11 @@ on the right-hand side of Figure~\ref{fig:meshes_expanding}.
 Details on the discretization parameters for the nearly uniform meshes are
 given in Table~\ref{tab:expandingbubble2Delements}. Here we explicitly
 state the final number of bulk elements, $J_\Omega^M$, in the case $C_v = 1$
-and $C_v = 3$, recall the remesh criterion (\ref{eq:volume_criterion}). In the
-former the bulk is remeshed after every time step while in the latter the bulk
-is remeshed when the max--min entity volume ratio is bigger than 3. Of course,
-when only smoothing is employed, then the number of bulk mesh elements is
-invariant, and so $J_\Omega^M = J_\Omega^0$.
+and $C_v = 3$, recall the volume criterion (\ref{eq:volume_criterion}), for the
+P2--P0 element. In the former the bulk is remeshed after every time step while
+in the latter the bulk is remeshed when the max--min entity volume ratio is
+bigger than 3. Of course, when only smoothing is employed, then the number of
+bulk mesh elements is invariant, and so $J_\Omega^M = J_\Omega^0$.
 \begin{table*}
 \center
 \begin{tabular}{rrrrr}
@@ -374,7 +374,7 @@ element in Table~\ref{tab:expandingbubble2Dp2p0},
 \ref{tab:expandingbubble2Dp2p1dg} and \ref{tab:expandingbubble2Dp2p1p0},
 respectively. On the top part of the tables only mesh smoothings are applied,
 in the central part the bulk mesh is remeshed after every time step while at
-the bottom the bulk mesh is remeshed only when the criterion
+the bottom the bulk mesh is remeshed only when the volume criterion
 (\ref{eq:volume_criterion}), with $C_v=3$, is not satisfied.
 \begin{table*}
 \center
@@ -569,7 +569,7 @@ Finally, we would also like to investigate the effect of using adaptive bulk
 meshes, that are refined close to the interface. An example mesh is shown on
 the right-hand side of Figure~\ref{fig:meshes_expanding}, and we list our
 employed discretization parameters in
-Table~\ref{tab:expandingbubble2Delements_adaptive}. Obviously the remesh
+Table~\ref{tab:expandingbubble2Delements_adaptive}. Obviously the volume
 criterion (\ref{eq:volume_criterion}) cannot be used for an adaptive mesh since
 it would be always violated therefore we use the angle criterion
 (\ref{eq:angle_criterion}) with $C_a=20$\textdegree.
