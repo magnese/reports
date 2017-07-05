@@ -376,7 +376,7 @@ $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in
 \vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
 \vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right)
 \nonumber \\
-& \qquad - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
 & \qquad - \gamma\,\left\langle
 \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
@@ -403,8 +403,145 @@ and
 \rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
 \end{equation}
 
-\section{Existence, uniqueness and stability of a discrete solution}
+\section{Existence and uniqueness of a discrete solution}
 \label{sec:ns_existence}
+The existence and uniqueness proof of a discrete solution for the scheme
+(\ref{eq:ns_HGa_antisym}--d) is analogous to the Stokes case presented in
+\S\ref{sec:stokes_existence}.
+\begin{theorem} \label{thm:ns_ex}
+Let $m \in \{0,\ldots,M-1\}$ and let $(\uspacedisc{0}{m},\pspace^m)$ satisfy
+the LBB condition (\ref{eq:LBB}). Then there exists a unique solution
+$(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
+\in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$ to
+(\ref{eq:ns_HGa_antisym}--d).
+\end{theorem}
+\begin{proof}
+\sloppy As the system (\ref{eq:ns_HGa_antisym}--d) is linear, existence follows
+from uniqueness. In order to establish the latter, we consider the system: Find
+${(\vec U, P, \vec X, \kappa) \in \uspacedisc{0}{m}\times\pnormspace^m \times
+\Vh \times \Wh}$ such that
+\begin{subequations}
+\begin{align}
+& \frac{1}{2\tau}\left((\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U, \vec \xi
+\right)\nonumber \\
+& \qquad + \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
+\vec U\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
+\vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U \right) \nonumber \\
+& \qquad + 2\left(\mu^m\,\mat D(\vec U), \mat D(\vec \xi) \right)
+- \left(P, \nabla\,.\,\vec \xi\right) - \gamma\,\left\langle \kappa\,\vec\nu^m,
+\vec\xi\right\rangle_{\Gamma^m} = 0 \quad \forall\ \vec\xi \in
+\uspacedisc{0}{m} \,, \label{eq:ns_proofa}\\
+& \left(\nabla\,.\,\vec U, \varphi\right)  = 0 \quad
+\forall\ \varphi \in \pnormspace^m\,, \label{eq:ns_proofb} \\
+& \left\langle \vec X, \chi\,\vec\nu^m \right\rangle_{\Gamma^m}^h -
+\tau \left\langle \vec U, \chi\,\vec\nu^m \right\rangle_{\Gamma^m} = 0
+\quad\forall\ \chi \in \Wh\,,\label{eq:ns_proofc} \\
+& \left\langle \kappa\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X, \nabs\,\vec \eta \right\rangle_{\Gamma^m}
+= 0  \quad\forall\ \vec\eta \in \Vh\,. \label{eq:ns_proofd}
+\end{align}
+\end{subequations}
+Choosing $\vec\xi=\vec U$ in (\ref{eq:ns_proofa}), $\varphi =  P$ in
+(\ref{eq:ns_proofb}), $\chi = \gamma\,\kappa$ in (\ref{eq:ns_proofc}) and
+$\vec\eta=\gamma\,\vec X$ in (\ref{eq:ns_proofd}) yields that
+\begin{equation}
+\frac{1}{2}\left((\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U, \vec U \right)
++ 2\,\tau\left(\mu^m\,\mat D(\vec U), \mat D(\vec U) \right)
++ \gamma\,\left\langle \nabs\,\vec X, \nabs\,\vec X \right\rangle_{\Gamma^m}
+= 0\,, \label{eq:ns_proof2}
+\end{equation}
+which implies that $\mat D(\vec U) = \mat 0$. Given that $\vec U \in RM$,
+where $RM$ is the space of rigid motions (\ref{eq:space_rigid_motions}) which
+constitutes the kernel of $\mat D$, in particular we have that $\vec U(\vec z)$
+is linear in $\vec z$. Moreover, $\vec U\in\uspacedisc{0}{m}$ means that $\vec
+U(\vec z)=\vec 0$ for every corner $\vec z$ of $\Omega$. Therefore $\vec U(\vec
+z)=\vec 0$ for all $\vec z\in\Omega$. In addition, it holds that $\vec X$ is
+equal to a constant on $\Gamma^m$, which satisfies, on recalling
+(\ref{eq:ns_proofc}) and $\vec U = \vec 0$, that
+\begin{equation} \label{eq:ns_Xconst}
+\left\langle \vec X, \chi\,\vec\nu^m \right\rangle_{\Gamma^m}^h = 0
+\quad\forall\ \chi \in \Wh\,.
+\end{equation}
+It was shown in \cite[Proof of Theorem~2.1]{gflows3d} that if $\Gamma^m$
+has no self-intersections, then (\ref{eq:ns_Xconst}) immediately yields that
+$\vec X = \vec 0$. As $\Gamma^m = \partial\Omega^m_-$ is the boundary of an open
+domain, we always assume that it does not self-intersect, and
+hence we obtain that $\vec X = \vec 0$. This means that (\ref{eq:ns_proofd})
+reduces to
+\begin{equation} \label{eq:ns_kappaproof}
+\left\langle \kappa\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h = 0
+\quad\forall\ \vec\eta \in \Vh\,.
+\end{equation}
+Let $\vec\omega^m \in \Vh$ be the mass-lumped $L^2$--projection of $\vec\nu^m$
+onto $\Vh$, i.e. $\left\langle \vec\omega^m, \vec\varphi
+\right\rangle_{\Gamma^m}^h = \left\langle \vec\nu^m,
+\vec\varphi \right\rangle_{\Gamma^m}^h = \left\langle \vec\nu^m,
+\vec\varphi \right\rangle_{\Gamma^m}$ for all $\vec\varphi\in\Vh$. It is easy
+to see that $\vec\omega^m (\vec q^m_k) \not= \vec 0$ for
+all $k=1,\ldots,K_\Gamma$, because $\Gamma^m$ does not self-intersect.
+Then it follows from choosing $\vec\eta = \vec\omega^m$ in
+(\ref{eq:ns_kappaproof}) that
+\begin{align*}
+0 = \left\langle \kappa\,\vec\nu^m, \vec\omega^m \right\rangle_{\Gamma^m}^h
+= \left\langle \vec\nu^m, \vec\pi^m[\kappa\,\vec\omega^m]
+\right\rangle_{\Gamma^m}
+= \left\langle \vec\omega^m,
+\vec\pi^m[\kappa\,\vec\omega^m] \right\rangle_{\Gamma^m}^h
+= \left\langle \kappa, |\vec\omega^m|^2 \right\rangle_{\Gamma^m}^h ,
+\end{align*}
+and so $\kappa = 0 \in \Wh$. Finally, it follows from (\ref{eq:ns_proofa}) with
+$\vec U = \vec 0$ and $\kappa = 0$, on recalling (\ref{eq:LBB}), that $P = 0$.
+Hence there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1},$
+$\kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
+to (\ref{eq:ns_HGa_antisym}--d).
+\end{proof}
+
+We note that if $(\uspacedisc{0}{m},\pspace^m)$ does not satisfy the LBB
+condition (\ref{eq:LBB}), then existence and uniqueness of the solution
+$(\vec U^{m+1},\vec X^{m+1},\kappa^{m+1})$ to a reduced system, where the
+pressure $P^{m+1}$ is eliminated, can be shown. More precisely, let
+$\uspacesimple^m_0(\vec g)$ be the divergence-free velocity space, see
+(\ref{eq:divfree_u_space}). Then any solution $(\vec U^{m+1}, P^{m+1}, \vec
+X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh
+\times \Wh$ to (\ref{eq:ns_HGa_antisym}--d) is such that $(\vec U^{m+1}, \vec
+X^{m+1}, \kappa^{m+1}) \in \uspacesimple^m_0(\vec g)\times \Vh \times \Wh$ with
+\begin{subequations}
+\begin{align}
+& \left(\frac{\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+\vec I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
+& \qquad + \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
+\vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
+\vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right)
+\nonumber \\
+& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+\nonumber \\
+& \qquad = \left(\vec f^{m+1},\vec \xi\right) \quad \forall\ \vec\xi \in
+\uspacesimple^m_0(\vec 0)\,, \label{eq:ns_reda}\\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:ns_redb} \\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_redc}
+\end{align}
+\end{subequations}
+
+\begin{theorem} \label{thm:ns_stabreduced}
+Let $m \in \{0,\ldots,M-1\}$ and let $\uspacesimple^m_0(\vec g)$ be non-empty.
+Then there exists a unique solution $(\vec U^{m+1}, \vec X^{m+1}, \kappa^{m+1})
+\in \uspacesimple^m_0(\vec g) \times \Vh \times \Wh$ to (\ref{eq:ns_reda}--c).
+\end{theorem}
+\begin{proof}
+As $\uspacesimple^m_0(\vec 0)$ is a subspace of $\uspacedisc{0}{m}$,
+existence to the linear system (\ref{eq:ns_reda}--c) follows from uniqueness,
+which is easy to show. In fact, similarly to the proof of
+Theorem~\ref{thm:ns_ex} we obtain (\ref{eq:ns_proof2}) and hence the desired
+uniqueness result.
+\end{proof}
+
+\section{Stability}\label{sec:ns_stability}
 TODO: Discuss interpolation of $\vec U^m$, stress difference to unfitted case,
 where stability if no coarsening in bulk mesh. Describe strategies for
 interpolation. State that stability holds only without remeshing
@@ -430,7 +567,7 @@ such that
 & \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
 \xi \right) + \left(\rho^m(\vec I^m_2\vec U^m\,.\,\nabla)\,\vec U^{m+1}\,,
 \,\vec \xi \right)\nonumber \\
-& \qquad - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
 & \qquad - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
 \vec\xi\right\rangle_{\Gamma^m}
@@ -477,7 +614,7 @@ implicitly and the finite element approximation (\ref{eq:ns_HGa}--d) becomes
 & \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
 \xi \right) + \left(\rho^m( \vec U^{m+1}\,.\,\nabla)\,\vec U^{m+1}\,,
 \,\vec \xi \right)\nonumber \\
-& \qquad- 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
 & \qquad - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
 \vec\xi\right\rangle_{\Gamma^m}
@@ -544,7 +681,7 @@ M-1$, set $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, $s=0$ and $\epsilon_f
 & \left( \rho^m\,\frac{\vec U^{m+1,s+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
 \xi \right) + \left((\rho^m\vec U^{m+1,s}\,.\,\nabla)\,\vec U^{m+1,s+1}\,,
 \,\vec \xi \right)\nonumber \\
-& - 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi) \right)
+& + 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
 & - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
 = \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
