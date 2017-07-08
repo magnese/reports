@@ -47,7 +47,7 @@ z_i}\bigg)=\alpha\delta_{ij}\,,
 \end{equation*}
 and it holds
 \begin{align*}
-\nabla\,.\,\mat D(\vec u) = \vec 0\,,
+\nabla\,.\,\mat D(\vec u) = \vec 0\,.
 \end{align*}
 Therefore, given that the pressure $p$ is constant in each phase and that
 $\vec u$ does not depend on time, the momentum equation
@@ -99,8 +99,8 @@ r(t) = \mathrm{e}^{\alpha_1\,t}\,r(0)\,,
 \end{equation}
 together with
 \begin{align} \label{eq:ns_sol_2_up}
-& \vec u(\vec z, t) = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}(|\vec
-z|^2-r(t)^2)\bigg)\,\vec z\,, \\
+& \vec u(\vec z, t) = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}
+\big(|\vec z\,|^2-r(t)^2\big)\bigg)\,\vec z\,, \\
 & p(\vec z, t) = -\,\bigg(\gamma - 4\,\alpha_2\,\frac{\mu_+}{d-1}r(t)^3
 \bigg)\,\varkappa(t)\,\left[ \charfcn{\Omega_-(t)} -
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
@@ -115,15 +115,42 @@ is an exact solution to the problem (\ref{eq:ns_full_momentum}--i), with
 2\alpha_1\alpha_2\big(2|\vec z\,|^2-r(t)^2\big) \nonumber \\
 & +\alpha_2^2\big(|\vec z\,|^2-r(t)^2\big)\big(3|\vec z\,|^2 -
 r(t)^2\big)-4(d+1)\alpha_2\frac{\mu_+}{\rho}\bigg)\bigg)\vec z\,, \\
-f_{\rm{div}} = & \big( \alpha_1
-+ \alpha_2\charfcn{\Omega_+(t)}\big(\frac{2+d}{d}|\vec z\,|^2-r(t)^2\big)\big)d
+f_{\rm{div}} = & \bigg( \alpha_1 +
+\alpha_2\charfcn{\Omega_+(t)}\bigg(\frac{2+d}{d}|\vec z\,|^2-r(t)^2\bigg)\bigg)d
 \end{align}
 and
 \begin{equation}
-\vec g = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}(|\vec
-z|^2-r(t)^2)\bigg)\,\vec z
+\vec g = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}
+\big( |\vec z\,|^2-r(t)^2\big)\bigg)\, \vec z
 \end{equation}
 on $\partial_1\Omega=\partial\Omega$.
+
+We now verify that (\ref{eq:ns_sol_2_r},b) is indeed an exact solution. Firstly,
+we have that
+\begin{equation*}
+\frac{\partial u_i}{\partial z_j} = \alpha_1 \delta_{ij}
++ \alpha_2\charfcn{\Omega_+(t)}\bigg(\delta_{ij}\big(|\vec z\,|^2-r(t)^2\big)
++ 2z_iz_j\bigg)\,,
+\end{equation*}
+and
+\begin{equation*}
+\frac{\partial^2 u_i}{\partial z_j^2} =
+2 \alpha_2\charfcn{\Omega_+(t)}\big(\delta_{ij} z_j+ z_i\big)\,.
+\end{equation*}
+Since $\frac{\partial u_i}{\partial z_j}=\frac{\partial u_j}{\partial z_i}$,
+the components of the rate-of-deformation tensor are simply
+\begin{equation*}
+\big[\mat D(\vec u) \big]_{ij} = \frac{1}{2}\bigg(\frac{\partial
+u_i}{\partial z_j} + \frac{\partial u_j}{\partial z_i}\bigg)=
+\frac{\partial u_i}{\partial z_j}\,.
+\end{equation*}
+Then, it holds
+\begin{align*}
+\big[\nabla\,.\,\mat D(\vec u)\big]_i = &
+\sum_{j=1}^d\frac{\partial}{\partial z_j} \frac{\partial u_i}{\partial z_j}
+= 2 \alpha_2\charfcn{\Omega_+(t)}\sum_{j=1}^d\big(\delta_{ij} z_j + z_i \big)
+= 2(d+1)\alpha_2\charfcn{\Omega_+(t)}z_i\,.
+\end{align*}
 
 \subsection{Expanding bubble III}
 A nontrivial divergence free and radially symmetric solution $\vec u$
@@ -289,7 +316,7 @@ and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
 \section{Benchmark quantities}\label{sec:benchmark_quantities}
 In our numerical simulations, unless otherwise stated, we use the following
 settings. We choose the initial surface $\Gamma(0) = \{ \vec z \in \R^d : |\vec
-z| = \frac12 \}$, the domain $\Omega = (-1,1)^d$ and we employ uniform time
+z\,| = \frac12 \}$, the domain $\Omega = (-1,1)^d$ and we employ uniform time
 steps $\tau_m=\tau$, $m=0,\ldots, M-1$ and nearly uniform bulk meshes. The bulk
 mesh is remeshed only when the angle criterion (\ref{eq:angle_criterion}), with
 $C_a=20$\textdegree, is not satisfied. We compute the discrete solution over
