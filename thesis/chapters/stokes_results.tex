@@ -51,7 +51,8 @@ automatically holds if $\vec f=\vec 0$ and the continuity equation
 (\ref{eq:stokes_full_jump_stress}) holds since, substituting
 (\ref{eq:radialup}) in (\ref{eq:stokes_full_jump_stress}), we obtain
 \begin{align*}
-[2\mu \mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ = & [- p\,\vec \nu]_-^+ \\
+\big[2\,\mu \mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu\big]_-^+ =
+& \big[- p\,\vec \nu\big]_-^+ \\
 = & -\gamma \varkappa(0)\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\vec \nu
 -\gamma \varkappa(0) \vec \nu +
 \gamma \varkappa(0)\frac{\vol(\Omega_-(0))}{\vol(\Omega)}\vec \nu \\
@@ -120,18 +121,19 @@ Moreover, also the stress balance
 (\ref{eq:radialup2}) in (\ref{eq:stokes_full_jump_stress}), we obtain for the
 $i$ component
 \begin{align*}
-& [[2\mu \mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_i]_-^+ =
-\bigg[2\mu \sum_{j=1}^d\frac{\partial u_i}{\partial z_j}\nu_j - p\nu_i\bigg]_-^+
-= \bigg[2\mu\sum_{j=1}^d\frac{\partial u_i}{\partial z_j}
-\frac{z_j}{|\vec z\,|}\bigg]_-^+ -\bigg[ p\nu_i\bigg]_-^+ \\
-& \qquad = \bigg[2\mu\sum_{j=1}^d\bigg(\alpha \frac{\delta_{ij}z_j-dz_iz_j^2|
+& \bigg[\big[2\,\mu \mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu\big]_i\bigg]_-^+ =
+\bigg[2\,\mu \sum_{j=1}^d\frac{\partial u_i}{\partial z_j}\nu_j -
+p\nu_i\bigg]_-^+
+= \bigg[2\,\mu\sum_{j=1}^d\frac{\partial u_i}{\partial z_j}
+\frac{z_j}{|\vec z\,|}\bigg]_-^+ -\big[ p\nu_i\big]_-^+ \\
+& \qquad = \bigg[2\,\mu\sum_{j=1}^d\bigg(\alpha \frac{\delta_{ij}z_j-dz_iz_j^2|
 \vec z\,|^{-2}}{|\vec z\,|^{d+1}}\bigg)\bigg]_-^+
--\bigg(\gamma +2 \alpha \frac{\mu_+ - \mu_-}{r^{d-1}}\bigg)\varkappa\nu_i \\
-& \qquad = \bigg[2\mu \alpha \frac{z_i-dz_i}{|\vec z\,|^{d+1}}\bigg]_-^+
--\gamma \varkappa \nu_i - 2\alpha\frac{\mu_+ -
+-\bigg(\gamma +2 \,\alpha \frac{\mu_+ - \mu_-}{r^{d-1}}\bigg)\varkappa\nu_i \\
+& \qquad = \bigg[2\,\mu \,\alpha \frac{z_i-dz_i}{|\vec z\,|^{d+1}}\bigg]_-^+
+-\gamma \varkappa \nu_i - 2\,\alpha\frac{\mu_+ -
 \mu_-}{|\vec z\,|^{d-1}}\frac{1-d}{|\vec z\,|}\frac{z_i}{|\vec z\,|} \\
-& \qquad = 2\alpha \frac{(\mu_+-\mu_-)(1-d)z_i}{|\vec z\,|^{d+1}}
--\gamma \varkappa \nu_i - 2\alpha\frac{(\mu_+-\mu_-)(1-d)z_i}{|\vec
+& \qquad = 2\,\alpha \frac{(\mu_+-\mu_-)(1-d)z_i}{|\vec z\,|^{d+1}}
+-\gamma \varkappa \nu_i - 2\,\alpha\frac{(\mu_+-\mu_-)(1-d)z_i}{|\vec
 z\,|^{d+1}} = -\gamma \varkappa \nu_i\,.
 \end{align*}
 Finally, the dynamic interface condition (\ref{eq:stokes_full_velocity}) is
