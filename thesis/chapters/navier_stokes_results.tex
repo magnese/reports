@@ -109,7 +109,7 @@ together with
 is an exact solution to the problem (\ref{eq:ns_full_momentum}--i), with
 (\ref{eq:ns_full_mass}) replaced by (\ref{eq:ns_compressible}), on e.g.\ $\Omega
 = (-1,1)^d$ with
-\begin{align}
+\begin{align}\label{eq:ns_sol_2_f}
 \vec f(\vec z, t) = &
 \rho\,\bigg(\alpha_1^2\,+\charfcn{\Omega_+(t)}\bigg(-2\alpha_1\alpha_2r(t)^2 +
 2\alpha_1\alpha_2\big(2|\vec z\,|^2-r(t)^2\big) \nonumber \\
@@ -125,20 +125,22 @@ and
 \end{equation}
 on $\partial_1\Omega=\partial\Omega$.
 
-We now verify that (\ref{eq:ns_sol_2_r},b) is indeed an exact solution. Firstly,
-we have that
+We now verify that (\ref{eq:ns_sol_2_r},b,c) is indeed an exact solution.
+Firstly, we have that
 \begin{equation*}
 \frac{\partial u_i}{\partial z_j} = \alpha_1 \delta_{ij}
-+ \alpha_2\charfcn{\Omega_+(t)}\bigg(\delta_{ij}\big(|\vec z\,|^2-r(t)^2\big)
++ \alpha_2\charfcn{\Omega_+}\bigg(\delta_{ij}\big(|\vec z\,|^2-r^2\big)
 + 2z_iz_j\bigg)\,,
 \end{equation*}
 and
 \begin{equation*}
 \frac{\partial^2 u_i}{\partial z_j^2} =
-2 \alpha_2\charfcn{\Omega_+(t)}\big(\delta_{ij} z_j+ z_i\big)\,.
+2 \alpha_2\charfcn{\Omega_+}\big(\delta_{ij} z_j+ z_i\big)\,.
 \end{equation*}
-Since $\frac{\partial u_i}{\partial z_j}=\frac{\partial u_j}{\partial z_i}$,
-the components of the rate-of-deformation tensor are simply
+Now, we check that all the terms on the left-hand side in the momentum equation
+(\ref{eq:ns_full_momentum}) add up to $\vec f$.  Since $\frac{\partial
+u_i}{\partial z_j}=\frac{\partial u_j}{\partial z_i}$, the components of the
+rate-of-deformation tensor are simply
 \begin{equation*}
 \big[\mat D(\vec u) \big]_{ij} = \frac{1}{2}\bigg(\frac{\partial
 u_i}{\partial z_j} + \frac{\partial u_j}{\partial z_i}\bigg)=
@@ -148,9 +150,48 @@ Then, it holds
 \begin{align*}
 \big[\nabla\,.\,\mat D(\vec u)\big]_i = &
 \sum_{j=1}^d\frac{\partial}{\partial z_j} \frac{\partial u_i}{\partial z_j}
-= 2 \alpha_2\charfcn{\Omega_+(t)}\sum_{j=1}^d\big(\delta_{ij} z_j + z_i \big)
-= 2(d+1)\alpha_2\charfcn{\Omega_+(t)}z_i\,.
+= 2 \alpha_2\charfcn{\Omega_+}\sum_{j=1}^d\big(\delta_{ij} z_j + z_i \big)
+= 2(d+1)\alpha_2\charfcn{\Omega_+}z_i\,.
 \end{align*}
+For what concern the time derivative, we obtain
+\begin{align*}
+\vec u_t = -2\alpha_2\charfcn{\Omega_+}rr^\prime\vec z =
+-2\alpha_1\alpha_2\charfcn{\Omega_+}r^2\vec z\,,
+\end{align*}
+while, the $i$ component of the convective term is
+\begin{align*}
+\big[(\vec u \,.\, \nabla)\vec u\big]_i =&
+\sum_{j=1}^d \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+}
+\big(|\vec z\,|^2-r^2\big)\bigg)\,\vec z_j
+\frac{\partial u_i}{\partial z_j} \\
+= &\bigg(\alpha_1+\alpha_2\charfcn{\Omega_+}
+\big(|\vec z\,|^2-r^2\big)\bigg)\,\cdot \\
+&\qquad \sum_{j=1}^d\vec z_j\bigg[
+\alpha_1 \delta_{ij}
++ \alpha_2\charfcn{\Omega_+}\bigg(\delta_{ij}\big(|\vec z\,|^2-r^2\big)
++ 2z_iz_j\bigg)\bigg] \\
+= &\bigg(\alpha_1+\alpha_2\charfcn{\Omega_+}
+\big(|\vec z\,|^2-r^2\big)\bigg)\,\cdot \\
+&\qquad \bigg[
+\alpha_1 + \alpha_2\charfcn{\Omega_+}\bigg(\big(|\vec z\,|^2-r^2\big)
++ 2|\vec z\,|^2\bigg)\bigg]z_i \\
+= &\bigg[\alpha_1^2
++ \charfcn{\Omega_+}\bigg(2\alpha_1\alpha_2\big(2|\vec z\,|^2-r^2\big)
++ \alpha_2^2\big(|\vec z\,|^2-r^2\big)\big(3|\vec z\,|^2
+- r^2\big)\bigg)\bigg]\vec z_i\,.
+\end{align*}
+Therefore, summing together all the terms in (\ref{eq:ns_full_momentum}),
+given that $\nabla p = 0$  since the pressure $p$ is constant in each
+phase, we obtain the forcing term (\ref{eq:ns_sol_2_f}). Also the
+continuity equation (\ref{eq:ns_compressible}) is satisfied since we have
+\begin{align*}
+\nabla\,.\,\vec u=\sum_{j=1}^d\frac{\partial u_j}{\partial z_j} = &
+\sum_{j=1}^d\bigg[ \alpha_1
++ \alpha_2\charfcn{\Omega_+}\bigg(\big(|\vec z\,|^2-r^2\big)
++ 2z_j^2\bigg)\bigg]\\
+= & \alpha_1d + \alpha_2\charfcn{\Omega_+}\big((2+d)|\vec z\,|^2-r^2d\big)\,,
+\end{align*}
+which is indeed equal to $f_{\rm{div}}$.
 
 \subsection{Expanding bubble III}
 A nontrivial divergence free and radially symmetric solution $\vec u$
