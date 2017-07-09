@@ -451,7 +451,7 @@ $\vec\eta=\gamma\,\vec X$ in (\ref{eq:ns_proofd}) yields that
 = 0\,, \label{eq:ns_proof2}
 \end{equation}
 which implies that $\mat D(\vec U) = \mat 0$. Given that $\vec U \in RM$,
-where $RM$ is the space of rigid motions (\ref{eq:space_rigid_motions}) which
+where $RM$ is the space of rigid motions (\ref{eq:rigid_motions_space}) which
 constitutes the kernel of $\mat D$, in particular we have that $\vec U(\vec z)$
 is linear in $\vec z$. Moreover, $\vec U\in\uspacedisc{0}{m}$ means that $\vec
 U(\vec z)=\vec 0$ for every corner $\vec z$ of $\Omega$. Therefore $\vec U(\vec
@@ -546,6 +546,57 @@ TODO: Discuss interpolation of $\vec U^m$, stress difference to unfitted case,
 where stability if no coarsening in bulk mesh. Describe strategies for
 interpolation. State that stability holds only without remeshing
 (interpolation!)
+
+We now demonstrate that the scheme (\ref{eq:ns_HGa_antisym}--d) is
+unconditional stable. The proof is analogous to the Stokes case presented in
+\S\ref{sec:stokes_stability}.
+\begin{theorem} \label{thm:ns_stability}
+Let $\vec g=\vec 0$. Moreover let $m \in \{0,\ldots,M-1\}$ and let
+${(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
+\pnormspace^m \times \Vh \times \Wh}$ be a solution to
+(\ref{eq:ns_HGa_antisym}--d). Then
+\begin{align}\label{eq:ns_stab}
+& \gamma\, \surfvol(\Gamma^{m+1})
++ \tfrac{1}{2}\left(\rho^m\,\vec U^{m+1}, \vec U^{m+1} \right)
++ 2\,\tau\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1})\right)
+\nonumber \\
+& \qquad + \tfrac{1}{2}\left((\vec I^m_0\,\rho^{m-1})\,(\vec U^{m+1}
+-\vec I^m_2\,\vec U^m), \vec U^{m+1} - \vec I^m_2\,\vec U^m \right) \nonumber \\
+& \qquad \leq \gamma\, \surfvol(\Gamma^m) +
+\tfrac{1}{2}\left((\vec I^m_0\,\rho^{m-1})\,\vec I^m_2\,\vec U^m,
+\vec I^m_2\,\vec U^m \right) + \tau\left(\vec f^{m+1}, \vec U^{m+1} \right)\,.
+\end{align}
+\end{theorem}
+\begin{proof}
+Choosing $\vec\xi = \vec U^{m+1} \in \uspacedisc{0}{m}$ in
+(\ref{eq:ns_HGa_antisym}), $\varphi = P^{m+1} \in \pnormspace^m$ in
+(\ref{eq:ns_HGb_antisym}), $\chi = \gamma\,\kappa^{m+1}$ in
+(\ref{eq:ns_HGc_antisym}) and
+$\vec\eta=\gamma\,({\vec X^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ in
+(\ref{eq:ns_HGd_antisym}) yields that
+\begin{align*}
+& \left(\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+\vec I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m, \vec U^{m+1} \right) \\
+& \qquad + 2\,\tau\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1})\right)
++ \gamma\,\left\langle \nabs\,\vec X^{m+1}, \nabs\,(\vec X^{m+1} - \vec X^m)
+\right\rangle_{\Gamma^m} \\
+& \qquad = \tau\left(\vec f^{m+1}, \vec U^{m+1} \right)\,,
+\end{align*}
+and, rearranging the terms,
+\begin{align*}
+& \tfrac{1}{2}\left(\rho^m\,\vec U^{m+1}, \vec U^{m+1} \right)+
+\tfrac{1}{2}\left((\vec I^m_0\,\rho^{m-1})\,(\vec U^{m+1}
+-\vec I^m_2\,\vec U^m), \vec U^{m+1} - \vec I^m_2\,\vec U^m \right) \\
+& \qquad + 2\,\tau\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1})\right)
++ \gamma\,\left\langle \nabs\,\vec X^{m+1}, \nabs\,(\vec X^{m+1} - \vec X^m)
+\right\rangle_{\Gamma^m} \\
+& \qquad = \tfrac{1}{2}\left((\vec I^m_0\,\rho^{m-1})\,\vec I^m_2\,\vec U^m,
+\vec I^m_2\,\vec U^m \right) + \tau\left(\vec f^{m+1}, \vec U^{m+1} \right)\,.
+\end{align*}
+Hence (\ref{eq:ns_stab}) follows immediately, where we have used
+(\ref{eq:delta_length_inequality}). The desired result (\ref{eq:ns_stabstab})
+immediately follows from (\ref{eq:ns_stab}).
+\end{proof}
 
 \section{Standard finite element approximation}\label{sec:ns_fem}
 An alternative to the antisymmetric discrete finite element approximation
