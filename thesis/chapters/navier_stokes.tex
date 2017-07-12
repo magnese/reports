@@ -212,7 +212,8 @@ and, using the incompressibility condition (\ref{eq:ns_full_mass}), we obtain
 \rangle_{\Gamma(t)}] \quad \forall\ \vec \xi \in \uspace 0\,.
 \end{align}
 
-Next, we can use Reynolds transport theorem, together with
+Next, we can use Reynolds transport theorem \footnote{Robert: can you add
+citation?}, together with
 (\ref{eq:ns_full_velocity}), to rewrite the time derivative term
 $(\rho\,\vec u_t,\vec \xi)$ and obtain
 \begin{align}\label{eq:rhot1}
@@ -342,12 +343,12 @@ We need to pay particular attention to the discretization of the time
 derivative in (\ref{eq:ns_weaka_antisym}). Indeed, the discrete counterpart of
 $\tfrac{1}{2} \ddt (\rho\,\vec u, \vec \xi)$ is
 \begin{equation}\label{eq:antysim_time_derivative_a}
-\frac{1}{2}\left(\frac{\rho^m\,\vec U^{m+1} - \vec I^m_0\,\rho^{m-1}
+\frac{1}{2}\left(\frac{\rho^m\,\vec U^{m+1} - I^m_0\,\rho^{m-1}
 \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\,,
 \end{equation}
 while the discrete version of $\tfrac{1}{2}(\rho\,\vec u_t, \vec \xi)$ is
 \begin{equation}\label{eq:antysim_time_derivative_b}
-\frac{1}{2}\left( \vec I^m_0\,\rho^{m-1}\, \frac{\vec U^{m+1} - \vec I^m_2\,
+\frac{1}{2}\left( I^m_0\,\rho^{m-1}\, \frac{\vec U^{m+1} - \vec I^m_2\,
 \vec U^m}{\tau}, \vec \xi \right)\,.
 \end{equation}
 We notice that in (\ref{eq:antysim_time_derivative_b}), instead of using the
@@ -359,8 +360,8 @@ S^m_0$, we can rewrite the discretization of the weak time derivative
 $\tfrac{1}{2}\big[ \ddt (\rho\,\vec u, \vec \xi)+(\rho\,\vec u_t, \vec\xi)\big]$
 in the simpler form
 \begin{equation}
-\left(\frac{\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
-\vec I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\,.
+\left(\frac{\tfrac{1}{2}(I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\,.
 \end{equation}
 
 Then our antisymmetric finite element approximation is given as follows. Let
@@ -370,8 +371,8 @@ $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in
 \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
-& \left(\frac{\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
-\vec I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
+& \left(\frac{\tfrac{1}{2}(I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
 & \qquad + \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
 \vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
 \vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right)
@@ -422,7 +423,7 @@ ${(\vec U, P, \vec X, \kappa) \in \uspacedisc{0}{m}\times\pnormspace^m \times
 \Vh \times \Wh}$ such that
 \begin{subequations}
 \begin{align}
-& \frac{1}{2\tau}\left((\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U, \vec \xi
+& \frac{1}{2\tau}\left((I^m_0\,\rho^{m-1}+\rho^m)\,\vec U, \vec \xi
 \right)\nonumber \\
 & \qquad + \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
 \vec U\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
@@ -445,7 +446,7 @@ Choosing $\vec\xi=\vec U$ in (\ref{eq:ns_proofa}), $\varphi =  P$ in
 (\ref{eq:ns_proofb}), $\chi = \gamma\,\kappa$ in (\ref{eq:ns_proofc}) and
 $\vec\eta=\gamma\,\vec X$ in (\ref{eq:ns_proofd}) yields that
 \begin{equation}
-\frac{1}{2}\left((\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U, \vec U \right)
+\frac{1}{2}\left((I^m_0\,\rho^{m-1}+\rho^m)\,\vec U, \vec U \right)
 + 2\,\tau\left(\mu^m\,\mat D(\vec U), \mat D(\vec U) \right)
 + \gamma\,\left\langle \nabs\,\vec X, \nabs\,\vec X \right\rangle_{\Gamma^m}
 = 0\,, \label{eq:ns_proof2}
@@ -507,8 +508,8 @@ X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh
 X^{m+1}, \kappa^{m+1}) \in \uspacesimple^m_0(\vec g)\times \Vh \times \Wh$ with
 \begin{subequations}
 \begin{align}
-& \left(\frac{\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
-\vec I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
+& \left(\frac{\tfrac{1}{2}(I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
 & \qquad + \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
 \vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
 \vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right)
@@ -560,12 +561,32 @@ ${(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
 + \tfrac{1}{2}\left(\rho^m\,\vec U^{m+1}, \vec U^{m+1} \right)
 + 2\,\tau\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1})\right)
 \nonumber \\
-& \qquad + \tfrac{1}{2}\left((\vec I^m_0\,\rho^{m-1})\,(\vec U^{m+1}
+& \qquad + \tfrac{1}{2}\left((I^m_0\,\rho^{m-1})\,(\vec U^{m+1}
 -\vec I^m_2\,\vec U^m), \vec U^{m+1} - \vec I^m_2\,\vec U^m \right) \nonumber \\
 & \qquad \leq \gamma\, \surfvol(\Gamma^m) +
-\tfrac{1}{2}\left((\vec I^m_0\,\rho^{m-1})\,\vec I^m_2\,\vec U^m,
+\tfrac{1}{2}\left((I^m_0\,\rho^{m-1})\,\vec I^m_2\,\vec U^m,
 \vec I^m_2\,\vec U^m \right) + \tau\left(\vec f^{m+1}, \vec U^{m+1} \right)\,.
 \end{align}
+
+In addition, assume that
+\begin{equation}\label{eq:ns_stabstab_hp}
+\left((I^m_0\,\rho^{m-1})\,\vec I^m_2\,\vec U^m,
+\vec I^m_2\,\vec U^m \right) \leq \left(\rho^{m-1}\,\vec U^m,\vec U^m \right)
+\end{equation}
+for $m=1,\ldots, M-1$. Then it holds that
+\begin{align}\label{eq:ns_stabstab}
+& \gamma\, \surfvol(\Gamma^{m+1})
++ \tfrac{1}{2}\left(\rho^m\,\vec U^{m+1}, \vec U^{m+1} \right)
++ 2\,\sum_{k=0}^{m}
+\tau\left(\mu^k\,\mat D(\vec U^{k+1}), \mat D(\vec U^{k+1})\right)\nonumber \\
+& \qquad + \tfrac{1}{2}\sum_{k=0}^{m}
+\left((I^k_0\,\rho^{k-1})\,(\vec U^{k+1}
+-\vec I^k_2\,\vec U^k), \vec U^{k+1} - \vec I^k_2\,\vec U^k \right) \nonumber \\
+& \qquad \leq \gamma\, \surfvol(\Gamma^0)
++ \tfrac{1}{2}\left(\rho^{-1}\vec U^0, \vec U^0 \right)
++\tau\,\sum_{k=0}^{m}\left(\vec f^{k+1}, \vec U^{k+1} \right)\,,
+\end{align}
+for $m=0,\ldots, M-1$.
 \end{theorem}
 \begin{proof}
 Choosing $\vec\xi = \vec U^{m+1} \in \uspacedisc{0}{m}$ in
@@ -575,8 +596,8 @@ Choosing $\vec\xi = \vec U^{m+1} \in \uspacedisc{0}{m}$ in
 $\vec\eta=\gamma\,({\vec X^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ in
 (\ref{eq:ns_HGd_antisym}) yields that
 \begin{align*}
-& \left(\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
-\vec I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m, \vec U^{m+1} \right) \\
+& \left(\tfrac{1}{2}(I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m, \vec U^{m+1} \right) \\
 & \qquad + 2\,\tau\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1})\right)
 + \gamma\,\left\langle \nabs\,\vec X^{m+1}, \nabs\,(\vec X^{m+1} - \vec X^m)
 \right\rangle_{\Gamma^m} \\
@@ -585,18 +606,20 @@ $\vec\eta=\gamma\,({\vec X^{m+1}-\vec\id\!\mid_{\Gamma^m}})$ in
 and, rearranging the terms,
 \begin{align*}
 & \tfrac{1}{2}\left(\rho^m\,\vec U^{m+1}, \vec U^{m+1} \right)+
-\tfrac{1}{2}\left((\vec I^m_0\,\rho^{m-1})\,(\vec U^{m+1}
+\tfrac{1}{2}\left((I^m_0\,\rho^{m-1})\,(\vec U^{m+1}
 -\vec I^m_2\,\vec U^m), \vec U^{m+1} - \vec I^m_2\,\vec U^m \right) \\
 & \qquad + 2\,\tau\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1})\right)
 + \gamma\,\left\langle \nabs\,\vec X^{m+1}, \nabs\,(\vec X^{m+1} - \vec X^m)
 \right\rangle_{\Gamma^m} \\
-& \qquad = \tfrac{1}{2}\left((\vec I^m_0\,\rho^{m-1})\,\vec I^m_2\,\vec U^m,
+& \qquad = \tfrac{1}{2}\left((I^m_0\,\rho^{m-1})\,\vec I^m_2\,\vec U^m,
 \vec I^m_2\,\vec U^m \right) + \tau\left(\vec f^{m+1}, \vec U^{m+1} \right)\,.
 \end{align*}
 Hence (\ref{eq:ns_stab}) follows immediately, where we have used
 (\ref{eq:delta_length_inequality}). The desired result (\ref{eq:ns_stabstab})
-immediately follows from (\ref{eq:ns_stab}).
+immediately follows from (\ref{eq:ns_stab}) and (\ref{eq:ns_stabstab_hp}).
 \end{proof}
+\footnote{Robert: \ref{eq:ns_stabstab} the convective term has $\rho^{k-1}$
+in your paper, why? shouldn't be $I_0^k\rho^{k-1}$}
 
 \section{Standard finite element approximation}\label{sec:ns_fem}
 An alternative to the antisymmetric discrete finite element approximation
@@ -654,9 +677,9 @@ from the explicit standard scheme (\ref{eq:ns_HGa}--d), for the antisymmetric
 rewrite of the convective term and for the density coefficients in the time
 derivative. Indeed, instead of using the actual density $\rho^m$, it uses an
 average between the actual density and the interpolation of the density at the
-previous time step $\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1} + \rho^m)$ for what
+previous time step $\tfrac{1}{2}(I^m_0\,\rho^{m-1} + \rho^m)$ for what
 concern $\vec U^{m+1}$ and it uses directly the density interpolation
-$\vec I^m_0\,\rho^{m-1}$ for $\vec I^m_2\vec U^m$.
+$I^m_0\,\rho^{m-1}$ for $\vec I^m_2\vec U^m$.
 
 Alternatively, the convective term in (\ref{eq:ns_HGimpa}) can be treated
 implicitly and the finite element approximation (\ref{eq:ns_HGa}--d) becomes
@@ -714,11 +737,16 @@ become
 \phi_j^{\uspacesimple^m}, \phi_i^{\uspacesimple^m} \right)\mat \id
 -\frac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
 \phi_i^{\uspacesimple^m}, \phi_j^{\uspacesimple^m} \right)\mat \id \,,\\
-\vec c_i := &\left( \frac{\vec I_0^m\rho^{m-1}+\rho^m}{2\tau_m}\vec I_2^m
+\vec c_i := &\left( \frac{I^m_0\rho^{m-1}+\rho^m}{2\tau_m}\vec I_2^m
 \vec U^m + \vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
 \end{align*}
 Then the resulting algebraic system can be solved using the same technique
 introduced in \S\ref{sec:stokes_solution_method}.
+
+We observe that the source term $\vec f$ might depend on the fluid density
+$\rho$. Therefore, it can be decomposed as $\vec f = \rho\,\vec f_1+\vec f_2$.
+At discrete level, we let the density lag one step behind leading to
+$\vec f^{m+1} = \vec \rho^m\,f^{m+1}_1+\vec f^m_2$.
 
 Instead, in order to solve the implicit standard scheme (\ref{eq:ns_HGimpa}--d)
 we use a fixed point iteration. Therefore we can reformulate the scheme
