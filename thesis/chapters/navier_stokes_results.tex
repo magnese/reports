@@ -434,23 +434,29 @@ V^m_c = \frac{1}{\vol(\Omega_-^m)}\,\int_{\Omega_-^m}U^m_d\dL{d}\,,
 where $U^m_d$ is the $d$-component of $\vec U^m$ evaluated on $\Omega^m$.
 
 \section{Convergence tests}\label{sec:ns_convergence_results}
-For the expanding bubble tests, we fix $\Omega = (-1,1)^2 \setminus
-[-\frac13,\frac13]^2$ and we choose the parameters $\rho_+ = 1000$, $\rho_- =
-100$, $\mu_+ = 10$, $\mu_- = 1$ and $\gamma = 1$. Details on the discretization
-parameters are given in Table~\ref{tab:nsexpandingbubbleelements}. Here we
-explicitly state the final number of bulk elements, $J_\Omega^M$, for the
-regular scheme with the P2--P0 element for the three expanding bubble problems.
+For the expanding bubble I, we fix $\Omega = (-1,1)^2$ and we choose the
+parameters $\alpha =0.15$ and $\rho_+ = \rho_- = \mu_+ = \mu_- = \gamma = 1$.
+Instead, for the expanding bubble II, we fix $\Omega = (-1,1)^2$ and we choose
+the parameters $\alpha_1 =$ and
+$\alpha_2=$, $\rho_+ = \rho_- = \mu_+ = 10 \mu_- = \gamma = 1$. Finally, for
+the expanding bubble III, we fix $\Omega = (-1,1)^2 \setminus
+[-\frac13,\frac13]^2$ and we choose the parameters $\alpha=0.15$, $\rho_+ =
+1000$, $\rho_- = 100$, $\mu_+ = 10$, $\mu_- = 1$ and $\gamma = 1$. Details on
+the discretization parameters are given in
+Table~\ref{tab:nsexpandingbubbleelements}. Here we explicitly state the final
+number of bulk elements, $J_\Omega^M$, for the regular scheme with the P2--P0
+element for the three expanding bubble problems.
 \begin{table*}
 \center
-\begin{tabular}{rrrrrr}
+\begin{tabular}{rrrrrrr}
 \hline
-$J_\Gamma$ & $J_\Omega^0$ & $\tau$ & $J_\Omega^M$ case I & $J_\Omega^M$ case II
-& $J_\Omega^M$ case III \\
+$J_\Gamma$ & $J_\Omega^0$ case I, II & $J_\Omega^0$ case III & $\tau$ &
+$J_\Omega^M$ case I & $J_\Omega^M$ case II & $J_\Omega^M$ case III \\
 \hline
- 32 &  460 & $6.4\cdot10^{-2}$ & & &  216 \\
- 64 & 1040 & $1.6\cdot10^{-2}$ & & &  444 \\
-128 & 2628 &   $4\cdot10^{-3}$ & & & 1384 \\
-256 & 7460 &         $10^{-3}$ & & & 4484 \\
+ 32 &   296 &  460 & $6.4\cdot10^{-2}$ &   310 & &  216 \\
+ 64 &  1240 & 1040 & $1.6\cdot10^{-2}$ &  1240 & &  444 \\
+128 &  4836 & 2628 &   $4\cdot10^{-3}$ &  4836 & & 1384 \\
+256 & 18476 & 7460 &         $10^{-3}$ & 18476 & & 4484 \\
 \hline
 \end{tabular}
 \caption[Navier--Stokes expanding bubble meshes parameters]
@@ -468,39 +474,38 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{explicit} \\
 \hline
- 16 & & & - & & & - & \\
- 32 & & & - & & & - & \\
- 64 & & & - & & & - & \\
-128 & & & - & & & - & \\
+ 32 & 3.96456e-04 & 1.32554e-15 & - & 8.31840e-15 & 3.05157e-01 & - &     6 \\
+ 64 & 1.03429e-04 & 2.55088e-15 & - & 3.65279e-14 & 1.57053e-01 & - &    49 \\
+128 & 2.61302e-05 & 5.72755e-15 & - & 1.07845e-13 & 7.09596e-02 & - &   878 \\
+256 & 6.53463e-06 & 1.27295e-14 & - & 1.66562e-12 & 1.99794e-02 & - & 23993 \\
 \hline
 & \multicolumn{7}{c}{implicit} \\
 \hline
- 16 & & & - & & & - & \\
- 32 & & & - & & & - & \\
- 64 & & & - & & & - & \\
-128 & & & - & & & - & \\
+ 32 & 3.96456e-04 & 1.36744e-15 & - & 8.35942e-15 & 3.05157e-01 & - &    7 \\
+ 64 & 1.03429e-04 & 2.55088e-15 & - & 3.65279e-14 & 1.57053e-01 & - &   78 \\
+128 & 2.61302e-05 & 5.60827e-15 & - & 1.05581e-13 & 7.09596e-02 & - & 1343 \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{antisymmetric} \\
 \hline
- 16 & & & - & & & - & \\
- 32 & & & - & & & - & \\
- 64 & & & - & & & - & \\
+ 32 & 4.01515e-04 & 1.07960e-04 & - & 1.32414e-03 & 3.01273e-01 & - &  4 \\
+ 64 & 1.05076e-04 & 4.41487e-05 & - & 8.03461e-04 & 1.57283e-01 & - & 56 \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{ALE} \\
 \hline
- 16 & & & - & & & - & \\
- 32 & & & - & & & - & \\
- 64 & & & - & & & - & \\
-128 & & & - & & & - & \\
+ 32 & 3.98308e-04 & 6.42841e-05 & - & 7.95122e-04 & 3.04674e-01 & - &     6 \\
+ 64 & 1.05032e-04 & 2.59134e-05 & - & 4.83580e-04 & 1.57382e-01 & - &    97 \\
+128 & 2.78555e-05 & 9.22818e-06 & - & 2.81282e-04 & 7.12121e-02 & - &  1407 \\
+256 & 8.36980e-06 & 3.45846e-06 & - & 1.50706e-04 & 2.04971e-02 & - & 28248 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
 \caption[Navier--Stokes expanding bubble I errors P2--P0]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 1,\alpha=0.15$)
-Expanding bubble problem I on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$
-over the time interval $[0,1]$ for the P2--P0 element, with adaptive
-meshes and $C_a=20$\textdegree.}
+{($\rho_+ = \rho_- = \mu_+ = \mu_- = \gamma = 1,\alpha=0.15$)
+Expanding bubble problem I on $(-1,1)^2$ over the time interval $[0,1]$ for the
+P2--P0 element, with adaptive meshes and $C_a=20$\textdegree.}
 \label{tab:nsexpandingbubbleIp2p0}
 \end{table*}
 
@@ -514,39 +519,38 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{explicit} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{implicit} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{antisymmetric} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{ALE} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
 \caption[Navier--Stokes expanding bubble I errors P2--\pdg]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 1,\alpha=0.15$)
-Expanding bubble problem I on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$
-over the time interval $[0,1]$ for the P2--\pdg element, with adaptive
-meshes and $C_a=20$\textdegree.}
+{($\rho_+ = \rho_- = \mu_+ = \mu_- = \gamma = 1,\alpha=0.15$)
+Expanding bubble problem I on $(-1,1)^2$ over the time interval $[0,1]$ for the
+P2--\pdg element, with adaptive meshes and $C_a=20$\textdegree.}
 \label{tab:nsexpandingbubbleIp2p1dg}
 \end{table*}
 
@@ -560,39 +564,38 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{explicit} \\
 \hline
- 16 & & & - & & & - & \\
- 32 & & & - & & & - & \\
- 64 & & & - & & & - & \\
-128 & & & - & & & - & \\
+ 32 & 3.96456e-04 & 3.49482e-15 & - & 3.50236e-14 & 3.05157e-01 & - &    5 \\
+ 64 & 1.03429e-04 & 1.13336e-14 & - & 2.49239e-13 & 1.57053e-01 & - &   61 \\
+128 & 2.61302e-05 & 1.63890e-14 & - & 7.38697e-13 & 7.09596e-02 & - & 1317 \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{implicit} \\
 \hline
- 16 & & & - & & & - & \\
- 32 & & & - & & & - & \\
- 64 & & & - & & & - & \\
-128 & & & - & & & - & \\
+ 32 & 3.96456e-04 & 5.29633e-15 & - & 5.92470e-14 & 3.05157e-01 & - &    6 \\
+ 64 & 1.03429e-04 & 7.72823e-15 & - & 2.14482e-13 & 1.57053e-01 & - &  134 \\
+128 & 2.61302e-05 & 1.69347e-14 & - & 7.44107e-13 & 7.09596e-02 & - & 2649 \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{antisymmetric} \\
 \hline
- 16 & & & - & & & - & \\
- 32 & & & - & & & - & \\
- 64 & & & - & & & - & \\
+ 32 & 3.96594e-04 & 1.36282e-06 & - & 3.00839e-05 & 2.90771e-01 & - &  5 \\
+ 64 & 1.03452e-04 & 2.31388e-07 & - & 6.81585e-06 & 1.57312e-01 & - & 45 \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{ALE} \\
 \hline
- 16 & & & - & & & - & \\
- 32 & & & - & & & - & \\
- 64 & & & - & & & - & \\
-128 & & & - & & & - & \\
+ 32 & 3.99759e-04 & 6.25247e-06 & - & 7.88132e-05 & 3.02831e-01 & - &    8 \\
+ 64 & 1.05838e-04 & 3.00362e-06 & - & 3.09064e-05 & 1.57373e-01 & - &  196 \\
+128 & 2.81084e-05 & 2.47611e-06 & - & 2.28911e-05 & 7.12187e-02 & - & 2710 \\
+256 & & & - & & & - & \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
 \caption[Navier--Stokes expanding bubble I errors P2--(P1+P0)]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 1,\alpha=0.15$)
-Expanding bubble problem I on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$
-over the time interval $[0,1]$ for the P2--(P1+P0) element, with adaptive
-meshes and $C_a=20$\textdegree.}
+{($\rho_+ = \rho_- = \mu_+ = \mu_- = \gamma = 1,\alpha=0.15$)
+Expanding bubble problem I on $(-1,1)^2$ over the time interval $[0,1]$ for the
+P2--(P1+P0) element, with adaptive meshes and $C_a=20$\textdegree.}
 \label{tab:nsexpandingbubbleIp2p1p0}
 \end{table*}
 
@@ -606,39 +609,38 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{explicit} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{implicit} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{antisymmetric} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{ALE} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
 \caption[Navier--Stokes expanding bubble II errors P2--P0]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 1,\alpha=0.15$)
-Expanding bubble problem II on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$
-over the time interval $[0,1]$ for the P2--P0 element, with adaptive
-meshes and $C_a=20$\textdegree.}
+{($\rho_+ = \rho_- = \mu_+ = 10\mu_- = \gamma = 1,\alpha_1=,\alpha_2=$)
+Expanding bubble problem II on $(-1,1)^2$ over the time interval $[0,1]$ for
+the P2--P0 element, with adaptive meshes and $C_a=20$\textdegree.}
 \label{tab:nsexpandingbubbleIIp2p0}
 \end{table*}
 
@@ -652,39 +654,38 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{explicit} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{implicit} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{antisymmetric} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{ALE} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
 \caption[Navier--Stokes expanding bubble II errors P2--\pdg]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 1,\alpha=0.15$)
-Expanding bubble problem II on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$
-over the time interval $[0,1]$ for the P2--\pdg element, with adaptive
-meshes and $C_a=20$\textdegree.}
+{($\rho_+ = \rho_- = \mu_+ = 10\mu_- = \gamma = 1,\alpha_1=,\alpha_2=$)
+Expanding bubble problem II on $(-1,1)^2$ over the time interval $[0,1]$ for
+the P2--\pdg element, with adaptive meshes and $C_a=20$\textdegree.}
 \label{tab:nsexpandingbubbleIIp2p1dg}
 \end{table*}
 
@@ -698,39 +699,38 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{explicit} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{implicit} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{antisymmetric} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 & \multicolumn{7}{c}{ALE} \\
 \hline
- 16 & & & - & & & - & \\
  32 & & & - & & & - & \\
  64 & & & - & & & - & \\
 128 & & & - & & & - & \\
+256 & & & - & & & - & \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
 \caption[Navier--Stokes expanding bubble II errors P2--(P1+P0)]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 1,\alpha=0.15$)
-Expanding bubble problem II on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$
-over the time interval $[0,1]$ for the P2--(P1+P0) element, with adaptive
-meshes and $C_a=20$\textdegree.}
+{($\rho_+ = \rho_- = \mu_+ = 10\mu_- = \gamma = 1,\alpha_1=,\alpha_2=$)
+Expanding bubble problem II on $(-1,1)^2$ over the time interval $[0,1]$ for
+the P2--(P1+P0) element, with adaptive meshes and $C_a=20$\textdegree.}
 \label{tab:nsexpandingbubbleIIp2p1p0}
 \end{table*}
 
