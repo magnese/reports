@@ -77,10 +77,10 @@ Here we let $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)}+
 density in the two phases, let $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} +
 \mu_-\,\charfcn{\Omega_-(t)}$, with $\mu_\pm \in \R_{>0}$, be the dynamic
 viscosities in the two phases, let $\mat D(\vec u):=\frac12\, (\nabla\vec
-u+(\nabla\vec u)^T)$ be the rate-of-deformation tensor, let $\vec f$ be a
-possible forcing term, let $\gamma>0$ be the surface tension coefficient and let
-$\varkappa$ be the mean curvature of $\Gamma(t)$. See
-Chapter~\ref{ch:introduction} for more details.
+u+(\nabla\vec u)^T)$ be the rate-of-deformation tensor, let
+$\vec f:=\rho\,\vec f_1+\vec f_2$ be a possible forcing term, let $\gamma>0$ be
+the surface tension coefficient and let $\varkappa$ be the mean curvature of
+$\Gamma(t)$. See Chapter~\ref{ch:introduction} for more details.
 
 \section{Weak formulation}\label{sec:ns_weak}
 A standard weak formulation of (\ref{eq:ns_full_momentum}--i) can be obtained
@@ -381,8 +381,8 @@ I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
 & \qquad - \gamma\,\left\langle
 \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
-= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
-\uspacedisc{0}{m}\,,\label{eq:ns_HGa_antisym} \\
+= \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
+\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,,\label{eq:ns_HGa_antisym} \\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
 \quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb_antisym} \\
 &  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau} ,\chi\,\vec\nu^m
@@ -395,7 +395,7 @@ I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
 \end{align}
 \end{subequations}
 and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Here we have defined
-$\vec f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$,
+$\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$, $i=1,2$,
 \begin{equation}
 \mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
 \end{equation}
@@ -517,8 +517,8 @@ I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
 & \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
 \nonumber \\
-& \qquad = \left(\vec f^{m+1},\vec \xi\right) \quad \forall\ \vec\xi \in
-\uspacesimple^m_0(\vec 0)\,, \label{eq:ns_reda}\\
+& \qquad = \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1},\vec \xi\right)
+\quad \forall\ \vec\xi \in \uspacesimple^m_0(\vec 0)\,, \label{eq:ns_reda}\\
 &  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau} ,\chi\,\vec\nu^m
 \right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
 \right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
@@ -565,7 +565,9 @@ ${(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
 -\vec I^m_2\,\vec U^m), \vec U^{m+1} - \vec I^m_2\,\vec U^m \right) \nonumber \\
 & \qquad \leq \gamma\, \surfvol(\Gamma^m) +
 \tfrac{1}{2}\left((I^m_0\,\rho^{m-1})\,\vec I^m_2\,\vec U^m,
-\vec I^m_2\,\vec U^m \right) + \tau\left(\vec f^{m+1}, \vec U^{m+1} \right)\,.
+\vec I^m_2\,\vec U^m \right)\nonumber \\
+& \qquad + \tau\left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec U^{m+1}
+\right)\,.
 \end{align}
 
 In addition, assume that
@@ -584,7 +586,8 @@ for $m=1,\ldots, M-1$. Then it holds that
 -\vec I^k_2\,\vec U^k), \vec U^{k+1} - \vec I^k_2\,\vec U^k \right) \nonumber \\
 & \qquad \leq \gamma\, \surfvol(\Gamma^0)
 + \tfrac{1}{2}\left(\rho^{-1}\vec U^0, \vec U^0 \right)
-+\tau\,\sum_{k=0}^{m}\left(\vec f^{k+1}, \vec U^{k+1} \right)\,,
++\tau\,\sum_{k=0}^{m}\left(\rho^k\,\vec f_1^{k+1}+\vec f_2^{k+1}, \vec U^{k+1}
+\right)\,,
 \end{align}
 for $m=0,\ldots, M-1$.
 \end{theorem}
@@ -601,7 +604,8 @@ I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m, \vec U^{m+1} \right) \\
 & \qquad + 2\,\tau\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec U^{m+1})\right)
 + \gamma\,\left\langle \nabs\,\vec X^{m+1}, \nabs\,(\vec X^{m+1} - \vec X^m)
 \right\rangle_{\Gamma^m} \\
-& \qquad = \tau\left(\vec f^{m+1}, \vec U^{m+1} \right)\,,
+& \qquad = \tau\left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec U^{m+1}
+\right)\,,
 \end{align*}
 and, rearranging the terms,
 \begin{align*}
@@ -612,7 +616,8 @@ and, rearranging the terms,
 + \gamma\,\left\langle \nabs\,\vec X^{m+1}, \nabs\,(\vec X^{m+1} - \vec X^m)
 \right\rangle_{\Gamma^m} \\
 & \qquad = \tfrac{1}{2}\left((I^m_0\,\rho^{m-1})\,\vec I^m_2\,\vec U^m,
-\vec I^m_2\,\vec U^m \right) + \tau\left(\vec f^{m+1}, \vec U^{m+1} \right)\,.
+\vec I^m_2\,\vec U^m \right)
++ \tau\left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec U^{m+1} \right)\,.
 \end{align*}
 Hence (\ref{eq:ns_stab}) follows immediately, where we have used
 (\ref{eq:delta_length_inequality}). The desired result (\ref{eq:ns_stabstab})
@@ -645,8 +650,8 @@ such that
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
 & \qquad - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
 \vec\xi\right\rangle_{\Gamma^m}
-= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
-\uspacedisc{0}{m}\,, \label{eq:ns_HGa} \\
+= \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
+\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,, \label{eq:ns_HGa} \\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
 \quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb} \\
 &  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
@@ -657,8 +662,8 @@ such that
 0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd}
 \end{align}
 \end{subequations}
-and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Again, we have defined $\vec
-f^{m+1}(\cdot) := \vec I^m_2\,\vec f(\cdot,t_{m+1})$,
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Again, we have defined
+$\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$, $i=1,2$,
 \begin{equation}
 \mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
 \end{equation}
@@ -692,8 +697,8 @@ implicitly and the finite element approximation (\ref{eq:ns_HGa}--d) becomes
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
 & \qquad - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
 \vec\xi\right\rangle_{\Gamma^m}
-= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
-\uspacedisc{0}{m}\,, \label{eq:ns_HGimpa} \\
+= \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
+\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,, \label{eq:ns_HGimpa} \\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
 \quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGimpb} \\
 &  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
@@ -724,7 +729,7 @@ the terms $\vec B_{\Omega}$ and $\vec c$. Indeed, for explicit standard scheme
 \phi_j^{\uspacesimple^m},
 \phi_i^{\uspacesimple^m} \right)\mat \id \,,\\
 \vec c_i := &\left( \frac{\rho^m}{\tau_m}\vec I_2^m\vec U^m +
-\vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,,
+\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1},\phi_i^{\uspacesimple^m}\right)\,,
 \end{align*}
 while for the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) these terms
 become
@@ -737,16 +742,11 @@ become
 \phi_j^{\uspacesimple^m}, \phi_i^{\uspacesimple^m} \right)\mat \id
 -\frac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
 \phi_i^{\uspacesimple^m}, \phi_j^{\uspacesimple^m} \right)\mat \id \,,\\
-\vec c_i := &\left( \frac{I^m_0\rho^{m-1}+\rho^m}{2\tau_m}\vec I_2^m
-\vec U^m + \vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
+\vec c_i := &\left( \frac{I^m_0\rho^{m-1}+\rho^m}{2\tau_m}\vec I_2^m \vec U^m
++ \rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
 \end{align*}
 Then the resulting algebraic system can be solved using the same technique
 introduced in \S\ref{sec:stokes_solution_method}.
-
-We observe that the source term $\vec f$ might depend on the fluid density
-$\rho$. Therefore, it can be decomposed as $\vec f = \rho\,\vec f_1+\vec f_2$.
-At discrete level, we let the density lag one step behind leading to
-$\vec f^{m+1} = \vec \rho^m\,f^{m+1}_1+\vec f^m_2$.
 
 Instead, in order to solve the implicit standard scheme (\ref{eq:ns_HGimpa}--d)
 we use a fixed point iteration. Therefore we can reformulate the scheme
@@ -763,9 +763,8 @@ M-1$, set $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, $s=0$ and $\epsilon_f
 & + 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
 & - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
-= \left(\vec f^{m+1}, \vec \xi\right)  \quad \forall\ \vec\xi \in
-\uspacedisc{0}{m}\,,
-\label{eq:ns_HGfixedpointa} \\
+= \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
+\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,, \label{eq:ns_HGfixedpointa} \\
 & \left(\nabla\,.\,\vec U^{m+1,s+1}, \varphi\right)  = 0
 \quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGfixedpointb} \\
 &  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
@@ -799,5 +798,5 @@ in the terms $\vec B_{\Omega}$ and $\vec c$ which become
 \phi_j^{\uspacesimple^m},
 \phi_i^{\uspacesimple^m} \right)\mat \id \,,\\
 \vec c_i := &\left( \frac{\rho^m}{\tau_m}\vec I_2^m\vec U^m +
-\vec f^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
+\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
 \end{align*}
