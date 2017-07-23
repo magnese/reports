@@ -1,8 +1,27 @@
 \chapter[Two-Phase Navier--Stokes Flow Standard FEMs]
 {\sc Standard Finite Element Approximations for Two-Phase Navier--Stokes
 Flow}\label{ch:navier_stokes}
+We now present two novel finite element approximations for incompressible
+two-phase Navier--Stokes flow that use a fitted approach with piecewise linear
+parametric finite elements to describe the moving discrete interface and
+employs standard velocity and pressure finite element spaces in the bulk. This
+chapter is extensively based on a paper in preparation.
 
-\section{Mathematical model}\label{sec:navier_stokes_model}
+The chapter is organised as follows: in \S\ref{sec:ns_model} we
+state the mathematical model for the incompressible two-phase Navier--Stokes
+flow; in \S\ref{sec:ns_weak} we derive a standard weak formulation
+and an alternative weak formulation based on an antisymmetric rewrite on which
+our finite element approximations are going to be based; in
+\S\ref{sec:ns_fem_antisym} we present our antisymmetric fitted finite element
+discretization; in \S\ref{sec:ns_existence} we prove the
+existence and uniqueness of the antisymmetric discrete approximation; in
+\S\ref{sec:ns_stability} we demonstrate that our antisymmetric scheme is
+unconditionally stable under certain conditions; in \S\ref{sec:ns_fem} we
+present our standard fitted finite element discretization; in
+\S\ref{sec:ns_solution_method} we explain the various solutions methods used to
+solve the algebraic system.
+
+\section{Mathematical model}\label{sec:ns_model}
 We now consider two-phase Navier--Stokes flow in a given domain
 $\Omega\subset\R^d$, where $d=2$ or $d=3$. As already described in
 \S\ref{sec:free_boundary_flows} and \S\ref{sec:stokes_model}, the domain
@@ -404,7 +423,7 @@ and
 \rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
 \end{equation}
 
-\section{Existence and uniqueness of a discrete solution}
+\section{Existence and uniqueness of a discrete solution}\label{eq:ns_existence}
 \label{sec:ns_existence}
 The existence and uniqueness proof of a discrete solution for the scheme
 (\ref{eq:ns_HGa_antisym}--d) is analogous to the Stokes case presented in
