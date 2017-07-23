@@ -543,14 +543,13 @@ uniqueness result.
 \end{proof}
 
 \section{Stability}\label{sec:ns_stability}
-TODO: Discuss interpolation of $\vec U^m$, stress difference to unfitted case,
-where stability if no coarsening in bulk mesh. Describe strategies for
-interpolation. State that stability holds only without remeshing
-(interpolation!)
-
 We now demonstrate that the scheme (\ref{eq:ns_HGa_antisym}--d) is
-unconditional stable. The proof is analogous to the Stokes case presented in
-\S\ref{sec:stokes_stability}.
+unconditional stable. The proof is similar to the Stokes case presented in
+\S\ref{sec:stokes_stability} and follow closely the paper \cite{fluidfbp}.
+\footnote{Robert: \ref{eq:ns_stabstab} the convective term has $\rho^{k-1}$
+in your paper, why? shouldn't be $I_0^k\rho^{k-1}$. Moreover, why do we need an
+uniform $\tau$?}
+
 \begin{theorem} \label{thm:ns_stability}
 Let $\vec g=\vec 0$. Moreover let $m \in \{0,\ldots,M-1\}$ and let
 ${(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
@@ -623,8 +622,26 @@ Hence (\ref{eq:ns_stab}) follows immediately, where we have used
 (\ref{eq:delta_length_inequality}). The desired result (\ref{eq:ns_stabstab})
 immediately follows from (\ref{eq:ns_stab}) and (\ref{eq:ns_stabstab_hp}).
 \end{proof}
-\footnote{Robert: \ref{eq:ns_stabstab} the convective term has $\rho^{k-1}$
-in your paper, why? shouldn't be $I_0^k\rho^{k-1}$}
+
+The assumption (\ref{eq:ns_stabstab_hp}) in Theorem~\ref{thm:ns_stability} is
+for instance satisfied when either $\mathcal{T}^m = \mathcal{T}^0$ for
+$m=1,\ldots, M-1$ or when $\uspace{0}^{m-1} \subset \uspace{0}^m$ for
+$m=1,\ldots, M-1$. In the context of unfitted approach,
+\S\ref{sec:stokes_fitted_unfitted}, it is equivalent of imposing that no bulk
+mesh adaptation is employed, first case, or that bulk mesh refinement routines
+without coarsening are used, second case. See \cite{fluidfbp} for more details.
+Instead, for a fitted scheme, the first condition means that the bulk mesh
+needs to be always equal to the initial mesh while the second condition is
+violated whenever the velocity is interpolated on a bulk mesh which does not
+contain all the vertices of the previous bulk mesh. Therefore, with a fitted
+approach, a part for a stationary problem where the bulk mesh remains fixed,
+the scheme does not satisfy the unconditionally stability bound. Indeed, also
+without remeshing and smoothing, the velocity needs to be interpolated if the
+interface displacement is not null. \footnote{Robert: in the fitted case we
+always interpolate the velocity also without smoothing and remeshing since the
+interface moves and consequently the bulk moves. Therefore, the condition
+\ref{eq:ns_stabstab_hp} is never satisfied! So probably this unconditional
+stability part needs to go.}
 
 \section{Standard finite element approximation}\label{sec:ns_fem}
 An alternative to the antisymmetric discrete finite element approximation
