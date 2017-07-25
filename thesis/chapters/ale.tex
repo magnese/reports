@@ -5,50 +5,27 @@
 \section{Mathematical model}\label{sec:ale_model}
 The Arbitrary Lagrangian Eulerian (ALE) method is an alternative technique to
 numerically approximate equations on moving domain. It was first proposed in
-the papers \cite{Donea83,Hughes81}. See also
-\cite{Nobile99,Formaggia04,NobilePhd} for more details. In this formulation the
-partial time derivative is expressed with respect to a reference fixed
-configuration. A special homeomorphic map, called the ALE map, associates, at
-each time $t$, a point in the current computational domain $\Omega(t)$ to a
-point in the reference domain $\D$.
-
-In this way, the PDE system resulting after space discretization actually
-describes the evolution of the
+the papers \cite{Donea83,Hughes81}. We follow
+closely \cite{Nobile99,Formaggia04,NobilePhd}. This technique consists on
+reformulate the partial time derivative expressing it with respect to a
+reference fixed configuration. A special homeomorphic map, called the ALE map,
+associates, at each time $t$, a point in the current computational domain
+$\Omega(t)$ to a point in the reference domain $\D$. Therefore, the ODE system
+resulting after space discretization actually describes the evolution of the
 solution along trajectories that are at all times contained in the computational
-domain. The ALE mapping
-is somehow arbitrary, apart from the requirement of conforming to the evolution
-of the domain boundary,
-which is either a given data or the result of the coupling with other
-differential models. The latter is the case,
-for instance, when treating fluid-structure interaction problems where the
-position of the fluid domain boundary is provided through the interaction with
-a mechanical model. The map of the boundary $\partial \D$ of
-the reference domain has then to provide, at all $t$, the boundary of the
-current configuration $\Omega(t)$.
-In a numerical simulation we are concerned with the evolution of the discrete
-domain, typically built as
-the assembly of the elements of a computational grid. The discrete ALE map
-describes the evolution of the
-grid during the domain movement. It is indeed at discrete level that the
-advantage of the ALE formulation
-emerges, as in an ALE setting the time advancing scheme provides directly the
-evolution of the unknowns
-at mesh nodes, and thus, in a classic finite element setting, that of the
-degrees of freedom of the discrete
-problem at hand.
+domain.
 
-The system of governing equations (\ref{eq:ns_full_momentum}--i) is expressed in
-term of Eulerian coordinates $\vec z$. However, it is possible to rewrite the
-velocity time derivative $\vec u_t$ with respect to the so called Arbitrary
-Lagrangian Eulerian (ALE) coordinate $\vec q$.
+More precisely, we want to reformulate the two-phase Navier--Stokes system
+(\ref{eq:ns_full_momentum}--i), which is expressed in term of Eulerian
+coordinates $\vec z$, rewriting the velocity time derivative $\vec u_t$ with
+respect to the so called ALE coordinate $\vec q$. Analogously to what is done
+in \S\ref{sec:front_tracking_approach} to parametrize the interface
+$\Gamma(t)$, we can define the fixed reference manifold $\D$ and extend the map
+(\ref{eq:interface_parametrization}) to parametrize $\Omega(t)$ as
+$\Omega(t)=\vec x(\D,t)$. This extended map obviously still satisfy $\Gamma(t)
+= \vec x(\Upsilon,t)$, given that $\Upsilon\subset\D$.
 
-Analogously to what is done in \S\ref{sec:front_tracking_approach} to
-parametrize the interface $\Gamma(t)$, we can define the fixed reference
-manifold $\D$ and extend the map (\ref{eq:interface_parametrization}) to
-parametrize $\Omega$ as $\Omega=\vec x(\D,t)$. This extended map obviously
-still satisfy $\Gamma(t) = \vec x(\Upsilon,t)$, given that $\Upsilon\subset\D$.
-
-Now, let $h:\Omega\times [0,T]\to \R$ be a function defined on the Eulerian
+Now, let $h:\Omega(t)\times [0,T]\to \R$ be a function defined on the Eulerian
 frame, the corresponding function on the ALE frame $\hat h$ is defined as
 \begin{equation}\label{eq:h}
 \hat h:\D\times [0,T]\to \R,\quad \hat h(\vec q,t)=h(\vec x(\vec q,t),t).
@@ -69,13 +46,13 @@ therefore it holds that
 Finally, introducing the domain velocity
 \begin{equation} \label{eq:W}
 \W(\vec z, t) := \vec x_t(\vec q, t) \quad \forall\ \vec z = \vec x(\vec q,t)
-\in \Omega
+\in \Omega(t)
 \end{equation}
 and the time derivative in the ALE frame
 \begin{equation} \label{eq:ale_derivative}
 \left.\frac{\partial h(\vec z,t)}{\partial t}\right|_{\D}:=
 \frac{\partial\hat h(\vec q,t)}{\partial t} \quad
-\forall\ \vec z = \vec x(\vec q,t) \in \Omega
+\forall\ \vec z = \vec x(\vec q,t) \in \Omega(t)
 \end{equation}
 we obtain
 \begin{equation}\label{eq:ale_dt}
@@ -87,21 +64,55 @@ consistent with the interface velocity $\V$. Therefore it holds
 \begin{equation}
 \left.\W \right|_{\Gamma(t)}=\V\,.
 \end{equation}
+We also point out that the ALE mapping is somehow arbitrary, apart from the
+requirement of conforming to the evolution of the domain boundary. Indeed the
+map of the boundary $\partial \D$ of the reference domain has then to provide,
+at all $t$, the boundary $\partial \Omega(t)$ of the current configuration.
 
-Using (\ref{eq:ale_dt}) in (\ref{eq:ns_full_momentum}), we can rewrite the
-momentum equation in the ALE frame as:
-\begin{align}
-\rho\,(\left.\vec u_t\right|_{\D} +(\vec u - \W)\,.\, \nabla \vec u)\,
--2 \mu\,\nabla\,.\, \mat D(\vec u)+ \nabla\,p & = \vec f
-\quad &&\mbox{in } \Omega_\pm(t)\,. \label{eq:ns_full_momentum_ale} \\
-\end{align}
+Using (\ref{eq:ale_dt}) in momentum equation(\ref{eq:ns_full_momentum}), we can
+rewrite
+(\ref{eq:ns_full_momentum}--i) in the ALE frame as:
+\begin{subequations}
+\begin{alignat}{2}
+\rho\,(\left.\vec u_t\right|_{\D} +((\vec u - \W)\,.\, \nabla) \vec u)\, && &
+\nonumber \\
+ -2 \mu\,\nabla\,.\,\mat D(\vec u)+ \nabla\,p & = \vec f
+\quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:ns_full_momentum_ale} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_full_mass_ale} \\
+\vec u & = \vec g \quad &&\mbox{on } \partial_1\Omega(t)\,,
+\label{eq:ns_full_dirichlet_ale} \\
+\vec u \,.\,\unitn = 0 \,,\quad \mat\sigma\,\unitn\,.\,\unitt & = 0
+\quad\forall \unitt \in \{\unitn\}^\perp \quad && \mbox{on }
+\partial_2\Omega(t)\,, \label{eq:ns_full_freeslip_ale}\\
+[\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,,
+\label{eq:ns_full_jump_velocity_ale} \\
+[2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
+& = -\gamma\,\varkappa\,\vec\nu
+\quad &&\mbox{on } \Gamma(t)\,, \label{eq:ns_full_jump_stress_ale} \\
+(\V-\vec u)\,.\,\vec \nu & = 0
+\quad &&\mbox{on } \Gamma(t)\,,\label{eq:ns_full_velocity_ale}  \\
+\Gamma(0) & = \Gamma_0 \,,\label{eq:ns_full_initial_interface_ale} \\
+\vec u(0) & = \vec u_0 \,.\label{eq:ns_full_initial_velocity_ale}
+\end{alignat}
+\end{subequations}
 We can notice that, with respect to the original formulation, there is a
 convective-type term due to the domain movement and the time derivative is
-computed in the fixed reference frame $\D$. Obviously, if the domain is fixed,
-this additional convective term is zero and the time derivative in the ALE
-frame coincide with the usual time derivative in the Eulerian frame. Therefore
-$\W=\vec 0$ corresponds to a pure Eulerian method, while $\W=\vec u$ corresponds
-to a fully Lagrangian scheme.
+computed in the fixed reference frame $\D$. Moreover, contrary to the
+original system, not only the regions $\Omega_\pm(t)$ are time dependent
+but also the whole domain $\Omega(t)$ is time dependent.
+
+Obviously, if the domain is fixed, the additional convective term is zero
+and the time derivative in the ALE frame coincides with the usual time
+derivative in the Eulerian frame. This means that $\W=\vec 0$ corresponds to a
+pure Eulerian method, while $\W=\vec u$ corresponds to a fully Lagrangian
+scheme. In our case we have a fix domain $\Omega$ but, at discrete level, we are
+concerned with the evolution of the discrete domain. Therefore, the discrete ALE
+map describes the evolution of the grid during the domain movement. It is
+indeed at discrete level that the advantage of the ALE formulation emerges, as
+in an ALE setting the time advancing scheme provides directly the evolution of
+the unknowns at mesh nodes and thus that of the degrees of freedom of the
+discrete solutions.
 
 \section{Weak formulation}\label{sec:ale_weak}
 In order to define the ALE weak formulation, we need to use a different
