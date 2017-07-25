@@ -2,7 +2,41 @@
 {\sc ALE Finite Element Approximation for Two-Phase Navier--Stokes Flow}
 \label{ch:ale}
 
-\section{ALE weak formulation}\label{sec:ale_weak}
+\section{Mathematical model}\label{sec:ale_model}
+The Arbitrary Lagrangian Eulerian (ALE) method is an alternative technique to
+numerically approximate equations on moving domain. It was first proposed in
+the papers \cite{Donea83,Hughes81}. See also
+\cite{Nobile99,Formaggia04,NobilePhd} for more details. In this formulation the
+partial time derivative is expressed with respect to a reference fixed
+configuration. A special homeomorphic map, called the ALE map, associates, at
+each time $t$, a point in the current computational domain $\Omega(t)$ to a
+point in the reference domain $\D$.
+
+In this way, the PDE system resulting after space discretization actually
+describes the evolution of the
+solution along trajectories that are at all times contained in the computational
+domain. The ALE mapping
+is somehow arbitrary, apart from the requirement of conforming to the evolution
+of the domain boundary,
+which is either a given data or the result of the coupling with other
+differential models. The latter is the case,
+for instance, when treating fluid-structure interaction problems where the
+position of the fluid domain boundary is provided through the interaction with
+a mechanical model. The map of the boundary $\partial \D$ of
+the reference domain has then to provide, at all $t$, the boundary of the
+current configuration $\Omega(t)$.
+In a numerical simulation we are concerned with the evolution of the discrete
+domain, typically built as
+the assembly of the elements of a computational grid. The discrete ALE map
+describes the evolution of the
+grid during the domain movement. It is indeed at discrete level that the
+advantage of the ALE formulation
+emerges, as in an ALE setting the time advancing scheme provides directly the
+evolution of the unknowns
+at mesh nodes, and thus, in a classic finite element setting, that of the
+degrees of freedom of the discrete
+problem at hand.
+
 The system of governing equations (\ref{eq:ns_full_momentum}--i) is expressed in
 term of Eulerian coordinates $\vec z$. However, it is possible to rewrite the
 velocity time derivative $\vec u_t$ with respect to the so called Arbitrary
@@ -69,6 +103,7 @@ frame coincide with the usual time derivative in the Eulerian frame. Therefore
 $\W=\vec 0$ corresponds to a pure Eulerian method, while $\W=\vec u$ corresponds
 to a fully Lagrangian scheme.
 
+\section{Weak formulation}\label{sec:ale_weak}
 In order to define the ALE weak formulation, we need to use a different
 functional setting for the test functions with respect to the one used for the
 standard weak formulation and antisymmetric weak formulation, see
@@ -110,4 +145,4 @@ such that
 \end{subequations}
 holds for almost all times $t \in (0,T]$.
 
-\section{ALE finite element approximation}\label{sec:ale_fem}
+\section{Finite element approximation}\label{sec:ale_fem}
