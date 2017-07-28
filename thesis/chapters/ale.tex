@@ -23,7 +23,9 @@ in \S\ref{sec:front_tracking_approach} to parametrize the interface
 $\Gamma(t)$, we can define the fixed reference manifold $\D$ and extend the map
 (\ref{eq:interface_parametrization}) to parametrize $\Omega(t)$ as
 $\Omega(t)=\vec x(\D,t)$. This extended map obviously still satisfy $\Gamma(t)
-= \vec x(\Upsilon,t)$, given that $\Upsilon\subset\D$.
+= \vec x(\Upsilon,t)$, given that $\Upsilon\subset\D$. Moreover, we let
+$\partial\D$ be partitioned as ${\partial\D=\partial_1\D \cup \partial_2\D}$
+with $\partial_1\D \cap \partial_2\D = \emptyset$.
 
 Now, let $h:\Omega(t)\times [0,T]\to \R$ be a function defined on the Eulerian
 frame, the corresponding function on the ALE frame $\hat h$ is defined as
@@ -66,8 +68,9 @@ consistent with the interface velocity $\V$. Therefore it holds
 \end{equation}
 We also point out that the ALE mapping is somehow arbitrary, apart from the
 requirement of conforming to the evolution of the domain boundary. Indeed the
-map of the boundary $\partial \D$ of the reference domain has then to provide,
-at all $t$, the boundary $\partial \Omega(t)$ of the current configuration.
+map of the boundary $\partial_i \D$ of the reference domain has then to
+provide, at all $t$, the boundary $\partial_i \Omega(t)$ of the current
+configuration, with $i=1,\,2$.
 
 Using (\ref{eq:ale_dt}) in momentum equation(\ref{eq:ns_full_momentum}), we can
 rewrite
@@ -117,35 +120,53 @@ discrete solutions.
 \section{Weak formulation}\label{sec:ale_weak}
 In order to define the ALE weak formulation, we need to use a different
 functional setting for the test functions with respect to the one used for the
-standard weak formulation and antisymmetric weak formulation, see
-\S\ref{sec:ns_weak}. More precisely we consider the admissible spaces of test
-functions on the reference domain
+standard and antisymmetric weak formulation, see \S\ref{sec:ns_weak}, since it
+needs to be defined on the moving domain $\Omega(t)$. Therefore we introduce
+the admissible spaces of test functions on the reference domain $\D$
 \begin{align*}
-\widehat{\uspace{b}} &:= \{\vec \phi\in[H^1_0(\D)]^d:\vec \phi =\vec
-g\quad \mbox{on }\partial_1\D\}\,,\\
-\hat{\pspace} &:= L^2(\D)\,,\\
-\widetilde{\hat\pspace} &:= \{\eta\in\hat\pspace : \int_\D\eta\dL{d}=0 \}\,,
+\uspaceref b &:= \{\vec \phi\in[H^1(\D)]^d:
+\vec \phi =\vec b\quad \mbox{on }\partial_1\D\,,
+\quad \vec \phi\,.\,\unitn=0 \quad \mbox{on }\partial_2\D\}\,,\\
+\pspaceref &:= L^2(\D)\,,\\
+\pnormspaceref &:= \{\eta\in\pspaceref : \int_\D\eta\dL{d}=0 \}\,,
 \end{align*}
-for a given $\vec b \in [H^1_0(\D)]^d$. We notice that the boundary
-of $\Omega$ is not time dependent which implies that
-$\partial_1\Omega=\partial_1\D$.
+for a given $\vec b \in [H^1(\D)]^d$. Then, using the ALE mapping, we can
+define the admissible spaces of test on the moving domain $\Omega(t)$
+\begin{align*}
+\uspaceale b &:= \{ \vec\phi:\Omega(t)\times [0,T]\to \R^d,\quad
+\vec \phi=\hat{\vec\phi}\circ\vec x^{\,-1},\quad\hat{\vec\phi}
+\in\uspaceref b\}\,,\\
+\pspaceale &:= \{ \eta:\Omega(t)\times [0,T]\to \R,\quad
+\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta\in\pspaceref \}\,,\\
+\pnormspaceale &:= \{ \eta:\Omega(t)\times [0,T]\to \R,\quad
+\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta\in\pnormspaceref \}\,.
+\end{align*}
+Moreover, let $(\cdot,\cdot)_{\Omega(t)}$ and $\langle \cdot, \cdot
+\rangle_{\Gamma(t)}$ denote the $L^2$--inner products on $\Omega(t)$ and
+$\Gamma(t)$, respectively. In addition, we let $\vol$ and $\surfvol$ denote the
+Lebesgue measure in $\R^d$ and the $(d-1)$-dimensional Hausdorff measure,
+respectively.\footnote{Robert: is $\uspaceale b$ correct or $\vec b$ should be
+defined on $\partial_1\Omega(t)$ and the free-slip condition respect to
+$\partial_2\Omega(t)$? Moreover for $\pnormspaceale$ zero mean on $\D$ or on
+$\Omega(t)$, probably indifferent since we just want to remove a degree of
+freedom?}
 
 Hence, the ALE weak formulation of (\ref{eq:ns_full_momentum_ale},
 \ref{eq:ns_full_mass}--i) is given as follows. Given $\Gamma(0) = \Gamma_0$ and
 $\vec u = \vec u_0$, for almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u,
-p, \varkappa)\in \uspace g \times \pnormspace \times H^1(\Gamma(t))}$
+p, \varkappa)\in \uspaceale g \times \pnormspaceale \times H^1(\Gamma(t))}$
 such that
 \begin{subequations}
 \begin{align}
-& \left(\rho\,\left.\vec u_t\right|_{\D}, \vec \xi\right) +
-\left(\rho\,(\vec u - \W)\,.\, \nabla \vec u,\vec \xi\right)
-+ 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right) \nonumber \\
-& - \left(p, \nabla\,.\,\vec \xi\right)
+& \left(\rho\,\left.\vec u_t\right|_{\D}, \vec \xi\right)_{\Omega(t)} +
+\left(\rho\,((\vec u - \W)\,.\, \nabla )\vec u,\vec \xi\right)_{\Omega(t)}
++ 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)_{\Omega(t)} \nonumber \\
+& - \left(p, \nabla\,.\,\vec \xi\right)_{\Omega(t)}
 - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
-= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace 0 \,,
-\label{eq:ns_weaka_ale}\\
-& \left(\nabla\,.\,\vec u, \varphi\right) = 0
-\quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb_ale} \\
+= \left(\vec f, \vec \xi\right)_{\Omega(t)}\quad \forall\ \vec\xi \in
+\uspaceale 0 \,, \label{eq:ns_weaka_ale}\\
+& \left(\nabla\,.\,\vec u, \varphi\right)_{\Omega(t)} = 0
+\quad \forall\ \varphi \in \pnormspaceale\,, \label{eq:ns_weakb_ale} \\
 &  \left\langle \V
 - \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
 \quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc_ale} \\
