@@ -151,7 +151,7 @@ for a given $\vec b \in [H^1(\D)]^d$. Then, using the ALE mapping, we can
 define the admissible spaces of test on the moving domain $\Omega(t)$
 \begin{align*}
 \uspaceale b &:= \{ \vec\phi:\Omega(t)\times [0,T]\to \R^d,\quad
-\vec \phi=\hat{\vec\phi}\circ\vec x^{\,-1},\quad\hat{\vec\phi}
+\vec \phi=\vec{\hat\phi}\circ\vec x^{\,-1},\quad\vec{\hat\phi}
 \in\uspaceref b\}\,,\\
 \pspaceale &:= \{ \eta:\Omega(t)\times [0,T]\to \R,\quad
 \eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta\in\pspaceref \}\,,\\
@@ -193,6 +193,49 @@ such that
 holds for almost all times $t \in (0,T]$.
 
 \section{Semidiscrete approximation}\label{sec:ale_semi_fem}
+We want to derive a semidiscrete continuous-in-time fitted finite element
+approximation of (\ref{eq:ns_weaka_ale}--d). For $t\in[0,T]$, let ${\cal
+T}^h(t)$ be a regular partitioning of the reference domain $\D$ into disjoint
+open simplices $\sigmaO^h_j$, $j = 1 ,\ldots, J^h_\D(t)$. From now on, the
+reference domain $\D$ which we consider is the polyhedral domain defined by the
+triangulation ${\cal T}^h(t)$. On ${\cal T}^h(t)$ we define the finite element
+spaces
+\begin{equation*}
+S^h_k(t) := \{\chi \in C(\overline{\D}) : \chi\!\mid_{\sigmaO^h}
+\in \mathcal{P}_k(\sigmaO^h) \ \forall\ \sigmaO^h \in {\cal T}^h(t)\}\,,
+\quad k \in \mathbb{N}\,,
+\end{equation*}
+where $\mathcal{P}_k(\sigmaO^h)$ denotes the space of polynomials of degree $k$
+on $\sigmaO^h$. Moreover, $S^h_0(t)$ is the space of piecewise constant
+functions on ${\cal T}^h(t)$. For later use, we also define $\vec I^h_k$ to be
+the standard interpolation operator onto $[S^h_k(t)]^d$.
+
+Let $\uspacesemidiscref{g}{h}{t}\subset\uspacesimpleref(\vec I_k^h\vec g)$ and
+$\pspaceref^h(t)\subset\pspaceref$ be the finite element spaces we use for the
+approximation of velocity and pressure, and let $\pnormspaceref^h(t):=
+\pspaceref^h(t) \cap \pnormspaceref$. The spaces
+$(\uspacesemidiscref{0}{h}{t},\pspaceref^m)$ satisfy the LBB inf-sup condition
+if there exists a constant $C_0 \in \R_{>0}$, independent of $\mathcal{T}^h(t)$,
+such that
+\begin{equation} \label{eq:LBB_ale}
+\inf_{\hat \varphi \in \pnormspaceref^h(t)} \sup_{\vec{\hat \xi} \in
+\uspacesemidiscref{0}{h}{t}}
+\frac{( \hat \varphi, \nabla \,.\,\vec{ \hat \xi})} {\|\hat \varphi\|_0\,
+\| \vec{\hat\xi}\|_1} \geq C_0 > 0\,,
+\end{equation}
+see \cite[p.~114]{GiraultR86} and \S\ref{sec:stokes_fem}. Here $\|\cdot\|_0 :=
+(\cdot,\cdot)^\frac12$ and $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$
+denote the $L^2$--norm and the $H^1$--norm on $\D$, respectively.
+
+Then, using the ALE mapping, we can define define the finite element spaces on
+the moving domain $\Omega(t)$
+\begin{align*}
+\uspacesemidiscale{g}{h}{t} &:= \{ \vec\phi:\Omega(t)\times [0,T]\to \R^d,\quad
+\vec \phi=\vec{\hat\phi}\circ\vec x^{\,-1},\quad\vec{\hat\phi}
+\in\uspacesemidiscref{g}{h}{t}\}\,,\\
+\pnormspaceale^h(t) &:= \{ \eta:\Omega(t)\times [0,T]\to \R,\quad
+\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta\in\pnormspaceref^h(t) \}\,.
+\end{align*}
 
 \section{Finite element approximation}\label{sec:ale_fem}
 
