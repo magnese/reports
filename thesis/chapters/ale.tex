@@ -116,11 +116,20 @@ rewrite
 \vec u(0) & = \vec u_0 \,.\label{eq:ns_full_initial_velocity_ale}
 \end{alignat}
 \end{subequations}
-We can notice that, with respect to the original formulation, there is a
-convective-type term due to the domain movement and the time derivative is
-computed in the fixed reference frame $\D$. Moreover, contrary to the
-original system, not only the regions $\Omega_\pm(t)$ are time dependent
-but also the whole domain $\Omega(t)$ is time dependent.
+As usual, let $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)}+
+\rho_-\,\charfcn{\Omega_-(t)}$, with $\rho_\pm \in \R_{>0}$, be the fluid
+density in the two phases, let $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} +
+\mu_-\,\charfcn{\Omega_-(t)}$, with $\mu_\pm \in \R_{>0}$, be the dynamic
+viscosities in the two phases, let $\mat D(\vec u):=\frac12\, (\nabla\vec
+u+(\nabla\vec u)^T)$ be the rate-of-deformation tensor, let
+$\vec f:=\rho\,\vec f_1+\vec f_2$ be a possible forcing term, let $\gamma>0$ be
+the surface tension coefficient and let $\varkappa$ be the mean curvature of
+$\Gamma(t)$. See Chapter~\ref{ch:introduction} for more details. We can notice
+that, with respect to the original formulation, there is a convective-type term
+due to the domain movement and the time derivative is computed in the fixed
+reference frame $\D$. Moreover, contrary to the original system, not only the
+regions $\Omega_\pm(t)$ are time dependent but also the whole domain
+$\Omega(t)$ is time dependent.
 
 Obviously, if the domain is fixed, the additional convective term is zero
 and the time derivative in the ALE frame coincides with the usual time
@@ -225,17 +234,101 @@ such that
 \end{equation}
 see \cite[p.~114]{GiraultR86} and \S\ref{sec:stokes_fem}. Here $\|\cdot\|_0 :=
 (\cdot,\cdot)^\frac12$ and $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$
-denote the $L^2$--norm and the $H^1$--norm on $\D$, respectively.
+denote the $L^2$--norm and the $H^1$--norm on $\D$, respectively. Then, for
+$d=2$, possible pairs $(\uspacesemidiscref{0}{h}{t},\pspace^m)$ that satisfy
+(\ref{eq:LBB_ale}) are P2--P0 and P2--(P1+P0), while for $d=3$ are the
+P3--(P2+P0) element and P1$^{\mbox{face bubble}}$--P0. See
+\S\ref{sec:stokes_fem} for more details.
 
 Then, using the ALE mapping, we can define define the finite element spaces on
-the moving domain $\Omega(t)$
+the discretized moving domain $\Omega^h(t)$
 \begin{align*}
-\uspacesemidiscale{g}{h}{t} &:= \{ \vec\phi:\Omega(t)\times [0,T]\to \R^d,\quad
-\vec \phi=\vec{\hat\phi}\circ\vec x^{\,-1},\quad\vec{\hat\phi}
+\uspacesemidiscale{g}{h}{t} &:= \{ \vec\phi:\Omega^h(t)\times [0,T]\to
+\R^d,\quad
+\vec \phi=\vec{\hat\phi}\circ\vec x_h^{\,-1},\quad\vec{\hat\phi}
 \in\uspacesemidiscref{g}{h}{t}\}\,,\\
-\pnormspaceale^h(t) &:= \{ \eta:\Omega(t)\times [0,T]\to \R,\quad
-\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta\in\pnormspaceref^h(t) \}\,.
+\pnormspaceale^h(t) &:= \{ \eta:\Omega^h(t)\times [0,T]\to \R,\quad
+\eta=\hat\eta\circ\vec x_h^{\,-1},\quad\hat\eta\in\pnormspaceref^h(t) \}\,,
 \end{align*}
+where $\Omega^h(t)=\vec x_h(\D,t)$ and $\vec x_h$ is the discrete ALE mapping
+discretized spatially using piecewise linear elements. Thus
+$\vec x_h\in [S^h_1(t)]^d$ and each simplex with straight faces in ${\cal
+T}^h(t)$ is transformed in a simplex with straight faces belonging to the
+triangulation $\mathfrak{T}^h(t)$ of the discretized moving domain
+$\Omega^h(t)$.
+
+For what concern the interface, let $(\Gamma^h(t))_{t\in[0,T]}$  be a family of
+$(d-1)$-dimensional polyhedral surfaces approximating the closed surface
+$\Gamma(t)$. Let $\Omega^h_+(t)$ denote the exterior of $\Gamma^h(t)$ and let
+$\Omega^h_-(t)$ be the interior of $\Gamma^h(t)$, where we assume that
+$\Gamma^h(t)$ has no self-intersections. Then $\Omega^h(t) = \Omega_-^h(t) \cup
+\Gamma^h(t) \cup \Omega_+^h(t)$, and the fitted nature of our method implies
+that
+\begin{equation} \label{eq:fittedO_ale}
+\overline{\Omega^h_+(t)} = \bigcup_{o \in \mathfrak{T}^h_+(t)} \overline{o}
+\quad\text{and}\quad
+\overline{\Omega^h_-(t)} = \bigcup_{o \in \mathfrak{T}^h_-(t)} \overline{o} \,,
+\end{equation}
+where $\mathfrak{T}^h(t) = \mathfrak{T}^h_+(t) \cup \mathfrak{T}^h_-(t)$ and
+$\mathfrak{T}^h_+(t) \cap \mathfrak{T}^h_-(t) = \emptyset$.
+Let $\vec \nu^h(t)$ denote the piecewise constant unit normal to $\Gamma^h(t)$
+such that $\vec\nu^h(t)$ points into $\Omega^h_+(t)$. We also define the
+piecewise linear finite element spaces $\Wht$ and $\Vht$, with
+$\{\chi^h_k(\cdot,t)\}_{k=1}^{K_\Gamma}$ denoting the standard basis of the
+former. Hence $\chi^h_k(\vec q^h_l(t),t) = \delta_{kl}$ for all
+$k,l \in \{1,\ldots,K_\Gamma\}$ and $t \in [0,T]$, where
+$\{\vec q^h_k(t)\}_{k=1}^{K_\Gamma}$ are the vertices of $\Gamma^h(t)$.
+We also recall the discrete interface velocity
+\begin{equation*}
+\V^h(\vec z, t):=
+\sum_{k=1}^{K_\Gamma}\left[\ddt\,\vec q^h_k(t)\right] \chi^h_k(\vec z, t)
+\in \Vht\,.
+\end{equation*}
+The discrete domain velocity $\W^h$ is defined exactly the same but for all the
+vertices of $\mathfrak{T}^h(t)$. Finally, let
+$\langle\cdot,\cdot\rangle_{\Gamma^h(t)}^h$ be the mass lumped inner product on
+$\Gamma^h(t)$, see (\ref{eq:masslump}), and let
+$\langle\cdot,\cdot\rangle_{\Gamma^h(t)}$ denote the standard $L^2$--inner
+product on $\Gamma^h(t)$.
+
+Then, given $\Gamma^h(0)$ and $\vec U^h(0)\in \uspacesemidiscale{g}{h}{0}$, for
+$t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h(t), P^h(t),
+\V^h(t), \kappa^h(t)) \in \uspacesemidiscale{g}{h}{t} \times \pnormspaceale^h(t)
+\times \Vht \times \Wht$ such that
+\begin{subequations}
+\begin{align}
+& \left(\rho^h\,\left.\vec U^h_t\right|_{\D}, \vec \xi \right)_{\Omega^h(t)} +
+\left(\rho^h((\vec U^h-\W^h)\,.\,\nabla)\,\vec U^h\,,
+\,\vec \xi \right)_{\Omega^h(t)} \nonumber \\
+& \qquad +2\left(\mu^h\,\mat D(\vec U^h), \mat D(\vec \xi) \right)_{\Omega^h(t)}
+- \left(P^h, \nabla\,.\,\vec \xi\right)_{\Omega^h(t)} \nonumber \\
+& \qquad - \gamma\,\left\langle \kappa^h\,\vec\nu^h,
+\vec\xi\right\rangle_{\Gamma^h(t)} =
+\left(\rho^h\,\vec f_1^h+\vec f_2^h, \vec \xi\right)_{\Omega^h(t)}
+\quad \forall\ \vec\xi \in \uspacesemidiscale{0}{h}{t}\,,
+\label{eq:ns_semi_alea}\\
+& \left(\nabla\,.\,\vec U^h, \varphi\right)_{\Omega^h(t)}  = 0
+\quad \forall\ \varphi \in \pnormspaceale^h(t)\,, \label{eq:ns_semi_aleb} \\
+& \left\langle \V^h , \chi\,\vec\nu^h
+\right\rangle_{\Gamma^h(t)}^h - \left\langle \vec U^h, \chi\,\vec\nu^h
+\right\rangle_{\Gamma^h(t)} = 0 \quad \forall\ \chi \in \Wht\,,
+\label{eq:ns_semi_alec} \\
+& \left\langle \kappa^h\,\vec\nu^h, \vec\eta \right\rangle_{\Gamma^h(t)}^h
++ \left\langle \nabs\,\vec\id, \nabs\,\vec \eta \right\rangle_{\Gamma^h(t)} = 0
+\quad \forall\ \vec\eta \in \Vht\,. \label{eq:ns_semi_aled}
+\end{align}
+\end{subequations}
+Here we have defined
+$\vec f_i^h(\cdot) := \vec I^h_2\,\vec f_i(\cdot,t)$, $i=1,2$,
+\begin{equation}
+\mu^h = \mu_+\,\charfcn{\Omega^h_+(t)} + \mu_-\,\charfcn{\Omega^h_-(t)}\in
+S^h_0(t)
+\end{equation}
+and
+\begin{equation}
+\rho^h = \rho_+\,\charfcn{\Omega^h_+(t)} + \rho_-\,\charfcn{\Omega^h_-(t)}\in
+S^h_0(t)\,.
+\end{equation}
 
 \section{Finite element approximation}\label{sec:ale_fem}
 

@@ -91,7 +91,7 @@ as follows:
 \vec u(0) & = \vec u_0 \,.\label{eq:ns_full_initial_velocity}
 \end{alignat}
 \end{subequations}
-Here we let $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)}+
+As usual, let $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)}+
 \rho_-\,\charfcn{\Omega_-(t)}$, with $\rho_\pm \in \R_{>0}$, be the fluid
 density in the two phases, let $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} +
 \mu_-\,\charfcn{\Omega_-(t)}$, with $\mu_\pm \in \R_{>0}$, be the dynamic
@@ -303,7 +303,7 @@ steps $\tau=\frac{T}{M}$, see \cite{fluidfbp}. Moreover, let ${\cal T}^m$,
 $\forall m\ge 0$, be a regular partitioning of the domain $\Omega$ into
 disjoint open simplices $\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. From now
 on, the domain $\Omega$ which we consider is the polyhedral domain defined by
-the triangulation ${\cal T}^m$ On ${\cal T}^m$ we define the finite element
+the triangulation ${\cal T}^m$. On ${\cal T}^m$ we define the finite element
 spaces
 \begin{equation*}
 S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
@@ -319,7 +319,10 @@ Let $\uspacedisc{g}{m}\subset\uspacesimple(\vec I_k^m\vec g)$ and
 $\pspace^m\subset\pspace$ be the finite element spaces we use for the
 approximation of velocity and pressure, and let $\pnormspace^m:= \pspace^m \cap
 \pnormspace$. The spaces $(\uspacedisc{0}{m},\pspace^m)$ satisfy the LBB
-inf-sup. See (\ref{eq:LBB}) and \S\ref{sec:stokes_fem} for more details.
+inf-sup, see (\ref{eq:LBB}). Then, for $d=2$, possible pairs
+$(\uspacedisc{0}{m},\pspace^m)$ that satisfy (\ref{eq:LBB}) are P2--P0 and
+P2--(P1+P0), while for $d=3$ are the P3--(P2+P0) element and
+P1$^{\mbox{face bubble}}$--P0. See \S\ref{sec:stokes_fem} for more details.
 
 We consider a fitted finite element approximation for the evolution of the
 interface $\Gamma(t)$. Let $\Gamma^m\subset\R^d$ be a $(d-1)$-dimensional
