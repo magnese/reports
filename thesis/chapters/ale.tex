@@ -185,7 +185,7 @@ such that
 & \left(\rho\,\left.\vec u_t\right|_{\D}, \vec \xi\right)_{\Omega(t)} +
 \left(\rho\,((\vec u - \W)\,.\, \nabla )\vec u,\vec \xi\right)_{\Omega(t)}
 + 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)_{\Omega(t)} \nonumber \\
-& - \left(p, \nabla\,.\,\vec \xi\right)_{\Omega(t)}
+& \qquad - \left(p, \nabla\,.\,\vec \xi\right)_{\Omega(t)}
 - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
 = \left(\vec f, \vec \xi\right)_{\Omega(t)}\quad \forall\ \vec\xi \in
 \uspaceale 0 \,, \label{eq:ns_weaka_ale}\\
@@ -333,31 +333,33 @@ S^h_0(t)\,.
 The semidiscrete continuous-in-time fitted finite element scheme
 (\ref{eq:ns_semi_alea}--d) is a system of ODEs. Indeed, we can define the
 following matrices and vectors
-\begin{align*}
+\begin{subequations}
+\begin{align}
 & [\vec M^h_\Omega(t)]_{ij} :=
 \left(\left(\rho^h\,\phi_j^{\uspacesimpleale^h}\vec e_q,
 \phi_i^{\uspacesimpleale^h}\,\vec e_r \right)_{\Omega^h(t)}
-\right)_{q,r=1}^d\,,\\
+\right)_{q,r=1}^d\,, \label{eq:ns_ale_mata}\\
 & [\vec D^h_\Omega\big(t,\vec U^h,\W^h\big)]_{ij} :=
 \left(\left(\rho^h\big(\big(\vec U^h-\W^h\big)\,.\,\nabla\big)
 \phi_j^{\uspacesimpleale^h} \vec e_q, \phi_i^{\uspacesimpleale^h}\,\vec e_r
-\right)_{\Omega^h(t)} \right)_{q,r=1}^d\,,\\
+\right)_{\Omega^h(t)} \right)_{q,r=1}^d\,,\label{eq:ns_ale_matb}\\
 & [\vec B^h_\Omega(t)]_{ij} :=
 2\left(\left(\mu^h\,\mat D(\phi_j^{\uspacesimpleale^h}\vec e_q),
 \mat D(\phi_i^{\uspacesimpleale^h}\,\vec e_r) \right)_{\Omega^h(t)}
-\right)_{q,r=1}^d\,,\\
-& \vec c^h_i(t) := \left( \rho^h\,\vec f_1^h + \vec f_2^h,
-\phi_i^{\uspacesimpleale^h}\right)_{\Omega^h(t)}\,,\\
+\right)_{q,r=1}^d\,,\label{eq:ns_ale_matc}\\
+& \vec c^h_i(t,\vec f_1^h,\vec f_2^h) := \left( \rho^h\,\vec f_1^h + \vec f_2^h,
+\phi_i^{\uspacesimpleale^h}\right)_{\Omega^h(t)}\,,\label{eq:ns_ale_matd}\\
 &[\vec C^h_\Omega(t)]_{ip} := - \left(
 \left(\nabla\,.\,(\phi_i^{\uspacesimpleale^h}\,\vec e_q), \phi_p^{\pspaceale^h}
-\right)_{\Omega^h(t)} \right)_{q=1}^d,\\
+\right)_{\Omega^h(t)} \right)_{q=1}^d,\label{eq:ns_ale_mate}\\
 & [\Nbulk^h(t)]_{il} := \left\langle \phi_i^{\uspacesimpleale^h}, \chi^h_l
-\,\vec\nu^h \right\rangle_{\Gamma^h(t)} \,,\\
+\,\vec\nu^h \right\rangle_{\Gamma^h(t)} \,,\label{eq:ns_ale_matf}\\
 & [\vec N_\Gamma^h(t)]_{kl} := \left\langle \chi^h_l, \chi^h_k\,\vec\nu^h
-\right\rangle_{\Gamma^h(t)}^h \,,\\
+\right\rangle_{\Gamma^h(t)}^h \,,\label{eq:ns_ale_matg}\\
 & [\vec A^h_\Gamma(t)]_{kl} := \left\langle \nabs\,\chi^h_l, \nabs\,\chi^h_k
-\right\rangle_{\Gamma^h(t)} \,\vec\id \,,
-\end{align*}
+\right\rangle_{\Gamma^h(t)} \,\vec\id \,,\label{eq:ns_ale_math}
+\end{align}
+\end{subequations}
 where $\{\vec e_q\}_{q=1}^d$ denotes the standard basis in $\R^d$,
 $\{\phi_i^{\uspacesimpleale^h}\}_{i=1}^{K^h_\uspacesimpleale}$ is the basis of
 $\uspacesemidiscale{0}{h}{t}$ and
@@ -366,18 +368,101 @@ $\pnormspaceale^h$. Thus (\ref{eq:ns_semi_alea}--d) can be rewritten in
 algebraic form as
 \begin{subequations}
 \begin{align}
-\vec M^h_\Omega(t)\ddt \vec U + \vec B^h_\Omega(t) \vec U +
-\vec D^h_\Omega\big(t,\vec U^h,\W^h\big)\vec U + \vec C^h_\Omega(t) P
-- \gamma \Nbulk^h(t) K & = \vec c^h(t)\,, \label{eq:ns_ode_alea} \\
-[\vec C^h_\Omega(t) ]^T \vec U & = 0\,, \label{eq:ns_ode_aleb} \\
-[\vec N_\Gamma^h(t)]^T \ddt \vec X - \Nbulk^h(t)\vec U & = 0\,,
+& \vec M^h_\Omega(t)\ddt \vec U + \vec B^h_\Omega(t) \vec U +
+\vec D^h_\Omega\big(t,\vec U^h,\W^h\big)\vec U \nonumber \\
+& \qquad + \vec C^h_\Omega(t) P
+- \gamma \Nbulk^h(t) \kappa = \vec c^h(t,\vec f_1^h,\vec f_2^h)\,,
+\label{eq:ns_ode_alea} \\
+& [\vec C^h_\Omega(t) ]^T \vec U = 0\,, \label{eq:ns_ode_aleb} \\
+& [\vec N_\Gamma^h(t)]^T \ddt \vec X - \Nbulk^h(t)\vec U = 0\,,
 \label{eq:ns_ode_alec} \\
-\vec N_\Gamma^h(t) K + \vec A^h_\Gamma(t)\vec X & = 0\,, \label{eq:ns_ode_aled}
+& \vec N_\Gamma^h(t) \kappa + \vec A^h_\Gamma(t)\vec X = 0\,,
+\label{eq:ns_ode_aled}
 \end{align}
 \end{subequations}
-where $\vec U$, $P$, $K$ and $\vec X$ are the unknown vectors for the velocity,
-pressure, interface curvature and interface position, respectively.
+where $\vec U$, $P$, $\kappa$ and $\vec X$ are the unknown vectors for the
+velocity, pressure, interface curvature and interface position, respectively.
 
 \section{Finite element approximation}\label{sec:ale_fem}
+We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
+$[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0
+,\ldots, M-1$. It is now straightforward to obtain a full finite element
+approximation of (\ref{eq:ns_ode_alea}--d) since the only missing part is the
+temporal discretization. Therefore, applying an implicit Euler scheme to
+(\ref{eq:ns_ode_alea}--d), we obtain
+\begin{subequations}
+\begin{align}
+& \frac{1}{\tau_m}\vec M^h_\Omega(t^{m+1})\vec U^{m+1} +
+\vec B^h_\Omega(t^m) \vec U^{m+1} +
+\vec D^h_\Omega\big(t^m,\vec U^{m+1},\W^{m+1}\big)\vec U^{m+1} \nonumber \\
+& \qquad + \vec C^h_\Omega(t^m) P^{m+1}
+- \gamma \Nbulk^h(t^m) \kappa^{m+1} \nonumber \\
+& \qquad = \frac{1}{\tau_m} \vec M^h_\Omega(t^m)\vec U^m
++ \vec c^h(t^m,\vec f_1^{m+1},\vec f_2^{m+1})\,,\label{eq:ns_ode_disc_alea} \\
+& [\vec C^h_\Omega(t^m) ]^T \vec U^{m+1} = 0\,,
+\label{eq:ns_ode_disc_aleb} \\
+& \frac{1}{\tau_m}[\vec N_\Gamma^h(t^m)]^T \vec X^{m+1}
+- \Nbulk^h(t^m)\vec U^{m+1} = \frac{1}{\tau_m}[\vec N_\Gamma^h(t^m)]^T
+\vec X^m\,, \label{eq:ns_ode_disc_alec}\\
+& \vec N_\Gamma^h(t^m) \kappa^{m+1} + \vec A^h_\Gamma(t^m)\vec X^{m+1}
+ = 0\,. \label{eq:ns_ode_disc_aled}
+\end{align}
+\end{subequations}
+We notice that there is a small abuse of notation in (\ref{eq:ns_ode_disc_alea})
+for $\vec U^{m+1}$ and $\W^{m+1}$ in the term $\vec D^h_\Omega\big(t^{m+1},\vec
+U^{m+1},\W^{m+1}\big)$. Indeed only for this term, they denote the discrete
+fluid velocity and the discrete bulk domain velocity, respectively, and not
+their associated vectors of degree of freedoms.
+
+We can now substitute (\ref{eq:ns_ale_mata}--h) back into
+(\ref{eq:ns_ode_disc_alea}--d). Firstly, let
+$\uspacediscale{g}{m}=\uspacesemidiscale{g}{h}{t^m}$ and
+$\pnormspaceale^m=\pnormspaceale^h(t^m)$. Then, our ALE finite element
+approximation, which is based on the variational formulation
+(\ref{eq:ns_weaka_ale}--d), is given as follows. Let $\Gamma^0$, an
+approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
+For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
+\in \uspacediscale{g}{m}\times \pnormspaceale^m \times \Vh \times \Wh$ such that
+\begin{subequations}
+\begin{align}
+& \left( \rho^m\,\frac{\vec U^{m+1}}{\tau_m}, \vec \xi \right)_{\Omega^{m+1}}
++ \left(\rho^m( (\vec U^{m+1}- \W^{m+1})\,.\,\nabla)\,\vec U^{m+1}\,,
+\,\vec \xi \right)_{\Omega^m}\nonumber \\
+& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi)
+\right)_{\Omega^m} - \left(P^{m+1}, \nabla\,.\,\vec \xi\right)_{\Omega^m}
+- \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m , \vec\xi\right\rangle_{\Gamma^m}
+\nonumber \\
+& \qquad=  \left( \rho^m\,\frac{\vec U^m}{\tau_m}, \vec \xi \right)_{\Omega^m}
++ \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)_{\Omega^m}
+\quad \forall\ \vec\xi \in \uspacediscale{0}{m}\,, \label{eq:ale_HGa} \\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)_{\Omega^m}  = 0
+\quad \forall\ \varphi \in \pnormspaceale^m\,,\label{eq:ale_HGb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:ale_HGc}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh\,, \label{eq:ale_HGd}
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Again, we have defined
+$\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$, $i=1,2$,
+\begin{equation}
+\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
+\end{equation}
+and
+\begin{equation}
+\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
+\end{equation}
+
+We notice that the ALE finite element approximation (\ref{eq:ale_HGa}--d)
+differs from the standard implicit finite element approximation
+(\ref{eq:ns_HGimpa}--d) for the presence of the arbitrary domain
+velocity $\W^{m+1}$ in the convective term of the momentum equation
+(\ref{eq:ale_HGa}) and for the different time derivative, again in the momentum
+equation. More precisely, in order to compute the discrete time derivative in
+(\ref{eq:ale_HGa}), the interpolation of the velocity $\vec U^m$ onto
+$\Omega^m$ is not needed anymore.
 
 \section{Solution method}\label{sec:ale_solution_method}
