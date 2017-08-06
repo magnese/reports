@@ -231,9 +231,15 @@ and, using the incompressibility condition (\ref{eq:ns_full_mass}), we obtain
 \rangle_{\Gamma(t)}] \quad \forall\ \vec \xi \in \uspace 0\,.
 \end{align}
 
-Next, we can use Reynolds transport theorem, see \cite{Aris89}, together with
-(\ref{eq:ns_full_velocity}), to rewrite the time derivative term
-$(\rho\,\vec u_t,\vec \xi)$ and obtain
+Next, we recall the Reynolds transport theorem
+\begin{equation}\label{eq:reynolds_theorem}
+\ddt \int_{\Omega(t)} h\dL{d}=\int_{\Omega(t)} h_t \dL{d} +
+\int_{\Omega(t)} \nabla\,.\,\left(h\,\W\right)\dL{d}\,,
+\end{equation}
+where $\Omega(t)$ is a moving domain with velocity $\W$ and $h:\R^d\to\R$ is a
+continuously differentiable function, see \cite{Aris89}. Then we can use
+(\ref{eq:reynolds_theorem}) together with (\ref{eq:ns_full_velocity}), to
+rewrite the time derivative term $(\rho\,\vec u_t,\vec \xi)$ and obtain
 \begin{align}\label{eq:rhot1}
 \ddt(\rho \,\vec u, \vec \xi) & =
 \ddt\left(\rho_+\,\int_{\Omega_+(t)} \vec u \,.\,\vec \xi \dL{d}
