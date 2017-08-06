@@ -2,7 +2,19 @@
 \label{ch:ns_results}
 In order to test our method, and to allow comparisons with the unfitted finite
 element approximation in \cite{fluidfbp}, we now present several numerical
-experiments in 2d and 3d.
+experiments in 2d and 3d. This chapter is extensively based on a paper in
+preparation.
+
+The chapter is organised as follows: in \S\ref{sec:ns_exact_solutions} we state
+three exact solutions to the two-phase Navier--Stokes problem and we verify that
+they are indeed solutions; in \S\ref{sec:ns_non_div_free} we describe the
+changes needed in the various schemes if the exact solution is not
+divergence-free, which is indeed the case for two of them; in
+\S\ref{sec:benchmark_quantities} we describe the general settings for the
+simulations and we define the benchmark quantities; in
+\S\ref{sec:ns_convergence_results} we report on the convergence test in
+2d; in \S\ref{sec:2d_rising_bubble_results} we report on the rising bubble
+experiments in 2d.
 
 \section{Exact solutions}\label{sec:ns_exact_solutions}
 Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$ be a sphere of radius
@@ -274,7 +286,7 @@ Therefore, given that $\vec u$ does not depend on time, we have
 \end{align*}
 which is indeed the value of forcing term $\vec f$.
 
-\section{Non divergence-free scheme modifications}
+\section{Non divergence-free scheme modifications}\label{sec:ns_non_div_free}
 Some exact solution presented in \S\ref{sec:ns_exact_solutions} are non
 divergence-free which means that $\nabla\,.\,\vec u = f_{\rm{div}}$ in
 $\Omega_\pm(t)$. This leads to an additional term in the right-hand side of the
