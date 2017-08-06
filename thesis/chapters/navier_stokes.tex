@@ -161,12 +161,12 @@ $\vec \omega$, $\vec \xi \in [H^1(\Omega)]^d$ it holds that
 & [(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi
  = (\vec v\,.\,\nabla)\,(\vec \omega\,.\,\vec \xi) -
 [(\vec v\,.\,\nabla)\,\vec \xi]\,.\,\vec \omega \nonumber \\
-& = \tfrac{1}{2}\,(\vec v\,.\,\nabla)\,
+& \qquad = \tfrac{1}{2}\,(\vec v\,.\,\nabla)\,
 (\vec \omega\,.\,\vec \xi) + \tfrac{1}{2}\,(\vec v\,.\,\nabla)\,
 (\vec \omega\,.\,\vec \xi) -\tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec
 \xi] \,.\,\vec \omega -\tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec
 \xi] \,.\,\vec \omega \nonumber \\
-& = \tfrac{1}{2}\,(\vec v\,.\,\nabla)\, (\vec \omega\,.\,\vec \xi) +
+& \qquad = \tfrac{1}{2}\,(\vec v\,.\,\nabla)\, (\vec \omega\,.\,\vec \xi) +
 \tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi -
 \tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec \xi] \,.\,\vec \omega\,.
 \end{align}
@@ -798,9 +798,10 @@ M-1$, set $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, $s=0$ and $\epsilon_f
 & \left( \rho^m\,\frac{\vec U^{m+1,s+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
 \xi \right) + \left((\rho^m\vec U^{m+1,s}\,.\,\nabla)\,\vec U^{m+1,s+1}\,,
 \,\vec \xi \right)\nonumber \\
-& + 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi) \right)
+&\qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi) \right)
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
-& - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+& \qquad - \gamma\,
+\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
 = \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
 \quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,, \label{eq:ns_HGfixedpointa} \\
 & \left(\nabla\,.\,\vec U^{m+1,s+1}, \varphi\right)  = 0
@@ -814,19 +815,21 @@ M-1$, set $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, $s=0$ and $\epsilon_f
 0 \quad \forall\ \vec\eta \in \Vh\,, \label{eq:ns_HGfixedpointd}
 \end{align}
 \end{subequations}
-and increment $s$, until $\|U^{m+1,s+1}-U^{m+1,s}\|_{L^\infty} \leq\epsilon_f$.
-Finally, set ${\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)}$ and $\vec U^{m+1}= \vec
-U^{m+1,s+1}$. The scheme (\ref{eq:ns_HGfixedpointa}--d), at each time
-level $m$, is a fixed point iteration which consists of solving a coupled
-linear system of equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1},
-\vec X^{m+1}, \kappa^{m+1})$ at each step $s$ until $L^\infty$--error of the
+and increment $s$, until $\|\vec U^{m+1,s+1}-\vec U^{m+1,s}\|_{L^\infty}
+\leq\epsilon_f$. Finally, set ${\Gamma^{m+1}=\vec X^{m+1}(\Gamma^m)}$ and $\vec
+U^{m+1}= \vec U^{m+1,s+1}$. The scheme (\ref{eq:ns_HGfixedpointa}--d), at each
+time level $m$, is a fixed point iteration which consists of solving a coupled
+linear system of equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1}, \vec
+X^{m+1}, \kappa^{m+1})$ at each step $s$ until the $L^\infty$--error of the
 velocity $\|U^{m+1,s+1}-U^{m+1,s} \|_{L^\infty}$ is smaller than the required
 tolerance $\epsilon_f$. Obviously, in the case that the fixed point iteration
 performs only one step, (\ref{eq:ns_HGfixedpointa}--d) reduces to the explicit
-standard scheme (\ref{eq:ns_HGa}--d). Again, at every step, the linear algebraic
-system arising from (\ref{eq:ns_HGfixedpointa}--d) is identical to the two-phase
-Stokes algebraic system (\ref{eq:stokes_algebraic}) with the only modification
-in the terms $\vec B_{\Omega}$ and $\vec c$ which become
+standard scheme (\ref{eq:ns_HGa}--d). In practice, we also require $s>1$, which
+means that we do at least two full iterations of the fixed point scheme. Again,
+at every step, the linear algebraic system arising from
+(\ref{eq:ns_HGfixedpointa}--d) is identical to the two-phase Stokes algebraic
+system (\ref{eq:stokes_algebraic}) with the only modification in the terms
+$\vec B_{\Omega}$ and $\vec c$ which become
 \begin{align*}
 [\vec B_\Omega]_{ij} := & \left( \frac{\rho^m}{\tau_m} \phi_j^{\uspacesimple^m},
 \phi_i^{\uspacesimple^m} \right)\mat \id

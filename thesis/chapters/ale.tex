@@ -388,7 +388,7 @@ We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
 $[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0
 ,\ldots, M-1$. It is now straightforward to obtain a full finite element
 approximation of (\ref{eq:ns_ode_alea}--d) since the only missing part is the
-temporal discretization. Therefore, applying an implicit Euler scheme to
+temporal discretization. Therefore, applying a semi implicit Euler scheme to
 (\ref{eq:ns_ode_alea}--d), we obtain
 \begin{subequations}
 \begin{align}
@@ -425,14 +425,14 @@ For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \in \uspacediscale{g}{m}\times \pnormspaceale^m \times \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
-& \left( \rho^m\,\frac{\vec U^{m+1}}{\tau_m}, \vec \xi \right)_{\Omega^{m+1}}
+& \left( \frac{\rho^m}{\tau_m}\,\vec U^{m+1}, \vec \xi \right)_{\Omega^{m+1}}
 + \left(\rho^m( (\vec U^{m+1}- \W^{m+1})\,.\,\nabla)\,\vec U^{m+1}\,,
 \,\vec \xi \right)_{\Omega^m}\nonumber \\
 & \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi)
 \right)_{\Omega^m} - \left(P^{m+1}, \nabla\,.\,\vec \xi\right)_{\Omega^m}
 - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m , \vec\xi\right\rangle_{\Gamma^m}
 \nonumber \\
-& \qquad=  \left( \rho^m\,\frac{\vec U^m}{\tau_m}, \vec \xi \right)_{\Omega^m}
+& \qquad=  \left( \frac{\rho^m}{\tau_m}\,\vec U^m, \vec \xi \right)_{\Omega^m}
 + \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)_{\Omega^m}
 \quad \forall\ \vec\xi \in \uspacediscale{0}{m}\,, \label{eq:ale_HGa} \\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)_{\Omega^m}  = 0
@@ -466,3 +466,90 @@ equation. More precisely, in order to compute the discrete time derivative in
 $\Omega^m$ is not needed anymore.
 
 \section{Solution method}\label{sec:ale_solution_method}
+The solution technique used to solve the ALE scheme (\ref{eq:ale_HGa}--d) is
+very similar to the one used to solve the implicit standard scheme
+(\ref{eq:ns_HGimpa}--d). More precisely, using a fixed point iteration, we can
+reformulate the scheme (\ref{eq:ale_HGa}--d) as follow. Let $\Gamma^0$, an
+approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
+For $m=0,\ldots, M-1$, set $\vec U^{m+1,0}=\vec U^m$, $\vec \psi^{m+1,0} =
+\vec 0$, $\Omega^{m+1,0}=\Omega^m$, $s=0$ and $\epsilon_f \geq 0$.
+Then, find $(\vec U^{m+1,s+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
+\uspacediscale{g}{m}\times \pnormspaceale^m \times \Vh \times \Wh$ such that
+\begin{subequations}
+\begin{align}
+& \left( \frac{\rho^m}{\tau_m}\,\vec U^{m+1,s+1}, \vec
+\xi\right)_{\Omega^{m+1,s}} + \left((\rho^m\left(\vec
+U^{m+1,s}-\frac{\vec\psi^{m+1,s}}{\tau_m}\right)\,.\,\nabla)\,
+\vec U^{m+1,s+1}\,, \,\vec \xi \right)_{\Omega^m}\nonumber \\
+& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi)
+\right)_{\Omega^m} - \left(P^{m+1}, \nabla\,.\,\vec \xi\right)_{\Omega^m}
+- \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+\nonumber \\
+& \qquad = \left( \frac{\rho^m}{\tau_m}\,\vec U^m, \vec \xi \right)_{\Omega^m}
++ \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)_{\Omega^m}
+\quad \forall\ \vec\xi \in \uspacediscale{0}{m}\,, \label{eq:ns_HGalea} \\
+& \left(\nabla\,.\,\vec U^{m+1,s+1}, \varphi\right)_{\Omega^m}  = 0
+\quad \forall\ \varphi \in \pnormspaceale^m\,,\label{eq:ns_HGaleb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1,s+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:ns_HGalec}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh\,. \label{eq:ns_HGaled}
+\end{align}
+\end{subequations}
+and increment $s$, until $\|U^{m+1,s+1}-U^{m+1,s}\|_{L^\infty} \leq\epsilon_f$
+and $\|\vec \psi^{m+1,s+1}-\vec \psi^{m+1,s}\|_{L^\infty} \leq\epsilon_f$. The
+bulk displacement $\vec \psi^{m+1,s+1}$ is computed solving the linear
+elasticity problem (\ref{eq:elasta}--b), see \S\ref{sec:stokes_smoothing} for
+more details, and $\Omega^{m+1,s+1}$ is updated accordingly. Finally, set
+${\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)}$, $\Omega^{m+1,s+1}=\Omega^{m+1}$ and
+$\vec U^{m+1}= \vec U^{m+1,s+1}$. The scheme (\ref{eq:ns_HGalea}--d), at each
+time level $m$, is a fixed point iteration which consists of solving a coupled
+linear system of equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1}, \vec
+X^{m+1}, \kappa^{m+1})$ at each step $s$ until the $L^\infty$--error of the
+velocity $\|U^{m+1,s+1}-U^{m+1,s} \|_{L^\infty}$ and the $L^\infty$--error of
+the bulk displacement $\|\vec \psi^{m+1,s+1}-\vec \psi^{m+1,s}\|_{L^\infty}
+\leq\epsilon_f$ is smaller than the required tolerance $\epsilon_f$. The
+arbitrary domain velocity $\W^{m+1}$ is chosen to be the solution of the linear
+elasticity problem (\ref{eq:elasta}--b). Obviously, no mesh smoothing is
+performed on $\Omega^{m+1}$ otherwise all the benefits of the ALE scheme would
+be lost since a velocity interpolation would be required. Nevertheless, since
+the mesh smoothing is already embedded in the arbitrary domain velocity, the
+bulk mesh quality is preserved. In practice, we also require $s>1$, which means
+that we do at least two full iterations of the fixed point scheme.
+
+At every step, the linear algebraic system arising from (\ref{eq:ns_HGalea}--d)
+is identical to the two-phase Stokes algebraic system
+(\ref{eq:stokes_algebraic}) but with the following terms
+\begin{align*}
+& [\vec B_\Omega]_{ij} := \left( \frac{\rho^m}{\tau_m}
+\phi_j^{\uspacesimpleale^m},
+\phi_i^{\uspacesimpleale^m} \right)_{\Omega^{m+1,s}}\mat \id
++ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimpleale^m} \vec e_q),
+\mat D(\phi_i^{\uspacesimpleale^m}\,\vec e_r)\right)_{\Omega^m}
+\right)_{q,r=1}^d\\
+& \qquad + \left( \left(\rho^m \left(\vec U^{m+1,s} -
+\frac{\vec \psi^{m+1,s}}{\tau_m}\right)\,.\,\nabla \right)
+\phi_j^{\uspacesimpleale^m},\phi_i^{\uspacesimpleale^m}
+\right)_{\Omega^m}\mat \id \,,\\
+& \vec c_i := \left( \frac{\rho^m}{\tau_m}\vec U^m +
+\rho^m\,\vec f_1^{m+1}+\vec
+f_2^{m+1},\phi_i^{\uspacesimpleale^m}\right)_{\Omega^m}\,,\\
+& [\vec C_\Omega]_{ip} := - \left(
+\left(\nabla\,.\,(\phi_i^{\uspacesimpleale^m}\,\vec
+e_q), \phi_p^{\pspaceale^m} \right)_{\Omega^m} \right)_{q=1}^d,\quad
+[\Nbulk]_{il} := \left\langle \phi_i^{\uspacesimpleale^m}, \chi^m_l \,\vec\nu^m
+\right\rangle_{\Gamma^m} \,,\\
+& \vec \beta_i :=
+\frac{\left(\phi_i^{\pspaceale^m},1\right)_{\Omega^m}}{\left(1,1\right)
+_{\Omega^m}} \left\langle \vec I_2^m\,\vec
+g,\unitn\right\rangle_{\partial_1\Omega^m}\,,\quad
+[\vec N_\Gamma]_{kl} := \left\langle \chi^m_l, \chi^m_k\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h \,,\\
+& [\vec A_\Gamma]_{kl} := \left\langle \nabs\,\chi^m_l, \nabs\,\chi^m_k
+\right\rangle_{\Gamma^m} \,\vec\id \,.
+\end{align*}
+Then the resulting algebraic system can be solved using the same technique
+introduced in \S\ref{sec:stokes_solution_method}.
