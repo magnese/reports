@@ -175,11 +175,11 @@ while, the $i$ component of the convective term is
 \begin{align*}
 \big[(\vec u \,.\, \nabla)\vec u\big]_i =&
 \sum_{j=1}^d \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+}
-\big(|\vec z\,|^2-r^2\big)\bigg)\,\vec z_j
+\big(|\vec z\,|^2-r^2\big)\bigg)\, z_j
 \frac{\partial u_i}{\partial z_j} \\
 = &\bigg(\alpha_1+\alpha_2\charfcn{\Omega_+}
 \big(|\vec z\,|^2-r^2\big)\bigg)\,\cdot \\
-&\qquad \sum_{j=1}^d\vec z_j\bigg[
+&\qquad \sum_{j=1}^d z_j\bigg[
 \alpha_1 \delta_{ij}
 + \alpha_2\charfcn{\Omega_+}\bigg(\delta_{ij}\big(|\vec z\,|^2-r^2\big)
 + 2z_iz_j\bigg)\bigg] \\
@@ -191,7 +191,7 @@ while, the $i$ component of the convective term is
 = &\bigg[\alpha_1^2
 + \charfcn{\Omega_+}\bigg(2\,\alpha_1\,\alpha_2\big(2|\vec z\,|^2-r^2\big)
 + \alpha_2^2\big(|\vec z\,|^2-r^2\big)\big(3|\vec z\,|^2
-- r^2\big)\bigg)\bigg]\vec z_i\,.
+- r^2\big)\bigg)\bigg] z_i\,.
 \end{align*}
 Therefore, summing together all the terms in (\ref{eq:ns_full_momentum}),
 given that $\nabla p = 0$  since the pressure $p$ is constant in each
@@ -219,7 +219,9 @@ $i$ component, we have
 + 2z_iz_j\bigg)\bigg)\frac{z_j}{|\vec z\,|}\bigg]_-^+ \\
 & \qquad \qquad
 - \bigg(\gamma - 4\,\alpha_2\,\frac{\mu_+}{d-1}r^3\bigg) \varkappa\nu_i \\
-& \qquad = \bigg[2\,\alpha_2\,\mu\,\charfcn{\Omega_+}\sum_{j=1}^d
+& \qquad = \bigg[
+\color{red} 2\,\alpha_1\,\mu\,\frac{z_i}{|\vec z\,|} \color{black}
++ 2\,\alpha_2\,\mu\,\charfcn{\Omega_+}\sum_{j=1}^d
 \bigg(\delta_{ij}\big(|\vec z\,|^2-r^2\big)
 + 2z_iz_j\bigg)\frac{z_j}{|\vec z\,|}\bigg]_-^+ \\
 & \qquad \qquad -\gamma \varkappa \nu_i + 4\,\alpha_2\,\frac{\mu_+}{d-1}
