@@ -35,8 +35,8 @@ r(t) = \mathrm{e}^{\alpha\,t}\,r(0)\,,
 together with
 \begin{equation} \label{eq:ns_sol_1_up}
 \vec u(\vec z, t) = \alpha\,\vec z \,, \quad
-p(\vec z, t) = -\,\bigg(\gamma - 2\,\alpha\,\frac{\mu_+ - \mu_-}
-{d-1}r(t)\bigg)\,\varkappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+p(\vec z, t) = -\bigg[\gamma - 2\,\alpha\,\frac{\mu_+ - \mu_-}
+{d-1}r(t)\bigg]\,\varkappa(t)\left[ \charfcn{\Omega_-(t)} -
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{equation}
 \end{subequations}
@@ -117,7 +117,8 @@ together with
 & p(\vec z, t) = -\,\bigg(\gamma
 - 2\,\alpha_1\,\frac{\mu_+ - \mu_-}
 {d-1}r(t) - 4\,\alpha_2\,\frac{\mu_+}{d-1}r(t)^3
-\bigg)\,\varkappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+\bigg)\,\varkappa(t)\,\cdot \nonumber \\ & \hspace{3cm}
+\left[ \charfcn{\Omega_-(t)} -
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{align}
 \end{subequations}
@@ -191,9 +192,9 @@ while, the $i$ component of the convective term is
 \alpha_1 + \alpha_2\charfcn{\Omega_+}\bigg(\big(|\vec z\,|^2-r^2\big)
 + 2|\vec z\,|^2\bigg)\bigg]z_i \\
 = &\bigg[\alpha_1^2
-+ \charfcn{\Omega_+}\bigg(2\,\alpha_1\,\alpha_2\big(2|\vec z\,|^2-r^2\big)
++ \charfcn{\Omega_+}\big[2\,\alpha_1\,\alpha_2\big(2|\vec z\,|^2-r^2\big)
 + \alpha_2^2\big(|\vec z\,|^2-r^2\big)\big(3|\vec z\,|^2
-- r^2\big)\bigg)\bigg] z_i\,.
+- r^2\big)\big]\bigg] z_i\,.
 \end{align*}
 Therefore, summing together all the terms in (\ref{eq:ns_full_momentum}),
 given that $\nabla p = 0$  since the pressure $p$ is constant in each
@@ -212,7 +213,7 @@ $i$ component, we have
 \begin{align*}
 & \bigg[\big[2\,\mu \mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu\big]_i\bigg]_-^+ =
 \bigg[2\,\mu \sum_{j=1}^d\frac{\partial u_i}{\partial z_j}\nu_j
-- p\nu_i\bigg]_-^+
+- p\nu_i\bigg]_-^+ \\ & \qquad
 = \bigg[2\,\mu\sum_{j=1}^d\frac{\partial u_i}{\partial z_j}
 \frac{z_j}{|\vec z\,|}\bigg]_-^+ -\big[ p\nu_i\big]_-^+ \\
 & \qquad = \bigg[2\,\mu\sum_{j=1}^d
@@ -230,6 +231,7 @@ $i$ component, we have
 +2\,\alpha_1\frac{\mu_+-\mu_-}{d-1}\frac{1-d}{r}\,r\,\nu_i
 + 4\,\alpha_2\,\frac{\mu_+}{d-1}\,r^3\,\frac{1-d}{r}\,\nu_i\\
 & \qquad =  2\,\alpha_1(\mu_+-\mu_-)\,\nu_i +4\,\alpha_2\,\mu_+r^2\,\nu_i
+\\ & \qquad \qquad
 -\gamma \varkappa \nu_i - 2\,\alpha_1(\mu_+-\mu_-)\,\nu_i
 - 4\,\alpha_2\,\mu_+ r^2\,\nu_i \\
 & \qquad = -\gamma \varkappa \nu_i\,.
@@ -259,7 +261,7 @@ together with
 \begin{equation} \label{eq:ns_sol_3_up}
 \vec u(\vec z, t) = \alpha\,\frac{\vec z}{|\vec z\,|^d}\,, \quad
 p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
-{r(t)^{d-1}}\bigg)\,\varkappa(t)\,\left[ \charfcn{\Omega_-(t)} -
+{r(t)^{d-1}}\bigg)\,\varkappa(t)\left[ \charfcn{\Omega_-(t)} -
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{equation}
 \end{subequations}
