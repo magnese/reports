@@ -13,13 +13,11 @@ flow; in \S\ref{sec:ns_weak} we derive a standard weak formulation
 and an alternative weak formulation based on an antisymmetric rewrite on which
 our finite element approximations are going to be based; in
 \S\ref{sec:ns_fem_antisym} we present our antisymmetric fitted finite element
-discretization; in \S\ref{sec:ns_existence} we prove the
-existence and uniqueness of the antisymmetric discrete approximation; in
-\S\ref{sec:ns_stability} we demonstrate that our antisymmetric scheme is
-unconditionally stable under certain conditions; in \S\ref{sec:ns_fem} we
-present our standard fitted finite element discretization; in
-\S\ref{sec:ns_solution_method} we explain the various solutions methods used to
-solve the algebraic system.
+discretization, we prove the existence and uniqueness of a discrete solution
+and we demonstrate that this scheme is unconditionally stable under certain
+conditions; in \S\ref{sec:ns_fem} we present our standard fitted finite element
+discretization; in \S\ref{sec:ns_solution_method} we explain the various
+solutions methods used to solve the algebraic system.
 
 \section{Mathematical model}\label{sec:ns_model}
 We now consider two-phase Navier--Stokes flow in a given domain
@@ -305,7 +303,9 @@ the reader, we state again all the hypothesis and the notations used.
 
 Here, in order to have a consistent finite element approximation, we consider
 the partitioning $t_m =m\,\tau$, $m=0,\ldots, M$, of $[0,T]$ into uniform time
-steps $\tau=\frac{T}{M}$, see \cite{fluidfbp}. Moreover, let ${\cal T}^m$,
+steps $\tau=\frac{T}{M}$, see \cite{fluidfbp}. The uniform time step size is
+needed to ensure that the discrete time derivative approximation is consistent,
+i.e. the limit as $\tau \to 0$ is $\vec u_t$. Moreover, let ${\cal T}^m$,
 $\forall m\ge 0$, be a regular partitioning of the domain $\Omega$ into
 disjoint open simplices $\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. From now
 on, the domain $\Omega$ which we consider is the polyhedral domain defined by
@@ -481,50 +481,9 @@ $\vec\eta=\gamma\,\vec X$ in (\ref{eq:ns_proofd}) yields that
 If $\rho > 0$, we immediately obtain that $\vec U = \vec 0$. Otherwise we
 still get that $\mat D(\vec U) = \mat 0$, and arguing as in the proof of
 Theorem~\ref{thm:ex} in \S\ref{sec:stokes_existence} then yields that
-$\vec U = \vec 0$. For the remainder of the proof we may proceed as in the 
-proof of Theorem~\ref{thm:ex}.
-%Given that $\vec U \in RM$,
-%where $RM$ is the space of rigid motions (\ref{eq:rigid_motions_space}) which
-%constitutes the kernel of $\mat D$, in particular we have that $\vec U(\vec z)$
-%is linear in $\vec z$. Moreover, $\vec U\in\uspacedisc{0}{m}$ means that $\vec
-%U(\vec z)=\vec 0$ for every corner $\vec z$ of $\Omega$. Therefore $\vec U(\vec
-%z)=\vec 0$ for all $\vec z\in\Omega$. In addition, it holds that $\vec X$ is
-%equal to a constant on $\Gamma^m$, which satisfies, on recalling
-%(\ref{eq:ns_proofc}) and $\vec U = \vec 0$, that
-%\begin{equation} \label{eq:ns_Xconst}
-%\left\langle \vec X, \chi\,\vec\nu^m \right\rangle_{\Gamma^m}^h = 0
-%\quad\forall\ \chi \in \Wh\,.
-%\end{equation}
-%It was shown in \cite[Proof of Theorem~2.1]{gflows3d} that if $\Gamma^m$
-%has no self-intersections, then (\ref{eq:ns_Xconst}) immediately yields that
-%$\vec X = \vec 0$. As $\Gamma^m = \partial\Omega^m_-$ is the boundary of an open
-%domain, we always assume that it does not self-intersect, and
-%hence we obtain that $\vec X = \vec 0$. This means that (\ref{eq:ns_proofd})
-%reduces to
-%\begin{equation} \label{eq:ns_kappaproof}
-%\left\langle \kappa\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h = 0
-%\quad\forall\ \vec\eta \in \Vh\,.
-%\end{equation}
-%Let $\vec\omega^m \in \Vh$ be the mass-lumped $L^2$--projection of $\vec\nu^m$
-%onto $\Vh$, i.e. $\left\langle \vec\omega^m, \vec\varphi
-%\right\rangle_{\Gamma^m}^h = \left\langle \vec\nu^m,
-%\vec\varphi \right\rangle_{\Gamma^m}^h = \left\langle \vec\nu^m,
-%\vec\varphi \right\rangle_{\Gamma^m}$ for all $\vec\varphi\in\Vh$. It is easy
-%to see that $\vec\omega^m (\vec q^m_k) \not= \vec 0$ for
-%all $k=1,\ldots,K_\Gamma$, because $\Gamma^m$ does not self-intersect.
-%Then it follows from choosing $\vec\eta = \vec\omega^m$ in
-%(\ref{eq:ns_kappaproof}) that
-%\begin{align*}
-%0 = \left\langle \kappa\,\vec\nu^m, \vec\omega^m \right\rangle_{\Gamma^m}^h
-%= \left\langle \vec\nu^m, \vec\pi^m[\kappa\,\vec\omega^m]
-%\right\rangle_{\Gamma^m}
-%= \left\langle \vec\omega^m,
-%\vec\pi^m[\kappa\,\vec\omega^m] \right\rangle_{\Gamma^m}^h
-%= \left\langle \kappa, |\vec\omega^m|^2 \right\rangle_{\Gamma^m}^h ,
-%\end{align*}
-%and so $\kappa = 0 \in \Wh$. Finally, it follows from (\ref{eq:ns_proofa}) with
-%$\vec U = \vec 0$ and $\kappa = 0$, on recalling (\ref{eq:LBB}), that $P = 0$.
-Hence there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1},$
+$\vec U = \vec 0$. For the remainder of the proof we may proceed as in the
+proof of Theorem~\ref{thm:ex}. Hence there exists a unique solution $(\vec
+U^{m+1}, P^{m+1}, \vec X^{m+1},$
 $\kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
 to (\ref{eq:ns_HGa_antisym}--d).
 \end{proof}
@@ -576,16 +535,9 @@ uniqueness result.
 
 \subsection{Stability}\label{sec:ns_stability}
 We now demonstrate that the scheme (\ref{eq:ns_HGa_antisym}--d) in a loose
-sense is stable over a single time step. 
+sense is stable over a single time step.
 The proof is similar to the Stokes case presented in
 \S\ref{sec:stokes_stability} and follows closely the paper \cite{fluidfbp}.
-%\footnote{Robert: \ref{eq:ns_stabstab} the convective term has $\rho^{k-1}$
-%in your paper, why? shouldn't be $I_0^k\rho^{k-1}$. Moreover, why do we need an
-%uniform $\tau$?}
-% WELL SPOTTED!
-% THE UNIFORM TIME STEP SIZE IS TO ENSURE THAT THE DISCRETE TIME DERIVATIVE
-% APPROXIMTION IS CONSISTENT, I.E. THE LIMIT AS \tau \to 0 IS u_t.
-
 \begin{theorem} \label{thm:ns_stability}
 Let $\vec g=\vec 0$. Moreover let $m \in \{0,\ldots,M-1\}$ and let
 ${(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
@@ -665,7 +617,7 @@ Instead, for a fitted finite element approach, as considered in this thesis,
 the condition (\ref{eq:ns_stabstab_hp}) will in general not hold, because the
 underlying bulk triangulation changes at every time step, unless the position
 of the discrete interface remains unchanged.
-Therefore for the fitted approach it does not appear possible to prove a 
+Therefore for the fitted approach it does not appear possible to prove a
 stability bound.
 
 \section{Standard finite element approximation}\label{sec:ns_fem}
@@ -721,8 +673,8 @@ at each time level.
 
 We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) and
 the explicit standard scheme (\ref{eq:ns_HGa}--d)
-only differ in the approximation of the convective term and 
-in the employed density coefficients in the time derivative approximation. 
+only differ in the approximation of the convective term and
+in the employed density coefficients in the time derivative approximation.
 Indeed, instead of using the actual density $\rho^m$, it uses an
 average between the actual density and the interpolation of the density at the
 previous time step $\tfrac{1}{2}(I^m_0\,\rho^{m-1} + \rho^m)$ for what
@@ -792,11 +744,11 @@ Then the resulting algebraic system can be solved using the same technique
 introduced in \S\ref{sec:stokes_solution_method}.
 
 Instead, in order to solve the implicit standard scheme (\ref{eq:ns_HGimpa}--d)
-we use a fixed point iteration. In particular, we can find a solution 
-to the scheme (\ref{eq:ns_HGimpa}--d) as follow. 
-Let $\Gamma^m$ and $\vec U^m\in \uspacedisc{g}{m-1}$ be given. 
-Let $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$ and fix $\epsilon_f > 0$. 
-Then, for $s \geq 0$, 
+we use a fixed point iteration. In particular, we can find a solution
+to the scheme (\ref{eq:ns_HGimpa}--d) as follow.
+Let $\Gamma^m$ and $\vec U^m\in \uspacedisc{g}{m-1}$ be given.
+Let $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$ and fix $\epsilon_f > 0$.
+Then, for $s \geq 0$,
 find $(\vec U^{m+1,s+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
 \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$ such that
 \begin{subequations}
