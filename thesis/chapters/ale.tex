@@ -3,11 +3,11 @@
 \label{ch:ale}
 We now present an alternative finite element approximation for incompressible
 two-phase Navier--Stokes that uses the ALE method. This technique allows to
-rewrite the velocity time derivative with respect to a fixed reference 
-manifold. The system of PDEs describing the two-phase fluid, 
+rewrite the velocity time derivative with respect to a fixed reference
+manifold. The system of PDEs describing the two-phase fluid,
 after space discretization,
 becomes the evolution of the solution along trajectories. Thus the velocity
-does not need to be interpolated anymore, with the exception of when a full 
+does not need to be interpolated anymore, with the exception of when a full
 bulk remeshing is performed. This chapter is extensively based on a paper in
 preparation.
 
@@ -25,8 +25,8 @@ the solution method employed to solve the algebraic system.
 The Arbitrary Lagrangian Eulerian (ALE) method is an alternative technique to
 numerically approximate equations on a moving domain. It was first proposed in
 the papers \cite{Donea83,Hughes81}. In our presentation we follow closely
-\cite{Nobile99,Formaggia04,NobilePhd}. The ALE technique consists in 
-reformulating 
+\cite{Nobile99,Formaggia04,NobilePhd}. The ALE technique consists in
+reformulating
 the partial time derivative by expressing it with respect to a fixed reference
 configuration. A special homeomorphic map, called the ALE map, associates, at
 each time $t$, a point in the current computational domain $\Omega(t)$ to a
@@ -91,7 +91,7 @@ map of the boundary $\partial_i \D$ of the reference domain has then to
 provide, at all $t$, the boundary $\partial_i \Omega(t)$ of the current
 configuration, with $i=1,\,2$.
 
-Using (\ref{eq:ale_dt}) in the momentum equation (\ref{eq:ns_full_momentum}), 
+Using (\ref{eq:ale_dt}) in the momentum equation (\ref{eq:ns_full_momentum}),
 we can rewrite
 (\ref{eq:ns_full_momentum}--i) in the ALE frame as:
 \begin{subequations}
@@ -138,11 +138,11 @@ and the time derivative in the ALE frame coincides with the usual time
 derivative in the Eulerian frame. This means that $\W=\vec 0$ corresponds to a
 pure Eulerian method, while $\W=\vec u$ corresponds to a fully Lagrangian
 scheme. In our case, since we have a fix domain $\Omega$, the ALE
-formulation might not seem very useful. But, at the discrete level, 
-we are concerned with the evolution of the discrete triangulated domains. 
+formulation might not seem very useful. But, at the discrete level,
+we are concerned with the evolution of the discrete triangulated domains.
 Therefore the discrete ALE map describes
-the evolution of the grid during the domain movement. It is indeed at the 
-discrete level that the advantage of the ALE formulation emerges, 
+the evolution of the grid during the domain movement. It is indeed at the
+discrete level that the advantage of the ALE formulation emerges,
 as in an ALE setting
 the time advancing scheme provides directly the evolution of the unknowns at
 mesh nodes and thus that of the degrees of freedom of the discrete solutions.
@@ -164,7 +164,6 @@ the admissible spaces of test functions on the reference domain $\D$
 for a given $\vec b \in [H^1(\D)]^d$. Then, using the ALE mapping, we can
 define the admissible spaces of test functions on the moving domain $\Omega(t)$
 by setting
-\footnote{Marco: I have made changes here.}
 \begin{align*}
 \uspaceale b &:= \{ \vec\phi:
 \bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R^d,\quad
@@ -213,14 +212,11 @@ holds for almost all times $t \in (0,T]$.
 
 \section{Semidiscrete approximation}\label{sec:ale_semi_fem}
 We want to derive a semidiscrete continuous-in-time fitted finite element
-approximation of (\ref{eq:ns_weaka_ale}--d). Let ${\cal
-T}^h$ be a regular partitioning of the reference domain $\D$ into disjoint
-open simplices $\sigmaO^h_j$, $j = 1 ,\ldots, J^h_\D$. From now on, the
-reference domain $\D$, which we consider, is the polyhedral domain defined by 
-the triangulation ${\cal T}^h$. 
-\footnote{Marco: There is no time dependence on reference manifold, so I have
-removed it starting from here. You need to sort out some macros.}
-On ${\cal T}^h$ we define the finite element spaces
+approximation of (\ref{eq:ns_weaka_ale}--d). Let ${\cal T}^h$ be a regular
+partitioning of the reference domain $\D$ into disjoint open simplices
+$\sigmaO^h_j$, $j = 1 ,\ldots, J^h_\D$. From now on, the reference domain $\D$,
+which we consider, is the polyhedral domain defined by the triangulation
+${\cal T}^h$. On ${\cal T}^h$ we define the finite element spaces
 \begin{equation*}
 S^h_k := \{\chi \in C(\overline{\D}) : \chi\!\mid_{\sigmaO^h}
 \in \mathcal{P}_k(\sigmaO^h) \ \forall\ \sigmaO^h \in {\cal T}^h\}\,,
@@ -231,23 +227,23 @@ on $\sigmaO^h$. Moreover, $S^h_0$ is the space of piecewise constant
 functions on ${\cal T}^h$. For later use, we also define $\vec I^h_k$ to be
 the standard interpolation operator onto $[S^h_k]^d$.
 
-Let $\uspacesemidiscref{g}{h}{}\subset\uspacesimpleref(\vec I_k^h\vec g)$ and
+Let $\uspacesemidiscref{g}{h}\subset\uspacesimpleref(\vec I_k^h\vec g)$ and
 $\pspaceref^h\subset\pspaceref$ be the finite element spaces we use for the
 approximation of velocity and pressure, and let $\pnormspaceref^h:=
 \pspaceref^h\cap \pnormspaceref$. The spaces
-$(\uspacesemidiscref{0}{h}{},\pspaceref^m)$ satisfy the LBB inf-sup condition
+$(\uspacesemidiscref{0}{h},\pspaceref^m)$ satisfy the LBB inf-sup condition
 if there exists a constant $C_0 \in \R_{>0}$, independent of $\mathcal{T}^h(t)$,
 such that
 \begin{equation} \label{eq:LBB_ale}
 \inf_{\hat \varphi \in \pnormspaceref^h} \sup_{\vec{\hat \xi} \in
-\uspacesemidiscref{0}{h}{}}
+\uspacesemidiscref{0}{h}}
 \frac{( \hat \varphi, \nabla \,.\,\vec{ \hat \xi})} {\|\hat \varphi\|_0\,
 \| \vec{\hat\xi}\|_1} \geq C_0 > 0\,,
 \end{equation}
 see \cite[p.~114]{GiraultR86} and \S\ref{sec:stokes_fem}. Here $\|\cdot\|_0 :=
 (\cdot,\cdot)^\frac12$ and $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$
 denote the $L^2$--norm and the $H^1$--norm on $\D$, respectively. Then, for
-$d=2$, possible pairs $(\uspacesemidiscref{0}{h}{},\pspace^m)$ that satisfy
+$d=2$, possible pairs $(\uspacesemidiscref{0}{h},\pspace^m)$ that satisfy
 (\ref{eq:LBB_ale}) are P2--P0 and P2--(P1+P0), while for $d=3$ are the
 P3--(P2+P0) element and P1$^{\mbox{face bubble}}$--P0. See
 \S\ref{sec:stokes_fem} for more details.
@@ -258,7 +254,7 @@ the discretized moving domain $\Omega^h(t)$ by
 \uspacesemidiscale{g}{h}{t} &:= \{ \vec\phi:
 \Omega^h(t) \to \R^d,\quad
 \vec \phi=\vec{\hat\phi}\circ\vec x_h^{\,-1},\quad\vec{\hat\phi}
-\in\uspacesemidiscref{g}{h}{}\}\,,\\
+\in\uspacesemidiscref{g}{h}\}\,,\\
 \pnormspaceale^h(t) &:= \{ \eta: \Omega^h(t)\to \R,\quad
 \eta=\hat\eta\circ\vec x_h^{\,-1},\quad\hat\eta\in\pnormspaceref^h \}\,,
 \end{align*}
@@ -297,7 +293,7 @@ We also recall the discrete interface velocity
 \in \Vht\,.
 \end{equation*}
 The discrete domain velocity $\W^h$ is defined exactly the same but for all the
-vertices of $\mathfrak{T}^h(t)$. 
+vertices of $\mathfrak{T}^h(t)$.
 \footnote{Marco: Better: First define  $\W^h$, and then say that on $\Gamma^h$,
 $\V^h$ is just the trace of $\W^h$, and refer to previous definition label.}
 Finally, let
@@ -401,12 +397,12 @@ velocity, pressure, interface curvature and interface position, respectively.
 \section{Finite element approximation}\label{sec:ale_fem}
 We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
 $[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0
-,\ldots, M-1$. It is now straightforward to obtain a fully discrete 
+,\ldots, M-1$. It is now straightforward to obtain a fully discrete
 finite element
 approximation of (\ref{eq:ns_ode_alea}--d), since the only missing part is the
 temporal discretization. Therefore, applying a semi-implicit Euler scheme to
 (\ref{eq:ns_ode_alea}--d), we obtain
-\footnote{Marco: Why is the first $\vec M^h_\Omega(t^{m+1})$ not a 
+\footnote{Marco: Why is the first $\vec M^h_\Omega(t^{m+1})$ not a
 $\vec M^h_\Omega(t^{m})$?}
 \begin{subequations}
 \begin{align}
@@ -437,7 +433,7 @@ We can now substitute (\ref{eq:ns_ale_mata}--h) back into
 $\uspacediscale{g}{m}=\uspacesemidiscale{g}{h}{t^m}$ and
 $\pnormspaceale^m=\pnormspaceale^h(t^m)$. Then, our ALE finite element
 approximation, which is based on the variational formulation
-(\ref{eq:ns_weaka_ale}--d), is given as follows. 
+(\ref{eq:ns_weaka_ale}--d), is given as follows.
 \footnote{Marco: This is not good enough. I think what we want to do is to
 re-write (\ref{eq:ns_ode_disc_alea}--d) in a more intuitive form. But
 before you can do that, you have to say what you mean by these inner products
@@ -498,11 +494,11 @@ reference manifold?}
 The solution technique used to solve the ALE scheme (\ref{eq:ale_HGa}--d) is
 very similar to the one used to solve the implicit standard scheme
 (\ref{eq:ns_HGimpa}--d). More precisely, using a fixed point iteration, we find
-a solution for the scheme (\ref{eq:ale_HGa}--d) as follows. Let $\Gamma^m$ 
+a solution for the scheme (\ref{eq:ale_HGa}--d) as follows. Let $\Gamma^m$
 and $\vec U^m\in \uspacediscale{g}{m}$ be given.
 Set $\vec U^{m+1,0}=\vec U^m$, $\vec \psi^{m+1,0} =
 \vec 0$, $\Omega^{m+1,0}=\Omega^m$ and fix $\epsilon_f > 0$.
-Then, for $s \geq 0$, 
+Then, for $s \geq 0$,
 find $(\vec U^{m+1,s+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
 \uspacediscale{g}{m}\times \pnormspaceale^m \times \Vh \times \Wh$ such that
 \begin{subequations}
@@ -529,9 +525,9 @@ U^{m+1,s}-\frac{\vec\psi^{m+1,s}}{\tau_m}\right)\,.\,\nabla)\,
 0 \quad \forall\ \vec\eta \in \Vh\,. \label{eq:ns_HGaled}
 \end{align}
 \end{subequations}
-The iteration is repeated 
+The iteration is repeated
 until $\|U^{m+1,s+1}-U^{m+1,s}\|_{L^\infty} \leq\epsilon_f$
-and $\|\vec \psi^{m+1,s+1}-\vec \psi^{m+1,s}\|_{L^\infty} \leq\epsilon_f$. 
+and $\|\vec \psi^{m+1,s+1}-\vec \psi^{m+1,s}\|_{L^\infty} \leq\epsilon_f$.
 Here the
 bulk displacement $\vec \psi^{m+1,s+1}$ is computed solving the linear
 elasticity problem (\ref{eq:elasta}--b), see \S\ref{sec:stokes_smoothing} for
