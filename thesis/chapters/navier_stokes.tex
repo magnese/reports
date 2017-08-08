@@ -431,7 +431,7 @@ and
 \rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
 \end{equation}
 
-\section{Existence and uniqueness of a discrete solution}\label{eq:ns_existence}
+\subsection{Existence and uniqueness of a discrete solution}\label{eq:ns_existence}
 \label{sec:ns_existence}
 The existence and uniqueness proof of a discrete solution for the scheme
 (\ref{eq:ns_HGa_antisym}--d) is analogous to the Stokes case presented in
@@ -476,49 +476,54 @@ $\vec\eta=\gamma\,\vec X$ in (\ref{eq:ns_proofd}) yields that
 \frac{1}{2}\left((I^m_0\,\rho^{m-1}+\rho^m)\,\vec U, \vec U \right)
 + 2\,\tau\left(\mu^m\,\mat D(\vec U), \mat D(\vec U) \right)
 + \gamma\,\left\langle \nabs\,\vec X, \nabs\,\vec X \right\rangle_{\Gamma^m}
-= 0\,, \label{eq:ns_proof2}
+= 0\,. \label{eq:ns_proof2}
 \end{equation}
-which implies that $\mat D(\vec U) = \mat 0$. Given that $\vec U \in RM$,
-where $RM$ is the space of rigid motions (\ref{eq:rigid_motions_space}) which
-constitutes the kernel of $\mat D$, in particular we have that $\vec U(\vec z)$
-is linear in $\vec z$. Moreover, $\vec U\in\uspacedisc{0}{m}$ means that $\vec
-U(\vec z)=\vec 0$ for every corner $\vec z$ of $\Omega$. Therefore $\vec U(\vec
-z)=\vec 0$ for all $\vec z\in\Omega$. In addition, it holds that $\vec X$ is
-equal to a constant on $\Gamma^m$, which satisfies, on recalling
-(\ref{eq:ns_proofc}) and $\vec U = \vec 0$, that
-\begin{equation} \label{eq:ns_Xconst}
-\left\langle \vec X, \chi\,\vec\nu^m \right\rangle_{\Gamma^m}^h = 0
-\quad\forall\ \chi \in \Wh\,.
-\end{equation}
-It was shown in \cite[Proof of Theorem~2.1]{gflows3d} that if $\Gamma^m$
-has no self-intersections, then (\ref{eq:ns_Xconst}) immediately yields that
-$\vec X = \vec 0$. As $\Gamma^m = \partial\Omega^m_-$ is the boundary of an open
-domain, we always assume that it does not self-intersect, and
-hence we obtain that $\vec X = \vec 0$. This means that (\ref{eq:ns_proofd})
-reduces to
-\begin{equation} \label{eq:ns_kappaproof}
-\left\langle \kappa\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h = 0
-\quad\forall\ \vec\eta \in \Vh\,.
-\end{equation}
-Let $\vec\omega^m \in \Vh$ be the mass-lumped $L^2$--projection of $\vec\nu^m$
-onto $\Vh$, i.e. $\left\langle \vec\omega^m, \vec\varphi
-\right\rangle_{\Gamma^m}^h = \left\langle \vec\nu^m,
-\vec\varphi \right\rangle_{\Gamma^m}^h = \left\langle \vec\nu^m,
-\vec\varphi \right\rangle_{\Gamma^m}$ for all $\vec\varphi\in\Vh$. It is easy
-to see that $\vec\omega^m (\vec q^m_k) \not= \vec 0$ for
-all $k=1,\ldots,K_\Gamma$, because $\Gamma^m$ does not self-intersect.
-Then it follows from choosing $\vec\eta = \vec\omega^m$ in
-(\ref{eq:ns_kappaproof}) that
-\begin{align*}
-0 = \left\langle \kappa\,\vec\nu^m, \vec\omega^m \right\rangle_{\Gamma^m}^h
-= \left\langle \vec\nu^m, \vec\pi^m[\kappa\,\vec\omega^m]
-\right\rangle_{\Gamma^m}
-= \left\langle \vec\omega^m,
-\vec\pi^m[\kappa\,\vec\omega^m] \right\rangle_{\Gamma^m}^h
-= \left\langle \kappa, |\vec\omega^m|^2 \right\rangle_{\Gamma^m}^h ,
-\end{align*}
-and so $\kappa = 0 \in \Wh$. Finally, it follows from (\ref{eq:ns_proofa}) with
-$\vec U = \vec 0$ and $\kappa = 0$, on recalling (\ref{eq:LBB}), that $P = 0$.
+If $\rho > 0$, we immediately obtain that $\vec U = \vec 0$. Otherwise we
+still get that $\mat D(\vec U) = \mat 0$, and arguing as in the proof of
+Theorem~\ref{thm:ex} in \S\ref{sec:stokes_existence} then yields that
+$\vec U = \vec 0$. For the remainder of the proof we may proceed as in the 
+proof of Theorem~\ref{thm:ex}.
+%Given that $\vec U \in RM$,
+%where $RM$ is the space of rigid motions (\ref{eq:rigid_motions_space}) which
+%constitutes the kernel of $\mat D$, in particular we have that $\vec U(\vec z)$
+%is linear in $\vec z$. Moreover, $\vec U\in\uspacedisc{0}{m}$ means that $\vec
+%U(\vec z)=\vec 0$ for every corner $\vec z$ of $\Omega$. Therefore $\vec U(\vec
+%z)=\vec 0$ for all $\vec z\in\Omega$. In addition, it holds that $\vec X$ is
+%equal to a constant on $\Gamma^m$, which satisfies, on recalling
+%(\ref{eq:ns_proofc}) and $\vec U = \vec 0$, that
+%\begin{equation} \label{eq:ns_Xconst}
+%\left\langle \vec X, \chi\,\vec\nu^m \right\rangle_{\Gamma^m}^h = 0
+%\quad\forall\ \chi \in \Wh\,.
+%\end{equation}
+%It was shown in \cite[Proof of Theorem~2.1]{gflows3d} that if $\Gamma^m$
+%has no self-intersections, then (\ref{eq:ns_Xconst}) immediately yields that
+%$\vec X = \vec 0$. As $\Gamma^m = \partial\Omega^m_-$ is the boundary of an open
+%domain, we always assume that it does not self-intersect, and
+%hence we obtain that $\vec X = \vec 0$. This means that (\ref{eq:ns_proofd})
+%reduces to
+%\begin{equation} \label{eq:ns_kappaproof}
+%\left\langle \kappa\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h = 0
+%\quad\forall\ \vec\eta \in \Vh\,.
+%\end{equation}
+%Let $\vec\omega^m \in \Vh$ be the mass-lumped $L^2$--projection of $\vec\nu^m$
+%onto $\Vh$, i.e. $\left\langle \vec\omega^m, \vec\varphi
+%\right\rangle_{\Gamma^m}^h = \left\langle \vec\nu^m,
+%\vec\varphi \right\rangle_{\Gamma^m}^h = \left\langle \vec\nu^m,
+%\vec\varphi \right\rangle_{\Gamma^m}$ for all $\vec\varphi\in\Vh$. It is easy
+%to see that $\vec\omega^m (\vec q^m_k) \not= \vec 0$ for
+%all $k=1,\ldots,K_\Gamma$, because $\Gamma^m$ does not self-intersect.
+%Then it follows from choosing $\vec\eta = \vec\omega^m$ in
+%(\ref{eq:ns_kappaproof}) that
+%\begin{align*}
+%0 = \left\langle \kappa\,\vec\nu^m, \vec\omega^m \right\rangle_{\Gamma^m}^h
+%= \left\langle \vec\nu^m, \vec\pi^m[\kappa\,\vec\omega^m]
+%\right\rangle_{\Gamma^m}
+%= \left\langle \vec\omega^m,
+%\vec\pi^m[\kappa\,\vec\omega^m] \right\rangle_{\Gamma^m}^h
+%= \left\langle \kappa, |\vec\omega^m|^2 \right\rangle_{\Gamma^m}^h ,
+%\end{align*}
+%and so $\kappa = 0 \in \Wh$. Finally, it follows from (\ref{eq:ns_proofa}) with
+%$\vec U = \vec 0$ and $\kappa = 0$, on recalling (\ref{eq:LBB}), that $P = 0$.
 Hence there exists a unique solution $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1},$
 $\kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
 to (\ref{eq:ns_HGa_antisym}--d).
@@ -569,13 +574,17 @@ Theorem~\ref{thm:ns_ex} we obtain (\ref{eq:ns_proof2}) and hence the desired
 uniqueness result.
 \end{proof}
 
-\section{Stability}\label{sec:ns_stability}
-We now demonstrate that the scheme (\ref{eq:ns_HGa_antisym}--d) is
-unconditional stable. The proof is similar to the Stokes case presented in
-\S\ref{sec:stokes_stability} and follow closely the paper \cite{fluidfbp}.
-\footnote{Robert: \ref{eq:ns_stabstab} the convective term has $\rho^{k-1}$
-in your paper, why? shouldn't be $I_0^k\rho^{k-1}$. Moreover, why do we need an
-uniform $\tau$?}
+\subsection{Stability}\label{sec:ns_stability}
+We now demonstrate that the scheme (\ref{eq:ns_HGa_antisym}--d) in a loose
+sense is stable over a single time step. 
+The proof is similar to the Stokes case presented in
+\S\ref{sec:stokes_stability} and follows closely the paper \cite{fluidfbp}.
+%\footnote{Robert: \ref{eq:ns_stabstab} the convective term has $\rho^{k-1}$
+%in your paper, why? shouldn't be $I_0^k\rho^{k-1}$. Moreover, why do we need an
+%uniform $\tau$?}
+% WELL SPOTTED!
+% THE UNIFORM TIME STEP SIZE IS TO ENSURE THAT THE DISCRETE TIME DERIVATIVE
+% APPROXIMTION IS CONSISTENT, I.E. THE LIMIT AS \tau \to 0 IS u_t.
 
 \begin{theorem} \label{thm:ns_stability}
 Let $\vec g=\vec 0$. Moreover let $m \in \{0,\ldots,M-1\}$ and let
@@ -595,27 +604,6 @@ ${(\vec U^{m+1},P^{m+1},\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{0}{m}\times
 & \qquad + \tau\left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec U^{m+1}
 \right)\,.
 \end{align}
-
-In addition, assume that
-\begin{equation}\label{eq:ns_stabstab_hp}
-\left((I^m_0\,\rho^{m-1})\,\vec I^m_2\,\vec U^m,
-\vec I^m_2\,\vec U^m \right) \leq \left(\rho^{m-1}\,\vec U^m,\vec U^m \right)
-\end{equation}
-for $m=1,\ldots, M-1$. Then it holds that
-\begin{align}\label{eq:ns_stabstab}
-& \gamma\, \surfvol(\Gamma^{m+1})
-+ \tfrac{1}{2}\left(\rho^m\,\vec U^{m+1}, \vec U^{m+1} \right)
-+ 2\,\sum_{k=0}^{m}
-\tau\left(\mu^k\,\mat D(\vec U^{k+1}), \mat D(\vec U^{k+1})\right)\nonumber \\
-& \qquad + \tfrac{1}{2}\sum_{k=0}^{m}
-\left((I^k_0\,\rho^{k-1})\,(\vec U^{k+1}
--\vec I^k_2\,\vec U^k), \vec U^{k+1} - \vec I^k_2\,\vec U^k \right) \nonumber \\
-& \qquad \leq \gamma\, \surfvol(\Gamma^0)
-+ \tfrac{1}{2}\left(\rho^{-1}\vec U^0, \vec U^0 \right)
-+\tau\,\sum_{k=0}^{m}\left(\rho^k\,\vec f_1^{k+1}+\vec f_2^{k+1}, \vec U^{k+1}
-\right)\,,
-\end{align}
-for $m=0,\ldots, M-1$.
 \end{theorem}
 \begin{proof}
 Choosing $\vec\xi = \vec U^{m+1} \in \uspacedisc{0}{m}$ in
@@ -646,35 +634,45 @@ and, rearranging the terms,
 + \tau\left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec U^{m+1} \right)\,.
 \end{align*}
 Hence (\ref{eq:ns_stab}) follows immediately, where we have used
-(\ref{eq:delta_length_inequality}). The desired result (\ref{eq:ns_stabstab})
-immediately follows from (\ref{eq:ns_stab}) and (\ref{eq:ns_stabstab_hp}).
+(\ref{eq:delta_length_inequality}).
 \end{proof}
 
-The assumption (\ref{eq:ns_stabstab_hp}) in Theorem~\ref{thm:ns_stability} is
-for instance satisfied when either $\mathcal{T}^m = \mathcal{T}^0$ for
-$m=1,\ldots, M-1$ or when $\uspace{0}^{m-1} \subset \uspace{0}^m$ for
-$m=1,\ldots, M-1$. In the context of unfitted approach,
-\S\ref{sec:stokes_fitted_unfitted}, it is equivalent of imposing that no bulk
-mesh adaptation is employed, first case, or that bulk mesh refinement routines
-without coarsening are used, second case. See \cite{fluidfbp} for more details.
-Instead, for a fitted scheme, the first condition means that the bulk mesh
-needs to be always equal to the initial mesh while the second condition is
-violated whenever the velocity is interpolated on a bulk mesh which does not
-contain all the vertices of the previous bulk mesh. Therefore, with a fitted
-approach, a part for a stationary problem where the bulk mesh remains fixed,
-the scheme does not satisfy the unconditionally stability bound. Indeed, also
-without remeshing and smoothing, the velocity needs to be interpolated if the
-interface displacement is not null. \footnote{Robert: in the fitted case we
-always interpolate the velocity also without smoothing and remeshing since the
-interface moves and consequently the bulk moves. Therefore, the condition
-\ref{eq:ns_stabstab_hp} is never satisfied! So probably this unconditional
-stability part needs to go.}
+We remark that on assuming that the bound
+\begin{equation}\label{eq:ns_stabstab_hp}
+\left((I^m_0\,\rho^{m-1})\,\vec I^m_2\,\vec U^m,
+\vec I^m_2\,\vec U^m \right) \leq \left(\rho^{m-1}\,\vec U^m,\vec U^m \right)
+\end{equation}
+holds for $m=1,\ldots, M-1$, it is possible to prove that
+\begin{align}\label{eq:ns_stabstab}
+& \gamma\, \surfvol(\Gamma^{m+1})
++ \tfrac{1}{2}\left(\rho^m\,\vec U^{m+1}, \vec U^{m+1} \right)
++ 2\,\sum_{k=0}^{m}
+\tau\left(\mu^k\,\mat D(\vec U^{k+1}), \mat D(\vec U^{k+1})\right)\nonumber \\
+& \qquad + \tfrac{1}{2}\sum_{k=0}^{m}
+\left((I^k_0\,\rho^{k-1})\,(\vec U^{k+1}
+-\vec I^k_2\,\vec U^k), \vec U^{k+1} - \vec I^k_2\,\vec U^k \right) \nonumber \\
+& \qquad \leq \gamma\, \surfvol(\Gamma^0)
++ \tfrac{1}{2}\left(\rho^{-1}\vec U^0, \vec U^0 \right)
++\tau\,\sum_{k=0}^{m}\left(\rho^k\,\vec f_1^{k+1}+\vec f_2^{k+1}, \vec U^{k+1}
+\right)\,,
+\end{align}
+for $m=0,\ldots, M-1$, which implies the stability of the scheme.
+In fact, the assumption (\ref{eq:ns_stabstab_hp}) always holds in the unfitted
+case for a fixed background mesh, or for adaptive meshes where no coarsening is
+employed during the evolution. See \cite{fluidfbp} for details.
+
+Instead, for a fitted finite element approach, as considered in this thesis,
+the condition (\ref{eq:ns_stabstab_hp}) will in general not hold, because the
+underlying bulk triangulation changes at every time step, unless the position
+of the discrete interface remains unchanged.
+Therefore for the fitted approach it does not appear possible to prove a 
+stability bound.
 
 \section{Standard finite element approximation}\label{sec:ns_fem}
 An alternative to the antisymmetric discrete finite element approximation
 (\ref{eq:ns_HGa_antisym}--d) can be obtained using the standard weak
 formulation (\ref{eq:ns_weaka}--d). We use the same hypothesis and
-definitions employed in \S\ref{sec:ns_fem_antisym}. Then only difference is
+definitions employed in \S\ref{sec:ns_fem_antisym}. Then the only difference is
 that we consider the more general partitioning  $0= t_0 < t_1 < \ldots <
 t_{M-1} < t_M = T$ of $[0,T]$ into possibly variable time steps $\tau_m :=
 t_{m+1}-t_m$, $m=0 ,\ldots, M-1$.
@@ -721,10 +719,11 @@ Since the convective term is treated explicitly, the scheme
 equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})$
 at each time level.
 
-We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) differs
-from the explicit standard scheme (\ref{eq:ns_HGa}--d), for the antisymmetric
-rewrite of the convective term and for the density coefficients in the time
-derivative. Indeed, instead of using the actual density $\rho^m$, it uses an
+We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) and
+the explicit standard scheme (\ref{eq:ns_HGa}--d)
+only differ in the approximation of the convective term and 
+in the employed density coefficients in the time derivative approximation. 
+Indeed, instead of using the actual density $\rho^m$, it uses an
 average between the actual density and the interpolation of the density at the
 previous time step $\tfrac{1}{2}(I^m_0\,\rho^{m-1} + \rho^m)$ for what
 concern $\vec U^{m+1}$ and it uses directly the density interpolation
@@ -793,11 +792,12 @@ Then the resulting algebraic system can be solved using the same technique
 introduced in \S\ref{sec:stokes_solution_method}.
 
 Instead, in order to solve the implicit standard scheme (\ref{eq:ns_HGimpa}--d)
-we use a fixed point iteration. Therefore we can reformulate the scheme
-(\ref{eq:ns_HGimpa}--d) as follow. Let $\Gamma^0$, an approximation to
-$\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$ be given. For $m=0,\ldots,
-M-1$, set $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, $s=0$ and $\epsilon_f
-\geq 0$. Then, find $(\vec U^{m+1,s+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
+we use a fixed point iteration. In particular, we can find a solution 
+to the scheme (\ref{eq:ns_HGimpa}--d) as follow. 
+Let $\Gamma^m$ and $\vec U^m\in \uspacedisc{g}{m-1}$ be given. 
+Let $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$ and fix $\epsilon_f > 0$. 
+Then, for $s \geq 0$, 
+find $(\vec U^{m+1,s+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
 \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$ such that
 \begin{subequations}
 \begin{align}
@@ -821,10 +821,10 @@ M-1$, set $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$, $s=0$ and $\epsilon_f
 0 \quad \forall\ \vec\eta \in \Vh\,, \label{eq:ns_HGfixedpointd}
 \end{align}
 \end{subequations}
-and increment $s$, until $\|\vec U^{m+1,s+1}-\vec U^{m+1,s}\|_{L^\infty}
+and repeat the iteration until $\|\vec U^{m+1,s+1}-\vec U^{m+1,s}\|_{L^\infty}
 \leq\epsilon_f$. Finally, set ${\Gamma^{m+1}=\vec X^{m+1}(\Gamma^m)}$ and $\vec
 U^{m+1}= \vec U^{m+1,s+1}$. The scheme (\ref{eq:ns_HGfixedpointa}--d), at each
-time level $m$, is a fixed point iteration which consists of solving a coupled
+time level $m$, is a fixed point iteration that consists of solving a coupled
 linear system of equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1}, \vec
 X^{m+1}, \kappa^{m+1})$ at each step $s$ until the $L^\infty$--error of the
 velocity $\|U^{m+1,s+1}-U^{m+1,s} \|_{L^\infty}$ is smaller than the required
