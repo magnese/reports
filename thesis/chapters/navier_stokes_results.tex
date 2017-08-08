@@ -114,7 +114,9 @@ together with
 \begin{align} \label{eq:ns_sol_2_up}
 & \vec u(\vec z, t) = \bigg(\alpha_1+\alpha_2\charfcn{\Omega_+(t)}
 \big(|\vec z\,|^2-r(t)^2\big)\bigg)\,\vec z\,, \\
-& p(\vec z, t) = -\,\bigg(\gamma - 4\,\alpha_2\,\frac{\mu_+}{d-1}r(t)^3
+& p(\vec z, t) = -\,\bigg(\gamma
+- 2\,\alpha_1\,\frac{\mu_+ - \mu_-}
+{d-1}r(t) - 4\,\alpha_2\,\frac{\mu_+}{d-1}r(t)^3
 \bigg)\,\varkappa(t)\,\left[ \charfcn{\Omega_-(t)} -
 \frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
 \end{align}
@@ -218,16 +220,19 @@ $i$ component, we have
 + \alpha_2\charfcn{\Omega_+}\bigg(\delta_{ij}\big(|\vec z\,|^2-r^2\big)
 + 2z_iz_j\bigg)\bigg)\frac{z_j}{|\vec z\,|}\bigg]_-^+ \\
 & \qquad \qquad
-- \bigg(\gamma - 4\,\alpha_2\,\frac{\mu_+}{d-1}r^3\bigg) \varkappa\nu_i \\
-& \qquad = \bigg[
-\color{red} 2\,\alpha_1\,\mu\,\frac{z_i}{|\vec z\,|} \color{black}
+- \bigg(\gamma - 2\,\alpha_1\,\frac{\mu_+ - \mu_-}
+{d-1}r- 4\,\alpha_2\,\frac{\mu_+}{d-1}r^3\bigg) \varkappa\nu_i \\
+& \qquad = \bigg[ 2\,\alpha_1\,\mu\,\frac{z_i}{|\vec z\,|}
 + 2\,\alpha_2\,\mu\,\charfcn{\Omega_+}\sum_{j=1}^d
 \bigg(\delta_{ij}\big(|\vec z\,|^2-r^2\big)
 + 2z_iz_j\bigg)\frac{z_j}{|\vec z\,|}\bigg]_-^+ \\
-& \qquad \qquad -\gamma \varkappa \nu_i + 4\,\alpha_2\,\frac{\mu_+}{d-1}
-|\vec z\,|^3 \frac{1-d}{|\vec z\,|}\frac{z_i}{|\vec z\,|} \\
-& \qquad = 4\,\alpha_2\,\mu_+|\vec z\,|z_i -\gamma \varkappa \nu_i
-- 4\,\alpha_2\,\mu_+ |\vec z\,|z_i = -\gamma \varkappa \nu_i\,.
+& \qquad \qquad -\gamma \varkappa \nu_i
++2\,\alpha_1\frac{\mu_+-\mu_-}{d-1}\frac{1-d}{r}\,r\,\nu_i
++ 4\,\alpha_2\,\frac{\mu_+}{d-1}\,r^3\,\frac{1-d}{r}\,\nu_i\\
+& \qquad =  2\,\alpha_1(\mu_+-\mu_-)\,\nu_i +4\,\alpha_2\,\mu_+r^2\,\nu_i
+-\gamma \varkappa \nu_i - 2\,\alpha_1(\mu_+-\mu_-)\,\nu_i
+- 4\,\alpha_2\,\mu_+ r^2\,\nu_i \\
+& \qquad = -\gamma \varkappa \nu_i\,.
 \end{align*}
 Finally, the dynamic interface condition (\ref{eq:ns_full_velocity}) is
 satisfied since the fluid velocity on the interface along the normal direction
