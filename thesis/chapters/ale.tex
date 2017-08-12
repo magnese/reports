@@ -472,7 +472,11 @@ and
 \rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
 \end{equation}
 
-We notice that the ALE finite element approximation (\ref{eq:ale_HGa}--d)
+It is worth to notice that, at the discrete level, the reference manifold $\D$
+is never used. Instead, it is replaced by the actual discrete bulk domain.
+Therefore, at time step $t^{m+1}$, the reference manifold is $\Omega^m$.
+
+The ALE finite element approximation (\ref{eq:ale_HGa}--d)
 differs from the standard implicit finite element approximation
 (\ref{eq:ns_HGimpa}--d) for the presence of the arbitrary domain
 velocity $\W^{m+1}$ in the convective term of the momentum equation
@@ -483,8 +487,6 @@ $\Omega^m$ is not needed anymore.
 \footnote{Marco: This paragraph needs heavy re-wording, as ALE and non-ALE
 schemes are completely different things. For example, how we interpret the
 inner products in the first place.}
-\footnote{Marco: Should you mention somewhere that you use $\Omega^m$ as the
-reference manifold?}
 
 \section{Solution method}\label{sec:ale_solution_method}
 The solution technique used to solve the ALE scheme (\ref{eq:ale_HGa}--d) is
