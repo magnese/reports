@@ -484,18 +484,11 @@ and
 
 It is worth to notice that, at the discrete level, the reference manifold $\D$
 is never used. Instead, it is replaced by the actual discrete bulk domain.
-Therefore, at time step $t^{m+1}$, the reference manifold is $\Omega^m$.
-
-The ALE finite element approximation (\ref{eq:ale_HGa}--d)
-differs from the standard implicit finite element approximation
-(\ref{eq:ns_HGimpa}--d) for the presence of the arbitrary domain
-velocity $\W^{m+1}$ in the convective term of the momentum equation
-(\ref{eq:ale_HGa}) and for the different time derivative, again in the momentum
-equation. More precisely, in order to compute the discrete time derivative in
-(\ref{eq:ale_HGa}), the interpolation of the velocity $\vec U^m$ onto
-$\Omega^m$ is not needed anymore.
-\footnote{Marco: This paragraph needs heavy re-wording, as ALE and non-ALE
-schemes are completely different things.}
+Therefore, at time step $t^{m+1}$, the reference manifold is $\Omega^m$. We
+also want to stress the fact that the ALE finite element approximation
+(\ref{eq:ale_HGa}--d) differs from all other finite element approximations
+presented in Chapter~\ref{ch:navier_stokes} for the fact that the velocity $\vec
+U^m$ is never interpolated.
 
 \section{Solution method}\label{sec:ale_solution_method}
 The solution technique used to solve the ALE scheme (\ref{eq:ale_HGa}--d) is
