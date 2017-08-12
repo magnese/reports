@@ -422,7 +422,20 @@ We notice that there is a small abuse of notation in (\ref{eq:ns_ode_disc_alea})
 for $\vec U^{m+1}$ and $\W^{m+1}$ in the term $\vec D^h_\Omega\big(t^{m},\vec
 U^{m+1},\W^{m+1}\big)$. Indeed only for this term, they denote the discrete
 fluid velocity and the discrete bulk domain velocity, respectively, and not
-their associated vectors of degree of freedoms.
+their associated vectors of degree of freedoms. Moreover, let $h^n$ be an
+approximation of $h:\Omega(t)\times[0,T]\to\R$. Clearly, $h^n$ is
+defined on the domain $\Omega^n$; nevertheless it can be transported on any
+other configuration $\Omega^s$, with $t^s\neq t^n$, using the mapping
+$\vec x(\cdot,t^s)\circ{\vec x}^{-1}(\cdot,t^n)$. To lighten the notation,
+whenever we need to integrate $h^s$ on a domain $\Omega^n$ we will write simply
+\begin{equation*}
+\int_{\Omega^n} h^s \dL d
+\end{equation*}
+instead of
+\begin{equation*}
+\int_{\Omega^n} h^s\circ \vec x(\cdot,t^s)\circ{\vec x}^{-1}(\cdot,t^n)\dL d\,.
+\end{equation*}
+The same notation is used for the inner products.
 
 We can now substitute (\ref{eq:ns_ale_mata}--h) back into
 (\ref{eq:ns_ode_disc_alea}--d). Firstly, let
@@ -431,10 +444,7 @@ $\pnormspaceale^m=\pnormspaceale^h(t^m)$. Then, our ALE finite element
 approximation, which is based on the variational formulation
 (\ref{eq:ns_weaka_ale}--d), is given as follows.
 \footnote{Marco: This is not good enough. I think what we want to do is to
-re-write (\ref{eq:ns_ode_disc_alea}--d) in a more intuitive form. But
-before you can do that, you have to say what you mean by these inner products
-where functions defined on $\Omega^{m+1}$ are integrated over $\Omega^m$.
-See the remark 2 in \cite{Formaggia04}.}
+re-write (\ref{eq:ns_ode_disc_alea}--d) in a more intuitive form.}
 Let $\Gamma^0$, an
 approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
 For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
@@ -485,8 +495,7 @@ equation. More precisely, in order to compute the discrete time derivative in
 (\ref{eq:ale_HGa}), the interpolation of the velocity $\vec U^m$ onto
 $\Omega^m$ is not needed anymore.
 \footnote{Marco: This paragraph needs heavy re-wording, as ALE and non-ALE
-schemes are completely different things. For example, how we interpret the
-inner products in the first place.}
+schemes are completely different things.}
 
 \section{Solution method}\label{sec:ale_solution_method}
 The solution technique used to solve the ALE scheme (\ref{eq:ale_HGa}--d) is
