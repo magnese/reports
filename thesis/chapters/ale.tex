@@ -400,8 +400,6 @@ finite element
 approximation of (\ref{eq:ns_ode_alea}--d), since the only missing part is the
 temporal discretization. Therefore, applying a semi-implicit Euler scheme to
 (\ref{eq:ns_ode_alea}--d), we obtain
-\footnote{Marco: Why is the first $\vec M^h_\Omega(t^{m+1})$ not a
-$\vec M^h_\Omega(t^{m})$?}
 \begin{subequations}
 \begin{align}
 & \frac{1}{\tau_m}\vec M^h_\Omega(t^{m+1})\vec U^{m+1} +
@@ -409,7 +407,7 @@ $\vec M^h_\Omega(t^{m})$?}
 \vec D^h_\Omega\big(t^m,\vec U^{m+1},\W^{m+1}\big)\vec U^{m+1} \nonumber \\
 & \qquad + \vec C^h_\Omega(t^m) P^{m+1}
 - \gamma \Nbulk^h(t^m) \kappa^{m+1} \nonumber \\
-& \qquad = \frac{1}{\tau_m} \vec M^h_\Omega(t^m)\vec U^m
+& \qquad = \frac{1}{\tau_m} \vec M^h_\Omega(t^{m+1})\vec U^m
 + \vec c^h(t^m,\vec f_1^{m+1},\vec f_2^{m+1})\,,\label{eq:ns_ode_disc_alea} \\
 & [\vec C^h_\Omega(t^m) ]^T \vec U^{m+1} = 0\,,
 \label{eq:ns_ode_disc_aleb} \\
@@ -450,7 +448,7 @@ For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \right)_{\Omega^m} - \left(P^{m+1}, \nabla\,.\,\vec \xi\right)_{\Omega^m}
 - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m , \vec\xi\right\rangle_{\Gamma^m}
 \nonumber \\
-& \qquad=  \left( \frac{\rho^m}{\tau_m}\,\vec U^m, \vec \xi \right)_{\Omega^m}
+& \qquad=  \left(\frac{\rho^m}{\tau_m}\,\vec U^m,\vec \xi \right)_{\Omega^{m+1}}
 + \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)_{\Omega^m}
 \quad \forall\ \vec\xi \in \uspacediscale{0}{m}\,, \label{eq:ale_HGa} \\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)_{\Omega^m}  = 0
@@ -509,7 +507,8 @@ U^{m+1,s}-\frac{\vec\psi^{m+1,s}}{\tau_m}\right)\,.\,\nabla)\,
 \right)_{\Omega^m} - \left(P^{m+1}, \nabla\,.\,\vec \xi\right)_{\Omega^m}
 - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
 \nonumber \\
-& \qquad = \left( \frac{\rho^m}{\tau_m}\,\vec U^m, \vec \xi \right)_{\Omega^m}
+& \qquad = \left(\frac{\rho^m}{\tau_m}\,\vec U^m,\vec \xi
+\right)_{\Omega^{m+1,s}}
 + \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)_{\Omega^m}
 \quad \forall\ \vec\xi \in \uspacediscale{0}{m}\,, \label{eq:ns_HGalea} \\
 & \left(\nabla\,.\,\vec U^{m+1,s+1}, \varphi\right)_{\Omega^m}  = 0
@@ -560,9 +559,9 @@ is identical to the two-phase Stokes algebraic system
 \frac{\vec \psi^{m+1,s}}{\tau_m}\right)\,.\,\nabla \right)
 \phi_j^{\uspacesimpleale^m},\phi_i^{\uspacesimpleale^m}
 \right)_{\Omega^m}\mat \id \,,\\
-& \vec c_i := \left( \frac{\rho^m}{\tau_m}\vec U^m +
-\rho^m\,\vec f_1^{m+1}+\vec
-f_2^{m+1},\phi_i^{\uspacesimpleale^m}\right)_{\Omega^m}\,,\\
+& \vec c_i := \left( \frac{\rho^m}{\tau_m}\vec U^m \right)_{\Omega^{m+1,s}}
++ \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1},
+\phi_i^{\uspacesimpleale^m}\right)_{\Omega^m}\,,\\
 & [\vec C_\Omega]_{ip} := - \left(
 \left(\nabla\,.\,(\phi_i^{\uspacesimpleale^m}\,\vec
 e_q), \phi_p^{\pspaceale^m} \right)_{\Omega^m} \right)_{q=1}^d,\quad
