@@ -263,7 +263,14 @@ discretized spatially using piecewise linear elements. Thus
 $\vec x_h\in [S^h_1]^d$ and each simplex with straight faces in ${\cal
 T}^h$ is transformed into a simplex with straight faces belonging to the
 triangulation $\mathfrak{T}^h(t)$ of the discretized moving domain
-$\Omega^h(t)$.
+$\Omega^h(t)$. We also define the discrete domain velocity as
+\begin{equation}
+\W^h(\vec z, t):=
+\sum_{k=1}^{K_\Omega}\left[\ddt\,\vec q^h_k(t)\right] \varphi^h_k(\vec z, t)
+\in [S^h_1]^d\,,
+\end{equation}
+with $\{\varphi^h_k(\cdot,t)\}_{k=1}^{K_\Omega}$ denoting the standard basis of
+$[S^h_1]^d$.
 
 For what concerns the interface, let $(\Gamma^h(t))_{t\in[0,T]}$  be a family of
 $(d-1)$-dimensional polyhedral surfaces approximating the closed surface
@@ -285,18 +292,9 @@ piecewise linear finite element spaces $\Wht$ and $\Vht$, with
 $\{\chi^h_k(\cdot,t)\}_{k=1}^{K_\Gamma}$ denoting the standard basis of the
 former. Hence $\chi^h_k(\vec q^h_l(t),t) = \delta_{kl}$ for all
 $k,l \in \{1,\ldots,K_\Gamma\}$ and $t \in [0,T]$, where
-$\{\vec q^h_k(t)\}_{k=1}^{K_\Gamma}$ are the vertices of $\Gamma^h(t)$.
-We also recall the discrete interface velocity
-\begin{equation*}
-\V^h(\vec z, t):=
-\sum_{k=1}^{K_\Gamma}\left[\ddt\,\vec q^h_k(t)\right] \chi^h_k(\vec z, t)
-\in \Vht\,.
-\end{equation*}
-The discrete domain velocity $\W^h$ is defined exactly the same but for all the
-vertices of $\mathfrak{T}^h(t)$.
-\footnote{Marco: Better: First define  $\W^h$, and then say that on $\Gamma^h$,
-$\V^h$ is just the trace of $\W^h$, and refer to previous definition label.}
-Finally, let
+$\{\vec q^h_k(t)\}_{k=1}^{K_\Gamma}$ are the vertices of $\Gamma^h(t)$. We also
+notice that the the discrete interface velocity $\V^h$, see
+(\ref{eq:Vsemidisc}), is simply the trace of $\W^h$ on $\Gamma^h$. Finally, let
 $\langle\cdot,\cdot\rangle_{\Gamma^h(t)}^h$ be the mass lumped inner product on
 $\Gamma^h(t)$, see (\ref{eq:masslump}), and let
 $\langle\cdot,\cdot\rangle_{\Gamma^h(t)}$ denote the standard $L^2$--inner
