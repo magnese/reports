@@ -437,18 +437,17 @@ instead of
 \end{equation*}
 The same notation is used for the inner products.
 
-We can now substitute (\ref{eq:ns_ale_mata}--h) back into
-(\ref{eq:ns_ode_disc_alea}--d). Firstly, let
-$\uspacediscale{g}{m}=\uspacesemidiscale{g}{h}{t^m}$ and
+Following \cite{NobilePhd}, we now rewrite (\ref{eq:ns_ale_mata}--h) into a
+form that is common in finite element formulations. More precisely, we can
+substitute (\ref{eq:ns_ale_mata}--h) back into (\ref{eq:ns_ode_disc_alea}--d).
+Firstly, let $\uspacediscale{g}{m}=\uspacesemidiscale{g}{h}{t^m}$ and
 $\pnormspaceale^m=\pnormspaceale^h(t^m)$. Then, our ALE finite element
 approximation, which is based on the variational formulation
-(\ref{eq:ns_weaka_ale}--d), is given as follows.
-\footnote{Marco: This is not good enough. I think what we want to do is to
-re-write (\ref{eq:ns_ode_disc_alea}--d) in a more intuitive form.}
-Let $\Gamma^0$, an
+(\ref{eq:ns_weaka_ale}--d), is given as follows. Let $\Gamma^0$, an
 approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
 For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
-\in \uspacediscale{g}{m}\times \pnormspaceale^m \times \Vh \times \Wh$ such that
+\in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh$
+such that
 \begin{subequations}
 \begin{align}
 & \left( \frac{\rho^m}{\tau_m}\,\vec U^{m+1}, \vec \xi \right)_{\Omega^{m+1}}
