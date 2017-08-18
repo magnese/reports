@@ -1035,12 +1035,12 @@ CPU                              &   6526 &  23425 & 130737 \\
 \cmidrule{2-4}
 & \multicolumn{3}{c}{ALE} \\
 \cmidrule{2-4}
-$\strikes_{\min}$                & 0.9050 & 0.9022 & 0.9111 \\
-$t_{\strikes = \strikes_{\min}}$ & 1.9370 & 1.8840 & 2.0770 \\
-$V_{c,\max}$                     & 0.2378 & 0.2407 & 0.2453 \\
-$t_{V_c = V_{c,\max}}$           & 0.9430 & 0.9340 & 0.9940 \\
-$z_c(t=3)$                       & 1.0893 & 1.0848 & 1.1038 \\
-CPU                              &  11737 &  52415 & 318217 \\
+$\strikes_{\min}$                & 0.9050 & 0.9022 & 0.9025 \\
+$t_{\strikes = \strikes_{\min}}$ & 1.9370 & 1.8840 & 1.9050 \\
+$V_{c,\max}$                     & 0.2378 & 0.2407 & 0.2406 \\
+$t_{V_c = V_{c,\max}}$           & 0.9430 & 0.9340 & 0.9210 \\
+$z_c(t=3)$                       & 1.0893 & 1.0848 & 1.0820 \\
+CPU                              &  11737 &  52415 & 265654 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
@@ -1088,12 +1088,12 @@ CPU                              &   5766 &  19124 & 140574 \\
 \cmidrule{2-4}
 & \multicolumn{3}{c}{ALE} \\
 \cmidrule{2-4}
-$\strikes_{\min}$                & 0.9002 & 0.9012 & 0.9111 \\
-$t_{\strikes = \strikes_{\min}}$ & 1.9170 & 1.9180 & 2.0830 \\
-$V_{c,\max}$                     & 0.2433 & 0.2421 & 0.2457 \\
-$t_{V_c = V_{c,\max}}$           & 0.9370 & 0.9320 & 0.9920 \\
-$z_c(t=3)$                       & 1.0876 & 1.0838 & 1.1035 \\
-CPU                              &  12007 &  59063 & 245194 \\
+$\strikes_{\min}$                & 0.9002 & 0.9012 & 0.9020 \\
+$t_{\strikes = \strikes_{\min}}$ & 1.9170 & 1.9180 & 1.8950 \\
+$V_{c,\max}$                     & 0.2433 & 0.2421 & 0.2411 \\
+$t_{V_c = V_{c,\max}}$           & 0.9370 & 0.9320 & 0.9210 \\
+$z_c(t=3)$                       & 1.0876 & 1.0838 & 1.0821 \\
+CPU                              &  12007 &  59063 & 311455 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
@@ -1253,21 +1253,21 @@ simulation in Figure~\ref{fig:rising_bubble_2d_pressure} for the explicit
 \hline
 & \multicolumn{3}{c}{explicit} \\
 \cmidrule{2-4}
-$\strikes_{\min}$                & 0.6722 & 0.6802 & \\
-$t_{\strikes = \strikes_{\min}}$ & 2.1540 & 2.2390 & \\
-$V_{c,\max}$                     & 0.2522 & 0.2505 & \\
-$t_{V_c = V_{c,\max}}$           & 0.7340 & 0.7310 & \\
-$z_c(t=3)$                       & 1.1382 & 1.1409 & \\
-CPU                              &   3865 &  16341 & \\
+$\strikes_{\min}$                & 0.6722 & 0.6802 & 0.5412 \\
+$t_{\strikes = \strikes_{\min}}$ & 2.1540 & 2.2390 & 3.0000 \\
+$V_{c,\max}$                     & 0.2522 & 0.2505 & 0.2501 \\
+$t_{V_c = V_{c,\max}}$           & 0.7340 & 0.7310 & 0.7290 \\
+$z_c(t=3)$                       & 1.1382 & 1.1409 & 1.1384 \\
+CPU                              &   3865 &  16341 & 128299 \\
 \cmidrule{2-4}
 & \multicolumn{3}{c}{implicit} \\
 \cmidrule{2-4}
-$\strikes_{\min}$                & 0.6695 & 0.6758 & \\
-$t_{\strikes = \strikes_{\min}}$ & 2.2820 & 2.2230 & \\
-$V_{c,\max}$                     & 0.2521 & 0.2505 & \\
-$t_{V_c = V_{c,\max}}$           & 0.7340 & 0.7310 & \\
-$z_c(t=3)$                       & 1.1391 & 1.1399 & \\
-CPU                              &   7171 &  34482 & \\
+$\strikes_{\min}$                & 0.6695 & 0.6758 & 0.5443 \\
+$t_{\strikes = \strikes_{\min}}$ & 2.2820 & 2.2230 & 3.0000 \\
+$V_{c,\max}$                     & 0.2521 & 0.2505 & 0.2501 \\
+$t_{V_c = V_{c,\max}}$           & 0.7340 & 0.7310 & 0.7290 \\
+$z_c(t=3)$                       & 1.1391 & 1.1399 & 1.1385 \\
+CPU                              &   7171 &  34482 & 216605 \\
 \cmidrule{2-4}
 & \multicolumn{3}{c}{antisymmetric} \\
 \cmidrule{2-4}
@@ -1295,4 +1295,57 @@ Rising bubble problem II on ${\Omega = (0,1) \times (0,2)}$ over the time
 interval $[0,3]$ for the P2--\pdg element, with nearly uniform meshes and
 $C_a=20$\textdegree.}
 \label{tab:risingbubble2DIIp2p1dg}
+\end{table*}
+
+\begin{table*}
+\center
+\hspace*{-3.25cm}
+\begin{tabular}{rlll}
+\hline
+ & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\
+\hline
+& \multicolumn{3}{c}{explicit} \\
+\cmidrule{2-4}
+$\strikes_{\min}$                & 0.6723 & & 0.5435 \\
+$t_{\strikes = \strikes_{\min}}$ & 2.2580 & & 3.0000 \\
+$V_{c,\max}$                     & 0.2528 & & 0.2503 \\
+$t_{V_c = V_{c,\max}}$           & 0.7330 & & 0.7290 \\
+$z_c(t=3)$                       & 1.1398 & & 1.1383 \\
+CPU                              &   3384 & & 132498 \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{implicit} \\
+\cmidrule{2-4}
+$\strikes_{\min}$                & 0.6639 & & 0.5473 \\
+$t_{\strikes = \strikes_{\min}}$ & 2.2420 & & 3.0000 \\
+$V_{c,\max}$                     & 0.2528 & & 0.2502 \\
+$t_{V_c = V_{c,\max}}$           & 0.7330 & & 0.7290 \\
+$z_c(t=3)$                       & 1.1402 & & 1.1387 \\
+CPU                              &   7425 & & 236635 \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{antisymmetric} \\
+\cmidrule{2-4}
+$\strikes_{\min}$                & & & \\
+$t_{\strikes = \strikes_{\min}}$ & & & \\
+$V_{c,\max}$                     & & & \\
+$t_{V_c = V_{c,\max}}$           & & & \\
+$z_c(t=3)$                       & & & \\
+CPU                              & & & \\
+\cmidrule{2-4}
+& \multicolumn{3}{c}{ALE} \\
+\cmidrule{2-4}
+$\strikes_{\min}$                & 0.7038 & & 0.5266 \\
+$t_{\strikes = \strikes_{\min}}$ & 2.0880 & & 3.0000 \\
+$V_{c,\max}$                     & 0.2522 & & 0.2502 \\
+$t_{V_c = V_{c,\max}}$           & 0.7350 & & 0.7300 \\
+$z_c(t=3)$                       & 1.1401 & & 1.1385 \\
+CPU                              &  10162 & & 236253 \\
+\hline
+\end{tabular}
+\hspace*{-3.25cm}
+\caption[Navier--Stokes 2d rising bubble II benchmark values P2--(P1+P0)]
+{($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
+Rising bubble problem II on ${\Omega = (0,1) \times (0,2)}$ over the time
+interval $[0,3]$ for the P2--(P1+P0) element, with nearly uniform meshes and
+$C_a=20$\textdegree.}
+\label{tab:risingbubble2DIIp2p1p0}
 \end{table*}
