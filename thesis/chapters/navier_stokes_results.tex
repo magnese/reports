@@ -1010,18 +1010,25 @@ We use the same  setup described in \cite[Figure~2]{HysingTKPBGT09}, which is
 ${\Omega = (0,1) \times (0,2)}$ with $\partial_1\Omega = [0,1] \times \{0,2\}$
 and $\partial_2\Omega = \{0,1\} \times (0,2)$. Moreover, let the initial
 interface be ${\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\frac{1}{2},
-\frac{1}{2})^T| = \frac{1}{4}\}}$. The physical parameters from the test case 1
-in \cite[Table~I]{HysingTKPBGT09} are then given by
+\frac{1}{2})^T| = \frac{1}{4}\}}$.  We adopt an uniform time step size
+$\tau=10^{-3}$, $T=3$, $\vec f = -0.98\,\rho\,\vec e_2$ and $\vec g=\vec 0$.
+
+The physical parameters for the rising bubble experiment I are
 \begin{equation} \label{eq:Hysing1}
 \rho_+ = 1000\,,\quad \rho_- = 100\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
 \gamma = 24.5\,,
 \end{equation}
-with $\vec f = -0.98\,\rho\,\vec e_2$ and $\vec g=\vec 0$. We adopt an uniform
-time step size $\tau=10^{-3}$ and $T=3$.
-
-We list the discretization parameters in Table~\ref{tab:risingbubble2Delements}.
-Here we explicitly state the final number of bulk elements, $J_\Omega^M$, for
-all the schemes for the P2--P0 element.
+see the test case 1 in \cite[Table~I]{HysingTKPBGT09}. We list the
+discretization parameters in Table~\ref{tab:risingbubble2Delements}. Here we
+explicitly state the final number of bulk elements, $J_\Omega^M$, for all the
+schemes for the P2--P0 element. We report on quantitative results for the
+rising bubble experiment I for the P2--P0, P2--\pdg and P2--(P1+P0) elements in
+Tables~\ref{tab:risingbubbleIp2p0}, \ref{tab:risingbubbleIp2p1dg} and
+\ref{tab:risingbubbleIp2p1p0}, respectively. See
+\S\ref{sec:benchmark_quantities} for the definitions of the various benchmark
+quantities. For each element, we compare the explicit, implicit, antisymmetric
+and ALE scheme derived in Chapter \ref{ch:navier_stokes} and Chapter
+\ref{ch:ale}.
 \begin{table*}
 \center
 \begin{tabular}{rrrrrr}
@@ -1034,8 +1041,8 @@ $J_\Omega^M$ antisymmetric & $J_\Omega^M$ ALE \\
 128 & 35092 & 28358 & 29210 & 28018 & 28982 \\
 \hline
 \end{tabular}
-\caption[Navier--Stokes 2d rising bubble meshes parameters]
-{Discretization parameters for the 2d rising bubble experiment.}
+\caption[Navier--Stokes rising bubble I meshes parameters]
+{Discretization parameters for the rising bubble experiment I.}
 \label{tab:risingbubble2Delements}
 \end{table*}
 
@@ -1084,12 +1091,12 @@ CPU                              &  11737 &  52415 & 265654 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Navier--Stokes 2d rising bubble benchmark values P2--P0]
+\caption[Navier--Stokes rising bubble I benchmark values P2--P0]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Rising bubble problem on ${\Omega = (0,1) \times (0,2)}$ over the time interval
-$[0,3]$ for the P2--P0 element, with nearly uniform meshes and
+Rising bubble experiment I on ${\Omega = (0,1) \times (0,2)}$ over the time
+interval $[0,3]$ for the P2--P0 element, with nearly uniform meshes and
 $C_a=20$\textdegree.}
-\label{tab:risingbubble2Dp2p0}
+\label{tab:risingbubbleIp2p0}
 \end{table*}
 
 \begin{table*}
@@ -1137,12 +1144,12 @@ CPU                              &  12007 &  59063 & 311455 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Navier--Stokes 2d rising bubble benchmark values P2--\pdg]
+\caption[Navier--Stokes rising bubble I benchmark values P2--\pdg]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Rising bubble problem on ${\Omega = (0,1) \times (0,2)}$ over the time interval
-$[0,3]$ for the P2--\pdg element, with nearly uniform meshes and
+Rising bubble experiment I on ${\Omega = (0,1) \times (0,2)}$ over the time
+interval $[0,3]$ for the P2--\pdg element, with nearly uniform meshes and
 $C_a=20$\textdegree.}
-\label{tab:risingbubble2Dp2p1dg}
+\label{tab:risingbubbleIp2p1dg}
 \end{table*}
 
 \begin{table*}
@@ -1190,18 +1197,27 @@ CPU                              &  13628 &  63136 & 351867 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Navier--Stokes 2d rising bubble benchmark values P2--(P1+P0)]
+\caption[Navier--Stokes rising bubble I benchmark values P2--(P1+P0)]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Rising bubble problem on ${\Omega = (0,1) \times (0,2)}$ over the time interval
-$[0,3]$ for the P2--(P1+P0) element, with nearly uniform meshes and
+Rising bubble experiment I on ${\Omega = (0,1) \times (0,2)}$ over the time
+interval $[0,3]$ for the P2--(P1+P0) element, with nearly uniform meshes and
 $C_a=20$\textdegree.}
-\label{tab:risingbubble2Dp2p1p0}
+\label{tab:risingbubbleIp2p1p0}
 \end{table*}
-
-Moreover, we notice that, in all the simulations, the number of remeshing
-performed during the full time interval is always between 2 and 4. This means
-that, in each simulation adopting the ALE scheme, the velocity is interpolated,
-at worst, only 4 times.
+We observe that the results in Tables~\ref{tab:risingbubbleIp2p0},
+\ref{tab:risingbubbleIp2p1dg} and \ref{tab:risingbubbleIp2p1p0} are in very
+good agreement, except for the antisymmetric scheme, with the corresponding
+numbers from the finest discretization run of group 3 in \cite{HysingTKPBGT09},
+which are given by 0.9013, 1.9000, 0.2417, 0.9239 and 1.0817. Here we note that
+of the three groups in \cite{HysingTKPBGT09}, group 3 shows the most accurate
+and the most consistent results for the test case 1. Their method is based on
+the ALE approach with a piecewise quadratic velocity space enriched with cubic
+bubble functions, with a discontinuous piecewise linear pressure space and with
+a second order, fractional step $\theta$-scheme in time. Similar results are
+also obtained in \cite{fluidfbp}. Moreover, we notice that, in all the
+simulations, the number of remeshing performed during the full time interval is
+always between 2 and 4. This means that, in each simulation adopting the ALE
+scheme, the velocity is interpolated, at worst, only 4 times.
 
 \begin{figure}[htbp]
 \centering
@@ -1213,11 +1229,11 @@ at worst, only 4 times.
 {figures/navier_stokes/2d_rising_bubble_pressure_2.ps}}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/navier_stokes/2d_rising_bubble_pressure_3.ps}}
-\caption[Navier--Stokes 2d rising bubble pressure]
+\caption[Navier--Stokes rising bubble I pressure]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Pressure evolution for the 2d rising bubble for the P2--\pdg element and the
-implicit scheme, with nearly uniform mesh and $C_a=20$\textdegree.}
-\label{fig:rising_bubble_2d_pressure}
+Pressure evolution for the rising bubble experiment I for the P2--\pdg element
+and the implicit scheme, with nearly uniform mesh and $C_a=20$\textdegree.}
+\label{fig:risingbubbleIpressure}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -1230,162 +1246,297 @@ implicit scheme, with nearly uniform mesh and $C_a=20$\textdegree.}
 {figures/navier_stokes/2d_rising_bubble_velocity_2.ps}}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/navier_stokes/2d_rising_bubble_velocity_3.ps}}
-\caption[Navier--Stokes 2d rising bubble velocity]
+\caption[Navier--Stokes rising bubble I velocity]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Velocity vector field for the 2d rising bubble for the P2--\pdg element and
-the implicit scheme, with nearly uniform mesh and $C_a=20$\textdegree.}
-\label{fig:rising_bubble_2d_velocity}
+Velocity vector field for the rising bubble experiment I for the P2--\pdg
+element and the implicit scheme, with nearly uniform mesh and
+$C_a=20$\textdegree.}
+\label{fig:risingbubbleIvelocity}
 \end{figure}
+In Figure~\ref{fig:risingbubbleIpressure} we show the evolution of the discrete
+pressures for a simulation with $J_\Gamma=128$ interface elements using the
+P2--\pdg element and the implicit scheme, while the velocities are visualized
+in Figure~\ref{fig:risingbubbleIvelocity}.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/navier_stokes/2d_rising_bubble_sphericity.ps}
-\caption[Navier--Stokes 2d rising bubble sphericity]
+\caption[Navier--Stokes rising bubble I sphericity]
 {A plot of the sphericity $\strikes$ over time for the simulation in
-Figure~\ref{fig:rising_bubble_2d_pressure} for the explicit (orange), implicit
+Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
 (red), ALE (blue) and antisymmetric (green) schemes.}
-\label{fig:rising_bubble_2d_bulk_sphericity}
+\label{fig:risingbubbleIsphericity}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/navier_stokes/2d_rising_bubble_rising_velocity.ps}
-\caption[Navier--Stokes 2d rising bubble rising velocity]
+\caption[Navier--Stokes rising bubble I rising velocity]
 {A plot of the rising velocity $V_c$ over time for the simulation in
-Figure~\ref{fig:rising_bubble_2d_pressure} for the explicit (orange), implicit
+Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
 (red), ALE (blue) and antisymmetric (green) schemes.}
-\label{fig:rising_bubble_2d_bulk_rising_velocity}
+\label{fig:risingbubbleIrisingvelocity}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/navier_stokes/2d_rising_bubble_barycenter.ps}
-\caption[Navier--Stokes 2d rising bubble barycenter]
+\caption[Navier--Stokes rising bubble I barycenter]
 {A plot of the barycenter $z_c$ over time for the simulation in
-Figure~\ref{fig:rising_bubble_2d_pressure} for the explicit (orange), implicit
+Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
 (red), ALE (blue) and antisymmetric (green) schemes.}
-\label{fig:rising_bubble_2d_bulk_barycenter}
+\label{fig:risingbubbleIbarycenter}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/navier_stokes/2d_rising_bubble_inner_volume.ps}
-\caption[Navier--Stokes 2d rising bubble inner area]
+\caption[Navier--Stokes rising bubble I inner area]
 {A plot of the relative inner area
 $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
-simulation in Figure~\ref{fig:rising_bubble_2d_pressure} for the explicit
+simulation in Figure~\ref{fig:risingbubbleIpressure} for the explicit
 (orange), implicit (red), ALE (blue) and antisymmetric (green) schemes.}
-\label{fig:rising_bubble_2d_bulk_inner_volume}
+\label{fig:risingbubbleIinnervolume}
 \end{figure}
 
+Finally, in Figures~\ref{fig:risingbubbleIsphericity},
+\ref{fig:risingbubbleIrisingvelocity}, \ref{fig:risingbubbleIbarycenter} and
+\ref{fig:risingbubbleIinnervolume} are reported, respectively, the evolution of
+the sphericity $\strikes$, rising velocity $V_c$, barycenter $z_c$ and relative
+inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over
+time. We have used the P2--\pdg element and $J_\Gamma=128$ interface elements.
+We notice almost identical results for the explicit, implicit and ALE schemes.
 
-
-\begin{table*}
-\center
-\hspace*{-3.25cm}
-\begin{tabular}{rlll}
-\hline
- & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\
-\hline
-& \multicolumn{3}{c}{explicit} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.6722 & 0.6802 & 0.5412 \\
-$t_{\strikes = \strikes_{\min}}$ & 2.1540 & 2.2390 & 3.0000 \\
-$V_{c,\max}$                     & 0.2522 & 0.2505 & 0.2501 \\
-$t_{V_c = V_{c,\max}}$           & 0.7340 & 0.7310 & 0.7290 \\
-$z_c(t=3)$                       & 1.1382 & 1.1409 & 1.1384 \\
-CPU                              &   3865 &  16341 & 128299 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{implicit} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.6695 & 0.6758 & 0.5443 \\
-$t_{\strikes = \strikes_{\min}}$ & 2.2820 & 2.2230 & 3.0000 \\
-$V_{c,\max}$                     & 0.2521 & 0.2505 & 0.2501 \\
-$t_{V_c = V_{c,\max}}$           & 0.7340 & 0.7310 & 0.7290 \\
-$z_c(t=3)$                       & 1.1391 & 1.1399 & 1.1385 \\
-CPU                              &   7171 &  34482 & 216605 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{antisymmetric} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & & & \\
-$t_{\strikes = \strikes_{\min}}$ & & & \\
-$V_{c,\max}$                     & & & \\
-$t_{V_c = V_{c,\max}}$           & & & \\
-$z_c(t=3)$                       & & & \\
-CPU                              & & & \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{ALE} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.6940 & & \\
-$t_{\strikes = \strikes_{\min}}$ & 2.1850 & & \\
-$V_{c,\max}$                     & 0.2520 & & \\
-$t_{V_c = V_{c,\max}}$           & 0.7340 & & \\
-$z_c(t=3)$                       & 1.1380 & & \\
-CPU                              &   9415 & & \\
-\hline
-\end{tabular}
-\hspace*{-3.25cm}
-\caption[Navier--Stokes 2d rising bubble II benchmark values P2--\pdg]
-{($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
-Rising bubble problem II on ${\Omega = (0,1) \times (0,2)}$ over the time
-interval $[0,3]$ for the P2--\pdg element, with nearly uniform meshes and
-$C_a=20$\textdegree.}
-\label{tab:risingbubble2DIIp2p1dg}
-\end{table*}
+The physical parameters for the rising bubble experiment II are
+\begin{equation} \label{eq:Hysing2}
+\rho_+ = 1000\,,\quad \rho_- = 1\,,\quad \mu_+ = 10\,,\quad \mu_- = 0.1\,,\quad
+\gamma = 1.96\,,
+\end{equation}
+see the test case 2 in \cite[Table~I]{HysingTKPBGT09}. We report on
+quantitative results for the rising bubble experiment II for the P2--\pdg and
+P2--(P1+P0) elements in Table~\ref{tab:risingbubbleII}. See
+\S\ref{sec:benchmark_quantities} for the definitions of the various benchmark
+quantities. For each element, we compare the explicit, implicit and ALE scheme
+derived in Chapter \ref{ch:navier_stokes} and Chapter \ref{ch:ale}. We use
+$J_\Gamma=128$ interface elements with $J_\Omega^0=35092$ initial bulk elements.
 
 \begin{table*}
 \center
 \hspace*{-3.25cm}
-\begin{tabular}{rlll}
+\begin{tabular}{rll}
 \hline
- & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\
+ & P2--\pdg & P2--(P1+P0) \\
 \hline
-& \multicolumn{3}{c}{explicit} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.6723 & & 0.5435 \\
-$t_{\strikes = \strikes_{\min}}$ & 2.2580 & & 3.0000 \\
-$V_{c,\max}$                     & 0.2528 & & 0.2503 \\
-$t_{V_c = V_{c,\max}}$           & 0.7330 & & 0.7290 \\
-$z_c(t=3)$                       & 1.1398 & & 1.1383 \\
-CPU                              &   3384 & & 132498 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{implicit} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.6639 & & 0.5473 \\
-$t_{\strikes = \strikes_{\min}}$ & 2.2420 & & 3.0000 \\
-$V_{c,\max}$                     & 0.2528 & & 0.2502 \\
-$t_{V_c = V_{c,\max}}$           & 0.7330 & & 0.7290 \\
-$z_c(t=3)$                       & 1.1402 & & 1.1387 \\
-CPU                              &   7425 & & 236635 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{antisymmetric} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & & & \\
-$t_{\strikes = \strikes_{\min}}$ & & & \\
-$V_{c,\max}$                     & & & \\
-$t_{V_c = V_{c,\max}}$           & & & \\
-$z_c(t=3)$                       & & & \\
-CPU                              & & & \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{ALE} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.7038 & & 0.5266 \\
-$t_{\strikes = \strikes_{\min}}$ & 2.0880 & & 3.0000 \\
-$V_{c,\max}$                     & 0.2522 & & 0.2502 \\
-$t_{V_c = V_{c,\max}}$           & 0.7350 & & 0.7300 \\
-$z_c(t=3)$                       & 1.1401 & & 1.1385 \\
-CPU                              &  10162 & & 236253 \\
+& \multicolumn{2}{c}{explicit} \\
+\cmidrule{2-3}
+$\strikes_{\min}$                & 0.5412 & 0.5435 \\
+$t_{\strikes = \strikes_{\min}}$ & 3.0000 & 3.0000 \\
+$V_{c,\max}$                     & 0.2501 & 0.2503 \\
+$t_{V_c = V_{c,\max}}$           & 0.7290 & 0.7290 \\
+$z_c(t=3)$                       & 1.1384 & 1.1383 \\
+CPU                              & 128299 & 132498 \\
+\cmidrule{2-3}
+& \multicolumn{2}{c}{implicit} \\
+\cmidrule{2-3}
+$\strikes_{\min}$                & 0.5443 & 0.5473 \\
+$t_{\strikes = \strikes_{\min}}$ & 3.0000 & 3.0000 \\
+$V_{c,\max}$                     & 0.2501 & 0.2502 \\
+$t_{V_c = V_{c,\max}}$           & 0.7290 & 0.7290 \\
+$z_c(t=3)$                       & 1.1385 & 1.1387 \\
+CPU                              & 216605 & 236635 \\
+\cmidrule{2-3}
+& \multicolumn{2}{c}{ALE} \\
+\cmidrule{2-3}
+$\strikes_{\min}$                & & 0.5266 \\
+$t_{\strikes = \strikes_{\min}}$ & & 3.0000 \\
+$V_{c,\max}$                     & & 0.2502 \\
+$t_{V_c = V_{c,\max}}$           & & 0.7300 \\
+$z_c(t=3)$                       & & 1.1385 \\
+CPU                              & & 236253 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Navier--Stokes 2d rising bubble II benchmark values P2--(P1+P0)]
+\caption[Navier--Stokes rising bubble II benchmark values]
 {($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
-Rising bubble problem II on ${\Omega = (0,1) \times (0,2)}$ over the time
-interval $[0,3]$ for the P2--(P1+P0) element, with nearly uniform meshes and
+Rising bubble experiment II on ${\Omega = (0,1) \times (0,2)}$ over the time
+interval $[0,3]$, with nearly uniform meshes, $J_\Gamma=128$ and
 $C_a=20$\textdegree.}
-\label{tab:risingbubble2DIIp2p1p0}
+\label{tab:risingbubbleII}
 \end{table*}
+We observe that the results in Table~\ref{tab:risingbubbleII}
+are in good agreement with the corresponding numbers from the finest
+discretization run of group 3 in \cite{HysingTKPBGT09}, which are given by
+0.5144, 3.0000, 0.2502, 0.7317 and 1.1376. Here we note that there is little
+agreement on these results between the three groups in \cite{HysingTKPBGT09},
+but we believe the numbers of group 3 to be the most reliable ones. Similar
+results are also obtained in \cite{fluidfbp}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_sphericity.ps}
+\caption[Navier--Stokes rising bubble II sphericity]
+{A plot of the sphericity $\strikes$ over time for the rising bubble II
+experiment using the P2--(P1+P0) element for the explicit (orange), implicit
+(red) and ALE (blue) schemes, with nearly uniform meshes,
+$J_\Gamma=128$ and $C_a=20$\textdegree.}
+\label{fig:risingbubbleIIsphericity}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_rising_velocity.ps}
+\caption[Navier--Stokes rising bubble II rising velocity]
+{A plot of the rising velocity $V_c$ over time for the rising bubble II
+experiment using the P2--(P1+P0) element for the explicit (orange), implicit
+(red) and ALE (blue) schemes, with nearly uniform meshes,
+$J_\Gamma=128$ and $C_a=20$\textdegree.}
+\label{fig:risingbubbleIIrisingvelocity}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_barycenter.ps}
+\caption[Navier--Stokes rising bubble II barycenter]
+{A plot of the barycenter $z_c$ over time for the rising bubble II experiment
+using the P2--(P1+P0) element for the explicit (orange), implicit (red) and ALE
+(blue) schemes, with nearly uniform meshes, $J_\Gamma=128$ and
+$C_a=20$\textdegree.}
+\label{fig:risingbubbleIIbarycenter}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_inner_volume.ps}
+\caption[Navier--Stokes rising bubble II inner area]
+{A plot of the relative inner area
+$\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
+rising bubble II experiment using the P2--(P1+P0) element for the explicit
+(orange), implicit (red) and ALE (blue) schemes, with nearly uniform meshes,
+$J_\Gamma=128$ and $C_a=20$\textdegree.}
+\label{fig:risingbubbleIIinnervolume}
+\end{figure}
+
+In Figures~\ref{fig:risingbubbleIIsphericity},
+\ref{fig:risingbubbleIIrisingvelocity} , \ref{fig:risingbubbleIIbarycenter} and
+\ref{fig:risingbubbleIIinnervolume} are reported, respectively, the evolution of
+the sphericity $\strikes$, rising velocity $V_c$, barycenter $z_c$ and relative
+inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over
+time. We have used the P2--(P1+P0) element and $J_\Gamma=128$ interface
+elements. In Figure~\ref{fig:risingbubbleIIinnervolume} we observe oscillations
+in the relative inner area between $t=2.1$ and $t=2.3$. In that interval the
+bubble assumes a more non-convex shape and develops thin filaments which
+originate these oscillations.
+
+% \begin{table*}
+% \center
+% \hspace*{-3.25cm}
+% \begin{tabular}{rlll}
+% \hline
+%  & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\
+% \hline
+% & \multicolumn{3}{c}{explicit} \\
+% \cmidrule{2-4}
+% $\strikes_{\min}$                & 0.6722 & 0.6802 & 0.5412 \\
+% $t_{\strikes = \strikes_{\min}}$ & 2.1540 & 2.2390 & 3.0000 \\
+% $V_{c,\max}$                     & 0.2522 & 0.2505 & 0.2501 \\
+% $t_{V_c = V_{c,\max}}$           & 0.7340 & 0.7310 & 0.7290 \\
+% $z_c(t=3)$                       & 1.1382 & 1.1409 & 1.1384 \\
+% CPU                              &   3865 &  16341 & 128299 \\
+% \cmidrule{2-4}
+% & \multicolumn{3}{c}{implicit} \\
+% \cmidrule{2-4}
+% $\strikes_{\min}$                & 0.6695 & 0.6758 & 0.5443 \\
+% $t_{\strikes = \strikes_{\min}}$ & 2.2820 & 2.2230 & 3.0000 \\
+% $V_{c,\max}$                     & 0.2521 & 0.2505 & 0.2501 \\
+% $t_{V_c = V_{c,\max}}$           & 0.7340 & 0.7310 & 0.7290 \\
+% $z_c(t=3)$                       & 1.1391 & 1.1399 & 1.1385 \\
+% CPU                              &   7171 &  34482 & 216605 \\
+% \cmidrule{2-4}
+% & \multicolumn{3}{c}{antisymmetric} \\
+% \cmidrule{2-4}
+% $\strikes_{\min}$                & & & \\
+% $t_{\strikes = \strikes_{\min}}$ & & & \\
+% $V_{c,\max}$                     & & & \\
+% $t_{V_c = V_{c,\max}}$           & & & \\
+% $z_c(t=3)$                       & & & \\
+% CPU                              & & & \\
+% \cmidrule{2-4}
+% & \multicolumn{3}{c}{ALE} \\
+% \cmidrule{2-4}
+% $\strikes_{\min}$                & 0.6940 & & \\
+% $t_{\strikes = \strikes_{\min}}$ & 2.1850 & & \\
+% $V_{c,\max}$                     & 0.2520 & & \\
+% $t_{V_c = V_{c,\max}}$           & 0.7340 & & \\
+% $z_c(t=3)$                       & 1.1380 & & \\
+% CPU                              &   9415 & & \\
+% \hline
+% \end{tabular}
+% \hspace*{-3.25cm}
+% \caption[Navier--Stokes rising bubble II benchmark values P2--\pdg]
+% {($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
+% Rising bubble experiment II on ${\Omega = (0,1) \times (0,2)}$ over the time
+% interval $[0,3]$ for the P2--\pdg element, with nearly uniform meshes and
+% $C_a=20$\textdegree.}
+% \label{tab:risingbubbleIIp2p1dg}
+% \end{table*}
+%
+% \begin{table*}
+% \center
+% \hspace*{-3.25cm}
+% \begin{tabular}{rlll}
+% \hline
+%  & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\
+% \hline
+% & \multicolumn{3}{c}{explicit} \\
+% \cmidrule{2-4}
+% $\strikes_{\min}$                & 0.6723 & & 0.5435 \\
+% $t_{\strikes = \strikes_{\min}}$ & 2.2580 & & 3.0000 \\
+% $V_{c,\max}$                     & 0.2528 & & 0.2503 \\
+% $t_{V_c = V_{c,\max}}$           & 0.7330 & & 0.7290 \\
+% $z_c(t=3)$                       & 1.1398 & & 1.1383 \\
+% CPU                              &   3384 & & 132498 \\
+% \cmidrule{2-4}
+% & \multicolumn{3}{c}{implicit} \\
+% \cmidrule{2-4}
+% $\strikes_{\min}$                & 0.6639 & & 0.5473 \\
+% $t_{\strikes = \strikes_{\min}}$ & 2.2420 & & 3.0000 \\
+% $V_{c,\max}$                     & 0.2528 & & 0.2502 \\
+% $t_{V_c = V_{c,\max}}$           & 0.7330 & & 0.7290 \\
+% $z_c(t=3)$                       & 1.1402 & & 1.1387 \\
+% CPU                              &   7425 & & 236635 \\
+% \cmidrule{2-4}
+% & \multicolumn{3}{c}{antisymmetric} \\
+% \cmidrule{2-4}
+% $\strikes_{\min}$                & & & \\
+% $t_{\strikes = \strikes_{\min}}$ & & & \\
+% $V_{c,\max}$                     & & & \\
+% $t_{V_c = V_{c,\max}}$           & & & \\
+% $z_c(t=3)$                       & & & \\
+% CPU                              & & & \\
+% \cmidrule{2-4}
+% & \multicolumn{3}{c}{ALE} \\
+% \cmidrule{2-4}
+% $\strikes_{\min}$                & 0.7038 & & 0.5266 \\
+% $t_{\strikes = \strikes_{\min}}$ & 2.0880 & & 3.0000 \\
+% $V_{c,\max}$                     & 0.2522 & & 0.2502 \\
+% $t_{V_c = V_{c,\max}}$           & 0.7350 & & 0.7300 \\
+% $z_c(t=3)$                       & 1.1401 & & 1.1385 \\
+% CPU                              &  10162 & & 236253 \\
+% \hline
+% \end{tabular}
+% \hspace*{-3.25cm}
+% \caption[Navier--Stokes rising bubble II benchmark values P2--(P1+P0)]
+% {($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
+% Rising bubble experiment II on ${\Omega = (0,1) \times (0,2)}$ over the time
+% interval $[0,3]$ for the P2--(P1+P0) element, with nearly uniform meshes and
+% $C_a=20$\textdegree.}
+% \label{tab:risingbubbleIIp2p1p0}
+% \end{table*}
