@@ -1323,6 +1323,8 @@ P2--(P1+P0) elements in Table~\ref{tab:risingbubbleII}. See
 quantities. For each element, we compare the explicit, implicit and ALE scheme
 derived in Chapter \ref{ch:navier_stokes} and Chapter \ref{ch:ale}. We use
 $J_\Gamma=128$ interface elements with $J_\Omega^0=35092$ initial bulk elements.
+The final number of bulk elements, $J_\Omega^M$, for the explicit scheme for
+the P2--\pdg element is 10588.
 
 \begin{table*}
 \center
@@ -1335,8 +1337,10 @@ $J_\Gamma=128$ interface elements with $J_\Omega^0=35092$ initial bulk elements.
 \cmidrule{2-3}
 $\strikes_{\min}$                & 0.5412 & 0.5435 \\
 $t_{\strikes = \strikes_{\min}}$ & 3.0000 & 3.0000 \\
-$V_{c,\max}$                     & 0.2501 & 0.2503 \\
-$t_{V_c = V_{c,\max}}$           & 0.7290 & 0.7290 \\
+$V_{c,\max 1}$                   & 0.2501 & 0.2503 \\
+$t_{V_c = V_{c,\max 1}}$         & 0.7290 & 0.7290 \\
+$V_{c,\max 2}$                   & 0.2402 & 0.2403 \\
+$t_{V_c = V_{c,\max 2}}$         & 2.1030 & 2.1070 \\
 $z_c(t=3)$                       & 1.1384 & 1.1383 \\
 CPU                              & 128299 & 132498 \\
 \cmidrule{2-3}
@@ -1344,8 +1348,10 @@ CPU                              & 128299 & 132498 \\
 \cmidrule{2-3}
 $\strikes_{\min}$                & 0.5443 & 0.5473 \\
 $t_{\strikes = \strikes_{\min}}$ & 3.0000 & 3.0000 \\
-$V_{c,\max}$                     & 0.2501 & 0.2502 \\
-$t_{V_c = V_{c,\max}}$           & 0.7290 & 0.7290 \\
+$V_{c,\max 1}$                   & 0.2501 & 0.2502 \\
+$t_{V_c = V_{c,\max 1}}$         & 0.7290 & 0.7290 \\
+$V_{c,\max 2}$                   & 0.2402 & 0.2403 \\
+$t_{V_c = V_{c,\max 2}}$         & 2.1040 & 2.1540 \\
 $z_c(t=3)$                       & 1.1385 & 1.1387 \\
 CPU                              & 216605 & 236635 \\
 \cmidrule{2-3}
@@ -1353,8 +1359,10 @@ CPU                              & 216605 & 236635 \\
 \cmidrule{2-3}
 $\strikes_{\min}$                & & 0.5266 \\
 $t_{\strikes = \strikes_{\min}}$ & & 3.0000 \\
-$V_{c,\max}$                     & & 0.2502 \\
-$t_{V_c = V_{c,\max}}$           & & 0.7300 \\
+$V_{c,\max 1}$                   & & 0.2502 \\
+$t_{V_c = V_{c,\max 1}}$         & & 0.7300 \\
+$V_{c,\max 2}$                   & & 0.2400 \\
+$t_{V_c = V_{c,\max 2}}$         & & 2.0670 \\
 $z_c(t=3)$                       & & 1.1385 \\
 CPU                              & & 236253 \\
 \hline
@@ -1370,10 +1378,10 @@ $C_a=20$\textdegree.}
 We observe that the results in Table~\ref{tab:risingbubbleII}
 are in good agreement with the corresponding numbers from the finest
 discretization run of group 3 in \cite{HysingTKPBGT09}, which are given by
-0.5144, 3.0000, 0.2502, 0.7317 and 1.1376. Here we note that there is little
-agreement on these results between the three groups in \cite{HysingTKPBGT09},
-but we believe the numbers of group 3 to be the most reliable ones. Similar
-results are also obtained in \cite{fluidfbp}.
+0.5144, 3.0000, 0.2502, 0.7317, 0.2393, 2.0600 and 1.1376. Here we note that
+there is little agreement on these results between the three groups in
+\cite{HysingTKPBGT09}, but we believe the numbers of group 3 to be the most
+reliable ones. Similar results are also obtained in \cite{fluidfbp}.
 
 \begin{figure}[htbp]
 \centering
