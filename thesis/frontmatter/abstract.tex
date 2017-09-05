@@ -1,1 +1,19 @@
-TODO
+Fluid flow problems with a moving interface are found in many applications in
+physics and engineering. In these type of problems, apart from the unknown flow
+in the bulk domain, also the position of the free surface needs to be
+determined.
+
+The goal of this thesis is to investigate front tracking finite element methods
+applied to two-phase incompressible Navier--Stokes flows. The front tracking
+approach consists on seeking a parametrization of the unknown interface over a
+reference manifold. A novel variational formulation for the interface evolution
+is used. This formulation preserves, in general, the interface mesh quality
+over time. Moreover, being a fitted approach, the interface mesh is made up of
+faces of elements belonging to the bulk mesh.
+
+Several fully discrete finite element approximations are derived and, wherever
+possible, stability and existence results are proved. In order to demonstrate
+the accuracy and robustness of the proposed algorithms, extensive numerical
+experiments are carried out, both in 2D and in 3D. A variety of finite element
+spaces are used. Smoothing and remeshing routines are applied to the bulk mesh
+to avoid heavily distorted simplicies.
