@@ -2,7 +2,8 @@
 \label{ch:ns_results}
 In order to test our method, and to allow comparisons with the unfitted finite
 element approximation in \cite{fluidfbp}, we now present several numerical
-experiments in 2d. This chapter is extensively based on a paper in preparation.
+experiments in 2d. 
+%This chapter is extensively based on a paper in preparation.
 
 The chapter is organised as follows: in \S\ref{sec:ns_exact_solutions} we state
 two exact solutions to the two-phase Navier--Stokes problem and we verify that
@@ -999,11 +1000,13 @@ the antisymmetric scheme with the P2--P0 element and the coarsest mesh is not
 present because it fails due to mesh element intersections. For what concerns
 the computational time, the ALE scheme greatly outperform the other schemes.
 Since the bulk domain is not convex, the interpolation routine uses a linear
-search instead of an optimized ones to locate bulk elements. Therefore, the
+search instead of an optimized one to locate bulk elements. Therefore, the
 interpolation routine is extremely slow and accounts for a substantial share
 of the total simulation time. But the ALE scheme, interpolating the velocity
 only when a complete bulk remesh is performed, uses the interpolation routine
 very rarely reducing significantly the total simulation time.
+\footnote{Marco: You need to refer to section on interpolation here, and the
+two different algorithms you mention.}
 
 \section{Rising bubble experiments}\label{sec:2d_rising_bubble_results}
 We use the same  setup described in \cite[Figure~2]{HysingTKPBGT09}, which is
