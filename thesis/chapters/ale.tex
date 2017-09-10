@@ -472,8 +472,14 @@ Therefore, at time step $t^{m+1}$, the reference manifold is $\Omega^m$. We
 also want to stress the fact that the ALE finite element approximation
 (\ref{eq:ale_HGa}--d) differs from all other finite element approximations
 presented in Chapter~\ref{ch:navier_stokes} for the fact that the velocity $\vec
-U^m$ is never interpolated.
-\footnote{Marco: Give more details.}
+U^{m+1}$ is only interpolated after a remeshing and not at each time level.
+Indeed, since the ALE formulation describes the evolution of the solution along
+trajectories, the velocity $\vec U^{m+1}$ is defined on the domain
+$\Omega^{m+1}$. Instead, in all the schemes presented in
+Chapter~\ref{ch:navier_stokes}, the velocity $\vec U^{m+1}$ is always defined on
+the domain $\Omega^m$ and then interpolated on the domain $\Omega^{m+1}$ at
+each time level. Obviously, the velocity $\vec U^{m+1}$ still needs to be
+interpolated when a full bulk remeshing is performed.
 
 \section{Solution method}\label{sec:ale_solution_method}
 The solution technique used to solve the ALE scheme (\ref{eq:ale_HGa}--d) is
