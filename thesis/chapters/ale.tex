@@ -243,8 +243,8 @@ the discretized moving domain $\Omega^h(t)$ by
 \end{align*}
 where $\Omega^h(t)=\vec x_h(\D,t)$ and $\vec x_h$ is the discrete ALE mapping
 discretized spatially using piecewise linear elements. Thus
-$\vec x_h\in [S^h_1]^d$ and each simplex with straight faces in ${\cal
-T}^h$ is transformed into a simplex with straight faces belonging to the
+$\vec x_h\in [S^h_1]^d$ and each simplex with straight faces in ${\cal T}^h$ is
+transformed into a simplex with straight faces belonging to the
 triangulation $\mathfrak{T}^h(t)$ of the discretized moving domain
 $\Omega^h(t)$. We also define the discrete domain velocity as
 \begin{equation}
@@ -377,9 +377,8 @@ velocity, pressure, interface curvature and interface position, respectively.
 
 \section{Fully discrete finite element approximation}\label{sec:ale_fem}
 We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
-$[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0
-,\ldots, M-1$. It is now straightforward to obtain a fully discrete
-finite element
+$[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0, \ldots,
+M-1$. It is now straightforward to obtain a fully discrete finite element
 approximation of (\ref{eq:ns_ode_alea}--d), since the only missing part is the
 temporal discretization. Therefore, applying a semi-implicit Euler scheme to
 (\ref{eq:ns_ode_alea}--d), we obtain
@@ -405,20 +404,21 @@ We notice that there is a small abuse of notation in (\ref{eq:ns_ode_disc_alea})
 for $\vec U^{m+1}$ and $\W^{m+1}$ in the term $\vec D^h_\Omega\big(t^{m},\vec
 U^{m+1},\W^{m+1}\big)$. Indeed only for this term, they denote the discrete
 fluid velocity and the discrete bulk domain velocity, respectively, and not
-their associated vectors of degree of freedoms. Moreover, let $h^n$ be an
-approximation of $h:\Omega(t)\times[0,T]\to\R$. Clearly, $h^n$ is
-defined on the domain $\Omega^n$;
-\footnote{Marco: This notation has not been defined yet.}
-nevertheless it can be transported on any
-other configuration $\Omega^s$, with $t^s\neq t^n$, using the mapping
-$\vec x(\cdot,t^s)\circ{\vec x}^{-1}(\cdot,t^n)$. To lighten the notation,
-whenever we need to integrate $h^s$ on a domain $\Omega^n$ we will write simply
+their associated vectors of degree of freedoms. Moreover, let
+$\Omega^m=\vec x^m(\D)$ be an approximation of the domain $\Omega(t_m)$, $m=0
+,\ldots, M$, where $\vec x^m$ is the discrete ALE mapping discretized using
+piecewise linear elements, and let $h^m$ be an approximation of
+$h:\Omega(t)\times[0,T]\to\R$. Clearly, $h^m$ is defined on the domain
+$\Omega^m$; nevertheless it can be transported on any other configuration
+$\Omega^s$, with $t^s\neq t^m$, using the mapping $\vec x(\cdot,t^s)\circ{\vec
+x}^{-1}(\cdot,t^m)$. To lighten the notation, whenever we need to integrate
+$h^s$ on a domain $\Omega^m$ we will write simply
 \begin{equation*}
-\int_{\Omega^n} h^s \dL d
+\int_{\Omega^m} h^s \dL d
 \end{equation*}
 instead of
 \begin{equation*}
-\int_{\Omega^n} h^s\circ \vec x(\cdot,t^s)\circ{\vec x}^{-1}(\cdot,t^n)\dL d\,.
+\int_{\Omega^m} h^s\circ \vec x(\cdot,t^s)\circ{\vec x}^{-1}(\cdot,t^m)\dL d\,.
 \end{equation*}
 The same notation is used for the inner products.
 
@@ -433,8 +433,6 @@ approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
 For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh$
 such that
-\footnote{Marco: Once again, it is not clear at this stage what
-$\Omega^{m+1}$ and $\Omega^m$ are.}
 \begin{subequations}
 \begin{align}
 & \left( \frac{\rho^m}{\tau_m}\,\vec U^{m+1}, \vec \xi \right)_{\Omega^{m+1}}
