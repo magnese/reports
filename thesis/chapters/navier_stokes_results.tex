@@ -1003,9 +1003,8 @@ search instead of an optimized one to locate bulk elements. Therefore, the
 interpolation routine is extremely slow and accounts for a substantial share
 of the total simulation time. But the ALE scheme, interpolating the velocity
 only when a complete bulk remesh is performed, uses the interpolation routine
-very rarely reducing significantly the total simulation time.
-\footnote{Marco: You need to refer to section on interpolation here, and the
-two different algorithms you mention.}
+very rarely reducing significantly the total simulation time. See
+\S\ref{sec:ns_velocity_interpolation} for more details.
 
 \section{Rising bubble experiments}\label{sec:2d_rising_bubble_results}
 We use the same  setup described in \cite[Figure~2]{HysingTKPBGT09}, which is

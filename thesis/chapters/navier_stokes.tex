@@ -16,7 +16,9 @@ discretization, we prove the existence and uniqueness of a discrete solution
 and we demonstrate that this scheme has certain stability properties;
 in \S\ref{sec:ns_fem} we present our standard fitted finite element
 discretization; in \S\ref{sec:ns_solution_method} we explain the various
-solutions methods used to solve the algebraic system.
+solutions methods used to solve the algebraic system; in
+\S\ref{sec:ns_velocity_interpolation} we examine the techniques used to
+interpolate the velocity.
 
 \section{Mathematical model}\label{sec:ns_model}
 We now consider two-phase Navier--Stokes flow in a given domain
@@ -623,7 +625,6 @@ of the discrete interface remains unchanged.
 Therefore for the fitted approach it does not appear possible to prove a
 stability bound in the spirit of (\ref{eq:ns_stabstab}).
 
-
 \section{Standard finite element approximation}\label{sec:ns_fem}
 An alternative to the antisymmetric discrete finite element approximation
 (\ref{eq:ns_HGa_antisym}--d) can be obtained by using the standard weak
@@ -806,3 +807,5 @@ $\vec B_{\Omega}$ and $\vec c$, which now become
 \vec c_i := &\left( \frac{\rho^m}{\tau_m}\vec I_2^m\vec U^m +
 \rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
 \end{align*}
+
+\section{Velocity interpolation}\label{sec:ns_velocity_interpolation}
