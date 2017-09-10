@@ -2,17 +2,16 @@
 {\sc ALE Finite Element Approximation for Two-Phase Navier--Stokes Flow}
 \label{ch:ale}
 We now present an alternative finite element approximation for incompressible
-two-phase Navier--Stokes that uses the Arbitrary Lagrangian Eulerian (ALE) 
+two-phase Navier--Stokes that uses the Arbitrary Lagrangian Eulerian (ALE)
 method. This technique allows to
 rewrite the velocity time derivative with respect to a fixed reference
 manifold. The system of PDEs describing the two-phase fluid,
 after space discretization,
 becomes the evolution of the solution along trajectories. Thus the velocity
 does not need to be interpolated anymore, with the exception of when a full
-bulk remeshing is performed. 
+bulk remeshing is performed.
 \footnote{Marco: You have not mentioned the need for interpolation yet, have
 you? Maybe do this at the end of the previous chapter.}
-%This chapter is extensively based on a paper in preparation.
 
 The chapter is organised as follows: in \S\ref{sec:ale_model} we reformulate the
 mathematical model for the incompressible two-phase Navier--Stokes flow using
@@ -39,9 +38,9 @@ along trajectories that are at all times contained in the computational domain.
 
 More precisely, we want to reformulate the two-phase Navier--Stokes system
 (\ref{eq:ns_full_momentum}--i), which is expressed in terms of Eulerian
-coordinates $\vec z\in\Omega(t)$, 
+coordinates $\vec z\in\Omega(t)$,
 by rewriting the velocity time derivative $\vec u_t$ with
-respect to the so called ALE coordinate $\vec q \in \D$. 
+respect to the so called ALE coordinate $\vec q \in \D$.
 Analogously to what is done
 in \S\ref{sec:front_tracking_approach} to parametrize the interface
 $\Gamma(t)$, we can define the fixed reference manifold $\D$ and extend the map
@@ -191,11 +190,11 @@ respectively.
 
 Hence, the ALE weak formulation of (\ref{eq:ns_full_momentum_ale}--i)
 is given as follows. Given $\Gamma(0) = \Gamma_0$ and
-$\vec u = \vec u_0$, 
+$\vec u = \vec u_0$,
 find $(\Gamma(t))_{t\in[0,T]}$ and
-$(\vec u, p, \varkappa)\in \uspaceale g \times \pnormspaceale \times 
+$(\vec u, p, \varkappa)\in \uspaceale g \times \pnormspaceale \times
 H^1(\bigcup_{t\in[0,T]} \Gamma(t) \times \{t\})$
-such that 
+such that
 \begin{subequations}
 \begin{align}
 & \left(\rho\,\left.\vec u_t\right|_{\D}, \vec \xi\right)_{\Omega(t)} +
@@ -233,30 +232,6 @@ where $\mathcal{P}_k(\sigmaO^h)$ denotes the space of polynomials of degree $k$
 on $\sigmaO^h$. Moreover, $S^h_0$ is the space of piecewise constant
 functions on ${\cal T}^h$. For later use, we also define $\vec I^h_k$ to be
 the standard interpolation operator onto $[S^h_k]^d$.
-
-%%% The below is incorrect, as the continuous spaces are space-time, while for
-%%% the discrete spaces we only need space. As we do not refer to LBB in ALE
-%%% chapter, I have removed the paragraph.
-%Let $\uspacesemidiscref{g}{h}\subset\uspacesimpleref(\vec I_k^h\vec g)$ and
-%$\pspaceref^h\subset\pspaceref$ be the finite element spaces we use for the
-%approximation of velocity and pressure, and let $\pnormspaceref^h:=
-%\pspaceref^h\cap \pnormspaceref$. The spaces
-%$(\uspacesemidiscref{0}{h},\pspaceref^m)$ satisfy the LBB inf-sup condition
-%if there exists a constant $C_0 \in \R_{>0}$, independent of $\mathcal{T}^h(t)$,
-%such that
-%\begin{equation} \label{eq:LBB_ale}
-%\inf_{\hat \varphi \in \pnormspaceref^h} \sup_{\vec{\hat \xi} \in
-%\uspacesemidiscref{0}{h}}
-%\frac{( \hat \varphi, \nabla \,.\,\vec{ \hat \xi})} {\|\hat \varphi\|_0\,
-%\| \vec{\hat\xi}\|_1} \geq C_0 > 0\,,
-%\end{equation}
-%see \cite[p.~114]{GiraultR86} and \S\ref{sec:stokes_fem}. Here $\|\cdot\|_0 :=
-%(\cdot,\cdot)^\frac12$ and $\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$
-%denote the $L^2$--norm and the $H^1$--norm on $\D$, respectively. Then, for
-%$d=2$, possible pairs $(\uspacesemidiscref{0}{h},\pspace^m)$ that satisfy
-%(\ref{eq:LBB_ale}) are P2--P0 and P2--(P1+P0), while for $d=3$ are the
-%P3--(P2+P0) element and P1$^{\mbox{face bubble}}$--P0. See
-%\S\ref{sec:stokes_fem} for more details.
 
 Then, using the ALE mapping, we can define the finite element spaces on
 the discretized moving domain $\Omega^h(t)$ by
@@ -434,7 +409,7 @@ U^{m+1},\W^{m+1}\big)$. Indeed only for this term, they denote the discrete
 fluid velocity and the discrete bulk domain velocity, respectively, and not
 their associated vectors of degree of freedoms. Moreover, let $h^n$ be an
 approximation of $h:\Omega(t)\times[0,T]\to\R$. Clearly, $h^n$ is
-defined on the domain $\Omega^n$; 
+defined on the domain $\Omega^n$;
 \footnote{Marco: This notation has not been defined yet.}
 nevertheless it can be transported on any
 other configuration $\Omega^s$, with $t^s\neq t^n$, using the mapping
@@ -460,7 +435,7 @@ approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
 For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh$
 such that
-\footnote{Marco: Once again, it is not clear at this stage what 
+\footnote{Marco: Once again, it is not clear at this stage what
 $\Omega^{m+1}$ and $\Omega^m$ are.}
 \begin{subequations}
 \begin{align}
@@ -513,48 +488,47 @@ and $\vec U^m\in \uspacediscale{g}{m}$ be given.
 Set $\vec U^{m+1,0}=\vec U^m$, $\vec \psi^{m+1,0} =
 \vec 0$, $\Omega^{m+1,0}=\Omega^m$ and fix $\epsilon_f > 0$.
 Then, for $s \geq 0$,
-find $(\vec U^{m+1,s+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
+find $(\vec U^{m+1,s+1},P^{m+1,s+1}, \vec X^{m+1,s+1}, \kappa^{m+1,s+1}) \in
 \uspacediscale{g}{m}\times \pnormspaceale^m \times \Vh \times \Wh$ such that
-\footnote{Marco: You need to do the $s+1$ change as, as I have done in previous
-chapter. That is because e.g. $P^{m+1}$ changes at every iteration, so you
-cannot use the same symbol for it.}
 \begin{subequations}
 \begin{align}
 & \left( \frac{\rho^m}{\tau_m}\,\vec U^{m+1,s+1}, \vec
-\xi\right)_{\Omega^{m+1,s}} + \left((\rho^m\left(\vec
-U^{m+1,s}-\frac{\vec\psi^{m+1,s}}{\tau_m}\right)\,.\,\nabla)\,
+\xi\right)_{\Omega^{m+1,s}} + \left(\left(\rho^m\left(\vec
+U^{m+1,s}-\frac{\vec\psi^{m+1,s}}{\tau_m}\right)\,.\,\nabla\right)\,
 \vec U^{m+1,s+1}\,, \,\vec \xi \right)_{\Omega^m}\nonumber \\
 & \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi)
-\right)_{\Omega^m} - \left(P^{m+1}, \nabla\,.\,\vec \xi\right)_{\Omega^m}
-- \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+\right)_{\Omega^m} - \left(P^{m+1,s+1}, \nabla\,.\,\vec \xi\right)_{\Omega^m}
 \nonumber \\
+& \qquad - \gamma\,\left\langle \kappa^{m+1,s+1}\,\vec\nu^m,
+\vec\xi\right\rangle_{\Gamma^m} \nonumber \\
 & \qquad = \left(\frac{\rho^m}{\tau_m}\,\vec U^m,\vec \xi
 \right)_{\Omega^{m+1,s}}
 + \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)_{\Omega^m}
 \quad \forall\ \vec\xi \in \uspacediscale{0}{m}\,, \label{eq:ns_HGalea} \\
 & \left(\nabla\,.\,\vec U^{m+1,s+1}, \varphi\right)_{\Omega^m}  = 0
 \quad \forall\ \varphi \in \pnormspaceale^m\,,\label{eq:ns_HGaleb} \\
-&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+&  \left\langle \frac{\vec X^{m+1,s+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
 \right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1,s+1}, \chi\,\vec\nu^m
 \right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
 \label{eq:ns_HGalec}\\
-& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
-+ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
-0 \quad \forall\ \vec\eta \in \Vh\,. \label{eq:ns_HGaled}
+& \left\langle \kappa^{m+1,s+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1,s+1}, \nabs\,\vec \eta
+\right\rangle_{\Gamma^m} = 0 \quad \forall\ \vec\eta \in \Vh\,.
+\label{eq:ns_HGaled}
 \end{align}
 \end{subequations}
-The iteration is repeated
-until $\|U^{m+1,s+1}-U^{m+1,s}\|_{L^\infty} \leq\epsilon_f$
-and $\|\vec \psi^{m+1,s+1}-\vec \psi^{m+1,s}\|_{L^\infty} \leq\epsilon_f$.
-Here the
-bulk displacement $\vec \psi^{m+1,s+1}$ is computed solving the linear
-elasticity problem (\ref{eq:elasta}--b), see \S\ref{sec:stokes_smoothing} for
-more details, and $\Omega^{m+1,s+1}$ is updated accordingly. Finally, set
-${\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)}$, $\Omega^{m+1,s+1}=\Omega^{m+1}$ and
-$\vec U^{m+1}= \vec U^{m+1,s+1}$. Clearly (\ref{eq:ns_HGalea}--d), at each
-time level $m$, is a fixed point iteration, which consists of solving a coupled
-linear system of equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1}, \vec
-X^{m+1}, \kappa^{m+1})$ at each step $s$ until the $L^\infty$--error of the
+The iteration is repeated until $\|U^{m+1,s+1}-U^{m+1,s}\|_{L^\infty}
+\leq\epsilon_f$ and $\|\vec \psi^{m+1,s+1}-\vec \psi^{m+1,s}\|_{L^\infty}
+\leq\epsilon_f$. Here the bulk displacement $\vec \psi^{m+1,s+1}$ is computed
+solving the linear elasticity problem (\ref{eq:elasta}--b), see
+\S\ref{sec:stokes_smoothing} for more details, and $\Omega^{m+1,s+1}$ is
+updated accordingly. Finally, set
+${\Gamma^{m+1} = \vec X^{m+1,s+1}(\Gamma^m)}$, $\Omega^{m+1,s+1}=\Omega^{m+1}$
+and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1}) = (\vec U^{m+1,s+1}, P^{m+1,s+1},
+\kappa^{m+1,s+1})$. Clearly (\ref{eq:ns_HGalea}--d), at each time level $m$, is
+a fixed point iteration, which consists of solving a coupled linear system of
+equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1,s+1}, \vec X^{m+1,s+1},
+\kappa^{m+1,s+1})$ at each step $s$ until the $L^\infty$--error of the
 velocity $\|U^{m+1,s+1}-U^{m+1,s} \|_{L^\infty}$ and the $L^\infty$--error of
 the bulk displacement $\|\vec \psi^{m+1,s+1}-\vec \psi^{m+1,s}\|_{L^\infty}
 \leq\epsilon_f$ are smaller than the required tolerance $\epsilon_f$. The

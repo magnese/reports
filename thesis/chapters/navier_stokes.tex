@@ -4,8 +4,7 @@ Flow}\label{ch:navier_stokes}
 We now present two novel finite element approximations for incompressible
 two-phase Navier--Stokes flow that use a fitted approach with piecewise linear
 parametric finite elements to describe the moving discrete interface, and that
-employ standard velocity and pressure finite element spaces in the bulk. 
-%This chapter is extensively based on a paper in preparation.
+employ standard velocity and pressure finite element spaces in the bulk.
 
 The chapter is organised as follows: in \S\ref{sec:ns_model} we
 state the mathematical model for the incompressible two-phase Navier--Stokes
@@ -14,7 +13,7 @@ and an alternative weak formulation based on an antisymmetric rewrite on which
 our finite element approximations are going to be based; in
 \S\ref{sec:ns_fem_antisym} we present our antisymmetric fitted finite element
 discretization, we prove the existence and uniqueness of a discrete solution
-and we demonstrate that this scheme has certain stability properties; 
+and we demonstrate that this scheme has certain stability properties;
 in \S\ref{sec:ns_fem} we present our standard fitted finite element
 discretization; in \S\ref{sec:ns_solution_method} we explain the various
 solutions methods used to solve the algebraic system.
@@ -64,7 +63,7 @@ $\vec u(0) = \vec u_0$. Finally, we impose the Dirichlet condition $\vec u =
 unit normal of $\partial \Omega$ and $\{\unitn\}^\perp := \{ \unitt \in \R^d :
 \unitt \,.\,\unitn = 0\}$ As usual, it holds that
 $\partial\Omega =\partial_1\Omega \cup \partial_2\Omega$ and $\partial_1\Omega
-\cap \partial_2\Omega = \emptyset$. Therefore the total system of equations 
+\cap \partial_2\Omega = \emptyset$. Therefore the total system of equations
 can be rewritten as follows:
 \begin{subequations}
 \begin{alignat}{2}
@@ -147,12 +146,12 @@ so is $p + c$ for an arbitrary $c\in \R$.
 An alternative to the weak formulation (\ref{eq:ns_weaka}--d) can be obtained
 following the paper \cite{fluidfbp}. We refer to this alternative formulation
 as antisymmetric weak formulation. The authors show that it is easy to derive
-an energy bound not only on the continuous level but also on the discrete 
-level. Moreover, they are able to show existence/uniqueness results for the 
+an energy bound not only on the continuous level but also on the discrete
+level. Moreover, they are able to show existence/uniqueness results for the
 discrete solution. In order to obtain this
 alternative weak formulation, we want to rewrite the term $\left(\rho\,\vec u_t,
 \vec \xi\right) + \left(\rho\,(\vec u \,.\, \nabla) \vec u,\vec \xi\right)$ in
-(\ref{eq:ns_weaka}) in such a way that certain undesirable terms vanish when 
+(\ref{eq:ns_weaka}) in such a way that certain undesirable terms vanish when
 choosing $\vec \xi = \vec u$. Due to the resulting structure of the equation,
 we will refer to this form as the antisymmetric formulation.
 
@@ -308,13 +307,11 @@ Here, in order to have a consistent finite element approximation, we consider
 the partitioning $t_m =m\,\tau$, $m=0,\ldots, M$, of $[0,T]$ into uniform time
 steps $\tau=\frac{T}{M}$, see \cite{fluidfbp}. The uniform time step size is
 needed to ensure that the discrete time derivative approximation is consistent.
-%,i.e. the limit as $\tau \to 0$ is $\vec u_t$. 
-Moreover, let ${\cal T}^m$,
-$\forall m\ge 0$, be a regular partitioning of the domain $\Omega$ into
-disjoint open simplices $\sigmaO^m_j$, $j = 1 ,\ldots, J^m_\Omega$. From now
-on, the domain $\Omega$ which we consider is the polyhedral domain defined by
-the triangulation ${\cal T}^m$. On ${\cal T}^m$ we define the finite element
-spaces
+Moreover, let ${\cal T}^m$, $\forall m\ge 0$, be a regular partitioning of the
+domain $\Omega$ into disjoint open simplices $\sigmaO^m_j$, $j = 1 ,\ldots,
+J^m_\Omega$. From now on, the domain $\Omega$ which we consider is the
+polyhedral domain defined by the triangulation ${\cal T}^m$. On ${\cal T}^m$ we
+define the finite element spaces
 \begin{equation*}
 S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
 \in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\}\,,
@@ -332,7 +329,8 @@ approximation of velocity and pressure, and let $\pnormspace^m:= \pspace^m \cap
 inf-sup, see (\ref{eq:LBB}). Then, for $d=2$, possible pairs
 $(\uspacedisc{0}{m},\pspace^m)$ that satisfy (\ref{eq:LBB}) are P2--P0 and
 P2--(P1+P0), while for $d=3$ are the P3--(P2+P0) element and
-P1$^{\mbox{\footnotesize face bubble}}$--P0. See \S\ref{sec:stokes_fem} for more details.
+P1$^{\mbox{\footnotesize face bubble}}$--P0. See \S\ref{sec:stokes_fem} for more
+details.
 
 We consider a fitted finite element approximation for the evolution of the
 interface $\Gamma(t)$. Let $\Gamma^m\subset\R^d$ be a $(d-1)$-dimensional
@@ -377,7 +375,7 @@ of $\tfrac{1}{2} \ddt (\rho\,\vec u, \vec \xi)$ we use
 \frac{1}{2}\left(\frac{\rho^m\,\vec U^{m+1} - I^m_0\,\rho^{m-1}
 \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\,,
 \end{equation}
-while for the discrete version of $\tfrac{1}{2}(\rho\,\vec u_t, \vec \xi)$ 
+while for the discrete version of $\tfrac{1}{2}(\rho\,\vec u_t, \vec \xi)$
 we employ
 \begin{equation}\label{eq:antysim_time_derivative_b}
 \frac{1}{2}\left( I^m_0\,\rho^{m-1}\, \frac{\vec U^{m+1} - \vec I^m_2\,
@@ -436,7 +434,7 @@ and
 \rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
 \end{equation}
 
-\subsection{Existence and uniqueness of a discrete solution}\label{eq:ns_existence}
+\subsection{Existence and uniqueness of a discrete solution}
 \label{sec:ns_existence}
 The existence and uniqueness proof of a discrete solution for the scheme
 (\ref{eq:ns_HGa_antisym}--d) is analogous to the Stokes case presented in
@@ -615,9 +613,8 @@ holds for $m=1,\ldots, M-1$, it is possible to prove that
 \end{align}
 for $m=0,\ldots, M-1$, which implies the stability of the scheme.
 In fact, the assumption (\ref{eq:ns_stabstab_hp}) always holds in the unfitted
-case for (a) 
-a fixed background mesh, or for (b) adaptive meshes where no coarsening is
-employed during the evolution. See \cite{fluidfbp} for details.
+case for (a) a fixed background mesh, or for (b) adaptive meshes where no
+coarsening is employed during the evolution. See \cite{fluidfbp} for details.
 
 Instead, for a fitted finite element approach, as considered in this thesis,
 the condition (\ref{eq:ns_stabstab_hp}) will in general not hold, because the
@@ -720,7 +717,7 @@ X^{m+1}, \kappa^{m+1})$ at each time level.
 The linear algebraic systems arising from (\ref{eq:ns_HGa}--d) and
 (\ref{eq:ns_HGa_antisym}--d) are identical to the two-phase Stokes
 algebraic system (\ref{eq:stokes_algebraic}) with the only modification in
-the terms $\vec B_{\Omega}$ and $\vec c$. Indeed, for the explicit 
+the terms $\vec B_{\Omega}$ and $\vec c$. Indeed, for the explicit
 standard scheme (\ref{eq:ns_HGa}--d) these terms become
 \begin{align*}
 [\vec B_\Omega]_{ij} := & \left( \frac{\rho^m}{\tau_m} \phi_j^{\uspacesimple^m},
@@ -776,26 +773,27 @@ find $(\vec U^{m+1,s+1},P^{m+1,s+1}, \vec X^{m+1,s+1}, \kappa^{m+1,s+1}) \in
 \right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
 \label{eq:ns_HGfixedpointc}\\
 & \left\langle \kappa^{m+1,s+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
-+ \left\langle \nabs\,\vec X^{m+1,s+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
-0 \quad \forall\ \vec\eta \in \Vh\,, \label{eq:ns_HGfixedpointd}
++ \left\langle \nabs\,\vec X^{m+1,s+1}, \nabs\,\vec \eta
+\right\rangle_{\Gamma^m} = 0 \quad \forall\ \vec\eta \in \Vh\,,
+\label{eq:ns_HGfixedpointd}
 \end{align}
 \end{subequations}
 and repeat the iteration until $\|\vec U^{m+1,s+1}-\vec U^{m+1,s}\|_{L^\infty}
-\leq\epsilon_f$. Finally, set ${\Gamma^{m+1}=\vec X^{m+1,s+1}(\Gamma^m)}$ 
-and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1}) = 
-(\vec U^{m+1,s+1}, P^{m+1,s+1}, \kappa^{m+1,s+1})$. 
-The scheme (\ref{eq:ns_HGfixedpointa}--d), at each
-time level $m$, is a fixed point iteration that consists of solving a coupled
-linear system of equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1,s+1}, 
-\vec X^{m+1,s+1}, \kappa^{m+1,s+1})$ at each step $s$ until the $L^\infty$--error of the
-velocity $\|U^{m+1,s+1}-U^{m+1,s} \|_{L^\infty}$ is smaller than the required
-tolerance $\epsilon_f$. Obviously, in the case that the fixed point iteration
-performs only one step, (\ref{eq:ns_HGfixedpointa}--d) reduces to the explicit
-standard scheme (\ref{eq:ns_HGa}--d). In practice, we also require $s>1$, which
-means that we do at least two full iterations of the fixed point scheme. Again,
-at every step, the linear algebraic system arising from
-(\ref{eq:ns_HGfixedpointa}--d) is identical to the two-phase Stokes algebraic
-system (\ref{eq:stokes_algebraic}) with the only modification in the terms
+\leq\epsilon_f$. Finally, set ${\Gamma^{m+1}=\vec X^{m+1,s+1}(\Gamma^m)}$
+and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1}) = (\vec U^{m+1,s+1}, P^{m+1,s+1},
+\kappa^{m+1,s+1})$. The scheme (\ref{eq:ns_HGfixedpointa}--d), at each time
+level $m$, is a fixed point iteration that consists of solving a coupled
+linear system of equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1,s+1},
+\vec X^{m+1,s+1}, \kappa^{m+1,s+1})$ at each step $s$ until the
+$L^\infty$--error of the velocity $\|U^{m+1,s+1}-U^{m+1,s} \|_{L^\infty}$ is
+smaller than the required tolerance $\epsilon_f$. Obviously, in the case that
+the fixed point iteration performs only one step,
+(\ref{eq:ns_HGfixedpointa}--d) reduces to the explicit standard scheme
+(\ref{eq:ns_HGa}--d). In practice, we also require $s>1$, which means that we
+do at least two full iterations of the fixed point scheme. Again, at every
+step, the linear algebraic system arising from (\ref{eq:ns_HGfixedpointa}--d)
+is identical to the two-phase Stokes algebraic system
+(\ref{eq:stokes_algebraic}) with the only modification in the terms
 $\vec B_{\Omega}$ and $\vec c$, which now become
 \begin{align*}
 [\vec B_\Omega]_{ij} := & \left( \frac{\rho^m}{\tau_m} \phi_j^{\uspacesimple^m},
