@@ -1,1 +1,31 @@
 \chapter{\sc Conclusion}\label{ch:conclusion}
+
+In this thesis we have investigated a fitted front tracking finite element
+methods for two-phase incompressible Navier--Stokes flows. In Chapter
+\ref{ch:introduction}, after introducing the free-boundary fluid flows, we have
+described the Navier--Stokes equations which model the evolution of a two-phase
+fluid. In these type of problems, apart from the flow solution in the bulk
+domain, the interface dividing the phases needs to be determined. Therefore, we
+have briefly overviewed the different ways to treat the unknown interface and we
+have detailed the various numerical challenges posed by these types of flows.
+In Chapter \ref{ch:geometric_pdes}, we have introduced the key ideas of the
+front tracking approach applying it to the simple problem of purely geometric
+evolution equations such as mean curvature flow and surface diffusion. Here we
+have reported on the finite element approximations and we have performed some
+numerical experiments in order to show the property of the schemes and of the
+flows. In particular, we have shown that the mesh naturally equidistributes and
+that the volume is conserved. In Chapter \ref{ch:stokes} we have proposed a
+novel finite element approximation for incompressible two-phase Stokes flow.
+After showing an energy bound and the volume conservation for the weak problem,
+we have demonstrated that our scheme is unconditionally stable and we have
+proved the existence and uniqueness of the discrete approximation. Moreover, we
+have investigated the equidistribution property and the volume conservation and
+we have discussed the mesh generation process together with the smoothing and
+remeshing procedures used to preserve the mesh quality. In Chapter
+\ref{ch:stokes_results} we have presented several numerical experiments in 2d
+and 3d to test our method and to allow comparisons with other methods. Using
+two exact solutions to the two-phase Stokes, we have performed various
+convergence test. Moreover, we have tested that interface mesh points are
+naturally equidistributed by our scheme, that our scheme conserve the enclosed
+volume and that the surface energy monotonically decays. We have also reported
+on a shear flow experiment.
