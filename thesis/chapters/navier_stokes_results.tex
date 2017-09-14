@@ -1220,16 +1220,20 @@ simulations, the number of remeshing performed during the full time interval is
 always between 2 and 4. This means that, in each simulation adopting the ALE
 scheme, the velocity is interpolated, at worst, only 4 times.
 
+In Figure~\ref{fig:risingbubbleIpressure} we show the evolution of the discrete
+pressures for a simulation with $J_\Gamma=128$ interface elements using the
+P2--\pdg element and the implicit scheme, while the velocities are visualized
+in Figure~\ref{fig:risingbubbleIvelocity}.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_pressure_0.ps}}
+{figures/navier_stokes/rising_bubble_I_pressure_0.ps}}
 \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_pressure_1.ps}}\\
+{figures/navier_stokes/rising_bubble_I_pressure_1.ps}}\\
 \subfloat[$t=2$]{\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_pressure_2.ps}}
+{figures/navier_stokes/rising_bubble_I_pressure_2.ps}}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_pressure_3.ps}}
+{figures/navier_stokes/rising_bubble_I_pressure_3.ps}}
 \caption[Navier--Stokes rising bubble I pressure]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
 Pressure evolution for the rising bubble experiment I for the P2--\pdg element
@@ -1240,13 +1244,13 @@ and the implicit scheme, with nearly uniform mesh and $C_a=20$\textdegree.}
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_velocity_0.ps}}
+{figures/navier_stokes/rising_bubble_I_velocity_0.ps}}
 \subfloat[$t=1$]{\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_velocity_1.ps}}\\
+{figures/navier_stokes/rising_bubble_I_velocity_1.ps}}\\
 \subfloat[$t=2$]{\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_velocity_2.ps}}
+{figures/navier_stokes/rising_bubble_I_velocity_2.ps}}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_velocity_3.ps}}
+{figures/navier_stokes/rising_bubble_I_velocity_3.ps}}
 \caption[Navier--Stokes rising bubble I velocity]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
 Velocity vector field for the rising bubble experiment I for the P2--\pdg
@@ -1254,15 +1258,18 @@ element and the implicit scheme, with nearly uniform mesh and
 $C_a=20$\textdegree.}
 \label{fig:risingbubbleIvelocity}
 \end{figure}
-In Figure~\ref{fig:risingbubbleIpressure} we show the evolution of the discrete
-pressures for a simulation with $J_\Gamma=128$ interface elements using the
-P2--\pdg element and the implicit scheme, while the velocities are visualized
-in Figure~\ref{fig:risingbubbleIvelocity}.
 
+Finally, in Figures~\ref{fig:risingbubbleIsphericity},
+\ref{fig:risingbubbleIrisingvelocity}, \ref{fig:risingbubbleIbarycenter} and
+\ref{fig:risingbubbleIinnervolume} are reported, respectively, the evolution of
+the sphericity $\strikes$, rising velocity $V_c$, barycenter $z_c$ and relative
+inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over
+time. We have used the P2--\pdg element and $J_\Gamma=128$ interface elements.
+We notice almost identical results for the explicit, implicit and ALE schemes.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_sphericity.ps}
+{figures/navier_stokes/rising_bubble_I_sphericity.ps}
 \caption[Navier--Stokes rising bubble I sphericity]
 {A plot of the sphericity $\strikes$ over time for the simulation in
 Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
@@ -1273,7 +1280,7 @@ Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_rising_velocity.ps}
+{figures/navier_stokes/rising_bubble_I_rising_velocity.ps}
 \caption[Navier--Stokes rising bubble I rising velocity]
 {A plot of the rising velocity $V_c$ over time for the simulation in
 Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
@@ -1284,7 +1291,7 @@ Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_barycenter.ps}
+{figures/navier_stokes/rising_bubble_I_barycenter.ps}
 \caption[Navier--Stokes rising bubble I barycenter]
 {A plot of the barycenter $z_c$ over time for the simulation in
 Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
@@ -1295,7 +1302,7 @@ Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
-{figures/navier_stokes/2d_rising_bubble_inner_volume.ps}
+{figures/navier_stokes/rising_bubble_I_inner_volume.ps}
 \caption[Navier--Stokes rising bubble I inner area]
 {A plot of the relative inner area
 $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
@@ -1303,14 +1310,6 @@ simulation in Figure~\ref{fig:risingbubbleIpressure} for the explicit
 (orange), implicit (red), ALE (blue) and antisymmetric (green) schemes.}
 \label{fig:risingbubbleIinnervolume}
 \end{figure}
-
-Finally, in Figures~\ref{fig:risingbubbleIsphericity},
-\ref{fig:risingbubbleIrisingvelocity}, \ref{fig:risingbubbleIbarycenter} and
-\ref{fig:risingbubbleIinnervolume} are reported, respectively, the evolution of
-the sphericity $\strikes$, rising velocity $V_c$, barycenter $z_c$ and relative
-inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over
-time. We have used the P2--\pdg element and $J_\Gamma=128$ interface elements.
-We notice almost identical results for the explicit, implicit and ALE schemes.
 
 The physical parameters for the rising bubble experiment II are
 \begin{equation} \label{eq:Hysing2}
@@ -1326,7 +1325,6 @@ derived in Chapter \ref{ch:navier_stokes} and Chapter \ref{ch:ale}. We use
 $J_\Gamma=128$ interface elements with $J_\Omega^0=35092$ initial bulk elements.
 The final number of bulk elements, $J_\Omega^M$, for the explicit scheme for
 the P2--\pdg element is 10588.
-
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1358,14 +1356,14 @@ CPU                              & 216605 & 236635 \\
 \cmidrule{2-3}
 & \multicolumn{2}{c}{ALE} \\
 \cmidrule{2-3}
-$\strikes_{\min}$                & & 0.5266 \\
-$t_{\strikes = \strikes_{\min}}$ & & 3.0000 \\
-$V_{c,\max 1}$                   & & 0.2502 \\
-$t_{V_c = V_{c,\max 1}}$         & & 0.7300 \\
-$V_{c,\max 2}$                   & & 0.2400 \\
-$t_{V_c = V_{c,\max 2}}$         & & 2.0670 \\
-$z_c(t=3)$                       & & 1.1385 \\
-CPU                              & & 236253 \\
+$\strikes_{\min}$                & - & 0.5266 \\
+$t_{\strikes = \strikes_{\min}}$ & - & 3.0000 \\
+$V_{c,\max 1}$                   & - & 0.2502 \\
+$t_{V_c = V_{c,\max 1}}$         & - & 0.7300 \\
+$V_{c,\max 2}$                   & - & 0.2400 \\
+$t_{V_c = V_{c,\max 2}}$         & - & 2.0670 \\
+$z_c(t=3)$                       & - & 1.1385 \\
+CPU                              & - & 236253 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
@@ -1384,53 +1382,44 @@ there is little agreement on these results between the three groups in
 \cite{HysingTKPBGT09}, but we believe the numbers of group 3 to be the most
 reliable ones. Similar results are also obtained in \cite{fluidfbp}.
 
+In Figure~\ref{fig:risingbubbleIIpressure} we show the evolution of the discrete
+pressures for a simulation with $J_\Gamma=128$ interface elements using the
+P2--(P1+P0) element and the explicit scheme, while the velocities are visualized
+in Figure~\ref{fig:risingbubbleIIvelocity}.
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/rising_bubble_II_sphericity.ps}
-\caption[Navier--Stokes rising bubble II sphericity]
-{A plot of the sphericity $\strikes$ over time for the rising bubble II
-experiment using the P2--(P1+P0) element for the explicit (orange), implicit
-(red) and ALE (blue) schemes, with nearly uniform meshes,
-$J_\Gamma=128$ and $C_a=20$\textdegree.}
-\label{fig:risingbubbleIIsphericity}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/rising_bubble_II_rising_velocity.ps}
-\caption[Navier--Stokes rising bubble II rising velocity]
-{A plot of the rising velocity $V_c$ over time for the rising bubble II
-experiment using the P2--(P1+P0) element for the explicit (orange), implicit
-(red) and ALE (blue) schemes, with nearly uniform meshes,
-$J_\Gamma=128$ and $C_a=20$\textdegree.}
-\label{fig:risingbubbleIIrisingvelocity}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/rising_bubble_II_barycenter.ps}
-\caption[Navier--Stokes rising bubble II barycenter]
-{A plot of the barycenter $z_c$ over time for the rising bubble II experiment
-using the P2--(P1+P0) element for the explicit (orange), implicit (red) and ALE
-(blue) schemes, with nearly uniform meshes, $J_\Gamma=128$ and
+\subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_pressure_0.ps}}
+\subfloat[$t=1$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_pressure_1.ps}}\\
+\subfloat[$t=2$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_pressure_2.ps}}
+\subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_pressure_3.ps}}
+\caption[Navier--Stokes rising bubble II pressure]
+{($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
+Pressure evolution for the rising bubble experiment II for the P2--(P1+P0)
+element and the explicit scheme, with nearly uniform mesh and
 $C_a=20$\textdegree.}
-\label{fig:risingbubbleIIbarycenter}
+\label{fig:risingbubbleIIpressure}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.45\textwidth]
-{figures/navier_stokes/rising_bubble_II_inner_volume.ps}
-\caption[Navier--Stokes rising bubble II inner area]
-{A plot of the relative inner area
-$\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
-rising bubble II experiment using the P2--(P1+P0) element for the explicit
-(orange), implicit (red) and ALE (blue) schemes, with nearly uniform meshes,
-$J_\Gamma=128$ and $C_a=20$\textdegree.}
-\label{fig:risingbubbleIIinnervolume}
+\subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_velocity_0.ps}}
+\subfloat[$t=1$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_velocity_1.ps}}\\
+\subfloat[$t=2$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_velocity_2.ps}}
+\subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_velocity_3.ps}}
+\caption[Navier--Stokes rising bubble II velocity]
+{($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
+Velocity vector field for the rising bubble experiment II for the P2--(P1+P0)
+element and the explicit scheme, with nearly uniform mesh and
+$C_a=20$\textdegree.}
+\label{fig:risingbubbleIIvelocity}
 \end{figure}
 
 In Figures~\ref{fig:risingbubbleIIsphericity},
@@ -1443,6 +1432,50 @@ elements. In Figure~\ref{fig:risingbubbleIIinnervolume} we observe oscillations
 in the relative inner area between $t=2.1$ and $t=2.3$. In that interval the
 bubble assumes a more non-convex shape and develops thin filaments which
 originate these oscillations.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_sphericity.ps}
+\caption[Navier--Stokes rising bubble II sphericity]
+{A plot of the sphericity $\strikes$ over time for the simulation in
+Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
+(red) and ALE (blue) schemes.}
+\label{fig:risingbubbleIIsphericity}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_rising_velocity.ps}
+\caption[Navier--Stokes rising bubble II rising velocity]
+{A plot of the rising velocity $V_c$ over time for the simulation in
+Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
+(red) and ALE (blue) schemes.}
+\label{fig:risingbubbleIIrisingvelocity}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_barycenter.ps}
+\caption[Navier--Stokes rising bubble II barycenter]
+{A plot of the barycenter $z_c$ over time for the simulation in
+Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
+(red) and ALE (blue) schemes.}
+\label{fig:risingbubbleIIbarycenter}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.45\textwidth]
+{figures/navier_stokes/rising_bubble_II_inner_volume.ps}
+\caption[Navier--Stokes rising bubble II inner area]
+{A plot of the relative inner area
+$\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
+simulation in Figure~\ref{fig:risingbubbleIIpressure} for the explicit
+(orange), implicit (red) and ALE (blue) schemes.}
+\label{fig:risingbubbleIIinnervolume}
+\end{figure}
 
 % \begin{table*}
 % \center
