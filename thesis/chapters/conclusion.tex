@@ -8,7 +8,7 @@ fluid. In these type of problems, apart from the flow solution in the bulk
 domain, the interface dividing the phases needs to be determined. Therefore, we
 have briefly overviewed the different ways to treat the unknown interface and we
 have detailed the various numerical challenges posed by these types of flows.
-In Chapter \ref{ch:geometric_pdes}, we have introduced the key ideas of the
+In Chapter \ref{ch:geometric_pdes} we have introduced the key ideas of the
 front tracking approach applying it to the simple problem of purely geometric
 evolution equations such as mean curvature flow and surface diffusion. Here we
 have reported on the finite element approximations and we have performed some
@@ -19,14 +19,29 @@ novel finite element approximation for incompressible two-phase Stokes flow.
 After showing an energy bound and the volume conservation for the weak problem,
 we have demonstrated that our scheme is unconditionally stable and we have
 proved the existence and uniqueness of the discrete approximation. Moreover, we
-have investigated the equidistribution property and the volume conservation and
-we have discussed the mesh generation process together with the smoothing and
+have investigated the equidistribution property and the volume conservation. We
+have also discussed the mesh generation process together with the smoothing and
 remeshing procedures used to preserve the mesh quality. In Chapter
 \ref{ch:stokes_results} we have presented several numerical experiments in 2d
 and 3d to test our method and to allow comparisons with other methods. Using
-two exact solutions to the two-phase Stokes, we have performed various
-convergence test. Moreover, we have tested that interface mesh points are
+two exact solutions to the two-phase Stokes flow, we have performed various
+convergence tests. Moreover, we have tested that interface mesh points are
 naturally equidistributed by our scheme, that our scheme conserve the enclosed
 volume and that the surface energy monotonically decays. We have also reported
-on a shear flow experiment.
-
+on a shear flow experiment. In Chapter \ref{ch:navier_stokes} we have extend
+our Stokes scheme to solve the incompressible two-phase Navier--Stokes flow.
+Here, we have derived a standard finite element approximation and an alternative
+finite element approximation based on an antisymmetric rewrite. For the
+antisymmetric discretization, we have proved the existence and uniqueness of a
+discrete solution and we have demonstrated that this scheme has certain
+stability properties. We have also examined the techniques used to interpolate
+the velocity. In Chapter \ref{ch:ale} we have presented a different finite
+element approximation for incompressible two-phase Navier--Stokes flow which
+uses the Arbitrary Lagrangian Eulerian method. This technique allows to
+rewrite the velocity time derivative with respect to a fixed reference
+manifold. As a consequence, the velocity does not need to be interpolated
+anymore. Finally, in Chapter \ref{ch:ns_results} we have tested our schemes in
+several numerical experiments. Using two exact solutions to the two-phase
+Navier--Stokes flow, we have performed various convergence tests. Then, we have
+reported on two rising bubble experiments which constitute the standard
+benchmark for two-phase schemes.
