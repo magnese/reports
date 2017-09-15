@@ -1324,7 +1324,7 @@ quantities. For each element, we compare the explicit, implicit and ALE scheme
 derived in Chapter \ref{ch:navier_stokes} and Chapter \ref{ch:ale}. We use
 $J_\Gamma=128$ interface elements with $J_\Omega^0=35092$ initial bulk elements.
 The final number of bulk elements, $J_\Omega^M$, for the explicit scheme for
-the P2--\pdg element is 10588.
+the P2--(P1+P0) element is 10638.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1380,7 +1380,9 @@ discretization run of group 3 in \cite{HysingTKPBGT09}, which are given by
 0.5144, 3.0000, 0.2502, 0.7317, 0.2393, 2.0600 and 1.1376. Here we note that
 there is little agreement on these results between the three groups in
 \cite{HysingTKPBGT09}, but we believe the numbers of group 3 to be the most
-reliable ones. Similar results are also obtained in \cite{fluidfbp}.
+reliable ones. Similar results are also obtained in \cite{fluidfbp}. Some
+results in Table~\ref{tab:risingbubbleII} are missing because one simulation
+had an early termination triggered by a bulk mesh overlap in the last steps.
 
 In Figure~\ref{fig:risingbubbleIIpressure} we show the evolution of the discrete
 pressures for a simulation with $J_\Gamma=128$ interface elements using the
@@ -1476,6 +1478,12 @@ simulation in Figure~\ref{fig:risingbubbleIIpressure} for the explicit
 (orange), implicit (red) and ALE (blue) schemes.}
 \label{fig:risingbubbleIIinnervolume}
 \end{figure}
+
+We finally notice that in both experiments, namely the rising bubble I and II,
+the ALE scheme and the non-ALE schemes are all performing well. Therefore, the
+downside of having to project the velocity in the non-ALE formulations seems to
+be less severe than expected. This can be partly explained by the good
+interface mesh, which never changes even after a full bulk remeshing.
 
 % \begin{table*}
 % \center
