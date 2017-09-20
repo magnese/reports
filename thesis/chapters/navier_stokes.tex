@@ -838,3 +838,15 @@ the entity which contains the point is found. The linear search, since is
 repeated for a every degree of freedom, is extremely slow and, for large
 meshes, can be order of magnitude slower than the assembly and solution of the
 algebraic system.
+
+The linear search is very inefficient because, for each point, it traverses the
+mesh from the first entity to the correct one. A simple optimization consists in
+starting the search from the last correct entity found and, if it does not
+contain the point, move to a neighbouring entity. The neighbouring entity chosen
+is the one corresponding to the face opposite to the vertex with the minimum
+weight. These weights are the barycentric coordinates of the point respect to
+the current entity. The barycentric coordinate system is a coordinate system in
+which the location of a point of a simplex is specified as the center of mass
+of unequal masses placed at its vertices. This optimization is restricted to
+convex domain otherwise the face opposite to the minimum weight might be a
+boundary face leading to an undefined neighbouring entity.
