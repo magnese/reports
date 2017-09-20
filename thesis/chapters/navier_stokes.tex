@@ -809,3 +809,32 @@ $\vec B_{\Omega}$ and $\vec c$, which now become
 \end{align*}
 
 \section{Velocity interpolation}\label{sec:ns_velocity_interpolation}
+We can notice that all the Navier--Stokes schemes presented so far, namely
+(\ref{eq:ns_HGa_antisym}--d), (\ref{eq:ns_HGa}--d) and
+(\ref{eq:ns_HGfixedpointa}--d), have at least one term containing the
+interpolated velocity $\vec I^m_2\,\vec U^m$. The interpolation operator is
+needed because the velocity $\vec U^m$, which has been computed at time level
+$m-1$, is defined on $\Omega^{m-1}$. Therefore, at next time level $m$, the
+previous velocity $\vec U^m$ needs to be interpolated on $\Omega^m$ in order
+to be used. Obviously this is not necessary for the Stokes scheme
+(\ref{eq:HGa}--d) since the previous velocity is never utilized.
+
+The interpolation routine simply consists in evaluating the discrete function
+$\vec U^m$ in all the degree of freedoms of a P2 discrete function defined on
+$\Omega^m$. These values will then define the interpolated velocity
+$\vec I^m_2\,\vec U^m$. From a computational point of view, since all the
+discrete functions are defined locally, it consists of, for each degree of
+freedom defined on $\Omega^m$, finding the entity in $\Omega^{m-1}$ which has
+the same coordinate of the degree of freedom. Once the entity is found, the
+discrete function $\vec U^m$ can be evaluated very cheaply.
+
+All the computational complexity lies in the algorithm that, given a point,
+finds the entity which contains it. Since, after a full remeshing, the mesh
+$\Omega^{m-1}$ and $\Omega^m$ are completely unrelated and since the meshes are
+unstructured, there is no one to one relation between entities of $\Omega^{m-1}$
+and entities of $\Omega^m$. The simplest, but very expensive, routine is, for
+each point, perform a linear search over the entities of $\Omega^{m-1}$ until
+the entity which contains the point is found. The linear search, since is
+repeated for a every degree of freedom, is extremely slow and, for large
+meshes, can be order of magnitude slower than the assembly and solution of the
+algebraic system.
