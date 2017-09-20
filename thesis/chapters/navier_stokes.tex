@@ -820,7 +820,7 @@ to be used. Obviously this is not necessary for the Stokes scheme
 (\ref{eq:HGa}--d) since the previous velocity is never utilized.
 
 The interpolation routine simply consists in evaluating the discrete function
-$\vec U^m$ in all the degree of freedoms of a P2 discrete function defined on
+$\vec U^m$ in all the degrees of freedom of a P2 discrete function defined on
 $\Omega^m$. These values will then define the interpolated velocity
 $\vec I^m_2\,\vec U^m$. From a computational point of view, since all the
 discrete functions are defined locally, it consists of, for each degree of
@@ -850,3 +850,26 @@ which the location of a point of a simplex is specified as the center of mass
 of unequal masses placed at its vertices. This optimization is restricted to
 convex domain otherwise the face opposite to the minimum weight might be a
 boundary face leading to an undefined neighbouring entity.
+
+In order to further optimize the algorithm, it would be nice to have a
+continuous path which visits, only once, all the entities of $\Omega^m$.
+Then, following this path, for each entity, all the points corresponding to
+the local degrees of freedom are searched. But, since the path is continuous,
+the entity where the search starts will be always very close to the correct one.
+Unfortunately, since we use unstructured meshes, such a path, in general,
+cannot be trivially built. Moreover, depending on the meshing algorithm, two
+consecutive entities of $\Omega^m$ can be spatially very distant making the
+last entity found a bad initial guess for the current point. Instead of
+explicitly building this path, we create a fictitious lattice which covers the
+domain $\Omega^m$. Then, each entity of $\Omega^m$ is mapped to the point of the
+lattice which is closest to its barycenter. Depending on the size of the
+lattice, multiple entities can be mapped to the same point. Since the
+lattice is structured, it is straightforward to build a continuous path which
+visits all its points. Therefore, the entities of $\Omega^m$ are visited
+following this path which means that, for each lattice point traversed, the
+associated entities are visited. Obviously, the lattice size shouldn't be too
+big otherwise too many entities will be associated to the same lattice point
+making the path useless. On the other hand, it shouldn't be too small otherwise
+many lattice points wouldn't have any entity associated making the path very
+slow too traverse. A good rule of thumb is to use the mesh characteristic
+length as lattice size.
