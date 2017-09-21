@@ -44,8 +44,8 @@ anymore. Finally, in Chapter \ref{ch:ns_results} we have tested our schemes in
 several numerical experiments. Using two exact solutions to the two-phase
 Navier--Stokes flow, we have performed various convergence tests. Then, we have
 reported on two rising bubble experiments which constitute the standard
-benchmark for two-phase schemes.
-\footnote{Marco: You should conclude something here. Is ALE superior? Does the
-standard scheme perform as well? Were the downsides of the standard scheme
-expressed at the beginning of the ALE chapter observed in practice? What scheme
-would you advertise to be used?}
+benchmark for two-phase schemes. Here, we have observed that both the ALE and
+the standard scheme perform extremely well in term of accuracy and CPU time.
+Moreover, in case of non-convex bulk domains, we have noticed that the standard
+scheme is much slower than the ALE scheme since an unoptimized velocity
+interpolation routine has to be used.
