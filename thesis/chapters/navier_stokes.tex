@@ -814,87 +814,75 @@ We can notice that all the Navier--Stokes schemes presented so far, namely
 (\ref{eq:ns_HGfixedpointa}--d), have at least one term containing the
 interpolated velocity $\vec I^m_2\,\vec U^m$. The interpolation operator is
 needed because the velocity $\vec U^m$, which has been computed at time level
-$m-1$, is defined on $\mathcal{T}^{m-1}$. 
-Therefore, at the next time level $m$, the
-previous velocity $\vec U^m$ needs to be interpolated on $\mathcal{T}^m$ 
-in order to be used. Obviously this is not necessary for the Stokes scheme
-(\ref{eq:HGa}--d), since there the previous velocity is never utilized.
+$m-1$, is defined on $\mathcal{T}^{m-1}$. Therefore, at the next time level
+$m$, the previous velocity $\vec U^m$ needs to be interpolated on
+$\mathcal{T}^m$ in order to be used. Obviously this is not necessary for the
+Stokes scheme (\ref{eq:HGa}--d), since there the previous velocity is never
+utilized.
 
 The interpolation routine simply consists in evaluating the discrete function
 $\vec U^m$ in all the degrees of freedom of a P2 discrete function defined on
 $\mathcal{T}^m$. These values will then define the interpolated velocity
 $\vec I^m_2\,\vec U^m$. From a computational point of view, since all the
 discrete functions are defined locally, it consists, for each degree of
-freedom defined on $\mathcal{T}^m$, of finding the element in 
-$\mathcal{T}^{m-1}$ which contains the coordinate of the degree of freedom. 
+freedom defined on $\mathcal{T}^m$, of finding the element in
+$\mathcal{T}^{m-1}$ which contains the coordinate of the degree of freedom.
 Once the element is found, the discrete function $\vec U^m$ at this degree of
 freedom can be evaluated locally, and hence cheaply.
 
 All the computational complexity lies in the algorithm that, given a point,
 finds the element which contains it. Since, after a full remeshing, the meshes
-$\mathcal{T}^{m-1}$ and $\mathcal{T}^m$ 
-are completely unrelated, and since the meshes are
-unstructured, there is no one-to-one relation between elements of
-$\mathcal{T}^{m-1}$ and elements of $\mathcal{T}^m$. 
-The simplest, but very expensive, routine is to, for
-each point, perform a linear search over all the elements of 
-$\mathcal{T}^{m-1}$ until the element which contains the point is found. 
-This linear search, since it is repeated for a every degree of freedom, 
-is extremely slow and, for large meshes, can be order of magnitudes slower 
+$\mathcal{T}^{m-1}$ and $\mathcal{T}^m$ are completely unrelated, and since the
+meshes are unstructured, there is no one-to-one relation between elements of
+$\mathcal{T}^{m-1}$ and elements of $\mathcal{T}^m$. The simplest, but very
+expensive, routine is to, for each point, perform a linear search over all the
+elements of $\mathcal{T}^{m-1}$ until the element which contains the point is
+found. This linear search, since it is repeated for a every degree of freedom,
+is extremely slow and, for large meshes, can be order of magnitudes slower
 than the assembly and the solution of the algebraic system.
 
 The linear search is very inefficient because, for each point, it traverses the
-mesh from the first element to the correct one. 
-A simple optimization consists in
-starting the search from the last correctly found element and, if it does not
-contain the new point, move to a neighbouring element.
-Here the neighbouring element chosen
-is the one that corresponds to the face opposite to the vertex with the maximal
-distance to the new point. The maximal distance corresponds to the minimal
-weight in the barycentric coordinates of the new point with respect to
-the vertices of the current element. 
-The barycentric coordinate system is a coordinate system in
-which the location of a point of a simplex is specified as the center of mass
-of unequal masses placed at its vertices. 
+mesh from the first element to the correct one. A simple optimization consists
+in starting the search from the last correctly found element and, if it does not
+contain the new point, move to a neighbouring element. Here the neighbouring
+element chosen is the one that corresponds to the face opposite to the vertex
+with the maximal distance to the new point. The maximal distance corresponds to
+the minimal weight in the barycentric coordinates of the new point with respect
+to the vertices of the current element. The barycentric coordinate system is a
+coordinate system in which the location of a point of a simplex is specified as
+the center of mass of unequal masses placed at its vertices.
 
 In the first instance, the simple optimization described above is restricted to
 convex domains, as otherwise the face opposite to the vertex with maximal
-distance to the new point might be a boundary face,
-and so there is no desired neighbouring element. But of course for nonconvex
-domains this optimized search can be combined with a linear search whenever a
-boundary face is encountered in the local search for the next neighbour.
+distance to the new point might be a boundary face, and so there is no desired
+neighbouring element. But of course for nonconvex domains this optimized search
+can be combined with a linear search whenever a boundary face is encountered in
+the local search for the next neighbour.
 
-In order to further optimize the algorithm, it would be very beneficial 
-to have a continuous path of elements, which visits, only once, all the 
-elements of $\mathcal{T}^m$. This ensures that successive degrees of freedom
-on the new mesh are spatially close, and so the local optimized search for the
-next element of $\mathcal{T}^{m-1}$ to visit is likely to be very short.
-In particular, following the given sequence of elements of $\mathcal{T}^m$, 
-all the points corresponding to the local degrees of freedom are searched. 
-But, since the path is continuous, the element of $\mathcal{T}^{m-1}$ 
-where the search starts will be always very close to the correct one.
-Unfortunately, since we use unstructured meshes, such a path, in general,
-is difficult to construct.
-% Moreover, depending on the meshing algorithm, two
-%consecutive entities of $\Omega^m$ can be spatially very distant making the
-%last entity found a bad initial guess for the current point. 
-Hence, instead of explicitly constructing such a path, 
-we create a fictitious background lattice that covers the domain $\Omega$. 
-Then each element of $\mathcal{T}^m$ is assigned the point of the
-lattice which is closest to its barycenter. Depending on the size of the
-lattice, multiple entities can be mapped to the same point. Since the
-lattice is structured, it is straightforward to build a continuous path which
-visits all its points. For example, for a rectangular domain in 2d we can use 
-a snaking path that traverses the lattice alternating left-to-right and 
-right-to-left.
+In order to further optimize the algorithm, it would be very beneficial to have
+a continuous path of elements, which visits, only once, all the elements of
+$\mathcal{T}^m$. This ensures that successive degrees of freedom on the new
+mesh are spatially close, and so the local optimized search for the next
+element of $\mathcal{T}^{m-1}$ to visit is likely to be very short. In
+particular, following the given sequence of elements of $\mathcal{T}^m$,
+all the points corresponding to the local degrees of freedom are searched.
+But, since the path is continuous, the element of $\mathcal{T}^{m-1}$ where the
+search starts will be always very close to the correct one. Unfortunately,
+since we use unstructured meshes, such a path, in general, is difficult to
+construct. Hence, instead of explicitly constructing such a path, we create a
+fictitious background lattice that covers the domain $\Omega$. Then each element
+of $\mathcal{T}^m$ is assigned the point of the lattice which is closest to its
+barycenter. Depending on the size of the lattice, multiple entities can be
+mapped to the same point. Since the lattice is structured, it is straightforward
+to build a continuous path which visits all its points. For example, for a
+rectangular domain in 2d we can use a snaking path that traverses the lattice
+alternating left-to-right and right-to-left.
 
-In practice, the elements of $\mathcal{T}^m$ are visited
-following the given lattice path. This means that, 
-for each lattice point traversed, the associated entities are visited. 
-Obviously, the lattice size should not be too
-big, as otherwise too many entities will be associated to the same lattice 
-point. On the other hand, it should not be too small either, as otherwise
-many lattice points would not have any entity associated with them, 
-making the path very slow too traverse. 
-A good rule of thumb, which works well in practice, 
-is to use the characteristic length of the mesh as the lattice size.
+In practice, the elements of $\mathcal{T}^m$ are visited following the given
+lattice path. This means that, for each lattice point traversed, the associated
+entities are visited. Obviously, the lattice size should not be too big, as
+otherwise too many entities will be associated to the same lattice point. On the
+other hand, it should not be too small either, as otherwise many lattice points
+would not have any entity associated with them, making the path very slow too
+traverse. A good rule of thumb, which works well in practice, is to use the
+characteristic length of the mesh as the lattice size.
