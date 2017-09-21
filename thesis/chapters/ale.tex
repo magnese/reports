@@ -8,12 +8,13 @@ respect to a fixed reference manifold. The system of PDEs describing the
 two-phase fluid, after space discretization, becomes the evolution of the
 solution along trajectories. Thus the velocity does not need to be interpolated
 anymore, with the exception of when a full bulk remeshing is performed. This is
-a great advantage of ALE methods respect to non-ALE methods because the
+a great advantage of ALE methods compared to non-ALE methods, because the
 interpolation process is expensive in term of CPU time and introduces
-interpolations errors. Moreover, the interpolated velocity is no longer,
-in discrete weakly sense, divergence-free which leads to possible unphysical
-solutions. Therefore, we want to investigate if these downsides of non-ALE
-schemes can be seen in practice.
+interpolation errors. Moreover, the interpolated velocity is no longer,
+in a discrete weakly sense, divergence-free which could possibly lead 
+to unphysical solutions. 
+%Therefore, we want to investigate if these downsides of non-ALE
+%schemes can be seen in practice.
 
 The chapter is organised as follows: in \S\ref{sec:ale_model} we reformulate the
 mathematical model for the incompressible two-phase Navier--Stokes flow using

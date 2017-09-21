@@ -998,13 +998,16 @@ to the explicit and implicit scheme. We also notice that the experiment using
 the antisymmetric scheme with the P2--P0 element and the coarsest mesh is not
 present because it fails due to mesh element intersections. For what concerns
 the computational time, the ALE scheme greatly outperform the other schemes.
-Since the bulk domain is not convex, the interpolation routine uses a linear
-search instead of an optimized one to locate bulk elements. Therefore, the
-interpolation routine is extremely slow and accounts for a substantial share
-of the total simulation time. But the ALE scheme, interpolating the velocity
+Since the bulk domain is not convex, the interpolation routine often 
+uses a linear search, instead of an optimized local search involving only 
+neighbours, to locate bulk elements. Therefore, the
+interpolation routine is very slow and accounts for a substantial share
+of the total simulation time. But the ALE scheme, which has to interpolate 
+the velocity
 only when a complete bulk remesh is performed, uses the interpolation routine
-very rarely reducing significantly the total simulation time. See
-\S\ref{sec:ns_velocity_interpolation} for more details.
+very rarely, which leads to a significant reduction in 
+the total simulation time. See \S\ref{sec:ns_velocity_interpolation} for more 
+details on the velocity interpolation algorithms.
 
 \section{Rising bubble experiments}\label{sec:2d_rising_bubble_results}
 We use the same  setup described in \cite[Figure~2]{HysingTKPBGT09}, which is
