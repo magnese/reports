@@ -1,15 +1,15 @@
 \chapter{\sc Conclusion}\label{ch:conclusion}
 
-In this thesis we have investigated a fitted front tracking finite element
+In this thesis we have investigated fitted front tracking finite element
 methods for two-phase incompressible Navier--Stokes flows. In Chapter
 \ref{ch:introduction}, after introducing the free-boundary fluid flows, we have
 described the Navier--Stokes equations which model the evolution of a two-phase
-fluid. In these type of problems, apart from the flow solution in the bulk
+fluid. In these types of problems, apart from the flow solution in the bulk
 domain, the interface dividing the phases needs to be determined. Therefore, we
 have briefly overviewed the different ways to treat the unknown interface and we
 have detailed the various numerical challenges posed by these types of flows.
 In Chapter \ref{ch:geometric_pdes} we have introduced the key ideas of the
-front tracking approach applying it to the simple problem of purely geometric
+front tracking approach, applying it to the simple problem of purely geometric
 evolution equations such as mean curvature flow and surface diffusion. Here we
 have reported on the finite element approximations and we have performed some
 numerical experiments in order to show the property of the schemes and of the
@@ -26,7 +26,7 @@ remeshing procedures used to preserve the mesh quality. In Chapter
 and 3d to test our method and to allow comparisons with other methods. Using
 two exact solutions to the two-phase Stokes flow, we have performed various
 convergence tests. Moreover, we have tested that interface mesh points are
-naturally equidistributed by our scheme, that our scheme conserve the enclosed
+naturally equidistributed by our scheme, that our scheme conserves the enclosed
 volume and that the surface energy monotonically decays. We have also reported
 on a shear flow experiment. In Chapter \ref{ch:navier_stokes} we have extend
 our Stokes scheme to solve the incompressible two-phase Navier--Stokes flow.
@@ -36,7 +36,7 @@ antisymmetric discretization, we have proved the existence and uniqueness of a
 discrete solution and we have demonstrated that this scheme has certain
 stability properties. We have also examined the techniques used to interpolate
 the velocity. In Chapter \ref{ch:ale} we have presented a different finite
-element approximation for incompressible two-phase Navier--Stokes flow which
+element approximation for incompressible two-phase Navier--Stokes flow, which
 uses the Arbitrary Lagrangian Eulerian method. This technique allows to
 rewrite the velocity time derivative with respect to a fixed reference
 manifold. As a consequence, the velocity does not need to be interpolated
@@ -45,3 +45,7 @@ several numerical experiments. Using two exact solutions to the two-phase
 Navier--Stokes flow, we have performed various convergence tests. Then, we have
 reported on two rising bubble experiments which constitute the standard
 benchmark for two-phase schemes.
+\footnote{Marco: You should conclude something here. Is ALE superior? Does the
+standard scheme perform as well? Were the downsides of the standard scheme
+expressed at the beginning of the ALE chapter observed in practice? What scheme
+would you advertise to be used?}
