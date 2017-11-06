@@ -271,6 +271,230 @@ $\vec f:=\rho\,\vec f_1+\vec f_2$ be a possible forcing term, let $\gamma>0$ be
 the surface tension coefficient and let $\varkappa$ be the mean curvature of
 $\Gamma(t)$.
 
+\section{Weak formulation}\label{sec:ns_weak}
+In order to obtain a weak formulation, we define the function spaces, for a
+given $\vec b \in [H^1(\Omega)]^d$,
+\begin{align*}
+\uspace b &:= \{\vec \phi\in[H^1(\Omega)]^d:
+\vec \phi =\vec b\quad \mbox{on }\partial_1\Omega\,,
+\quad \vec \phi\,.\,\unitn=0 \quad \mbox{on }\partial_2\Omega\}\,,\\
+\pspace &:= L^2(\Omega)\,,\\
+\pnormspace &:= \{\eta\in\pspace : \int_\Omega\eta\dL{d}=0 \}\,,
+\end{align*}
+and let, as usual, $(\cdot,\cdot)$ and $\langle \cdot, \cdot
+\rangle_{\Gamma(t)}$ denote the $L^2$--inner products on $\Omega$ and
+$\Gamma(t)$, respectively. In addition, we let $\vol$ and $\surfvol$ denote the
+Lebesgue measure in $\R^d$ and the $(d-1)$-dimensional Hausdorff measure,
+respectively.
+
+We also need a weak form of the differential geometry identity
+(\ref{eq:LBop}), which can be obtained by multiplying (\ref{eq:LBop}) with a
+test function and performing integration by parts leading to
+\begin{equation}\label{eq:weak_nabs_id}
+\left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,.
+\end{equation}
+Moreover, on noting (\ref{eq:stress_tensor}) and
+(\ref{eq:interface_jump_stress}), we have that
+\begin{align}\label{eq:weak_stress_jump}
+& \int_{\Omega_+(t)\cup\Omega_-(t)} (\nabla\,.\,\mat\sigma)\,.\, \vec \xi \dL{d}
+= - \left(\mat\sigma, \nabla\,\vec \xi\right)
+- \left\langle [\mat\sigma\,\vec\nu]_-^+ , \vec \xi \right\rangle_{\Gamma(t)}
+\nonumber \\
+& \qquad = - \left(2\,\mu\, \mat D(\vec u)-p\,\mat\id, \nabla\,\vec \xi\right)
+- \left\langle [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ , \vec \xi
+\right\rangle_{\Gamma(t)} \nonumber \\
+& \qquad = \left(p\,\mat\id, \nabla\,\vec \xi\right) -2 \left(\mu\,
+\mat D(\vec u), \nabla\,\vec \xi\right) + \gamma \left\langle \varkappa\,
+\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)} \nonumber \\
+& \qquad = \left( p , \nabla\,.\,\vec \xi\right)
+-2 \left(\mu\,\mat D(\vec u) , \mat D(\vec \xi) \right)
++ \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
+\end{align}
+for all $\vec \xi \in \uspace 0$. We notice that in the first equality we used
+the standard integration by parts on $\Omega_+(t)$ and $\Omega_-(t)$
+separately. Hence a standard weak formulation of (\ref{eq:ns_full_momentum}--i)
+is given as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for
+almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
+\uspace g \times \pnormspace \times H^1(\Gamma(t))}$ such that
+\begin{subequations}
+\begin{align}
+& \left(\rho\,\vec u_t, \vec \xi\right) + \left(\rho\,(\vec u \,.\, \nabla) \vec
+u,\vec \xi\right) + 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
+\nonumber \\
+& \qquad - \left(p, \nabla\,.\,\vec \xi\right)
+- \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace 0 \,,
+\label{eq:ns_weaka}\\
+& \left(\nabla\,.\,\vec u, \varphi\right) = 0
+\quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb} \\
+&  \left\langle \V
+- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc} \\
+& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:ns_weakd}
+\end{align}
+\end{subequations}
+holds for almost all times $t \in (0,T]$. We notice that if $p \in \pspace$ is
+part of a solution to (\ref{eq:ns_full_momentum}--i), then so is $p + c$ for an
+arbitrary $c\in \R$.
+
+An alternative to the weak formulation (\ref{eq:ns_weaka}--d) can be obtained
+following the paper \cite{fluidfbp}. We refer to this alternative formulation
+as antisymmetric weak formulation. The authors show that it is easy to derive
+an energy bound not only on the continuous level but also on the discrete
+level. Moreover, they are able to show existence/uniqueness results for the
+discrete solution. In order to obtain this
+alternative weak formulation, we want to rewrite the term $\left(\rho\,\vec u_t,
+\vec \xi\right) + \left(\rho\,(\vec u \,.\, \nabla) \vec u,\vec \xi\right)$ in
+(\ref{eq:ns_weaka}) in such a way that certain undesirable terms vanish when
+choosing $\vec \xi = \vec u$. Due to the resulting structure of the equation,
+we will refer to this form as the antisymmetric formulation.
+
+First, we observe that for arbitrary functions $\vec v$,
+$\vec \omega$, $\vec \xi \in [H^1(\Omega)]^d$ it holds that
+\begin{align}\label{eq:tripleterm}
+& [(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi
+ = (\vec v\,.\,\nabla)\,(\vec \omega\,.\,\vec \xi) -
+[(\vec v\,.\,\nabla)\,\vec \xi]\,.\,\vec \omega \nonumber \\
+& \qquad = \tfrac{1}{2}\,(\vec v\,.\,\nabla)\,
+(\vec \omega\,.\,\vec \xi) + \tfrac{1}{2}\,(\vec v\,.\,\nabla)\,
+(\vec \omega\,.\,\vec \xi) -\tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec
+\xi] \,.\,\vec \omega -\tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec
+\xi] \,.\,\vec \omega \nonumber \\
+& \qquad = \tfrac{1}{2}\,(\vec v\,.\,\nabla)\, (\vec \omega\,.\,\vec \xi) +
+\tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi -
+\tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec \xi] \,.\,\vec \omega\,.
+\end{align}
+
+Choosing $\vec v = \vec \omega = \vec u$ in (\ref{eq:tripleterm}) and
+substituting it in the convection term $\left(\rho\,(\vec u \,.\, \nabla)
+\vec u,\vec \xi\right)$, we obtain
+\begin{equation}\label{eq:ns_advect_tripleterm}
+( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi) =
+\tfrac{1}{2}(\rho,(\vec u\,.\,\nabla)(\vec u\,.\,\vec \xi))
++ \tfrac{1}{2}(\rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi)
+-\tfrac{1}{2}(\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u)\,.
+\end{equation}
+
+Then we have for any $\vec v \in [H^1(\Omega)]^d$ and
+$\phi\in W_0^{1,\frac{3}{2}}(\Omega)$ that
+\begin{align}\label{eq:ibp0}
+( \rho,(\vec v \,.\,\nabla)\,\phi) & = (\rho, \nabla\,.\,(\phi\,\vec v))
+- (\rho\,(\nabla\,.\,\vec v), \phi) \nonumber \\ & =
+- \left\langle [\rho]_-^+\,\vec v\,.\,\vec \nu,
+  \phi \right\rangle_{\Gamma(t)}
+- (\rho\,(\nabla\,.\,\vec v), \phi)\,.
+\end{align}
+Here we notice that (\ref{eq:ibp0}) is well defined. Indeed, $\phi\in
+W_0^{1,\frac{3}{2}}(\Omega)$ implies that its trace is in
+$L^{\frac{3}{2}}(\partial\Omega)$. Moreover, given that
+$\vec v \in [H^1(\Omega)]^d$, it holds that $\vec v\,.\,\vec\nu \in
+H^{\frac{1}{2}}(\partial\Omega)$, which implies, thanks to the continuous
+embedding theorems \cite[Theorem~6.5 and 6.7]{DINEZZA2012}, that $\vec
+v\,.\,\vec\nu \in L^4(\partial\Omega)$. But we know, using the
+H\"{o}lder inequality, that the term $\left\langle [\rho]_-^+\,\vec v\,.\,
+\vec \nu, \phi \right\rangle_{\Gamma(t)}$ is well defined if
+$\vec v\,.\,\vec\nu$ is at least in $L^3(\partial\Omega)$, which is indeed the
+case.
+
+Moreover, if $\vec u\in [H^1(\Omega)]^d$ and $\vec \xi \in \uspace{0}$ then
+$\vec u\,.\,\vec\xi \in W_0^{1,\frac{3}{2}}(\Omega)$. Indeed, $H^1(\Omega)$ is
+compactly embedded in $L^6(\Omega)$, for $d=2$ or $d=3$. By the
+generalized H\"{o}lder inequality we know that $(\nabla h)\,\omega\in
+[L^{\frac{3}{2}}(\Omega)]^d$ if $h\in H^1(\Omega)$ and $\omega\in L^6(\Omega)$.
+Therefore $\nabla\,(\vec u\,.\,\vec \xi)\in [L^{\frac{3}{2}}(\Omega)]^d$,
+which implies
+$\vec u\,.\,\vec \xi \in W_0^{1,\frac{3}{2}}(\Omega)$. Hence, it follows from
+taking $\phi = \vec u\,.\,\vec\xi$ and $\vec v = \vec u$ in (\ref{eq:ibp0}) and
+applying it to the first term on the right-hand side of
+(\ref{eq:ns_advect_tripleterm}) that
+\begin{align}\label{eq:fulladvect}
+( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi) = &
+-\tfrac{1}{2}\langle [\rho]_-^+\vec u\,.\,\vec \nu, \vec u\,.\,\vec \xi
+\rangle_{\Gamma(t)}
+-\tfrac{1}{2}(\rho\,(\nabla\,.\,\vec u ),\vec u\,.\,\vec\xi) \nonumber \\
+& \qquad +\tfrac{1}{2}(\rho\,(\vec u\,.\,\nabla)\,\vec u, \vec \xi)
+-\tfrac{1}{2}(\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u)
+\quad \forall\ \vec \xi \in \uspace 0\,,
+\end{align}
+and, using the incompressibility condition (\ref{eq:ns_full_mass}), we obtain
+\begin{align}\label{eq:advect}
+( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi)
+= & \tfrac{1}{2} [ (\rho\,(\vec u\,.\,\nabla)\,\vec u, \vec \xi) -
+(\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u) \nonumber \\
+& \qquad -\langle [\rho]_-^+\vec u\,.\,\vec \nu, \vec u\,.\,\vec \xi
+\rangle_{\Gamma(t)}] \quad \forall\ \vec \xi \in \uspace 0\,.
+\end{align}
+
+Next, we recall the Reynolds transport theorem
+\begin{equation}\label{eq:reynolds_theorem}
+\ddt \int_{\Omega(t)} h\dL{d}=\int_{\Omega(t)} h_t \dL{d} +
+\int_{\Omega(t)} \nabla\,.\,\left(h\,\W\right)\dL{d}\,,
+\end{equation}
+where $\Omega(t)$ is a moving domain with velocity $\W$ and $h:\R^d\to\R$ is a
+continuously differentiable function, see \cite{Aris89}. Then we can use
+(\ref{eq:reynolds_theorem}) together with (\ref{eq:ns_full_velocity}), to
+rewrite the time derivative term $(\rho\,\vec u_t,\vec \xi)$ and obtain
+\begin{align}\label{eq:rhot1}
+\ddt(\rho \,\vec u, \vec \xi) & =
+\ddt\left(\rho_+\,\int_{\Omega_+(t)} \vec u \,.\,\vec \xi \dL{d}
++ \rho_-\,\int_{\Omega_-(t)} \vec u\,.\,\vec \xi \dL{d}  \right) \nonumber \\
+& =  (\rho\,\vec u_t, \vec \xi)
+-\left\langle [\rho]_-^+\,\V\,.\,\vec\nu, \vec u \,.\,\vec \xi
+\right\rangle_{\Gamma(t)} \nonumber \\
+&= (\rho\,\vec u_t, \vec \xi)- \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
+\vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
+\quad \forall \vec \xi \in \uspace 0\,.
+\end{align}
+Therefore, it follows from (\ref{eq:rhot1}) that
+\begin{equation*}
+(\rho\,\vec u_t, \vec \xi) =
+\tfrac{1}{2} \left[
+\ddt (\rho\,\vec u,\vec \xi) + (\rho\,\vec u_t, \vec \xi)
++ \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
+\vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
+\right]
+\quad \forall\ \vec \xi \in \uspace 0\,,
+\end{equation*}
+which on combining with (\ref{eq:advect}) yields that
+\begin{align} \label{eq:rhot3}
+& (\rho\,[\vec u_t + (\vec u\,.\,\nabla)\,\vec u], \vec \xi) \nonumber \\
+& = \tfrac{1}{2}\bigg[ \ddt (\rho\,\vec u, \vec \xi)
++ (\rho\,\vec u_t, \vec \xi) + (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
+- [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u) \bigg]
+\quad \forall \vec \xi \in \uspace 0\,.
+\end{align}
+
+Hence, the antisymmetric weak formulation of (\ref{eq:ns_full_momentum}--i) is
+given as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for
+almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
+\uspace g \times \pnormspace \times H^1(\Gamma(t))}$ such that
+\begin{subequations}
+\begin{align}
+& \tfrac{1}{2}\bigg[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
++ (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
+- [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u)\bigg] \nonumber \\
+& \qquad +2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
+- \left(p, \nabla\,.\,\vec \xi\right)\nonumber \\
+& \qquad - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi
+\right\rangle_{\Gamma(t)}
+= \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace 0 \,,
+\label{eq:ns_weaka_antisym}\\
+& \left(\nabla\,.\,\vec u, \varphi\right) = 0
+\quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb_antisym} \\
+&  \left\langle \V
+- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc_antisym} \\
+& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:ns_weakd_antisym}
+\end{align}
+\end{subequations}
+holds for almost all times $t \in (0,T]$.
+
 \section{Exact solutions}\label{sec:ns_exact_solutions}
 Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$ be a sphere of radius
 $r(t)$ and curvature $\varkappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
