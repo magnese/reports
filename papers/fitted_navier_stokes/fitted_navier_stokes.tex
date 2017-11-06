@@ -495,6 +495,257 @@ almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 \end{subequations}
 holds for almost all times $t \in (0,T]$.
 
+\section{Antisymmetric finite element approximation}\label{sec:ns_fem_antisym}
+In order to have a consistent finite element approximation, we consider
+the partitioning $t_m =m\,\tau$, $m=0,\ldots, M$, of $[0,T]$ into uniform time
+steps $\tau=\frac{T}{M}$, see \cite{fluidfbp}. The uniform time step size is
+needed to ensure that the discrete time derivative approximation is consistent.
+Moreover, let ${\cal T}^m$, $\forall m\ge 0$, be a regular partitioning of the
+domain $\Omega$ into disjoint open simplices $\sigmaO^m_j$, $j = 1 ,\ldots,
+J^m_\Omega$. From now on, the domain $\Omega$ which we consider is the
+polyhedral domain defined by the triangulation ${\cal T}^m$. On ${\cal T}^m$ we
+define the finite element spaces
+\begin{equation*}
+S^m_k := \{\chi \in C(\overline{\Omega}) : \chi\!\mid_{\sigmaO^m}
+\in \mathcal{P}_k(\sigmaO^m) \ \forall\ \sigmaO^m \in {\cal T}^m\}\,,
+\quad k \in \mathbb{N}\,,
+\end{equation*}
+where $\mathcal{P}_k(\sigmaO^m)$ denotes the space of polynomials of degree $k$
+on $\sigmaO^m$. Moreover, $S^m_0$ is the space of piecewise constant functions
+on ${\cal T}^m$ and let $\vec I^m_k$ be the standard interpolation operator
+onto $[S^m_k]^d$.
+
+Let $\uspacedisc{g}{m}\subset\uspacesimple(\vec I_k^m\vec g)$ and
+$\pspace^m\subset\pspace$ be the finite element spaces we use for the
+approximation of velocity and pressure, and let $\pnormspace^m:= \pspace^m \cap
+\pnormspace$. The spaces $(\uspacedisc{0}{m},\pspace^m)$ satisfy the LBB
+inf-sup condition if there exists a constant $C_0 \in \R_{>0}$, independent of
+$\mathcal{T}^m$, such that
+\begin{equation} \label{eq:LBB}
+\inf_{\varphi \in \pnormspace^m} \sup_{\vec \xi \in \uspacedisc{0}{m}}
+\frac{( \varphi, \nabla \,.\,\vec \xi)} {\|\varphi\|_0\,\|\vec \xi\|_1}
+\geq C_0 > 0\,,
+\end{equation}
+see \cite[p.~114]{GiraultR86}. Here $\|\cdot\|_0 := (\cdot,\cdot)^\frac12$ and
+$\|\cdot\|_1 := \|\cdot\|_0 + \|\nabla\,\cdot\|_0$ denote the $L^2$--norm and
+the $H^1$--norm on $\Omega$, respectively. Throughout this paper, if not
+otherwise stated, we will assume that $\charfcn{\Omega^m_-}\in\pspace^m$. Then,
+for $d=2$, possible pairs $(\uspacedisc{0}{m},\pspace^m)$ that satisfy
+(\ref{eq:LBB}) are P2--P0 and P2--(P1+P0), i.e. we set
+$\uspacedisc{0}{m}=[S^m_2]^d\cap\uspace{0}$ and either $\pspace^m = S^m_0$ or
+$S^m_1+S^m_0$. We note that the choice P2--(P1+P0) requires the weak constraint
+that all simplices have a vertex in $\Omega$, see \cite{BoffiCGG12}. For $d=3$,
+pairs of spaces that satisfy $\charfcn{\Omega^m_-}\in\pspace^m$ and
+(\ref{eq:LBB}) are the P3--(P2+P0) element, see \cite{BoffiCGG12}, or stabilized
+spaces such as P1$^{\mbox{\footnotesize face bubble}}$--P0, see
+\cite[Remark~8.7.1]{BoffiBF13}, which is also called the SMALL element. With a
+view towards our numerical simulations, we also introduce the pairs P2--\pdg,
+where the space \pdg is a space of polynomials of order 1 defined in the two
+subdomains $\Omega_-^m$ and $\Omega_+^m$. This space is equivalent to a P1 space
+which is continuous everywhere except across the interface $\Gamma^m$. With this
+choice of space, the discrete scheme falls in the category of XFEM, extended
+FEM, since the pressure space is enriched by adding additional degrees of
+freedom for the nodes on the interface in order to better capture the
+discontinuity of the pressure.
+
+We consider a fitted finite element approximation for the evolution of the
+interface $\Gamma(t)$. Let $\Gamma^m\subset\R^d$ be a $(d-1)$-dimensional
+polyhedral surface approximating the closed surface $\Gamma(t_m)$, $m=0
+,\ldots, M$. Let $\Omega^m_+$ denote the exterior of $\Gamma^m$ and let
+$\Omega^m_-$ be the interior of $\Gamma^m$, where we assume that $\Gamma^m$ has
+no self-intersections. Then $\Omega = \Omega_-^m \cup \Gamma^m \cup
+\Omega_+^m$, and the fitted nature of
+our method implies that
+\begin{equation*}
+\overline{\Omega^m_+} = \bigcup_{o \in \mathcal{T}^m_+} \overline{o}
+\quad\text{and}\quad
+\overline{\Omega^m_-} = \bigcup_{o \in \mathcal{T}^m_-} \overline{o} \,,
+\end{equation*}
+where $\mathcal{T}^m = \mathcal{T}^m_+ \cup \mathcal{T}^m_-$ and
+$\mathcal{T}^m_+ \cap \mathcal{T}^m_- = \emptyset$. Let $\vec \nu^m$ denote the
+piecewise constant unit normal to $\Gamma^m$ such that $\vec\nu^m$ points into
+$\Omega^m_+$.
+
+In order to define the parametric finite element spaces on $\Gamma^m$, we
+assume that $\Gamma^m=\bigcup_{j=1}^{J_\Gamma} \overline{\sigma^m_j}$, where
+$\{\sigma^m_j\}_{j=1}^{J_\Gamma}$ is a family of mutually disjoint open
+$(d-1)$-simplices with vertices $\{\vec q^m_k\}_{k=1}^{K_\Gamma}$. Then
+we define $\Vh := \{\vec\chi \in [C(\Gamma^m)]^d:\vec\chi\!\mid_{\sigma^m_j}
+\in \mathcal{P}_1(\sigma^m_j), j=1,\ldots, J_\Gamma\} =: [\Wh]^d$, where $\Wh
+\subset H^1(\Gamma^m)$ is the space of scalar continuous piecewise linear
+functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K_\Gamma}$ denoting the
+standard basis of $\Wh$. As usual, we parametrize the new surface
+$\Gamma^{m+1}$ over $\Gamma^m$ using a parametrization $\vec X^{m+1} \in \Vh$,
+so that $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Moreover, let
+$\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ be the mass lumped inner product on
+$\Gamma^m$ defined as
+\begin{equation} \label{eq:masslump}
+\left\langle v, w \right\rangle^h_{\Gamma^m} :=
+\tfrac1d \sum_{j=1}^{J_\Gamma} \surfvol(\sigma^m_j)\,
+\sum_{k=1}^d (v\,w)((\vec q^m_{j_k})^-),
+\end{equation}
+where $\{\vec q^m_{j_k}\}_{k=1}^d$ are the vertices of $\sigma^m_j$, and
+where we define the limit $v((\vec q^m_{j_k})^-)
+:= \underset{\sigma^m_j\ni \vec p\to \vec q^m_{j_k}}{\lim}\, v(\vec p)$. We
+naturally extend (\ref{eq:masslump}) to vector valued functions. Finally, let
+$\langle\cdot,\cdot\rangle_{\Gamma^m}$ denote the standard $L^2$--inner product
+on $\Gamma^m$.
+
+We need to pay particular attention to the discretization of the time
+derivative in (\ref{eq:ns_weaka_antisym}). Indeed, for the discrete counterpart
+of $\tfrac{1}{2} \ddt (\rho\,\vec u, \vec \xi)$ we use
+\begin{equation}\label{eq:antysim_time_derivative_a}
+\frac{1}{2}\left(\frac{\rho^m\,\vec U^{m+1} - I^m_0\,\rho^{m-1}
+\vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\,,
+\end{equation}
+while for the discrete version of $\tfrac{1}{2}(\rho\,\vec u_t, \vec \xi)$
+we employ
+\begin{equation}\label{eq:antysim_time_derivative_b}
+\frac{1}{2}\left( I^m_0\,\rho^{m-1}\, \frac{\vec U^{m+1} - \vec I^m_2\,
+\vec U^m}{\tau}, \vec \xi \right)\,.
+\end{equation}
+We notice that in (\ref{eq:antysim_time_derivative_b}), instead of using the
+actual density $\rho^m$, we use the density at the previous time step
+$\rho^{m-1}$ and we interpolate it on the current bulk grid $\Omega_\pm^m$. This
+is needed to prove stability over one time step. Since
+$\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in
+S^m_0$, we can rewrite the discretization of the weak time derivative
+$\tfrac{1}{2}\big[ \ddt (\rho\,\vec u, \vec \xi)+(\rho\,\vec u_t, \vec\xi)\big]$
+in the simpler form
+\begin{equation}
+\left(\frac{\tfrac{1}{2}(I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\,.
+\end{equation}
+
+Then our antisymmetric finite element approximation is given as follows. Let
+$\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in
+\uspacedisc{g}{0}$ be given. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1},
+\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times
+\Vh \times \Wh$ such that
+\begin{subequations}
+\begin{align}
+& \left(\frac{\tfrac{1}{2}(I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
+& \qquad + \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
+\vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
+\vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right)
+\nonumber \\
+& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& \qquad - \gamma\,\left\langle
+\kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
+\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,,\label{eq:ns_HGa_antisym} \\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb_antisym} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:ns_HGc_antisym}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd_antisym}
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Here we have defined
+$\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$, $i=1,2$,
+\begin{equation}
+\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
+\end{equation}
+and
+\begin{equation}
+\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
+\end{equation}
+
+\section{Standard finite element approximation}\label{sec:ns_fem}
+An alternative to the antisymmetric discrete finite element approximation
+(\ref{eq:ns_HGa_antisym}--d) can be obtained by using the standard weak
+formulation (\ref{eq:ns_weaka}--d). We use the same hypothesis and
+definitions employed in \S\ref{sec:ns_fem_antisym}. Then the only difference is
+that we consider the more general partitioning  $0= t_0 < t_1 < \ldots <
+t_{M-1} < t_M = T$ of $[0,T]$ into possibly variable time steps $\tau_m :=
+t_{m+1}-t_m$, $m=0 ,\ldots, M-1$.
+
+Then our explicit standard finite element approximation, which is based on the
+variational formulation (\ref{eq:ns_weaka}--d), is given as follows. Let
+$\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$
+be given. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1},
+\kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
+such that
+\begin{subequations}
+\begin{align}
+& \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
+\xi \right) + \left(\rho^m(\vec I^m_2\vec U^m\,.\,\nabla)\,\vec U^{m+1}\,,
+\,\vec \xi \right)\nonumber \\
+& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& \qquad - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
+\vec\xi\right\rangle_{\Gamma^m}
+= \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
+\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,, \label{eq:ns_HGa} \\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,, \label{eq:ns_HGc}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd}
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Again, we have defined
+$\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$, $i=1,2$,
+\begin{equation}
+\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
+\end{equation}
+and
+\begin{equation}
+\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
+\end{equation}
+
+Since the convective term is treated explicitly, the scheme
+(\ref{eq:ns_HGa}--d) is a linear scheme that leads to a coupled linear system of
+equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})$
+at each time level.
+
+We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) and
+the explicit standard scheme (\ref{eq:ns_HGa}--d)
+only differ in the approximation of the convective term and
+in the employed density coefficients in the time derivative approximation.
+Indeed, instead of using the actual density $\rho^m$, it uses an
+average between the actual density and the interpolation of the density at the
+previous time step $\tfrac{1}{2}(I^m_0\,\rho^{m-1} + \rho^m)$ for what
+concern $\vec U^{m+1}$ and it uses directly the density interpolation
+$I^m_0\,\rho^{m-1}$ for $\vec I^m_2\vec U^m$.
+
+Alternatively, the convective term in (\ref{eq:ns_HGa}) can be treated
+implicitly and the finite element approximation (\ref{eq:ns_HGa}--d) becomes
+\begin{subequations}
+\begin{align}
+& \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
+\xi \right) + \left(\rho^m( \vec U^{m+1}\,.\,\nabla)\,\vec U^{m+1}\,,
+\,\vec \xi \right)\nonumber \\
+& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& \qquad - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
+\vec\xi\right\rangle_{\Gamma^m}
+= \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
+\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,, \label{eq:ns_HGimpa} \\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGimpb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:ns_HGimpc}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh\,. \label{eq:ns_HGimpd}
+\end{align}
+\end{subequations}
+The scheme (\ref{eq:ns_HGimpa}--d) is a nonlinear scheme that leads to a coupled
+nonlinear system of equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec
+X^{m+1}, \kappa^{m+1})$ at each time level.
+
 \section{Exact solutions}\label{sec:ns_exact_solutions}
 Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$ be a sphere of radius
 $r(t)$ and curvature $\varkappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
