@@ -11,8 +11,8 @@ anymore, with the exception of when a full bulk remeshing is performed. This is
 a great advantage of ALE methods compared to non-ALE methods, because the
 interpolation process is expensive in term of CPU time and introduces
 interpolation errors. Moreover, the interpolated velocity is no longer,
-in a discrete weakly sense, divergence-free which could possibly lead 
-to unphysical solutions. 
+in a discrete weakly sense, divergence-free which could possibly lead
+to unphysical solutions.
 %Therefore, we want to investigate if these downsides of non-ALE
 %schemes can be seen in practice.
 
@@ -281,7 +281,7 @@ $\{\chi^h_k(\cdot,t)\}_{k=1}^{K_\Gamma}$ denoting the standard basis of the
 former. Hence $\chi^h_k(\vec q^h_l(t),t) = \delta_{kl}$ for all
 $k,l \in \{1,\ldots,K_\Gamma\}$ and $t \in [0,T]$, where
 $\{\vec q^h_k(t)\}_{k=1}^{K_\Gamma}$ are the vertices of $\Gamma^h(t)$. We also
-notice that the the discrete interface velocity $\V^h$, see
+notice that the discrete interface velocity $\V^h$, see
 (\ref{eq:Vsemidisc}), is simply the trace of $\W^h$ on $\Gamma^h$. Finally, let
 $\langle\cdot,\cdot\rangle_{\Gamma^h(t)}^h$ be the mass lumped inner product on
 $\Gamma^h(t)$, see (\ref{eq:masslump}), and let
