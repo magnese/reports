@@ -740,6 +740,446 @@ The scheme (\ref{eq:ns_HGimpa}--d) is a nonlinear scheme that leads to a coupled
 nonlinear system of equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec
 X^{m+1}, \kappa^{m+1})$ at each time level.
 
+\section{ALE mathematical model}\label{sec:ale_model}
+The Arbitrary Lagrangian Eulerian (ALE) method is an alternative technique to
+numerically approximate equations on a moving domain. It was first proposed in
+the papers \cite{Donea83,Hughes81}. In our presentation we follow closely
+\cite{Nobile99,Formaggia04,NobilePhd}. The ALE technique consists in
+reformulating the partial time derivative by expressing it with respect to a
+fixed reference configuration. A special homeomorphic map, called the ALE map,
+associates, at each time $t$, a point in the current computational domain
+$\Omega(t)$ to a point in the reference domain $\D$. Therefore, the system of
+ODEs resulting after space discretization actually describes the evolution of
+the solution along trajectories that are at all times contained in the
+computational domain.
+
+More precisely, we want to reformulate the two-phase Navier--Stokes system
+(\ref{eq:ns_full_momentum}--i), which is expressed in terms of Eulerian
+coordinates $\vec z\in\Omega(t)$, by rewriting the velocity time derivative
+$\vec u_t$ with respect to the so called ALE coordinate $\vec q \in \D$.
+Analogously to what is done in a front tracking approach to parametrize the
+interface $\Gamma(t)$, we can define the fixed reference manifold $\D$ and
+extend the map $\vec x(\cdot,t)$ to parametrize $\Omega(t)$ as
+$\Omega(t)=\vec x(\D,t)$. This extended map clearly still satisfies $\Gamma(t)
+= \vec x(\Upsilon,t)$, given that $\Upsilon\subset\D$. Moreover, we let
+$\partial\D$ be partitioned as ${\partial\D=\partial_1\D \cup \partial_2\D}$
+with $\partial_1\D \cap \partial_2\D = \emptyset$.
+
+Now, let $h:\Omega(t)\times [0,T]\to \R$ be a function defined on the Eulerian
+frame. The corresponding function on the ALE frame $\hat h$ is defined as
+\begin{equation}\label{eq:h}
+\hat h:\D\times [0,T]\to \R,\quad \hat h(\vec q,t)=h(\vec x(\vec q,t),t).
+\end{equation}
+In order to compute the time derivative of (\ref{eq:h}) with respect to the ALE
+frame, using the chain rule, we have
+\begin{equation}
+\frac{\partial\hat h(\vec q,t)}{\partial t}=\frac{\partial h(\vec x(\vec
+q,t),t)}{\partial t}=\frac{\partial h(\vec z,t)}{\partial t}+\vec x_t(\vec q,t)
+\cdot \nabla h(\vec z,t),
+\end{equation}
+therefore it holds that
+\begin{equation}
+\frac{\partial h(\vec z,t)}{\partial t} =
+\frac{\partial\hat h(\vec q,t)}{\partial t}-
+\vec x_t(\vec q,t) \cdot \nabla h(\vec z,t).
+\end{equation}
+Finally, introducing the domain velocity
+\begin{equation} \label{eq:W}
+\W(\vec z, t) := \vec x_t(\vec q, t) \quad \forall\ \vec z = \vec x(\vec q,t)
+\in \Omega(t)
+\end{equation}
+and the time derivative in the ALE frame
+\begin{equation} \label{eq:ale_derivative}
+\left.\frac{\partial h(\vec z,t)}{\partial t}\right|_{\D}:=
+\frac{\partial\hat h(\vec q,t)}{\partial t} \quad
+\forall\ \vec z = \vec x(\vec q,t) \in \Omega(t)\,,
+\end{equation}
+we obtain
+\begin{equation}\label{eq:ale_dt}
+h_t =\left.h_t\right|_{\D} -\vec{\mathcal{W}} \cdot \nabla h.
+\end{equation}
+The identity (\ref{eq:ale_dt}) is naturally extended to vector valued functions.
+We stress the fact that the domain velocity $\W$ for the interface points is
+consistent with the interface velocity $\V$. Therefore it holds
+\begin{equation}
+\left.\W \right|_{\Gamma(t)}=\V\,.
+\end{equation}
+We also point out that the ALE mapping is somehow arbitrary, apart from the
+requirement of conforming to the evolution of the domain boundary. Indeed the
+map of the boundary $\partial_i \D$ of the reference domain has then to
+provide, at all $t$, the boundary $\partial_i \Omega(t)$ of the current
+configuration, with $i=1,\,2$.
+
+Using (\ref{eq:ale_dt}) in the momentum equation (\ref{eq:ns_full_momentum}),
+we can rewrite
+(\ref{eq:ns_full_momentum}--i) in the ALE frame as:
+\begin{subequations}
+\begin{alignat}{2}
+\rho\,(\left.\vec u_t\right|_{\D} +((\vec u - \W)\,.\, \nabla) \vec u)\, && &
+\nonumber \\
+ -2 \mu\,\nabla\,.\,\mat D(\vec u)+ \nabla\,p & = \vec f
+\quad &&\mbox{in } \Omega_\pm(t)\,, \label{eq:ns_full_momentum_ale} \\
+\nabla\,.\,\vec u & = 0 \quad &&\mbox{in } \Omega_\pm(t)\,,
+\label{eq:ns_full_mass_ale} \\
+\vec u & = \vec g \quad &&\mbox{on } \partial_1\Omega(t)\,,
+\label{eq:ns_full_dirichlet_ale} \\
+\vec u \,.\,\unitn = 0 \,,\quad \mat\sigma\,\unitn\,.\,\unitt & = 0
+\quad\forall \unitt \in \{\unitn\}^\perp \quad && \mbox{on }
+\partial_2\Omega(t)\,, \label{eq:ns_full_freeslip_ale}\\
+[\vec u]_-^+ & = \vec 0 \quad &&\mbox{on } \Gamma(t)\,,
+\label{eq:ns_full_jump_velocity_ale} \\
+[2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+
+& = -\gamma\,\varkappa\,\vec\nu
+\quad &&\mbox{on } \Gamma(t)\,, \label{eq:ns_full_jump_stress_ale} \\
+(\V-\vec u)\,.\,\vec \nu & = 0
+\quad &&\mbox{on } \Gamma(t)\,,\label{eq:ns_full_velocity_ale}  \\
+\Gamma(0) & = \Gamma_0 \,,\label{eq:ns_full_initial_interface_ale} \\
+\vec u(0) & = \vec u_0 \,.\label{eq:ns_full_initial_velocity_ale}
+\end{alignat}
+\end{subequations}
+We can notice that, with respect to the original formulation, there is a
+convective-type term due to the domain movement and the time derivative is
+computed in the fixed reference frame $\D$. Moreover, contrary to the original
+system, not only the regions $\Omega_\pm(t)$ are time dependent but also the
+whole domain $\Omega(t)$ is time dependent.
+
+Obviously, if the domain is fixed, the additional convective term is zero
+and the time derivative in the ALE frame coincides with the usual time
+derivative in the Eulerian frame. This means that $\W=\vec 0$ corresponds to a
+pure Eulerian method, while $\W=\vec u$ corresponds to a fully Lagrangian
+scheme. In our case, since we have a fixed domain $\Omega$, the ALE formulation
+might not seem very useful. But, at the discrete level, we are concerned with
+the evolution of the discrete triangulated domains. Therefore the discrete ALE
+map describes the evolution of the grid during the domain movement. It is
+indeed at the discrete level that the advantage of the ALE formulation emerges,
+as in an ALE setting the time advancing scheme provides directly the evolution
+of the unknowns at mesh nodes and thus that of the degrees of freedom of the
+discrete solutions.
+
+\section{ALE weak formulation}\label{sec:ale_weak}
+In order to define the ALE weak formulation, we need to use a different
+functional setting for the test functions with respect to the one used for the
+standard and antisymmetric weak formulation. The reason is that here it
+needs to be defined on the moving domain $\Omega(t)$. Therefore we introduce
+the admissible spaces of test functions on the reference domain $\D$
+\begin{align*}
+\uspaceref b &:= \{\vec \phi\in[H^1(\D)]^d:
+\vec \phi =\vec b\quad \mbox{on }\partial_1\D\,,
+\quad \vec \phi\,.\,\unitn=0 \quad \mbox{on }\partial_2\D\}\,,\\
+\pspaceref &:= L^2(\D)\,,\\
+\pnormspaceref &:= \{\eta\in\pspaceref : \int_\D\eta\dL{d}=0 \}\,,
+\end{align*}
+for a given $\vec b \in [H^1(\D)]^d$. Then, using the ALE mapping, we can
+define the admissible spaces of test functions on the moving domain $\Omega(t)$
+by setting
+\begin{align*}
+\uspaceale b &:= \{ \vec\phi:
+\bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R^d,\quad
+\vec \phi=\vec{\hat\phi}\circ\vec x^{\,-1},\quad\vec{\hat\phi}
+\in\uspaceref b\}\,,\\
+\pspaceale &:= \{ \eta:
+\bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad
+\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta\in\pspaceref \}\,,\\
+\pnormspaceale &:= \{ \eta:
+\bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad
+\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta\in\pnormspaceref \}\,.
+\end{align*}
+Note that all the functions in $\uspaceref b$, $\pspaceref$ and
+$\pnormspaceref$ are space and time dependent.
+
+Hence, the ALE weak formulation of (\ref{eq:ns_full_momentum_ale}--i)
+is given as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$,
+find $(\Gamma(t))_{t\in[0,T]}$ and $(\vec u, p, \varkappa)\in \uspaceale g
+\times \pnormspaceale \times H^1(\bigcup_{t\in[0,T]} \Gamma(t) \times \{t\})$
+such that
+\begin{subequations}
+\begin{align}
+& \left(\rho\,\left.\vec u_t\right|_{\D}, \vec \xi\right)_{\Omega(t)} +
+\left(\rho\,((\vec u - \W)\,.\, \nabla )\vec u,\vec \xi\right)_{\Omega(t)}
++ 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)_{\Omega(t)} \nonumber \\
+& \qquad - \left(p, \nabla\,.\,\vec \xi\right)_{\Omega(t)}
+- \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
+= \left(\vec f, \vec \xi\right)_{\Omega(t)}\quad \forall\ \vec\xi \in
+\uspaceale 0 \,, \label{eq:ns_weaka_ale}\\
+& \left(\nabla\,.\,\vec u, \varphi\right)_{\Omega(t)} = 0
+\quad \forall\ \varphi \in \pnormspaceale\,, \label{eq:ns_weakb_ale} \\
+&  \left\langle \V
+- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
+\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc_ale} \\
+& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
++ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
+= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:ns_weakd_ale}
+\end{align}
+\end{subequations}
+holds for almost all times $t \in (0,T]$.
+
+\section{ALE semidiscrete finite element approximation}\label{sec:ale_semi_fem}
+We want to derive a semidiscrete continuous-in-time fitted finite element
+approximation of (\ref{eq:ns_weaka_ale}--d). Let ${\cal T}^h$ be a regular
+partitioning of the reference domain $\D$ into disjoint open simplices
+$\sigmaO^h_j$, $j = 1 ,\ldots, J^h_\D$. From now on, the reference domain $\D$,
+which we consider, is the polyhedral domain defined by the triangulation
+${\cal T}^h$. On ${\cal T}^h$ we define the finite element spaces
+\begin{equation*}
+S^h_k := \{\chi \in C(\overline{\D}) : \chi\!\mid_{\sigmaO^h}
+\in \mathcal{P}_k(\sigmaO^h) \ \forall\ \sigmaO^h \in {\cal T}^h\}\,,
+\quad k \in \mathbb{N}\,,
+\end{equation*}
+where $\mathcal{P}_k(\sigmaO^h)$ denotes the space of polynomials of degree $k$
+on $\sigmaO^h$. Moreover, $S^h_0$ is the space of piecewise constant
+functions on ${\cal T}^h$. For later use, we also define $\vec I^h_k$ to be
+the standard interpolation operator onto $[S^h_k]^d$.
+
+Then, using the ALE mapping, we can define the finite element spaces on
+the discretized moving domain $\Omega^h(t)$ by
+\begin{align*}
+\uspacesemidiscale{g}{h}{t} &:= \{ \vec\phi:
+\Omega^h(t) \to \R^d,\quad
+\vec \phi=\vec{\hat\phi}\circ\vec x_h^{\,-1},\quad\vec{\hat\phi}
+\in\uspacesemidiscref{g}{h}\}\,,\\
+\pnormspaceale^h(t) &:= \{ \eta: \Omega^h(t)\to \R,\quad
+\eta=\hat\eta\circ\vec x_h^{\,-1},\quad\hat\eta\in\pnormspaceref^h \}\,,
+\end{align*}
+where $\Omega^h(t)=\vec x_h(\D,t)$ and $\vec x_h$ is the discrete ALE mapping
+discretized spatially using piecewise linear elements. Thus
+$\vec x_h\in [S^h_1]^d$ and each simplex with straight faces in ${\cal T}^h$ is
+transformed into a simplex with straight faces belonging to the
+triangulation $\mathfrak{T}^h(t)$ of the discretized moving domain
+$\Omega^h(t)$. We also define the discrete domain velocity as
+\begin{equation}
+\W^h(\vec z, t):=
+\sum_{k=1}^{K_\Omega}\left[\ddt\,\vec q^h_k(t)\right] \varphi^h_k(\vec z, t)
+\in [S^h_1]^d\,,
+\end{equation}
+with $\{\varphi^h_k(\cdot,t)\}_{k=1}^{K_\Omega}$ denoting the standard basis of
+$[S^h_1]^d$.
+
+For what concerns the interface, let $(\Gamma^h(t))_{t\in[0,T]}$  be a family of
+$(d-1)$-dimensional polyhedral surfaces approximating the closed surface
+$\Gamma(t)$. Let $\Omega^h_+(t)$ denote the exterior of $\Gamma^h(t)$ and let
+$\Omega^h_-(t)$ be the interior of $\Gamma^h(t)$, where we assume that
+$\Gamma^h(t)$ has no self-intersections. Then $\Omega^h(t) = \Omega_-^h(t) \cup
+\Gamma^h(t) \cup \Omega_+^h(t)$, and the fitted nature of our method implies
+that
+\begin{equation} \label{eq:fittedO_ale}
+\overline{\Omega^h_+(t)} = \bigcup_{o \in \mathfrak{T}^h_+(t)} \overline{o}
+\quad\text{and}\quad
+\overline{\Omega^h_-(t)} = \bigcup_{o \in \mathfrak{T}^h_-(t)} \overline{o} \,,
+\end{equation}
+where $\mathfrak{T}^h(t) = \mathfrak{T}^h_+(t) \cup \mathfrak{T}^h_-(t)$ and
+$\mathfrak{T}^h_+(t) \cap \mathfrak{T}^h_-(t) = \emptyset$.
+Let $\vec \nu^h(t)$ denote the piecewise constant unit normal to $\Gamma^h(t)$
+such that $\vec\nu^h(t)$ points into $\Omega^h_+(t)$. We also define the
+piecewise linear finite element spaces $\Wht$ and $\Vht$, with
+$\{\chi^h_k(\cdot,t)\}_{k=1}^{K_\Gamma}$ denoting the standard basis of the
+former. Hence $\chi^h_k(\vec q^h_l(t),t) = \delta_{kl}$ for all
+$k,l \in \{1,\ldots,K_\Gamma\}$ and $t \in [0,T]$, where
+$\{\vec q^h_k(t)\}_{k=1}^{K_\Gamma}$ are the vertices of $\Gamma^h(t)$. We also
+notice that the discrete interface velocity $\V^h$ defined as
+\begin{equation}\label{eq:Vsemidisc}
+\V^h(\vec z, t):=
+\sum_{k=1}^{K_\Gamma}\left[\ddt\,\vec q^h_k(t)\right] \chi^h_k(\vec z, t)
+\in \Vht\,,
+\end{equation}
+see e.g. \cite[(3.3)]{tpfs}, is simply the trace of $\W^h$ on $\Gamma^h$.
+
+Then, given $\Gamma^h(0)$ and $\vec U^h(0)\in \uspacesemidiscale{g}{h}{0}$, for
+$t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h(t), P^h(t),
+\V^h(t), \kappa^h(t)) \in \uspacesemidiscale{g}{h}{t} \times \pnormspaceale^h(t)
+\times \Vht \times \Wht$ such that
+\begin{subequations}
+\begin{align}
+& \left(\rho^h\,\left.\vec U^h_t\right|_{\D}, \vec \xi \right)_{\Omega^h(t)} +
+\left(\rho^h((\vec U^h-\W^h)\,.\,\nabla)\,\vec U^h\,,
+\,\vec \xi \right)_{\Omega^h(t)} \nonumber \\
+& \qquad +2\left(\mu^h\,\mat D(\vec U^h), \mat D(\vec \xi) \right)_{\Omega^h(t)}
+- \left(P^h, \nabla\,.\,\vec \xi\right)_{\Omega^h(t)} \nonumber \\
+& \qquad - \gamma\,\left\langle \kappa^h\,\vec\nu^h,
+\vec\xi\right\rangle_{\Gamma^h(t)} =
+\left(\rho^h\,\vec f_1^h+\vec f_2^h, \vec \xi\right)_{\Omega^h(t)}
+\quad \forall\ \vec\xi \in \uspacesemidiscale{0}{h}{t}\,,
+\label{eq:ns_semi_alea}\\
+& \left(\nabla\,.\,\vec U^h, \varphi\right)_{\Omega^h(t)}  = 0
+\quad \forall\ \varphi \in \pnormspaceale^h(t)\,, \label{eq:ns_semi_aleb} \\
+& \left\langle \V^h , \chi\,\vec\nu^h
+\right\rangle_{\Gamma^h(t)}^h - \left\langle \vec U^h, \chi\,\vec\nu^h
+\right\rangle_{\Gamma^h(t)} = 0 \quad \forall\ \chi \in \Wht\,,
+\label{eq:ns_semi_alec} \\
+& \left\langle \kappa^h\,\vec\nu^h, \vec\eta \right\rangle_{\Gamma^h(t)}^h
++ \left\langle \nabs\,\vec\id, \nabs\,\vec \eta \right\rangle_{\Gamma^h(t)} = 0
+\quad \forall\ \vec\eta \in \Vht\,. \label{eq:ns_semi_aled}
+\end{align}
+\end{subequations}
+Here we have defined
+$\vec f_i^h(\cdot) := \vec I^h_2\,\vec f_i(\cdot,t)$, $i=1,2$,
+\begin{equation}
+\mu^h = \mu_+\,\charfcn{\Omega^h_+(t)} + \mu_-\,\charfcn{\Omega^h_-(t)}\in
+S^h_0(t)
+\end{equation}
+and
+\begin{equation}
+\rho^h = \rho_+\,\charfcn{\Omega^h_+(t)} + \rho_-\,\charfcn{\Omega^h_-(t)}\in
+S^h_0(t)\,.
+\end{equation}
+
+The semidiscrete continuous-in-time fitted finite element scheme
+(\ref{eq:ns_semi_alea}--d) is a system of ODEs. Indeed, we can define the
+following matrices and vectors
+\begin{subequations}
+\begin{align}
+& [\vec M^h_\Omega(t)]_{ij} :=
+\left(\left(\rho^h\,\phi_j^{\uspacesimpleale^h}\vec e_q,
+\phi_i^{\uspacesimpleale^h}\,\vec e_r \right)_{\Omega^h(t)}
+\right)_{q,r=1}^d\,, \label{eq:ns_ale_mata}\\
+& [\vec D^h_\Omega\big(t,\vec U^h,\W^h\big)]_{ij} :=
+\left(\left(\rho^h\big(\big(\vec U^h-\W^h\big)\,.\,\nabla\big)
+\phi_j^{\uspacesimpleale^h} \vec e_q, \phi_i^{\uspacesimpleale^h}\,\vec e_r
+\right)_{\Omega^h(t)} \right)_{q,r=1}^d\,,\label{eq:ns_ale_matb}\\
+& [\vec B^h_\Omega(t)]_{ij} :=
+2\left(\left(\mu^h\,\mat D(\phi_j^{\uspacesimpleale^h}\vec e_q),
+\mat D(\phi_i^{\uspacesimpleale^h}\,\vec e_r) \right)_{\Omega^h(t)}
+\right)_{q,r=1}^d\,,\label{eq:ns_ale_matc}\\
+& \vec c^h_i(t,\vec f_1^h,\vec f_2^h) := \left( \rho^h\,\vec f_1^h + \vec f_2^h,
+\phi_i^{\uspacesimpleale^h}\right)_{\Omega^h(t)}\,,\label{eq:ns_ale_matd}\\
+&[\vec C^h_\Omega(t)]_{ip} := - \left(
+\left(\nabla\,.\,(\phi_i^{\uspacesimpleale^h}\,\vec e_q), \phi_p^{\pspaceale^h}
+\right)_{\Omega^h(t)} \right)_{q=1}^d,\label{eq:ns_ale_mate}\\
+& [\Nbulk^h(t)]_{il} := \left\langle \phi_i^{\uspacesimpleale^h}, \chi^h_l
+\,\vec\nu^h \right\rangle_{\Gamma^h(t)} \,,\label{eq:ns_ale_matf}\\
+& [\vec N_\Gamma^h(t)]_{kl} := \left\langle \chi^h_l, \chi^h_k\,\vec\nu^h
+\right\rangle_{\Gamma^h(t)}^h \,,\label{eq:ns_ale_matg}\\
+& [\vec A^h_\Gamma(t)]_{kl} := \left\langle \nabs\,\chi^h_l, \nabs\,\chi^h_k
+\right\rangle_{\Gamma^h(t)} \,\vec\id \,,\label{eq:ns_ale_math}
+\end{align}
+\end{subequations}
+where $\{\vec e_q\}_{q=1}^d$ denotes the standard basis in $\R^d$,
+$\{\phi_i^{\uspacesimpleale^h}\}_{i=1}^{K^h_\uspacesimpleale}$ is the basis of
+$\uspacesemidiscale{0}{h}{t}$ and
+$\{\phi_i^{\pspaceale^h}\}_{i=1}^{K^h_\pspaceale}$ is the  basis of
+$\pnormspaceale^h(t)$. Thus (\ref{eq:ns_semi_alea}--d) can be rewritten in
+algebraic form as
+\begin{subequations}
+\begin{align}
+& \vec M^h_\Omega(t)\ddt \vec U + \vec B^h_\Omega(t) \vec U +
+\vec D^h_\Omega\big(t,\vec U^h,\W^h\big)\vec U \nonumber \\
+& \qquad + \vec C^h_\Omega(t) P
+- \gamma \Nbulk^h(t) \kappa = \vec c^h(t,\vec f_1^h,\vec f_2^h)\,,
+\label{eq:ns_ode_alea} \\
+& [\vec C^h_\Omega(t) ]^T \vec U = 0\,, \label{eq:ns_ode_aleb} \\
+& [\vec N_\Gamma^h(t)]^T \ddt \vec X - \Nbulk^h(t)\vec U = 0\,,
+\label{eq:ns_ode_alec} \\
+& \vec N_\Gamma^h(t) \kappa + \vec A^h_\Gamma(t)\vec X = 0\,,
+\label{eq:ns_ode_aled}
+\end{align}
+\end{subequations}
+where $\vec U$, $P$, $\kappa$ and $\vec X$ are the unknown vectors for the
+velocity, pressure, interface curvature and interface position, respectively.
+
+\section{ALE fully discrete finite element approximation}\label{sec:ale_fem}
+We consider the partitioning  $0= t_0 < t_1 < \ldots < t_{M-1} < t_M = T$ of
+$[0,T]$ into possibly variable time steps $\tau_m := t_{m+1}-t_m$, $m=0, \ldots,
+M-1$. It is now straightforward to obtain a fully discrete finite element
+approximation of (\ref{eq:ns_ode_alea}--d), since the only missing part is the
+temporal discretization. Therefore, applying a semi-implicit Euler scheme to
+(\ref{eq:ns_ode_alea}--d), we obtain
+\begin{subequations}
+\begin{align}
+& \frac{1}{\tau_m}\vec M^h_\Omega(t^{m+1})\vec U^{m+1} +
+\vec B^h_\Omega(t^m) \vec U^{m+1} +
+\vec D^h_\Omega\big(t^m,\vec U^{m+1},\W^{m+1}\big)\vec U^{m+1} \nonumber \\
+& \qquad + \vec C^h_\Omega(t^m) P^{m+1}
+- \gamma \Nbulk^h(t^m) \kappa^{m+1} \nonumber \\
+& \qquad = \frac{1}{\tau_m} \vec M^h_\Omega(t^{m+1})\vec U^m
++ \vec c^h(t^m,\vec f_1^{m+1},\vec f_2^{m+1})\,,\label{eq:ns_ode_disc_alea} \\
+& [\vec C^h_\Omega(t^m) ]^T \vec U^{m+1} = 0\,,
+\label{eq:ns_ode_disc_aleb} \\
+& \frac{1}{\tau_m}[\vec N_\Gamma^h(t^m)]^T \vec X^{m+1}
+- \Nbulk^h(t^m)\vec U^{m+1} = \frac{1}{\tau_m}[\vec N_\Gamma^h(t^m)]^T
+\vec X^m\,, \label{eq:ns_ode_disc_alec}\\
+& \vec N_\Gamma^h(t^m) \kappa^{m+1} + \vec A^h_\Gamma(t^m)\vec X^{m+1}
+ = 0\,. \label{eq:ns_ode_disc_aled}
+\end{align}
+\end{subequations}
+We notice that there is a small abuse of notation in (\ref{eq:ns_ode_disc_alea})
+for $\vec U^{m+1}$ and $\W^{m+1}$ in the term $\vec D^h_\Omega\big(t^{m},\vec
+U^{m+1},\W^{m+1}\big)$. Indeed only for this term, they denote the discrete
+fluid velocity and the discrete bulk domain velocity, respectively, and not
+their associated vectors of degree of freedoms. Moreover, let
+$\Omega^m=\vec x^m(\D)$ be an approximation of the domain $\Omega(t_m)$, $m=0
+,\ldots, M$, where $\vec x^m$ is the discrete ALE mapping discretized using
+piecewise linear elements, and let $h^m$ be an approximation of
+$h:\Omega(t)\times[0,T]\to\R$. Clearly, $h^m$ is defined on the domain
+$\Omega^m$; nevertheless it can be transported on any other configuration
+$\Omega^s$, with $t^s\neq t^m$, using the mapping $\vec x(\cdot,t^s)\circ{\vec
+x}^{-1}(\cdot,t^m)$. To lighten the notation, whenever we need to integrate
+$h^s$ on a domain $\Omega^m$ we will write simply
+\begin{equation*}
+\int_{\Omega^m} h^s \dL d
+\end{equation*}
+instead of
+\begin{equation*}
+\int_{\Omega^m} h^s\circ \vec x(\cdot,t^s)\circ{\vec x}^{-1}(\cdot,t^m)\dL d\,.
+\end{equation*}
+The same notation is used for the inner products.
+
+Following \cite{NobilePhd}, we now rewrite (\ref{eq:ns_ale_mata}--h) into a
+form that is common in finite element formulations. More precisely, we can
+substitute (\ref{eq:ns_ale_mata}--h) back into (\ref{eq:ns_ode_disc_alea}--d).
+Firstly, let $\uspacediscale{g}{m}=\uspacesemidiscale{g}{h}{t^m}$ and
+$\pnormspaceale^m=\pnormspaceale^h(t^m)$. Then, our ALE finite element
+approximation, which is based on the variational formulation
+(\ref{eq:ns_weaka_ale}--d), is given as follows. Let $\Gamma^0$, an
+approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
+For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
+\in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh$
+such that
+\begin{subequations}
+\begin{align}
+& \left( \frac{\rho^m}{\tau_m}\,\vec U^{m+1}, \vec \xi \right)_{\Omega^{m+1}}
++ \left(\rho^m( (\vec U^{m+1}- \W^{m+1})\,.\,\nabla)\,\vec U^{m+1}\,,
+\,\vec \xi \right)_{\Omega^m}\nonumber \\
+& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi)
+\right)_{\Omega^m} - \left(P^{m+1}, \nabla\,.\,\vec \xi\right)_{\Omega^m}
+- \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m , \vec\xi\right\rangle_{\Gamma^m}
+\nonumber \\
+& \qquad=  \left(\frac{\rho^m}{\tau_m}\,\vec U^m,\vec \xi \right)_{\Omega^{m+1}}
++ \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)_{\Omega^m}
+\quad \forall\ \vec\xi \in \uspacediscale{0}{m}\,, \label{eq:ale_HGa} \\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)_{\Omega^m}  = 0
+\quad \forall\ \varphi \in \pnormspaceale^m\,,\label{eq:ale_HGb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:ale_HGc}\\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh\,, \label{eq:ale_HGd}
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Again, we have defined
+$\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$, $i=1,2$,
+\begin{equation}
+\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
+\end{equation}
+and
+\begin{equation}
+\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
+\end{equation}
+
+It is worth to notice that, at the discrete level, the reference manifold $\D$
+is never used. Instead, it is replaced by the actual discrete bulk domain.
+Therefore, at time step $t^{m+1}$, the reference manifold is $\Omega^m$. We
+also want to stress the fact that the ALE finite element approximation
+(\ref{eq:ale_HGa}--d) differs from all other finite element approximations
+presented previously for the fact that the velocity $\vec U^{m+1}$ is only
+interpolated after a remeshing and not at each time level. Indeed, since the
+ALE formulation describes the evolution of the solution along trajectories, the
+velocity $\vec U^{m+1}$ is defined on the domain $\Omega^{m+1}$. Instead, in
+all the other schemes, the velocity $\vec U^{m+1}$ is always defined on
+the domain $\Omega^m$ and then interpolated on the domain $\Omega^{m+1}$ at
+each time level. Obviously, the velocity $\vec U^{m+1}$ still needs to be
+interpolated when a full bulk remeshing is performed.
+
 \section{Exact solutions}\label{sec:ns_exact_solutions}
 Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$ be a sphere of radius
 $r(t)$ and curvature $\varkappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
@@ -770,64 +1210,6 @@ e.g.\ $\Omega = (-1,1)^d$  with $\vec f(\vec z, t) = \rho\,\alpha^2\,\vec z$,
 $f_{\rm{div}} = \alpha\,d$ and $\vec g = \alpha\,\vec z$ on
 $\partial_1\Omega=\partial\Omega$.
 
-We now verify that (\ref{eq:ns_sol_1_r},b) is indeed an exact solution. Firstly,
-given that
-\begin{equation*}
-\frac{\partial u_i}{\partial z_j}=\alpha\delta_{ij}\,,
-\end{equation*}
-the components of the rate-of-deformation tensor are simply
-\begin{equation*}
-\big[\mat D(\vec u) \big]_{ij} = \frac{1}{2}\bigg(\frac{\partial
-u_i}{\partial z_j} + \frac{\partial u_j}{\partial
-z_i}\bigg)=\alpha\delta_{ij}\,,
-\end{equation*}
-and it holds
-\begin{align*}
-\nabla\,.\,\mat D(\vec u) = \vec 0\,.
-\end{align*}
-Therefore, given that the pressure $p$ is constant in each phase and that
-$\vec u$ does not depend on time, the momentum equation
-(\ref{eq:ns_full_momentum}) reduces simply to
-\begin{align*}
-\rho(\vec u \,.\, \nabla)\vec u=\rho\,\alpha^2\,\vec z
-\end{align*}
-which is indeed the value of forcing term $\vec f$. Also the non
-divergence-free continuity equation (\ref{eq:ns_compressible}) is satisfied
-since we have
-\begin{equation*}
-\nabla\,.\,\vec u=\sum_{j=1}^d\frac{\partial u_j}{\partial z_j} =
-\sum_{j=1}^d\alpha=\alpha d \,,
-\end{equation*}
-which is indeed equal to $f_{\rm{div}}$.
-Moreover, also the stress balance
-(\ref{eq:ns_full_jump_stress}) holds since, substituting
-(\ref{eq:ns_sol_1_up}) in (\ref{eq:ns_full_jump_stress}), we obtain for the
-$i$ component
-\begin{align*}
-& \bigg[\big[2\,\mu \mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu\big]_i\bigg]_-^+ =
-\bigg[2\,\mu \sum_{j=1}^d\frac{\partial u_i}{\partial z_j}\nu_j -
-p\nu_i\bigg]_-^+
-= \bigg[2\,\mu\sum_{j=1}^d\alpha\delta_{ij}\nu_j\bigg]_-^+
--\big[p\nu_i\big]_-^+ \\
-& \qquad = \big[2\,\mu\,\alpha\nu_i\big]_-^+
--\bigg(\gamma -2 \,\alpha \frac{\mu_+ - \mu_-}{d-1}r\bigg)\varkappa\nu_i \\
-& \qquad = 2\,\alpha(\mu_+-\mu_-)\nu_i -\gamma \varkappa \nu_i +
-2\,\alpha\frac{\mu_+ - \mu_-}{d-1}r\frac{1-d}{r}\nu_i \\
-& \qquad = 2\,\alpha(\mu_+-\mu_-)\nu_i -\gamma \varkappa \nu_i -
-2\,\alpha(\mu_+-\mu_-)\nu_i = -\gamma \varkappa \nu_i\,.
-\end{align*}
-Finally, the dynamic interface condition (\ref{eq:ns_full_velocity}) is
-satisfied since the fluid velocity on the interface along the normal direction
-is
-\begin{equation*}
-\vec u\,.\,\vec \nu \!\mid_\Gamma=\alpha\vec z\,.\, \frac{\vec z}{|\vec z\,|} =
-\alpha|\vec z\,|=\alpha r\,,
-\end{equation*}
-while the interface velocity along the normal direction is
-\begin{equation*}
-\V\,.\,\vec \nu=r^\prime=\alpha r\,.
-\end{equation*}
-
 \subsection{Expanding bubble II}\label{sec:exp2}
 A nontrivial divergence free and radially symmetric solution $\vec u$
 can be constructed on a domain that does not contain the origin. To this end,
@@ -849,31 +1231,6 @@ is an exact solution to the problem (\ref{eq:ns_full_momentum}--i) with
 $\vec f(\vec z, t) = \rho\,(1-d)\alpha^2\frac{\vec z}{|\vec z\,|^{2d}}$ and
 $\vec g(\vec z) = \alpha\,|\vec z\,|^{-d}\,\vec z$ on
 $\partial_1\Omega=\partial\Omega$.
-
-We notice that the exact solution (\ref{eq:ns_sol_3_r},b) is identical to the
-expanding bubble solution of the two-phase Stokes problem presented in
-\S\ref{sec:stokes_expanding}. The only change is the forcing term $\vec f$
-which is now inhomogeneous. Therefore, in order to verify that
-(\ref{eq:ns_sol_3_r},b) is indeed an exact solution also to the two-phase
-Navier--Stokes problem, it is sufficient to check that the time derivative plus
-the convective term in the momentum equation (\ref{eq:ns_full_momentum}) add up
-to $\vec f$. Firstly, we compute the $i$ component of the convective term as
-\begin{align*}
-\big[(\vec u \,.\, \nabla)\vec u\big]_i =&
-\sum_{j=1}^d\alpha\frac{z_j}{|\vec z\,|^d}\frac{\partial u_i}{\partial z_j} =
-\sum_{j=1}^d\alpha\frac{z_j}{|\vec z\,|^d}\bigg(\alpha\frac{\delta_{ij}
-- d z_i z_j |\vec z\,|^{-2}}{|\vec z\,|^{d}}\bigg) \\
-=& \frac{\alpha^2}{|\vec z\,|^{2d}} \sum_{j=1}^d \big( \delta_{ij}z_j
-- d z_j^2 z_i |\vec z\,|^{-2}\big) = \frac{\alpha^2}{|\vec z\,|^{2d}}
-(z_i - d z_i) \\
-=& \frac{\alpha^2}{|\vec z\,|^{2d}}(1-d) z_i\,.
-\end{align*}
-Therefore, given that $\vec u$ does not depend on time, we have
-\begin{align*}
-\rho\,(\vec u_t +(\vec u \,.\, \nabla)\vec u)=\rho\,(1-d)\alpha^2
-\frac{\vec z}{|\vec z\,|^{2d}}\,,
-\end{align*}
-which is indeed the value of forcing term $\vec f$.
 
 \section{Non divergence-free scheme modifications}\label{sec:ns_non_div_free}
 An exact solution presented in \S\ref{sec:ns_exact_solutions} is non
@@ -908,7 +1265,15 @@ but, given that
 \left(\,f_{\rm{div}},
 \varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right)\,,
 \end{equation}
-and using (\ref{eq:div_to_line_integral}), we finally obtain
+and using
+\begin{equation}\label{eq:div_to_line_integral}
+\left(\nabla\,.\,\vec U^{m+1}, 1\right)=
+\frac{\left(\varphi,1\right)}{\left(1,1\right)}\, \int_{\partial\Omega}
+\vec U^{m+1}\,.\, \unitn \dH{d-1}=
+\frac{\left(\varphi,1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
+(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1}\,,
+\end{equation}
+we finally obtain
 \begin{equation}\label{eq:LAb_nondivfree}
 \left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
 \left(\,f_{\rm{div}},
@@ -925,7 +1290,7 @@ $f_{\rm{div}}$ is constant, the first term in the right-hand side of
 (\ref{eq:LAb_nondivfree}) is zero since $f_{\rm{div}}$ can be taken out
 from the integral and what remains is simply the mean of a zero-mean function.
 
-Additionally, only for the antisymmetric case,  (\ref{eq:advect}) is no longer
+Additionally, only for the antisymmetric case, (\ref{eq:advect}) is no longer
 valid and we need to use (\ref{eq:fulladvect}) to derive the antisymmetric weak
 formulation. Therefore an additional term $\tfrac{1}{2}(\rho\,f_{\rm{div}}\,\vec
 u,\vec\xi)$ appears in the momentum equation (\ref{eq:ns_weaka_antisym}).
@@ -997,10 +1362,38 @@ with $C_a=20\degree$, is not satisfied. Moreover, we set the GMRES
 tolerance to tol $=10^{-12}$ and the restart value to 50. We use the Stokes
 matrix (\ref{eq:stokes_direct_precond}) or, depending on the pressure space,
 (\ref{eq:stokes_direct_precond_extended}) as a preconditioner factorizing it
-with UMFPACK. Moreover, we use the errors (\ref{eq:errorXx}),
-(\ref{eq:errorLUu}), (\ref{eq:errorHUu}), (\ref{eq:errorPp}) and the estimated
-error of convergence EOC (\ref{eq:eoc}). See \S\ref{sec:errors} for more
-details.
+with UMFPACK.
+
+We define the errors
+\begin{equation} \label{eq:errorXx}
+\errorXx := \max_{m=1,\ldots, M} \|\Gamma^m - \Gamma(t_m)\|_{L^\infty}\,,
+\end{equation}
+where $\|\Gamma^m - \Gamma(t_m)\|_{L^\infty} :=
+\max_{k=1,\ldots, K_\Gamma} {\rm dist}( \vec q^m_k, \Gamma(t_m))$,
+\begin{equation} \label{eq:errorLUu}
+\LerrorUu2 := \left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
+t_m)\|_{L^2(\Omega)}^2 \right]^\frac12,
+\end{equation}
+\begin{equation} \label{eq:errorHUu}
+\HerrorUu2 := \left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
+t_m)\|_{H^1(\Omega)}^2 \right]^\frac12,
+\end{equation}
+and
+\begin{equation} \label{eq:errorPp}
+\LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2
+\right]^\frac12.
+\end{equation}
+In (\ref{eq:errorPp}) we employ a quadrature rule of degree $k$, with $k=13$ in
+2d and $k=10$ in 3d, to compute the $L^2$--norms over $\Omega$.
+
+Moreover, we also define the estimated error of convergence EOC as
+\begin{equation} \label{eq:eoc}
+\mbox{EOC}=\frac{\ln{\frac{\mbox{error}_1}{\mbox{error}_0}}}
+{\ln{\frac{\mbox{h}_1}{\mbox{h}_0}}}\,,
+\end{equation}
+where $\mbox{error}_1$ is the error computed on a triangulation finer that the
+one used to compute $\mbox{error}_0$ while $\mbox{h}_1$ and $\mbox{h}_0$ are the
+respective characteristic lengths.
 
 For later use, we define some benchmark quantities for the continuous
 solution $(\vec u, p, \Gamma)$ of (\ref{eq:ns_full_momentum}--i). Let
@@ -1041,9 +1434,6 @@ parameters $\alpha =0.15$ and
 \begin{equation}
 \rho_+ = \rho_- = \mu_+ = \mu_- = \gamma = 1\,.
 \end{equation}
-% Instead, for the expanding bubble II, we fix $\Omega = (-1,1)^2$ and we choose
-% the parameters $\alpha_1 =$ and $\alpha_2=$, $\rho_+ = \rho_- = \mu_+ = 10
-% \mu_- = \gamma = 1$.
 Instead, for the expanding bubble II, see \S\ref{sec:exp2}, we fix
 $\Omega = (-1,1)^2 \setminus[-\frac13,\frac13]^2$ and we choose the parameters
 $\alpha=0.15$ and
@@ -1077,8 +1467,7 @@ We report on the errors of the expanding bubble I for the P2--P0, P2--\pdg and
 P2--(P1+P0) elements in Tables~\ref{tab:nsexpandingbubbleIp2p0},
 \ref{tab:nsexpandingbubbleIp2p1dg} and \ref{tab:nsexpandingbubbleIp2p1p0},
 respectively. For each element, we compare the explicit, implicit,
-antisymmetric and ALE scheme derived in Chapter \ref{ch:navier_stokes} and
-Chapter \ref{ch:ale}.
+antisymmetric and ALE scheme.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1250,8 +1639,7 @@ We report on the errors of the expanding bubble II for the P2--P0, P2--\pdg and
 P2--(P1+P0) elements in Tables~\ref{tab:nsexpandingbubbleIIp2p0},
 \ref{tab:nsexpandingbubbleIIp2p1dg} and \ref{tab:nsexpandingbubbleIIp2p1p0},
 respectively. Again, for each element, we compare the explicit, implicit,
-antisymmetric and ALE scheme derived in Chapter \ref{ch:navier_stokes} and
-Chapter \ref{ch:ale}.
+antisymmetric and ALE scheme.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1447,14 +1835,11 @@ present because it fails due to mesh element intersections. For what concerns
 the computational time, the ALE scheme greatly outperform the other schemes.
 Since the bulk domain is not convex, the interpolation routine often
 uses a linear search, instead of an optimized local search involving only
-neighbours, to locate bulk elements. Therefore, the
-interpolation routine is very slow and accounts for a substantial share
-of the total simulation time. But the ALE scheme, which has to interpolate
-the velocity
-only when a complete bulk remesh is performed, uses the interpolation routine
-very rarely, which leads to a significant reduction in
-the total simulation time. See \S\ref{sec:ns_velocity_interpolation} for more
-details on the velocity interpolation algorithms.
+neighbours, to locate bulk elements. Therefore, the interpolation routine is
+very slow and accounts for a substantial share of the total simulation time.
+But the ALE scheme, which has to interpolate the velocity only when a complete
+bulk remesh is performed, uses the interpolation routine very rarely, which
+leads to a significant reduction in the total simulation time.
 
 \section{Rising bubble experiments}\label{sec:2d_rising_bubble_results}
 We use the same  setup described in \cite[Figure~2]{HysingTKPBGT09}, which is
@@ -1478,8 +1863,7 @@ Tables~\ref{tab:risingbubbleIp2p0}, \ref{tab:risingbubbleIp2p1dg} and
 \ref{tab:risingbubbleIp2p1p0}, respectively. See
 \S\ref{sec:benchmark_quantities} for the definitions of the various benchmark
 quantities. For each element, we compare the explicit, implicit, antisymmetric
-and ALE scheme derived in Chapter \ref{ch:navier_stokes} and Chapter
-\ref{ch:ale}.
+and ALE scheme.
 \begin{table*}
 \center
 \begin{tabular}{rrrrrr}
@@ -1770,11 +2154,10 @@ see the test case 2 in \cite[Table~I]{HysingTKPBGT09}. We report on
 quantitative results for the rising bubble experiment II for the P2--\pdg and
 P2--(P1+P0) elements in Table~\ref{tab:risingbubbleII}. See
 \S\ref{sec:benchmark_quantities} for the definitions of the various benchmark
-quantities. For each element, we compare the explicit, implicit and ALE scheme
-derived in Chapter \ref{ch:navier_stokes} and Chapter \ref{ch:ale}. We use
-$J_\Gamma=128$ interface elements with $J_\Omega^0=35092$ initial bulk elements.
-The final number of bulk elements, $J_\Omega^M$, for the explicit scheme for
-the P2--(P1+P0) element is 10638.
+quantities. For each element, we compare the explicit, implicit and ALE scheme.
+We use $J_\Gamma=128$ interface elements with $J_\Omega^0=35092$ initial bulk
+elements. The final number of bulk elements, $J_\Omega^M$, for the explicit
+scheme for the P2--(P1+P0) element is 10638.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
