@@ -9,7 +9,7 @@ we define what a free-boundary fluid flow is and we introduce a generic setting
 for the problem; in \S\ref{sec:one_phase_model} we present the one-phase
 Navier--Stokes equations and their physical meaning; in
 \S\ref{sec:two_phase_model} we discuss the two-phase Navier--Stokes case
-and the interface conditions needed for the well possessedness of the problem;
+and the interface conditions needed for the well posedness of the problem;
 in \S\ref{sec:interface_treatment} we briefly overview the different ways to
 treat the unknown interface; in \S\ref{sec:numerical_challenges} we detail
 the various numerical challenges posed by these types of flows; in
@@ -376,7 +376,7 @@ necessary initial, boundary and interface conditions, as
 & = -\gamma\,\varkappa\,\vec\nu \quad &&\mbox{on } \Gamma(t)\,, \\
 (\V-\vec u)\,.\,\vec \nu & = 0 \quad &&\mbox{on } \Gamma(t)\,, \\
 \Gamma(0) & = \Gamma_0 \,, \\
-\rho(0)\,\vec u(0) & = \rho_0\,\vec u_0 \,.
+\vec u(0) & = \vec u_0 \,.
 \end{alignat}
 \end{subequations}
 
@@ -426,9 +426,9 @@ interface.
 Interface tracking approaches, instead, use a Lagrangian description of the
 interface which is described explicitly. The idea is to take a (virtual)
 particle on the interface at time $t=t_0$ with Eulerian coordinates $\vec z(0)
-\in \Gamma_0$. Let $\vec z(t)$ be the Eulerian coordinates of this particle,
-with $t\geq t_0$. The particles on the interface are transported by the flow
-velocity $\vec u$, therefore it holds the equation
+\in \Gamma_0$. Let $\vec z(t)$ be the Eulerian coordinates of this particle at
+time $t$, with $t\geq t_0$. The particles on the interface are transported by
+the flow velocity $\vec u$, therefore it holds the equation
 \begin{equation}
 \frac{\partial \vec z(t)}{\partial t}=\vec u(\vec z(t),t)\,,
 \end{equation}
