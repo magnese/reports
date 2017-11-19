@@ -63,7 +63,7 @@ $\vec u(0) = \vec u_0$. Finally, we impose the Dirichlet condition $\vec u =
 0$ and $\mat\sigma\,\unitn\,.\,\unitt = 0$, $\forall \unitt \in
 \{\unitn\}^\perp$, on $\partial_2 \Omega$, with $\unitn$ denoting the outer
 unit normal of $\partial \Omega$ and $\{\unitn\}^\perp := \{ \unitt \in \R^d :
-\unitt \,.\,\unitn = 0\}$ As usual, it holds that
+\unitt \,.\,\unitn = 0\}$. As usual, it holds that
 $\partial\Omega =\partial_1\Omega \cup \partial_2\Omega$ and $\partial_1\Omega
 \cap \partial_2\Omega = \emptyset$. Therefore the total system of equations
 can be rewritten as follows:
@@ -146,8 +146,7 @@ $p \in \pspace$ is part of a solution to (\ref{eq:ns_full_momentum}--i), then
 so is $p + c$ for an arbitrary $c\in \R$.
 
 An alternative to the weak formulation (\ref{eq:ns_weaka}--d) can be obtained
-following the paper \cite{fluidfbp}. We refer to this alternative formulation
-as antisymmetric weak formulation. The authors show that it is easy to derive
+following the paper \cite{fluidfbp}. The authors show that it is easy to derive
 an energy bound not only on the continuous level but also on the discrete
 level. Moreover, they are able to show existence/uniqueness results for the
 discrete solution. In order to obtain this
@@ -155,7 +154,7 @@ alternative weak formulation, we want to rewrite the term $\left(\rho\,\vec u_t,
 \vec \xi\right) + \left(\rho\,(\vec u \,.\, \nabla) \vec u,\vec \xi\right)$ in
 (\ref{eq:ns_weaka}) in such a way that certain undesirable terms vanish when
 choosing $\vec \xi = \vec u$. Due to the resulting structure of the equation,
-we will refer to this form as the antisymmetric formulation.
+we will refer to this form as the antisymmetric weak formulation.
 
 First, we observe that for arbitrary functions $\vec v$,
 $\vec \omega$, $\vec \xi \in [H^1(\Omega)]^d$ it holds that
@@ -679,7 +678,7 @@ at each time level.
 We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) and
 the explicit standard scheme (\ref{eq:ns_HGa}--d)
 only differ in the approximation of the convective term and
-in the employed density coefficients in the time derivative approximation.
+in the density coefficients used in the time derivative approximation.
 Indeed, instead of using the actual density $\rho^m$, it uses an
 average between the actual density and the interpolation of the density at the
 previous time step $\tfrac{1}{2}(I^m_0\,\rho^{m-1} + \rho^m)$ for what
@@ -870,13 +869,13 @@ But, since the path is continuous, the element of $\mathcal{T}^{m-1}$ where the
 search starts will be always very close to the correct one. Unfortunately,
 since we use unstructured meshes, such a path, in general, is difficult to
 construct. Hence, instead of explicitly constructing such a path, we create a
-fictitious background lattice that covers the domain $\Omega$. Then each element
-of $\mathcal{T}^m$ is assigned the point of the lattice which is closest to its
-barycenter. Depending on the size of the lattice, multiple entities can be
-mapped to the same point. Since the lattice is structured, it is straightforward
-to build a continuous path which visits all its points. For example, for a
-rectangular domain in 2d we can use a snaking path that traverses the lattice
-alternating left-to-right and right-to-left.
+fictitious background lattice that covers the domain $\Omega$. Then, at each
+element of $\mathcal{T}^m$ is assigned the point of the lattice which is
+closest to its barycenter. Depending on the size of the lattice, multiple
+entities can be mapped to the same point. Since the lattice is structured, it
+is straightforward to build a continuous path which visits all its points. For
+example, for a rectangular domain in 2d we can use a snaking path that
+traverses the lattice alternating left-to-right and right-to-left.
 
 In practice, the elements of $\mathcal{T}^m$ are visited following the given
 lattice path. This means that, for each lattice point traversed, the associated
