@@ -725,9 +725,18 @@ analogue of (\ref{eq:conserved}). To see this, choose $\chi = 1$ in
 \ddt \vol(\Omega_-^h(t))  &=
 \left\langle \V^h , \vec\nu^h \right\rangle_{\Gamma^h(t)}
 = \left\langle \V^h , \vec\nu^h \right\rangle^h_{\Gamma^h(t)}
-= \left\langle \vec U^h, \vec\nu^h \right\rangle_{\Gamma^h(t)} \nonumber \\&
-= \int_{\Omega_-^h(t)} \nabla\,.\,\vec U^h \dL{d} =0\,.
+= \left\langle \vec U^h, \vec\nu^h \right\rangle_{\Gamma^h(t)} \nonumber \\
+&= \int_{\Omega_-^h(t)} \nabla\,.\,\vec U^h \dL{d} =
+\left(\nabla\,.\,\vec U^h , \charfcn{\Omega_-^h(t)}\right) \nonumber \\
+&=\left(\nabla\,.\,\vec U^h , \charfcn{\Omega_-^h(t)}\right) -
+\frac{\vol(\Omega_-^h(t))}{\vol(\Omega)}\,\left(\nabla\,.\,\vec U^h , 1 \right)
+= 0\,,
 \end{align}
+given that
+\begin{equation}
+\left(\nabla\,.\,\vec U^h , 1 \right)
+= \int_{\partial\Omega} \vec U^h\,.\,\unitn\dH{d-1} = 0\,.
+\end{equation}
 Hence solution to (\ref{eq:sda}--d) conserve the enclosed volume. Once again,
 the fully discrete scheme (\ref{eq:HGa}--d) inherits this property in the sense
 that in our simulations the volumes are always well maintained, with the
