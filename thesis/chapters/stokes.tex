@@ -1185,10 +1185,9 @@ $\vec\psi \in [H^1(\Omega)]^d$ such that
 \end{subequations}
 where the stress tensor $\mat S$ is defined as
 \begin{equation} \label{eq:elasticity_tensor}
-\mat S = 2\,\mat D(\vec\psi) + (\nabla\,.\vec\psi)\,\mat\id
+\mat S = 2\,\mat D(\vec\psi) + (\nabla\,.\vec\psi)\,\mat\id\,.
 \end{equation}
-and where $\unitn$ in (\ref{eq:elastc}) is the outer unit normal to
-$\Omega$ on $\partial\Omega$. In practice we approximate (\ref{eq:elasta}--c)
+In practice we approximate (\ref{eq:elasta}--c)
 with piecewise linear elements and solve the resulting system of linear
 equations with the UMPFACK package, see \cite{Davis04}. The obtained discrete
 variant of $\vec\psi$, at every vertex of the current bulk grid
@@ -1204,7 +1203,8 @@ for a complete remeshing, we define the volume criterion
 {\min_{\sigmaO\in\mathcal {T}^{m+1}}\vol(\sigmaO)} \geq C_v \geq 1,
 \end{equation}
 where $C_v$ is a fixed constant. Of course, if we choose $C_v = 1$, then a
-remeshing would be triggered after every time step. Obviously, the
+remeshing would be triggered after every time step, while, if we choose $C_v =
+\infty$, then no remeshing would ever be triggered. Obviously, the
 volume criterion (\ref{eq:volume_criterion}) cannot be used for adaptive
 meshes therefore we also define the angle criterion
 \begin{equation}\label{eq:angle_criterion}
@@ -1215,7 +1215,8 @@ where $\measuredangle(\sigmaO)$ is the set of all the angles of the simplex
 $\sigmaO$ which can be computed as $\alpha_{ij}=\cos^{-1}(-\vec n_i\,.\,\vec
 n_j)$, $\forall i,j\in\{0,\dots,d\}$, with $\vec n_i$ the unitary normal to the
 simplex face $i$. Of course, if we chose $C_a=60$\textdegree, then a remeshing
-is triggered after every time step.
+is triggered after every time step, while, if we choose
+$C_a = 0$\textdegree, then no remeshing would ever be triggered.
 
 We stress that in all our numerical simulations we never need to remesh the
 interface $\Gamma^m$ itself. Hence the stability results from
