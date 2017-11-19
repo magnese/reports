@@ -324,7 +324,7 @@ degrees of freedom are not utilized by the pressure approximation.
 {figures/stokes/2d_stationary_bubble_uniform_100.ps}
 \caption[Stokes 2d stationary bubble pressure]
 {($\mu=\gamma=1$) Pressure of the 2d stationary bubble at time $t=1$
-for the P2--P0 element.}
+for the P2--P0 element with $J_\Gamma = 32$ interface elements.}
 \label{fig:2d_stationary_bubble}
 \end{figure}
 
@@ -559,7 +559,8 @@ Figure~\ref{fig:expanding_bubble_uniform}.
 {figures/stokes/expanding_bubble_uniform_remesh_100.ps}}
 \caption[Stokes expanding bubble pressure uniform mesh]
 {($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of
-the 2d expanding bubble for the P2--P0 element, nearly uniform mesh.}
+the 2d expanding bubble for the P2--P0 element, nearly uniform mesh with
+$J_\Gamma = 32$ interface elements and $C_v=1$.}
 \label{fig:expanding_bubble_uniform}
 \end{figure}
 Here we note that the discontinuous jump in the pressure at the interface is
@@ -771,7 +772,8 @@ Figure~\ref{fig:expanding_bubble_adaptive}.
 {figures/stokes/expanding_bubble_adaptive_remesh_100.ps}}
 \caption[Stokes expanding bubble pressure adaptive mesh]
 {($\mu_+ = 10\,\mu_- = \gamma = 1,\alpha = 0.15$) Pressure evolution of
-the 2d expanding bubble for the P2--P0 element, adaptive mesh.}
+the 2d expanding bubble for the P2--P0 element, adaptive mesh with
+$J_\Gamma = 64$ interface elements and $C_a=60$\textdegree.}
 \label{fig:expanding_bubble_adaptive}
 \end{figure}
 
@@ -817,9 +819,8 @@ $\|\vec U^m\|_{L^\infty(\Omega)}$ which, as expected, converges to zero.
 \includegraphics[width=.45\textwidth]
 {figures/stokes/nonuniform_bubble_velocity_32_both.ps}
 \caption[Stokes equidistribution velocity]
-{($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution for a nonuniform
-circle formed by $J_\Gamma = 32$ elements. Here we use the P2--P0 element, and
-let $C_v = 3$.}
+{$\|\vec U^m\|_{L^\infty(\Omega)}$ evolution for the simulation in
+Figure~\ref{fig:nonuniform_bubble_32_both}.}
 \label{fig:nonuniform_bubble_velocity_32_both}
 \end{figure}
 
@@ -855,15 +856,14 @@ evolution of $\|\vec U^m\|_{L^\infty(\Omega)}$ which, again, converges to zero.
 \includegraphics[width=.45\textwidth]
 {figures/stokes/nonuniform_bubble_velocity_64_coarse_smooth.ps}
 \caption[Stokes equidistribution velocity adaptive mesh]
-{($\mu=\gamma=1$) $\|\vec U^m\|_{L^\infty(\Omega)}$ evolution for a nonuniform
-circle formed by $J_\Gamma = 64$ elements and adaptive bulk mesh. Here we use
-the P2--P0 element, and no remeshing.}
+{$\|\vec U^m\|_{L^\infty(\Omega)}$ evolution for the simulation in
+Figure~\ref{fig:nonuniform_bubble_64_adaptive}.}
 \label{fig:nonuniform_bubble_velocity_64_coarse_smooth}
 \end{figure}
 We notice that the evolution of the quantity $\|\vec U^m\|_{L^\infty(\Omega)}$
 is now very smooth respect to the one reported in
-Figure~\ref{fig:nonuniform_bubble_32_both} but this is not surprising since we
-never perform a remesh.
+Figure~\ref{fig:nonuniform_bubble_velocity_32_both} but this is not
+surprising since we never perform a remesh.
 
 \section{Energy decay and area conservation in 2d}\label{sec:stokes_2d_energy}
 In Figure~\ref{fig:ellipse_both} we show the pressure evolution for a
@@ -895,7 +895,8 @@ help of our scheme with one time step of size $\tau=10^{-5}$.
 {figures/stokes/ellipse_both_1000.ps}}
 \caption[Stokes ellipse pressure]
 {($\mu=\gamma=1$) Pressure evolution of an ellipse that evolves towards a
-circle. Here we use the P2--P0 element, and let $C_v = 3$.}
+circle. Here we use the P2--P0 element with $J_\Gamma = 40$ interface
+elements and $C_v = 3$.}
 \label{fig:ellipse_both}
 \end{figure}
 \begin{figure}[htbp]
@@ -914,10 +915,9 @@ the simulation in Figure~\ref{fig:ellipse_both}.}
 
 As a comparison, we show in Figure~\ref{fig:ellipse_smooth} and
 \ref{fig:ellipse_both_volumes_smooth} the same simulation when no remeshings are
-performed, i.e. we use $C_v=\infty$ in (\ref{eq:volume_criterion}). We clearly
-see that due to the strong deformation of the interface, this leads to
-elongated elements in the inner and in the outer phase of the bulk finite
-element mesh.
+performed. We clearly see that due to the strong deformation of the interface,
+this leads to elongated elements in the inner and in the outer phase of the
+bulk finite element mesh.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
@@ -932,7 +932,8 @@ element mesh.
 {figures/stokes/ellipse_smooth_1000.ps}}
 \caption[Stokes ellipse pressure no remeshing]
 {($\mu=\gamma=1$) Pressure evolution of an ellipse that evolves towards a
-circle. Here we use the P2--P0 element, and no remeshing.}
+circle. Here we use the P2--P0 element with $J_\Gamma = 40$ interface
+elements and no remeshing.}
 \label{fig:ellipse_smooth}
 \end{figure}
 \begin{figure}[htbp]
@@ -973,7 +974,8 @@ are visualized in Figure~\ref{fig:shear_2d_velocity}.
 {figures/stokes/2d_shear_500.ps}}
 \caption[Stokes 2d shear flow pressure]
 {($\mu=1,\gamma=3$) Pressure evolution for the 2d shear flow with $C_v=3$ for
-the P2--P0 element, nearly uniform mesh.}
+the P2--P0 element, nearly uniform mesh with $J_\Gamma = 64$ interface
+elements.}
 \label{fig:shear_2d}
 \end{figure}
 \begin{figure}[htbp]
@@ -987,8 +989,7 @@ the P2--P0 element, nearly uniform mesh.}
 \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/2d_shear_velocity_500.ps}}
 \caption[Stokes 2d shear flow velocity]
-{($\mu=1,\gamma=3$) Velocity vector field for the 2d shear flow with $C_v=3$
-for the P2--P0 element, nearly uniform mesh.}
+{Velocity vector field for the simulation in Figure~\ref{fig:shear_2d}.}
 \label{fig:shear_2d_velocity}
 \end{figure}
 
@@ -1085,7 +1086,8 @@ $J_\Gamma = 596$ elements.
 \subfloat[Conformal polyhedral sphere triangulation]
 {\includegraphics[width=.45\textwidth]{figures/stokes/sphere_stationary_596.ps}}
 \caption[Conformal polyhedral sphere triangulation]{Initial triangulation of
-a sphere and conformal polyhedral sphere after surface diffusion.}
+a sphere and conformal polyhedral sphere after surface diffusion, with
+$J_\Gamma = 596$.}
 \label{fig:conformal_sphere}
 \end{figure}
 
@@ -1198,7 +1200,8 @@ are visualized in Figure~\ref{fig:shear_3d_velocity}.
 {figures/stokes/3d_shear_500.ps}}
 \caption[Stokes 3d shear flow interface]
 {($\mu=1,\gamma=3$) Interface evolution for the 3d shear flow with $C_v=3$ for
-the P2--P0 element, nearly uniform mesh.}
+the P2--P0 element, nearly uniform mesh with $J_\Gamma = 596$ interface
+elements.}
 \label{fig:shear_3d}
 \end{figure}
 \begin{figure}[htbp]
@@ -1212,9 +1215,8 @@ the P2--P0 element, nearly uniform mesh.}
 \subfloat[$t=5$]{\includegraphics[width=.45\textwidth]
 {figures/stokes/3d_shear_velocity_500.ps}}
 \caption[Stokes 3d shear flow velocity]
-{($\mu=1,\gamma=3$) Velocity vector field in the plane normal to $(0,1,0)^T$
-and passing through the origin for the 3d shear flow with $C_v=3$ for the
-P2--P0 element, nearly uniform mesh.}
+{Velocity vector field in the plane normal to $(0,1,0)^T$ and passing through
+the origin for the simulation in Figure~\ref{fig:shear_3d}.}
 \label{fig:shear_3d_velocity}
 \end{figure}
 
