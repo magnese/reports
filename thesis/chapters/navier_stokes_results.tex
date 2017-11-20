@@ -17,7 +17,7 @@ simulations and we define the benchmark quantities; in
 \section{Exact solutions}\label{sec:ns_exact_solutions}
 Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$ be a sphere of radius
 $r(t)$ and curvature $\varkappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
-$\alpha,\alpha_1,\alpha_2,\gamma\in \R_{\geq 0}$ be given. Here, we also allow
+$\alpha,\gamma\in \R_{\geq 0}$ be given. Here, we also allow
 non divergence-free problem. Therefore, for the non divergence-free cases, the
 incompressibility condition (\ref{eq:ns_full_mass}) is replaced by
 \begin{equation}\label{eq:ns_compressible}
@@ -102,7 +102,54 @@ while the interface velocity along the normal direction is
 \V\,.\,\vec \nu=r^\prime=\alpha r\,.
 \end{equation*}
 
-% \subsection{Expanding bubble II}
+\subsection{Expanding bubble II}\label{sec:exp2}
+A nontrivial divergence free and radially symmetric solution $\vec u$
+can be constructed on a domain that does not contain the origin. To this end,
+consider e.g.\ $\Omega = (-1,1)^d \setminus [-\frac13, \frac13]^d$. Then, the
+expanding sphere where
+\begin{subequations}
+\begin{equation} \label{eq:ns_sol_2_r}
+r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
+\end{equation}
+together with
+\begin{equation} \label{eq:ns_sol_2_up}
+\vec u(\vec z, t) = \alpha\,\frac{\vec z}{|\vec z\,|^d}\,, \quad
+p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
+{r(t)^{d-1}}\bigg)\,\varkappa(t)\left[ \charfcn{\Omega_-(t)} -
+\frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
+\end{equation}
+\end{subequations}
+is an exact solution to the problem (\ref{eq:ns_full_momentum}--i) with
+$\vec f(\vec z, t) = \rho\,(1-d)\alpha^2\frac{\vec z}{|\vec z\,|^{2d}}$ and
+$\vec g(\vec z) = \alpha\,|\vec z\,|^{-d}\,\vec z$ on
+$\partial_1\Omega=\partial\Omega$.
+
+We notice that the exact solution (\ref{eq:ns_sol_2_r},b) is identical to the
+expanding bubble solution of the two-phase Stokes problem presented in
+\S\ref{sec:stokes_expanding}. The only change is the forcing term $\vec f$
+which is now inhomogeneous. Therefore, in order to verify that
+(\ref{eq:ns_sol_2_r},b) is indeed an exact solution also to the two-phase
+Navier--Stokes problem, it is sufficient to check that the time derivative plus
+the convective term in the momentum equation (\ref{eq:ns_full_momentum}) add up
+to $\vec f$. Firstly, we compute the $i$ component of the convective term as
+\begin{align*}
+\big[(\vec u \,.\, \nabla)\vec u\big]_i =&
+\sum_{j=1}^d\alpha\frac{z_j}{|\vec z\,|^d}\frac{\partial u_i}{\partial z_j} =
+\sum_{j=1}^d\alpha\frac{z_j}{|\vec z\,|^d}\bigg(\alpha\frac{\delta_{ij}
+- d z_i z_j |\vec z\,|^{-2}}{|\vec z\,|^{d}}\bigg) \\
+=& \frac{\alpha^2}{|\vec z\,|^{2d}} \sum_{j=1}^d \big( \delta_{ij}z_j
+- d z_j^2 z_i |\vec z\,|^{-2}\big) = \frac{\alpha^2}{|\vec z\,|^{2d}}
+(z_i - d z_i) \\
+=& \frac{\alpha^2}{|\vec z\,|^{2d}}(1-d) z_i\,.
+\end{align*}
+Therefore, given that $\vec u$ does not depend on time, we have
+\begin{align*}
+\rho\,(\vec u_t +(\vec u \,.\, \nabla)\vec u)=\rho\,(1-d)\alpha^2
+\frac{\vec z}{|\vec z\,|^{2d}}\,,
+\end{align*}
+which is indeed the value of forcing term $\vec f$.
+
+% \subsection{Expanding bubble III}
 % The expanding sphere where
 % \begin{subequations}
 % \begin{equation} \label{eq:ns_sol_2_r}
@@ -246,55 +293,8 @@ while the interface velocity along the normal direction is
 % \V\,.\,\vec \nu=r^\prime=\alpha_1 r\,.
 % \end{equation*}
 
-\subsection{Expanding bubble II}\label{sec:exp2}
-A nontrivial divergence free and radially symmetric solution $\vec u$
-can be constructed on a domain that does not contain the origin. To this end,
-consider e.g.\ $\Omega = (-1,1)^d \setminus [-\frac13, \frac13]^d$. Then, the
-expanding sphere where
-\begin{subequations}
-\begin{equation} \label{eq:ns_sol_3_r}
-r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
-\end{equation}
-together with
-\begin{equation} \label{eq:ns_sol_3_up}
-\vec u(\vec z, t) = \alpha\,\frac{\vec z}{|\vec z\,|^d}\,, \quad
-p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
-{r(t)^{d-1}}\bigg)\,\varkappa(t)\left[ \charfcn{\Omega_-(t)} -
-\frac{\vol(\Omega_-(t))}{\vol(\Omega)}\right],
-\end{equation}
-\end{subequations}
-is an exact solution to the problem (\ref{eq:ns_full_momentum}--i) with
-$\vec f(\vec z, t) = \rho\,(1-d)\alpha^2\frac{\vec z}{|\vec z\,|^{2d}}$ and
-$\vec g(\vec z) = \alpha\,|\vec z\,|^{-d}\,\vec z$ on
-$\partial_1\Omega=\partial\Omega$.
-
-We notice that the exact solution (\ref{eq:ns_sol_3_r},b) is identical to the
-expanding bubble solution of the two-phase Stokes problem presented in
-\S\ref{sec:stokes_expanding}. The only change is the forcing term $\vec f$
-which is now inhomogeneous. Therefore, in order to verify that
-(\ref{eq:ns_sol_3_r},b) is indeed an exact solution also to the two-phase
-Navier--Stokes problem, it is sufficient to check that the time derivative plus
-the convective term in the momentum equation (\ref{eq:ns_full_momentum}) add up
-to $\vec f$. Firstly, we compute the $i$ component of the convective term as
-\begin{align*}
-\big[(\vec u \,.\, \nabla)\vec u\big]_i =&
-\sum_{j=1}^d\alpha\frac{z_j}{|\vec z\,|^d}\frac{\partial u_i}{\partial z_j} =
-\sum_{j=1}^d\alpha\frac{z_j}{|\vec z\,|^d}\bigg(\alpha\frac{\delta_{ij}
-- d z_i z_j |\vec z\,|^{-2}}{|\vec z\,|^{d}}\bigg) \\
-=& \frac{\alpha^2}{|\vec z\,|^{2d}} \sum_{j=1}^d \big( \delta_{ij}z_j
-- d z_j^2 z_i |\vec z\,|^{-2}\big) = \frac{\alpha^2}{|\vec z\,|^{2d}}
-(z_i - d z_i) \\
-=& \frac{\alpha^2}{|\vec z\,|^{2d}}(1-d) z_i\,.
-\end{align*}
-Therefore, given that $\vec u$ does not depend on time, we have
-\begin{align*}
-\rho\,(\vec u_t +(\vec u \,.\, \nabla)\vec u)=\rho\,(1-d)\alpha^2
-\frac{\vec z}{|\vec z\,|^{2d}}\,,
-\end{align*}
-which is indeed the value of forcing term $\vec f$.
-
 \section{Non divergence-free scheme modifications}\label{sec:ns_non_div_free}
-An exact solution presented in \S\ref{sec:ns_exact_solutions} is non
+The exact solution presented in \S\ref{sec:exp2} is non
 divergence-free which means that $\nabla\,.\,\vec u = f_{\rm{div}}$ in
 $\Omega_\pm(t)$. This leads to an additional term in the right-hand side of the
 continuity equation for the discrete schemes (\ref{eq:ns_HGa_antisym}--d),
@@ -459,9 +459,6 @@ parameters $\alpha =0.15$ and
 \begin{equation}
 \rho_+ = \rho_- = \mu_+ = \mu_- = \gamma = 1\,.
 \end{equation}
-% Instead, for the expanding bubble II, we fix $\Omega = (-1,1)^2$ and we choose
-% the parameters $\alpha_1 =$ and $\alpha_2=$, $\rho_+ = \rho_- = \mu_+ = 10
-% \mu_- = \gamma = 1$.
 Instead, for the expanding bubble II, see \S\ref{sec:exp2}, we fix
 $\Omega = (-1,1)^2 \setminus[-\frac13,\frac13]^2$ and we choose the parameters
 $\alpha=0.15$ and
@@ -664,141 +661,6 @@ nature  of the schemes, the explicit scheme performs similarly to the
 antisymmetric scheme while the implicit scheme performs consistently with the
 ALE scheme.
 
-% \begin{table*}
-% \center
-% \hspace*{-3.25cm}
-% \begin{tabular}{rllllllr}
-% \hline
-% $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
-% & CPU[s] \\
-% \hline
-% & \multicolumn{7}{c}{explicit} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% & \multicolumn{7}{c}{implicit} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% & \multicolumn{7}{c}{antisymmetric} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% & \multicolumn{7}{c}{ALE} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% \end{tabular}
-% \hspace*{-3.25cm}
-% \caption[Navier--Stokes expanding bubble II errors P2--P0]
-% {($\rho_+ = \rho_- = \mu_+ = 10\mu_- = \gamma = 1,\alpha_1=\alpha_2=0.15$)
-% Expanding bubble problem II on $(-1,1)^2$ over the time interval $[0,1]$ for
-% the P2--P0 element, with adaptive meshes and $C_a=20$\textdegree.}
-% \label{tab:nsexpandingbubbleIIp2p0}
-% \end{table*}
-%
-% \begin{table*}
-% \center
-% \hspace*{-3.25cm}
-% \begin{tabular}{rllllllr}
-% \hline
-% $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
-% & CPU[s] \\
-% \hline
-% & \multicolumn{7}{c}{explicit} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% & \multicolumn{7}{c}{implicit} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% & \multicolumn{7}{c}{antisymmetric} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% & \multicolumn{7}{c}{ALE} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% \end{tabular}
-% \hspace*{-3.25cm}
-% \caption[Navier--Stokes expanding bubble II errors P2--\pdg]
-% {($\rho_+ = \rho_- = \mu_+ = 10\mu_- = \gamma = 1,\alpha_1=\alpha_2=0.15$)
-% Expanding bubble problem II on $(-1,1)^2$ over the time interval $[0,1]$ for
-% the P2--\pdg element, with adaptive meshes and $C_a=20$\textdegree.}
-% \label{tab:nsexpandingbubbleIIp2p1dg}
-% \end{table*}
-%
-% \begin{table*}
-% \center
-% \hspace*{-3.25cm}
-% \begin{tabular}{rllllllr}
-% \hline
-% $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
-% & CPU[s] \\
-% \hline
-% & \multicolumn{7}{c}{explicit} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% & \multicolumn{7}{c}{implicit} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% & \multicolumn{7}{c}{antisymmetric} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% & \multicolumn{7}{c}{ALE} \\
-% \hline
-%  32 & & & - & & & - & \\
-%  64 & & & - & & & - & \\
-% 128 & & & - & & & - & \\
-% 256 & & & - & & & - & \\
-% \hline
-% \end{tabular}
-% \hspace*{-3.25cm}
-% \caption[Navier--Stokes expanding bubble II errors P2--(P1+P0)]
-% {($\rho_+ = \rho_- = \mu_+ = 10\mu_- = \gamma = 1,\alpha_1=\alpha_2=0.15$)
-% Expanding bubble problem II on $(-1,1)^2$ over the time interval $[0,1]$ for
-% the P2--(P1+P0) element, with adaptive meshes and $C_a=20$\textdegree.}
-% \label{tab:nsexpandingbubbleIIp2p1p0}
-% \end{table*}
-
 We report on the errors of the expanding bubble II for the P2--P0, P2--\pdg and
 P2--(P1+P0) elements in Tables~\ref{tab:nsexpandingbubbleIIp2p0},
 \ref{tab:nsexpandingbubbleIIp2p1dg} and \ref{tab:nsexpandingbubbleIIp2p1p0},
@@ -998,15 +860,15 @@ to the explicit and implicit scheme. We also notice that the experiment using
 the antisymmetric scheme with the P2--P0 element and the coarsest mesh is not
 present because it fails due to mesh element intersections. For what concerns
 the computational time, the ALE scheme greatly outperform the other schemes.
-Since the bulk domain is not convex, the interpolation routine often 
-uses a linear search, instead of an optimized local search involving only 
+Since the bulk domain is not convex, the interpolation routine
+uses a linear search, instead of an optimized local search involving only
 neighbours, to locate bulk elements. Therefore, the
 interpolation routine is very slow and accounts for a substantial share
-of the total simulation time. But the ALE scheme, which has to interpolate 
+of the total simulation time. But the ALE scheme, which has to interpolate
 the velocity
 only when a complete bulk remesh is performed, uses the interpolation routine
-very rarely, which leads to a significant reduction in 
-the total simulation time. See \S\ref{sec:ns_velocity_interpolation} for more 
+very rarely, which leads to a significant reduction in
+the total simulation time. See \S\ref{sec:ns_velocity_interpolation} for more
 details on the velocity interpolation algorithms.
 
 \section{Rising bubble experiments}\label{sec:2d_rising_bubble_results}
@@ -1240,7 +1102,8 @@ in Figure~\ref{fig:risingbubbleIvelocity}.
 \caption[Navier--Stokes rising bubble I pressure]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
 Pressure evolution for the rising bubble experiment I for the P2--\pdg element
-and the implicit scheme, with nearly uniform mesh and $C_a=20$\textdegree.}
+and the implicit scheme, nearly uniform mesh with $J_\Gamma=128$ interface
+elements and $C_a=20$\textdegree.}
 \label{fig:risingbubbleIpressure}
 \end{figure}
 
@@ -1255,10 +1118,8 @@ and the implicit scheme, with nearly uniform mesh and $C_a=20$\textdegree.}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/navier_stokes/rising_bubble_I_velocity_3.ps}}
 \caption[Navier--Stokes rising bubble I velocity]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Velocity vector field for the rising bubble experiment I for the P2--\pdg
-element and the implicit scheme, with nearly uniform mesh and
-$C_a=20$\textdegree.}
+{Velocity vector field for the simulation in
+Figure~\ref{fig:risingbubbleIpressure}.}
 \label{fig:risingbubbleIvelocity}
 \end{figure}
 
@@ -1404,8 +1265,8 @@ in Figure~\ref{fig:risingbubbleIIvelocity}.
 \caption[Navier--Stokes rising bubble II pressure]
 {($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
 Pressure evolution for the rising bubble experiment II for the P2--(P1+P0)
-element and the explicit scheme, with nearly uniform mesh and
-$C_a=20$\textdegree.}
+element and the explicit scheme, nearly uniform mesh with $J_\Gamma=128$
+interface elements and $C_a=20$\textdegree.}
 \label{fig:risingbubbleIIpressure}
 \end{figure}
 
@@ -1420,15 +1281,13 @@ $C_a=20$\textdegree.}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/navier_stokes/rising_bubble_II_velocity_3.ps}}
 \caption[Navier--Stokes rising bubble II velocity]
-{($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
-Velocity vector field for the rising bubble experiment II for the P2--(P1+P0)
-element and the explicit scheme, with nearly uniform mesh and
-$C_a=20$\textdegree.}
+{Velocity vector field for the simulation in
+Figure~\ref{fig:risingbubbleIIpressure}.}
 \label{fig:risingbubbleIIvelocity}
 \end{figure}
 
 In Figures~\ref{fig:risingbubbleIIsphericity},
-\ref{fig:risingbubbleIIrisingvelocity} , \ref{fig:risingbubbleIIbarycenter} and
+\ref{fig:risingbubbleIIrisingvelocity}, \ref{fig:risingbubbleIIbarycenter} and
 \ref{fig:risingbubbleIIinnervolume} are reported, respectively, the evolution of
 the sphericity $\strikes$, rising velocity $V_c$, barycenter $z_c$ and relative
 inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over
