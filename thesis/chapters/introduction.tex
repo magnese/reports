@@ -146,11 +146,11 @@ mechanics and it is defined as
 where $L_c$ is the characteristic dimension of the problem and $u_c$ is the
 characteristic velocity of the fluid. It quantifies the ratio of inertial
 forces to viscous forces within the fluid, therefore it is used to predict
-flow patterns in different fluid flow situations. If $\Rey \ll 1$ the flow is
+flow patterns in different fluid flow situations. When $\Rey \ll 1$ the flow is
 laminar due to the fact that viscous forces are dominant and it is
-characterized by smooth, constant fluid motion.  Otherwise, the flow is
-turbulent due to the fact that inertial forces are dominant and it tends to
-produce chaotic eddies, vortices and other flow instabilities.
+characterized by smooth, constant fluid motion. Instead, when $\Rey \gg 1$ the
+flow is turbulent due to the fact that inertial forces are dominant and it
+tends to produce chaotic eddies, vortices and other flow instabilities.
 
 In the case of laminar flow, the advective term in the momentum equation
 (\ref{eq:ns_momentum_one_phase}) can be neglected, giving rise to the so called
@@ -253,8 +253,9 @@ model is simply
 where $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$,
 with $\mu_\pm \in \R_{>0}$, is the dynamic viscosity and
 $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)} + \rho_-\,\charfcn{\Omega_-(t)}$,
-with $\rho_\pm \in \R_{>0}$, is the fluid density. Analogously, the two-phase
-Stokes model is
+with $\rho_\pm \in \R_{>0}$, is the fluid density. Here and throughout,
+$\charfcn{\D}$ denotes the characteristic function for a set $\D$. Analogously,
+the two-phase Stokes model is
 \begin{subequations}
 \begin{alignat}{2}
 -2 \mu\,\nabla\,.\,\mat D(\vec u)+ \nabla\,p & = \vec f \quad &&\mbox{in }
@@ -428,7 +429,7 @@ interface which is described explicitly. The idea is to take a (virtual)
 particle on the interface at time $t=t_0$ with Eulerian coordinates $\vec z(0)
 \in \Gamma_0$. Let $\vec z(t)$ be the Eulerian coordinates of this particle at
 time $t$, with $t\geq t_0$. The particles on the interface are transported by
-the flow velocity $\vec u$, therefore it holds the equation
+the flow velocity $\vec u$, therefore it satisfies the equation
 \begin{equation}
 \frac{\partial \vec z(t)}{\partial t}=\vec u(\vec z(t),t)\,,
 \end{equation}

@@ -861,7 +861,7 @@ Figure~\ref{fig:nonuniform_bubble_64_adaptive}.}
 \label{fig:nonuniform_bubble_velocity_64_coarse_smooth}
 \end{figure}
 We notice that the evolution of the quantity $\|\vec U^m\|_{L^\infty(\Omega)}$
-is now very smooth respect to the one reported in
+is now very smooth in comparison to the one reported in
 Figure~\ref{fig:nonuniform_bubble_velocity_32_both} but this is not
 surprising since we never perform a remesh.
 
@@ -1007,7 +1007,7 @@ over time for the simulation in Figure~\ref{fig:shear_2d}.}
 \label{fig:shear_2d_bulk_inner_volume}
 \end{figure}
 
-Finally we want to compare the performance of different preconditioner
+Finally we want to compare the performance of different preconditioners
 for the preconditioned GMRES used to solve the reduce system
 (\ref{eq:SchurkX}) or, depending on the pressure space,
 (\ref{eq:SchurkX_extended}). In Table~\ref{tab:shear_2d_preconditioners} we
@@ -1051,8 +1051,8 @@ low. Moreover, the factorization is computed only once with both SPQR and
 UMFPACK so it is extremely efficient to apply the preconditioner at every GMRES
 iteration. On the other hand, the block preconditioner perform very poorly
 requiring a very high number of GMRES iterations in order to converge. An
-increase of the restart value obviously reduce the number of GMRES iterations
-but also drastically increase the memory footprint. Moreover, the application
+increase of the restart value obviously reduces the number of GMRES iterations
+but also drastically increases the memory footprint. Moreover, the application
 of the preconditioner consists of doing the backward substitution
 (\ref{eq:blocksolution_extended}) which is expensive.
 

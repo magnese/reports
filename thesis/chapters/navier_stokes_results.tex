@@ -853,23 +853,22 @@ meshes and $C_a=20$\textdegree.}
 Firstly, we observe that each scheme has almost the same accuracy independently
 of the element used. Moreover, the velocity and the interface position is
 captured with similar accuracy by all four schemes. Instead, we notice that the
-pressure error does not converge whit the antisymmetric scheme. Indeed, the
+pressure error does not converge with the antisymmetric scheme. Indeed, the
 antisymmetric scheme has some difficulties handling the viscosity jump. On the
-other hand, the ALE scheme scheme have a slightly higher pressure error respect
+other hand, the ALE scheme has a slightly higher pressure error with respect
 to the explicit and implicit scheme. We also notice that the experiment using
 the antisymmetric scheme with the P2--P0 element and the coarsest mesh is not
 present because it fails due to mesh element intersections. For what concerns
-the computational time, the ALE scheme greatly outperform the other schemes.
-Since the bulk domain is not convex, the interpolation routine
-uses a linear search, instead of an optimized local search involving only
-neighbours, to locate bulk elements. Therefore, the
-interpolation routine is very slow and accounts for a substantial share
-of the total simulation time. But the ALE scheme, which has to interpolate
-the velocity
-only when a complete bulk remesh is performed, uses the interpolation routine
-very rarely, which leads to a significant reduction in
-the total simulation time. See \S\ref{sec:ns_velocity_interpolation} for more
-details on the velocity interpolation algorithms.
+the computational time, the ALE scheme greatly outperforms the other schemes.
+Since the bulk domain is not convex, the interpolation routine uses a linear
+search, instead of an optimized local search involving only neighbours, to
+locate bulk elements. Therefore, the interpolation routine is very slow and
+accounts for a substantial share of the total simulation time. But the ALE
+scheme, which has to interpolate the velocity only when a complete bulk remesh
+is performed, uses the interpolation routine very rarely, which leads to a
+significant reduction in the total simulation time. See
+\S\ref{sec:ns_velocity_interpolation} for more details on the velocity
+interpolation algorithms.
 
 \section{Rising bubble experiments}\label{sec:2d_rising_bubble_results}
 We use the same  setup described in \cite[Figure~2]{HysingTKPBGT09}, which is
