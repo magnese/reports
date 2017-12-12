@@ -729,10 +729,13 @@ straightforward way.
 
 The linear systems (\ref{eq:algebraic_mean_curvature}) and
 (\ref{eq:algebraic_surf_diff}) are invertible under a suitable assumption on the
-triangulation at each time step, see \cite{gflows3d}. The algebraic system
+triangulation at each time step, see \cite{gflows3d}. The algebraic systems
 (\ref{eq:algebraic_mean_curvature}) and (\ref{eq:algebraic_surf_diff}) are
 very small also for fine meshes. Therefore they can be solved very efficiently
 with a sparse factorization package such as \verb|UMFPACK|, see \cite{Davis04}.
+Instead, in \cite{gflows3d}, the authors use a more involving Schur complement
+approach to solve the linear systems (\ref{eq:algebraic_mean_curvature}) and
+(\ref{eq:algebraic_surf_diff}).
 
 \section{Numerical results}\label{sec:geometric_pdes_results}
 Here we report on several numerical examples to benchmark the schemes
