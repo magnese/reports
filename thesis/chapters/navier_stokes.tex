@@ -875,7 +875,16 @@ closest to its barycenter. Depending on the size of the lattice, multiple
 entities can be mapped to the same point. Since the lattice is structured, it
 is straightforward to build a continuous path which visits all its points. For
 example, for a rectangular domain in 2d we can use a snaking path that
-traverses the lattice alternating left-to-right and right-to-left.
+traverses the lattice alternating left-to-right and right-to-left, see
+Figure~\ref{fig:velocity_interpolation_path}.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.25\textwidth]
+{figures/navier_stokes/velocity_interpolation_path.ps}
+\caption[Continuous path traversing a fictitious background lattice]
+{Continuous path (red) traversing a fictitious background lattice.}
+\label{fig:velocity_interpolation_path}
+\end{figure}
 
 In practice, the elements of $\mathcal{T}^m$ are visited following the given
 lattice path. This means that, for each lattice point traversed, the associated
