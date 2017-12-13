@@ -66,7 +66,9 @@ hyperref,verbatim,booktabs,textcomp}
 
 \textwidth 425pt
 
-\title{Fitted Finite Element Discretization of\\ Two-Phase Navier--Stokes Flow}
+\title{Fitted front tracking methods for two-phase Navier--Stokes Flow:
+Eulerian and ALE finite element discretizations
+}
 \author{Marco Agnese and Robert N\"urnberg%
 \thanks{email: \texttt{\{m.agnese13,robert.nurnberg\}@imperial.ac.uk}}\\
 \small
@@ -80,11 +82,24 @@ Department of Mathematics, Imperial College, London, SW7 2AZ, U.K.}
 \maketitle
 
 \begin{abstract}
-TODO
+We investigate novel fitted finite element approximations for two-phase 
+Navier--Stokes flow. In particular, we consider both Eulerian and 
+Arbitrary Lagrangian--Eulerian (ALE) finite element formulations.
+The moving interface is approximated with the help of piecewise linear 
+finite element functions.
+Spherical stationary solutions are captured exactly by the numerical
+approximation, which aids in suppressing spurious velocities.
+In addition, the meshes describing the discrete interface in
+general do not deteriorate in time, which means that in numerical simulations a
+smoothing or a remeshing of the interface mesh is not necessary.
+We present several numerical experiments for the various numerical methods, 
+which demonstrate the accuracy and robustness of the proposed algorithms.
+We also compare the accuracy and efficiency of the Eulerian and ALE
+formulations.
 \end{abstract}
 
 \begin{keywords}
-viscous incompressible two-phase flow, Navier--Stokes equations,
+incompressible two-phase flow, Navier--Stokes equations, ALE method,
 free boundary problem, surface tension, finite elements, front tracking
 \end{keywords}
 
