@@ -55,6 +55,8 @@ hyperref,verbatim,booktabs,textcomp}
 \newcommand{\V}{\vec{\mathcal{V}}} % surface velocity
 \newcommand{\pdg}{${\rm P1}^{{\rm dg}_\Gamma}$} % P1 DG across interface
 \newcommand{\strikes}{\mbox{$s\!\!\!\!\:/$}}
+\newcommand{\myurl}[1]{\hfil\penalty 100 \hfilneg \hbox{\url{#1}}} % force
+% newline before long url
 
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
@@ -1454,7 +1456,26 @@ $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
 \end{subequations}
 and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
 
-\section{Benchmark quantities}\label{sec:benchmark_quantities}
+\section{Numerical simulation and benchmark quantities}
+\label{sec:benchmark_quantities}
+We implement all numerical schemes within the \verb|DUNE| framework, see
+\cite{dunegridpaperI08,dunegridpaperII08}, using the FEM toolbox
+\verb|dune-fem|, see \cite{dunefempaper10}. As grid manager we use
+\verb|ALBERTA|, see \cite{Alberta}, and all the meshes are created with the
+library \verb|Gmsh|, see \cite{GeuzaineR09}.
+
+All the schemes described in this paper are implemented as a \verb|DUNE| module
+called \verb|dune-navier-stokes-two-phase|, available here
+\myurl{https://github.com/magnese/dune-navier-stokes-two-phase}.
+
+All the simulations we report on are performed on a Linux cluster equipped with
+\verb|Ubuntu 14.04.1 LTS| and compiled with \verb|g++ 5.3.0|. The cluster is
+heterogeneous and consist of 32 computing nodes. Each node is equipped
+with dual Xeon CPUs containing either 4 or 6 processor cores with frequency
+ranging from 2.40GHz to 3.00GHz and memory between 16GB and 48GB. The CPU times
+are measured in seconds and correspond to the wall time of a single thread
+computation.
+
 In our numerical simulations, unless otherwise stated, we use the following
 settings. We employ uniform time steps $\tau_m=\tau$, $m=0,\ldots, M-1$. The
 bulk mesh is remeshed only when the angle criterion (\ref{eq:angle_criterion}),
@@ -1462,7 +1483,7 @@ with $C_a=20\degree$, is not satisfied. Moreover, we set the GMRES
 tolerance to tol $=10^{-12}$ and the restart value to 50. We use the Stokes
 matrix (\ref{eq:stokes_direct_precond}) or, depending on the pressure space,
 (\ref{eq:stokes_direct_precond_extended}) as a preconditioner factorizing it
-with UMFPACK.
+with UMFPACK, see \cite{Davis04}.
 
 We define the errors
 \begin{equation} \label{eq:errorXx}
