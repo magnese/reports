@@ -104,7 +104,7 @@ free boundary problem, surface tension, finite elements, front tracking
 \end{keywords}
 
 \section{Mathematical model}\label{sec:ns_model}
-In this paper We now consider two-phase Navier--Stokes flow in a given domain
+In this paper we consider two-phase Navier--Stokes flow in a given domain
 $\Omega\subset\R^d$, where $d=2$ or $d=3$. The domain $\Omega$ contains two
 different immiscible, incompressible fluids (liquid-liquid or liquid-gas) which
 for all $t\in[0,T]$ occupy time dependent regions $\Omega_+(t)$ and
@@ -153,9 +153,10 @@ where $\mu(t) = \mu_+\,\charfcn{\Omega_+(t)} + \mu_-\,\charfcn{\Omega_-(t)}$,
 with $\mu_\pm \in \R_{>0}$, denotes the dynamic viscosities in the two phases,
 $\mat\id \in \R^{d \times d}$ is the identity matrix and
 $\mat D(\vec u):=\frac12\, (\nabla\vec u+(\nabla\vec u)^T)$
-is the rate-of-deformation tensor.
+is the rate-of-deformation tensor. Here and throughout, $\charfcn{\D}$ denotes
+the characteristic function for a set $\D$.
 
-The fluid dynamics in the bulk domain $\Omega$ are governed by the two-phase
+The fluid dynamics in the bulk domain $\Omega$ is governed by the two-phase
 Navier--Stokes model
 \begin{subequations}
 \begin{alignat}{2}
@@ -249,7 +250,7 @@ $\vec u(0) = \vec u_0$. Finally, we impose the Dirichlet condition $\vec u =
 0$ and $\mat\sigma\,\unitn\,.\,\unitt = 0$, $\forall \unitt \in
 \{\unitn\}^\perp$, on $\partial_2 \Omega$, with $\unitn$ denoting the outer
 unit normal of $\partial \Omega$ and $\{\unitn\}^\perp := \{ \unitt \in \R^d :
-\unitt \,.\,\unitn = 0\}$ As usual, it holds that
+\unitt \,.\,\unitn = 0\}$. As usual, it holds that
 $\partial\Omega =\partial_1\Omega \cup \partial_2\Omega$ and $\partial_1\Omega
 \cap \partial_2\Omega = \emptyset$. Therefore the total system of equations
 can be rewritten as follows:
@@ -351,8 +352,7 @@ part of a solution to (\ref{eq:ns_full_momentum}--i), then so is $p + c$ for an
 arbitrary $c\in \R$.
 
 An alternative to the weak formulation (\ref{eq:ns_weaka}--d) can be obtained
-following the paper \cite{fluidfbp}. We refer to this alternative formulation
-as antisymmetric weak formulation. The authors show that it is easy to derive
+following the paper \cite{fluidfbp}. The authors show that it is easy to derive
 an energy bound not only on the continuous level but also on the discrete
 level. Moreover, they are able to show existence/uniqueness results for the
 discrete solution. In order to obtain this
@@ -360,7 +360,7 @@ alternative weak formulation, we want to rewrite the term $\left(\rho\,\vec u_t,
 \vec \xi\right) + \left(\rho\,(\vec u \,.\, \nabla) \vec u,\vec \xi\right)$ in
 (\ref{eq:ns_weaka}) in such a way that certain undesirable terms vanish when
 choosing $\vec \xi = \vec u$. Due to the resulting structure of the equation,
-we will refer to this form as the antisymmetric formulation.
+we will refer to this form as the antisymmetric weak formulation.
 
 First, we observe that for arbitrary functions $\vec v$,
 $\vec \omega$, $\vec \xi \in [H^1(\Omega)]^d$ it holds that
@@ -720,7 +720,7 @@ at each time level.
 We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) and
 the explicit standard scheme (\ref{eq:ns_HGa}--d)
 only differ in the approximation of the convective term and
-in the employed density coefficients in the time derivative approximation.
+in the density coefficients used in the time derivative approximation.
 Indeed, instead of using the actual density $\rho^m$, it uses an
 average between the actual density and the interpolation of the density at the
 previous time step $\tfrac{1}{2}(I^m_0\,\rho^{m-1} + \rho^m)$ for what
@@ -1181,7 +1181,7 @@ and
 \rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
 \end{equation}
 
-It is worth to notice that, at the discrete level, the reference manifold $\D$
+It is worth noticing that, at the discrete level, the reference manifold $\D$
 is never used. Instead, it is replaced by the actual discrete bulk domain.
 Therefore, at time step $t^{m+1}$, the reference manifold is $\Omega^m$. We
 also want to stress the fact that the ALE finite element approximation
@@ -1198,7 +1198,7 @@ interpolated when a full bulk remeshing is performed.
 \section{Exact solutions}\label{sec:ns_exact_solutions}
 Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$ be a sphere of radius
 $r(t)$ and curvature $\varkappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
-$\alpha,\alpha_1,\alpha_2,\gamma\in \R_{\geq 0}$ be given. Here, we also allow
+$\alpha,\gamma\in \R_{\geq 0}$ be given. Here, we also allow
 non divergence-free problem. Therefore, for the non divergence-free cases, the
 incompressibility condition (\ref{eq:ns_full_mass}) is replaced by
 \begin{equation}\label{eq:ns_compressible}
@@ -1248,7 +1248,7 @@ $\vec g(\vec z) = \alpha\,|\vec z\,|^{-d}\,\vec z$ on
 $\partial_1\Omega=\partial\Omega$.
 
 \section{Non divergence-free scheme modifications}\label{sec:ns_non_div_free}
-An exact solution presented in \S\ref{sec:ns_exact_solutions} is non
+The exact solution presented in \S\ref{sec:ns_exact_solutions} is non
 divergence-free which means that $\nabla\,.\,\vec u = f_{\rm{div}}$ in
 $\Omega_\pm(t)$. This leads to an additional term in the right-hand side of the
 continuity equation for the discrete schemes (\ref{eq:ns_HGa_antisym}--d),
@@ -1841,20 +1841,22 @@ meshes and $C_a=20\degree$.}
 Firstly, we observe that each scheme has almost the same accuracy independently
 of the element used. Moreover, the velocity and the interface position is
 captured with similar accuracy by all four schemes. Instead, we notice that the
-pressure error does not converge whit the antisymmetric scheme. Indeed, the
+pressure error does not converge with the antisymmetric scheme. Indeed, the
 antisymmetric scheme has some difficulties handling the viscosity jump. On the
-other hand, the ALE scheme scheme have a slightly higher pressure error respect
+other hand, the ALE scheme has a slightly higher pressure error with respect
 to the explicit and implicit scheme. We also notice that the experiment using
 the antisymmetric scheme with the P2--P0 element and the coarsest mesh is not
 present because it fails due to mesh element intersections. For what concerns
-the computational time, the ALE scheme greatly outperform the other schemes.
-Since the bulk domain is not convex, the interpolation routine often
-uses a linear search, instead of an optimized local search involving only
-neighbours, to locate bulk elements. Therefore, the interpolation routine is
-very slow and accounts for a substantial share of the total simulation time.
-But the ALE scheme, which has to interpolate the velocity only when a complete
-bulk remesh is performed, uses the interpolation routine very rarely, which
-leads to a significant reduction in the total simulation time.
+the computational time, the ALE scheme greatly outperforms the other schemes.
+Since the bulk domain is not convex, the interpolation routine uses a linear
+search, instead of an optimized local search involving only neighbours, to
+locate bulk elements. Therefore, the interpolation routine is very slow and
+accounts for a substantial share of the total simulation time. But the ALE
+scheme, which has to interpolate the velocity only when a complete bulk remesh
+is performed, uses the interpolation routine very rarely, which leads to a
+significant reduction in the total simulation time. See
+\S\ref{sec:ns_velocity_interpolation} for more details on the velocity
+interpolation algorithms.
 
 \section{Rising bubble experiments}\label{sec:2d_rising_bubble_results}
 We use the same  setup described in \cite[Figure~2]{HysingTKPBGT09}, which is
@@ -2086,7 +2088,8 @@ in Figure~\ref{fig:risingbubbleIvelocity}.
 \caption[Navier--Stokes rising bubble I pressure]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
 Pressure evolution for the rising bubble experiment I for the P2--\pdg element
-and the implicit scheme, with nearly uniform mesh and $C_a=20\degree$.}
+and the implicit scheme, nearly uniform mesh with $J_\Gamma=128$ interface
+elements and $C_a=20$\textdegree.}
 \label{fig:risingbubbleIpressure}
 \end{figure}
 
@@ -2101,10 +2104,8 @@ and the implicit scheme, with nearly uniform mesh and $C_a=20\degree$.}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_velocity_3.ps}}
 \caption[Navier--Stokes rising bubble I velocity]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Velocity vector field for the rising bubble experiment I for the P2--\pdg
-element and the implicit scheme, with nearly uniform mesh and
-$C_a=20\degree$.}
+{Velocity vector field for the simulation in
+Figure~\ref{fig:risingbubbleIpressure}.}
 \label{fig:risingbubbleIvelocity}
 \end{figure}
 
@@ -2249,8 +2250,8 @@ in Figure~\ref{fig:risingbubbleIIvelocity}.
 \caption[Navier--Stokes rising bubble II pressure]
 {($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
 Pressure evolution for the rising bubble experiment II for the P2--(P1+P0)
-element and the explicit scheme, with nearly uniform mesh and
-$C_a=20\degree$.}
+element and the explicit scheme, nearly uniform mesh with $J_\Gamma=128$
+interface elements and $C_a=20$\textdegree.}
 \label{fig:risingbubbleIIpressure}
 \end{figure}
 
@@ -2265,15 +2266,13 @@ $C_a=20\degree$.}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/rising_bubble_II_velocity_3.ps}}
 \caption[Navier--Stokes rising bubble II velocity]
-{($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
-Velocity vector field for the rising bubble experiment II for the P2--(P1+P0)
-element and the explicit scheme, with nearly uniform mesh and
-$C_a=20\degree$.}
+{Velocity vector field for the simulation in
+Figure~\ref{fig:risingbubbleIIpressure}.}
 \label{fig:risingbubbleIIvelocity}
 \end{figure}
 
 In Figures~\ref{fig:risingbubbleIIsphericity},
-\ref{fig:risingbubbleIIrisingvelocity} , \ref{fig:risingbubbleIIbarycenter} and
+\ref{fig:risingbubbleIIrisingvelocity}, \ref{fig:risingbubbleIIbarycenter} and
 \ref{fig:risingbubbleIIinnervolume} are reported, respectively, the evolution of
 the sphericity $\strikes$, rising velocity $V_c$, barycenter $z_c$ and relative
 inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over
