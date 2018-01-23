@@ -154,13 +154,12 @@ accordance with the standard referencing practices of the discipline.
 \vfill
 
 \chapter*{\sc Copyright}
-This text is being distributed in an ``open source'' fashion, under the GNU Free
-Documentation License (GFDL), much in the manner that open source software like
-the Linux operating system is distributed. This confers certain rights on you,
-the reader, but also carries certain restrictions that limit your ability to
-restrict the rights of others. More information about how the open source model
-operates both in general and in this particular instance can be found in the
-text of the GNU Free Documentation License (GFDL).
+The copyright of this thesis rests with the author and is made available under a
+Creative Commons Attribution Non-Commercial No Derivatives licence. Researchers
+are free to copy, distribute or transmit the thesis on the condition that they
+attribute it, that they do not use it for commercial purposes and that they do
+not alter, transform or build upon it. For any reuse or redistribution,
+researchers must make clear to others the licence terms of this work.
 
 \pagestyle{plain}
 }
