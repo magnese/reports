@@ -328,8 +328,8 @@ for all $\vec \xi \in \uspace 0$. We notice that in the first equality we used
 the standard integration by parts on $\Omega_+(t)$ and $\Omega_-(t)$
 separately. Hence a standard weak formulation of (\ref{eq:ns_full_momentum}--i)
 is given as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for
-almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
-\uspace g \times \pnormspace \times H^1(\Gamma(t))}$ such that
+almost all $t\in(0,T)$ find $\Gamma(t)$ and $(\vec u, p, \varkappa)\in
+\uspace g \times \pnormspace \times H^1(\Gamma(t))$ such that
 \begin{subequations}
 \begin{align}
 & \left(\rho\,\vec u_t, \vec \xi\right) + \left(\rho\,(\vec u \,.\, \nabla) \vec
@@ -481,8 +481,8 @@ which on combining with (\ref{eq:advect}) yields that
 
 Hence, the antisymmetric weak formulation of (\ref{eq:ns_full_momentum}--i) is
 given as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for
-almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
-\uspace g \times \pnormspace \times H^1(\Gamma(t))}$ such that
+almost all $t\in(0,T)$ find $\Gamma(t)$ and $(\vec u, p, \varkappa) \in
+\uspace g \times \pnormspace \times H^1(\Gamma(t))$ such that
 \begin{subequations}
 \begin{align}
 & \tfrac{1}{2}\bigg[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
@@ -757,6 +757,565 @@ The scheme (\ref{eq:ns_HGimpa}--d) is a nonlinear scheme that leads to a coupled
 nonlinear system of equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec
 X^{m+1}, \kappa^{m+1})$ at each time level.
 
+\section{Algebraic formulation}\label{sec:algebraic_system}
+As is standard practice for the solution of linear systems arising from
+discretizations of Navier--Stokes equations, we avoid the complications of the
+constrained pressure space $\pnormspace^m$ in practice by considering an
+overdetermined linear system with $\pspace^m$ instead. In a post-processing step
+the computed pressure is then projected into the space of zero mean
+functions. The adoption of the unconstrained pressure space $\pspace^m$
+requires particular care when the Dirichlet boundary data $\vec g$ is different
+from zero. Indeed, let $\varphi \in \pspace^m$, then we can rewrite $\varphi$ as
+\begin{equation}\label{eq:phi_rewriting}
+\varphi=\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}
++\frac{\left(\varphi,1\right)}{\left(1,1\right)}\,,
+\end{equation}
+where $\varphi-\frac{(\varphi,1)}{(1,1)}\in\pnormspace^m$ and
+$\frac{(\varphi,1)}{(1,1)}\in\R$. Substituting (\ref{eq:phi_rewriting}) in
+(\ref{eq:ns_HGb}) we obtain
+\begin{equation}
+\left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  =
+\left(\nabla\,.\,\vec U^{m+1},
+\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right) +
+\left(\nabla\,.\,\vec U^{m+1},1\right)
+\frac{\left(\varphi,1\right)}{\left(1,1\right)}\,,
+\end{equation}
+but, from (\ref{eq:ns_HGb}), we have
+\begin{equation}
+\left(\nabla\,.\,\vec U^{m+1},
+\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right) = 0\,,
+\end{equation}
+and, noting that
+\begin{equation}\label{eq:div_to_line_integral}
+\left(\nabla\,.\,\vec U^{m+1}, 1\right)=
+\int_{\partial\Omega}\vec U^{m+1}\,.\, \unitn \dH{d-1}=
+\int_{\partial_1\Omega}(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1}\,,
+\end{equation}
+we finally deduce
+\begin{equation} \label{eq:LAb}
+ \left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
+ \frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
+(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
+\pspace^m\,.
+\end{equation}
+Therefore, as in our case, when the pressure space used is the unconstrained
+space $\pspace^m$ instead of $\pnormspace^m$, then the equation (\ref{eq:LAb})
+replaces (\ref{eq:ns_HGb}) and the resulting explicit standard finite element
+approximation is: For $m=0,\ldots, M-1$, find $(\vec U^{m+1}, P^{m+1}, \vec
+X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pspace^m \times \Vh \times
+\Wh$ such that
+\begin{subequations}
+\begin{align}
+& \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
+\xi \right) + \left(\rho^m( \vec U^{m+1}\,.\,\nabla)\,\vec U^{m+1}\,,
+\,\vec \xi \right)\nonumber \\
+& 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& \qquad - \gamma\,\left\langle
+\kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\vec f^{m+1},\vec \xi\right) \quad \forall\ \vec\xi \in
+\uspacedisc{0}{m}\,, \label{eq:HGcorrecteda}\\
+& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  =
+\frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
+(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1}
+\quad \forall\ \varphi \in \pspace^m\,,\label{eq:HGcorrectedb} \\
+&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:HGcorrectedc} \\
+& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
+0 \quad \forall\ \vec\eta \in \Vh \label{eq:HGcorrectedd}
+\end{align}
+\end{subequations}
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Obviously, the antisymmetric
+finite element approximation can be modified analogously.
+
+Let $\uspacesimple^m$ be the unconstrained velocity space, with basis
+$\{\phi_i^{\uspacesimple^m}\}_{i=1}^{K^m_\uspacesimple}$. Moreover, let
+$\{\phi_i^{\pspace^m}\}_{i=1}^{K^m_\pspace}$ span the unconstrained pressure
+space $\pspace^m$ and let $\{\chi_i^m\}_{i=1}^{K_\Gamma}$ be the basis of
+$\Wh$. Then, ignoring for now the Dirichlet and free-slip boundary conditions,
+the resulting linear system can be formulated as: Find $(\vec U^{m+1},P^{m+1},
+\kappa^{m+1},\delta\vec X^{m+1})\in (\R^d)^{K^m_\uspacesimple}\times
+\R^{K^m_\pspace} \times \R^{K_\Gamma}\,\times (\R^d)^{K_\Gamma}$, where $\vec
+X^{m+1} = \vec X^m+ \delta\vec X^{m+1}$, such that
+\begin{equation}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_\Omega & -\gamma\,\Nbulk & 0 \\
+\vec C^T_\Omega & 0 & 0 & 0 \\
+\NbulkT & 0 & 0 & -\frac1{\tau_m}\,\vec N_\Gamma^T \\
+0 & 0 & \vec N_\Gamma & \vec A_\Gamma
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\
+P^{m+1} \\
+\kappa^{m+1} \\
+\delta\vec X^{m+1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\vec c \\
+\vec \beta \\
+0 \\
+-\vec A_\Gamma\,\vec X^m
+\end{pmatrix} \,,
+\label{eq:ns_algebraic}
+\end{equation}
+where $(\vec U^{m+1},P^{m+1},\kappa^{m+1},\delta\vec X^{m+1})$ here denote the
+coefficients of these finite element functions with respect to the
+aforementioned (basis) functions.
+Moreover, $\vec X^m$ denotes the coefficients of
+$\vec\id\!\mid_{\Gamma^m}$ with respect to the basis of $\Vh$. The definitions
+of the matrices and vectors in (\ref{eq:ns_algebraic}) directly follow from
+(\ref{eq:HGcorrecteda}--d) and are:
+\begin{align*}
+& [\vec B_\Omega]_{ij} := \left( \frac{\rho^m}{\tau_m}
+\phi_j^{\uspacesimple^m}, \phi_i^{\uspacesimple^m} \right)\mat \id
++ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m} \vec e_q),
+\mat D(\phi_i^{\uspacesimple^m}\,\vec e_r) \right) \right)_{q,r=1}^d\\
+& \qquad + \left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
+\phi_j^{\uspacesimple^m},
+\phi_i^{\uspacesimple^m} \right)\mat \id \,,\\
+& \vec c_i := \left( \frac{\rho^m}{\tau_m}\vec I_2^m\vec U^m +
+\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1},\phi_i^{\uspacesimple^m}\right)\,, \\
+&[\vec C_\Omega]_{ip} := - \left(
+\left(\nabla\,.\,(\phi_i^{\uspacesimple^m}\,\vec
+e_q), \phi_p^{\pspace^m} \right) \right)_{q=1}^d,\quad
+[\Nbulk]_{il} := \left\langle \phi_i^{\uspacesimple^m}, \chi^m_l \,\vec\nu^m
+\right\rangle_{\Gamma^m} \,,\\
+& \vec \beta_i := \frac{\left(\phi_i^{\pspace^m},1\right)}{\left(1,1\right)}
+\left\langle \vec I_2^m\,\vec g,\unitn\right\rangle_{\partial_1\Omega}\,,\quad
+[\vec N_\Gamma]_{kl} := \left\langle \chi^m_l, \chi^m_k\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h \,,\\
+& [\vec A_\Gamma]_{kl} := \left\langle \nabs\,\chi^m_l, \nabs\,\chi^m_k
+\right\rangle_{\Gamma^m} \,\vec\id \,,
+\end{align*}
+where $\{\vec e_q\}_{q=1}^d$ denotes the standard basis in $\R^d$. Note that
+for the submatrices we have used the convention that the subscripts refer to
+the test and trial domains, respectively. A single subscript is used where the
+two domains are the same.
+
+The Dirichlet boundary condition can be imposed by doctoring the matrix and the
+right-hand side of the algebraic system (\ref{eq:ns_algebraic}). The matrix
+doctoring process consists on zeroing the rows which correspond to the Dirichlet
+boundary degrees of freedom in $\vec B_\Omega$, $\vec C_\Omega$ and $\Nbulk$ in
+the first block row of (\ref{eq:ns_algebraic}) and setting a unitary value
+on the correspondent diagonal entries in $\vec B_\Omega$. The vector doctoring
+process consists on setting the Dirichlet boundary data on the correspondent
+right-hand side entries in $\vec c$. Similarly, the free-slip boundary
+condition is enforced by doctoring the matrix entries corresponding to
+the degrees of freedom of the basis functions
+$\phi_i^{\uspacesimple^m}\vec e_q$ associated with vertices that lie on
+parts of $\partial_2\Omega$ that satisfy $\vec e_q=\unitn$. Of course,
+the corresponding entries in the right-hand side vector $\vec c$ are set to
+zero.
+
+Instead, the algebraic formulation of the antisymmetric scheme
+(\ref{eq:ns_HGa_antisym}--d) differs only in the terms $\vec B_{\Omega}$ and
+$\vec c$. Indeed, they are
+\begin{align*}
+[\vec B_\Omega]_{ij} := & \left( \frac{\rho^m}{\tau_m} \phi_j^{\uspacesimple^m},
+\phi_i^{\uspacesimple^m} \right)\mat \id
++ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m} \vec e_q),
+\mat D(\phi_i^{\uspacesimple^m}\,\vec e_r) \right) \right)_{q,r=1}^d\\
+& + \frac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
+\phi_j^{\uspacesimple^m}, \phi_i^{\uspacesimple^m} \right)\mat \id
+-\frac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
+\phi_i^{\uspacesimple^m}, \phi_j^{\uspacesimple^m} \right)\mat \id \,,\\
+\vec c_i := &\left( \frac{I^m_0\rho^{m-1}+\rho^m}{2\tau_m}\vec I_2^m \vec U^m
++ \rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
+\end{align*}
+
+Finally, in order to solve the implicit standard scheme (\ref{eq:ns_HGimpa}--d)
+we use a fixed point iteration. In particular, we can find a solution
+to the scheme (\ref{eq:ns_HGimpa}--d) as follow.
+Let $\Gamma^m$ and $\vec U^m\in \uspacedisc{g}{m-1}$ be given.
+Let $\vec U^{m+1,0}=\vec I^m_2\,\vec U^m$ and fix $\epsilon_f > 0$.
+Then, for $s \geq 0$,
+find $(\vec U^{m+1,s+1},P^{m+1,s+1}, \vec X^{m+1,s+1}, \kappa^{m+1,s+1}) \in
+\uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$ such that
+\begin{subequations}
+\begin{align}
+& \left( \rho^m\,\frac{\vec U^{m+1,s+1} - \vec I^m_2\,\vec U^m}{\tau_m}, \vec
+\xi \right) + \left((\rho^m\vec U^{m+1,s}\,.\,\nabla)\,\vec U^{m+1,s+1}\,,
+\,\vec \xi \right)\nonumber \\
+&\qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1,s+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& \qquad - \gamma\,
+\left\langle \kappa^{m+1,s+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
+\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,, \label{eq:ns_HGfixedpointa} \\
+& \left(\nabla\,.\,\vec U^{m+1,s+1}, \varphi\right)  = 0
+\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGfixedpointb} \\
+&  \left\langle \frac{\vec X^{m+1,s+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1,s+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:ns_HGfixedpointc}\\
+& \left\langle \kappa^{m+1,s+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1,s+1}, \nabs\,\vec \eta
+\right\rangle_{\Gamma^m} = 0 \quad \forall\ \vec\eta \in \Vh\,,
+\label{eq:ns_HGfixedpointd}
+\end{align}
+\end{subequations}
+and repeat the iteration until $\|\vec U^{m+1,s+1}-\vec U^{m+1,s}\|_{L^\infty}
+\leq\epsilon_f$. Finally, set $\Gamma^{m+1}=\vec X^{m+1,s+1}(\Gamma^m)$
+and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1}) = (\vec U^{m+1,s+1}, P^{m+1,s+1},
+\kappa^{m+1,s+1})$. The scheme (\ref{eq:ns_HGfixedpointa}--d), at each time
+level $m$, is a fixed point iteration that consists of solving a coupled
+linear system of equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1,s+1},
+\vec X^{m+1,s+1}, \kappa^{m+1,s+1})$ at each step $s$ until the
+$L^\infty$--error of the velocity $\|U^{m+1,s+1}-U^{m+1,s} \|_{L^\infty}$ is
+smaller than the required tolerance $\epsilon_f$. Obviously, in the case that
+the fixed point iteration performs only one step,
+(\ref{eq:ns_HGfixedpointa}--d) reduces to the explicit standard scheme
+(\ref{eq:ns_HGa}--d). In practice, we also require $s>1$, which means that we
+do at least two full iterations of the fixed point scheme. Again, at every
+step, the linear algebraic system arising from (\ref{eq:ns_HGfixedpointa}--d)
+is identical to the two-phase Navier--Stokes algebraic system
+(\ref{eq:ns_algebraic}) with the only modification in the terms
+$\vec B_{\Omega}$ and $\vec c$, which now become
+\begin{align*}
+[\vec B_\Omega]_{ij} := & \left( \frac{\rho^m}{\tau_m} \phi_j^{\uspacesimple^m},
+\phi_i^{\uspacesimple^m} \right)\mat \id
++ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m} \vec e_q),
+\mat D(\phi_i^{\uspacesimple^m}\,\vec e_r) \right) \right)_{q,r=1}^d\\
+& + \left( \left(\rho^m \vec U^{m+1,s}\,.\,\nabla \right)
+\phi_j^{\uspacesimple^m},
+\phi_i^{\uspacesimple^m} \right)\mat \id \,,\\
+\vec c_i := &\left( \frac{\rho^m}{\tau_m}\vec I_2^m\vec U^m +
+\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
+\end{align*}
+
+\section{Solution method}\label{sec:solution_method}
+For the solution of (\ref{eq:ns_algebraic}) we use a Schur complement
+approach that eliminates $(\kappa^{m+1}, \delta \vec X^{m+1})$ from
+(\ref{eq:ns_algebraic}), and then use an iterative solver for the remaining
+system in $(\vec U^{m+1}, P^{m+1})$. This approach has the advantage that for
+the reduced system well-known solution methods for finite element
+discretizations for standard Navier--Stokes discretizations may be employed.
+The desired Schur complement can be obtained as follows. Let
+\begin{equation} \label{eq:Xi}
+\Xi_\Gamma:= \begin{pmatrix}
+ 0 & - \frac1{\tau_m}\,\vec N_\Gamma^T \\
+\vec N_\Gamma & \vec A_\Gamma
+\end{pmatrix} \,,
+\end{equation}
+be the interface condensed operator. Then (\ref{eq:ns_algebraic}) can be
+reduced to
+\begin{subequations}
+\begin{align}\label{eq:SchurkX}
+&
+\begin{pmatrix}
+\vec B_\Omega + \gamma\,(\Nbulk \ 0)\,\Xi_\Gamma^{-1}\,
+\binom{\NbulkT}{0} & \vec C_\Omega \\
+\vec C_\Omega^T & 0
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\ P^{m+1}
+\end{pmatrix}
+= \nonumber \\
+& \qquad
+\begin{pmatrix}
+\vec c
++\gamma\,(\Nbulk \ 0)\, \Xi_\Gamma^{-1}\,
+\binom{0}{-\vec A_\Gamma\,\vec X^m} \\
+\vec \beta
+\end{pmatrix}
+\end{align}
+and
+\begin{equation}
+\binom{\kappa^{m+1}}{\delta\vec X^{m+1}} = \Xi_\Gamma^{-1}\,
+\binom{-\NbulkT\,\vec U^{m+1}}{-\vec A_\Gamma\,\vec X^m}\,.
+\label{eq:SchurkXb}
+\end{equation}
+\end{subequations}
+
+We notice that when $\gamma = 0$ the linear system (\ref{eq:SchurkX}) becomes
+\begin{equation} \label{eq:ns_system}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_\Omega \\
+\vec C_\Omega^T & 0
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\ P^{m+1}
+\end{pmatrix}
+= \begin{pmatrix}
+\vec c \\
+\vec \beta
+\end{pmatrix}\,,
+\end{equation}
+which for $\mu_+=\mu_-$ corresponds to a discretization of the one-phase
+Navier--Stokes problem. This system is well known and a classical way to solve
+it is to use a preconditioned GMRES iteration. The generalized minimal residual
+method (GMRES) is an iterative method for non-symmetric systems. It generates a
+sequence of orthogonal vectors using the Arnoldi method which is a modified
+Gram-Schmidt orthogonalization applied to a Krylov subspace with minimal
+residual. See \cite{BarrettBCetal94} for more details. Therefore, we solve
+(\ref{eq:SchurkX}), which is a slight modification of (\ref{eq:ns_system}),
+employing a preconditioned GMRES iterative solver. For the inverse
+$\Xi_\Gamma^{-1}$ we employ a sparse $L\,U$ decomposition, which we obtain with
+the help of the sparse factorization package UMFPACK, see \cite{Davis04}, in
+order to reuse the factorization. Having obtained $(\vec U^{m+1}, P^{m+1})$ from
+(\ref{eq:SchurkX}), we solve (\ref{eq:SchurkXb}) for $(\kappa^{m+1}, \delta\vec
+X^{m+1})$.
+
+As regarding the preconditioner, see \cite{ElmanSW05} for more details, a
+possible choice is to use the preconditioner
+\begin{equation} \label{eq:ESW}
+\mathcal{P} = \begin{pmatrix}
+\vec{\mathcal{P}}_{\vec B} & \vec C_\Omega \\
+0 & -\mathcal{P}_S
+\end{pmatrix}\,,
+\end{equation}
+where $\vec{\mathcal{P}}_{\vec B}$ is some preconditioner for the matrix $\vec
+B_\Omega$, and $\mathcal{P}_S$ acts as a preconditioner for the bulk Schur
+complement operator $S_\Omega=\vec C^T_\Omega \,\vec B_\Omega^{-1}\,\vec
+C_\Omega$.
+
+An application of the preconditioner (\ref{eq:ESW}) amounts to solving the
+equations
+\begin{equation*}
+\begin{pmatrix}
+\vec{\mathcal{P}}_{\vec B} & \vec C_\Omega \\
+0 & -\mathcal{P}_S
+\end{pmatrix}
+\begin{pmatrix} \vec U \\ P \end{pmatrix}
+= \begin{pmatrix} \vec v \\ q \end{pmatrix}
+\end{equation*}
+which, by backward substitution, is equivalent to
+\begin{equation}\label{eq:blocksolution}
+\mathcal{P}_S\,P = -q\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U = \vec v -
+\vec C_\Omega\,P\,.
+\end{equation}
+We choose $\vec B_\Omega$  for $\vec{\mathcal{P}}_{\vec B}$ and the pressure
+mass matrix $M_\Omega$ defined as
+\begin{equation*}
+[M_\Omega]_{ij} = \left(\,\phi_j^{\pspace^m},\, \phi_i^{\pspace^m}\right)\,.
+\end{equation*}
+for $\mathcal{P}_S$. Again, in order to reuse the factorization, we employ a
+sparse $L\,U$ decomposition to factorize the matrices $\vec B$ and $M_\Omega$.
+
+Alternatively, it is possible to use the standard Navier--Stokes matrix, see
+(\ref{eq:ns_system}),
+\begin{equation}\label{eq:ns_direct_precond}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_\Omega \\
+\vec C_\Omega^T & 0
+\end{pmatrix}\,
+\end{equation}
+as a preconditioner for (\ref{eq:SchurkX}) and factorize it directly with a
+sparse $L\,U$ decomposition. Since in the Navier--Stokes problem the pressure
+solution is only unique up to a constant, the matrix
+(\ref{eq:ns_direct_precond}) is singular. In particular, if LBB holds, the
+matrix has rank deficiency 1. Therefore, in order to use UMFPACK to factorize
+the matrix, the rank deficiency needs to be reduced to 0. This can be achieved
+by fixing a degree of freedom in the discrete pressure. For example, by
+using a matrix doctoring which replaces the first row of the second block row
+of (\ref{eq:ns_direct_precond}) with the corresponding row of the identity
+matrix. This doctoring
+process can be avoided if SPQR is used to factorize the preconditioner since
+SPQR can decompose also singular matrices. Indeed, SPQR is a sparse
+factorization package, see \cite{Davis11}, performing a QR decomposition which
+can be used to solve the least squares problem.
+
+The algebraic system (\ref{eq:ns_algebraic}) can be rewritten when we
+use (P1+P0) or \pdg as pressure space. Indeed it assumes the following form
+\begin{equation}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_{\spadesuit} & \vec C_{\clubsuit} & -\gamma\,\Nbulk & 0\\
+\vec C^T_{\spadesuit} & 0 & 0 & 0 & 0 \\
+\vec C^T_{\clubsuit} & 0 & 0 & 0 & 0 \\
+\NbulkT & 0 & 0 & 0 & -\frac1{\tau_m}\,\vec N_\Gamma^T \\
+0 & 0 & 0 & \vec N_\Gamma & \vec A_\Gamma
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\
+P^{m+1}_\spadesuit \\
+P^{m+1}_\clubsuit \\
+\kappa^{m+1} \\
+\delta\vec X^{m+1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\vec c \\
+\vec \beta_\spadesuit \\
+\vec \beta_\clubsuit \\
+0 \\
+-\vec A_\Gamma\,\vec X^m
+\end{pmatrix} \,,
+\label{eq:ns_algebraic_extended}
+\end{equation}
+where $\vec C_{\spadesuit}$ and $\vec C_{\clubsuit}$ have the same definition
+of $\vec C_\Omega$ in (\ref{eq:ns_algebraic}) but now in terms of bases of
+different spaces. More precisely, in the case (P1+P0), there are two
+independent spaces for the pressure of polynomial order 1 and 0, respectively.
+Instead, in the case \pdg, both spaces have polynomial degree 1 but the basis
+functions support is restricted to $\Omega_-^m$ and $\Omega_+^m$, respectively.
+
+A suitable preconditioner for the algebraic system
+(\ref{eq:ns_algebraic_extended}) is then
+\begin{equation} \label{eq:ESW_extended}
+\mathcal{P} = \begin{pmatrix}
+\vec{\mathcal{P}}_{\vec B} & \vec C_\spadesuit & \vec C_\clubsuit \\
+0 & -\mathcal{P}_{S,\spadesuit} & 0 \\
+0 & 0 &-\mathcal{P}_{S,\clubsuit}
+\end{pmatrix}\,,
+\end{equation}
+while the reduced system (\ref{eq:SchurkX}) becomes
+\begin{align}\label{eq:SchurkX_extended}
+&
+\begin{pmatrix}
+\vec B_\Omega + \gamma\,(\Nbulk \ 0)\,\Xi_\Gamma^{-1}\,\binom{\NbulkT}{0} &
+\vec C_\spadesuit & \vec C_\clubsuit \\
+\vec C^T_\spadesuit & 0 & 0 \\
+\vec C^T_\clubsuit & 0 & 0 \\
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\
+P^{m+1}_\spadesuit \\
+P^{m+1}_\clubsuit
+\end{pmatrix}
+= \nonumber \\
+& \qquad
+\begin{pmatrix}
+\vec c+\gamma\,(\Nbulk \ 0)\,
+\Xi_\Gamma^{-1}\,\binom{0}{-\vec A_\Gamma\,\vec X^m} \\
+\vec \beta_\spadesuit \\
+\vec \beta_\clubsuit
+\end{pmatrix}\,.
+\end{align}
+An application of the preconditioner (\ref{eq:ESW_extended}) amounts to solving
+the equations
+\begin{equation*}
+\begin{pmatrix}
+\vec{\mathcal{P}}_{\vec B} & \vec C_\spadesuit & \vec C_\clubsuit \\
+0 & -\mathcal{P}_{S,\spadesuit} & 0 \\
+0 & 0 &-\mathcal{P}_{S,\clubsuit}
+\end{pmatrix}
+\begin{pmatrix}
+\vec U \\
+P_\spadesuit \\
+P_\clubsuit
+\end{pmatrix}
+=
+\begin{pmatrix}
+\vec v \\
+q \\
+p
+\end{pmatrix}
+\end{equation*}
+which, by backward substitution, is equivalent to
+\begin{equation}\label{eq:blocksolution_extended}
+\mathcal{P}_{S,\spadesuit}\,P_\spadesuit =
+-q\,,\quad \mathcal{P}_{S,\clubsuit}\,P_\clubsuit =
+-p\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U =
+\vec v - \vec C_\spadesuit\,P_\spadesuit - \vec C_\clubsuit\,P_\clubsuit\,.
+\end{equation}
+
+Alternatively, as before, it is possible to use the standard Navier--Stokes
+matrix
+\begin{equation}\label{eq:ns_direct_precond_extended}
+\begin{pmatrix}
+\vec B_\Omega & \vec C_\spadesuit & \vec C_\clubsuit \\
+\vec C^T_\spadesuit & 0 & 0 \\
+\vec C^T_\clubsuit & 0 & 0 \\
+\end{pmatrix}
+\end{equation}
+as a preconditioner for (\ref{eq:SchurkX_extended}) and factorize them directly
+with a sparse $L\,U$ decomposition. The matrix
+(\ref{eq:ns_direct_precond_extended}), if LBB holds, has rank deficiency 1
+for the P2--\pdg element and 2 for the P2--(P1+P0) element. Therefore, in the
+case P2--\pdg, only the block entry in position $(2,2)$ of
+(\ref{eq:ns_direct_precond_extended}) is doctored while, in the case
+P2--(P1+P0), the block entries in position in position $(2,2)$ and $(3,3)$ of
+(\ref{eq:ns_direct_precond_extended}) are doctored. Again, we point out
+that the doctoring is not needed when SPQR is used to factorize the
+preconditioner.
+
+\section{Mesh generation and smoothing}\label{sec:smoothing}
+Given the initial polyhedral surface $\Gamma^0$, we create a triangulation
+$\mathcal{T}^0$ of $\Omega$ that is fitted to $\Gamma^0$ with the help of the
+package \verb|Gmsh|, see \cite{GeuzaineR09}.
+
+The mesh generation process is controlled by the characteristic lengths of the
+points describing the geometry of the domain boundary $\partial\Omega$. Each
+point has associated a characteristic length which prescribes the size of the
+mesh elements. For example, a segment of length $L$, which defines an edge of
+the domain boundary, delimited by two points of characteristic length $c_l$ will
+be subdivided into several segments of lengths $\frac{L}{c_l}$ during the mesh
+generation. Therefore, the smaller is the characteristic length, the finer is
+the resulting mesh. When the characteristic lengths of two points defining an
+edge are different, \verb|Gmsh| performs an interpolation process. In general we
+use either nearly uniform or adaptive bulk meshes. In the former case, the
+characteristic length $c_l$ is set to be equal to the characteristic length of
+the interface $c_{l,\Gamma}$, while in the latter case the characteristic
+length is $c_l(\vec z)=\min\{8c_{l,\Gamma},\mbox{dist}(\vec z,\Gamma)\}$.
+Therefore, in the adaptive case, if the interface is far enough from the
+boundary, the resulting bulk mesh will be coarse. We define the characteristic
+length of the interface $c_{l,\Gamma}$, in the 2d case, as the average length
+of the segments describing the discrete interface $\Gamma^m$ or, in the 3d
+case, as the length of an equilateral triangle with area equal to the average
+of the areas of the triangles describing the discrete interface $\Gamma^m$.
+
+Then, for $m \geq 0$, having computed the new interface $\Gamma^{m+1}$, we
+would like to obtain a bulk triangulation $\mathcal{T}^{m+1}$ that is fitted to
+$\Gamma^{m+1}$, and ideally is close to $\mathcal{T}^m$. This is to avoid
+unnecessary overhead from remeshing the domain $\Omega$ completely.
+
+To this end, we perform the following smoothing step on $\mathcal{T}^m$, which
+is inspired by the method proposed in \cite{Ganesan06}, see also
+\cite{GanesanT08}. Having obtained $\delta \vec X^{m+1}$ from the solution of
+(\ref{eq:ns_algebraic}), we solve the linear elasticity problem: Find a
+displacement
+$\vec\psi \in [H^1(\Omega)]^d$ such that
+\begin{subequations}
+\begin{alignat}{2}
+\nabla\,.\,\mat S & = \vec 0 \quad &&\mbox{in } \Omega_\pm^m\,,
+\label{eq:elasta}\\
+\vec\psi &= \delta \vec X \quad && \mbox{on } \Gamma^m\,, \label{eq:elastb} \\
+\vec\psi\,.\,\unitn & = 0 \quad &&\mbox{on } \partial\Omega\,,
+\label{eq:elastc}
+\end{alignat}
+\end{subequations}
+where the stress tensor $\mat S$ is defined as
+\begin{equation} \label{eq:elasticity_tensor}
+\mat S = 2\,\mat D(\vec\psi) + (\nabla\,.\vec\psi)\,\mat\id\,.
+\end{equation}
+In practice we approximate (\ref{eq:elasta}--c)
+with piecewise linear elements and solve the resulting system of linear
+equations with the UMPFACK package, see \cite{Davis04}. The obtained discrete
+variant of $\vec\psi$, at every vertex of the current bulk grid
+$\mathcal{T}^m$, then represents the variation in their position that we
+compute in order to obtain $\mathcal{T}^{m+1}$.
+
+Occasionally the deformation of the mesh becomes too large, for instance when
+the bubble making up the inner phase undergoes strong deformations, and so a
+complete remeshing of $\Omega$ becomes necessary. In order to detect the need
+for a complete remeshing, we define the volume criterion
+\begin{equation}\label{eq:volume_criterion}
+\frac{\max_{\sigmaO\in {\cal T}^{m+1}}\vol(\sigmaO)}
+{\min_{\sigmaO\in\mathcal {T}^{m+1}}\vol(\sigmaO)} \geq C_v \geq 1,
+\end{equation}
+where $C_v$ is a fixed constant. Of course, if we choose $C_v = 1$, then a
+remeshing would be triggered after every time step, while, if we choose $C_v =
+\infty$, then no remeshing would ever be triggered. Obviously, the
+volume criterion (\ref{eq:volume_criterion}) cannot be used for adaptive
+meshes therefore we also define the angle criterion
+\begin{equation}\label{eq:angle_criterion}
+\min_{\sigmaO\in {\cal T}^{m+1}}\min_{\alpha\in \measuredangle(\sigmaO)}\alpha
+\leq C_a\,,
+\end{equation}
+where $\measuredangle(\sigmaO)$ is the set of all the angles of the simplex
+$\sigmaO$ which can be computed as $\alpha_{ij}=\cos^{-1}(-\vec n_i\,.\,\vec
+n_j)$, $\forall i,j\in\{0,\dots,d\}$, with $\vec n_i$ the unitary normal to the
+simplex face $i$. Of course, if we chose $C_a=60$\textdegree, then a remeshing
+is triggered after every time step, while, if we choose
+$C_a = 0$\textdegree, then no remeshing would ever be triggered.
+
+We stress that in all our numerical simulations we never need to remesh the
+interface $\Gamma^m$ itself.
+
 \section{Velocity interpolation}\label{sec:velocity_interpolation}
 We can notice that all the Navier--Stokes schemes presented so far, namely
 (\ref{eq:ns_HGa_antisym}--d), (\ref{eq:ns_HGa}--d) and
@@ -864,7 +1423,7 @@ interface $\Gamma(t)$, we can define the fixed reference manifold $\D$ and
 extend the map $\vec x(\cdot,t)$ to parametrize $\Omega(t)$ as
 $\Omega(t)=\vec x(\D,t)$. This extended map clearly still satisfies $\Gamma(t)
 = \vec x(\Upsilon,t)$, given that $\Upsilon\subset\D$. Moreover, we let
-$\partial\D$ be partitioned as ${\partial\D=\partial_1\D \cup \partial_2\D}$
+$\partial\D$ be partitioned as $\partial\D=\partial_1\D \cup \partial_2\D$
 with $\partial_1\D \cap \partial_2\D = \emptyset$.
 
 Now, let $h:\Omega(t)\times [0,T]\to \R$ be a function defined on the Eulerian
@@ -1282,6 +1841,101 @@ the domain $\Omega^m$ and then interpolated on the domain $\Omega^{m+1}$ at
 each time level. Obviously, the velocity $\vec U^{m+1}$ still needs to be
 interpolated when a full bulk remeshing is performed.
 
+\section{ALE solution method}\label{sec:ale_solution_method}
+The solution technique used to solve the ALE scheme (\ref{eq:ale_HGa}--d) is
+very similar to the one used to solve the implicit standard scheme
+(\ref{eq:ns_HGimpa}--d). More precisely, using a fixed point iteration, we find
+a solution for the scheme (\ref{eq:ale_HGa}--d) as follows. Let $\Gamma^m$
+and $\vec U^m\in \uspacediscale{g}{m}$ be given.
+Set $\vec U^{m+1,0}=\vec U^m$, $\vec \psi^{m+1,0} =
+\vec 0$, $\Omega^{m+1,0}=\Omega^m$ and fix $\epsilon_f > 0$.
+Then, for $s \geq 0$,
+find $(\vec U^{m+1,s+1},P^{m+1,s+1}, \vec X^{m+1,s+1}, \kappa^{m+1,s+1}) \in
+\uspacediscale{g}{m}\times \pnormspaceale^m \times \Vh \times \Wh$ such that
+\begin{subequations}
+\begin{align}
+& \left( \frac{\rho^m}{\tau_m}\,\vec U^{m+1,s+1}, \vec
+\xi\right)_{\Omega^{m+1,s}} + \left(\left(\rho^m\left(\vec
+U^{m+1,s}-\frac{\vec\psi^{m+1,s}}{\tau_m}\right)\,.\,\nabla\right)\,
+\vec U^{m+1,s+1}\,, \,\vec \xi \right)_{\Omega^m}\nonumber \\
+& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi)
+\right)_{\Omega^m} - \left(P^{m+1,s+1}, \nabla\,.\,\vec \xi\right)_{\Omega^m}
+\nonumber \\
+& \qquad - \gamma\,\left\langle \kappa^{m+1,s+1}\,\vec\nu^m,
+\vec\xi\right\rangle_{\Gamma^m} \nonumber \\
+& \qquad = \left(\frac{\rho^m}{\tau_m}\,\vec U^m,\vec \xi
+\right)_{\Omega^{m+1,s}}
++ \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)_{\Omega^m}
+\quad \forall\ \vec\xi \in \uspacediscale{0}{m}\,, \label{eq:ns_HGalea} \\
+& \left(\nabla\,.\,\vec U^{m+1,s+1}, \varphi\right)_{\Omega^m}  = 0
+\quad \forall\ \varphi \in \pnormspaceale^m\,,\label{eq:ns_HGaleb} \\
+&  \left\langle \frac{\vec X^{m+1,s+1} - \vec\id}{\tau_m} ,\chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1,s+1}, \chi\,\vec\nu^m
+\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
+\label{eq:ns_HGalec}\\
+& \left\langle \kappa^{m+1,s+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
++ \left\langle \nabs\,\vec X^{m+1,s+1}, \nabs\,\vec \eta
+\right\rangle_{\Gamma^m} = 0 \quad \forall\ \vec\eta \in \Vh\,.
+\label{eq:ns_HGaled}
+\end{align}
+\end{subequations}
+The iteration is repeated until $\|U^{m+1,s+1}-U^{m+1,s}\|_{L^\infty}
+\leq\epsilon_f$ and $\|\vec \psi^{m+1,s+1}-\vec \psi^{m+1,s}\|_{L^\infty}
+\leq\epsilon_f$. Here the bulk displacement $\vec \psi^{m+1,s+1}$ is computed
+solving the linear elasticity problem (\ref{eq:elasta}--b), see
+\S\ref{sec:smoothing} for more details, and $\Omega^{m+1,s+1}$ is
+updated accordingly. Finally, set
+$\Gamma^{m+1} = \vec X^{m+1,s+1}(\Gamma^m)$, $\Omega^{m+1,s+1}=\Omega^{m+1}$
+and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1}) = (\vec U^{m+1,s+1}, P^{m+1,s+1},
+\kappa^{m+1,s+1})$. Clearly (\ref{eq:ns_HGalea}--d), at each time level $m$, is
+a fixed point iteration, which consists of solving a coupled linear system of
+equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1,s+1}, \vec X^{m+1,s+1},
+\kappa^{m+1,s+1})$ at each step $s$ until the $L^\infty$--error of the
+velocity $\|U^{m+1,s+1}-U^{m+1,s} \|_{L^\infty}$ and the $L^\infty$--error of
+the bulk displacement $\|\vec \psi^{m+1,s+1}-\vec \psi^{m+1,s}\|_{L^\infty}
+\leq\epsilon_f$ are smaller than the required tolerance $\epsilon_f$. The
+arbitrary domain velocity $\W^{m+1}$ is chosen to be the solution of the linear
+elasticity problem (\ref{eq:elasta}--b). Obviously, no mesh smoothing is
+performed on $\Omega^{m+1}$ otherwise all the benefits of the ALE scheme would
+be lost since a velocity interpolation would be required. Nevertheless, since
+the mesh smoothing is already embedded in the arbitrary domain velocity, the
+bulk mesh quality is preserved. In practice, we also require $s>1$, which means
+that we do at least two full iterations of the fixed point scheme.
+
+At every step, the linear algebraic system arising from (\ref{eq:ns_HGalea}--d)
+is identical to the two-phase Stokes algebraic system
+(\ref{eq:ns_algebraic}) but with the following terms
+\begin{align*}
+& [\vec B_\Omega]_{ij} := \left( \frac{\rho^m}{\tau_m}
+\phi_j^{\uspacesimpleale^m},
+\phi_i^{\uspacesimpleale^m} \right)_{\Omega^{m+1,s}}\mat \id
++ 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimpleale^m} \vec e_q),
+\mat D(\phi_i^{\uspacesimpleale^m}\,\vec e_r)\right)_{\Omega^m}
+\right)_{q,r=1}^d\\
+& \qquad + \left( \left(\rho^m \left(\vec U^{m+1,s} -
+\frac{\vec \psi^{m+1,s}}{\tau_m}\right)\,.\,\nabla \right)
+\phi_j^{\uspacesimpleale^m},\phi_i^{\uspacesimpleale^m}
+\right)_{\Omega^m}\mat \id \,,\\
+& \vec c_i := \left( \frac{\rho^m}{\tau_m}\vec U^m \right)_{\Omega^{m+1,s}}
++ \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1},
+\phi_i^{\uspacesimpleale^m}\right)_{\Omega^m}\,,\\
+& [\vec C_\Omega]_{ip} := - \left(
+\left(\nabla\,.\,(\phi_i^{\uspacesimpleale^m}\,\vec
+e_q), \phi_p^{\pspaceale^m} \right)_{\Omega^m} \right)_{q=1}^d,\quad
+[\Nbulk]_{il} := \left\langle \phi_i^{\uspacesimpleale^m}, \chi^m_l \,\vec\nu^m
+\right\rangle_{\Gamma^m} \,,\\
+& \vec \beta_i :=
+\frac{\left(\phi_i^{\pspaceale^m},1\right)_{\Omega^m}}{\left(1,1\right)
+_{\Omega^m}} \left\langle \vec I_2^m\,\vec
+g,\unitn\right\rangle_{\partial_1\Omega^m}\,,\quad
+[\vec N_\Gamma]_{kl} := \left\langle \chi^m_l, \chi^m_k\,\vec\nu^m
+\right\rangle_{\Gamma^m}^h \,,\\
+& [\vec A_\Gamma]_{kl} := \left\langle \nabs\,\chi^m_l, \nabs\,\chi^m_k
+\right\rangle_{\Gamma^m} \,\vec\id \,.
+\end{align*}
+Then the resulting algebraic system can be solved using the same technique
+introduced in \S\ref{sec:solution_method}.
+
 \section{Exact solutions}\label{sec:ns_exact_solutions}
 Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$ be a sphere of radius
 $r(t)$ and curvature $\varkappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
@@ -1368,7 +2022,7 @@ but, given that
 \varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right)\,,
 \end{equation}
 and using
-\begin{equation}\label{eq:div_to_line_integral}
+\begin{equation}
 \left(\nabla\,.\,\vec U^{m+1}, 1\right)=
 \frac{\left(\varphi,1\right)}{\left(1,1\right)}\, \int_{\partial\Omega}
 \vec U^{m+1}\,.\, \unitn \dH{d-1}=
@@ -1481,8 +2135,8 @@ settings. We employ uniform time steps $\tau_m=\tau$, $m=0,\ldots, M-1$. The
 bulk mesh is remeshed only when the angle criterion (\ref{eq:angle_criterion}),
 with $C_a=20\degree$, is not satisfied. Moreover, we set the GMRES
 tolerance to tol $=10^{-12}$ and the restart value to 50. We use the Stokes
-matrix (\ref{eq:stokes_direct_precond}) or, depending on the pressure space,
-(\ref{eq:stokes_direct_precond_extended}) as a preconditioner factorizing it
+matrix (\ref{eq:ns_direct_precond}) or, depending on the pressure space,
+(\ref{eq:ns_direct_precond_extended}) as a preconditioner factorizing it
 with UMFPACK, see \cite{Davis04}.
 
 We define the errors
@@ -1966,10 +2620,10 @@ interpolation algorithms.
 
 \section{Rising bubble experiments}\label{sec:2d_rising_bubble_results}
 We use the same  setup described in \cite[Figure~2]{HysingTKPBGT09}, which is
-${\Omega = (0,1) \times (0,2)}$ with $\partial_1\Omega = [0,1] \times \{0,2\}$
+$\Omega = (0,1) \times (0,2)$ with $\partial_1\Omega = [0,1] \times \{0,2\}$
 and $\partial_2\Omega = \{0,1\} \times (0,2)$. Moreover, let the initial
-interface be ${\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\frac{1}{2},
-\frac{1}{2})^T| = \frac{1}{4}\}}$.  We adopt an uniform time step size
+interface be $\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\frac{1}{2},
+\frac{1}{2})^T| = \frac{1}{4}\}$.  We adopt an uniform time step size
 $\tau=10^{-3}$, $T=3$, $\vec f = -0.98\,\rho\,\vec e_2$ and $\vec g=\vec 0$.
 
 The physical parameters for the rising bubble experiment I are
@@ -2051,7 +2705,7 @@ CPU                              &  11737 &  52415 & 265654 \\
 \hspace*{-3.25cm}
 \caption[Navier--Stokes rising bubble I benchmark values P2--P0]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Rising bubble experiment I on ${\Omega = (0,1) \times (0,2)}$ over the time
+Rising bubble experiment I on $\Omega = (0,1) \times (0,2)$ over the time
 interval $[0,3]$ for the P2--P0 element, with nearly uniform meshes and
 $C_a=20\degree$.}
 \label{tab:risingbubbleIp2p0}
@@ -2104,7 +2758,7 @@ CPU                              &  12007 &  59063 & 311455 \\
 \hspace*{-3.25cm}
 \caption[Navier--Stokes rising bubble I benchmark values P2--\pdg]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Rising bubble experiment I on ${\Omega = (0,1) \times (0,2)}$ over the time
+Rising bubble experiment I on $\Omega = (0,1) \times (0,2)$ over the time
 interval $[0,3]$ for the P2--\pdg element, with nearly uniform meshes and
 $C_a=20\degree$.}
 \label{tab:risingbubbleIp2p1dg}
@@ -2157,7 +2811,7 @@ CPU                              &  13628 &  63136 & 351867 \\
 \hspace*{-3.25cm}
 \caption[Navier--Stokes rising bubble I benchmark values P2--(P1+P0)]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Rising bubble experiment I on ${\Omega = (0,1) \times (0,2)}$ over the time
+Rising bubble experiment I on $\Omega = (0,1) \times (0,2)$ over the time
 interval $[0,3]$ for the P2--(P1+P0) element, with nearly uniform meshes and
 $C_a=20\degree$.}
 \label{tab:risingbubbleIp2p1p0}
@@ -2324,7 +2978,7 @@ CPU                              & - & 236253 \\
 \hspace*{-3.25cm}
 \caption[Navier--Stokes rising bubble II benchmark values]
 {($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
-Rising bubble experiment II on ${\Omega = (0,1) \times (0,2)}$ over the time
+Rising bubble experiment II on $\Omega = (0,1) \times (0,2)$ over the time
 interval $[0,3]$, with nearly uniform meshes, $J_\Gamma=128$ and
 $C_a=20\degree$.}
 \label{tab:risingbubbleII}
