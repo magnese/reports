@@ -105,6 +105,45 @@ incompressible two-phase flow, Navier--Stokes equations, ALE method,
 free boundary problem, surface tension, finite elements, front tracking
 \end{keywords}
 
+\section{Introduction}\label{sec:introdution}
+TODO
+
+The particle method utilizes mass-less particles distributed in an Eulerian
+mesh to capture the fluid flow and in particular the interface position, see
+e.g \cite{Girault1976}.
+
+In the volume-of-fluid method, the characteristic function of one of the phases
+is approximated numerically, see e.g. \cite{HirtN81,RenardyR02,Popinet09}.
+
+In the level-set method, the interface is given as the level set of a function,
+which has to be determined, see e.g.
+\cite{SussmanSO94,Sethian99,OsherF03,GrossR07,Svacek17}.
+
+In the phase-field method works with diffuse interfaces, and therefore the
+transition layer between the phases has a finite size. There is no tracking
+mechanism for the interface, but the phase state is included implicitly in the
+governing equations. The interface is associated with a smooth, but highly
+localized variation of the so-called phase-field variable. We refer to
+\cite{HohenbergH77,AndersonMW98,LowengrubT98,Feng06,KaySW08,AbelsGG12,GrunK14}
+for details.
+
+Interface tracking approaches, instead, use a Lagrangian description of the
+interface which is described explicitly. In these methods a collection of
+markers is put on a given interface $\Gamma_0$ and then transported
+(numerically) by the flow velocity $\vec u$ to obtain the markers on the
+interface $\Gamma(t)$. Usually, the collection of markers on $\Gamma_0$ are the
+set of vertices of the triangulation of $\Gamma_0$. We refer e.g. to
+\cite{UnverdiT92,Bansch01,Tryggvason_etal01,GanesanMT07,GanesanT08,spurious,
+fluidfbp} for further details, and to \cite{LevequeL97,Peskin02} for the
+related immersed boundary method, which is used to simulate fluid-structure
+interactions using Eulerian coordinates for the fluid and Lagrangian
+coordinates for the structure.
+
+The Arbitrary Lagrangian Eulerian (ALE) method is an alternative technique to
+numerically approximate equations on a moving domain. It was first proposed in
+the papers \cite{Donea83,Hughes81}. In our presentation we follow closely
+\cite{Nobile99,Formaggia04,NobilePhd}.
+
 \section{Mathematical model}\label{sec:ns_model}
 In this paper we consider two-phase Navier--Stokes flow in a given domain
 $\Omega\subset\R^d$, where $d=2$ or $d=3$. The domain $\Omega$ contains two
@@ -1402,10 +1441,7 @@ traverse. A good rule of thumb, which works well in practice, is to use the
 characteristic length of the mesh as the lattice size.
 
 \section{ALE mathematical model}\label{sec:ale_model}
-The Arbitrary Lagrangian Eulerian (ALE) method is an alternative technique to
-numerically approximate equations on a moving domain. It was first proposed in
-the papers \cite{Donea83,Hughes81}. In our presentation we follow closely
-\cite{Nobile99,Formaggia04,NobilePhd}. The ALE technique consists in
+The Arbitrary Lagrangian Eulerian (ALE) technique consists in
 reformulating the partial time derivative by expressing it with respect to a
 fixed reference configuration. A special homeomorphic map, called the ALE map,
 associates, at each time $t$, a point in the current computational domain
