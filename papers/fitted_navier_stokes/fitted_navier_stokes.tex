@@ -148,14 +148,13 @@ This paper extends our work \cite{stokesfitted} to Navier--Stokes flows.
 
 \section{Mathematical model}\label{sec:ns_model}
 In this paper we consider two-phase Navier--Stokes flow in a given domain
-$\Omega\subset\R^d$, where $d=2$ or $d=3$. The domain $\Omega$ contains two
+$\Omega\subset\R^d$, where $d=2$. The domain $\Omega$ contains two
 different immiscible, incompressible fluids (liquid-liquid or liquid-gas) which
 for all $t\in[0,T]$ occupy time dependent regions $\Omega_+(t)$ and
 $\Omega_-(t):=\Omega\setminus\overline{\Omega}_+(t)$ and which are separated by
 an interface $(\Gamma(t))_{t\in[0,T]}$, $\Gamma(t)\subset\Omega$. We limit
 ourselves to interfaces formed by closed hypersurfaces, see
-Figure~\ref{fig:two_phase_sketch} for a pictorial representation in dimension
-$d=2$.
+Figure~\ref{fig:two_phase_sketch} for a pictorial representation.
 \begin{figure}
 \begin{center}
 \unitlength15mm
@@ -170,7 +169,7 @@ $d=2$.
 \put(0.5,3.25){{$\Omega_+(t)$}}
 \end{picture}
 \end{center}
-\caption{The domain $\Omega$ in the case $d=2$.}
+\caption{The domain $\Omega$.}
 \label{fig:two_phase_sketch}
 \end{figure}
 For later use, we assume that $(\Gamma(t))_{t\in [0,T]}$ is a sufficiently
@@ -454,7 +453,7 @@ case.
 
 Moreover, if $\vec u\in [H^1(\Omega)]^d$ and $\vec \xi \in \uspace{0}$ then
 $\vec u\,.\,\vec\xi \in W_0^{1,\frac{3}{2}}(\Omega)$. Indeed, $H^1(\Omega)$ is
-compactly embedded in $L^6(\Omega)$, for $d=2$ or $d=3$. By the
+compactly embedded in $L^6(\Omega)$, for $d=2$. By the
 generalized H\"{o}lder inequality we know that $(\nabla h)\,\omega\in
 [L^{\frac{3}{2}}(\Omega)]^d$ if $h\in H^1(\Omega)$ and $\omega\in L^6(\Omega)$.
 Therefore $\nabla\,(\vec u\,.\,\vec \xi)\in [L^{\frac{3}{2}}(\Omega)]^d$,
@@ -1294,10 +1293,8 @@ the interface $c_{l,\Gamma}$, while in the latter case the characteristic
 length is $c_l(\vec z)=\min\{8c_{l,\Gamma},\mbox{dist}(\vec z,\Gamma)\}$.
 Therefore, in the adaptive case, if the interface is far enough from the
 boundary, the resulting bulk mesh will be coarse. We define the characteristic
-length of the interface $c_{l,\Gamma}$, in the 2d case, as the average length
-of the segments describing the discrete interface $\Gamma^m$ or, in the 3d
-case, as the length of an equilateral triangle with area equal to the average
-of the areas of the triangles describing the discrete interface $\Gamma^m$.
+length of the interface $c_{l,\Gamma}$ as the average length of the segments
+describing the discrete interface $\Gamma^m$.
 
 Then, for $m \geq 0$, having computed the new interface $\Gamma^{m+1}$, we
 would like to obtain a bulk triangulation $\mathcal{T}^{m+1}$ that is fitted to
@@ -1422,8 +1419,8 @@ element of $\mathcal{T}^m$ is assigned the point of the lattice which is
 closest to its barycenter. Depending on the size of the lattice, multiple
 entities can be mapped to the same point. Since the lattice is structured, it
 is straightforward to build a continuous path which visits all its points. For
-example, for a rectangular domain in 2d we can use a snaking path that
-traverses the lattice alternating left-to-right and right-to-left, see
+example, for a rectangular domain we can use a snaking path that traverses the
+lattice alternating left-to-right and right-to-left, see
 Figure~\ref{fig:velocity_interpolation_path}.
 \begin{figure}[htbp]
 \centering
@@ -2196,8 +2193,8 @@ and
 \LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2
 \right]^\frac12.
 \end{equation}
-In (\ref{eq:errorPp}) we employ a quadrature rule of degree $k$, with $k=13$ in
-2d and $k=10$ in 3d, to compute the $L^2$--norms over $\Omega$.
+In (\ref{eq:errorPp}) we employ a quadrature rule of degree $k=13$ to compute
+the $L^2$--norms over $\Omega$.
 
 Moreover, we also define the estimated error of convergence EOC as
 \begin{equation} \label{eq:eoc}
