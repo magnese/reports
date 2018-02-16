@@ -2416,12 +2416,10 @@ see the test case 1 in \cite[Table~I]{HysingTKPBGT09}. We list the
 discretization parameters in Table~\ref{tab:risingbubble2Delements}. Here we
 explicitly state the final number of bulk elements, $J_\Omega^M$, for all the
 schemes for the P2--P0 element. We report on quantitative results for the
-rising bubble experiment I for the P2--P0, P2--\pdg and P2--(P1+P0) elements in
-Tables~\ref{tab:risingbubbleIp2p0}, \ref{tab:risingbubbleIp2p1dg} and
-\ref{tab:risingbubbleIp2p1p0}, respectively. See
-\S\ref{sec:benchmark_quantities} for the definitions of the various benchmark
-quantities. For each element, we compare the explicit, implicit, antisymmetric
-and ALE scheme.
+rising bubble experiment I Table~\ref{tab:risingbubbleIp2p1p0}.
+See \S\ref{sec:benchmark_quantities} for the definitions of the various
+benchmark quantities. For each element, we compare the explicit, implicit,
+antisymmetric and ALE scheme.
 \begin{table*}
 \center
 \begin{tabular}{rrrrrr}
@@ -2437,112 +2435,6 @@ $J_\Omega^M$ antisymmetric & $J_\Omega^M$ ALE \\
 \caption[Navier--Stokes rising bubble I meshes parameters]
 {Discretization parameters for the rising bubble experiment I.}
 \label{tab:risingbubble2Delements}
-\end{table*}
-
-\begin{table*}
-\center
-\hspace*{-3.25cm}
-\begin{tabular}{rlll}
-\hline
- & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\
-\hline
-& \multicolumn{3}{c}{explicit} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.8986 & 0.9002 & 0.9007 \\
-$t_{\strikes = \strikes_{\min}}$ & 2.1560 & 1.9450 & 1.9420 \\
-$V_{c,\max}$                     & 0.2372 & 0.2402 & 0.2404 \\
-$t_{V_c = V_{c,\max}}$           & 1.0190 & 0.9370 & 0.9250 \\
-$z_c(t=3)$                       & 1.0857 & 1.0837 & 1.0816 \\
-CPU                              &  13664 &  24539 & 211168 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{implicit} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.8986 & 0.8990 & 0.9011 \\
-$t_{\strikes = \strikes_{\min}}$ & 2.1560 & 1.9190 & 1.8400 \\
-$V_{c,\max}$                     & 0.2372 & 0.2402 & 0.2403 \\
-$t_{V_c = V_{c,\max}}$           & 1.0190 & 0.9370 & 0.9240 \\
-$z_c(t=3)$                       & 1.0857 & 1.0862 & 1.0852 \\
-CPU                              &  18142 &  59221 & 373182 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{antisymmetric} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.8891 & 0.8905 & 0.8897 \\
-$t_{\strikes = \strikes_{\min}}$ & 1.8640 & 1.7330 & 1.7020 \\
-$V_{c,\max}$                     & 0.2298 & 0.2325 & 0.2328 \\
-$t_{V_c = V_{c,\max}}$           & 0.9060 & 0.8900 & 0.8790 \\
-$z_c(t=3)$                       & 1.0630 & 1.0632 & 1.0614 \\
-CPU                              &   6526 &  23425 & 130737 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{ALE} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.9050 & 0.9022 & 0.9025 \\
-$t_{\strikes = \strikes_{\min}}$ & 1.9370 & 1.8840 & 1.9050 \\
-$V_{c,\max}$                     & 0.2378 & 0.2407 & 0.2406 \\
-$t_{V_c = V_{c,\max}}$           & 0.9430 & 0.9340 & 0.9210 \\
-$z_c(t=3)$                       & 1.0893 & 1.0848 & 1.0820 \\
-CPU                              &  11737 &  52415 & 265654 \\
-\hline
-\end{tabular}
-\hspace*{-3.25cm}
-\caption[Navier--Stokes rising bubble I benchmark values P2--P0]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Rising bubble experiment I on $\Omega = (0,1) \times (0,2)$ over the time
-interval $[0,3]$ for the P2--P0 element, with nearly uniform meshes and
-$C_a=20\degree$.}
-\label{tab:risingbubbleIp2p0}
-\end{table*}
-
-\begin{table*}
-\center
-\hspace*{-3.25cm}
-\begin{tabular}{rlll}
-\hline
- & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\
-\hline
-& \multicolumn{3}{c}{explicit} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.8961 & 0.8985 & 0.9009 \\
-$t_{\strikes = \strikes_{\min}}$ & 1.9090 & 1.9060 & 1.8930 \\
-$V_{c,\max}$                     & 0.2435 & 0.2422 & 0.2411 \\
-$t_{V_c = V_{c,\max}}$           & 0.9390 & 0.9330 & 0.9230 \\
-$z_c(t=3)$                       & 1.0883 & 1.0839 & 1.0820 \\
-CPU                              &   5285 &  29631 & 150569 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{implicit} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.8961 & 0.8984 & 0.9010 \\
-$t_{\strikes = \strikes_{\min}}$ & 1.9090 & 1.8940 & 1.9020 \\
-$V_{c,\max}$                     & 0.2434 & 0.2422 & 0.2411 \\
-$t_{V_c = V_{c,\max}}$           & 0.9390 & 0.9330 & 0.9230 \\
-$z_c(t=3)$                       & 1.0882 & 1.0832 & 1.0818 \\
-CPU                              &  13469 &  66270 & 402979 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{antisymmetric} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.8813 & 0.8900 & 0.8903 \\
-$t_{\strikes = \strikes_{\min}}$ & 1.7370 & 1.7170 & 1.6840 \\
-$V_{c,\max}$                     & 0.2356 & 0.2343 & 0.2334 \\
-$t_{V_c = V_{c,\max}}$           & 0.8910 & 0.8840 & 0.8760 \\
-$z_c(t=3)$                       & 1.0653 & 1.0628 & 1.0613 \\
-CPU                              &   5766 &  19124 & 140574 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{ALE} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.9002 & 0.9012 & 0.9020 \\
-$t_{\strikes = \strikes_{\min}}$ & 1.9170 & 1.9180 & 1.8950 \\
-$V_{c,\max}$                     & 0.2433 & 0.2421 & 0.2411 \\
-$t_{V_c = V_{c,\max}}$           & 0.9370 & 0.9320 & 0.9210 \\
-$z_c(t=3)$                       & 1.0876 & 1.0838 & 1.0821 \\
-CPU                              &  12007 &  59063 & 311455 \\
-\hline
-\end{tabular}
-\hspace*{-3.25cm}
-\caption[Navier--Stokes rising bubble I benchmark values P2--\pdg]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Rising bubble experiment I on $\Omega = (0,1) \times (0,2)$ over the time
-interval $[0,3]$ for the P2--\pdg element, with nearly uniform meshes and
-$C_a=20\degree$.}
-\label{tab:risingbubbleIp2p1dg}
 \end{table*}
 
 \begin{table*}
@@ -2590,15 +2482,14 @@ CPU                              &  13628 &  63136 & 351867 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Navier--Stokes rising bubble I benchmark values P2--(P1+P0)]
+\caption[Navier--Stokes rising bubble I benchmark values]
 {($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
 Rising bubble experiment I on $\Omega = (0,1) \times (0,2)$ over the time
-interval $[0,3]$ for the P2--(P1+P0) element, with nearly uniform meshes and
-$C_a=20\degree$.}
+interval $[0,3]$, with discretization parameters from
+Table~\ref{tab:risingbubble2Delements}.}
 \label{tab:risingbubbleIp2p1p0}
 \end{table*}
-We observe that the results in Tables~\ref{tab:risingbubbleIp2p0},
-\ref{tab:risingbubbleIp2p1dg} and \ref{tab:risingbubbleIp2p1p0} are in very
+We observe that the results in Table~\ref{tab:risingbubbleIp2p1p0} are in very
 good agreement, except for the antisymmetric scheme, with the corresponding
 numbers from the finest discretization run of group 3 in \cite{HysingTKPBGT09},
 which are given by 0.9013, 1.9000, 0.2417, 0.9239 and 1.0817. Here we note that
@@ -2708,60 +2599,35 @@ The physical parameters for the rising bubble experiment II are
 \gamma = 1.96\,,
 \end{equation}
 see the test case 2 in \cite[Table~I]{HysingTKPBGT09}. We report on
-quantitative results for the rising bubble experiment II for the P2--\pdg and
-P2--(P1+P0) elements in Table~\ref{tab:risingbubbleII}. See
-\S\ref{sec:benchmark_quantities} for the definitions of the various benchmark
-quantities. For each element, we compare the explicit, implicit and ALE scheme.
-We use $J_\Gamma=128$ interface elements with $J_\Omega^0=35092$ initial bulk
-elements. The final number of bulk elements, $J_\Omega^M$, for the explicit
-scheme for the P2--(P1+P0) element is 10638.
+quantitative results for the rising bubble experiment II in
+Table~\ref{tab:risingbubbleII}. See \S\ref{sec:benchmark_quantities} for the
+definitions of the various benchmark quantities. For each element, we compare
+the explicit, implicit and ALE scheme. We use $J_\Gamma=128$ interface elements
+with $J_\Omega^0=35092$ initial bulk elements. The final number of bulk
+elements, $J_\Omega^M$, for the explicit scheme is 10638.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
-\begin{tabular}{rll}
+\begin{tabular}{rlll}
 \hline
- & P2--\pdg & P2--(P1+P0) \\
+& explicit & implicit & ALE \\
 \hline
-& \multicolumn{2}{c}{explicit} \\
-\cmidrule{2-3}
-$\strikes_{\min}$                & 0.5412 & 0.5435 \\
-$t_{\strikes = \strikes_{\min}}$ & 3.0000 & 3.0000 \\
-$V_{c,\max 1}$                   & 0.2501 & 0.2503 \\
-$t_{V_c = V_{c,\max 1}}$         & 0.7290 & 0.7290 \\
-$V_{c,\max 2}$                   & 0.2402 & 0.2403 \\
-$t_{V_c = V_{c,\max 2}}$         & 2.1030 & 2.1070 \\
-$z_c(t=3)$                       & 1.1384 & 1.1383 \\
-CPU                              & 128299 & 132498 \\
-\cmidrule{2-3}
-& \multicolumn{2}{c}{implicit} \\
-\cmidrule{2-3}
-$\strikes_{\min}$                & 0.5443 & 0.5473 \\
-$t_{\strikes = \strikes_{\min}}$ & 3.0000 & 3.0000 \\
-$V_{c,\max 1}$                   & 0.2501 & 0.2502 \\
-$t_{V_c = V_{c,\max 1}}$         & 0.7290 & 0.7290 \\
-$V_{c,\max 2}$                   & 0.2402 & 0.2403 \\
-$t_{V_c = V_{c,\max 2}}$         & 2.1040 & 2.1540 \\
-$z_c(t=3)$                       & 1.1385 & 1.1387 \\
-CPU                              & 216605 & 236635 \\
-\cmidrule{2-3}
-& \multicolumn{2}{c}{ALE} \\
-\cmidrule{2-3}
-$\strikes_{\min}$                & - & 0.5266 \\
-$t_{\strikes = \strikes_{\min}}$ & - & 3.0000 \\
-$V_{c,\max 1}$                   & - & 0.2502 \\
-$t_{V_c = V_{c,\max 1}}$         & - & 0.7300 \\
-$V_{c,\max 2}$                   & - & 0.2400 \\
-$t_{V_c = V_{c,\max 2}}$         & - & 2.0670 \\
-$z_c(t=3)$                       & - & 1.1385 \\
-CPU                              & - & 236253 \\
+$\strikes_{\min}$                & 0.5435 & 0.5473 & 0.5266 \\
+$t_{\strikes = \strikes_{\min}}$ & 3.0000 & 3.0000 & 3.0000 \\
+$V_{c,\max 1}$                   & 0.2503 & 0.2502 & 0.2502 \\
+$t_{V_c = V_{c,\max 1}}$         & 0.7290 & 0.7290 & 0.7300 \\
+$V_{c,\max 2}$                   & 0.2403 & 0.2403 & 0.2400 \\
+$t_{V_c = V_{c,\max 2}}$         & 2.1070 & 2.1540 & 2.0670 \\
+$z_c(t=3)$                       & 1.1383 & 1.1387 & 1.1385 \\
+CPU                              & 132498 & 236635 & 236253 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
 \caption[Navier--Stokes rising bubble II benchmark values]
 {($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
 Rising bubble experiment II on $\Omega = (0,1) \times (0,2)$ over the time
-interval $[0,3]$, with nearly uniform meshes, $J_\Gamma=128$ and
-$C_a=20\degree$.}
+interval $[0,3]$, with nearly uniform meshes and $J_\Gamma=128$ interface
+elements.}
 \label{tab:risingbubbleII}
 \end{table*}
 We observe that the results in Table~\ref{tab:risingbubbleII}
@@ -2770,14 +2636,12 @@ discretization run of group 3 in \cite{HysingTKPBGT09}, which are given by
 0.5144, 3.0000, 0.2502, 0.7317, 0.2393, 2.0600 and 1.1376. Here we note that
 there is little agreement on these results between the three groups in
 \cite{HysingTKPBGT09}, but we believe the numbers of group 3 to be the most
-reliable ones. Similar results are also obtained in \cite{fluidfbp}. Some
-results in Table~\ref{tab:risingbubbleII} are missing because one simulation
-had an early termination triggered by a bulk mesh overlap in the last steps.
+reliable ones. Similar results are also obtained in \cite{fluidfbp}.
 
 In Figure~\ref{fig:risingbubbleIIpressure} we show the evolution of the discrete
 pressures for a simulation with $J_\Gamma=128$ interface elements using the
-P2--(P1+P0) element and the explicit scheme, while the velocities are visualized
-in Figure~\ref{fig:risingbubbleIIvelocity}.
+explicit scheme, while the velocities are visualized in
+Figure~\ref{fig:risingbubbleIIvelocity}.
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10^{-5}$]{\includegraphics[width=.45\textwidth]
@@ -2790,9 +2654,8 @@ in Figure~\ref{fig:risingbubbleIIvelocity}.
 {figures/rising_bubble_II_pressure_3.ps}}
 \caption[Navier--Stokes rising bubble II pressure]
 {($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
-Pressure evolution for the rising bubble experiment II for the P2--(P1+P0)
-element and the explicit scheme, nearly uniform mesh with $J_\Gamma=128$
-interface elements and $C_a=20$\textdegree.}
+Pressure evolution for the rising bubble experiment II for the explicit scheme,
+with nearly uniform mesh and $J_\Gamma=128$ interface elements.}
 \label{fig:risingbubbleIIpressure}
 \end{figure}
 
@@ -2817,11 +2680,11 @@ In Figures~\ref{fig:risingbubbleIIsphericity},
 \ref{fig:risingbubbleIIinnervolume} are reported, respectively, the evolution of
 the sphericity $\strikes$, rising velocity $V_c$, barycenter $z_c$ and relative
 inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over
-time. We have used the P2--(P1+P0) element and $J_\Gamma=128$ interface
-elements. In Figure~\ref{fig:risingbubbleIIinnervolume} we observe oscillations
-in the relative inner area between $t=2.1$ and $t=2.3$. In that interval the
-bubble assumes a more non-convex shape and develops thin filaments which
-originate these oscillations.
+time. We have used $J_\Gamma=128$ interface elements. In
+Figure~\ref{fig:risingbubbleIIinnervolume} we observe oscillations in the
+relative inner area between $t=2.1$ and $t=2.3$. In that interval the bubble
+assumes a more non-convex shape and develops thin filaments which originate
+these oscillations.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
