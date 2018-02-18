@@ -1144,6 +1144,29 @@ of $\vec C_\Omega$ in (\ref{eq:ns_algebraic}) but now in terms of bases of
 different spaces. More precisely, in the case (P1+P0), there are two
 independent spaces for the pressure of polynomial order 1 and 0, respectively.
 
+Therefore, the reduced system (\ref{eq:SchurkX}) becomes
+\begin{align}\label{eq:SchurkX_extended}
+&
+\begin{pmatrix}
+\vec B_\Omega + \gamma\,(\Nbulk \ 0)\,\Xi_\Gamma^{-1}\,\binom{\NbulkT}{0} &
+\vec C_\spadesuit & \vec C_\clubsuit \\
+\vec C^T_\spadesuit & 0 & 0 \\
+\vec C^T_\clubsuit & 0 & 0 \\
+\end{pmatrix}
+\begin{pmatrix}
+\vec U^{m+1} \\
+P^{m+1}_\spadesuit \\
+P^{m+1}_\clubsuit
+\end{pmatrix}
+= \nonumber \\
+& \qquad
+\begin{pmatrix}
+\vec c+\gamma\,(\Nbulk \ 0)\,
+\Xi_\Gamma^{-1}\,\binom{0}{-\vec A_\Gamma\,\vec X^m} \\
+\vec \beta_\spadesuit \\
+\vec \beta_\clubsuit
+\end{pmatrix}\,.
+\end{align}
 As before, it is possible to use the standard Navier--Stokes
 matrix
 \begin{equation}\label{eq:ns_direct_precond_extended}
@@ -1153,7 +1176,7 @@ matrix
 \vec C^T_\clubsuit & 0 & 0 \\
 \end{pmatrix}
 \end{equation}
-as a preconditioner for (\ref{eq:ns_algebraic_extended}) and factorize
+as a preconditioner for (\ref{eq:SchurkX_extended}) and factorize
 them directly with a sparse $L\,U$ decomposition. The matrix
 (\ref{eq:ns_direct_precond_extended}), if LBB holds, has rank deficiency 2 for
 the P2--(P1+P0) element. Therefore, the block entries in position
