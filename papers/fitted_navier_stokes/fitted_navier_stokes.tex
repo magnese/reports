@@ -1088,44 +1088,8 @@ order to reuse the factorization. Having obtained $(\vec U^{m+1}, P^{m+1})$ from
 (\ref{eq:SchurkX}), we solve (\ref{eq:SchurkXb}) for $(\kappa^{m+1}, \delta\vec
 X^{m+1})$.
 
-As regarding the preconditioner, see \cite{ElmanSW05} for more details, a
-possible choice is to use the preconditioner
-\begin{equation} \label{eq:ESW}
-\mathcal{P} = \begin{pmatrix}
-\vec{\mathcal{P}}_{\vec B} & \vec C_\Omega \\
-0 & -\mathcal{P}_S
-\end{pmatrix}\,,
-\end{equation}
-where $\vec{\mathcal{P}}_{\vec B}$ is some preconditioner for the matrix $\vec
-B_\Omega$, and $\mathcal{P}_S$ acts as a preconditioner for the bulk Schur
-complement operator $S_\Omega=\vec C^T_\Omega \,\vec B_\Omega^{-1}\,\vec
-C_\Omega$.
-
-An application of the preconditioner (\ref{eq:ESW}) amounts to solving the
-equations
-\begin{equation*}
-\begin{pmatrix}
-\vec{\mathcal{P}}_{\vec B} & \vec C_\Omega \\
-0 & -\mathcal{P}_S
-\end{pmatrix}
-\begin{pmatrix} \vec U \\ P \end{pmatrix}
-= \begin{pmatrix} \vec v \\ q \end{pmatrix}
-\end{equation*}
-which, by backward substitution, is equivalent to
-\begin{equation}\label{eq:blocksolution}
-\mathcal{P}_S\,P = -q\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U = \vec v -
-\vec C_\Omega\,P\,.
-\end{equation}
-We choose $\vec B_\Omega$  for $\vec{\mathcal{P}}_{\vec B}$ and the pressure
-mass matrix $M_\Omega$ defined as
-\begin{equation*}
-[M_\Omega]_{ij} = \left(\,\phi_j^{\pspace^m},\, \phi_i^{\pspace^m}\right)\,.
-\end{equation*}
-for $\mathcal{P}_S$. Again, in order to reuse the factorization, we employ a
-sparse $L\,U$ decomposition to factorize the matrices $\vec B$ and $M_\Omega$.
-
-Alternatively, it is possible to use the standard Navier--Stokes matrix, see
-(\ref{eq:ns_system}),
+As regarding the preconditioner, a possible choice is to use the standard
+Navier--Stokes matrix, see (\ref{eq:ns_system}),
 \begin{equation}\label{eq:ns_direct_precond}
 \begin{pmatrix}
 \vec B_\Omega & \vec C_\Omega \\
@@ -1141,14 +1105,15 @@ the matrix, the rank deficiency needs to be reduced to 0. This can be achieved
 by fixing a degree of freedom in the discrete pressure. For example, by
 using a matrix doctoring which replaces the first row of the second block row
 of (\ref{eq:ns_direct_precond}) with the corresponding row of the identity
-matrix. This doctoring
-process can be avoided if SPQR is used to factorize the preconditioner since
-SPQR can decompose also singular matrices. Indeed, SPQR is a sparse
-factorization package, see \cite{Davis11}, performing a QR decomposition which
-can be used to solve the least squares problem.
+matrix. This doctoring process can be avoided if SPQR is used to factorize the
+preconditioner since SPQR can decompose also singular matrices. Indeed, SPQR is
+a sparse factorization package, see \cite{Davis11}, performing a QR
+decomposition which can be used to solve the least squares problem.
 
-The algebraic system (\ref{eq:ns_algebraic}) can be rewritten when we
-use (P1+P0) or \pdg as pressure space. Indeed it assumes the following form
+With a view towards the experiments presented in
+\S\ref{sec:ns_convergence_results} and \S\ref{sec:2d_rising_bubble_results},
+the algebraic system (\ref{eq:ns_algebraic}) can be rewritten when we use
+(P1+P0) pressure space. Indeed it assumes the following form
 \begin{equation}
 \begin{pmatrix}
 \vec B_\Omega & \vec C_{\spadesuit} & \vec C_{\clubsuit} & -\gamma\,\Nbulk & 0\\
@@ -1178,70 +1143,8 @@ where $\vec C_{\spadesuit}$ and $\vec C_{\clubsuit}$ have the same definition
 of $\vec C_\Omega$ in (\ref{eq:ns_algebraic}) but now in terms of bases of
 different spaces. More precisely, in the case (P1+P0), there are two
 independent spaces for the pressure of polynomial order 1 and 0, respectively.
-Instead, in the case \pdg, both spaces have polynomial degree 1 but the basis
-functions support is restricted to $\Omega_-^m$ and $\Omega_+^m$, respectively.
 
-A suitable preconditioner for the algebraic system
-(\ref{eq:ns_algebraic_extended}) is then
-\begin{equation} \label{eq:ESW_extended}
-\mathcal{P} = \begin{pmatrix}
-\vec{\mathcal{P}}_{\vec B} & \vec C_\spadesuit & \vec C_\clubsuit \\
-0 & -\mathcal{P}_{S,\spadesuit} & 0 \\
-0 & 0 &-\mathcal{P}_{S,\clubsuit}
-\end{pmatrix}\,,
-\end{equation}
-while the reduced system (\ref{eq:SchurkX}) becomes
-\begin{align}\label{eq:SchurkX_extended}
-&
-\begin{pmatrix}
-\vec B_\Omega + \gamma\,(\Nbulk \ 0)\,\Xi_\Gamma^{-1}\,\binom{\NbulkT}{0} &
-\vec C_\spadesuit & \vec C_\clubsuit \\
-\vec C^T_\spadesuit & 0 & 0 \\
-\vec C^T_\clubsuit & 0 & 0 \\
-\end{pmatrix}
-\begin{pmatrix}
-\vec U^{m+1} \\
-P^{m+1}_\spadesuit \\
-P^{m+1}_\clubsuit
-\end{pmatrix}
-= \nonumber \\
-& \qquad
-\begin{pmatrix}
-\vec c+\gamma\,(\Nbulk \ 0)\,
-\Xi_\Gamma^{-1}\,\binom{0}{-\vec A_\Gamma\,\vec X^m} \\
-\vec \beta_\spadesuit \\
-\vec \beta_\clubsuit
-\end{pmatrix}\,.
-\end{align}
-An application of the preconditioner (\ref{eq:ESW_extended}) amounts to solving
-the equations
-\begin{equation*}
-\begin{pmatrix}
-\vec{\mathcal{P}}_{\vec B} & \vec C_\spadesuit & \vec C_\clubsuit \\
-0 & -\mathcal{P}_{S,\spadesuit} & 0 \\
-0 & 0 &-\mathcal{P}_{S,\clubsuit}
-\end{pmatrix}
-\begin{pmatrix}
-\vec U \\
-P_\spadesuit \\
-P_\clubsuit
-\end{pmatrix}
-=
-\begin{pmatrix}
-\vec v \\
-q \\
-p
-\end{pmatrix}
-\end{equation*}
-which, by backward substitution, is equivalent to
-\begin{equation}\label{eq:blocksolution_extended}
-\mathcal{P}_{S,\spadesuit}\,P_\spadesuit =
--q\,,\quad \mathcal{P}_{S,\clubsuit}\,P_\clubsuit =
--p\,,\quad \vec{\mathcal{P}}_{\vec B}\,\vec U =
-\vec v - \vec C_\spadesuit\,P_\spadesuit - \vec C_\clubsuit\,P_\clubsuit\,.
-\end{equation}
-
-Alternatively, as before, it is possible to use the standard Navier--Stokes
+As before, it is possible to use the standard Navier--Stokes
 matrix
 \begin{equation}\label{eq:ns_direct_precond_extended}
 \begin{pmatrix}
@@ -1250,16 +1153,13 @@ matrix
 \vec C^T_\clubsuit & 0 & 0 \\
 \end{pmatrix}
 \end{equation}
-as a preconditioner for (\ref{eq:SchurkX_extended}) and factorize them directly
-with a sparse $L\,U$ decomposition. The matrix
-(\ref{eq:ns_direct_precond_extended}), if LBB holds, has rank deficiency 1
-for the P2--\pdg element and 2 for the P2--(P1+P0) element. Therefore, in the
-case P2--\pdg, only the block entry in position $(2,2)$ of
-(\ref{eq:ns_direct_precond_extended}) is doctored while, in the case
-P2--(P1+P0), the block entries in position in position $(2,2)$ and $(3,3)$ of
-(\ref{eq:ns_direct_precond_extended}) are doctored. Again, we point out
-that the doctoring is not needed when SPQR is used to factorize the
-preconditioner.
+as a preconditioner for (\ref{eq:ns_algebraic_extended}) and factorize
+them directly with a sparse $L\,U$ decomposition. The matrix
+(\ref{eq:ns_direct_precond_extended}), if LBB holds, has rank deficiency 2 for
+the P2--(P1+P0) element. Therefore, the block entries in position
+$(2,2)$ and $(3,3)$ of (\ref{eq:ns_direct_precond_extended}) are doctored.
+Again, we point out that the doctoring is not needed when SPQR is used to
+factorize the preconditioner.
 
 \section{Mesh generation and smoothing}\label{sec:smoothing}
 Given the initial polyhedral surface $\Gamma^0$, we create a triangulation
