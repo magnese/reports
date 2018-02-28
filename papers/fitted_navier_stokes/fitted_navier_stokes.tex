@@ -66,9 +66,12 @@ hyperref,verbatim,booktabs,textcomp}
 
 \renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
 
-\textwidth 425pt
+%\textwidth 425pt
+\textwidth 455pt \oddsidemargin 0pt \evensidemargin 0pt \headsep
+0pt \headheight 0pt \textheight 655pt \parskip 10pt
 
-\title{Fitted front tracking methods for two-phase Navier--Stokes Flow:
+\title{Fitted front tracking methods for two-phase incompressible 
+Navier--Stokes flow: \\
 Eulerian and ALE finite element discretizations
 }
 \author{Marco Agnese and Robert N\"urnberg%
@@ -106,55 +109,126 @@ free boundary problem, surface tension, finite elements, front tracking
 \end{keywords}
 
 \section{Introduction}\label{sec:introdution}
-TODO
+Fluid flow problems with a moving interface are encountered in many
+applications in physics, engineering and biophysics. Typical applications 
+include drops and bubbles, die swell, dam break, liquid storage tanks, 
+ink-jet printing and fuel injection. For this reason, developing robust and
+efficient numerical methods for these flows is an important problem and
+has attracted tremendous interest over the last few decades.
 
+A crucial aspect of these types of fluid flow problems is that apart from 
+the solution of the flow in the bulk domain, the position of the interface
+separating the two bulk phases also needs to be determined. 
+At the interface certain boundary conditions need to be fulfilled, which
+specify the motion of the phase boundary. 
+These conditions relate the variables of the bulk flow, velocity and pressure, 
+across the two phase, taking into account external influences, such as for 
+example surface tension. Numerically, in order
+to be able to compute the flow solution as well as the interface
+geometry, a measure to track the interface starting from an initial position
+needs to be incorporated.
+There are several strategies to deal with this problem, which can be divided 
+into two categories depending on the viewpoint: interface capturing and 
+interface tracking.
+
+Interface capturing methods use an Eulerian description of the interface, which
+is defined implicitly. A characteristic scalar field,
+that is advected by the flow, is used to identify
+the two phases as well as the interface along the boundaries of the individual
+fluid domains. Depending on the method, this scalar field may be, for example,
+a discontinuous Heaviside function or a signed-distance function. The most
+important methods, which belong to this category, are the particle method,
+the volume-of-fluid method, the level-set method and the phase-field method.
 The particle method utilizes mass-less particles distributed in an Eulerian
 mesh to capture the fluid flow and in particular the interface position, see
-e.g \cite{Girault1976}.
-
-In the volume-of-fluid method, the characteristic function of one of the phases
-is approximated numerically, see e.g. \cite{HirtN81,RenardyR02,Popinet09}.
-
-In the level-set method, the interface is given as the level set of a function,
-which has to be determined, see e.g.
-\cite{SussmanSO94,Sethian99,OsherF03,GrossR07,Svacek17}.
-
-In the phase-field method works with diffuse interfaces, and therefore the
-transition layer between the phases has a finite size. There is no tracking
-mechanism for the interface, but the phase state is included implicitly in the
-governing equations. The interface is associated with a smooth, but highly
-localized variation of the so-called phase-field variable. We refer to
+e.g \cite{Girault1976}. In the volume-of-fluid method, the characteristic
+function of one of the phases is approximated numerically, see e.g.
+\cite{HirtN81,RenardyR02,Popinet09}. In the level-set method, the interface is
+given as the level set of a function, which has to be determined, see e.g.
+\cite{SussmanSO94,Sethian99,OsherF03,GrossR07,GrossR11,Svacek17}. Instead, the
+phase-field method works with diffuse interfaces, and therefore the transition
+layer between the phases has a finite size. There is no tracking mechanism for
+the interface, but the phase state is included implicitly in the governing
+equations. The interface is associated with a smooth, but highly localized
+variation of the so-called phase-field variable. We refer to
 \cite{HohenbergH77,AndersonMW98,LowengrubT98,Feng06,KaySW08,AbelsGG12,GrunK14}
-for details.
+for details. 
+The appeal of interface capturing approaches is the fact that they are usually
+easy to implement, and that they offer an automated way to deal with
+topological changes.
+%In general, the great advantage of the interface capturing
+%approaches is that they are inherently able to deal with topological changes of
+%the interface. This allows a much more flexible interface description than in
+%interface tracking approaches. On the other hand, it is challenging to treat
+%accurately discontinuous quantities across the interface, to have mass
+%conservation within each phase and to apply boundary conditions along the
+%interface.
 
 Interface tracking approaches, instead, use a Lagrangian description of the
-interface which is described explicitly. In these methods a collection of
-markers is put on a given interface $\Gamma_0$ and then transported
-(numerically) by the flow velocity $\vec u$ to obtain the markers on the
-interface $\Gamma(t)$. Usually, the collection of markers on $\Gamma_0$ are the
-set of vertices of the triangulation of $\Gamma_0$. We refer e.g. to
-\cite{UnverdiT92,Bansch01,Tryggvason_etal01,GanesanMT07,GanesanT08,spurious,
+interface which is described explicitly. Here the interface is represented
+by a collection of particles or points, and this representation is
+transported by the bulk flow velocity. 
+The great
+advantage of interface tracking approaches is that they offer an accurate and
+computationally efficient approximation of the evolving interface. 
+Challenges are the mesh quality both of the interface representation and of the
+bulk triangulations, as well as the need to heuristically deal with topological
+changes.
+We refer e.g.\ to
+\cite{UnverdiT92,Bansch01,Tryggvason_etal01,GanesanT08,spurious,
 fluidfbp} for further details, and to \cite{LevequeL97,Peskin02} for the
 related immersed boundary method, which is used to simulate fluid-structure
 interactions using Eulerian coordinates for the fluid and Lagrangian
 coordinates for the structure.
 
-The Arbitrary Lagrangian Eulerian (ALE) method is an alternative technique to
-numerically approximate equations on a moving domain. It was first proposed in
-the papers \cite{Donea83,Hughes81}. In our presentation we follow closely
-\cite{Nobile99,Formaggia04,NobilePhd}.
+In this paper we use a direct description of the interface using a
+parameterization of the unknown interface, similarly to the previous work
+\cite{fluidfbp}. In particular, our numerical method will be based
+on a piecewise linear parametric finite elements, and the description of the
+interface will be advected in normal direction
+with the normal part of the fluid velocity. The tangential degrees
+of freedom of the interface velocity are implicitly used to ensure a 
+good mesh quality, and this is a main feature of our proposed methods. 
+But in contrast to \cite{fluidfbp}, where an unfitted bulk finite element 
+approximation was used, we will adopt a fitted mesh approach, which means 
+that the discrete interface is composed of faces of elements from the bulk 
+triangulation. A fitted method has the advantage that discontinuity jumps 
+at the interface are captured naturally, but it has the disadvantage that in
+a standard Eulerian method the velocity needs to be interpolated from
+an old mesh to a new mesh, unless the interface is stationary. Hence so-called
+Arbitrary Lagrangian Eulerian (ALE) methods are often proposed. Here
+the equations are posed in a moving domain framework,
+and an arbitrary Lagrangian velocity may be chosen to improve the quality of
+the bulk mesh. The original idea for ALE methods goes back to 
+the papers \cite{Donea83,Hughes81}, and we refer to
+\cite{Nobile99,NobilePhd,Formaggia04,Ganesan06,GanesanT08} for applications 
+to two-phase Navier--Stokes flow.
 
-This paper extends our work \cite{stokesfitted} to Navier--Stokes flows.
+In this paper we will proposed both standard Eulerian and
+ALE finite element approximations for two-phase incompressible Navier--Stokes
+flow. One aim of our paper is to investigate numerically, if there is a clear
+advantage of ALE type methods over standard Eulerian methods.
+We note that in the case of viscous incompressible two-phase Stokes flow, 
+there is no need for the numerical method to interpolate the velocity from the
+old to the new mesh. Hence there is no need to employ an ALE method. In fact,
+in the case of two-phase Stokes flow, our proposed numerical methods collapse
+the the approximation considered by the authors in 
+\cite{stokesfitted}.
 
-\section{Mathematical model}\label{sec:ns_model}
-In this paper we consider two-phase Navier--Stokes flow in a given domain
-$\Omega\subset\R^d$, where $d=2$. The domain $\Omega$ contains two
+
+
+The remainder of the paper is organized as follows.
+\footnote{TODO}
+
+\section{Mathematical model and weak formulations}\label{sec:ns_model}
+Let $\Omega\subset\R^d$, for $d=2$ or $d=3$ be a given domain that contains two
 different immiscible, incompressible fluids (liquid-liquid or liquid-gas) which
 for all $t\in[0,T]$ occupy time dependent regions $\Omega_+(t)$ and
 $\Omega_-(t):=\Omega\setminus\overline{\Omega}_+(t)$ and which are separated by
 an interface $(\Gamma(t))_{t\in[0,T]}$, $\Gamma(t)\subset\Omega$. We limit
 ourselves to interfaces formed by closed hypersurfaces, see
-Figure~\ref{fig:two_phase_sketch} for a pictorial representation.
+Figure~\ref{fig:two_phase_sketch} for a pictorial representation in the case
+$d=2$.
 \begin{figure}
 \begin{center}
 \unitlength15mm
@@ -265,7 +339,7 @@ $\mat\sigma_\Gamma$ has the following constitutive equation
 \end{equation}
 where $\gamma$ is the surface tension coefficient. Substituting
 (\ref{eq:interface_stress_tensor}) in (\ref{eq:interface_jump_stress_div}) we
-obtain, assuming $\gamma$ constant, the so called clean interface model for
+obtain, assuming $\gamma$ is constant, the so called clean interface model for
 the interfacial forces
 \begin{equation}
 [\mat\sigma\,\vec \nu]_-^+ = -\gamma\,\varkappa\,\vec\nu \quad \mbox{on }
@@ -282,7 +356,7 @@ the principal curvatures of $\Gamma(t)$, where we have adopted the sign
 convention that $\varkappa$ is negative where $\Omega_-(t)$ is locally convex.
 In particular, see e.g.\ \cite{DeckelnickDE05}, it holds that
 \begin{equation} \label{eq:LBop}
-\Delta_s\, \vec \id = \varkappa\, \vec\nu \qquad \mbox{on $\Gamma(t)$}\,,
+\Delta_s\, \vec \id = \varkappa\, \vec\nu \qquad \mbox{on $\Gamma(t)$}\,.
 \end{equation}
 
 In order to close the system, we prescribe the
@@ -296,6 +370,7 @@ unit normal of $\partial \Omega$ and $\{\unitn\}^\perp := \{ \unitt \in \R^d :
 $\partial\Omega =\partial_1\Omega \cup \partial_2\Omega$ and $\partial_1\Omega
 \cap \partial_2\Omega = \emptyset$. Therefore the total system of equations
 can be rewritten as follows:
+\footnote{Marco: Are these the right boundary conditions? What about free-slip?}
 \begin{subequations}
 \begin{alignat}{2}
 \rho\,(\vec u_t +(\vec u \,.\, \nabla)\vec u) -2 \mu\,\nabla\,.\,\mat D(\vec u)+
@@ -323,9 +398,9 @@ Let $\rho(t) = \rho_+\,\charfcn{\Omega_+(t)}+\rho_-\,\charfcn{\Omega_-(t)}$,
 with $\rho_\pm \in \R_{>0}$, be the fluid density in the two phases and let
 $\vec f:=\rho\,\vec f_1+\vec f_2$ be a possible forcing term.
 
-\section{Weak formulation}\label{sec:ns_weak}
-In order to obtain a weak formulation, we define the function spaces, for a
-given $\vec b \in [H^1(\Omega)]^d$,
+\subsection{Eularian weak formulations}\label{sec:ns_weak}
+In order to obtain a weak formulation for (\ref{eq:ns_full_momentum}--i), 
+we define the function spaces, for a given $\vec b \in [H^1(\Omega)]^d$,
 \begin{align*}
 \uspace b &:= \{\vec \phi\in[H^1(\Omega)]^d:
 \vec \phi =\vec b\quad \mbox{on }\partial_1\Omega\,,
@@ -357,16 +432,18 @@ Moreover, on noting (\ref{eq:stress_tensor}) and
 & \qquad = - \left(2\,\mu\, \mat D(\vec u)-p\,\mat\id, \nabla\,\vec \xi\right)
 - \left\langle [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ , \vec \xi
 \right\rangle_{\Gamma(t)} \nonumber \\
-& \qquad = \left(p\,\mat\id, \nabla\,\vec \xi\right) -2 \left(\mu\,
-\mat D(\vec u), \nabla\,\vec \xi\right) + \gamma \left\langle \varkappa\,
-\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)} \nonumber \\
+%& \qquad = \left(p\,\mat\id, \nabla\,\vec \xi\right) -2 \left(\mu\,
+%\mat D(\vec u), \nabla\,\vec \xi\right) + \gamma \left\langle \varkappa\,
+%\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)} \nonumber \\
 & \qquad = \left( p , \nabla\,.\,\vec \xi\right)
 -2 \left(\mu\,\mat D(\vec u) , \mat D(\vec \xi) \right)
 + \gamma \left\langle \varkappa\,\vec \nu , \vec \xi  \right\rangle_{\Gamma(t)}
 \end{align}
-for all $\vec \xi \in \uspace 0$. We notice that in the first equality we used
-the standard integration by parts on $\Omega_+(t)$ and $\Omega_-(t)$
-separately. Hence a standard weak formulation of (\ref{eq:ns_full_momentum}--i)
+for all $\vec \xi \in \uspace 0$. 
+%We notice that in the first equality we used
+%the standard integration by parts on $\Omega_+(t)$ and $\Omega_-(t)$
+%separately. 
+Hence a standard weak formulation of (\ref{eq:ns_full_momentum}--i)
 is given as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for
 almost all $t\in(0,T)$ find $\Gamma(t)$ and $(\vec u, p, \varkappa)\in
 \uspace g \times \pnormspace \times H^1(\Gamma(t))$ such that
@@ -394,157 +471,29 @@ part of a solution to (\ref{eq:ns_full_momentum}--i), then so is $p + c$ for an
 arbitrary $c\in \R$.
 
 An alternative to the weak formulation (\ref{eq:ns_weaka}--d) can be obtained
-following the paper \cite{fluidfbp}. The authors show that it is easy to derive
-an energy bound not only on the continuous level but also on the discrete
-level. Moreover, they are able to show existence/uniqueness results for the
-discrete solution. In order to obtain this
-alternative weak formulation, we want to rewrite the term $\left(\rho\,\vec u_t,
-\vec \xi\right) + \left(\rho\,(\vec u \,.\, \nabla) \vec u,\vec \xi\right)$ in
-(\ref{eq:ns_weaka}) in such a way that certain undesirable terms vanish when
-choosing $\vec \xi = \vec u$. Due to the resulting structure of the equation,
-we will refer to this form as the antisymmetric weak formulation.
-
-First, we observe that for arbitrary functions $\vec v$,
-$\vec \omega$, $\vec \xi \in [H^1(\Omega)]^d$ it holds that
-\begin{align}\label{eq:tripleterm}
-& [(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi
- = (\vec v\,.\,\nabla)\,(\vec \omega\,.\,\vec \xi) -
-[(\vec v\,.\,\nabla)\,\vec \xi]\,.\,\vec \omega \nonumber \\
-& \qquad = \tfrac{1}{2}\,(\vec v\,.\,\nabla)\,
-(\vec \omega\,.\,\vec \xi) + \tfrac{1}{2}\,(\vec v\,.\,\nabla)\,
-(\vec \omega\,.\,\vec \xi) -\tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec
-\xi] \,.\,\vec \omega -\tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec
-\xi] \,.\,\vec \omega \nonumber \\
-& \qquad = \tfrac{1}{2}\,(\vec v\,.\,\nabla)\, (\vec \omega\,.\,\vec \xi) +
-\tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec \omega]\,.\,\vec \xi -
-\tfrac{1}{2}[(\vec v\,.\,\nabla)\,\vec \xi] \,.\,\vec \omega\,.
-\end{align}
-
-Choosing $\vec v = \vec \omega = \vec u$ in (\ref{eq:tripleterm}) and
-substituting it in the convection term $\left(\rho\,(\vec u \,.\, \nabla)
-\vec u,\vec \xi\right)$, we obtain
-\begin{equation}\label{eq:ns_advect_tripleterm}
-( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi) =
-\tfrac{1}{2}(\rho,(\vec u\,.\,\nabla)(\vec u\,.\,\vec \xi))
-+ \tfrac{1}{2}(\rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi)
--\tfrac{1}{2}(\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u)\,.
-\end{equation}
-
-Then we have for any $\vec v \in [H^1(\Omega)]^d$ and
-$\phi\in W_0^{1,\frac{3}{2}}(\Omega)$ that
-\begin{align}\label{eq:ibp0}
-( \rho,(\vec v \,.\,\nabla)\,\phi) & = (\rho, \nabla\,.\,(\phi\,\vec v))
-- (\rho\,(\nabla\,.\,\vec v), \phi) \nonumber \\ & =
-- \left\langle [\rho]_-^+\,\vec v\,.\,\vec \nu,
-  \phi \right\rangle_{\Gamma(t)}
-- (\rho\,(\nabla\,.\,\vec v), \phi)\,.
-\end{align}
-Here we notice that (\ref{eq:ibp0}) is well defined. Indeed, $\phi\in
-W_0^{1,\frac{3}{2}}(\Omega)$ implies that its trace is in
-$L^{\frac{3}{2}}(\partial\Omega)$. Moreover, given that
-$\vec v \in [H^1(\Omega)]^d$, it holds that $\vec v\,.\,\vec\nu \in
-H^{\frac{1}{2}}(\partial\Omega)$, which implies, thanks to the continuous
-embedding theorems \cite[Theorem~6.5 and 6.7]{DINEZZA2012}, that $\vec
-v\,.\,\vec\nu \in L^4(\partial\Omega)$. But we know, using the
-H\"{o}lder inequality, that the term $\left\langle [\rho]_-^+\,\vec v\,.\,
-\vec \nu, \phi \right\rangle_{\Gamma(t)}$ is well defined if
-$\vec v\,.\,\vec\nu$ is at least in $L^3(\partial\Omega)$, which is indeed the
-case.
-
-Moreover, if $\vec u\in [H^1(\Omega)]^d$ and $\vec \xi \in \uspace{0}$ then
-$\vec u\,.\,\vec\xi \in W_0^{1,\frac{3}{2}}(\Omega)$. Indeed, $H^1(\Omega)$ is
-compactly embedded in $L^6(\Omega)$, for $d=2$. By the
-generalized H\"{o}lder inequality we know that $(\nabla h)\,\omega\in
-[L^{\frac{3}{2}}(\Omega)]^d$ if $h\in H^1(\Omega)$ and $\omega\in L^6(\Omega)$.
-Therefore $\nabla\,(\vec u\,.\,\vec \xi)\in [L^{\frac{3}{2}}(\Omega)]^d$,
-which implies
-$\vec u\,.\,\vec \xi \in W_0^{1,\frac{3}{2}}(\Omega)$. Hence, it follows from
-taking $\phi = \vec u\,.\,\vec\xi$ and $\vec v = \vec u$ in (\ref{eq:ibp0}) and
-applying it to the first term on the right-hand side of
-(\ref{eq:ns_advect_tripleterm}) that
-\begin{align}\label{eq:fulladvect}
-( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi) = &
--\tfrac{1}{2}\langle [\rho]_-^+\vec u\,.\,\vec \nu, \vec u\,.\,\vec \xi
-\rangle_{\Gamma(t)}
--\tfrac{1}{2}(\rho\,(\nabla\,.\,\vec u ),\vec u\,.\,\vec\xi) \nonumber \\
-& \qquad +\tfrac{1}{2}(\rho\,(\vec u\,.\,\nabla)\,\vec u, \vec \xi)
--\tfrac{1}{2}(\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u)
-\quad \forall\ \vec \xi \in \uspace 0\,,
-\end{align}
-and, using the incompressibility condition (\ref{eq:ns_full_mass}), we obtain
-\begin{align}\label{eq:advect}
-( \rho\,(\vec u \,.\,\nabla)\,\vec u, \vec \xi)
-= & \tfrac{1}{2} [ (\rho\,(\vec u\,.\,\nabla)\,\vec u, \vec \xi) -
-(\rho\,(\vec u\,.\,\nabla)\,\vec \xi,\vec u) \nonumber \\
-& \qquad -\langle [\rho]_-^+\vec u\,.\,\vec \nu, \vec u\,.\,\vec \xi
-\rangle_{\Gamma(t)}] \quad \forall\ \vec \xi \in \uspace 0\,.
-\end{align}
-
-Next, we recall the Reynolds transport theorem
-\begin{equation}\label{eq:reynolds_theorem}
-\ddt \int_{\Omega(t)} h\dL{d}=\int_{\Omega(t)} h_t \dL{d} +
-\int_{\Omega(t)} \nabla\,.\,\left(h\,\W\right)\dL{d}\,,
-\end{equation}
-where $\Omega(t)$ is a moving domain with velocity $\W$ and $h:\R^d\to\R$ is a
-continuously differentiable function, see \cite{Aris89}. Then we can use
-(\ref{eq:reynolds_theorem}) together with (\ref{eq:ns_full_velocity}), to
-rewrite the time derivative term $(\rho\,\vec u_t,\vec \xi)$ and obtain
-\begin{align}\label{eq:rhot1}
-\ddt(\rho \,\vec u, \vec \xi) & =
-\ddt\left(\rho_+\,\int_{\Omega_+(t)} \vec u \,.\,\vec \xi \dL{d}
-+ \rho_-\,\int_{\Omega_-(t)} \vec u\,.\,\vec \xi \dL{d}  \right) \nonumber \\
-& =  (\rho\,\vec u_t, \vec \xi)
--\left\langle [\rho]_-^+\,\V\,.\,\vec\nu, \vec u \,.\,\vec \xi
-\right\rangle_{\Gamma(t)} \nonumber \\
-&= (\rho\,\vec u_t, \vec \xi)- \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
-\vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
-\quad \forall \vec \xi \in \uspace 0\,.
-\end{align}
-Therefore, it follows from (\ref{eq:rhot1}) that
-\begin{equation*}
-(\rho\,\vec u_t, \vec \xi) =
-\tfrac{1}{2} \left[
-\ddt (\rho\,\vec u,\vec \xi) + (\rho\,\vec u_t, \vec \xi)
-+ \left\langle [\rho]_-^+\,\vec u\,.\,\vec \nu,
-\vec u \,.\,\vec \xi \right\rangle_{\Gamma(t)}
-\right]
-\quad \forall\ \vec \xi \in \uspace 0\,,
-\end{equation*}
-which on combining with (\ref{eq:advect}) yields that
-\begin{align} \label{eq:rhot3}
-& (\rho\,[\vec u_t + (\vec u\,.\,\nabla)\,\vec u], \vec \xi) \nonumber \\
-& = \tfrac{1}{2}\bigg[ \ddt (\rho\,\vec u, \vec \xi)
-+ (\rho\,\vec u_t, \vec \xi) + (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
-- [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u) \bigg]
-\quad \forall \vec \xi \in \uspace 0\,.
-\end{align}
-
-Hence, the antisymmetric weak formulation of (\ref{eq:ns_full_momentum}--i) is
-given as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for
+following the paper \cite{fluidfbp}. These authors show that it is possible 
+to derive an energy bound not only on the continuous level but also 
+for a discretization based on this formulation. 
+Due to the resulting structure of the equation,
+we will refer to this form as the antisymmetric weak formulation,
+and it is given as follows.
+Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for
 almost all $t\in(0,T)$ find $\Gamma(t)$ and $(\vec u, p, \varkappa) \in
 \uspace g \times \pnormspace \times H^1(\Gamma(t))$ such that
-\begin{subequations}
 \begin{align}
 & \tfrac{1}{2}\bigg[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
 + (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
 - [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u)\bigg] \nonumber \\
 & \qquad +2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
-- \left(p, \nabla\,.\,\vec \xi\right)\nonumber \\
-& \qquad - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi
+- \left(p, \nabla\,.\,\vec \xi\right) 
+- \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi
 \right\rangle_{\Gamma(t)}
 = \left(\vec f, \vec \xi\right)\quad \forall\ \vec\xi \in \uspace 0 \,,
-\label{eq:ns_weaka_antisym}\\
-& \left(\nabla\,.\,\vec u, \varphi\right) = 0
-\quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb_antisym} \\
-&  \left\langle \V
-- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
-\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc_antisym} \\
-& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
-+ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
-= 0  \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:ns_weakd_antisym}
+\label{eq:ns_weaka_antisym}
 \end{align}
-\end{subequations}
-holds for almost all times $t \in (0,T]$.
+holds, together with (\ref{eq:ns_weakb}--d). For a derivation of
+(\ref{eq:ns_weaka_antisym}) we refer to \cite{fluidfbp}, see also
+\cite{Agnese}. 
 
 \section{Antisymmetric finite element approximation}\label{sec:ns_fem_antisym}
 In order to have a consistent finite element approximation, we consider
@@ -613,8 +562,8 @@ we define $\Vh := \{\vec\chi \in [C(\Gamma^m)]^d:\vec\chi\!\mid_{\sigma^m_j}
 \in \mathcal{P}_1(\sigma^m_j), j=1,\ldots, J_\Gamma\} =: [\Wh]^d$, where $\Wh
 \subset H^1(\Gamma^m)$ is the space of scalar continuous piecewise linear
 functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K_\Gamma}$ denoting the
-standard basis of $\Wh$. As usual, we parametrize the new surface
-$\Gamma^{m+1}$ over $\Gamma^m$ using a parametrization $\vec X^{m+1} \in \Vh$,
+standard basis of $\Wh$. As usual, we parameterize the new surface
+$\Gamma^{m+1}$ over $\Gamma^m$ using a parameterization $\vec X^{m+1} \in \Vh$,
 so that $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Moreover, let
 $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ be the mass lumped inner product on
 $\Gamma^m$ defined as
@@ -1988,7 +1937,8 @@ Additionally, only for the antisymmetric case, (\ref{eq:advect}) is no longer
 valid and we need to use (\ref{eq:fulladvect}) to derive the antisymmetric weak
 formulation. Therefore an additional term $\tfrac{1}{2}(\rho\,f_{\rm{div}}\,\vec
 u,\vec\xi)$ appears in the momentum equation (\ref{eq:ns_weaka_antisym}).
-Hence, the weak antisymmetric formulation (\ref{eq:ns_weaka_antisym}--d) is
+Hence, the weak antisymmetric formulation (\ref{eq:ns_weaka_antisym}), 
+(\ref{eq:ns_weakb}--d) is
 replaced by
 \begin{subequations}
 \begin{align}
@@ -2656,6 +2606,9 @@ the ALE scheme and the non-ALE schemes are all performing well. Therefore, the
 downside of having to project the velocity in the non-ALE formulations seems to
 be less severe than expected. This can be partly explained by the good
 interface mesh, which never changes even after a full bulk remeshing.
+
+\section*{Conclusions}
+\footnote{TODO}
 
 \bibliographystyle{siam}
 \bibliography{../../bib/robert_refs,../../bib/marco_refs}
