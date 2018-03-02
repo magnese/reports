@@ -5,6 +5,7 @@
 \usepackage[english]{babel}
 \usepackage{amssymb,amsmath,amsthm,array,epsfig,lmodern,gensymb,pstricks,subfig,
 hyperref,verbatim,booktabs,textcomp}
+\usepackage[notref,notcite]{showkeys}
 
 \newcommand{\R}{\mathbb R}
 \newcommand{\D}{\mathcal D}
@@ -58,6 +59,11 @@ hyperref,verbatim,booktabs,textcomp}
 \newcommand{\myurl}[1]{\hfil\penalty 100 \hfilneg \hbox{\url{#1}}} % force
 % newline before long url
 
+\newcommand{\schemeAex}{{\mathcal{A}^h_{\rm ex}}}
+\newcommand{\schemeAim}{{\mathcal{A}^h_{\rm im}}}
+\newcommand{\schemeB}{{\mathcal{B}^h}}
+\newcommand{\schemeALE}{{\mathcal{C}^h_{\rm ALE}}}
+
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{rem}[thm]{Remark}
@@ -91,10 +97,10 @@ We investigate novel fitted finite element approximations for two-phase
 Navier--Stokes flow. In particular, we consider both Eulerian and
 Arbitrary Lagrangian--Eulerian (ALE) finite element formulations.
 The moving interface is approximated with the help of piecewise linear
-finite element functions.
-Spherical stationary solutions are captured exactly by the numerical
-approximation, which aids in suppressing spurious velocities.
-In addition, the meshes describing the discrete interface in
+finite element functions. The bulk mesh is fitted to the interface
+approximation, so that standard bulk finite element spaces can be used
+throughout.
+The meshes describing the discrete interface in
 general do not deteriorate in time, which means that in numerical simulations a
 smoothing or a remeshing of the interface mesh is not necessary.
 We present several numerical experiments for the various numerical methods,
@@ -715,6 +721,11 @@ where $\mathcal{T}^m = \mathcal{T}^m_+ \cup \mathcal{T}^m_-$ and
 $\mathcal{T}^m_+ \cap \mathcal{T}^m_- = \emptyset$. Let $\vec \nu^m$ denote the
 piecewise constant unit normal to $\Gamma^m$ such that $\vec\nu^m$ points into
 $\Omega^m_+$.
+In addition, let
+$\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0$
+and
+$\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}
+\in S^m_0$.
 
 In order to define the parametric finite element spaces on $\Gamma^m$, we
 assume that $\Gamma^m=\bigcup_{j=1}^{J_\Gamma} \overline{\sigma^m_j}$, where
@@ -741,78 +752,12 @@ naturally extend (\ref{eq:masslump}) to vector valued functions. Finally, let
 $\langle\cdot,\cdot\rangle_{\Gamma^m}$ denote the standard $L^2$--inner product
 on $\Gamma^m$.
 
-We need to pay particular attention to the discretization of the time
-derivative in (\ref{eq:ns_weaka_antisym}). Indeed, for the discrete counterpart
-of $\tfrac{1}{2} \ddt (\rho\,\vec u, \vec \xi)$ we use
-\begin{equation}\label{eq:antysim_time_derivative_a}
-\frac{1}{2}\left(\frac{\rho^m\,\vec U^{m+1} - I^m_0\,\rho^{m-1}
-\vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\,,
-\end{equation}
-while for the discrete version of $\tfrac{1}{2}(\rho\,\vec u_t, \vec \xi)$
-we employ
-\begin{equation}\label{eq:antysim_time_derivative_b}
-\frac{1}{2}\left( I^m_0\,\rho^{m-1}\, \frac{\vec U^{m+1} - \vec I^m_2\,
-\vec U^m}{\tau}, \vec \xi \right)\,.
-\end{equation}
-We notice that in (\ref{eq:antysim_time_derivative_b}), instead of using the
-actual density $\rho^m$, we use the density at the previous time step
-$\rho^{m-1}$ and we interpolate it on the current bulk grid $\Omega_\pm^m$. This
-is needed to prove stability over one time step. Since
-$\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in
-S^m_0$, we can rewrite the discretization of the weak time derivative
-$\tfrac{1}{2}\big[ \ddt (\rho\,\vec u, \vec \xi)+(\rho\,\vec u_t, \vec\xi)\big]$
-in the simpler form
-\begin{equation}
-\left(\frac{\tfrac{1}{2}(I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
-I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\,.
-\end{equation}
+Our fully discrete finite element approximations based on the standard weak 
+formulation (\ref{eq:ns_weaka}--d) are given as follows.
+Here we consider an explicit and and implicit treatment of the convective term
+in the Navier--Stokes equation.
 
-Then our antisymmetric finite element approximation is given as follows. Let
-$\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in
-\uspacedisc{g}{0}$ be given. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1},
-\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times
-\Vh \times \Wh$ such that
-\begin{subequations}
-\begin{align}
-& \left(\frac{\tfrac{1}{2}(I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
-I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
-& \qquad + \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
-\vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
-\vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right)
-\nonumber \\
-& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
-- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
-& \qquad - \gamma\,\left\langle
-\kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
-= \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
-\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,,\label{eq:ns_HGa_antisym} \\
-& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
-\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGb_antisym} \\
-&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau} ,\chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
-\label{eq:ns_HGc_antisym}\\
-& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
-+ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
-0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd_antisym}
-\end{align}
-\end{subequations}
-and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Here we have defined
-$\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$, $i=1,2$,
-\begin{equation}
-\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
-\end{equation}
-and
-\begin{equation}
-\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
-\end{equation}
-
-An alternative to the antisymmetric discrete finite element approximation
-(\ref{eq:ns_HGa_antisym}--d) can be obtained by using the standard weak
-formulation (\ref{eq:ns_weaka}--d). 
-
-Then our explicit standard finite element approximation, which is based on the
-variational formulation (\ref{eq:ns_weaka}--d), is given as follows. Let
+$(\schemeAex)$: Let
 $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$
 be given. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1},
 \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
@@ -821,10 +766,12 @@ such that
 \begin{align}
 & \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau}, \vec
 \xi \right) + \left(\rho^m(\vec I^m_2\vec U^m\,.\,\nabla)\,\vec U^{m+1}\,,
-\,\vec \xi \right)\nonumber \\
-& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
-- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
-& \qquad - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
+\,\vec \xi \right)
+%\nonumber \\ & \qquad 
++ 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+\nonumber \\ & \quad 
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) 
+- \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
 \vec\xi\right\rangle_{\Gamma^m}
 = \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
 \quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,, \label{eq:ns_HGa} \\
@@ -838,58 +785,78 @@ such that
 0 \quad \forall\ \vec\eta \in \Vh \label{eq:ns_HGd}
 \end{align}
 \end{subequations}
-and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Again, we have defined
-$\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$, $i=1,2$,
-\begin{equation}
-\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
-\end{equation}
-and
-\begin{equation}
-\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
-\end{equation}
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Here we have defined
+$\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$, $i=1,2$.
 
-Since the convective term is treated explicitly, the scheme
-(\ref{eq:ns_HGa}--d) is a linear scheme that leads to a coupled linear system of
-equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})$
-at each time level.
-
-We notice that the antisymmetric scheme (\ref{eq:ns_HGa_antisym}--d) and
-the explicit standard scheme (\ref{eq:ns_HGa}--d)
-only differ in the approximation of the convective term and
-in the density coefficients used in the time derivative approximation.
-Indeed, instead of using the actual density $\rho^m$, it uses an
-average between the actual density and the interpolation of the density at the
-previous time step $\tfrac{1}{2}(I^m_0\,\rho^{m-1} + \rho^m)$ for what
-concern $\vec U^{m+1}$ and it uses directly the density interpolation
-$I^m_0\,\rho^{m-1}$ for $\vec I^m_2\vec U^m$.
-
-Alternatively, the convective term in (\ref{eq:ns_HGa}) can be treated
-implicitly and the finite element approximation (\ref{eq:ns_HGa}--d) becomes
-\begin{subequations}
+$(\schemeAim)$: Let
+$\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$
+be given. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1},
+\kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times \Vh \times \Wh$
+such that
 \begin{align}
 & \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau}, \vec
 \xi \right) + \left(\rho^m( \vec U^{m+1}\,.\,\nabla)\,\vec U^{m+1}\,,
-\,\vec \xi \right)\nonumber \\
-& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
-- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
-& \qquad - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
+\,\vec \xi \right)
++ 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+\nonumber \\ & \qquad 
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right)
+- \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
 \vec\xi\right\rangle_{\Gamma^m}
 = \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
-\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,, \label{eq:ns_HGimpa} \\
-& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = 0
-\quad \forall\ \varphi \in \pnormspace^m\,,\label{eq:ns_HGimpb} \\
-&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau} ,\chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
-\label{eq:ns_HGimpc}\\
-& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
-+ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
-0 \quad \forall\ \vec\eta \in \Vh\,. \label{eq:ns_HGimpd}
+\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,, \label{eq:ns_HGimpa} 
 \end{align}
-\end{subequations}
-The scheme (\ref{eq:ns_HGimpa}--d) is a nonlinear scheme that leads to a coupled
+and (\ref{eq:ns_HGb}--d), and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. 
+Since the convective term in (\ref{eq:ns_HGa}) is treated explicitly, 
+the scheme $(\schemeAex)$ is a linear scheme that leads to a coupled linear 
+system of equations for the unknowns 
+$(\vec U^{m+1}, P^{m+1}, \vec X^{m+1}, \kappa^{m+1})$ at each time level.
+On the other hand, in (\ref{eq:ns_HGimpa}) the convective term is treated
+implicitly, and so $(\schemeAim)$ is a nonlinear scheme that leads to a coupled
 nonlinear system of equations for the unknowns $(\vec U^{m+1}, P^{m+1}, \vec
 X^{m+1}, \kappa^{m+1})$ at each time level.
+
+An alternative fully discrete finite element approximation is 
+based on the formulation (\ref{eq:ns_weaka_antisym}), (\ref{eq:ns_weakb}--d).
+In particular, we consider the following scheme. 
+
+$(\schemeB)$: Let $\Gamma^0$, an approximation to $\Gamma(0)$, and $\vec U^0\in
+\uspacedisc{g}{0}$ be given. For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1},
+\vec X^{m+1}, \kappa^{m+1}) \in \uspacedisc{g}{m}\times \pnormspace^m \times
+\Vh \times \Wh$ such that
+\begin{align}
+& \frac1\tau \left(\tfrac{1}{2}(I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
+I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m, \vec \xi \right)
++ \tfrac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
+\vec U^{m+1}\,,\,\vec \xi \right) 
+\nonumber \\ & \qquad 
+- \tfrac{1}{2} \left((\rho^m\,
+\vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right)
++ 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
+- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
+& \qquad - \gamma\,\left\langle
+\kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+= \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
+\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,,\label{eq:ns_HGa_antisym} 
+\end{align}
+and (\ref{eq:ns_HGb}--d), and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. 
+We note that the scheme $(\schemeB)$ corresponds to
+\cite[(4.6a--d)]{fluidfbp} in the setting of an unfitted finite element
+approximation. Similarly to \cite[Theorem~4.1]{fluidfbp} it is then
+straightforward to show that there exists a unique solution to 
+$(\schemeB)$ that fulfils an energy inequality. In the unfitted case this
+energy inequality leads to an overall stability result if the bulk mesh does
+not change. Of course, in the fitted case considered here this will never be
+the case, unless the interface is stationary. Nevertheless, it is of interest
+to see how the scheme $(\schemeB)$ performs in practice, compared to
+$(\schemeAex)$ and $(\schemeAim)$.
+
+Finally we remark that as all three schemes, $(\schemeAex)$, $(\schemeAim)$
+and $(\schemeB)$, share the side constraints (\ref{eq:ns_HGd}), the vertices of
+$\Gamma^m$ will in general be very well distributed in practice. This stems
+from the fact that (\ref{eq:ns_HGd}) induces an implicit tangential motion,
+which asymptotically leads to the equidistribution of vertices for $d=2$.
+See \cite{triplej,gflows3d} for further details, and also
+\cite[Theorem~5]{Agnese}. 
 
 \subsection{ALE finite element approximation}\label{sec:ale_fem}
 In order to derive our fully discrete ALE finite element approximation, we
@@ -963,17 +930,18 @@ notice that the discrete interface velocity $\V^h$ defined as
 see e.g. \cite[(3.3)]{tpfs}, is simply the trace of $\W^h$ on $\Gamma^h$.
 
 Then, given $\Gamma^h(0)$ and $\vec U^h(0)\in \uspacesemidiscale{g}{h}{0}$, for
-$t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h(t), P^h(t),
-\V^h(t), \kappa^h(t)) \in \uspacesemidiscale{g}{h}{t} \times \pnormspaceale^h(t)
+$t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h, P^h,
+\V^h, \kappa^h)(t) \in \uspacesemidiscale{g}{h}{t} \times \pnormspaceale^h(t)
 \times \Vht \times \Wht$ such that
 \begin{subequations}
 \begin{align}
 & \left(\rho^h\,\left.\vec U^h_t\right|_{\D}, \vec \xi \right)_{\Omega^h(t)} +
 \left(\rho^h((\vec U^h-\W^h)\,.\,\nabla)\,\vec U^h\,,
-\,\vec \xi \right)_{\Omega^h(t)} \nonumber \\
-& \qquad +2\left(\mu^h\,\mat D(\vec U^h), \mat D(\vec \xi) \right)_{\Omega^h(t)}
-- \left(P^h, \nabla\,.\,\vec \xi\right)_{\Omega^h(t)} \nonumber \\
-& \qquad - \gamma\,\left\langle \kappa^h\,\vec\nu^h,
+\,\vec \xi \right)_{\Omega^h(t)} 
++2\left(\mu^h\,\mat D(\vec U^h), \mat D(\vec \xi) \right)_{\Omega^h(t)}
+\nonumber \\ & \qquad 
+- \left(P^h, \nabla\,.\,\vec \xi\right)_{\Omega^h(t)} 
+- \gamma\,\left\langle \kappa^h\,\vec\nu^h,
 \vec\xi\right\rangle_{\Gamma^h(t)} =
 \left(\rho^h\,\vec f_1^h+\vec f_2^h, \vec \xi\right)_{\Omega^h(t)}
 \quad \forall\ \vec\xi \in \uspacesemidiscale{0}{h}{t}\,,
@@ -991,57 +959,22 @@ $t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h(t), P^h(t),
 \end{subequations}
 Here we have defined
 $\vec f_i^h(\cdot) := \vec I^h_2\,\vec f_i(\cdot,t)$, $i=1,2$,
-\begin{equation}
-\mu^h = \mu_+\,\charfcn{\Omega^h_+(t)} + \mu_-\,\charfcn{\Omega^h_-(t)}\in
-S^h_0(t)
-\end{equation}
+$\mu^h = \mu_+\,\charfcn{\Omega^h_+(t)} + \mu_-\,\charfcn{\Omega^h_-(t)}\in
+S^h_0(t)$
 and
-\begin{equation}
-\rho^h = \rho_+\,\charfcn{\Omega^h_+(t)} + \rho_-\,\charfcn{\Omega^h_-(t)}\in
-S^h_0(t)\,.
-\end{equation}
+$\rho^h = \rho_+\,\charfcn{\Omega^h_+(t)} + \rho_-\,\charfcn{\Omega^h_-(t)}\in
+S^h_0(t)$.
 
 The semidiscrete continuous-in-time fitted finite element scheme
-(\ref{eq:ns_semi_alea}--d) is a system of ODEs. Indeed, we can define the
-following matrices and vectors
-\begin{subequations}
-\begin{align}
-& [\vec M^h_\Omega(t)]_{ij} :=
-\left(\left(\rho^h\,\phi_j^{\uspacesimpleale^h}\vec e_q,
-\phi_i^{\uspacesimpleale^h}\,\vec e_r \right)_{\Omega^h(t)}
-\right)_{q,r=1}^d\,, \label{eq:ns_ale_mata}\\
-& [\vec D^h_\Omega\big(t,\vec U^h,\W^h\big)]_{ij} :=
-\left(\left(\rho^h\big(\big(\vec U^h-\W^h\big)\,.\,\nabla\big)
-\phi_j^{\uspacesimpleale^h} \vec e_q, \phi_i^{\uspacesimpleale^h}\,\vec e_r
-\right)_{\Omega^h(t)} \right)_{q,r=1}^d\,,\label{eq:ns_ale_matb}\\
-& [\vec B^h_\Omega(t)]_{ij} :=
-2\left(\left(\mu^h\,\mat D(\phi_j^{\uspacesimpleale^h}\vec e_q),
-\mat D(\phi_i^{\uspacesimpleale^h}\,\vec e_r) \right)_{\Omega^h(t)}
-\right)_{q,r=1}^d\,,\label{eq:ns_ale_matc}\\
-& \vec c^h_i(t,\vec f_1^h,\vec f_2^h) := \left( \rho^h\,\vec f_1^h + \vec f_2^h,
-\phi_i^{\uspacesimpleale^h}\right)_{\Omega^h(t)}\,,\label{eq:ns_ale_matd}\\
-&[\vec C^h_\Omega(t)]_{ip} := - \left(
-\left(\nabla\,.\,(\phi_i^{\uspacesimpleale^h}\,\vec e_q), \phi_p^{\pspaceale^h}
-\right)_{\Omega^h(t)} \right)_{q=1}^d,\label{eq:ns_ale_mate}\\
-& [\Nbulk^h(t)]_{il} := \left\langle \phi_i^{\uspacesimpleale^h}, \chi^h_l
-\,\vec\nu^h \right\rangle_{\Gamma^h(t)} \,,\label{eq:ns_ale_matf}\\
-& [\vec N_\Gamma^h(t)]_{kl} := \left\langle \chi^h_l, \chi^h_k\,\vec\nu^h
-\right\rangle_{\Gamma^h(t)}^h \,,\label{eq:ns_ale_matg}\\
-& [\vec A^h_\Gamma(t)]_{kl} := \left\langle \nabs\,\chi^h_l, \nabs\,\chi^h_k
-\right\rangle_{\Gamma^h(t)} \,\vec\id \,,\label{eq:ns_ale_math}
-\end{align}
-\end{subequations}
-where $\{\vec e_q\}_{q=1}^d$ denotes the standard basis in $\R^d$,
-$\{\phi_i^{\uspacesimpleale^h}\}_{i=1}^{K^h_\uspacesimpleale}$ is the basis of
-$\uspacesemidiscale{0}{h}{t}$ and
-$\{\phi_i^{\pspaceale^h}\}_{i=1}^{K^h_\pspaceale}$ is the  basis of
-$\pnormspaceale^h(t)$. Thus (\ref{eq:ns_semi_alea}--d) can be rewritten in
-algebraic form as
+(\ref{eq:ns_semi_alea}--d) is a system of ODEs. Indeed, on defining the
+appropriate time-dependent matrices and vectors, we can rewrite
+(\ref{eq:ns_semi_alea}--d) in algebraic form as
 \begin{subequations}
 \begin{align}
 & \vec M^h_\Omega(t)\ddt \vec U + \vec B^h_\Omega(t) \vec U +
-\vec D^h_\Omega\big(t,\vec U^h,\W^h\big)\vec U \nonumber \\
-& \qquad + \vec C^h_\Omega(t) P
+\vec D^h_\Omega\big(t,\vec U^h,\W^h\big)\vec U 
+%\nonumber \\ & \qquad 
++ \vec C^h_\Omega(t) P
 - \gamma \Nbulk^h(t) \kappa = \vec c^h(t,\vec f_1^h,\vec f_2^h)\,,
 \label{eq:ns_ode_alea} \\
 & [\vec C^h_\Omega(t) ]^T \vec U = 0\,, \label{eq:ns_ode_aleb} \\
@@ -1053,6 +986,7 @@ algebraic form as
 \end{subequations}
 where $\vec U$, $P$, $\kappa$ and $\vec X$ are the unknown vectors for the
 velocity, pressure, interface curvature and interface position, respectively.
+See \cite[(6.15)]{Agenese} for details.
 
 It is now straightforward to obtain a fully discrete finite element
 approximation of (\ref{eq:ns_ode_alea}--d), since the only missing part is the
@@ -1062,10 +996,11 @@ temporal discretization. Therefore, applying a semi-implicit Euler scheme to
 \begin{align}
 & \frac{1}{\tau}\vec M^h_\Omega(t^{m+1})\vec U^{m+1} +
 \vec B^h_\Omega(t^m) \vec U^{m+1} +
-\vec D^h_\Omega\big(t^m,\vec U^{m+1},\W^{m+1}\big)\vec U^{m+1} \nonumber \\
-& \qquad + \vec C^h_\Omega(t^m) P^{m+1}
-- \gamma \Nbulk^h(t^m) \kappa^{m+1} \nonumber \\
-& \qquad = \frac{1}{\tau} \vec M^h_\Omega(t^{m+1})\vec U^m
+\vec D^h_\Omega\big(t^m,\vec U^{m+1},\W^{m+1}\big)\vec U^{m+1} 
++ \vec C^h_\Omega(t^m) P^{m+1}
+\nonumber \\ & \qquad 
+- \gamma \Nbulk^h(t^m) \kappa^{m+1} 
+= \frac{1}{\tau} \vec M^h_\Omega(t^{m+1})\vec U^m
 + \vec c^h(t^m,\vec f_1^{m+1},\vec f_2^{m+1})\,,\label{eq:ns_ode_disc_alea} \\
 & [\vec C^h_\Omega(t^m) ]^T \vec U^{m+1} = 0\,,
 \label{eq:ns_ode_disc_aleb} \\
@@ -1089,22 +1024,19 @@ $\Omega^m$; nevertheless it can be transported on any other configuration
 $\Omega^s$, with $t^s\neq t^m$, using the mapping $\vec x(\cdot,t^s)\circ{\vec
 x}^{-1}(\cdot,t^m)$. To lighten the notation, whenever we need to integrate
 $h^s$ on a domain $\Omega^m$ we will write simply
-\begin{equation*}
-\int_{\Omega^m} h^s \dL d
-\end{equation*}
+$\int_{\Omega^m} h^s \dL d$
 instead of
-\begin{equation*}
-\int_{\Omega^m} h^s\circ \vec x(\cdot,t^s)\circ{\vec x}^{-1}(\cdot,t^m)\dL d\,.
-\end{equation*}
+$\int_{\Omega^m} h^s\circ \vec x(\cdot,t^s)\circ{\vec x}^{-1}(\cdot,t^m)\dL d$.
 The same notation is used for the inner products.
 
-Following \cite{NobilePhd}, we now rewrite (\ref{eq:ns_ale_mata}--h) into a
-form that is common in finite element formulations. More precisely, we can
-substitute (\ref{eq:ns_ale_mata}--h) back into (\ref{eq:ns_ode_disc_alea}--d).
+Following \cite{NobilePhd}, we now rewrite (\ref{eq:ns_ode_disc_alea}--d)
+into a form that is common in finite element formulations. 
 Firstly, let $\uspacediscale{g}{m}=\uspacesemidiscale{g}{h}{t^m}$ and
 $\pnormspaceale^m=\pnormspaceale^h(t^m)$. Then, our ALE finite element
 approximation, which is based on the variational formulation
-(\ref{eq:ns_weaka_ale}--d), is given as follows. Let $\Gamma^0$, an
+(\ref{eq:ns_weaka_ale}--d), is given as follows. 
+
+$(\schemeALE)$: Let $\Gamma^0$, an
 approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
 For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh$
@@ -1122,25 +1054,10 @@ such that
 + \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)_{\Omega^m}
 \quad \forall\ \vec\xi \in \uspacediscale{0}{m}\,, \label{eq:ale_HGa} \\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)_{\Omega^m}  = 0
-\quad \forall\ \varphi \in \pnormspaceale^m\,,\label{eq:ale_HGb} \\
-&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau} ,\chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,
-\label{eq:ale_HGc}\\
-& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
-+ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
-0 \quad \forall\ \vec\eta \in \Vh\,, \label{eq:ale_HGd}
+\quad \forall\ \varphi \in \pnormspaceale^m\,,\label{eq:ale_HGb} 
 \end{align}
 \end{subequations}
-and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Again, we have defined
-$\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$, $i=1,2$,
-\begin{equation}
-\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
-\end{equation}
-and
-\begin{equation}
-\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
-\end{equation}
+and (\ref{eq:ns_HGc},d), and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
 
 It is worth noticing that, at the discrete level, the reference manifold $\D$
 is never used. Instead, it is replaced by the actual discrete bulk domain.
@@ -1321,9 +1238,9 @@ $\vec c$. Indeed, they are
 \phi_i^{\uspacesimple^m} \right)\mat \id
 + 2\left(\left(\mu^m\,\mat D(\phi_j^{\uspacesimple^m} \vec e_q),
 \mat D(\phi_i^{\uspacesimple^m}\,\vec e_r) \right) \right)_{q,r=1}^d\\
-& + \frac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
+& + \tfrac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
 \phi_j^{\uspacesimple^m}, \phi_i^{\uspacesimple^m} \right)\mat \id
--\frac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
+-\tfrac{1}{2}\left( \left(\rho^m \vec I_2^m\vec U^m\,.\,\nabla \right)
 \phi_i^{\uspacesimple^m}, \phi_j^{\uspacesimple^m} \right)\mat \id \,,\\
 \vec c_i := &\left( \frac{I^m_0\rho^{m-1}+\rho^m}{2\tau}\vec I_2^m \vec U^m
 + \rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1},\phi_i^{\uspacesimple^m}\right)\,.
@@ -1960,8 +1877,8 @@ $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
 \begin{align}
 & \left(\frac{\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
 \vec I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
-& \qquad + \frac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
-\vec U^{m+1}\,,\,\vec \xi \right) - \frac{1}{2} \left((\rho^m\,
+& \qquad + \tfrac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
+\vec U^{m+1}\,,\,\vec \xi \right) - \tfrac{1}{2} \left((\rho^m\,
 \vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right)
 \nonumber \\
 & \qquad - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
@@ -2090,7 +2007,7 @@ Instead, for the expanding bubble II, see \S\ref{sec:exp2}, we fix
 $\Omega = (-1,1)^2 \setminus[-\frac13,\frac13]^2$ and we choose the parameters
 $\alpha=0.15$ and
 \begin{equation}
-\rho_+ = 1000\,,\quad \rho_- = 100\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
+\rho_+ = 10^3\,,\quad \rho_- = 10^2\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
 \gamma = 1\,.
 \end{equation}
 Details on the discretization parameters are given in
@@ -2105,9 +2022,9 @@ $J_\Gamma$ & $J_\Omega^0$ case I & $J_\Omega^0$ case II & $\tau$ &
 $J_\Omega^M$ case I & $J_\Omega^M$ case II\\
 \hline
  32 &   296 &  460 & $6.4\cdot10^{-2}$ &   310 &  216 \\
- 64 &  1240 & 1040 & $1.6\cdot10^{-2}$ &  1240 &  444 \\
-128 &  4836 & 2628 &   $4\cdot10^{-3}$ &  4836 & 1378 \\
-256 & 18476 & 7460 &         $10^{-3}$ & 18476 & 4476 \\
+ 64 &  1\,240 & 1\,040 & $1.6\cdot10^{-2}$ &  1\,240 &  444 \\
+128 &  4\,836 & 2\,628 &   $4\cdot10^{-3}$ &  4\,836 & 1\,378 \\
+256 & 18\,476 & 7\,460 &         $10^{-3}$ & 18\,476 & 4\,476 \\
 \hline
 \end{tabular}
 \caption[Navier--Stokes expanding bubble meshes parameters]
@@ -2116,8 +2033,8 @@ $J_\Omega^M$ case I & $J_\Omega^M$ case II\\
 \end{table*}
 
 We report on the errors of the expanding bubble I in
-Table~\ref{tab:nsexpandingbubbleIp2p1p0} and we compare the explicit, implicit,
-antisymmetric and ALE scheme.
+Table~\ref{tab:nsexpandingbubbleIp2p1p0}, comparing our four fully discrete
+schemes.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -2126,41 +2043,41 @@ antisymmetric and ALE scheme.
 $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 & CPU[s] \\
 \hline
-& \multicolumn{7}{c}{explicit} \\
+& \multicolumn{7}{c}{$(\schemeAex)$} \\
 \hline
  32 & 3.96456e-04 & 0 & - & 0 & 3.05157e-01 &    - &     5 \\
  64 & 1.03429e-04 & 0 & - & 0 & 1.57053e-01 & 0.96 &    61 \\
-128 & 2.61302e-05 & 0 & - & 0 & 7.09596e-02 & 1.15 &  1317 \\
-256 & 6.53463e-06 & 0 & - & 0 & 1.99794e-02 & 1.79 & 29194 \\
+128 & 2.61302e-05 & 0 & - & 0 & 7.09596e-02 & 1.15 &  1\,317 \\
+256 & 6.53463e-06 & 0 & - & 0 & 1.99794e-02 & 1.79 & 29\,194 \\
 \hline
-& \multicolumn{7}{c}{implicit} \\
+& \multicolumn{7}{c}{$(\schemeAim)$} \\
 \hline
  32 & 3.96456e-04 & 0 & - & 0 & 3.05157e-01 &    - &     6 \\
  64 & 1.03429e-04 & 0 & - & 0 & 1.57053e-01 & 0.96 &   134 \\
-128 & 2.61302e-05 & 0 & - & 0 & 7.09596e-02 & 1.15 &  2649 \\
-256 & 6.53463e-06 & 0 & - & 0 & 1.99794e-02 & 1.79 & 49990 \\
+128 & 2.61302e-05 & 0 & - & 0 & 7.09596e-02 & 1.15 &  2\,649 \\
+256 & 6.53463e-06 & 0 & - & 0 & 1.99794e-02 & 1.79 & 49\,990 \\
 \hline
-& \multicolumn{7}{c}{antisymmetric} \\
+& \multicolumn{7}{c}{$(\schemeB)$} \\
 \hline
  32 & 3.96594e-04 & 1.36282e-06 &    - & 3.00839e-05 & 2.90771e-01 &    - &
 5 \\
  64 & 1.03452e-04 & 2.31388e-07 & 2.56 & 6.81585e-06 & 1.57312e-01 & 0.89 &
 45 \\
 128 & 2.61309e-05 & 2.82849e-08 & 3.03 & 1.53571e-06 & 7.15389e-02 & 1.14 &
-1567 \\
+1\,567 \\
 256 & 6.53472e-06 & 4.14789e-09 & 2.71 & 4.15646e-07 & 2.19868e-02 & 1.66 &
-30997 \\
+30\,997 \\
 \hline
-& \multicolumn{7}{c}{ALE} \\
+& \multicolumn{7}{c}{$(\schemeALE)$} \\
 \hline
  32 & 3.96823e-04 & 1.94467e-06 &    - & 1.74315e-05 & 3.01900e-01 &    - &
 10 \\
  64 & 1.03462e-04 & 1.27547e-07 & 3.93 & 1.33117e-06 & 1.57054e-01 & 0.94 &
 160 \\
 128 & 2.61390e-05 & 4.26296e-08 & 1.58 & 3.78211e-07 & 7.09597e-02 & 1.15 &
-2420 \\
+2\,420 \\
 256 & 6.53680e-06 & 1.09827e-08 & 1.91 & 9.46271e-08 & 1.99793e-02 & 1.79 &
-47181 \\
+47\,181 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
@@ -2191,40 +2108,40 @@ implicit, antisymmetric and ALE scheme.
 $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 & CPU[s] \\
 \hline
-& \multicolumn{7}{c}{explicit} \\
+& \multicolumn{7}{c}{$(\schemeAex)$} \\
 \hline
  32 & 4.13976e-03 & 1.24661e-03 &    - & 2.59441e-02 & 2.28403e-00 &    - &
 8 \\
  64 & 1.07627e-03 & 4.80240e-04 & 1.38 & 1.35253e-02 & 1.20439e-00 & 0.92 &
 102 \\
 128 & 2.55529e-04 & 3.70025e-04 & 0.38 & 1.20309e-02 & 5.89258e-01 & 1.03 &
-2810 \\
+2\,810 \\
 256 & 6.66480e-05 & 1.42910e-04 & 1.34 & 6.48222e-03 & 2.69953e-01 & 1.10 &
-88056 \\
+88\,056 \\
 \hline
-& \multicolumn{7}{c}{implicit} \\
+& \multicolumn{7}{c}{$(\schemeAim)$} \\
 \hline
  32 & 3.99899e-03 & 1.23928e-03 &    - & 2.61424e-02 & 2.30983e-00 &    - &
 11 \\
  64 & 1.07657e-03 & 4.80445e-04 & 1.37 & 1.35256e-02 & 1.20449e-00 & 0.94 &
 126 \\
 128 & 2.55562e-04 & 3.70165e-04 & 0.38 & 1.20325e-02 & 5.89236e-01 & 1.03 &
-3223 \\
+3\,223 \\
 256 & 6.66478e-05 & 1.42914e-04 & 1.34 & 6.48232e-03 & 2.69982e-01 & 1.10 &
-95315 \\
+95\,315 \\
 \hline
-& \multicolumn{7}{c}{antisymmetric} \\
+& \multicolumn{7}{c}{$(\schemeB)$} \\
 \hline
  32 & 5.56564e-02 & 3.33673e-01 &    - & 8.38557e-00 & 9.98404e+01 &    - &
 8 \\
  64 & 1.05282e-03 & 4.75502e-04 & 9.45 & 1.37127e-02 & 2.01792e+01 & 2.31 &
 112 \\
 128 & 2.52742e-04 & 3.82170e-04 & 0.32 & 1.24067e-02 & 2.00690e+01 & 0.01 &
-3138 \\
+3\,138 \\
 256 & 6.55951e-05 & 1.45885e-04 & 1.36 & 6.67192e-03 & 2.00294e+01 &    0 &
-98893 \\
+98\,893 \\
 \hline
-& \multicolumn{7}{c}{ALE} \\
+& \multicolumn{7}{c}{$(\schemeALE)$} \\
 \hline
  32 & 4.20717e-03 & 1.33379e-03 &    - & 3.03240e-02 & 4.92318e-00 &    - &
 15 \\
@@ -2233,12 +2150,12 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 128 & 2.54196e-04 & 3.30194e-04 & 0.57 & 1.31294e-02 & 1.24058e-00 & 0.99 &
 991 \\
 256 & 6.37496e-05 & 1.35898e-04 & 1.25 & 6.41819e-03 & 6.08051e-01 & 1.01 &
-11970 \\
+11\,970 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
 \caption[Navier--Stokes expanding bubble II errors]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 1,\alpha=0.15$)
+{($\rho_+ = 10^3,\rho_- = 10^2,\mu_+ = 10,\mu_- =1,\gamma = 1,\alpha=0.15$)
 Expanding bubble problem II on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$
 over the time interval $[0,1]$, with discretization parameters from
 Table~\ref{tab:nsexpandingbubbleelements}.}
@@ -2264,13 +2181,13 @@ details on the velocity interpolation algorithms.
 We use the same  setup described in \cite[Figure~2]{HysingTKPBGT09}, which is
 $\Omega = (0,1) \times (0,2)$ with $\partial_1\Omega = [0,1] \times \{0,2\}$
 and $\partial_2\Omega = \{0,1\} \times (0,2)$. Moreover, let the initial
-interface be $\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\frac{1}{2},
-\frac{1}{2})^T| = \frac{1}{4}\}$.  We adopt an uniform time step size
+interface be $\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\tfrac{1}{2},
+\tfrac{1}{2})^T| = \frac{1}{4}\}$.  We adopt an uniform time step size
 $\tau=10^{-3}$, $T=3$, $\vec f = -0.98\,\rho\,\vec e_2$ and $\vec g=\vec 0$.
 
 The physical parameters for the rising bubble experiment I are
 \begin{equation} \label{eq:Hysing1}
-\rho_+ = 1000\,,\quad \rho_- = 100\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
+\rho_+ = 10^3\,,\quad \rho_- = 10^2\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
 \gamma = 24.5\,,
 \end{equation}
 see the test case 1 in \cite[Table~I]{HysingTKPBGT09}. We list the
@@ -2284,12 +2201,15 @@ compare the explicit, implicit, antisymmetric and ALE scheme.
 \center
 \begin{tabular}{rrrrrr}
 \hline
-$J_\Gamma$ & $J_\Omega^0$ & $J_\Omega^M$ explicit & $J_\Omega^M$ implicit &
-$J_\Omega^M$ antisymmetric & $J_\Omega^M$ ALE \\
+%$J_\Gamma$ & $J_\Omega^0$ & $J_\Omega^M$ $(\schemeAex)$ 
+%& $J_\Omega^M$ $(\schemeAim)$ 
+%& $J_\Omega^M$ $(\schemeB)$ & $J_\Omega^M$ $(\schemeALE)$ \\
+$J_\Gamma$ & $J_\Omega^0$ & \multicolumn{4}{c}{$J_\Omega^M$} \\ \hline
+& & $(\schemeAex)$ & $(\schemeAim)$ & $(\schemeB)$ & $(\schemeALE)$ \\
 \hline
- 32 &  2210 &  1816 &  1816 &  1794 &  1820 \\
- 64 &  8822 &  7544 &  7156 &  7490 &  7566 \\
-128 & 35092 & 29276 & 29014 & 28968 & 28296 \\
+ 32 &  2\,210 &  1\,816 &  1\,816 &  1\,794 &  1\,820 \\
+ 64 &  8\,822 &  7\,544 &  7\,156 &  7\,490 &  7\,566 \\
+128 & 35\,092 & 29\,276 & 29\,014 & 28\,968 & 28\,296 \\
 \hline
 \end{tabular}
 \caption[Navier--Stokes rising bubble I meshes parameters]
@@ -2301,50 +2221,32 @@ meshes.}
 \begin{table*}
 \center
 \hspace*{-3.25cm}
-\begin{tabular}{rlll}
+\begin{tabular}{r|rrr|rrr|}
 \hline
- & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\
-\hline
-& \multicolumn{3}{c}{explicit} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.8929 & 0.8975 & 0.9001 \\
-$t_{\strikes = \strikes_{\min}}$ & 1.9040 & 1.9040 & 1.9170 \\
-$V_{c,\max}$                     & 0.2439 & 0.2424 & 0.2411 \\
-$t_{V_c = V_{c,\max}}$           & 0.9350 & 0.9300 & 0.9180 \\
-$z_c(t=3)$                       & 1.0829 & 1.0852 & 1.0822 \\
-CPU                              &  10236 &  29610 & 234396 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{implicit} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.8925 & 0.8973 & 0.9004 \\
-$t_{\strikes = \strikes_{\min}}$ & 2.0410 & 1.9120 & 1.9160 \\
-$V_{c,\max}$                     & 0.2439 & 0.2423 & 0.2410 \\
-$t_{V_c = V_{c,\max}}$           & 0.9340 & 0.9300 & 0.9190 \\
-$z_c(t=3)$                       & 1.0820 & 1.0841 & 1.0819 \\
-CPU                              &  17771 &  72837 & 403904 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{antisymmetric} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.8788 & 0.8851 & 0.8883 \\
-$t_{\strikes = \strikes_{\min}}$ & 1.7920 & 1.7190 & 1.6790 \\
-$V_{c,\max}$                     & 0.2359 & 0.2344 & 0.2334 \\
-$t_{V_c = V_{c,\max}}$           & 0.8860 & 0.8820 & 0.8750 \\
-$z_c(t=3)$                       & 1.0648 & 1.0622 & 1.0607 \\
-CPU                              &   5887 &  19703 & 146538 \\
-\cmidrule{2-4}
-& \multicolumn{3}{c}{ALE} \\
-\cmidrule{2-4}
-$\strikes_{\min}$                & 0.9013 & 0.9010 & 0.9030 \\
-$t_{\strikes = \strikes_{\min}}$ & 1.9460 & 1.9050 & 1.8460 \\
-$V_{c,\max}$                     & 0.2435 & 0.2422 & 0.2410 \\
-$t_{V_c = V_{c,\max}}$           & 0.9370 & 0.9330 & 0.9200 \\
-$z_c(t=3)$                       & 1.0877 & 1.0865 & 1.0824 \\
-CPU                              &  13628 &  63136 & 351867 \\
+ & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ 
+ & $J_\Gamma=32$ & $J_\Gamma=64$ & $J_\Gamma=128$ \\ \hline
+& \multicolumn{3}{c|}{$(\schemeAex)$} & \multicolumn{3}{c|}{$(\schemeAim)$} \\
+\cmidrule{2-7}
+$\strikes_{\min}$                & 0.8929 & 0.8975 & 0.9001  & 0.8925 & 0.8973 & 0.9004 \\
+$t_{\strikes = \strikes_{\min}}$ & 1.9040 & 1.9040 & 1.9170  & 2.0410 & 1.9120 & 1.9160 \\
+$V_{c,\max}$                     & 0.2439 & 0.2424 & 0.2411  & 0.2439 & 0.2423 & 0.2410 \\
+$t_{V_c = V_{c,\max}}$           & 0.9350 & 0.9300 & 0.9180  & 0.9340 & 0.9300 & 0.9190 \\
+$z_c(t=3)$                       & 1.0829 & 1.0852 & 1.0822  & 1.0820 & 1.0841 & 1.0819 \\
+CPU                              &  10\,236 &  29\,610 & 234\,396  &  17\,771 &  72\,837 & 403\,904 \\
+\cmidrule{2-7}
+& \multicolumn{3}{c|}{$(\schemeB)$} & \multicolumn{3}{c|}{$(\schemeALE)$} \\
+\cmidrule{2-7}
+$\strikes_{\min}$                & 0.8788 & 0.8851 & 0.8883  & 0.9013 & 0.9010 & 0.9030 \\
+$t_{\strikes = \strikes_{\min}}$ & 1.7920 & 1.7190 & 1.6790  & 1.9460 & 1.9050 & 1.8460 \\
+$V_{c,\max}$                     & 0.2359 & 0.2344 & 0.2334  & 0.2435 & 0.2422 & 0.2410 \\
+$t_{V_c = V_{c,\max}}$           & 0.8860 & 0.8820 & 0.8750  & 0.9370 & 0.9330 & 0.9200 \\
+$z_c(t=3)$                       & 1.0648 & 1.0622 & 1.0607  & 1.0877 & 1.0865 & 1.0824 \\
+CPU                              &   5\,887 &  19\,703 & 146\,538  &  13\,628 &  63\,136 & 351\,867 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
 \caption[Navier--Stokes rising bubble I benchmark values]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
+{($\rho_+ = 10^3,\rho_- = 10^2,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
 Rising bubble experiment I on $\Omega = (0,1) \times (0,2)$ over the time
 interval $[0,3]$, with discretization parameters from
 Table~\ref{tab:risingbubble2Delements}.}
@@ -2359,7 +2261,8 @@ and the most consistent results for the test case 1. Their method is based on
 the ALE approach with a piecewise quadratic velocity space enriched with cubic
 bubble functions, with a discontinuous piecewise linear pressure space and with
 a second order, fractional step $\theta$-scheme in time. Similar results are
-also obtained in \cite{fluidfbp}. Moreover, we notice that, in all the
+also obtained in \cite[Tables ~2 and 3]{fluidfbp}. 
+Moreover, we notice that, in all the
 simulations, the number of remeshing performed during the full time interval is
 always between 2 and 4. This means that, in each simulation adopting the ALE
 scheme, the velocity is interpolated, at worst, only 4 times.
@@ -2379,7 +2282,7 @@ Figure~\ref{fig:risingbubbleIvelocity}.
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_pressure_3.ps}}
 \caption[Navier--Stokes rising bubble I pressure]
-{($\rho_+ = 1000,\rho_- = 100,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
+{($\rho_+ = 10^3,\rho_- = 10^2,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
 Pressure evolution for the rising bubble experiment I for the implicit scheme,
 with nearly uniform mesh and $J_\Gamma=128$ interface elements.}
 \label{fig:risingbubbleIpressure}
@@ -2455,7 +2358,7 @@ simulation in Figure~\ref{fig:risingbubbleIpressure} for the explicit
 
 The physical parameters for the rising bubble experiment II are
 \begin{equation} \label{eq:Hysing2}
-\rho_+ = 1000\,,\quad \rho_- = 1\,,\quad \mu_+ = 10\,,\quad \mu_- = 0.1\,,\quad
+\rho_+ = 10^3\,,\quad \rho_- = 1\,,\quad \mu_+ = 10\,,\quad \mu_- = 0.1\,,\quad
 \gamma = 1.96\,,
 \end{equation}
 see the test case 2 in \cite[Table~I]{HysingTKPBGT09}. We report on
@@ -2463,14 +2366,14 @@ quantitative results for the rising bubble experiment II in
 Table~\ref{tab:risingbubbleII}. See \S\ref{sec:benchmark_quantities} for the
 definitions of the various benchmark quantities. For each element, we compare
 the explicit, implicit and ALE scheme. We use $J_\Gamma=128$ interface elements
-with $J_\Omega^0=35092$ initial bulk elements. The final number of bulk
-elements, $J_\Omega^M$, for the explicit scheme is 10638.
+with $J_\Omega^0=35\,092$ initial bulk elements. The final number of bulk
+elements, $J_\Omega^M$, for the explicit scheme is 10\,638.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
-\begin{tabular}{rlll}
+\begin{tabular}{rrrr}
 \hline
-& explicit & implicit & ALE \\
+& ($\schemeAex)$ & $(\schemeAim)$ & $(\schemeALE)$ \\
 \hline
 $\strikes_{\min}$                & 0.5435 & 0.5473 & 0.5266 \\
 $t_{\strikes = \strikes_{\min}}$ & 3.0000 & 3.0000 & 3.0000 \\
@@ -2479,12 +2382,12 @@ $t_{V_c = V_{c,\max 1}}$         & 0.7290 & 0.7290 & 0.7300 \\
 $V_{c,\max 2}$                   & 0.2403 & 0.2403 & 0.2400 \\
 $t_{V_c = V_{c,\max 2}}$         & 2.1070 & 2.1540 & 2.0670 \\
 $z_c(t=3)$                       & 1.1383 & 1.1387 & 1.1385 \\
-CPU                              & 132498 & 236635 & 236253 \\
+CPU                              & 132\,498 & 236\,635 & 236\,253 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
 \caption[Navier--Stokes rising bubble II benchmark values]
-{($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
+{($\rho_+ = 10^3,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
 Rising bubble experiment II on $\Omega = (0,1) \times (0,2)$ over the time
 interval $[0,3]$, with nearly uniform meshes and $J_\Gamma=128$ interface
 elements.}
@@ -2496,7 +2399,9 @@ discretization run of group 3 in \cite{HysingTKPBGT09}, which are given by
 0.5144, 3.0000, 0.2502, 0.7317, 0.2393, 2.0600 and 1.1376. Here we note that
 there is little agreement on these results between the three groups in
 \cite{HysingTKPBGT09}, but we believe the numbers of group 3 to be the most
-reliable ones. Similar results are also obtained in \cite{fluidfbp}.
+reliable ones. Similar results are also obtained in 
+\cite[Tables~5 and 6]{fluidfbp}.
+\footnote{Marco: Why not for the antisymmetric scheme? Should mention that.}
 
 In Figure~\ref{fig:risingbubbleIIpressure} we show the evolution of the discrete
 pressures for a simulation with $J_\Gamma=128$ interface elements using the
@@ -2513,7 +2418,7 @@ Figure~\ref{fig:risingbubbleIIvelocity}.
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/rising_bubble_II_pressure_3.ps}}
 \caption[Navier--Stokes rising bubble II pressure]
-{($\rho_+ = 1000,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
+{($\rho_+ = 10^3,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
 Pressure evolution for the rising bubble experiment II for the explicit scheme,
 with nearly uniform mesh and $J_\Gamma=128$ interface elements.}
 \label{fig:risingbubbleIIpressure}
