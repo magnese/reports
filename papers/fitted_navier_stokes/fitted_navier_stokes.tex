@@ -608,7 +608,9 @@ the admissible spaces of test functions on the reference domain $\D$
 for a given $\vec b \in [H^1(\D)]^d$. Then, using the ALE mapping, we can
 define the admissible spaces of test functions on the moving domain $\Omega(t)$
 by setting
-\footnote{Marco: I made these changes. OK?}
+\footnote{Robert: ''Marco: I made these changes. OK? '' You simply state the
+explicit time dependency of the basis function in the reference domain, right?!
+Fine for me.}
 \begin{align*}
 \uspaceale b &:= \{ \vec\phi:
 \bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R^d,\quad
@@ -680,7 +682,8 @@ Let $\uspacedisc{g}{m}\subset\uspacesimple(\vec I_k^m\vec g)$ and
 $\pspace^m\subset\pspace$ be the finite element spaces we use for the
 approximation of velocity and pressure, and let $\pnormspace^m:= \pspace^m \cap
 \pnormspace$. In this paper, we restrict ourselves to the choices
-P2--P0 and P2--(P1+P0), i.e.\ we set
+P2--P0 \footnote{Robert: Why P2--P0? We are not using this pace.} and
+P2--(P1+P0), i.e.\ we set
 $\uspacedisc{0}{m}=[S^m_2]^d\cap\uspace{0}$ and either $\pspace^m = S^m_0$ or
 $S^m_1+S^m_0$, but generalizations to other spaces are easily possible.
 
@@ -868,9 +871,11 @@ the standard interpolation operator onto $[S^h_k]^d$.
 Then, using the discrete ALE mapping
 $\vec x^h$, we can define the finite element spaces on
 the discretized moving domain $\Omega^h(t)$ by
-\footnote{Marco: The spaces $\uspacesemidiscref{g}{h}$ and
+\footnote{Robert: ''Marco: The spaces $\uspacesemidiscref{g}{h}$ and
 $\pnormspaceref^h$ are not defined here? I have also corrected some mistakes
-below, not sure if this is still in time for your thesis.}
+below, not sure if this is still in time for your thesis.'' Yes you are right,
+the definitions are missing. What did you correct? I have noticed the change
+from q to p in the domain velocity but I don't see anything else. }
 \begin{align*}
 \uspacesemidiscale{g}{h}{t} &:= \{ \vec\phi:
 \Omega^h(t) \to \R^d,\quad
@@ -1027,7 +1032,7 @@ approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
 For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh$
 such that
-\footnote{Marco: State that $\W^{m+1}$ is given data? What space is it in?}
+
 \begin{subequations}
 \begin{align}
 & \left( \frac{\rho^m}{\tau}\,\vec U^{m+1}, \vec \xi \right)_{\Omega^{m+1}}
@@ -1045,10 +1050,13 @@ such that
 \end{align}
 \end{subequations}
 and (\ref{eq:ns_HGc},d), and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
-\footnote{Marco: Should we not also say how $\Omega^{m+1}$ is obtained?}
-
-\footnote{Marco: Should we say here how $\W^{m+1}$ will be chosen in practice?
-I.e. not given data, but determined implicitly via mesh smoothing etc?}
+\footnote{Robert: ''Marco: State that $\W^{m+1}$ is given data? What space is
+it in? Should we not also say how $\Omega^{m+1}$ is obtained? Should we say
+here how $\W^{m+1}$ will be chosen in practice?
+I.e. not given data, but determined implicitly via mesh smoothing etc? '' I
+would put everything in the ALE solution method section. We can simply say
+there that we chose as domain velocity the displacement computed by the
+smoothing routine. Then the space is already defined and also $\Omega^{m+1}$.}
 
 It is worth noticing that, at the discrete level, the reference manifold $\D$
 is never used. In particular, at time step $t^{m+1}$, the reference manifold
@@ -2096,7 +2104,9 @@ there is little agreement on these results between the three groups in
 \cite{HysingTKPBGT09}, but we believe the numbers of group 3 to be the most
 reliable ones. Similar results are also obtained in
 \cite[Tables~5 and 6]{fluidfbp}.
-\footnote{Marco: Why not for the antisymmetric scheme? Should mention that.}
+\footnote{Robert: ''Marco: Why not for the antisymmetric scheme? Should mention
+that.'' All the simulations crashed with the antisymmetric scheme in this case
+(probably due to elements overlapping).}
 
 In Figure~\ref{fig:risingbubbleIIpressure} we show the evolution of the discrete
 pressures for a simulation with $J_\Gamma=128$ interface elements using the
