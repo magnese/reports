@@ -221,8 +221,6 @@ in the case of two-phase Stokes flow, our proposed numerical methods collapse
 the the approximation considered by the authors in
 \cite{stokesfitted}.
 
-
-
 The remainder of the paper is organized as follows.
 \footnote{TODO}
 
@@ -251,7 +249,7 @@ $d=2$.
 \end{center}
 \caption{The domain $\Omega$ in the case $d=2$.}
 \label{fig:two_phase_sketch}
-\end{figure}
+\end{figure}%
 For later use, we assume that $(\Gamma(t))_{t\in [0,T]}$ is a sufficiently
 smooth evolving hypersurface without boundary that is parameterized by
 $\vec x(\cdot,t):\Upsilon\to\R^d$, where $\Upsilon\subset \R^d$ is a given
@@ -608,9 +606,6 @@ the admissible spaces of test functions on the reference domain $\D$
 for a given $\vec b \in [H^1(\D)]^d$. Then, using the ALE mapping, we can
 define the admissible spaces of test functions on the moving domain $\Omega(t)$
 by setting
-\footnote{Robert: ''Marco: I made these changes. OK? '' You simply state the
-explicit time dependency of the basis function in the reference domain, right?!
-Fine for me.}
 \begin{align*}
 \uspaceale b &:= \{ \vec\phi:
 \bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R^d,\quad
@@ -659,10 +654,9 @@ $\Omega(t)$.
 \setcounter{equation}{0}
 \section{Finite element approximations}\label{sec:ns_fem}
 \subsection{Eulerian finite element approximations}\label{sec:ns_fem_antisym}
-In order to have a consistent finite element approximation, we consider
-the partitioning $t_m =m\,\tau$, $m=0,\ldots, M$, of $[0,T]$ into uniform time
-steps $\tau=\frac{T}{M}$, see \cite{fluidfbp}. The uniform time step size is
-needed to ensure that the discrete time derivative approximation is consistent.
+We consider the partitioning $t_m =m\,\tau$, $m=0,\ldots, M$, of $[0,T]$ 
+into uniform time
+steps $\tau=\frac{T}{M}$, see \cite{fluidfbp}.
 Moreover, let ${\cal T}^m$, $\forall\ m\ge 0$, be a regular partitioning of the
 domain $\Omega$ into disjoint open simplices $\sigmaO^m_j$, $j = 1 ,\ldots,
 J^m_\Omega$. From now on, the domain $\Omega$ which we consider is the
@@ -681,11 +675,11 @@ onto $[S^m_k]^d$.
 Let $\uspacedisc{g}{m}\subset\uspacesimple(\vec I_k^m\vec g)$ and
 $\pspace^m\subset\pspace$ be the finite element spaces we use for the
 approximation of velocity and pressure, and let $\pnormspace^m:= \pspace^m \cap
-\pnormspace$. In this paper, we restrict ourselves to the choices
-P2--P0 \footnote{Robert: Why P2--P0? We are not using this pace.} and
+\pnormspace$. In this paper, we restrict ourselves to the choice
 P2--(P1+P0), i.e.\ we set
-$\uspacedisc{0}{m}=[S^m_2]^d\cap\uspace{0}$ and either $\pspace^m = S^m_0$ or
-$S^m_1+S^m_0$, but generalizations to other spaces are easily possible.
+$\uspacedisc{0}{m}=[S^m_2]^d\cap\uspace{0}$ and
+$\pspace^m = S^m_1+S^m_0$, but generalizations to other spaces are easily
+possible.
 
 We consider a fitted finite element approximation for the evolution of the
 interface $\Gamma(t)$. Let $\Gamma^m\subset\R^d$ be a $(d-1)$-dimensional
@@ -871,19 +865,16 @@ the standard interpolation operator onto $[S^h_k]^d$.
 Then, using the discrete ALE mapping
 $\vec x^h$, we can define the finite element spaces on
 the discretized moving domain $\Omega^h(t)$ by
-\footnote{Robert: ''Marco: The spaces $\uspacesemidiscref{g}{h}$ and
-$\pnormspaceref^h$ are not defined here? I have also corrected some mistakes
-below, not sure if this is still in time for your thesis.'' Yes you are right,
-the definitions are missing. What did you correct? I have noticed the change
-from q to p in the domain velocity but I don't see anything else. }
-\begin{align*}
+\footnote{Marco: Add definitions for $\uspacesemidiscref{g}{h}$ and
+$\pnormspaceref^h$}
+\begin{align} \label{eq:upalespace}
 \uspacesemidiscale{g}{h}{t} &:= \{ \vec\phi:
 \Omega^h(t) \to \R^d,\quad
 \vec \phi=\vec{\hat\phi}\circ\vec x_h^{\,-1},\quad\vec{\hat\phi}
 \in\uspacesemidiscref{g}{h}\}\,,\\
 \pnormspaceale^h(t) &:= \{ \eta: \Omega^h(t)\to \R,\quad
 \eta=\hat\eta\circ\vec x_h^{\,-1},\quad\hat\eta\in\pnormspaceref^h \}\,,
-\end{align*}
+\end{align}
 where $\Omega^h(t)=\vec x_h(\D,t)$. Here
 $\vec x_h\in [S^h_1]^d$ maps each simplex with straight faces in ${\cal T}^h$
 to a simplex with straight faces belonging to the
@@ -926,7 +917,7 @@ S^h_0(t)$
 and
 $\rho^h = \rho_+\,\charfcn{\Omega^h_+(t)} + \rho_-\,\charfcn{\Omega^h_-(t)}\in
 S^h_0(t)$.
-\footnote{Wrong space! Sort out by changing symbols for spaces.}
+\footnote{Robert: Wrong space! Sort out by changing symbols for spaces.}
 
 Then, given $\Gamma^h(0)$ and $\vec U^h(0)\in \uspacesemidiscale{g}{h}{0}$, for
 $t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h, P^h,
@@ -956,7 +947,6 @@ $t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h, P^h,
 \quad \forall\ \vec\eta \in \Vht\,. \label{eq:ns_semi_aled}
 \end{align}
 \end{subequations}
-
 The semidiscrete continuous-in-time fitted finite element scheme
 (\ref{eq:ns_semi_alea}--d) is a system of ODEs. Indeed, on defining the
 appropriate time-dependent matrices and vectors, we can rewrite
@@ -982,7 +972,8 @@ See \cite[(6.15)]{Agnese} for details.
 
 It is now straightforward to obtain a fully discrete finite element
 approximation of (\ref{eq:ns_ode_alea}--d), since the only missing part is the
-temporal discretization. Therefore, applying a semi-implicit Euler scheme to
+temporal discretization. On recalling the partitioning $t_m =m\,\tau$, 
+$m=0,\ldots, M$, of $[0,T]$, and on applying a semi-implicit Euler scheme to
 (\ref{eq:ns_ode_alea}--d), we obtain
 \begin{subequations}
 \begin{align}
@@ -1000,39 +991,39 @@ temporal discretization. Therefore, applying a semi-implicit Euler scheme to
 - \Nbulk^h(t^m)\vec U^{m+1} = \frac{1}{\tau}[\vec N_\Gamma^h(t^m)]^T
 \vec X^m\,, \label{eq:ns_ode_disc_alec}\\
 & \vec N_\Gamma^h(t^m) \kappa^{m+1} + \vec A^h_\Gamma(t^m)\vec X^{m+1}
- = 0\,. \label{eq:ns_ode_disc_aled}
+ = 0\,, \label{eq:ns_ode_disc_aled}
 \end{align}
 \end{subequations}
-We notice that there is a small abuse of notation in (\ref{eq:ns_ode_disc_alea})
-for $\vec U^{m+1}$ and $\W^{m+1}$ in the term $\vec D^h_\Omega\big(t^{m},\vec
-U^{m+1},\W^{m+1}\big)$. Indeed only for this term, they denote the discrete
-fluid velocity and the discrete bulk domain velocity, respectively, and not
-their associated vectors of degree of freedoms. Moreover, let
-$\Omega^m=\vec x^m(\D)$ be an approximation of the domain $\Omega(t_m)$, $m=0
-,\ldots, M$, where $\vec x^m$ is the discrete ALE mapping discretized using
-piecewise linear elements, and let $h^m$ be an approximation of
-$h:\Omega(t)\times[0,T]\to\R$. Clearly, $h^m$ is defined on the domain
-$\Omega^m$; nevertheless it can be transported on any other configuration
-$\Omega^s$, with $t^s\neq t^m$, using the mapping $\vec x(\cdot,t^s)\circ{\vec
-x}^{-1}(\cdot,t^m)$. To lighten the notation, whenever we need to integrate
-$h^s$ on a domain $\Omega^m$ we will write simply
-$\int_{\Omega^m} h^s \dL d$ instead of
-$\int_{\Omega^m} h^s\circ \vec x(\cdot,t^s)\circ{\vec x}^{-1}(\cdot,t^m)\dL d$.
-The same notation is used for the inner products.
+where $\W^m$, $m=1,\ldots,M$ are some fully discrete bulk mesh velocities
+which, starting from $\Omega^0$, induce a sequence of bulk meshes 
+$\Omega^m=\vec x^m(\D)$, $m=1,\ldots,M$, where $\vec x^m \in [S^h_1]^d$
+is an approximation to $\vec x^h(\cdot,t_m)$.
 
 Following \cite{NobilePhd}, we now rewrite (\ref{eq:ns_ode_disc_alea}--d)
 into a form that is common in the finite element literature.
-Firstly, let $\uspacediscale{g}{m}=\uspacesemidiscale{g}{h}{t^m}$ and
-$\pnormspaceale^m=\pnormspaceale^h(t^m)$. Then, our ALE finite element
-approximation, which is based on the variational formulation
-(\ref{eq:ns_weaka_ale}--d), is given as follows.
+Firstly, and similarly to (\ref{eq:upalespace}), 
+let $\uspacediscale{g}{m}= \{ \vec\phi:
+\Omega^m \to \R^d,\
+\vec \phi=\vec{\hat\phi}\circ(\vec x^m)^{\,-1},\ \vec{\hat\phi}$
+and $\pnormspaceale^m=
+\{ \eta: \Omega^m\to \R,\
+\eta=\hat\eta\circ(\vec x^m)^{\,-1},\ \hat\eta\in\pnormspaceref^h \}$.
+Now to ease the notation, we introduce the following convention. For a function
+$h^k$ defined on $\Omega^k$, we can immediately it to any other 
+configuration $\Omega^m$, with $k\neq m$, using the mapping 
+$\vec x^k\circ(\vec x^m)^{-1}$. Hence, when we need to integrate
+$h^k$ on $\Omega^m$ we will write simply $\int_{\Omega^m} h^k \dL d$ instead of
+$\int_{\Omega^m} h^k\circ \vec x^k\circ(\vec x^m)^{-1}\dL d$, and we will
+use the same notation is used for the inner products.
+Then, our ALE finite element approximation (\ref{eq:ns_ode_disc_alea}--d), 
+which is based on the variational formulation
+(\ref{eq:ns_weaka_ale}--d), can be written as follows.
 
 $(\schemeALE)$: Let $\Gamma^0$, an
 approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
 For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
 \in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh$
 such that
-
 \begin{subequations}
 \begin{align}
 & \left( \frac{\rho^m}{\tau}\,\vec U^{m+1}, \vec \xi \right)_{\Omega^{m+1}}
@@ -1050,23 +1041,19 @@ such that
 \end{align}
 \end{subequations}
 and (\ref{eq:ns_HGc},d), and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
-\footnote{Robert: ''Marco: State that $\W^{m+1}$ is given data? What space is
-it in? Should we not also say how $\Omega^{m+1}$ is obtained? Should we say
-here how $\W^{m+1}$ will be chosen in practice?
-I.e. not given data, but determined implicitly via mesh smoothing etc? '' I
-would put everything in the ALE solution method section. We can simply say
-there that we chose as domain velocity the displacement computed by the
-smoothing routine. Then the space is already defined and also $\Omega^{m+1}$.}
+\footnote{Robert: We should say how $\Omega^{m+1}$ is obtained. Come back to
+this. Maybe seek $\W^{m+1}$, with right trace on $\Gamma^m$, and then
+define $\vec x^{m+1} = \vec x^m + \W^{m+1}$.}
 
-It is worth noticing that, at the discrete level, the reference manifold $\D$
-is never used. In particular, at time step $t^{m+1}$, the reference manifold
-is $\Omega^m$. We
-also want to stress that since the
+We stress that since the
 ALE formulation describes the evolution of the solution along trajectories, the
 velocity $\vec U^{m}$ is defined on all the domains, and so in
 particular on $\Omega^{m}$ and $\Omega^{m+1}$. Hence no interpolation
 of the velocity is necessary in the ALE formulation, unless a full bulk
 remeshing is performed because of severe mesh deformations.
+Finally we remark that at the discrete level, the domain $\Omega^m$ often 
+plays the role of the reference manifold, so that $\D$ is never used
+in practice. 
 
 \setcounter{equation}{0}
 \section{Solution methods}\label{sec:solution_method}
@@ -1361,7 +1348,7 @@ Figure~\ref{fig:velocity_interpolation_path}.
 \caption[Continuous path traversing a fictitious background lattice]
 {Continuous path (red) traversing a fictitious background lattice.}
 \label{fig:velocity_interpolation_path}
-\end{figure}
+\end{figure}%
 Now, in practice, the elements of $\mathcal{T}^m$ are visited following the
 given lattice path. This means that, for each lattice point traversed, the
 associated entities on $\mathcal{T}^m$ are visited.
@@ -1898,8 +1885,7 @@ discretization parameters in Table~\ref{tab:risingbubble2Delements}. Here we
 explicitly state the final number of bulk elements, $J_\Omega^M$, for all the
 schemes. We report on quantitative results for the rising bubble experiment I
 in Table~\ref{tab:risingbubbleIp2p1p0}. See \S\ref{sec:benchmark_quantities}
-for the definitions of the various benchmark quantities. For each element, we
-compare the explicit, implicit, antisymmetric and ALE scheme.
+for the definitions of the various benchmark quantities.
 \begin{table*}
 \center
 \begin{tabular}{rrrrrr}
@@ -1920,7 +1906,6 @@ $J_\Gamma$ & $J_\Omega^0$ & \multicolumn{4}{c}{$J_\Omega^M$} \\ \hline
 meshes.}
 \label{tab:risingbubble2Delements}
 \end{table*}
-
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1956,19 +1941,16 @@ Table~\ref{tab:risingbubble2Delements}.}
 \label{tab:risingbubbleIp2p1p0}
 \end{table*}
 We observe that the results in Table~\ref{tab:risingbubbleIp2p1p0} are in very
-good agreement, except for the antisymmetric scheme, with the corresponding
+good agreement, except for the scheme $(\schemeB)$. For this reason, we do
+not consider the scheme $(\schemeB)$ further in this section.
+The results for the remaining three schemes agree very well with
+the corresponding
 numbers from the finest discretization run of group 3 in \cite{HysingTKPBGT09},
-which are given by 0.9013, 1.9000, 0.2417, 0.9239 and 1.0817. Here we note that
-of the three groups in \cite{HysingTKPBGT09}, group 3 shows the most accurate
-and the most consistent results for the test case 1. Their method is based on
-the ALE approach with a piecewise quadratic velocity space enriched with cubic
-bubble functions, with a discontinuous piecewise linear pressure space and with
-a second order, fractional step $\theta$-scheme in time. Similar results are
-also obtained in \cite[Tables ~2 and 3]{fluidfbp}.
-Moreover, we notice that, in all the
-simulations, the number of remeshing performed during the full time interval is
-always between 2 and 4. This means that, in each simulation adopting the ALE
-scheme, the velocity is interpolated, at worst, only 4 times.
+which are given by 0.9013, 1.9000, 0.2417, 0.9239 and 1.0817. 
+Similar results are also obtained in \cite[Tables ~2 and 3]{fluidfbp}.
+Moreover, we notice that for the ALE scheme $(\schemeALE)$, 
+the number of remeshings performed during the simulation for this test case
+is always between 2 and 4.
 
 In Figure~\ref{fig:risingbubbleIpressure} we show the evolution of the discrete
 pressures for a simulation with $J_\Gamma=128$ interface elements using the
@@ -1986,11 +1968,11 @@ Figure~\ref{fig:risingbubbleIvelocity}.
 {figures/rising_bubble_I_pressure_3.ps}}
 \caption[Navier--Stokes rising bubble I pressure]
 {($\rho_+ = 10^3,\rho_- = 10^2,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Pressure evolution for the rising bubble experiment I for the implicit scheme,
+Pressure evolution for the rising bubble experiment I for the scheme
+$(\schemeAim)$,
 with nearly uniform mesh and $J_\Gamma=128$ interface elements.}
 \label{fig:risingbubbleIpressure}
-\end{figure}
-
+\end{figure}%
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10^{-1}$]{\includegraphics[width=.45\textwidth]
@@ -2005,48 +1987,47 @@ with nearly uniform mesh and $J_\Gamma=128$ interface elements.}
 {Velocity vector field for the simulation in
 Figure~\ref{fig:risingbubbleIpressure}.}
 \label{fig:risingbubbleIvelocity}
-\end{figure}
-
+\end{figure}%
 Finally, in Figures~\ref{fig:risingbubbleIsphericity},
 \ref{fig:risingbubbleIrisingvelocity}, \ref{fig:risingbubbleIbarycenter} and
 \ref{fig:risingbubbleIinnervolume} are reported, respectively, the evolution of
 the sphericity $\strikes$, rising velocity $V_c$, barycenter $z_c$ and relative
 inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over
-time. We notice almost identical results for the explicit, implicit and ALE
-schemes.
+time. We notice almost identical results for the three schemes
+$(\schemeAex)$, $(\schemeAim)$ and $(\schemeALE)$.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_sphericity.ps}
 \caption[Navier--Stokes rising bubble I sphericity]
 {A plot of the sphericity $\strikes$ over time for the simulation in
-Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
-(red), ALE (blue) and antisymmetric (green) schemes.}
+Figure~\ref{fig:risingbubbleIpressure} for the schemes
+$(\schemeAex)$ (orange), $(\schemeAim)$ (red), $(\schemeB)$ (green) and
+$(\schemeALE)$ (blue).}
 \label{fig:risingbubbleIsphericity}
-\end{figure}
-
+\end{figure}%
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_rising_velocity.ps}
 \caption[Navier--Stokes rising bubble I rising velocity]
 {A plot of the rising velocity $V_c$ over time for the simulation in
-Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
-(red), ALE (blue) and antisymmetric (green) schemes.}
+Figure~\ref{fig:risingbubbleIpressure} for the schemes
+$(\schemeAex)$ (orange), $(\schemeAim)$ (red), $(\schemeB)$ (green) and
+$(\schemeALE)$ (blue).}
 \label{fig:risingbubbleIrisingvelocity}
-\end{figure}
-
+\end{figure}%
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_barycenter.ps}
 \caption[Navier--Stokes rising bubble I barycenter]
 {A plot of the barycenter $z_c$ over time for the simulation in
-Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
-(red), ALE (blue) and antisymmetric (green) schemes.}
+Figure~\ref{fig:risingbubbleIpressure} for the schemes
+$(\schemeAex)$ (orange), $(\schemeAim)$ (red), $(\schemeB)$ (green) and
+$(\schemeALE)$ (blue).}
 \label{fig:risingbubbleIbarycenter}
-\end{figure}
-
+\end{figure}%
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
@@ -2054,10 +2035,11 @@ Figure~\ref{fig:risingbubbleIpressure} for the explicit (orange), implicit
 \caption[Navier--Stokes rising bubble I inner area]
 {A plot of the relative inner area
 $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
-simulation in Figure~\ref{fig:risingbubbleIpressure} for the explicit
-(orange), implicit (red), ALE (blue) and antisymmetric (green) schemes.}
+simulation in Figure~\ref{fig:risingbubbleIpressure} for the schemes
+$(\schemeAex)$ (orange), $(\schemeAim)$ (red), $(\schemeB)$ (green) and
+$(\schemeALE)$ (blue).}
 \label{fig:risingbubbleIinnervolume}
-\end{figure}
+\end{figure}%
 
 The physical parameters for the rising bubble experiment II are
 \begin{equation} \label{eq:Hysing2}
@@ -2067,8 +2049,8 @@ The physical parameters for the rising bubble experiment II are
 see the test case 2 in \cite[Table~I]{HysingTKPBGT09}. We report on
 quantitative results for the rising bubble experiment II in
 Table~\ref{tab:risingbubbleII}. See \S\ref{sec:benchmark_quantities} for the
-definitions of the various benchmark quantities. For each element, we compare
-the explicit, implicit and ALE scheme. We use $J_\Gamma=128$ interface elements
+definitions of the various benchmark quantities. 
+We use $J_\Gamma=128$ interface elements
 with $J_\Omega^0=35\,092$ initial bulk elements. The final number of bulk
 elements, $J_\Omega^M$, for the explicit scheme is 10\,638.
 \begin{table*}
@@ -2104,9 +2086,6 @@ there is little agreement on these results between the three groups in
 \cite{HysingTKPBGT09}, but we believe the numbers of group 3 to be the most
 reliable ones. Similar results are also obtained in
 \cite[Tables~5 and 6]{fluidfbp}.
-\footnote{Robert: ''Marco: Why not for the antisymmetric scheme? Should mention
-that.'' All the simulations crashed with the antisymmetric scheme in this case
-(probably due to elements overlapping).}
 
 In Figure~\ref{fig:risingbubbleIIpressure} we show the evolution of the discrete
 pressures for a simulation with $J_\Gamma=128$ interface elements using the
@@ -2127,8 +2106,7 @@ Figure~\ref{fig:risingbubbleIIvelocity}.
 Pressure evolution for the rising bubble experiment II for the explicit scheme,
 with nearly uniform mesh and $J_\Gamma=128$ interface elements.}
 \label{fig:risingbubbleIIpressure}
-\end{figure}
-
+\end{figure}%
 \begin{figure}[htbp]
 \centering
 \subfloat[$t=10^{-1}$]{\includegraphics[width=.45\textwidth]
@@ -2143,8 +2121,7 @@ with nearly uniform mesh and $J_\Gamma=128$ interface elements.}
 {Velocity vector field for the simulation in
 Figure~\ref{fig:risingbubbleIIpressure}.}
 \label{fig:risingbubbleIIvelocity}
-\end{figure}
-
+\end{figure}%
 In Figures~\ref{fig:risingbubbleIIsphericity},
 \ref{fig:risingbubbleIIrisingvelocity}, \ref{fig:risingbubbleIIbarycenter} and
 \ref{fig:risingbubbleIIinnervolume} are reported, respectively, the evolution of
@@ -2163,8 +2140,7 @@ these oscillations.
 Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
 (red) and ALE (blue) schemes.}
 \label{fig:risingbubbleIIsphericity}
-\end{figure}
-
+\end{figure}%
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
@@ -2174,8 +2150,7 @@ Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
 Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
 (red) and ALE (blue) schemes.}
 \label{fig:risingbubbleIIrisingvelocity}
-\end{figure}
-
+\end{figure}%
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
@@ -2185,8 +2160,7 @@ Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
 Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
 (red) and ALE (blue) schemes.}
 \label{fig:risingbubbleIIbarycenter}
-\end{figure}
-
+\end{figure}%
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
@@ -2197,7 +2171,7 @@ $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
 simulation in Figure~\ref{fig:risingbubbleIIpressure} for the explicit
 (orange), implicit (red) and ALE (blue) schemes.}
 \label{fig:risingbubbleIIinnervolume}
-\end{figure}
+\end{figure}%
 
 We finally notice that in both experiments, namely the rising bubble I and II,
 the ALE scheme and the non-ALE schemes are all performing well. Therefore, the
