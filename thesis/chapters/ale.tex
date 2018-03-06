@@ -252,11 +252,12 @@ triangulation $\mathfrak{T}^h(t)$ of the discretized moving domain
 $\Omega^h(t)$. We also define the discrete domain velocity as
 \begin{equation}
 \W^h(\vec z, t):=
-\sum_{k=1}^{K_\Omega}\left[\ddt\,\vec q^h_k(t)\right] \varphi^h_k(\vec z, t)
+\sum_{k=1}^{K_\Omega}\left[\ddt\,\vec p^h_k(t)\right] \varphi^h_k(\vec z, t)
 \in [S^h_1]^d\,,
 \end{equation}
 with $\{\varphi^h_k(\cdot,t)\}_{k=1}^{K_\Omega}$ denoting the standard basis of
-$[S^h_1]^d$.
+$S^h_1$, and $\{\vec p^h_k(t)\}_{k=1}^{K_\Omega}$ denoting the vertices of
+$\mathfrak{T}^h(t)$.
 
 For what concerns the interface, let $(\Gamma^h(t))_{t\in[0,T]}$  be a family of
 $(d-1)$-dimensional polyhedral surfaces approximating the closed surface
