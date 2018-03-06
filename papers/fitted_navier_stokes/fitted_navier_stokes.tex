@@ -611,10 +611,10 @@ by setting
 \bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R^d,\quad
 \vec \phi=\vec{\hat\phi}\circ\vec x^{\,-1},\quad\vec{\hat\phi}(\cdot,t)
 \in\uspaceref b \ \forall\ t \in [0,T]\}\,,\\
-\pspaceale &:= \{ \eta:
-\bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad
-\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta(\cdot,t) \in\pspaceref
-\ \forall\ t \in [0,T] \}\,,\\
+%\pspaceale &:= \{ \eta:
+%\bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad
+%\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta(\cdot,t) \in\pspaceref
+%\ \forall\ t \in [0,T] \}\,,\\
 \pnormspaceale &:= \{ \eta:
 \bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad
 \eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta(\cdot,t)\in\pnormspaceref
@@ -828,7 +828,7 @@ to see how the scheme $(\schemeB)$ performs in practice, compared to
 $(\schemeAex)$ and $(\schemeAim)$.
 
 Moreover, we remark that as all three schemes, $(\schemeAex)$, $(\schemeAim)$
-and $(\schemeB)$, share the side constraints (\ref{eq:ns_HGd}), the vertices of
+and $(\schemeB)$, share the side constraint (\ref{eq:ns_HGd}), the vertices of
 $\Gamma^m$ will in general be very well distributed in practice. This stems
 from the fact that (\ref{eq:ns_HGd}) induces an implicit tangential motion,
 which asymptotically leads to the equidistribution of vertices for $d=2$.
@@ -843,51 +843,49 @@ see also \S\ref{sec:velocity_interpolation} below.
 In order to avoid such an interpolation, we consider an ALE formulation next.
 
 \subsection{ALE finite element approximation}\label{sec:ale_fem}
-\footnote{Robert: Sort out notation clash with Eulerian scheme, $\mathcal{T}^m$
-there etc. Same for $S^m$ spaces.}
 In order to derive our fully discrete ALE finite element approximation, we
 first introduce a semidiscrete continuous-in-time fitted finite element
-approximation of (\ref{eq:ns_weaka_ale}--d). Let ${\cal T}^h$ be a regular
+approximation of (\ref{eq:ns_weaka_ale}--d). 
+Let ${\mathfrak T}^h$ be a regular
 partitioning of the reference domain $\D$ into disjoint open simplices
 $\sigmaO^h_j$, $j = 1 ,\ldots, J^h_\D$. From now on, the reference domain $\D$,
 which we consider, is the polyhedral domain defined by the triangulation
-${\cal T}^h$. On ${\cal T}^h$ we define the finite element spaces
+${\mathfrak T}^h$. On ${\mathfrak T}^h$ we define the finite element spaces
 \begin{equation*}
-S^h_k := \{\chi \in C(\overline{\D}) : \chi\!\mid_{\sigmaO^h}
-\in \mathcal{P}_k(\sigmaO^h) \ \forall\ \sigmaO^h \in {\cal T}^h\}\,,
+S^h_k(\D) := \{\chi \in C(\overline{\D}) : \chi\!\mid_{\sigmaO^h}
+\in \mathcal{P}_k(\sigmaO^h) \ \forall\ \sigmaO^h \in {\mathfrak T}^h\}\,,
 \quad k \in \mathbb{N}\,,
 \end{equation*}
-where $\mathcal{P}_k(\sigmaO^h)$ denotes the space of polynomials of degree $k$
-on $\sigmaO^h$. Moreover, $S^h_0$ is the space of piecewise constant
-functions on ${\cal T}^h$. For later use, we also define $\vec I^h_k$ to be
-the standard interpolation operator onto $[S^h_k]^d$.
+as well as $S^h_0(\D)$, the space of piecewise constant
+functions on ${\cal T}^h$. 
 
 Then, using the discrete ALE mapping
-$\vec x^h$, we can define the finite element spaces on
-the discretized moving domain $\Omega^h(t)$ by
-\footnote{Marco: Add definitions for $\uspacesemidiscref{g}{h}$ and
-$\pnormspaceref^h$}
-\begin{align} \label{eq:upalespace}
-\uspacesemidiscale{g}{h}{t} &:= \{ \vec\phi:
-\Omega^h(t) \to \R^d,\quad
-\vec \phi=\vec{\hat\phi}\circ\vec x_h^{\,-1},\quad\vec{\hat\phi}
-\in\uspacesemidiscref{g}{h}\}\,,\\
-\pnormspaceale^h(t) &:= \{ \eta: \Omega^h(t)\to \R,\quad
-\eta=\hat\eta\circ\vec x_h^{\,-1},\quad\hat\eta\in\pnormspaceref^h \}\,,
-\end{align}
-where $\Omega^h(t)=\vec x_h(\D,t)$. Here
-$\vec x_h\in [S^h_1]^d$ maps each simplex with straight faces in ${\cal T}^h$
-to a simplex with straight faces belonging to the
-triangulation $\mathfrak{T}^h(t)$ of the discretized moving domain
-$\Omega^h(t)$. We also define the discrete domain velocity as
+$\vec x_h$, we can define the finite element spaces on
+the discretized moving domains $\Omega^h(t) = \vec x_h(\D,t)$ by
+\begin{equation*}
+S^h_k(\Omega^h(t)) := 
+\{ \eta: \Omega^h(t)\to \R,\quad
+\eta=\hat\eta\circ\vec x_h^{\,-1},\quad\hat\eta\in S^h_k(\D) \}\,,\quad
+k \in \mathbb{N} \cup \{0\}\,.
+\end{equation*}
+Here $\vec x_h\in [S^h_1]^d$ maps each simplex with straight faces in 
+${\mathfrak T}^h$ to a simplex with straight faces belonging to the
+triangulation $\mathcal{T}^h(t)$ of the discretized moving domain
+$\Omega^h(t)$.
+For later use, we let 
+$\uspacesemidiscale{g}{h}{t} \subset [S^h_2(\Omega^h(t))]^d$ and 
+$\pnormspaceale^h(t) \subset S^h_1(\Omega^h(t)) + S^h_0(\Omega^h(t))$
+denote the appropriate spaces for the discrete velocities and pressure.
+In addition, we also define the discrete domain velocity as
 \begin{equation}
 \W^h(\vec z, t):=
 \sum_{k=1}^{K_\Omega}\left[\ddt\,\vec p^h_k(t)\right] \varphi^h_k(\vec z, t)
-\in [S^h_1]^d\,,
+\in [S^h_1(\Omega^h(t))]^d\,,
 \end{equation}
 with $\{\varphi^h_k(\cdot,t)\}_{k=1}^{K_\Omega}$ denoting the standard basis of
-$S^h_1$, and $\{\vec p^h_k(t)\}_{k=1}^{K_\Omega}$ denoting the vertices of
-$\mathfrak{T}^h(t)$.
+$S^h_1(\Omega^h(t))$, 
+and $\{\vec p^h_k(t)\}_{k=1}^{K_\Omega}$ denoting the vertices of
+$\mathcal {T}^h(t)$.
 
 Given $(\Gamma^h(t))_{t\in[0,T]}$, a family of
 $(d-1)$-dimensional polyhedral surfaces with unit normal $\vec\nu^h(t)$
@@ -909,15 +907,16 @@ see e.g. \cite[(3.3)]{tpfs}, is simply the trace of $\W^h$ on $\Gamma^h$.
 We also introduce the interior $\Omega^h_-(t) = \Omega(t) \setminus
 \overline{\Omega^h_+(t)}$, and the $L^2$--inner products
 $(\cdot,\cdot)_{\Omega^h(t)}$ and $\langle\cdot,\cdot\rangle_{\Gamma^h(t)}$
-on $\Omega(t)$ and $\Gamma^h(t)$, respectively.
-Finally, we let $\vec f_i^h(\cdot) := \vec I^h_2\,\vec f_i(\cdot,t)$, $i=1,2$,
-and set
-$\mu^h = \mu_+\,\charfcn{\Omega^h_+(t)} + \mu_-\,\charfcn{\Omega^h_-(t)}\in
-S^h_0(t)$
+on $\Omega^h(t)$ and $\Gamma^h(t)$, respectively.
+Finally, we let $\vec f_i^h(\cdot,t) := \vec I^h_2\,\vec f_i(\cdot,t)$, 
+$i=1,2$, where $\vec I^h_2$ denotes the standard interpolation operator onto 
+$[S^h_2(\Omega^h(t))]^d$, and set
+$\mu^h(t) = \mu_+\,\charfcn{\Omega^h_+(t)} + \mu_-\,\charfcn{\Omega^h_-(t)}\in
+S^h_0(\Omega^h(t))$
 and
-$\rho^h = \rho_+\,\charfcn{\Omega^h_+(t)} + \rho_-\,\charfcn{\Omega^h_-(t)}\in
-S^h_0(t)$.
-\footnote{Robert: Wrong space! Sort out by changing symbols for spaces.}
+$\rho^h(t) 
+= \rho_+\,\charfcn{\Omega^h_+(t)} + \rho_-\,\charfcn{\Omega^h_-(t)}\in
+S^h_0(\Omega^h(t))$.
 
 Then, given $\Gamma^h(0)$ and $\vec U^h(0)\in \uspacesemidiscale{g}{h}{0}$, for
 $t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h, P^h,
@@ -996,18 +995,20 @@ $m=0,\ldots, M$, of $[0,T]$, and on applying a semi-implicit Euler scheme to
 \end{subequations}
 where $\W^m$, $m=1,\ldots,M$ are some fully discrete bulk mesh velocities
 which, starting from $\Omega^0$, induce a sequence of bulk meshes 
-$\Omega^m=\vec x^m(\D)$, $m=1,\ldots,M$, where $\vec x^m \in [S^h_1]^d$
+$\Omega^m=\vec x^m(\D)$, $m=1,\ldots,M$, where 
+$\vec x^m \in [S^h_1(\Omega^m)]^d$
 is an approximation to $\vec x^h(\cdot,t_m)$.
 
 Following \cite{NobilePhd}, we now rewrite (\ref{eq:ns_ode_disc_alea}--d)
 into a form that is common in the finite element literature.
-Firstly, and similarly to (\ref{eq:upalespace}), 
-let $\uspacediscale{g}{m}= \{ \vec\phi:
+Firstly, let $\uspacediscale{g}{m}= \{ \vec\phi:
 \Omega^m \to \R^d,\
-\vec \phi=\vec{\hat\phi}\circ(\vec x^m)^{\,-1},\ \vec{\hat\phi}$
+\vec \phi=\vec{\hat\phi}\circ(\vec x^m)^{\,-1},\ \vec{\hat\phi} 
+\in \mathcal{U}(\vec g) \cap [S^h_2(\D)]^d\}$
 and $\pnormspaceale^m=
 \{ \eta: \Omega^m\to \R,\
-\eta=\hat\eta\circ(\vec x^m)^{\,-1},\ \hat\eta\in\pnormspaceref^h \}$.
+\eta=\hat\eta\circ(\vec x^m)^{\,-1},\ \hat\eta\in\pnormspaceref
+\cap (S^h_1(\D) +  S^h_0(\D)) \}$.
 Now to ease the notation, we introduce the following convention. For a function
 $h^k$ defined on $\Omega^k$, we can immediately it to any other 
 configuration $\Omega^m$, with $k\neq m$, using the mapping 
@@ -1019,11 +1020,16 @@ Then, our ALE finite element approximation (\ref{eq:ns_ode_disc_alea}--d),
 which is based on the variational formulation
 (\ref{eq:ns_weaka_ale}--d), can be written as follows.
 
-$(\schemeALE)$: Let $\Gamma^0$, an
-approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
-For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
-\in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh$
-such that
+$(\schemeALE)$: Let $\Omega^0$, $\Gamma^0$, and
+$\vec U^0\in \uspacediscale{g}{0}$ be given.
+For $m=0,\ldots, M-1$, find 
+\linebreak
+$(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1},
+\W^{m+1})
+\in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh
+\times [S^h_1(\Omega^m)]^d$ such that
+$\W^{m+1}\!\mid_{\Gamma^m} = \frac1\tau(\vec X^{m+1} -
+\vec\id\!\mid_{\Gamma^m})$ and such that
 \begin{subequations}
 \begin{align}
 & \left( \frac{\rho^m}{\tau}\,\vec U^{m+1}, \vec \xi \right)_{\Omega^{m+1}}
@@ -1040,10 +1046,15 @@ such that
 \quad \forall\ \varphi \in \pnormspaceale^m\,,\label{eq:ale_HGb}
 \end{align}
 \end{subequations}
-and (\ref{eq:ns_HGc},d), and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
-\footnote{Robert: We should say how $\Omega^{m+1}$ is obtained. Come back to
-this. Maybe seek $\W^{m+1}$, with right trace on $\Gamma^m$, and then
-define $\vec x^{m+1} = \vec x^m + \W^{m+1}$.}
+and (\ref{eq:ns_HGc},d), and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$,
+as well as $\Omega^{m+1} = \vec x^{m+1}(\D)$, where
+$\vec x^{m+1} = \vec x^m + \tau\,\W^{m+1}$. Here we note that
+in practice the bulk mesh velocity $\W^{m+1}$ will be obtained with the
+help of an iterative solution and smoothing procudure, see the next section for
+more details.
+Moreover, we recall that the side constraint (\ref{eq:ns_HGd}) will lead
+to a uniform distribution of the vertices on $\Gamma^m$ 
+in the case $d=2$, and to well distributed vertices in $d=3$.
 
 We stress that since the
 ALE formulation describes the evolution of the solution along trajectories, the
@@ -1397,27 +1408,22 @@ U^{m+1,s}-\frac{\vec\psi^{m+1,s}}{\tau}\right)\,.\,\nabla\right)\,
 \label{eq:ns_HGaled}
 \end{align}
 \end{subequations}
-The iteration is repeated until $\|U^{m+1,s+1}-U^{m+1,s}\|_{L^\infty}
+Having obtained $\vec X^{m+1,s+1}$, the new bulk displacement 
+$\vec \psi^{m+1,s+1}$ is computed via the linear elasticity problem 
+(\ref{eq:elast}), see \S\ref{sec:smoothing} for more details, 
+and the new bulk mesh $\Omega^{m+1,s+1}$ is updated accordingly.
+This iteration is repeated until $\|U^{m+1,s+1}-U^{m+1,s}\|_{L^\infty}
 \leq\epsilon_f$ and $\|\vec \psi^{m+1,s+1}-\vec \psi^{m+1,s}\|_{L^\infty}
-\leq\epsilon_f$. Here the bulk displacement $\vec \psi^{m+1,s+1}$ is computed
-solving the linear elasticity problem (\ref{eq:elast}), see
-\S\ref{sec:smoothing} for more details, and $\Omega^{m+1,s+1}$ is
-updated accordingly.
-\footnote{Marco: State connection between $\vec \psi^{m+1,s+1}$ and
-$\W^{m+1}$.}
+\leq\epsilon_f$.
 Finally, set
 $\Gamma^{m+1} = \vec X^{m+1,s+1}(\Gamma^m)$, $\Omega^{m+1,s+1}=\Omega^{m+1}$
-and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1}) = (\vec U^{m+1,s+1}, P^{m+1,s+1},
-\kappa^{m+1,s+1})$. Clearly, (\ref{eq:ns_HGalea}--d) is once again
+and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1},\W^{m+1}) = 
+(\vec U^{m+1,s+1}, P^{m+1,s+1},\kappa^{m+1,s+1},\tfrac1\tau\,\psi^{m+1,s+1})$. 
+Clearly, \linebreak
+\mbox{(\ref{eq:ns_HGalea}--d)} is once again
 a linear system of equations for the unknowns \linebreak
 $(\vec U^{m+1,s+1}, P^{m+1,s+1}, \vec X^{m+1,s+1},
-\kappa^{m+1,s+1})$ of the form (\ref{eq:ns_algebraic}). The
-arbitrary domain velocity $\W^{m+1}$ is chosen to be the solution of the linear
-elasticity problem (\ref{eq:elast}). Obviously, no mesh smoothing is
-performed on $\Omega^{m+1}$ otherwise all the benefits of the ALE scheme would
-be lost since a velocity interpolation would be required. Nevertheless, since
-the mesh smoothing is already embedded in the arbitrary domain velocity, the
-bulk mesh quality is preserved.
+\kappa^{m+1,s+1})$ of the form (\ref{eq:ns_algebraic}). 
 
 \section{Exact solutions}\label{sec:ns_exact_solutions}
 Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$ be a sphere of radius
