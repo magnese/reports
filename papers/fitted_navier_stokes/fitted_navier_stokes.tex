@@ -96,14 +96,16 @@ Department of Mathematics, Imperial College, London, SW7 2AZ, U.K.}
 We investigate novel fitted finite element approximations for two-phase
 Navier--Stokes flow. In particular, we consider both Eulerian and
 Arbitrary Lagrangian--Eulerian (ALE) finite element formulations.
-The moving interface is approximated with the help of piecewise linear
+The moving interface is approximated with the help of 
+parametric piecewise linear
 finite element functions. The bulk mesh is fitted to the interface
 approximation, so that standard bulk finite element spaces can be used
 throughout.
 The meshes describing the discrete interface in
 general do not deteriorate in time, which means that in numerical simulations a
 smoothing or a remeshing of the interface mesh is not necessary.
-We present several numerical experiments for the various numerical methods,
+We present several numerical experiments, including convergence experiments
+and benchmark computations, for the introduced numerical methods,
 which demonstrate the accuracy and robustness of the proposed algorithms.
 We also compare the accuracy and efficiency of the Eulerian and ALE
 formulations.
@@ -1069,7 +1071,13 @@ in practice.
 \setcounter{equation}{0}
 \section{Solution methods}\label{sec:solution_method}
 
-\subsection{Algebraic formulations} \label{sec:algebraic_system}
+\subsection{Eulerian schemes}
+
+In this subsection we disuss the solution methods and other implementation
+issues for the three Eulerian schemes $(\schemeAex)$, $(\schemeAim)$ and
+$(\schemeB)$.
+
+\subsubsection{Algebraic formulations} \label{sec:algebraic_system}
 As is standard practice for the solution of linear systems arising from
 discretizations of Navier--Stokes equations, we avoid the complications of the
 constrained pressure space $\pnormspace^m$ in practice by considering an
@@ -1160,14 +1168,45 @@ find $(\vec U^{m+1,s+1},P^{m+1,s+1}, \vec X^{m+1,s+1}, \kappa^{m+1,s+1}) \in
 \end{align}
 \end{subequations}
 and repeat the iteration until $\|\vec U^{m+1,s+1}-\vec U^{m+1,s}\|_{L^\infty}
-\leq\epsilon_f$. Finally, set $\Gamma^{m+1}=\vec X^{m+1,s+1}(\Gamma^m)$
+\leq\epsilon_f$. Finally, set $\Gamma^{m+1}=$ \linebreak
+$\vec X^{m+1,s+1}(\Gamma^m)$
 and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1}) = (\vec U^{m+1,s+1}, P^{m+1,s+1},
-\kappa^{m+1,s+1})$. Clearly, (\ref{eq:ns_HGfixedpointa}--d) is a linear
+\kappa^{m+1,s+1})$. Clearly, \mbox{(\ref{eq:ns_HGfixedpointa}--d)} is a linear
 system for the unknowns $(\vec U^{m+1,s+1}, P^{m+1,s+1},
 \vec X^{m+1,s+1}, \kappa^{m+1,s+1})$ that is of the form
 (\ref{eq:ns_algebraic}).
 
-\subsection{Solvers for the linear (sub)problems}
+\begin{rem} \label{rem:nondivfree}
+At times we will be interested in numerical simulations for 
+non divergence-free solutions, in particular when considering our convergence
+experiments in \S\ref{sec:ns_exact_solutions}. Here the condition 
+{\rm (\ref{eq:ns_mass_bis})} is replaced by
+$\nabla\,.\,\vec u = f_{\rm{div}}$ in $\Omega_\pm(t)$.
+Clearly, this leads to an additional term on the right-hand side of the
+discrete continuity equation {\rm (\ref{eq:ns_HGb})}. In particular,
+we have to replace {\rm (\ref{eq:LAb})} with
+\begin{equation}\label{eq:LAb_nondivfree}
+\left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
+\left(\,f_{\rm{div}},
+\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right)+
+\frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
+(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
+\pspace^m\,.
+\end{equation}
+In addition, we observe that the weak formulation 
+{\rm (\ref{eq:ns_weaka_antisym})} needs to be suitably adjusted,
+with the additional term $\tfrac{1}{2}\,(\rho\,f_{\rm{div}}\,\vec u,\vec\xi)$ 
+on the right-hand side of {\rm (\ref{eq:ns_weaka_antisym})}, see
+\cite{Agnese} for details.
+As a consequence, the term
+$\frac12\,(\rho^m\,f_{\rm{div}}\,\vec U^m,\vec\xi)$ needs to be added
+to the right-hand side of {\rm (\ref{eq:ns_HGa_antisym})} for the scheme
+$(\schemeB)$.
+\footnote{Marco: You missed the factor $\frac12$ in your thesis (twice) and
+also need to replace $\rho$, $\vec u$ with $\rho^m$, $\vec U^m$ in (7.9a).}
+\end{rem}
+
+\subsubsection{Solvers for the linear (sub)problems}
 Following the authors' approach in \cite{stokesfitted}, see also
 \cite{fluidfbp,spurious},
 for the solution of (\ref{eq:ns_algebraic}) we use a Schur complement
@@ -1258,7 +1297,7 @@ of UMFPACK, see \cite{Davis04}, as usual. In practice we pursued the latter
 approach, as it proved to be slightly more efficient. We refer to
 \cite[\S4.6]{Agnese} for more details.
 
-\subsection{Mesh generation and smoothing}\label{sec:smoothing}
+\subsubsection{Mesh generation and smoothing}\label{sec:smoothing}
 Given the initial polyhedral surface $\Gamma^0$, we create a triangulation
 $\mathcal{T}^0$ of $\Omega$ that is fitted to $\Gamma^0$ with the help of the
 package \verb|Gmsh|, see \cite{GeuzaineR09}.
@@ -1305,7 +1344,7 @@ triggered.
 We stress that in all our numerical simulations we never need to remesh the
 interface $\Gamma^m$ itself.
 
-\subsection{Velocity interpolation}\label{sec:velocity_interpolation}
+\subsubsection{Velocity interpolation}\label{sec:velocity_interpolation}
 We notice that in the three Eulerian schemes $(\schemeAex)$, $(\schemeAim)$
 and $(\schemeB)$, all feature at least one term containing the
 interpolated velocity $\vec I^m_2\,\vec U^m$. Here the interpolation operator
@@ -1368,7 +1407,7 @@ neither too small nor too large.
 In practice we use $\delta$ proportional to the characteristic length of the
 bulk mesh.
 
-\subsection{ALE solution method}\label{sec:ale_solution_method}
+\subsection{ALE scheme} \label{sec:ale_solution_method}
 The solution technique used to solve ALE scheme $(\schemeALE)$ is
 very similar to the one used to solve the nonlinear scheme $(\schemeAim)$.
 More precisely, using a fixed point iteration, we find
@@ -1476,128 +1515,6 @@ is an exact solution to the problem (\ref{eq:ns_full_momentum}--g) with
 $\vec f(\vec z, t) = \rho\,(1-d)\alpha^2\frac{\vec z}{|\vec z\,|^{2d}}$ and
 $\vec g(\vec z) = \alpha\,|\vec z\,|^{-d}\,\vec z$ on
 $\partial_1\Omega=\partial\Omega$.
-
-\section{Non divergence-free scheme modifications}\label{sec:ns_non_div_free}
-The exact solution presented in \S\ref{sec:ns_exact_solutions} is non
-divergence-free which means that $\nabla\,.\,\vec u = f_{\rm{div}}$ in
-$\Omega_\pm(t)$. This leads to an additional term in the right-hand side of the
-continuity equation for the discrete schemes (\ref{eq:ns_HGa_antisym}--d),
-(\ref{eq:ns_HGa}--d), (\ref{eq:ns_HGimpa}--d) and (\ref{eq:ale_HGa}--d). We
-now derive the correction term only for antisymmetric scheme
-(\ref{eq:ns_HGa_antisym}--d) since, for the other three schemes, the
-derivation is analogous.
-
-As for the two-phase Stokes flow, we use the unconstrained pressure space
-$\pspace^m$. Therefore, we rewrite $\varphi\in \pspace^m$ as
-\begin{equation}\label{eq:phi_rewriting_bis}
-\varphi=\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}
-+\frac{\left(\varphi,1\right)}{\left(1,1\right)}\,,
-\end{equation}
-where $\varphi-\frac{(\varphi,1)}{(1,1)}\in\pnormspace^m$ and
-$\frac{(\varphi,1)}{(1,1)}\in\R$. Substituting (\ref{eq:phi_rewriting_bis}) in
-(\ref{eq:ns_HGb}) we obtain
-\begin{equation}
-\left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  =
-\left(\nabla\,.\,\vec U^{m+1},
-\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right) +
-\left(\nabla\,.\,\vec U^{m+1},1\right)
-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\,,
-\end{equation}
-but, given that
-\begin{equation}
-\left(\nabla\,.\,\vec U^{m+1},
-\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right) =
-\left(\,f_{\rm{div}},
-\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right)\,,
-\end{equation}
-and using
-\begin{equation}
-\left(\nabla\,.\,\vec U^{m+1}, 1\right)=
-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\, \int_{\partial\Omega}
-\vec U^{m+1}\,.\, \unitn \dH{d-1}=
-\frac{\left(\varphi,1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
-(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1}\,,
-\end{equation}
-we finally obtain
-\begin{equation}\label{eq:LAb_nondivfree}
-\left(\nabla\,.\,\vec U^{m+1}, \varphi\right) =
-\left(\,f_{\rm{div}},
-\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right)+
-\frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
-(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
-\pspace^m\,.
-\end{equation}
-We notice that the first term in the right-hand side of
-(\ref{eq:LAb_nondivfree}) is the correction due to the fact that the velocity is
-non divergence-free, while the second term is the usual correction arising
-from an inhomogeneous boundary data $\vec g$. We also notice that, if
-$f_{\rm{div}}$ is constant, the first term in the right-hand side of
-(\ref{eq:LAb_nondivfree}) is zero since $f_{\rm{div}}$ can be taken out
-from the integral and what remains is simply the mean of a zero-mean function.
-
-Additionally, only for the antisymmetric case,
-an additional term $\tfrac{1}{2}(\rho\,f_{\rm{div}}\,\vec
-u,\vec\xi)$ appears in the momentum equation (\ref{eq:ns_weaka_antisym}).
-Hence, the weak antisymmetric formulation (\ref{eq:ns_weaka_antisym}),
-(\ref{eq:ns_weakb}--d) is
-replaced by
-\begin{subequations}
-\begin{align}
-& \tfrac{1}{2}\bigg[ \ddt (\rho\,\vec u, \vec \xi) + (\rho\,\vec u_t, \vec \xi)
-+ (\rho, [(\vec u\,.\,\nabla)\,\vec u]\,.\,\vec \xi
-- [(\vec u\,.\,\nabla)\,\vec \xi]\,.\,\vec u) \bigg] \nonumber \\
-& \qquad +2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
-- \left(p, \nabla\,.\,\vec \xi\right)\nonumber \\
-& \qquad - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi
-\right\rangle_{\Gamma(t)}
-= \left(\vec f, \vec \xi\right)+(\rho\,f_{\rm{div}}\,\vec u,\vec\xi)
-\quad \forall\ \vec\xi \in \uspace 0 \,,
-\label{eq:ns_weaka_antisym_div}\\
-& \left(\nabla\,.\,\vec u, \varphi\right) = \left(f_{\rm{div}},\varphi\right)
-\quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb_antisym_div} \\
-&  \left\langle \V
-- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
-\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc_antisym_div} \\
-& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
-+ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
-= 0  \quad \forall\ \vec\eta \in
-[H^1(\Gamma(t))]^d\,.\label{eq:ns_weakd_antisym_div}
-\end{align}
-\end{subequations}
-Therefore, the antisymmetric discrete scheme in the non divergence-free case,
-using the unconstrained pressure space, reads as follow. Let $\Gamma^0$, an
-approximation to $\Gamma(0)$, and $\vec U^0\in \uspacedisc{g}{0}$ be given. For
-$m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
-\uspacedisc{g}{m}\times \pspace^m \times \Vh \times \Wh$ such that
-\begin{subequations}
-\begin{align}
-& \left(\frac{\tfrac{1}{2}(\vec I^m_0\,\rho^{m-1}+\rho^m)\,\vec U^{m+1} -
-\vec I^m_0\,\rho^{m-1} \vec I^m_2\,\vec U^m}{\tau}, \vec \xi \right)\nonumber \\
-& \qquad + \tfrac{1}{2}\left((\rho^m\,\vec I^m_2\,\vec U^m\,.\,\nabla)\,
-\vec U^{m+1}\,,\,\vec \xi \right) - \tfrac{1}{2} \left((\rho^m\,
-\vec I^m_2 \, \vec U^m\,.\,\nabla)\,\vec \xi\,,\,\vec U^{m+1} \right)
-\nonumber \\
-& \qquad - 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
-- \left(P^{m+1}, \nabla\,.\,\vec \xi\right) \nonumber \\
-& \qquad - \gamma\,\left\langle
-\kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
-= \left(\vec f^{m+1}, \vec \xi\right)
-+\left(\rho\,f_{\rm{div}}\,\vec u,\vec\xi\right) \quad \forall\ \vec\xi \in
-\uspacedisc{0}{m}\,,\\
-& \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = \left(\,f_{\rm{div}},
-\varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right) \nonumber \\
-& \qquad +\frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
-(\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1}
-\quad \forall\ \varphi \in \pspace^m\,, \\
-&  \left\langle \frac{\vec X^{m+1} - \vec\id}{\tau} ,\chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}^h - \left\langle \vec U^{m+1}, \chi\,\vec\nu^m
-\right\rangle_{\Gamma^m}  = 0 \quad \forall\ \chi \in \Wh\,,\\
-& \left\langle \kappa^{m+1}\,\vec\nu^m, \vec\eta \right\rangle_{\Gamma^m}^h
-+ \left\langle \nabs\,\vec X^{m+1}, \nabs\,\vec \eta \right\rangle_{\Gamma^m} =
-0 \quad \forall\ \vec\eta \in \Vh
-\end{align}
-\end{subequations}
-and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
 
 \section{Numerical simulation and benchmark quantities}
 \label{sec:benchmark_quantities}
