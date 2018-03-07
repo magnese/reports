@@ -63,6 +63,7 @@ hyperref,verbatim,booktabs,textcomp}
 \newcommand{\schemeAim}{{\mathcal{A}^h_{\rm im}}}
 \newcommand{\schemeB}{{\mathcal{B}^h}}
 \newcommand{\schemeALE}{{\mathcal{C}^h_{\rm ALE}}}
+\newcommand{\ek}{{\rm e}}
 
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
@@ -75,6 +76,7 @@ hyperref,verbatim,booktabs,textcomp}
 %\textwidth 425pt
 \textwidth 455pt \oddsidemargin 0pt \evensidemargin 0pt \headsep
 0pt \headheight 0pt \textheight 655pt \parskip 10pt
+\renewcommand{\floatpagefraction}{0.65}
 
 \title{Fitted front tracking methods for two-phase incompressible
 Navier--Stokes flow: \\
@@ -220,11 +222,20 @@ We note that in the case of viscous incompressible two-phase Stokes flow,
 there is no need for the numerical method to interpolate the velocity from the
 old to the new mesh. Hence there is no need to employ an ALE method. In fact,
 in the case of two-phase Stokes flow, our proposed numerical methods collapse
-the the approximation considered by the authors in
-\cite{stokesfitted}.
+the approximation considered by the authors in \cite{stokesfitted}.
 
-The remainder of the paper is organized as follows.
-\footnote{TODO}
+The remainder of the paper is organized as follows. In
+Section~\ref{sec:ns_model} we introduce the precise mathematical model of
+two-phase flow that we study, and formulate the weak formulations on which our
+Eulerian and ALE finite element approximations will be based. In
+Section~\ref{sec:ns_fem} we introduce four different fully discrete finite
+element discretizations, and in Section~\ref{sec:solution_method} we discuss
+computational issues for their implementation as well as the employed solution
+methods. Finally, in Section~\ref{sec:nr} we present several numerical
+simulations for the introduced finite element approximations. In particular, we
+investigate their accuracy in convergence tests with the help of two exact
+solutions. Moreover, we compare the performance of our schemes in two well
+known benchmark problems.
 
 \section{Mathematical model and weak formulations}\label{sec:ns_model}
 Let $\Omega\subset\R^d$, for $d=2$ or $d=3$ be a given domain that contains two
@@ -521,9 +532,9 @@ We now reformulate the two-phase Navier--Stokes system
 (\ref{eq:ns_full_momentum}--g), which is expressed in terms of Eulerian
 coordinates $\vec z\in\Omega(t)$, by rewriting the velocity time derivative
 $\vec u_t$ with respect to the so called ALE coordinate $\vec q \in \D$.
-Analogously to what is done in a front tracking approach to parametrize the
+Analogously to what is done in a front tracking approach to parameterize the
 interface $\Gamma(t)$, we can define the fixed reference manifold $\D$ and
-extend the map $\vec x(\cdot,t)$ to parametrize $\Omega(t)$ as
+extend the map $\vec x(\cdot,t)$ to parameterize $\Omega(t)$ as
 $\Omega(t)=\vec x(\D,t)$. This extended map clearly still satisfies $\Gamma(t)
 = \vec x(\Upsilon,t)$, given that $\Upsilon\subset\D$. Moreover, we let
 $\partial\D$ be partitioned as $\partial\D=\partial_1\D \cup \partial_2\D$
@@ -1052,7 +1063,7 @@ and (\ref{eq:ns_HGc},d), and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$,
 as well as $\Omega^{m+1} = \vec x^{m+1}(\D)$, where
 $\vec x^{m+1} = \vec x^m + \tau\,\W^{m+1}$. Here we note that
 in practice the bulk mesh velocity $\W^{m+1}$ will be obtained with the
-help of an iterative solution and smoothing procudure, see the next section for
+help of an iterative solution and smoothing procedure, see the next section for
 more details.
 Moreover, we recall that the side constraint (\ref{eq:ns_HGd}) will lead
 to a uniform distribution of the vertices on $\Gamma^m$ 
@@ -1073,7 +1084,7 @@ in practice.
 
 \subsection{Eulerian schemes}
 
-In this subsection we disuss the solution methods and other implementation
+In this subsection we discuss the solution methods and other implementation
 issues for the three Eulerian schemes $(\schemeAex)$, $(\schemeAim)$ and
 $(\schemeB)$.
 
@@ -1179,7 +1190,7 @@ system for the unknowns $(\vec U^{m+1,s+1}, P^{m+1,s+1},
 \begin{rem} \label{rem:nondivfree}
 At times we will be interested in numerical simulations for 
 non divergence-free solutions, in particular when considering our convergence
-experiments in \S\ref{sec:ns_exact_solutions}. Here the condition 
+experiments in \S\ref{sec:ns_convergence_results}. Here the condition 
 {\rm (\ref{eq:ns_mass_bis})} is replaced by
 $\nabla\,.\,\vec u = f_{\rm{div}}$ in $\Omega_\pm(t)$.
 Clearly, this leads to an additional term on the right-hand side of the
@@ -1193,6 +1204,8 @@ we have to replace {\rm (\ref{eq:LAb})} with
 (\vec I^m_2\,\vec g) \,.\, \unitn \dH{d-1} \quad \forall\ \varphi \in
 \pspace^m\,.
 \end{equation}
+The same adjustment is made on the right-hand side of 
+{\rm (\ref{eq:ns_HGfixedpointb})}.
 In addition, we observe that the weak formulation 
 {\rm (\ref{eq:ns_weaka_antisym})} needs to be suitably adjusted,
 with the additional term $\tfrac{1}{2}\,(\rho\,f_{\rm{div}}\,\vec u,\vec\xi)$ 
@@ -1277,14 +1290,13 @@ order to reuse the factorization. Having obtained $(\vec U^{m+1}, P^{m+1})$ from
 (\ref{eq:SchurkX}), we solve (\ref{eq:SchurkXb}) for $(\kappa^{m+1}, \delta\vec
 X^{m+1})$.
 
-As regards the preconditioner for (\ref{eq:SchurkX}),
-a possible choice is to use the standard Navier--Stokes matrix
+As preconditioner for (\ref{eq:SchurkX}) 
+we employ the standard Navier--Stokes matrix
 \begin{equation}\label{eq:ns_direct_precond}
 \begin{pmatrix} \vec B_\Omega & \vec C_\Omega \\
 \vec C_\Omega^T & 0 \end{pmatrix},
 \end{equation}
-recall (\ref{eq:ns_system}),
-as a preconditioner for (\ref{eq:SchurkX}).
+recall (\ref{eq:ns_system}).
 Of course, as the pressure in the Navier--Stokes problem
 (\ref{eq:ns_system}) is only unique up to a constant, the block matrix
 (\ref{eq:ns_direct_precond}) is singular. Hence, in order to efficiently apply
@@ -1336,11 +1348,11 @@ for a complete remeshing, we define the angle criterion
 where $C_a$ is a fixed constant. Moreover, $\measuredangle(\sigmaO)$ is the set
 of all the angles of the simplex $\sigmaO$, which can be computed as
 $\alpha_{ij}=\cos^{-1}(-\vec n_i\,.\,\vec n_j)$, $\forall\ i,j\in\{0,\dots,d\}$,
-with $\vec n_i$ the unitary normal to the simplex face $i$. Of course, if we
-chose $C_a=60$\textdegree, then a remeshing is triggered after every time step,
-while if we choose $C_a = 0$\textdegree, then no remeshing would ever be
-triggered.
-
+with $\vec n_i$ the unitary normal to the simplex face $i$. 
+In practice we perform a full remeshing if the 
+criterion (\ref{eq:angle_criterion}) holds with $C_a=20\degree$.
+\footnote{Marco: This sentence, in the results section, was worded incorrectly
+in your thesis.}
 We stress that in all our numerical simulations we never need to remesh the
 interface $\Gamma^m$ itself.
 
@@ -1382,9 +1394,10 @@ element of $\mathcal{T}^{m-1}$ to visit is likely to be very short.
 Unfortunately, since we use unstructured meshes, such a path, in general,
 is difficult to construct. Hence, instead of explicitly constructing such
 a path, we create a fictitious background lattice
-$\delta\,{\mathbb Z}^d \cap \Omega$ that covers the domain
-$\Omega$. Then each element of $\mathcal{T}^m$ is assigned to the point
-on the lattice that is closest to its barycenter.
+$\delta\,{\mathbb Z}^d \cap \overline\Omega$ that covers the domain
+$\overline\Omega$.
+Then each element of $\mathcal{T}^m$ is assigned to the point
+on the lattice that is closest to its barycentre.
 Depending on the size of the lattice, $\delta$, multiple
 entities can be mapped to the same point on the lattice.
 Since the lattice is structured, it
@@ -1408,11 +1421,14 @@ In practice we use $\delta$ proportional to the characteristic length of the
 bulk mesh.
 
 \subsection{ALE scheme} \label{sec:ale_solution_method}
-The solution technique used to solve ALE scheme $(\schemeALE)$ is
-very similar to the one used to solve the nonlinear scheme $(\schemeAim)$.
-More precisely, using a fixed point iteration, we find
-a solution for the scheme $(\schemeALE)$ as follows. Let $\Gamma^m$
-and $\vec U^m\in \uspacediscale{g}{m}$ be given.
+The solution technique used to solve the ALE scheme $(\schemeALE)$ is
+very similar to the one used to solve the nonlinear scheme $(\schemeAim)$,
+recall (\ref{eq:ns_HGfixedpointa}--d), in that we use a fixed point iteration.
+However, the main difference is that at each time step for the ALE scheme we
+also find a bulk mesh velocity $\W^{m+1}$, and hence a new bulk mesh
+$\Omega^{m+1}$, as part of the solution process.
+More precisely, we find a solution for the scheme $(\schemeALE)$ as follows. 
+Let $\Gamma^m$ and $\vec U^m\in \uspacediscale{g}{m}$ be given.
 Set $\vec U^{m+1,0}=\vec U^m$, $\vec \psi^{m+1,0} =
 \vec 0$, $\Omega^{m+1,0}=\Omega^m$ and fix $\epsilon_f > 0$.
 Then, for $s \geq 0$,
@@ -1449,39 +1465,56 @@ U^{m+1,s}-\frac{\vec\psi^{m+1,s}}{\tau}\right)\,.\,\nabla\right)\,
 \end{subequations}
 Having obtained $\vec X^{m+1,s+1}$, the new bulk displacement 
 $\vec \psi^{m+1,s+1}$ is computed via the linear elasticity problem 
-(\ref{eq:elast}), see \S\ref{sec:smoothing} for more details, 
+(\ref{eq:elast}), see \S\ref{sec:smoothing}, 
 and the new bulk mesh $\Omega^{m+1,s+1}$ is updated accordingly.
 This iteration is repeated until $\|U^{m+1,s+1}-U^{m+1,s}\|_{L^\infty}
 \leq\epsilon_f$ and $\|\vec \psi^{m+1,s+1}-\vec \psi^{m+1,s}\|_{L^\infty}
 \leq\epsilon_f$.
 Finally, set
 $\Gamma^{m+1} = \vec X^{m+1,s+1}(\Gamma^m)$, $\Omega^{m+1,s+1}=\Omega^{m+1}$
-and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1},\W^{m+1}) = 
+and \linebreak $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1},\W^{m+1}) = 
 (\vec U^{m+1,s+1}, P^{m+1,s+1},\kappa^{m+1,s+1},\tfrac1\tau\,\psi^{m+1,s+1})$. 
 Clearly, \linebreak
 \mbox{(\ref{eq:ns_HGalea}--d)} is once again
-a linear system of equations for the unknowns \linebreak
-$(\vec U^{m+1,s+1}, P^{m+1,s+1}, \vec X^{m+1,s+1},
+a linear system of equations for the unknowns 
+$(\vec U^{m+1,s+1}, P^{m+1,s+1},$ $ \vec X^{m+1,s+1},
 \kappa^{m+1,s+1})$ of the form (\ref{eq:ns_algebraic}). 
 
-\section{Exact solutions}\label{sec:ns_exact_solutions}
-Let $\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$ be a sphere of radius
-$r(t)$ and curvature $\varkappa(t) = -\,\frac{d-1}{r(t)}$. Moreover let
-$\alpha,\gamma\in \R_{\geq 0}$ be given. Here, we also allow
-non divergence-free problem. Therefore, for the non divergence-free cases, the
-incompressibility condition (\ref{eq:ns_full_mass}) is replaced by
-\begin{equation}\label{eq:ns_compressible}
-\nabla\,.\,\vec u = f_{\rm{div}}\,.
-\end{equation}
+Similarly to the Eulerian schemes, we monitor the mesh quality of
+the bulk meshes $\Omega^{m+1}$ with the help of the criterion
+(\ref{eq:angle_criterion}). In practice, if (\ref{eq:angle_criterion}) 
+holds with $C_a=20\degree$, then we perform a full remeshing of the domain
+$\Omega$, keeping $\Gamma^{m+1}$ fixed, and obtain the discrete velocity
+approximation on the new mesh via the procedure described in
+\S\ref{sec:velocity_interpolation}.
 
-\subsection{Expanding bubble I}\label{sec:exp1}
-The expanding sphere where
+\setcounter{equation}{0}
+\section{Numerical results} \label{sec:nr}
+
+We implemented our numerical schemes within the \verb|DUNE| framework, 
+using the FEM toolbox \verb|dune-fem|, see
+\cite{dunegridpaperI08,dunegridpaperII08,dunefempaper10}. 
+As grid manager we employed \verb|ALBERTA|, \cite{Alberta}, 
+and all the meshes were created with the library \verb|Gmsh|, 
+\cite{GeuzaineR09}.
+The simulations were performed as single thread computations on a cluster of
+Xeon CPUs with frequency between 2.40GHz to 3.00GHz, and with at 
+least 16GB of memory.
+
+\subsection{Convergence experiments}\label{sec:ns_convergence_results}
+Here we consider convergence experiments for exact solutions to the 
+incompressible two-phase Navier--Stokes flow problem. These exact solutions
+will be characterised by expanding spheres. In particular, let 
+$\Gamma(t) = \{ \vec z \in \R^d : |\vec z\,| = r(t)\}$ be a sphere of radius
+$r(t)$, with curvature $\varkappa(t) = -\,\frac{d-1}{r(t)}$. 
+Then, for $\alpha \in \R_{\geq0}$, it can be shown that the expanding sphere 
+with radius
 \begin{subequations}
-\begin{equation} \label{eq:ns_sol_1_r}
+\begin{equation} \label{eq:ns_sol1a}
 r(t) = \mathrm{e}^{\alpha\,t}\,r(0)\,,
 \end{equation}
 together with
-\begin{equation} \label{eq:ns_sol_1_up}
+\begin{equation} \label{eq:ns_sol1b}
 \vec u(\vec z, t) = \alpha\,\vec z \,, \quad
 p(\vec z, t) = -\bigg[\gamma - 2\,\alpha\,\frac{\mu_+ - \mu_-}
 {d-1}r(t)\bigg]\,\varkappa(t)\left[ \charfcn{\Omega_-(t)} -
@@ -1489,22 +1522,24 @@ p(\vec z, t) = -\bigg[\gamma - 2\,\alpha\,\frac{\mu_+ - \mu_-}
 \end{equation}
 \end{subequations}
 is an exact solution to the problem (\ref{eq:ns_full_momentum}--g), with
-(\ref{eq:ns_full_mass}) replaced by (\ref{eq:ns_compressible}), on
-e.g.\ $\Omega = (-1,1)^d$  with $\vec f(\vec z, t) = \rho\,\alpha^2\,\vec z$,
-$f_{\rm{div}} = \alpha\,d$ and $\vec g = \alpha\,\vec z$ on
+(\ref{eq:ns_full_mass}) replaced by 
+\[
+\nabla\,.\,\vec u = \alpha\,d \quad \mbox{in } \Omega_\pm(t)\,,
+\]
+and with $\vec f(\cdot, t) = \rho\,\alpha^2\,\vec\id$ and
+$\vec g = \alpha\,\vec\id$ on e.g.\ $\Omega = (-1,1)^d$ with
 $\partial_1\Omega=\partial\Omega$.
 
-\subsection{Expanding bubble II}\label{sec:exp2}
 A nontrivial divergence free and radially symmetric solution $\vec u$
 can be constructed on a domain that does not contain the origin. To this end,
-consider e.g.\ $\Omega = (-1,1)^d \setminus [-\frac13, \frac13]^d$. Then, the
-expanding sphere where
+consider e.g.\ $\Omega = (-1,1)^d \setminus [-\frac13, \frac13]^d$. 
+Then, for $\alpha \in \R_{\geq0}$, the expanding sphere with radius
 \begin{subequations}
-\begin{equation} \label{eq:ns_sol_3_r}
+\begin{equation} \label{eq:ns_sol2a}
 r(t) = ([r(0)]^d + \alpha\,t\,d)^\frac1d \,,
 \end{equation}
 together with
-\begin{equation} \label{eq:ns_sol_3_up}
+\begin{equation} \label{eq:ns_sol2b}
 \vec u(\vec z, t) = \alpha\,\frac{\vec z}{|\vec z\,|^d}\,, \quad
 p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
 {r(t)^{d-1}}\bigg)\,\varkappa(t)\left[ \charfcn{\Omega_-(t)} -
@@ -1512,142 +1547,65 @@ p(\vec z, t) = -\,\bigg(\gamma +2\,\alpha\,\frac{\mu_+ - \mu_-}
 \end{equation}
 \end{subequations}
 is an exact solution to the problem (\ref{eq:ns_full_momentum}--g) with
-$\vec f(\vec z, t) = \rho\,(1-d)\alpha^2\frac{\vec z}{|\vec z\,|^{2d}}$ and
-$\vec g(\vec z) = \alpha\,|\vec z\,|^{-d}\,\vec z$ on
+$\vec f(\vec z, t) = \rho\,(1-d)\,\alpha^2\,|\vec z|^{-2d}\,\vec z$ and
+$\vec g(\vec z) = \alpha\,|\vec z|^{-d}\,\vec z$ on
 $\partial_1\Omega=\partial\Omega$.
 
-\section{Numerical simulation and benchmark quantities}
-\label{sec:benchmark_quantities}
-We implement all numerical schemes within the \verb|DUNE| framework, see
-\cite{dunegridpaperI08,dunegridpaperII08}, using the FEM toolbox
-\verb|dune-fem|, see \cite{dunefempaper10}. As grid manager we use
-\verb|ALBERTA|, see \cite{Alberta}, and all the meshes are created with the
-library \verb|Gmsh|, see \cite{GeuzaineR09}.
-
-All the schemes described in this paper are implemented as a \verb|DUNE| module
-called \verb|dune-navier-stokes-two-phase|, available here
-\myurl{https://github.com/magnese/dune-navier-stokes-two-phase}.
-
-All the simulations we report on are performed on a Linux cluster equipped with
-\verb|Ubuntu 14.04.1 LTS| and compiled with \verb|g++ 5.3.0|. The cluster is
-heterogeneous and consist of 32 computing nodes. Each node is equipped
-with dual Xeon CPUs containing either 4 or 6 processor cores with frequency
-ranging from 2.40GHz to 3.00GHz and memory between 16GB and 48GB. The CPU times
-are measured in seconds and correspond to the wall time of a single thread
-computation.
-
-In our numerical simulations, we use the following settings.
-The bulk mesh is remeshed only
-when the angle criterion (\ref{eq:angle_criterion}), with $C_a=20\degree$, is
-not satisfied. Moreover, we set the GMRES tolerance to tol $=10^{-12}$ and the
-restart value to 50. We only report on the P2--(P1+P0) element since is the one
-which gives the best overall performances; results for different elements can be
-found in \cite{Agnese}. We use the Stokes matrix
-(\ref{eq:ns_direct_precond}) as a preconditioner factorizing it with
-UMFPACK, see \cite{Davis04}.
-
-We define the errors
-\begin{equation} \label{eq:errorXx}
-\errorXx := \max_{m=1,\ldots, M} \|\Gamma^m - \Gamma(t_m)\|_{L^\infty}\,,
-\end{equation}
-where $\|\Gamma^m - \Gamma(t_m)\|_{L^\infty} :=
-\max_{k=1,\ldots, K_\Gamma} {\rm dist}( \vec q^m_k, \Gamma(t_m))$,
-\begin{equation} \label{eq:errorLUu}
-\LerrorUu2 := \left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
-t_m)\|_{L^2(\Omega)}^2 \right]^\frac12,
-\end{equation}
-\begin{equation} \label{eq:errorHUu}
-\HerrorUu2 := \left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
-t_m)\|_{H^1(\Omega)}^2 \right]^\frac12,
-\end{equation}
-and
-\begin{equation} \label{eq:errorPp}
-\LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2
-\right]^\frac12.
-\end{equation}
-In (\ref{eq:errorPp}) we employ a quadrature rule of degree $k=13$ to compute
-the $L^2$--norms over $\Omega$.
-
-Moreover, we also define the estimated error of convergence EOC as
-\begin{equation} \label{eq:eoc}
-\mbox{EOC}=\frac{\ln{\frac{\mbox{error}_1}{\mbox{error}_0}}}
-{\ln{\frac{\mbox{h}_1}{\mbox{h}_0}}}\,,
-\end{equation}
-where $\mbox{error}_1$ is the error computed on a triangulation finer that the
-one used to compute $\mbox{error}_0$ while $\mbox{h}_1$ and $\mbox{h}_0$ are the
-respective characteristic lengths.
-
-For later use, we define some benchmark quantities for the continuous
-solution $(\vec u, p, \Gamma)$ of (\ref{eq:ns_full_momentum}--g). Let
-\begin{equation}
-z_c(t) = \frac{1}{\vol(\Omega_-(t))}\int_{\Omega_-(t)} z_d \dL{d}
-\end{equation}
-denotes the $d$-component of the bubble's centre of mass, where $z_d$ is the
-$d$-component of the position vector $\vec z$. Let $\strikes(t)$ denotes the
-degree of sphericity of $\Gamma(t)$, which is defined as the ratio between the
-surface volume of a volume-equivalent hypersphere and $\surfvol(\Gamma(t))$. Let
-\begin{equation}
-V_c(t) = \frac{1}{\vol(\Omega_-(t))}\int_{\Omega_-(t)} u_d(t) \dL{d}
-\end{equation}
-denotes the bubble's rise velocity, where $u_d(t)$ is the $d$-component of
-$\vec u$. Therefore, the discrete counterpart of $d$-component of the bubble's
-centre of mass is
-\begin{equation}
-z_c^m = \frac{1}{\vol(\Omega_-^m)}\,\int_{\Omega_-^m} z_d^{m} \dL{d}\,,
-\end{equation}
-while the degree of sphericity becomes
-\begin{equation}
-\strikes^m =\frac{\pi^{\frac{1}{d}}[2\,d\,\vol(\Omega_-^m)]^\frac{d-1}{d}}
-{\surfvol(\Gamma^m)}\,
-\end{equation}
-and the bubble's rise velocity assumes the following form
-\begin{equation}
-V^m_c = \frac{1}{\vol(\Omega_-^m)}\,\int_{\Omega_-^m}U^m_d\dL{d}\,,
-\end{equation}
-where $U^m_d$ is the $d$-component of $\vec U^m$ evaluated on $\Omega^m$.
-
-\section{Convergence tests}\label{sec:ns_convergence_results}
-For the convergence testes, we choose the initial surface $\Gamma(0) = \{ \vec
-z \in \R^d : |\vec z\,| = \frac12 \}$, $\partial_1\Omega=\partial\Omega$ and
+For the following convergence tests, 
+we choose the initial surface $\Gamma(0) = \{ \vec z \in \R^d : |\vec z| = 
+\frac12 \}$, $\partial_1\Omega=\partial\Omega$ and
 adaptive bulk meshes that use a finer resolution close to the interface. We
-compute the discrete solution over the time interval $[0,1]$. For the expanding
-bubble I, see \S\ref{sec:exp1}, we fix $\Omega = (-1,1)^2$ and we choose the
-parameters $\alpha =0.15$ and
-\begin{equation}
-\rho_+ = \rho_- = \mu_+ = \mu_- = \gamma = 1\,.
-\end{equation}
-Instead, for the expanding bubble II, see \S\ref{sec:exp2}, we fix
-$\Omega = (-1,1)^2 \setminus[-\frac13,\frac13]^2$ and we choose the parameters
-$\alpha=0.15$ and
-\begin{equation}
-\rho_+ = 10^3\,,\quad \rho_- = 10^2\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
-\gamma = 1\,.
-\end{equation}
+compute the discrete solution over the time interval $[0,1]$. 
+We begin with the exact solution (\ref{eq:ns_sol1a},b) for $\alpha = 0.15$
+on $\Omega = (-1,1)^2$, with the physical parameters 
+$\rho_+ = \rho_- = \mu_+ = \mu_- = \gamma = 1$.
 Details on the discretization parameters are given in
-Table~\ref{tab:nsexpandingbubbleelements}. Here we explicitly state the final
-number of bulk elements, $J_\Omega^M$, for the implicit scheme for the two
-expanding bubble problems.
+Table~\ref{tab:nsexpandingbubbleelements}, where we also state the final
+number of bulk elements, $J_\Omega^M$, for the scheme $(\schemeAim)$.
+The values of $J_\Omega^M$ for the remaining three schemes were very similar.
+\footnote{Marco: Is this correct?}
 \begin{table*}
 \center
 \begin{tabular}{rrrrrr}
 \hline
-$J_\Gamma$ & $J_\Omega^0$ case I & $J_\Omega^0$ case II & $\tau$ &
-$J_\Omega^M$ case I & $J_\Omega^M$ case II\\
+& & \multicolumn{2}{c}{(\ref{eq:ns_sol1a},b)} &
+    \multicolumn{2}{c}{(\ref{eq:ns_sol2a},b)} \\
+$J_\Gamma$ & $\tau$ 
+& $J_\Omega^0$ & $J_\Omega^M$ & $J_\Omega^0$ & $J_\Omega^M$ \\
 \hline
- 32 &   296 &  460 & $6.4\cdot10^{-2}$ &   310 &  216 \\
- 64 &  1\,240 & 1\,040 & $1.6\cdot10^{-2}$ &  1\,240 &  444 \\
-128 &  4\,836 & 2\,628 &   $4\cdot10^{-3}$ &  4\,836 & 1\,378 \\
-256 & 18\,476 & 7\,460 &         $10^{-3}$ & 18\,476 & 4\,476 \\
+ 32 & $6.4\cdot10^{-2}$ &     296 &     310 &  460   &  216 \\
+ 64 & $1.6\cdot10^{-2}$ &  1\,240 &  1\,240 & 1\,040 &  444 \\
+128 &   $4\cdot10^{-3}$ &  4\,836 &  4\,836 & 2\,628 & 1\,378 \\
+256 &         $10^{-3}$ & 18\,476 & 18\,476 & 7\,460 & 4\,476 \\
 \hline
 \end{tabular}
 \caption[Navier--Stokes expanding bubble meshes parameters]
-{Discretization parameters for the expanding bubble problems, adaptive meshes.}
+{Discretization parameters for the convergence experiments. The values for
+$J_\Omega^M$ correspond to the scheme $(\schemeAim)$.}
 \label{tab:nsexpandingbubbleelements}
-\end{table*}
-
-We report on the errors of the expanding bubble I in
-Table~\ref{tab:nsexpandingbubbleIp2p1p0}, comparing our four fully discrete
-schemes.
+\end{table*}%
+We report on the computed errors in Table~\ref{tab:nsexpandingbubbleIp2p1p0}, 
+where we have defined the error quantities
+$\errorXx := \max_{m=1,\ldots, M} \|\Gamma^m - \Gamma(t_m)\|_{L^\infty}$,
+where $\|\Gamma^m - \Gamma(t_m)\|_{L^\infty} :=
+\max_{k=1,\ldots, K_\Gamma} {\rm dist}( \vec q^m_k, \Gamma(t_m))$,
+as well as
+$\LerrorUu2 := \left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
+t_m)\|_{L^2(\Omega)}^2 \right]^\frac12$,
+$\HerrorUu2 := $ \linebreak
+$\left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
+t_m)\|_{H^1(\Omega)}^2 \right]^\frac12$
+and 
+$\LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2
+\right]^\frac12$.
+%In (\ref{eq:errorPp}) we employ a quadrature rule of degree $k=13$ to compute
+%the $L^2$--norms over $\Omega$.
+Moreover, we also define the estimated order of convergence EOC as
+\footnote{Marco: EOC was spelled out wrongly in your thesis.}
+$\mbox{EOC}={\ln{\frac{\mbox{error}_1}{\mbox{error}_0}}}/
+{\ln{\frac{\mbox{h}_1}{\mbox{h}_0}}}$,
+where $\mbox{error}_1$ and $\mbox{error}_0$ are the errors for the computations
+with characteristic lengths $\mbox{h}_1 < \mbox{h}_0$.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1696,23 +1654,34 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hspace*{-3.25cm}
 \caption[Navier--Stokes expanding bubble I errors]
 {($\rho_+ = \rho_- = \mu_+ = \mu_- = \gamma = 1,\alpha=0.15$)
-Expanding bubble problem I on $(-1,1)^2$ over the time interval $[0,1]$, with
+Convergence experiments for (\ref{eq:ns_sol1a},b) 
+on $(-1,1)^2$ over the time interval $[0,1]$, with the
 discretization parameters from Table~\ref{tab:nsexpandingbubbleelements}.}
 \label{tab:nsexpandingbubbleIp2p1p0}
-\end{table*}
-Firstly, we observe that the explicit and the implicit scheme capture exactly
-the velocity solution. This is possible because the exact velocity is linear,
-see (\ref{eq:ns_sol_1_up}). We  also notice that all the schemes capture the
-interface position with the same accuracy. Moreover, the explicit, the implicit
-and the ALE have similar errors for the pressure while the antisymmetric scheme
-error is bigger. For what concerns the computational time, as expected due to
-the nature  of the schemes, the explicit scheme performs similarly to the
-antisymmetric scheme while the implicit scheme performs consistently with the
-ALE scheme.
+\end{table*}%
+We observe from Table~\ref{tab:nsexpandingbubbleIp2p1p0}
+that the schemes $(\schemeAex)$ and $(\schemeAim)$ capture the velocity 
+solution exactly. This is possible because the true velocity is linear,
+see (\ref{eq:ns_sol1b}). We also notice that all the schemes capture the
+interface position with the same accuracy. Moreover, the 
+schemes $(\schemeAex)$, $(\schemeAim)$ and $(\schemeALE)$ exhibit
+similar errors for the pressure, with the scheme $(\schemeB)$ showing larger
+errors. In terms of the overall CPU times, we notice that
+the two linear schemes $(\schemeAex)$ and $(\schemeB)$, as well as the two
+nonlinear schemes $(\schemeAim)$ and $(\schemeALE)$, have similar 
+execution times, with the CPU times for the linear schemes lower than for the
+nonlinear schemes.
 
-We report on the errors of the expanding bubble II in
-Table~\ref{tab:nsexpandingbubbleIIp2p1p0} and, again, we compare the explicit,
-implicit, antisymmetric and ALE scheme.
+In a second set of convergence experiments, we fix
+$\Omega = (-1,1)^2 \setminus[-\frac13,\frac13]^2$ 
+for the exact solution (\ref{eq:ns_sol2a},b) with $\alpha=0.15$ and
+the physical parameters
+\[
+\rho_+ = 10^3\,,\quad \rho_- = 10^2\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
+\gamma = 1\,.
+\]
+We report on the errors of the exact solution (\ref{eq:ns_sol2a},b) in
+Table~\ref{tab:nsexpandingbubbleIIp2p1p0}.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1769,46 +1738,57 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hspace*{-3.25cm}
 \caption[Navier--Stokes expanding bubble II errors]
 {($\rho_+ = 10^3,\rho_- = 10^2,\mu_+ = 10,\mu_- =1,\gamma = 1,\alpha=0.15$)
-Expanding bubble problem II on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$
-over the time interval $[0,1]$, with discretization parameters from
+Convergence experiments for (\ref{eq:ns_sol2a},b) 
+on $(-1,1)^2\setminus[-\frac{1}{3},\frac{1}{3}]^2$
+over the time interval $[0,1]$, with the discretization parameters from
 Table~\ref{tab:nsexpandingbubbleelements}.}
 \label{tab:nsexpandingbubbleIIp2p1p0}
-\end{table*}
+\end{table*}%
 Firstly, we observe that the velocity and the interface position is captured
-with similar accuracy by all four schemes. Instead, we notice that the
-pressure error does not converge with the antisymmetric scheme. Indeed, the
-antisymmetric scheme has some difficulties handling the viscosity jump. On the
-other hand, the ALE scheme has a slightly higher pressure error with respect
-to the explicit and implicit scheme. For what concerns the computational time,
-the ALE scheme greatly outperforms the other schemes. Since the bulk domain is
-not convex, the interpolation routine uses a linear search, instead of an
-optimized local search involving only neighbours, to locate bulk elements.
-Therefore, the interpolation routine is very slow and accounts for a
-substantial share of the total simulation time. But the ALE scheme, which has
-to interpolate the velocity only when a complete bulk remesh is performed, uses
-the interpolation routine very rarely, which leads to a significant reduction
-in the total simulation time. See \S\ref{sec:velocity_interpolation} for more
-details on the velocity interpolation algorithms.
+with similar accuracy by all four schemes. However, we notice that the
+pressure error does not appear to converge for the scheme $(\schemeB)$,
+which may be caused by the discontinuous jumps in density and viscosity.
+In addition, the scheme $(\schemeALE)$ exhibits slightly higher pressure 
+errors compared to $(\schemeAex)$ and $(\schemeAim)$.
+We also note the vastly superior CPU times for the scheme $(\schemeALE)$
+compared to the other schemes. This is caused by the fact that
+the domain is nonconvex, and so we employ a simple linear search in
+our velocity interpolation routine, recall \S\ref{sec:velocity_interpolation}.
+Of course, the ALE scheme only needs to interpolate the velocity when a 
+complete bulk remeshing is performed, and this leads to a significant reduction
+in the total simulation time.
+\footnote{Marco: State how many full remeshings are needed?}
 
-\section{Rising bubble experiments}\label{sec:2d_rising_bubble_results}
-We use the same  setup described in \cite[Figure~2]{HysingTKPBGT09}, which is
+\subsection{Benchmark computations} \label{sec:benchmark_computations}
+
+Here we will present benchmark computations for the two rising bubble
+test cases proposed in \cite[Table~I]{HysingTKPBGT09}.
+To this end, we use the setup described in 
+\cite[Figure~2]{HysingTKPBGT09}, which is
 $\Omega = (0,1) \times (0,2)$ with $\partial_1\Omega = [0,1] \times \{0,2\}$
-and $\partial_2\Omega = \{0,1\} \times (0,2)$. Moreover, let the initial
-interface be $\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\tfrac{1}{2},
-\tfrac{1}{2})^T| = \frac{1}{4}\}$.  We adopt an uniform time step size
-$\tau=10^{-3}$, $T=3$, $\vec f = -0.98\,\rho\,\vec e_2$ and $\vec g=\vec 0$.
+and $\partial_2\Omega = \{0,1\} \times (0,2)$. Moreover, the initial
+interface is $\Gamma_0 = \{\vec z \in \R^2 : |\vec z - (\tfrac{1}{2},
+\tfrac{1}{2})^T| = \frac{1}{4}\}$. We also let 
+$\vec f = -0.98\,\rho\,\vec\ek_2$ and $\vec g=\vec 0$.
+For the discretization parameters, we choose
+$\tau=10^{-3}$, $T=3$ and nearly uniform bulk meshes.
 
-The physical parameters for the rising bubble experiment I are
+\subsubsection{Benchmark problem I}
+The physical parameters for the test case 1 in \cite[Table~I]{HysingTKPBGT09}
+are given by
 \begin{equation} \label{eq:Hysing1}
 \rho_+ = 10^3\,,\quad \rho_- = 10^2\,,\quad \mu_+ = 10\,,\quad \mu_- = 1\,,\quad
-\gamma = 24.5\,,
+\gamma = 24.5\,.
 \end{equation}
-see the test case 1 in \cite[Table~I]{HysingTKPBGT09}. We list the
-discretization parameters in Table~\ref{tab:risingbubble2Delements}. Here we
-explicitly state the final number of bulk elements, $J_\Omega^M$, for all the
-schemes. We report on quantitative results for the rising bubble experiment I
-in Table~\ref{tab:risingbubbleIp2p1p0}. See \S\ref{sec:benchmark_quantities}
-for the definitions of the various benchmark quantities.
+We list our discretization parameters for this benchmark computation 
+in Table~\ref{tab:risingbubble2Delements}, and report on the quantitative 
+results for our four schemes in Table~\ref{tab:risingbubbleIp2p1p0}. 
+Here we have defined the $\vec\ek_d$-component of the bubble's centre of mass 
+as $z_c^m = \int_{\Omega_-^m} \vec\id\,.\,\vec\ek_d \dL{d} / \vol(\Omega_-^m)$,
+the degree of sphericity as
+$\strikes^m ={\pi^{\frac{1}{d}}[2\,d\,\vol(\Omega_-^m)]^\frac{d-1}{d}}/
+{\surfvol(\Gamma^m)}$, and the bubble's rise velocity as
+$V^m_c = \int_{\Omega_-^m}\vec U^m\,.\,\vec\ek_d \dL{d} / \vol(\Omega_-^m)$.
 \begin{table*}
 \center
 \begin{tabular}{rrrrrr}
@@ -1824,11 +1804,9 @@ $J_\Gamma$ & $J_\Omega^0$ & \multicolumn{4}{c}{$J_\Omega^M$} \\ \hline
 128 & 35\,092 & 29\,276 & 29\,014 & 28\,968 & 28\,296 \\
 \hline
 \end{tabular}
-\caption[Navier--Stokes rising bubble I meshes parameters]
-{Discretization parameters for the rising bubble experiment I, nearly uniform
-meshes.}
+\caption{Discretization parameters for the benchmark problem I.}
 \label{tab:risingbubble2Delements}
-\end{table*}
+\end{table*}%
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1856,13 +1834,11 @@ CPU                              &   5\,887 &  19\,703 & 146\,538  &  13\,628 & 
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Navier--Stokes rising bubble I benchmark values]
-{($\rho_+ = 10^3,\rho_- = 10^2,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Rising bubble experiment I on $\Omega = (0,1) \times (0,2)$ over the time
-interval $[0,3]$, with discretization parameters from
+\caption{($\rho_+ = 10^3,\rho_- = 10^2,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
+Benchmark problem I, with the discretization parameters from
 Table~\ref{tab:risingbubble2Delements}.}
 \label{tab:risingbubbleIp2p1p0}
-\end{table*}
+\end{table*}%
 We observe that the results in Table~\ref{tab:risingbubbleIp2p1p0} are in very
 good agreement, except for the scheme $(\schemeB)$. For this reason, we do
 not consider the scheme $(\schemeB)$ further in this section.
@@ -1871,13 +1847,13 @@ the corresponding
 numbers from the finest discretization run of group 3 in \cite{HysingTKPBGT09},
 which are given by 0.9013, 1.9000, 0.2417, 0.9239 and 1.0817. 
 Similar results are also obtained in \cite[Tables ~2 and 3]{fluidfbp}.
-Moreover, we notice that for the ALE scheme $(\schemeALE)$, 
-the number of remeshings performed during the simulation for this test case
-is always between 2 and 4.
+Moreover, we note that the number of full remeshings performed during 
+any simulation for this test case was always between 2 and 4.
+\footnote{Marco: Is this correct?}
 
 In Figure~\ref{fig:risingbubbleIpressure} we show the evolution of the discrete
 pressures for a simulation with $J_\Gamma=128$ interface elements using the
-implicit scheme, while the velocities are visualized in
+scheme $(\schemeAim)$, while the velocities are visualized in
 Figure~\ref{fig:risingbubbleIvelocity}.
 \begin{figure}[htbp]
 \centering
@@ -1889,11 +1865,9 @@ Figure~\ref{fig:risingbubbleIvelocity}.
 {figures/rising_bubble_I_pressure_2.ps}}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_pressure_3.ps}}
-\caption[Navier--Stokes rising bubble I pressure]
-{($\rho_+ = 10^3,\rho_- = 10^2,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
-Pressure evolution for the rising bubble experiment I for the scheme
-$(\schemeAim)$,
-with nearly uniform mesh and $J_\Gamma=128$ interface elements.}
+\caption{($\rho_+ = 10^3,\rho_- = 10^2,\mu_+ = 10,\mu_- =1,\gamma = 24.5$)
+Pressure evolution for the benchmark problem I for the scheme $(\schemeAim)$
+with $J_\Gamma=128$ interface elements.}
 \label{fig:risingbubbleIpressure}
 \end{figure}%
 \begin{figure}[htbp]
@@ -1906,24 +1880,26 @@ with nearly uniform mesh and $J_\Gamma=128$ interface elements.}
 {figures/rising_bubble_I_velocity_2.ps}}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_velocity_3.ps}}
-\caption[Navier--Stokes rising bubble I velocity]
-{Velocity vector field for the simulation in
+\caption{Velocity vector field for the simulation in
 Figure~\ref{fig:risingbubbleIpressure}.}
 \label{fig:risingbubbleIvelocity}
 \end{figure}%
 Finally, in Figures~\ref{fig:risingbubbleIsphericity},
-\ref{fig:risingbubbleIrisingvelocity}, \ref{fig:risingbubbleIbarycenter} and
-\ref{fig:risingbubbleIinnervolume} are reported, respectively, the evolution of
-the sphericity $\strikes$, rising velocity $V_c$, barycenter $z_c$ and relative
-inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over
+\ref{fig:risingbubbleIrisingvelocity}, and \ref{fig:risingbubbleIbarycenter} 
+are reported, respectively, the evolution of
+the sphericity $\strikes$, rising velocity $V_c$ and barycentre $z_c$ over
 time. We notice almost identical results for the three schemes
-$(\schemeAex)$, $(\schemeAim)$ and $(\schemeALE)$.
+$(\schemeAex)$, $(\schemeAim)$ and $(\schemeALE)$, which are in very good
+agreement with the plots shown in \cite{HysingTKPBGT09}. We also note the
+excellent area conservation shown in \ref{fig:risingbubbleIinnervolume},
+where we visualize the evolution of the relative
+inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ 
+over time.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_sphericity.ps}
-\caption[Navier--Stokes rising bubble I sphericity]
-{A plot of the sphericity $\strikes$ over time for the simulation in
+\caption{A plot of the sphericity $\strikes$ over time for the simulation in
 Figure~\ref{fig:risingbubbleIpressure} for the schemes
 $(\schemeAex)$ (orange), $(\schemeAim)$ (red), $(\schemeB)$ (green) and
 $(\schemeALE)$ (blue).}
@@ -1933,8 +1909,7 @@ $(\schemeALE)$ (blue).}
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_rising_velocity.ps}
-\caption[Navier--Stokes rising bubble I rising velocity]
-{A plot of the rising velocity $V_c$ over time for the simulation in
+\caption{A plot of the rising velocity $V_c$ over time for the simulation in
 Figure~\ref{fig:risingbubbleIpressure} for the schemes
 $(\schemeAex)$ (orange), $(\schemeAim)$ (red), $(\schemeB)$ (green) and
 $(\schemeALE)$ (blue).}
@@ -1944,8 +1919,7 @@ $(\schemeALE)$ (blue).}
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_barycenter.ps}
-\caption[Navier--Stokes rising bubble I barycenter]
-{A plot of the barycenter $z_c$ over time for the simulation in
+\caption{A plot of the barycenter $z_c$ over time for the simulation in
 Figure~\ref{fig:risingbubbleIpressure} for the schemes
 $(\schemeAex)$ (orange), $(\schemeAim)$ (red), $(\schemeB)$ (green) and
 $(\schemeALE)$ (blue).}
@@ -1955,8 +1929,7 @@ $(\schemeALE)$ (blue).}
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_inner_volume.ps}
-\caption[Navier--Stokes rising bubble I inner area]
-{A plot of the relative inner area
+\caption{A plot of the relative inner area
 $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
 simulation in Figure~\ref{fig:risingbubbleIpressure} for the schemes
 $(\schemeAex)$ (orange), $(\schemeAim)$ (red), $(\schemeB)$ (green) and
@@ -1964,18 +1937,21 @@ $(\schemeALE)$ (blue).}
 \label{fig:risingbubbleIinnervolume}
 \end{figure}%
 
-The physical parameters for the rising bubble experiment II are
+\subsubsection{Benchmark problem I}
+
+The physical parameters for the test case 2 in \cite[Table~I]{HysingTKPBGT09}
+are given by
 \begin{equation} \label{eq:Hysing2}
 \rho_+ = 10^3\,,\quad \rho_- = 1\,,\quad \mu_+ = 10\,,\quad \mu_- = 0.1\,,\quad
-\gamma = 1.96\,,
+\gamma = 1.96\,.
 \end{equation}
-see the test case 2 in \cite[Table~I]{HysingTKPBGT09}. We report on
-quantitative results for the rising bubble experiment II in
-Table~\ref{tab:risingbubbleII}. See \S\ref{sec:benchmark_quantities} for the
-definitions of the various benchmark quantities. 
-We use $J_\Gamma=128$ interface elements
-with $J_\Omega^0=35\,092$ initial bulk elements. The final number of bulk
-elements, $J_\Omega^M$, for the explicit scheme is 10\,638.
+We report on the quantitative results for this benchmark computation in
+Table~\ref{tab:risingbubbleII}, where we have used 
+$J_\Gamma=128$ interface elements and $J_\Omega^0=35\,092$ initial 
+bulk elements. The final number of bulk
+elements, $J_\Omega^M$, for the scheme $(\schemeAex)$ is 10\,638,
+with the schemes $(\schemeAim)$ and $(\schemeALE)$ very similar.
+\footnote{Marco: Is this correct? State the other two values in text?}
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1994,13 +1970,11 @@ CPU                              & 132\,498 & 236\,635 & 236\,253 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
-\caption[Navier--Stokes rising bubble II benchmark values]
-{($\rho_+ = 10^3,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
-Rising bubble experiment II on $\Omega = (0,1) \times (0,2)$ over the time
-interval $[0,3]$, with nearly uniform meshes and $J_\Gamma=128$ interface
-elements.}
+\caption{($\rho_+ = 10^3,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
+Benchmark problem II on $\Omega = (0,1) \times (0,2)$ over the time
+interval $[0,3]$.}
 \label{tab:risingbubbleII}
-\end{table*}
+\end{table*}%
 We observe that the results in Table~\ref{tab:risingbubbleII}
 are in good agreement with the corresponding numbers from the finest
 discretization run of group 3 in \cite{HysingTKPBGT09}, which are given by
@@ -2009,10 +1983,11 @@ there is little agreement on these results between the three groups in
 \cite{HysingTKPBGT09}, but we believe the numbers of group 3 to be the most
 reliable ones. Similar results are also obtained in
 \cite[Tables~5 and 6]{fluidfbp}.
+\footnote{Marco: State number of full remeshings, as for rising bubble I?}
 
 In Figure~\ref{fig:risingbubbleIIpressure} we show the evolution of the discrete
 pressures for a simulation with $J_\Gamma=128$ interface elements using the
-explicit scheme, while the velocities are visualized in
+scheme $(\schemeAex)$, while the velocities are visualized in
 Figure~\ref{fig:risingbubbleIIvelocity}.
 \begin{figure}[htbp]
 \centering
@@ -2024,10 +1999,9 @@ Figure~\ref{fig:risingbubbleIIvelocity}.
 {figures/rising_bubble_II_pressure_2.ps}}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/rising_bubble_II_pressure_3.ps}}
-\caption[Navier--Stokes rising bubble II pressure]
-{($\rho_+ = 10^3,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
-Pressure evolution for the rising bubble experiment II for the explicit scheme,
-with nearly uniform mesh and $J_\Gamma=128$ interface elements.}
+\caption{($\rho_+ = 10^3,\rho_- = 1,\mu_+ = 10,\mu_- =0.1,\gamma = 1.96$)
+Pressure evolution for the benchmark problem II for the scheme $(\schemeAex)$,
+with $J_\Gamma=128$ interface elements.}
 \label{fig:risingbubbleIIpressure}
 \end{figure}%
 \begin{figure}[htbp]
@@ -2040,26 +2014,26 @@ with nearly uniform mesh and $J_\Gamma=128$ interface elements.}
 {figures/rising_bubble_II_velocity_2.ps}}
 \subfloat[$t=3$]{\includegraphics[width=.45\textwidth]
 {figures/rising_bubble_II_velocity_3.ps}}
-\caption[Navier--Stokes rising bubble II velocity]
-{Velocity vector field for the simulation in
+\caption{Velocity vector field for the simulation in
 Figure~\ref{fig:risingbubbleIIpressure}.}
 \label{fig:risingbubbleIIvelocity}
 \end{figure}%
-In Figures~\ref{fig:risingbubbleIIsphericity},
-\ref{fig:risingbubbleIIrisingvelocity}, \ref{fig:risingbubbleIIbarycenter} and
-\ref{fig:risingbubbleIIinnervolume} are reported, respectively, the evolution of
-the sphericity $\strikes$, rising velocity $V_c$, barycenter $z_c$ and relative
+As  before we show plots of the sphericity $\strikes$, the 
+rising velocity $V_c$, the barycenter $z_c$ and the relative
 inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over
-time. In Figure~\ref{fig:risingbubbleIIinnervolume} we observe oscillations in
-the relative inner area between $t=2.1$ and $t=2.3$. In that interval the bubble
-assumes a more non-convex shape and develops thin filaments which originate
-these oscillations.
+time in Figures~\ref{fig:risingbubbleIIsphericity},
+\ref{fig:risingbubbleIIrisingvelocity}, \ref{fig:risingbubbleIIbarycenter} and
+\ref{fig:risingbubbleIIinnervolume}, respectively. In the former three
+figures we note the good agreement with the plots shown in 
+\cite{HysingTKPBGT09}. As regards the plot of the relative inner area
+in Figure~\ref{fig:risingbubbleIIinnervolume}, we observe oscillations in
+the relative inner area between $t=2.1$ and $t=2.3$ which are caused by
+the very thin filaments originating at the bottom of the rising bubble.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_II_sphericity.ps}
-\caption[Navier--Stokes rising bubble II sphericity]
-{A plot of the sphericity $\strikes$ over time for the simulation in
+\caption{A plot of the sphericity $\strikes$ over time for the simulation in
 Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
 (red) and ALE (blue) schemes.}
 \label{fig:risingbubbleIIsphericity}
@@ -2068,8 +2042,7 @@ Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_II_rising_velocity.ps}
-\caption[Navier--Stokes rising bubble II rising velocity]
-{A plot of the rising velocity $V_c$ over time for the simulation in
+\caption{A plot of the rising velocity $V_c$ over time for the simulation in
 Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
 (red) and ALE (blue) schemes.}
 \label{fig:risingbubbleIIrisingvelocity}
@@ -2078,8 +2051,7 @@ Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_II_barycenter.ps}
-\caption[Navier--Stokes rising bubble II barycenter]
-{A plot of the barycenter $z_c$ over time for the simulation in
+\caption{A plot of the barycenter $z_c$ over time for the simulation in
 Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
 (red) and ALE (blue) schemes.}
 \label{fig:risingbubbleIIbarycenter}
@@ -2088,22 +2060,36 @@ Figure~\ref{fig:risingbubbleIIpressure} for the explicit (orange), implicit
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_II_inner_volume.ps}
-\caption[Navier--Stokes rising bubble II inner area]
-{A plot of the relative inner area
+\caption{A plot of the relative inner area
 $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over time for the
 simulation in Figure~\ref{fig:risingbubbleIIpressure} for the explicit
 (orange), implicit (red) and ALE (blue) schemes.}
 \label{fig:risingbubbleIIinnervolume}
 \end{figure}%
 
-We finally notice that in both experiments, namely the rising bubble I and II,
-the ALE scheme and the non-ALE schemes are all performing well. Therefore, the
-downside of having to project the velocity in the non-ALE formulations seems to
-be less severe than expected. This can be partly explained by the good
-interface mesh, which never changes even after a full bulk remeshing.
-
 \section*{Conclusions}
-\footnote{TODO}
+We have introduced three Eulerian and one ALE scheme for the fitted finite
+element approximation of two-phase Navier--Stokes flow. Computationally the
+main difference between the Eulerian schemes and the ALE scheme is that
+for the former a bulk mesh adjustment needs to be performed after every time 
+step, since the interface mesh in general moves, and so the fitted bulk mesh
+needs to be adjusted. Here we employ a bulk mesh smoothing procedure based
+on a linear elasticity problem. The mesh smoothing necessitates the
+interpolation of the discrete velocity approximation onto the new bulk mesh. 
+It is often thought that the interpolation errors introduced by this procedure,
+together with the additional computational effort for the calculation of the
+interpolation, makes ALE schemes vastly superior to standard Eulerian
+approximations. However, our numerical results do not bear this out.
+In particular, the Eulerian schems $(\schemeAex)$ and $(\schemeAim)$ perform
+as well as the ALE scheme $(\schemeALE)$ in our most of our convergence tests
+and benchmark computations. We conjecture that this good performance of
+the Eulerian schemes is connected to the fact that all our schemes
+maintain the interface mesh quality throughout, and so the
+interface mesh, and the finite element information stored on it,
+is never heuristically adjusted, not even during a full bulk remeshing.
+Moreover, thanks to an efficient element-traversal 
+algorithm, the additional computational effort needed
+for the velocity interpolation was only noticable on nonconvex domains.
 
 \bibliographystyle{siam}
 \bibliography{../../bib/robert_refs,../../bib/marco_refs}
