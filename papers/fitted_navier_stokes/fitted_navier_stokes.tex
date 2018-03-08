@@ -5,7 +5,7 @@
 \usepackage[english]{babel}
 \usepackage{amssymb,amsmath,amsthm,array,epsfig,lmodern,gensymb,pstricks,subfig,
 hyperref,verbatim,booktabs,textcomp}
-\usepackage[notref,notcite]{showkeys}
+%\usepackage[notref,notcite]{showkeys}
 
 \newcommand{\R}{\mathbb R}
 \newcommand{\D}{\mathcal D}
@@ -147,11 +147,9 @@ that is advected by the flow, is used to identify
 the two phases as well as the interface along the boundaries of the individual
 fluid domains. Depending on the method, this scalar field may be, for example,
 a discontinuous Heaviside function or a signed-distance function. The most
-important methods, which belong to this category, are the particle method,
+important methods, which belong to this category, are 
 the volume-of-fluid method, the level-set method and the phase-field method.
-The particle method utilizes mass-less particles distributed in an Eulerian
-mesh to capture the fluid flow and in particular the interface position, see
-e.g \cite{Girault1976}. In the volume-of-fluid method, the characteristic
+In the volume-of-fluid method, the characteristic
 function of one of the phases is approximated numerically, see e.g.
 \cite{HirtN81,RenardyR02,Popinet09}. In the level-set method, the interface is
 given as the level set of a function, which has to be determined, see e.g.
@@ -160,9 +158,12 @@ phase-field method works with diffuse interfaces, and therefore the transition
 layer between the phases has a finite size. There is no tracking mechanism for
 the interface, but the phase state is included implicitly in the governing
 equations. The interface is associated with a smooth, but highly localized
-variation of the so-called phase-field variable. We refer to
-\cite{HohenbergH77,AndersonMW98,LowengrubT98,Feng06,KaySW08,AbelsGG12,GrunK14}
-for details.
+variation of the so-called phase-field variable. 
+Examples for phase-field methods applied to two-phase flow are
+\cite{HohenbergH77,AndersonMW98,LowengrubT98,Boyer02,Feng06,DingSS07,%
+KaySW08,AbelsGG12,GrunK14,GarckeHK16}. 
+Extensions of the method to multi-phase flows
+can be found in \cite{Dong14,Dong15,BoyerM14,BanasN17}.
 The appeal of interface capturing approaches is the fact that they are usually
 easy to implement, and that they offer an automated way to deal with
 topological changes.
@@ -211,8 +212,8 @@ the equations are posed in a moving domain framework,
 and an arbitrary Lagrangian velocity may be chosen to improve the quality of
 the bulk mesh. The original idea for ALE methods goes back to
 the papers \cite{Donea83,Hughes81}, and we refer to
-\cite{Nobile99,NobilePhd,Formaggia04,Ganesan06,GanesanT08} for applications
-to two-phase Navier--Stokes flow.
+\cite{Nobile99,NobilePhd,Formaggia04,Ganesan06,GanesanT08,HahnHT13,%
+GanesanHST17} for applications to two-phase Navier--Stokes flow.
 
 In this paper we will proposed both standard Eulerian and
 ALE finite element approximations for two-phase incompressible Navier--Stokes
