@@ -215,15 +215,22 @@ the papers \cite{Donea83,Hughes81}, and we refer to
 \cite{Nobile99,NobilePhd,Formaggia04,Ganesan06,GanesanT08,HahnHT13,%
 GanesanHST17} for applications to two-phase Navier--Stokes flow.
 
-In this paper we will proposed both standard Eulerian and
+In this paper we will propose both standard Eulerian and
 ALE finite element approximations for two-phase incompressible Navier--Stokes
 flow. One aim of our paper is to investigate numerically, if there is a clear
 advantage of ALE type methods over standard Eulerian methods.
+We stress that we are not aware of any detailed comparisons between fitted
+Eulerian and ALE front tracking methods in the literature.
+On the other hand, similar
+comparisons between ALE type interface tracking methods and various
+interface capturing methods have been presented in e.g.\
+\cite{HysingTKPBGT09,ElgetiS16}.
 We note that in the case of viscous incompressible two-phase Stokes flow,
 there is no need for the numerical method to interpolate the velocity from the
 old to the new mesh. Hence there is no need to employ an ALE method. In fact,
-in the case of two-phase Stokes flow, our proposed numerical methods collapse
-the approximation considered by the authors in \cite{stokesfitted}.
+in the case of two-phase Stokes flow, all our proposed numerical methods
+collapse the approximation considered by the authors in \cite{stokesfitted}.
+
 
 The remainder of the paper is organized as follows. In
 Section~\ref{sec:ns_model} we introduce the precise mathematical model of
