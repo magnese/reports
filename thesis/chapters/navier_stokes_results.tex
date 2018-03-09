@@ -358,7 +358,7 @@ replaced by
 - \left(p, \nabla\,.\,\vec \xi\right)\nonumber \\
 & \qquad - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi
 \right\rangle_{\Gamma(t)}
-= \left(\vec f, \vec \xi\right)+(\rho\,f_{\rm{div}}\,\vec u,\vec\xi)
+= \left(\vec f, \vec \xi\right)+\tfrac{1}{2}(\rho\,f_{\rm{div}}\,\vec u,\vec\xi)
 \quad \forall\ \vec\xi \in \uspace 0 \,,
 \label{eq:ns_weaka_antisym_div}\\
 & \left(\nabla\,.\,\vec u, \varphi\right) = \left(f_{\rm{div}},\varphi\right)
@@ -390,8 +390,8 @@ $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}) \in
 & \qquad - \gamma\,\left\langle
 \kappa^{m+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
 = \left(\vec f^{m+1}, \vec \xi\right)
-+\left(\rho\,f_{\rm{div}}\,\vec u,\vec\xi\right) \quad \forall\ \vec\xi \in
-\uspacedisc{0}{m}\,,\\
++\tfrac{1}{2}\left(\rho^m\,f_{\rm{div}}\,\vec U^m,\vec\xi\right)
+\quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,,\\
 & \left(\nabla\,.\,\vec U^{m+1}, \varphi\right)  = \left(\,f_{\rm{div}},
 \varphi-\frac{\left(\varphi,1\right)}{\left(1,1\right)}\right) \nonumber \\
 & \qquad +\frac{\left(\varphi, 1\right)}{\vol(\Omega)}\, \int_{\partial_1\Omega}
