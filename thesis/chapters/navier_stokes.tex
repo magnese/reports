@@ -119,9 +119,9 @@ Hausdorff measure, respectively.
 
 Using (\ref{eq:weak_nabs_id}) and (\ref{eq:weak_stress_jump}), we can write the
 standard weak formulation of (\ref{eq:ns_full_momentum}--i) as follows. Given
-$\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for almost all $t\in(0,T)$ find
-$\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in \uspace g \times \pnormspace
-\times H^1(\Gamma(t))}$ such that
+$\Gamma(0) = \Gamma_0$ and $\vec u(0) = \vec u_0$, for almost all $t\in(0,T)$
+find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in \uspace g \times
+\pnormspace \times H^1(\Gamma(t))}$ such that
 \begin{subequations}
 \begin{align}
 & \left(\rho\,\vec u_t, \vec \xi\right) + \left(\rho\,(\vec u \,.\, \nabla) \vec
@@ -272,7 +272,7 @@ which on combining with (\ref{eq:advect}) yields that
 \end{align}
 
 Hence, the antisymmetric weak formulation of (\ref{eq:ns_full_momentum}--i) is
-given as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u = \vec u_0$, for
+given as follows. Given $\Gamma(0) = \Gamma_0$ and $\vec u(0) = \vec u_0$, for
 almost all $t\in(0,T)$ find $\Gamma(t)$ and ${(\vec u, p, \varkappa)}$ ${\in
 \uspace g \times \pnormspace \times H^1(\Gamma(t))}$ such that
 \begin{subequations}
@@ -326,12 +326,12 @@ onto $[S^m_k]^d$.
 Let $\uspacedisc{g}{m}\subset\uspacesimple(\vec I_k^m\vec g)$ and
 $\pspace^m\subset\pspace$ be the finite element spaces we use for the
 approximation of velocity and pressure, and let $\pnormspace^m:= \pspace^m \cap
-\pnormspace$. The spaces $(\uspacedisc{0}{m},\pspace^m)$ satisfy the LBB
-inf-sup, see (\ref{eq:LBB}). Then, for $d=2$, possible pairs
-$(\uspacedisc{0}{m},\pspace^m)$ that satisfy (\ref{eq:LBB}) are P2--P0 and
-P2--(P1+P0), while for $d=3$ are the P3--(P2+P0) element and
-P1$^{\mbox{\footnotesize face bubble}}$--P0. See \S\ref{sec:stokes_fem} for more
-details.
+\pnormspace$. Then, for $d=2$, possible pairs $(\uspacedisc{0}{m},\pspace^m)$
+that satisfy the LBB inf-sup condition (\ref{eq:LBB}) are P2--P0 and
+P2--(P1+P0), i.e. we set $\uspacedisc{0}{m}=[S^m_2]^d\cap\uspace{0}$ and either
+$\pspace^m = S^m_0$ or $S^m_1+S^m_0$, while for $d=3$ are the P3--(P2+P0)
+element and P1$^{\mbox{\footnotesize face bubble}}$--P0. See
+\S\ref{sec:stokes_fem} for more details.
 
 We consider a fitted finite element approximation for the evolution of the
 interface $\Gamma(t)$. Let $\Gamma^m\subset\R^d$ be a $(d-1)$-dimensional
@@ -849,7 +849,7 @@ with the maximal distance to the new point. The maximal distance corresponds to
 the minimal weight in the barycentric coordinates of the new point with respect
 to the vertices of the current element. The barycentric coordinate system is a
 coordinate system in which the location of a point of a simplex is specified as
-the center of mass of unequal masses placed at its vertices.
+the centre of mass of unequal masses placed at its vertices.
 
 In the first instance, the simple optimization described above is restricted to
 convex domains, as otherwise the face opposite to the vertex with maximal

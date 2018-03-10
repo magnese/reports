@@ -173,13 +173,15 @@ by setting
 \uspaceale b &:= \{ \vec\phi:
 \bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R^d,\quad
 \vec \phi=\vec{\hat\phi}\circ\vec x^{\,-1},\quad\vec{\hat\phi}
-\in\uspaceref b\}\,,\\
+\in\uspaceref b\quad \forall\ t \in [0,T]\}\,,\\
 \pspaceale &:= \{ \eta:
 \bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad
-\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta\in\pspaceref \}\,,\\
+\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta\in\pspaceref
+\quad \forall\ t \in [0,T]\}\,,\\
 \pnormspaceale &:= \{ \eta:
-\bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad
-\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta\in\pnormspaceref \}\,.
+\bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad \eta=
+\hat\eta\circ\vec x^{\,-1},\quad \hat\eta\in\pnormspaceref\quad \forall\ t \in
+[0,T] \}\,.
 \end{align*}
 Note that all the functions in $\uspaceale b$, $\pspaceale$ and
 $\pnormspaceale$ are space and time dependent. Moreover, let
@@ -191,7 +193,7 @@ respectively.
 
 Hence, the ALE weak formulation of (\ref{eq:ns_full_momentum_ale}--i)
 is given as follows. Given $\Gamma(0) = \Gamma_0$ and
-$\vec u = \vec u_0$,
+$\vec u(0) = \vec u_0$,
 find $(\Gamma(t))_{t\in[0,T]}$ and
 $(\vec u, p, \varkappa)\in \uspaceale g \times \pnormspaceale \times
 H^1(\bigcup_{t\in[0,T]} \Gamma(t) \times \{t\})$
@@ -219,45 +221,48 @@ holds for almost all times $t \in (0,T]$.
 
 \section{Semidiscrete finite element approximation}\label{sec:ale_semi_fem}
 We want to derive a semidiscrete continuous-in-time fitted finite element
-approximation of (\ref{eq:ns_weaka_ale}--d). Let ${\cal T}^h$ be a regular
+approximation of (\ref{eq:ns_weaka_ale}--d). Let ${\mathfrak T}^h$ be a regular
 partitioning of the reference domain $\D$ into disjoint open simplices
 $\sigmaO^h_j$, $j = 1 ,\ldots, J^h_\D$. From now on, the reference domain $\D$,
 which we consider, is the polyhedral domain defined by the triangulation
-${\cal T}^h$. On ${\cal T}^h$ we define the finite element spaces
+${\mathfrak T}^h$. On ${\mathfrak T}^h$ we define the finite element spaces
 \begin{equation*}
-S^h_k := \{\chi \in C(\overline{\D}) : \chi\!\mid_{\sigmaO^h}
-\in \mathcal{P}_k(\sigmaO^h) \ \forall\ \sigmaO^h \in {\cal T}^h\}\,,
+S^h_k(\D) := \{\chi \in C(\overline{\D}) : \chi\!\mid_{\sigmaO^h}
+\in \mathcal{P}_k(\sigmaO^h) \ \forall\ \sigmaO^h \in {\mathfrak T}^h\}\,,
 \quad k \in \mathbb{N}\,,
 \end{equation*}
 where $\mathcal{P}_k(\sigmaO^h)$ denotes the space of polynomials of degree $k$
 on $\sigmaO^h$. Moreover, $S^h_0$ is the space of piecewise constant
-functions on ${\cal T}^h$. For later use, we also define $\vec I^h_k$ to be
-the standard interpolation operator onto $[S^h_k]^d$.
+functions on ${\mathfrak T}^h$.
 
-Then, using the ALE mapping, we can define the finite element spaces on
-the discretized moving domain $\Omega^h(t)$ by
-\begin{align*}
-\uspacesemidiscale{g}{h}{t} &:= \{ \vec\phi:
-\Omega^h(t) \to \R^d,\quad
-\vec \phi=\vec{\hat\phi}\circ\vec x_h^{\,-1},\quad\vec{\hat\phi}
-\in\uspacesemidiscref{g}{h}\}\,,\\
-\pnormspaceale^h(t) &:= \{ \eta: \Omega^h(t)\to \R,\quad
-\eta=\hat\eta\circ\vec x_h^{\,-1},\quad\hat\eta\in\pnormspaceref^h \}\,,
-\end{align*}
-where $\Omega^h(t)=\vec x_h(\D,t)$ and $\vec x_h$ is the discrete ALE mapping
-discretized spatially using piecewise linear elements. Thus
-$\vec x_h\in [S^h_1]^d$ and each simplex with straight faces in ${\cal T}^h$ is
-transformed into a simplex with straight faces belonging to the
-triangulation $\mathfrak{T}^h(t)$ of the discretized moving domain
-$\Omega^h(t)$. We also define the discrete domain velocity as
+Then, using the discrete ALE mapping
+$\vec x_h$, we can define the finite element spaces on
+the discretized moving domains $\Omega^h(t) = \vec x_h(\D,t)$ by
+\begin{equation*}
+S^h_k(\Omega^h(t)) :=
+\{ \eta: \Omega^h(t)\to \R,\quad
+\eta=\hat\eta\circ\vec x_h^{\,-1},\quad\hat\eta\in S^h_k(\D) \}\,,\quad
+k \in \mathbb{N} \cup \{0\}\,.
+\end{equation*}
+Here $\vec x_h\in [S^h_1]^d$ maps each simplex with straight faces in
+${\mathfrak T}^h$ to a simplex with straight faces belonging to the
+triangulation $\mathcal{T}^h(t)$ of the discretized moving domain
+$\Omega^h(t)$. For later use, we let $\uspacesemidiscale{g}{h}{t} \subset
+[S^h_2(\Omega^h(t))]^d$ and $\pnormspaceale^h(t) \subset S^h_1(\Omega^h(t)) +
+S^h_0(\Omega^h(t))$, or $\pnormspaceale^h(t) \subset S^h_1(\Omega_-^h(t)) +
+S^h_1(\Omega_+^h(t))$, denote the appropriate spaces for the discrete
+velocities and pressure.
+
+We also define the discrete domain velocity as
 \begin{equation}
 \W^h(\vec z, t):=
 \sum_{k=1}^{K_\Omega}\left[\ddt\,\vec p^h_k(t)\right] \varphi^h_k(\vec z, t)
-\in [S^h_1]^d\,,
+\in [S^h_1(\Omega^h(t))]^d\,,
 \end{equation}
 with $\{\varphi^h_k(\cdot,t)\}_{k=1}^{K_\Omega}$ denoting the standard basis of
-$S^h_1$, and $\{\vec p^h_k(t)\}_{k=1}^{K_\Omega}$ denoting the vertices of
-$\mathfrak{T}^h(t)$.
+$S^h_1(\Omega^h(t))$, and $\{\vec p^h_k(t)\}_{k=1}^{K_\Omega}$ denoting the
+vertices of $\mathcal {T}^h(t)$. Moreover, we also introduce the $L^2$--inner
+product $(\cdot,\cdot)_{\Omega^h(t)}$.
 
 For what concerns the interface, let $(\Gamma^h(t))_{t\in[0,T]}$  be a family of
 $(d-1)$-dimensional polyhedral surfaces approximating the closed surface
@@ -267,12 +272,12 @@ $\Gamma^h(t)$ has no self-intersections. Then $\Omega^h(t) = \Omega_-^h(t) \cup
 \Gamma^h(t) \cup \Omega_+^h(t)$, and the fitted nature of our method implies
 that
 \begin{equation} \label{eq:fittedO_ale}
-\overline{\Omega^h_+(t)} = \bigcup_{o \in \mathfrak{T}^h_+(t)} \overline{o}
+\overline{\Omega^h_+(t)} = \bigcup_{o \in \mathcal{T}^h_+(t)} \overline{o}
 \quad\text{and}\quad
-\overline{\Omega^h_-(t)} = \bigcup_{o \in \mathfrak{T}^h_-(t)} \overline{o} \,,
+\overline{\Omega^h_-(t)} = \bigcup_{o \in \mathcal{T}^h_-(t)} \overline{o} \,,
 \end{equation}
-where $\mathfrak{T}^h(t) = \mathfrak{T}^h_+(t) \cup \mathfrak{T}^h_-(t)$ and
-$\mathfrak{T}^h_+(t) \cap \mathfrak{T}^h_-(t) = \emptyset$.
+where $\mathcal{T}^h(t) = \mathcal{T}^h_+(t) \cup \mathcal{T}^h_-(t)$ and
+$\mathcal{T}^h_+(t) \cap \mathcal{T}^h_-(t) = \emptyset$.
 Let $\vec \nu^h(t)$ denote the piecewise constant unit normal to $\Gamma^h(t)$
 such that $\vec\nu^h(t)$ points into $\Omega^h_+(t)$. We also define the
 piecewise linear finite element spaces $\Wht$ and $\Vht$, with
@@ -315,16 +320,18 @@ $t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h(t), P^h(t),
 \end{align}
 \end{subequations}
 Here we have defined
-$\vec f_i^h(\cdot) := \vec I^h_2\,\vec f_i(\cdot,t)$, $i=1,2$,
+$\vec f_i^h(\cdot,t) := \vec I^h_2\,\vec f_i(\cdot,t)$, $i=1,2$,
 \begin{equation}
 \mu^h = \mu_+\,\charfcn{\Omega^h_+(t)} + \mu_-\,\charfcn{\Omega^h_-(t)}\in
-S^h_0(t)
+S^h_0(\Omega^h(t))
 \end{equation}
 and
 \begin{equation}
 \rho^h = \rho_+\,\charfcn{\Omega^h_+(t)} + \rho_-\,\charfcn{\Omega^h_-(t)}\in
-S^h_0(t)\,.
+S^h_0(\Omega^h(t))\,,
 \end{equation}
+where $\vec I^h_2$ denotes the standard interpolation operator onto
+$[S^h_2(\Omega^h(t))]^d$.
 
 The semidiscrete continuous-in-time fitted finite element scheme
 (\ref{eq:ns_semi_alea}--d) is a system of ODEs. Indeed, we can define the
@@ -410,33 +417,51 @@ U^{m+1},\W^{m+1}\big)$. Indeed only for this term, they denote the discrete
 fluid velocity and the discrete bulk domain velocity, respectively, and not
 their associated vectors of degree of freedoms. Moreover, let
 $\Omega^m=\vec x^m(\D)$ be an approximation of the domain $\Omega(t_m)$, $m=0
-,\ldots, M$, where $\vec x^m$ is the discrete ALE mapping discretized using
-piecewise linear elements, and let $h^m$ be an approximation of
+,\ldots, M$, where $\vec x^m \in [S^h_1(\Omega^m)]^d$ is an approximation to
+$\vec x^h(\cdot,t_m)$, and let $h^m$ be an approximation of
 $h:\Omega(t)\times[0,T]\to\R$. Clearly, $h^m$ is defined on the domain
 $\Omega^m$; nevertheless it can be transported on any other configuration
-$\Omega^s$, with $t^s\neq t^m$, using the mapping $\vec x(\cdot,t^s)\circ{\vec
-x}^{-1}(\cdot,t^m)$. To lighten the notation, whenever we need to integrate
+$\Omega^s$, with $t^s\neq t^m$, using the mapping $\vec x^s\circ{(\vec
+x^m)}^{-1}$. To lighten the notation, whenever we need to integrate
 $h^s$ on a domain $\Omega^m$ we will write simply
 \begin{equation*}
 \int_{\Omega^m} h^s \dL d
 \end{equation*}
 instead of
 \begin{equation*}
-\int_{\Omega^m} h^s\circ \vec x(\cdot,t^s)\circ{\vec x}^{-1}(\cdot,t^m)\dL d\,.
+\int_{\Omega^m} h^s\circ \vec x^s\circ{(\vec x^m)}^{-1}\,.
 \end{equation*}
 The same notation is used for the inner products.
 
 Following \cite{NobilePhd}, we now rewrite (\ref{eq:ns_ale_mata}--h) into a
 form that is common in finite element formulations. More precisely, we can
 substitute (\ref{eq:ns_ale_mata}--h) back into (\ref{eq:ns_ode_disc_alea}--d).
-Firstly, let $\uspacediscale{g}{m}=\uspacesemidiscale{g}{h}{t^m}$ and
-$\pnormspaceale^m=\pnormspaceale^h(t^m)$. Then, our ALE finite element
-approximation, which is based on the variational formulation
-(\ref{eq:ns_weaka_ale}--d), is given as follows. Let $\Gamma^0$, an
-approximation to $\Gamma(0)$, and $\vec U^0\in \uspacediscale{g}{0}$ be given.
-For $m=0,\ldots, M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1})
-\in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh$
-such that
+Firstly, let
+\begin{equation*}
+\uspacediscale{g}{m}= \{ \vec\phi: \Omega^m \to \R^d,\
+\vec \phi=\vec{\hat\phi}\circ(\vec x^m)^{\,-1},\ \vec{\hat\phi}
+\in \mathcal{U}(\vec g) \cap [S^h_2(\D)]^d\}
+\end{equation*}
+and
+\begin{equation*}
+\pnormspaceale^m= \{ \eta: \Omega^m\to \R,\
+\eta=\hat\eta\circ(\vec x^m)^{\,-1},\ \hat\eta\in\pnormspaceref
+\cap (S^h_1(\D) + S^h_0(\D)) \}
+\end{equation*}
+or, depending on the element chosen,
+\begin{equation*}
+\pnormspaceale^m= \{ \eta: \Omega^m\to \R,\
+\eta=\hat\eta\circ(\vec x^m)^{\,-1},\ \hat\eta\in\pnormspaceref
+\cap (S^h_1(\D_-) + S^h_1(\D_+)) \},
+\end{equation*}
+with $\D_-:=\D\setminus\overline{\D}_+$.
+Then, our ALE finite element approximation, which is based on the variational
+formulation (\ref{eq:ns_weaka_ale}--d), is given as follows. Let $\Omega^0$,
+$\Gamma^0$, and $\vec U^0\in \uspacediscale{g}{0}$ be given. For $m=0,\ldots,
+M-1$, find $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1}, \W^{m+1})
+\in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh
+\times [S^h_1(\Omega^m)]^d$ such that $\W^{m+1}\!\mid_{\Gamma^m} =
+\frac1\tau(\vec X^{m+1} - \vec\id\!\mid_{\Gamma^m})$ and such that
 \begin{subequations}
 \begin{align}
 & \left( \frac{\rho^m}{\tau_m}\,\vec U^{m+1}, \vec \xi \right)_{\Omega^{m+1}}
@@ -460,14 +485,18 @@ such that
 0 \quad \forall\ \vec\eta \in \Vh\,, \label{eq:ale_HGd}
 \end{align}
 \end{subequations}
-and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Again, we have defined
-$\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$, $i=1,2$,
+and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$, as well as $\Omega^{m+1} =
+\vec x^{m+1}(\D)$, where $\vec x^{m+1} = \vec x^m + \tau\,\W^{m+1}$. Again, we
+have defined $\vec f_i^{m+1}(\cdot) := \vec I^m_2\,\vec f_i(\cdot,t_{m+1})$,
+$i=1,2$,
 \begin{equation}
-\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in S^m_0
+\mu^m = \mu_+\,\charfcn{\Omega^m_+} + \mu_-\,\charfcn{\Omega^m_-}\in
+S^h_0(\Omega^m)
 \end{equation}
 and
 \begin{equation}
-\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in S^m_0\,.
+\rho^m = \rho_+\,\charfcn{\Omega^m_+} + \rho_-\,\charfcn{\Omega^m_-}\in
+S^h_0(\Omega^m)\,.
 \end{equation}
 
 It is worth noticing that, at the discrete level, the reference manifold $\D$
