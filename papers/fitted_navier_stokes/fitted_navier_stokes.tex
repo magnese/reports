@@ -193,7 +193,7 @@ interactions using Eulerian coordinates for the fluid and Lagrangian
 coordinates for the structure.
 
 In this paper we use a direct description of the interface using a
-parameterization of the unknown interface, similarly to the previous work
+parametrization of the unknown interface, similarly to the previous work
 \cite{fluidfbp}. In particular, our numerical method will be based
 on a piecewise linear parametric finite elements, and the description of the
 interface will be advected in normal direction
@@ -272,7 +272,7 @@ $d=2$.
 \label{fig:two_phase_sketch}
 \end{figure}%
 For later use, we assume that $(\Gamma(t))_{t\in [0,T]}$ is a sufficiently
-smooth evolving hypersurface without boundary that is parameterized by
+smooth evolving hypersurface without boundary that is parametrized by
 $\vec x(\cdot,t):\Upsilon\to\R^d$, where $\Upsilon\subset \R^d$ is a given
 reference manifold such that $\Gamma(t) = \vec x(\Upsilon,t)$. Then
 \begin{equation} \label{eq:V}
@@ -540,9 +540,9 @@ We now reformulate the two-phase Navier--Stokes system
 (\ref{eq:ns_full_momentum}--g), which is expressed in terms of Eulerian
 coordinates $\vec z\in\Omega(t)$, by rewriting the velocity time derivative
 $\vec u_t$ with respect to the so called ALE coordinate $\vec q \in \D$.
-Analogously to what is done in a front tracking approach to parameterize the
+Analogously to what is done in a front tracking approach to parametrize the
 interface $\Gamma(t)$, we can define the fixed reference manifold $\D$ and
-extend the map $\vec x(\cdot,t)$ to parameterize $\Omega(t)$ as
+extend the map $\vec x(\cdot,t)$ to parametrize $\Omega(t)$ as
 $\Omega(t)=\vec x(\D,t)$. This extended map clearly still satisfies $\Gamma(t)
 = \vec x(\Upsilon,t)$, given that $\Upsilon\subset\D$. Moreover, we let
 $\partial\D$ be partitioned as $\partial\D=\partial_1\D \cup \partial_2\D$
@@ -631,7 +631,7 @@ by setting
 \uspaceale b &:= \{ \vec\phi:
 \bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R^d,\quad
 \vec \phi=\vec{\hat\phi}\circ\vec x^{\,-1},\quad\vec{\hat\phi}(\cdot,t)
-\in\uspaceref b \ \forall\ t \in [0,T]\}\,,\\
+\in\uspaceref b \quad \forall\ t \in [0,T]\}\,,\\
 %\pspaceale &:= \{ \eta:
 %\bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad
 %\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta(\cdot,t) \in\pspaceref
@@ -639,7 +639,7 @@ by setting
 \pnormspaceale &:= \{ \eta:
 \bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad
 \eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta(\cdot,t)\in\pnormspaceref
-\ \forall\ t \in [0,T] \}\,.
+\quad \forall\ t \in [0,T] \}\,.
 \end{align*}
 Hence, the ALE weak formulation of (\ref{eq:ns_full_momentum_ale}),
 (\ref{eq:ns_full_mass}--g)
@@ -733,8 +733,8 @@ we define $\Vh := \{\vec\chi \in [C(\Gamma^m)]^d:\vec\chi\!\mid_{\sigma^m_j}
 \in \mathcal{P}_1(\sigma^m_j), j=1,\ldots, J_\Gamma\} =: [\Wh]^d$, where $\Wh
 \subset H^1(\Gamma^m)$ is the space of scalar continuous piecewise linear
 functions on $\Gamma^m$, with $\{\chi^m_k\}_{k=1}^{K_\Gamma}$ denoting the
-standard basis of $\Wh$. As usual, we parameterize the new surface
-$\Gamma^{m+1}$ over $\Gamma^m$ using a parameterization $\vec X^{m+1} \in \Vh$,
+standard basis of $\Wh$. As usual, we parametrize the new surface
+$\Gamma^{m+1}$ over $\Gamma^m$ using a parametrization $\vec X^{m+1} \in \Vh$,
 so that $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$. Moreover, let
 $\langle\cdot,\cdot\rangle_{\Gamma^m}^h$ be the mass lumped inner product on
 $\Gamma^m$ defined as
@@ -849,7 +849,8 @@ to see how the scheme $(\schemeB)$ performs in practice, compared to
 $(\schemeAex)$ and $(\schemeAim)$.
 
 Moreover, we remark that as all three schemes, $(\schemeAex)$, $(\schemeAim)$
-and $(\schemeB)$, share the side constraint (\ref{eq:ns_HGd}), the vertices of
+and $(\schemeB)$, share the side constraint \footnote{Robert: what do you mean
+by side constraint?} (\ref{eq:ns_HGd}), the vertices of
 $\Gamma^m$ will in general be very well distributed in practice. This stems
 from the fact that (\ref{eq:ns_HGd}) induces an implicit tangential motion,
 which asymptotically leads to the equidistribution of vertices for $d=2$.
@@ -878,7 +879,7 @@ S^h_k(\D) := \{\chi \in C(\overline{\D}) : \chi\!\mid_{\sigmaO^h}
 \quad k \in \mathbb{N}\,,
 \end{equation*}
 as well as $S^h_0(\D)$, the space of piecewise constant
-functions on ${\cal T}^h$.
+functions on ${\mathfrak T}^h$.
 
 Then, using the discrete ALE mapping
 $\vec x_h$, we can define the finite element spaces on
@@ -928,7 +929,9 @@ see e.g. \cite[(3.3)]{tpfs}, is simply the trace of $\W^h$ on $\Gamma^h$.
 We also introduce the interior $\Omega^h_-(t) = \Omega(t) \setminus
 \overline{\Omega^h_+(t)}$, and the $L^2$--inner products
 $(\cdot,\cdot)_{\Omega^h(t)}$ and $\langle\cdot,\cdot\rangle_{\Gamma^h(t)}$
-on $\Omega^h(t)$ and $\Gamma^h(t)$, respectively.
+on $\Omega^h(t)$ and $\Gamma^h(t)$, respectively. Moreover, let
+$\langle\cdot,\cdot\rangle_{\Gamma^h(t)}^h$ be the mass lumped inner product on
+$\Gamma^h(t)$.
 Finally, we let $\vec f_i^h(\cdot,t) := \vec I^h_2\,\vec f_i(\cdot,t)$,
 $i=1,2$, where $\vec I^h_2$ denotes the standard interpolation operator onto
 $[S^h_2(\Omega^h(t))]^d$, and set
@@ -1031,12 +1034,12 @@ and $\pnormspaceale^m=
 \eta=\hat\eta\circ(\vec x^m)^{\,-1},\ \hat\eta\in\pnormspaceref
 \cap (S^h_1(\D) + S^h_0(\D)) \}$.
 Now to ease the notation, we introduce the following convention. For a function
-$h^k$ defined on $\Omega^k$, we can immediately it to any other
+$h^k$ defined on $\Omega^k$, we can immediately transport it to any other
 configuration $\Omega^m$, with $k\neq m$, using the mapping
 $\vec x^k\circ(\vec x^m)^{-1}$. Hence, when we need to integrate
 $h^k$ on $\Omega^m$ we will write simply $\int_{\Omega^m} h^k \dL d$ instead of
 $\int_{\Omega^m} h^k\circ \vec x^k\circ(\vec x^m)^{-1}\dL d$, and we will
-use the same notation is used for the inner products.
+adopt the same notation used for the inner products.
 Then, our ALE finite element approximation (\ref{eq:ns_ode_disc_alea}--d),
 which is based on the variational formulation
 (\ref{eq:ns_weaka_ale}--d), can be written as follows.
@@ -1357,8 +1360,6 @@ $\alpha_{ij}=\cos^{-1}(-\vec n_i\,.\,\vec n_j)$, $\forall\ i,j\in\{0,\dots,d\}$,
 with $\vec n_i$ the unitary normal to the simplex face $i$.
 In practice we perform a full remeshing if the
 criterion (\ref{eq:angle_criterion}) holds with $C_a=20\degree$.
-\footnote{Marco: This sentence, in the results section, was worded incorrectly
-in your thesis.}
 We stress that in all our numerical simulations we never need to remesh the
 interface $\Gamma^m$ itself.
 
@@ -2084,7 +2085,7 @@ It is often thought that the interpolation errors introduced by this procedure,
 together with the additional computational effort for the calculation of the
 interpolation, makes ALE schemes vastly superior to standard Eulerian
 approximations. However, our numerical results do not bear this out.
-In particular, the Eulerian schems $(\schemeAex)$ and $(\schemeAim)$ perform
+In particular, the Eulerian schemes $(\schemeAex)$ and $(\schemeAim)$ perform
 as well as the ALE scheme $(\schemeALE)$ in our most of our convergence tests
 and benchmark computations. We conjecture that this good performance of
 the Eulerian schemes is connected to the fact that all our schemes
@@ -2093,7 +2094,7 @@ interface mesh, and the finite element information stored on it,
 is never heuristically adjusted, not even during a full bulk remeshing.
 Moreover, thanks to an efficient element-traversal
 algorithm, the additional computational effort needed
-for the velocity interpolation was only noticable on nonconvex domains.
+for the velocity interpolation was only noticeable on nonconvex domains.
 
 \bibliographystyle{siam}
 \bibliography{../../bib/robert_refs,../../bib/marco_refs}
