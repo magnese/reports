@@ -1503,7 +1503,9 @@ using the FEM toolbox \verb|dune-fem|, see
 \cite{dunegridpaperI08,dunegridpaperII08,dunefempaper10}.
 As grid manager we employed \verb|ALBERTA|, \cite{Alberta},
 and all the meshes were created with the library \verb|Gmsh|,
-\cite{GeuzaineR09}.
+\cite{GeuzaineR09}. All the schemes described in this paper are implemented as
+a \verb|DUNE| module called \verb|dune-navier-stokes-two-phase|, available here
+\myurl{https://github.com/magnese/dune-navier-stokes-two-phase}.
 The simulations were performed as single thread computations on a cluster of
 Xeon CPUs with frequency between 2.40GHz to 3.00GHz, and with at
 least 16GB of memory.
@@ -1924,7 +1926,7 @@ $(\schemeALE)$ (blue).}
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_I_barycenter.ps}
-\caption{A plot of the barycenter $z_c$ over time for the simulation in
+\caption{A plot of the barycentre $z_c$ over time for the simulation in
 Figure~\ref{fig:risingbubbleIpressure} for the schemes
 $(\schemeAex)$ (orange), $(\schemeAim)$ (red), $(\schemeB)$ (green) and
 $(\schemeALE)$ (blue).}
@@ -2024,7 +2026,7 @@ Figure~\ref{fig:risingbubbleIIpressure}.}
 \label{fig:risingbubbleIIvelocity}
 \end{figure}%
 As before we show plots of the sphericity $\strikes$, the
-rising velocity $V_c$, the barycenter $z_c$ and the relative
+rising velocity $V_c$, the barycentre $z_c$ and the relative
 inner area $\frac{\mathcal{L}^2(\Omega^m_-)}{\mathcal{L}^2(\Omega^0_-)}$ over
 time in Figures~\ref{fig:risingbubbleIIsphericity},
 \ref{fig:risingbubbleIIrisingvelocity}, \ref{fig:risingbubbleIIbarycenter} and
@@ -2056,7 +2058,7 @@ Figure~\ref{fig:risingbubbleIIpressure} for the schemes $(\schemeAex)$
 \centering
 \includegraphics[width=.45\textwidth]
 {figures/rising_bubble_II_barycenter.ps}
-\caption{A plot of the barycenter $z_c$ over time for the simulation in
+\caption{A plot of the barycentre $z_c$ over time for the simulation in
 Figure~\ref{fig:risingbubbleIIpressure} for the schemes $(\schemeAex)$
 (orange), $(\schemeAim)$ (red) and $(\schemeALE)$ (blue).}
 \label{fig:risingbubbleIIbarycenter}
