@@ -559,8 +559,9 @@ solving the linear elasticity problem (\ref{eq:elasta}--b), see
 \S\ref{sec:stokes_smoothing} for more details, and $\Omega^{m+1,s+1}$ is
 updated accordingly. Finally, set
 ${\Gamma^{m+1} = \vec X^{m+1,s+1}(\Gamma^m)}$, $\Omega^{m+1,s+1}=\Omega^{m+1}$
-and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1}) = (\vec U^{m+1,s+1}, P^{m+1,s+1},
-\kappa^{m+1,s+1})$. Clearly (\ref{eq:ns_HGalea}--d), at each time level $m$, is
+and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1},\W^{m+1}) =
+(\vec U^{m+1,s+1}, P^{m+1,s+1},\kappa^{m+1,s+1},\tfrac1\tau\,\psi^{m+1,s+1})$.
+Clearly (\ref{eq:ns_HGalea}--d), at each time level $m$, is
 a fixed point iteration, which consists of solving a coupled linear system of
 equations for the unknowns $(\vec U^{m+1,s+1}, P^{m+1,s+1}, \vec X^{m+1,s+1},
 \kappa^{m+1,s+1})$ at each step $s$ until the $L^\infty$--error of the
