@@ -409,13 +409,13 @@ and set $\Gamma^{m+1} = \vec X^{m+1}(\Gamma^m)$.
 
 \section{Benchmark quantities}\label{sec:benchmark_quantities}
 In our numerical simulations, unless otherwise stated, we use the following
-settings. We employ uniform time steps $\tau_m=\tau$, $m=0,\ldots, M-1$. The
-bulk mesh is remeshed only when the angle criterion (\ref{eq:angle_criterion}),
-with $C_a=20$\textdegree, is not satisfied. Moreover, we set the GMRES
-tolerance to tol $=10^{-12}$ and the restart value to 50. We use the Stokes
-matrix (\ref{eq:stokes_direct_precond}) or, depending on the pressure space,
-(\ref{eq:stokes_direct_precond_extended}) as a preconditioner factorizing it
-with UMFPACK. Moreover, we use the errors (\ref{eq:errorXx}),
+settings. We employ uniform time steps $\tau_m=\tau$, $m=0,\ldots, M-1$.
+The bulk mesh is remeshed only if the angle criterion
+(\ref{eq:angle_criterion}) holds with $C_a=20$\textdegree. Moreover, we set the
+GMRES tolerance to tol $=10^{-12}$ and the restart value to 50. We use the
+Stokes matrix (\ref{eq:stokes_direct_precond}) or, depending on the pressure
+space, (\ref{eq:stokes_direct_precond_extended}) as a preconditioner factorizing
+it with UMFPACK. Moreover, we use the errors (\ref{eq:errorXx}),
 (\ref{eq:errorLUu}), (\ref{eq:errorHUu}), (\ref{eq:errorPp}) and the estimated
 order of convergence EOC (\ref{eq:eoc}). See \S\ref{sec:errors} for more
 details.
