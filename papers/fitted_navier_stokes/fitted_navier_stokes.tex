@@ -1504,7 +1504,7 @@ using the FEM toolbox \verb|dune-fem|, see
 As grid manager we employed \verb|ALBERTA|, \cite{Alberta},
 and all the meshes were created with the library \verb|Gmsh|,
 \cite{GeuzaineR09}. All the schemes described in this paper are implemented as
-a \verb|DUNE| module called \verb|dune-navier-stokes-two-phase|, available here
+a \verb|DUNE| module called \verb|dune-navier-stokes-two-phase|, available at
 \myurl{https://github.com/magnese/dune-navier-stokes-two-phase}.
 The simulations were performed as single thread computations on a cluster of
 Xeon CPUs with frequency between 2.40GHz to 3.00GHz, and with at
@@ -1829,7 +1829,7 @@ $t_{\strikes = \strikes_{\min}}$ & 1.9040 & 1.9040 & 1.9170  & 2.0410 & 1.9120 &
 $V_{c,\max}$                     & 0.2439 & 0.2424 & 0.2411  & 0.2439 & 0.2423 & 0.2410 \\
 $t_{V_c = V_{c,\max}}$           & 0.9350 & 0.9300 & 0.9180  & 0.9340 & 0.9300 & 0.9190 \\
 $z_c(t=3)$                       & 1.0829 & 1.0852 & 1.0822  & 1.0820 & 1.0841 & 1.0819 \\
-CPU                              &  10\,236 &  29\,610 & 234\,396  &  17\,771 &  72\,837 & 403\,904 \\
+CPU[s]                           &  10\,236 &  29\,610 & 234\,396  &  17\,771 &  72\,837 & 403\,904 \\
 \cmidrule{2-7}
 & \multicolumn{3}{c|}{$(\schemeB)$} & \multicolumn{3}{c|}{$(\schemeALE)$} \\
 \cmidrule{2-7}
@@ -1838,7 +1838,7 @@ $t_{\strikes = \strikes_{\min}}$ & 1.7920 & 1.7190 & 1.6790  & 1.9460 & 1.9050 &
 $V_{c,\max}$                     & 0.2359 & 0.2344 & 0.2334  & 0.2435 & 0.2422 & 0.2410 \\
 $t_{V_c = V_{c,\max}}$           & 0.8860 & 0.8820 & 0.8750  & 0.9370 & 0.9330 & 0.9200 \\
 $z_c(t=3)$                       & 1.0648 & 1.0622 & 1.0607  & 1.0877 & 1.0865 & 1.0824 \\
-CPU                              &   5\,887 &  19\,703 & 146\,538  &  13\,628 &  63\,136 & 351\,867 \\
+CPU[s]                           &   5\,887 &  19\,703 & 146\,538  &  13\,628 &  63\,136 & 351\,867 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
@@ -1973,7 +1973,7 @@ $t_{V_c = V_{c,\max 1}}$         & 0.7290 & 0.7290 & 0.7300 \\
 $V_{c,\max 2}$                   & 0.2403 & 0.2403 & 0.2400 \\
 $t_{V_c = V_{c,\max 2}}$         & 2.1070 & 2.1540 & 2.0670 \\
 $z_c(t=3)$                       & 1.1383 & 1.1387 & 1.1385 \\
-CPU                              & 132\,498 & 236\,635 & 236\,253 \\
+CPU[s]                           & 132\,498 & 236\,635 & 236\,253 \\
 \hline
 \end{tabular}
 \hspace*{-3.25cm}
