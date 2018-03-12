@@ -1677,7 +1677,9 @@ errors. In terms of the overall CPU times, we notice that
 the two linear schemes $(\schemeAex)$ and $(\schemeB)$, as well as the two
 nonlinear schemes $(\schemeAim)$ and $(\schemeALE)$, have similar
 execution times, with the CPU times for the linear schemes lower than for the
-nonlinear schemes.
+nonlinear schemes. Finally, we note that the number of full remeshings performed
+when $J_\Gamma = 32$ is, depending on the scheme, between 1 and 4  while it was
+always 0 in all the other simulations for this test case.
 
 In a second set of convergence experiments, we fix
 $\Omega = (-1,1)^2 \setminus[-\frac13,\frac13]^2$
@@ -1763,8 +1765,9 @@ the domain is nonconvex, and so we employ a simple linear search in
 our velocity interpolation routine, recall \S\ref{sec:velocity_interpolation}.
 Of course, the ALE scheme only needs to interpolate the velocity when a
 complete bulk remeshing is performed, and this leads to a significant reduction
-in the total simulation time.
-\footnote{Marco: State how many full remeshings are needed?}
+in the total simulation time. Finally, we note that the number of full
+remeshings performed during any simulation for this test case was always between
+3 and 9.
 
 \subsection{Benchmark computations} \label{sec:benchmark_computations}
 
@@ -1954,10 +1957,9 @@ are given by
 We report on the quantitative results for this benchmark computation in
 Table~\ref{tab:risingbubbleII}, where we have used
 $J_\Gamma=128$ interface elements and $J_\Omega^0=35\,092$ initial
-bulk elements. The final number of bulk
-elements, $J_\Omega^M$, for the scheme $(\schemeAex)$ is 10\,638,
-with the schemes $(\schemeAim)$ and $(\schemeALE)$ very similar.
-\footnote{Marco: Is this correct? State the other two values in text?}
+bulk elements. The final number of bulk elements, $J_\Omega^M$, for the schemes
+$(\schemeAex)$, $(\schemeAim)$ and $(\schemeALE)$ is 10\,638, 10\,716 and
+9\,972, respectively.
 \begin{table*}
 \center
 \hspace*{-3.25cm}
@@ -1988,8 +1990,9 @@ discretization run of group 3 in \cite{HysingTKPBGT09}, which are given by
 there is little agreement on these results between the three groups in
 \cite{HysingTKPBGT09}, but we believe the numbers of group 3 to be the most
 reliable ones. Similar results are also obtained in
-\cite[Tables~5 and 6]{fluidfbp}.
-\footnote{Marco: State number of full remeshings, as for rising bubble I?}
+\cite[Tables~5 and 6]{fluidfbp}. Moreover, we note that the number of full
+remeshings performed for this test case using the schemes $(\schemeAex)$,
+$(\schemeAim)$ and $(\schemeALE)$ is 787, 788 and 808, respectively.
 
 In Figure~\ref{fig:risingbubbleIIpressure} we show the evolution of the discrete
 pressures for a simulation with $J_\Gamma=128$ interface elements using the
