@@ -848,14 +848,16 @@ the case, unless the interface is stationary. Nevertheless, it is of interest
 to see how the scheme $(\schemeB)$ performs in practice, compared to
 $(\schemeAex)$ and $(\schemeAim)$.
 
-Moreover, we remark that as all three schemes, $(\schemeAex)$, $(\schemeAim)$
-and $(\schemeB)$, share the side constraint \footnote{Robert: what do you mean
-by side constraint?} (\ref{eq:ns_HGd}), the vertices of
-$\Gamma^m$ will in general be very well distributed in practice. This stems
-from the fact that (\ref{eq:ns_HGd}) induces an implicit tangential motion,
-which asymptotically leads to the equidistribution of vertices for $d=2$.
-See \cite{triplej,gflows3d} for further details, and also
-\cite[Theorem~5]{Agnese}.
+Moreover, we remark that all three schemes, $(\schemeAex)$, $(\schemeAim)$
+and $(\schemeB)$, share the equations (\ref{eq:ns_HGd}). Apart from
+defining the discrete curvature, the equations (\ref{eq:ns_HGd}) can also
+be viewed as a side constraint on the distribution of mesh points,
+see \cite{triplej,gflows3d} for further details. In particular, they lead
+to an implicit tangential motion of the vertices on the discrete interface,
+so that the vertices of
+$\Gamma^m$ will in general be very well distributed in practice. 
+For example, in the case $d=2$ it is possible to prove an
+asymptotic equidistribution property, see \cite[Theorem~5]{Agnese}.
 
 Finally, we stress that the three schemes $(\schemeAex)$, $(\schemeAim)$
 and $(\schemeB)$, all feature at least one term containing the
