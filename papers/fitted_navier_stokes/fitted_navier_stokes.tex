@@ -855,7 +855,7 @@ be viewed as a side constraint on the distribution of mesh points,
 see \cite{triplej,gflows3d} for further details. In particular, they lead
 to an implicit tangential motion of the vertices on the discrete interface,
 so that the vertices of
-$\Gamma^m$ will in general be very well distributed in practice. 
+$\Gamma^m$ will in general be very well distributed in practice.
 For example, in the case $d=2$ it is possible to prove an
 asymptotic equidistribution property, see \cite[Theorem~5]{Agnese}.
 
@@ -1639,14 +1639,10 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{$(\schemeB)$} \\
 \hline
- 32 & 3.96594e-04 & 1.36282e-06 &    - & 3.00839e-05 & 2.90771e-01 &    - &
-5 \\
- 64 & 1.03452e-04 & 2.31388e-07 & 2.56 & 6.81585e-06 & 1.57312e-01 & 0.89 &
-45 \\
-128 & 2.61309e-05 & 2.82849e-08 & 3.03 & 1.53571e-06 & 7.15389e-02 & 1.14 &
-1\,567 \\
-256 & 6.53472e-06 & 4.14789e-09 & 2.71 & 4.15646e-07 & 2.19868e-02 & 1.66 &
-30\,997 \\
+ 32 & 3.96456e-04 & 0 & - & 0 & 3.05157e-01 &    - &       5 \\
+ 64 & 1.03429e-04 & 0 & - & 0 & 1.57053e-01 & 0.96 &      45 \\
+128 & 2.61302e-05 & 0 & - & 0 & 7.09596e-02 & 1.15 &  1\,567 \\
+256 & 6.53463e-06 & 0 & - & 0 & 1.99794e-02 & 1.79 & 30\,997 \\
 \hline
 & \multicolumn{7}{c}{$(\schemeALE)$} \\
 \hline
@@ -1669,19 +1665,17 @@ discretization parameters from Table~\ref{tab:nsexpandingbubbleelements}.}
 \label{tab:nsexpandingbubbleIp2p1p0}
 \end{table*}%
 We observe from Table~\ref{tab:nsexpandingbubbleIp2p1p0}
-that the schemes $(\schemeAex)$ and $(\schemeAim)$ capture the velocity
-solution exactly. This is possible because the true velocity is linear,
+that the schemes $(\schemeAex)$, $(\schemeAim)$ and $(\schemeB)$ capture the
+velocity solution exactly. This is possible because the true velocity is linear,
 see (\ref{eq:ns_sol1b}). We also notice that all the schemes capture the
-interface position with the same accuracy. Moreover, the
-schemes $(\schemeAex)$, $(\schemeAim)$ and $(\schemeALE)$ exhibit
-similar errors for the pressure, with the scheme $(\schemeB)$ showing larger
-errors. In terms of the overall CPU times, we notice that
-the two linear schemes $(\schemeAex)$ and $(\schemeB)$, as well as the two
-nonlinear schemes $(\schemeAim)$ and $(\schemeALE)$, have similar
-execution times, with the CPU times for the linear schemes lower than for the
-nonlinear schemes. Finally, we note that the number of full remeshings performed
-when $J_\Gamma = 32$ was, depending on the scheme, between 1 and 4  while it was
-always 0 in all the other simulations for this test case.
+interface position with the same accuracy and exhibit similar errors for the
+pressure. In terms of the overall CPU times, we notice that the two linear
+schemes $(\schemeAex)$ and $(\schemeB)$, as well as the two nonlinear schemes
+$(\schemeAim)$ and $(\schemeALE)$, have similar execution times, with the CPU
+times for the linear schemes lower than for the nonlinear schemes. Finally, we
+note that the number of full remeshings performed when $J_\Gamma = 32$ was,
+depending on the scheme, between 1 and 4  while it was always 0 in all the
+other simulations for this test case.
 
 In a second set of convergence experiments, we fix
 $\Omega = (-1,1)^2 \setminus[-\frac13,\frac13]^2$
