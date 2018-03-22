@@ -518,14 +518,10 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{antisymmetric} \\
 \hline
- 32 & 4.01515e-04 & 1.07960e-04 &    - & 1.32414e-03 & 3.01273e-01 &    - &
-4 \\
- 64 & 1.05076e-04 & 4.41487e-05 & 1.29 & 8.03461e-04 & 1.57283e-01 & 0.94 &
-56 \\
-128 & 2.65242e-05 & 1.53219e-05 & 1.53 & 4.68445e-04 & 7.15256e-02 & 1.14 &
-1186 \\
-256 & 6.65365e-06 & 4.40606e-06 & 1.76 & 2.49086e-04 & 2.19747e-02 & 1.66 &
-24546 \\
+ 32 & 3.96456e-04 & 0 & - & 0 & 3.05157e-01 &    - &     4 \\
+ 64 & 1.03429e-04 & 0 & - & 0 & 1.57053e-01 & 0.96 &    56 \\
+128 & 2.61302e-05 & 0 & - & 0 & 7.09596e-02 & 1.15 &  1186 \\
+256 & 6.53463e-06 & 0 & - & 0 & 1.99794e-02 & 1.79 & 24546 \\
 \hline
 & \multicolumn{7}{c}{ALE} \\
 \hline
@@ -570,14 +566,10 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{antisymmetric} \\
 \hline
- 32 & 3.96630e-04 & 3.71652e-06 &    - & 6.65300e-05 & 2.90768e-01 &    - &
-6 \\
- 64 & 1.03453e-04 & 5.14139e-07 & 2.85 & 1.42699e-05 & 1.57312e-01 & 0.89 &
-66 \\
-128 & 2.61308e-05 & 8.43226e-08 & 2.61 & 3.84833e-06 & 7.15389e-02 & 1.14 &
-1145 \\
-256 & 6.53474e-06 & 1.52716e-08 & 2.41 & 1.11009e-06 & 2.19868e-02 & 1.66 &
-28118 \\
+ 32 & 3.96456e-04 & 0 & - & 0 & 3.05157e-01 &    - &     6 \\
+ 64 & 1.03429e-04 & 0 & - & 0 & 1.57053e-01 & 0.96 &    66 \\
+128 & 2.61302e-05 & 0 & - & 0 & 7.09596e-02 & 1.15 &  1145 \\
+256 & 6.53463e-06 & 0 & - & 0 & 1.99794e-02 & 1.79 & 28118 \\
 \hline
 & \multicolumn{7}{c}{ALE} \\
 \hline
@@ -622,14 +614,10 @@ $J_\Gamma$ & $\errorXx$ & $\LerrorUu2$ & EOC & $\HerrorUu2$ & $\LerrorPp$ & EOC
 \hline
 & \multicolumn{7}{c}{antisymmetric} \\
 \hline
- 32 & 3.96594e-04 & 1.36282e-06 &    - & 3.00839e-05 & 2.90771e-01 &    - &
-5 \\
- 64 & 1.03452e-04 & 2.31388e-07 & 2.56 & 6.81585e-06 & 1.57312e-01 & 0.89 &
-45 \\
-128 & 2.61309e-05 & 2.82849e-08 & 3.03 & 1.53571e-06 & 7.15389e-02 & 1.14 &
-1567 \\
-256 & 6.53472e-06 & 4.14789e-09 & 2.71 & 4.15646e-07 & 2.19868e-02 & 1.66 &
-30997 \\
+ 32 & 3.96456e-04 & 0 & - & 0 & 3.05157e-01 &    - &     5 \\
+ 64 & 1.03429e-04 & 0 & - & 0 & 1.57053e-01 & 0.96 &    45 \\
+128 & 2.61302e-05 & 0 & - & 0 & 7.09596e-02 & 1.15 &  1567 \\
+256 & 6.53463e-06 & 0 & - & 0 & 1.99794e-02 & 1.79 & 30997 \\
 \hline
 & \multicolumn{7}{c}{ALE} \\
 \hline
@@ -650,16 +638,14 @@ Expanding bubble problem I on $(-1,1)^2$ over the time interval $[0,1]$ for the
 P2--(P1+P0) element, with adaptive meshes and $C_a=20$\textdegree.}
 \label{tab:nsexpandingbubbleIp2p1p0}
 \end{table*}
-Firstly, we observe that the explicit and the implicit scheme capture exactly
-the velocity solution for all the three elements. This is possible because the
-exact velocity is linear, see (\ref{eq:ns_sol_1_up}). We  also notice that
-all the schemes, independently of the element used, capture the interface
-position with the same accuracy. Moreover, the explicit, the implicit and the
-ALE have similar errors for the pressure while the antisymmetric scheme error
-is bigger. For what concerns the computational time, as expected due to the
-nature  of the schemes, the explicit scheme performs similarly to the
-antisymmetric scheme while the implicit scheme performs consistently with the
-ALE scheme.
+Firstly, we observe that the explicit, the implicit and the antisymmetric scheme
+capture exactly the velocity solution for all the three elements. This is
+possible because the exact velocity is linear, see (\ref{eq:ns_sol_1_up}). We
+also notice that all the schemes, independently of the element used, capture the
+pressure and the interface position with the same accuracy. For what concerns
+the computational time, as expected due to the nature  of the schemes, the
+explicit scheme performs similarly to the antisymmetric scheme while the
+implicit scheme performs consistently with the ALE scheme.
 
 We report on the errors of the expanding bubble II for the P2--P0, P2--\pdg and
 P2--(P1+P0) elements in Tables~\ref{tab:nsexpandingbubbleIIp2p0},
