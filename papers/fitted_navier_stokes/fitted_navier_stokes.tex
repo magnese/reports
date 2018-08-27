@@ -203,7 +203,10 @@ good mesh quality, and this is a main feature of our proposed methods.
 But in contrast to \cite{fluidfbp}, where an unfitted bulk finite element
 approximation was used, we will adopt a fitted mesh approach, which means
 that the discrete interface is composed of faces of elements from the bulk
-triangulation. A fitted method has the advantage that discontinuity jumps
+triangulation. Fitted and unfitted bulk mesh approaches are fundamentally
+different approximation methods, and need specialized implementation
+techniques.
+A fitted method has the advantage that discontinuity jumps
 at the interface are captured naturally, but it has the disadvantage that in
 a standard Eulerian method the velocity needs to be interpolated from
 an old mesh to a new mesh, unless the interface is stationary. Hence so-called
@@ -221,7 +224,7 @@ flow. One aim of our paper is to investigate numerically, if there is a clear
 advantage of ALE type methods over standard Eulerian methods.
 We stress that we are not aware of any detailed comparisons between fitted
 Eulerian and ALE front tracking methods in the literature.
-On the other hand, similar
+This paper aims to fill this gap. On the other hand, similar
 comparisons between ALE type interface tracking methods and various
 interface capturing methods have been presented in e.g.\
 \cite{HysingTKPBGT09,ElgetiS16}.
@@ -1989,6 +1992,8 @@ reliable ones. Similar results are also obtained in
 \cite[Tables~5 and 6]{fluidfbp}. Moreover, we note that the number of full
 remeshings performed for this test case using the schemes $(\schemeAex)$,
 $(\schemeAim)$ and $(\schemeALE)$ was 787, 788 and 808, respectively.
+These large numbers are caused by the strong deformation of the rising bubble,
+with the narrow tail structure leading to very elongated bulk elements.
 
 In Figure~\ref{fig:risingbubbleIIpressure} we show the evolution of the discrete
 pressures for a simulation with $J_\Gamma=128$ interface elements using the
@@ -2085,8 +2090,9 @@ It is often thought that the interpolation errors introduced by this procedure,
 together with the additional computational effort for the calculation of the
 interpolation, makes ALE schemes vastly superior to standard Eulerian
 approximations. However, our numerical results do not bear this out.
-In particular, the Eulerian schemes $(\schemeAex)$ and $(\schemeAim)$ perform
-as well as the ALE scheme $(\schemeALE)$ in our most of our convergence tests
+In particular, for the physical and discretization parameters that we consider,
+the Eulerian schemes $(\schemeAex)$ and $(\schemeAim)$ perform
+as well as the ALE scheme $(\schemeALE)$ in most of our convergence tests
 and benchmark computations. We conjecture that this good performance of
 the Eulerian schemes is connected to the fact that all our schemes
 maintain the interface mesh quality throughout, and so the
