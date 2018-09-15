@@ -1,0 +1,64 @@
+%\usepackage{latexsym}
+%\usepackage{amsfonts}
+%\usepackage{epsfig}
+%\usepackage[pdftex]{hyperref}
+%\usepackage{fancyhdr}
+%\usepackage{toptesi}
+%\usepackage{listings}
+%\lstloadlanguages{C++}
+
+%\usepackage{caption}
+%\usepackage{psfrag}
+%\usepackage{booktabs}
+%\usepackage[numbers]{natbib}
+
+%\documentclass[12pt,twoside]{toptesi}
+
+\documentclass[12pt,oneside]{toptesi}
+
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{subfigure}
+
+\pdfinfo{
+  /Title    (Implementation of an object oriented parallel code to solve the problem of plasma equilibrium in a mirror machine using a spectral element method)
+  /Author   (Marco Agnese)
+  /Creator  ()
+  /Producer ()
+  /Subject  (Applied Mathematics)
+  /Keywords (spectral element methods, mirror machine, plasma equilibrium, C++, parallel computing)
+}
+
+\begin{document}
+\english
+
+\input{chapters/frontmatter}
+
+\tableofcontents
+
+\input{chapters/acknowledgements}
+
+\input{chapters/abstract_english}
+
+\input{chapters/abstract_italian}
+
+\input{chapters/mirror_machine}
+
+\input{chapters/sem}
+
+\input{chapters/mesh}
+
+\input{chapters/simulator}
+
+\input{chapters/numerical_results}
+
+\appendix
+
+\input{chapters/appendix}
+
+\input{chapters/bibliography}
+
+\end{document}

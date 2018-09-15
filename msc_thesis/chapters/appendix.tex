@@ -1,0 +1,240 @@
+\chapter{Some proofs}\label{ch:appx}
+In this appendix we report all the passages missing in Sec.(\ref{sec:grad_shavranov}) to arrive at the Grad-Shavranov equation.
+
+\section{Divergence of the pressure tensor}
+Derivation of Eq.(\ref{eq:div_press}).
+\begin{equation*}
+  \begin{split}
+    \nabla\cdot\mathbb{P}&=\nabla\cdot[p_\perp \mathbb{I} + ( p_\parallel - p_\perp ) \mathbf{b}\mathbf{b}]=
+    \nabla\cdot(p_\perp \mathbb{I}) + \nabla\cdot[( p_\parallel - p_\perp ) \mathbf{b}\mathbf{b}]=\\
+    &=\nabla p_\perp+(p_\parallel-p_\perp)\nabla\cdot(\mathbf{b}\mathbf{b})+\mathbf{b}\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)=\\
+    &=\nabla p_\perp+(p_\parallel-p_\perp)\nabla\cdot(\mathbf{b}\mathbf{b})+\mathbf{b}\big(\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)\big)=\\
+    &=\nabla p_\perp+(p_\parallel-p_\perp)[(\nabla\cdot\mathbf{b})\mathbf{b}+(\mathbf{b}\cdot\nabla)\mathbf{b}]+\big(\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)\big)\mathbf{b}=\\
+    &=\nabla p_\perp+(p_\parallel-p_\perp)\Big[\big(\nabla\cdot(B^{-1}\mathbf{B})\big)\mathbf{b}+\mathbf{k}\Big]+\big(\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)\big)\mathbf{b}=\\
+    &=\nabla p_\perp+(p_\parallel-p_\perp)\Big\{\big[\nabla B^{-1}\cdot\mathbf{B}+B^{-1}(\nabla\cdot\mathbf{B})\big]\mathbf{b}+\mathbf{k}\Big\}+\big(\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)\big)\mathbf{b}=\\
+    &\overset{\mbox{(\ref{eq:MHD_maxwell})}}{=}\nabla p_\perp+(p_\parallel-p_\perp)\Big\{\big[\nabla B^{-1}\cdot\mathbf{B}\big]\mathbf{b}+\mathbf{k}\Big\}+\big(\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)\big)\mathbf{b}=\\
+    &=\nabla p_\perp+(p_\parallel-p_\perp)\Big[\big( -B^{-2}\nabla B\cdot\mathbf{B}\big)\mathbf{b}+\mathbf{k}\Big]+\big(\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)\big)\mathbf{b}=\\
+    &=\nabla p_\perp+(p_\parallel-p_\perp)\Big[\big( -B^{-1}\nabla B\cdot\mathbf{b}\big)\mathbf{b}+\mathbf{k}\Big]+\big(\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)\big)\mathbf{b}=\\
+    &=\nabla p_\perp+(p_\parallel-p_\perp)\Big[ -B^{-1}\big(\nabla B\cdot\mathbf{b}\big)\mathbf{b}+\mathbf{k}\Big]+\big(\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)\big)\mathbf{b}=\\
+    &=\nabla p_\perp+(p_\parallel-p_\perp)\mathbf{k}+\Big[\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)-B^{-1}(p_\parallel-p_\perp)\nabla B\cdot\mathbf{b}\Big]\mathbf{b}.
+ \end{split}
+\end{equation*}
+
+\section{Pressure balance equation}
+Derivation of Eq.(\ref{eq:pressure_balance}).
+\medskip
+
+It holds that
+\begin{equation*}
+  \mathbf{b} \cdot(\nabla\cdot\mathbb{P})=B^{-1}\mathbf{B}\cdot(\nabla\cdot\mathbb{P})\overset{\mbox{(\ref{eq:MHD_momentum})}}{=} B^{-1}\mathbf{B}\cdot(\nabla\times\mathbf{B})\times\mathbf{B}=B^{-1}(\nabla\times\mathbf{B})\cdot\mathbf{B}\times\mathbf{B}=0
+\end{equation*}
+and
+\begin{equation*}
+  \begin{split}
+    \mathbf{b} \cdot(\nabla\cdot\mathbb{P}) &\overset{\mbox{(\ref{eq:div_press})}}{=}
+    \mathbf{b}\cdot\bigg\{\nabla p_\perp+(p_\parallel-p_\perp)\mathbf{k}+\Big[\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)-B^{-1}(p_\parallel-p_\perp)\nabla B\cdot\mathbf{b}\Big]\mathbf{b}\bigg\}=\\
+    &=\mathbf{b}\cdot\nabla p_\perp+(p_\parallel-p_\perp)\mathbf{k}\cdot\mathbf{b}+\Big[\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)-B^{-1}(p_\parallel-p_\perp)\nabla B\cdot\mathbf{b}\Big]\mathbf{b}\cdot\mathbf{b}=\\
+    &=\mathbf{b}\cdot\nabla p_\perp+(p_\parallel-p_\perp)\mathbf{k}\cdot\mathbf{b}+\Big[\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)-B^{-1}(p_\parallel-p_\perp)\nabla B\cdot\mathbf{b}\Big]B^{-2}\mathbf{B}\cdot\mathbf{B}=\\
+    &=\mathbf{b}\cdot\nabla p_\perp+(p_\parallel-p_\perp)\mathbf{k}\cdot\mathbf{b}+\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)-B^{-1}(p_\parallel-p_\perp)\nabla B\cdot\mathbf{b}=\\
+    &=\mathbf{b}\cdot[\nabla p_\perp+\nabla(p_\parallel-p_\perp)]+(p_\parallel-p_\perp)\mathbf{k}\cdot\mathbf{b}-B^{-1}(p_\parallel-p_\perp)\nabla B\cdot\mathbf{b}=\\
+    &=\mathbf{b}\cdot\nabla p_\parallel+(p_\parallel-p_\perp)\mathbf{k}\cdot\mathbf{b}-B^{-1}(p_\parallel-p_\perp)\nabla B\cdot\mathbf{b}=\\
+    &\overset{\mbox{(\ref{eq:kb0})}}{=}\mathbf{b}\cdot\nabla p_\parallel-B^{-1}(p_\parallel-p_\perp)\nabla B\cdot\mathbf{b}=\\
+    &=\mathbf{b}\cdot\nabla p_\parallel-B^{-1}(p_\parallel-p_\perp)\mathbf{b}\cdot\nabla B=\\
+    &=(\mathbf{b}\cdot\nabla) p_\parallel-B^{-1}(p_\parallel-p_\perp)(\mathbf{b}\cdot\nabla) B=\\
+    &=\frac{\partial p_\parallel}{\partial l} -B^{-1}(p_\parallel-p_\perp)\frac{\partial B}{\partial l}
+  \end{split}
+\end{equation*}
+where $l$ is the arc length of $\mathbf{B}$ that increase in which $\mathbf{B}$ points, so $l$ measures the distance along the magnetic field-line, and
+\begin{equation}\label{eq:kb0}
+  \begin{split}
+    \mathbf{k}\cdot\mathbf{b}&=(\mathbf{b}\cdot\nabla)\mathbf{b}\cdot\mathbf{b}=\sum_i(\sum_j b_j \frac{\partial b_i}{\partial x_j})b_i=\sum_i\sum_j b_j \frac{\partial b_i}{\partial x_j}b_i=\\
+    &=\sum_i\sum_j b_j \frac{\partial}{\partial x_j}(b_i^2/2)=\sum_j b_j \frac{\partial}{\partial x_j}(\frac{1}{2}\sum_i b_i^2)=\\
+    &=\frac{1}{2}\sum_j b_j \frac{\partial}{\partial x_j}(\sum_i b_i^2)=(\mathbf{b}\cdot\nabla)(\mathbf{b}\cdot\mathbf{b})/2=(\mathbf{b}\cdot\nabla)(1/2)=0.
+  \end{split}
+\end{equation}
+Then the longitudinal pressure balance equation states that only if $p_\perp>p_\parallel$ it is possible to balance the plasma pressure $p_\parallel$ by means of a positive gradient of $\mathbf{B}$:
+\begin{equation}
+ \frac{\partial p_\parallel}{\partial l}=B^{-1}(p_\parallel-p_\perp)\frac{\partial B}{\partial l}\quad\Rightarrow\quad B\frac{\partial p_\parallel}{\partial l}\frac{\partial l}{\partial B}=p_\parallel-p_\perp
+\end{equation}
+that is
+\begin{equation*}
+  B\frac{\partial p_\parallel}{\partial B}=p_\parallel-p_\perp\quad\Rightarrow\quad p_\perp=p_\parallel-B\frac{\partial p_\parallel}{\partial B}.
+\end{equation*}
+
+\section{Magnetic field in covariant basis}
+Derivation of Eq.(\ref{eq:covariantB}).
+\medskip
+
+The covariant basis is defined as
+\begin{equation*}
+  \mathbf{e}_i=\mathcal{J} \mathbf{e}^j\times\mathbf{e}^k=\mathcal{J} \nabla j\times\nabla k
+\end{equation*}
+with the jacobian $\mathcal{J}^{-1}=\nabla r \cdot(\nabla\theta\times\nabla z)=1/r$. Noting that
+\begin{equation*}
+  \nabla\psi=\frac{\partial\psi}{\partial r}\nabla r+\frac{\partial\psi}{\partial z}\nabla z
+\end{equation*}
+we have
+\begin{equation*}
+ \begin{split}
+    \mathbf{B}&=\sum_i(\mathbf{B}\cdot\mathbf{e}^i)\mathbf{e}_i=(\mathbf{B}\cdot\nabla r)\mathbf{e}_r+(\mathbf{B}\cdot\nabla\theta)\mathbf{e}_\theta+(\mathbf{B}\cdot\nabla z)\mathbf{e}_z=\\
+    &=(\mathbf{B}\cdot\nabla r)\mathbf{e}_r+(\mathbf{B}\cdot\nabla z)\mathbf{e}_z=\\
+    &=\left[\frac{\partial\psi}{\partial r}(\nabla r \times\nabla\theta)\cdot\nabla r+\frac{\partial\psi}{\partial z}(\nabla z\times\nabla\theta)\cdot\nabla r\right]\mathbf{e}_r\\
+    &+\left[\frac{\partial\psi}{\partial r}(\nabla r \times\nabla\theta)\cdot\nabla z+\frac{\partial\psi}{\partial z}(\nabla z\times\nabla\theta)\cdot\nabla z\right]\mathbf{e}_z=\\
+    &=\left[\frac{\partial\psi}{\partial z}(\nabla z\times\nabla\theta)\cdot\nabla r\right]\mathbf{e}_r+\left[\frac{\partial\psi}{\partial r}(\nabla r \times\nabla\theta)\cdot\nabla z\right]\mathbf{e}_z=\\
+    &=-\frac{\partial\psi}{\partial z}\nabla r\cdot(\nabla \theta\times\nabla z)\mathbf{e}_r+\frac{\partial\psi}{\partial r}\nabla r\cdot(\nabla \theta\times\nabla z)\mathbf{e}_z=\\
+    &=\nabla r\cdot(\nabla \theta\times\nabla z)\left[-\frac{\partial\psi}{\partial z}\mathbf{e}_r+\frac{\partial\psi}{\partial r}\mathbf{e}_z\right]=\\
+    &=\mathcal{J}^{-1}\left[-\frac{\partial\psi}{\partial z}\mathbf{e}_r+\frac{\partial\psi}{\partial r}\mathbf{e}_z\right]=\frac{1}{r}\left[-\frac{\partial\psi}{\partial z}\mathbf{e}_r+\frac{\partial\psi}{\partial r}\mathbf{e}_z\right]=\\
+    &=-\frac{1}{r}\frac{\partial\psi}{\partial z}\mathbf{e}_r+\frac{1}{r}\frac{\partial\psi}{\partial r}\mathbf{e}_z=B^r\mathbf{e}_r+B^z\mathbf{e}_z\\
+  \end{split}
+\end{equation*}
+so
+\begin{equation*}
+  B^r=-\frac{1}{r}\frac{\partial\psi}{\partial z},\qquad B^z=\frac{1}{r}\frac{\partial\psi}{\partial r}.
+\end{equation*}
+
+\section{Plasma current}
+Derivation of Eq.(\ref{eq:plasma_current}).
+\medskip
+
+From Eq.(\ref{eq:MHD_momentum}) we have
+\begin{equation*}
+  \mathbf{B}\times\mathbf{J}\times\mathbf{B}=\mathbf{B}\times\nabla\cdot\mathbb{P}
+\end{equation*}
+but
+\begin{equation*}
+  \mathbf{B}\times\mathbf{J}\times\mathbf{B}=(\mathbf{B}\cdot\mathbf{B})\mathbf{J}-(\mathbf{B}\cdot\mathbf{J})\mathbf{B}=B^2\mathbf{J}-(\mathbf{B}\cdot\mathbf{J})\mathbf{B}
+\end{equation*}
+so
+\begin{equation*}
+  \mathbf{J}=\frac{1}{B^2}(\mathbf{B}\cdot\mathbf{J})\mathbf{B}+\frac{1}{B^2}\mathbf{B}\times\nabla\cdot\mathbb{P}=(\mathbf{b}\cdot\mathbf{J})\mathbf{b}+\frac{1}{B}\mathbf{b}\times\nabla\cdot\mathbb{P}=J_\parallel\mathbf{b}+\mathbf{J}_\perp.
+\end{equation*}
+Since
+\begin{equation*}
+  \begin{split}
+    \mathbf{b}\times\nabla\cdot\mathbb{P}&=\mathbf{b}\times\bigg\{\nabla p_\perp+(p_\parallel-p_\perp)\mathbf{k}+\Big[\mathbf{b}\cdot\nabla(p_\parallel-p_\perp)-B^{-1}(p_\parallel-p_\perp)\nabla B\cdot\mathbf{b}\Big]\mathbf{b}\bigg\}=\\
+    &=\mathbf{b}\times\big\{\nabla p_\perp+(p_\parallel-p_\perp)\mathbf{k}\big\}=\mathbf{b}\times\nabla p_\perp+(p_\parallel-p_\perp)\mathbf{b}\times\mathbf{k}=\\
+    &=\mathbf{b}\times\nabla p_\perp+(p_\parallel-p_\perp)\mathbf{b}\times(\nabla\times\mathbf{b}\times\mathbf{b})=\\
+    &=\mathbf{b}\times\nabla p_\perp+(p_\parallel-p_\perp)[(\mathbf{b}\cdot\mathbf{b})\nabla\times\mathbf{b}-(\mathbf{b}\cdot\nabla\times\mathbf{b})\mathbf{b}]=\\
+    &=\mathbf{b}\times\nabla p_\perp+(p_\parallel-p_\perp)[\nabla\times\mathbf{b}-(\mathbf{b}\cdot\nabla\times\mathbf{b})\mathbf{b}]=\\
+    &=\mathbf{b}\times\nabla p_\perp+(p_\parallel-p_\perp)[B^{-1}\nabla\times\mathbf{B}+\nabla(B^{-1})\times\mathbf{B}-(\mathbf{b}\cdot\nabla\times\mathbf{b})\mathbf{b}]=\\
+    &=\mathbf{b}\times\nabla p_\perp+B^{-1}(p_\parallel-p_\perp)[\nabla\times\mathbf{B}-B^{-1}\nabla B\times\mathbf{B}-(\mathbf{b}\cdot B\nabla\times\mathbf{b})\mathbf{b}]=\\
+    &=\mathbf{b}\times\nabla p_\perp+B^{-1}(p_\parallel-p_\perp)[\mathbf{J}-\nabla B\times\mathbf{b} -(\mathbf{b}\cdot (\nabla\times\mathbf{B}-\nabla B\times\mathbf{b})\mathbf{b}]=\\
+    &=\mathbf{b}\times\nabla p_\perp+B^{-1}(p_\parallel-p_\perp)[\mathbf{J}-\nabla B\times\mathbf{b} -(\mathbf{b}\cdot (\mathbf{J}-\nabla B\times\mathbf{b})\mathbf{b}]=\\
+    &=\mathbf{b}\times\nabla p_\perp+B^{-1}(p_\parallel-p_\perp)[\mathbf{J}-\nabla B\times\mathbf{b} -(\mathbf{b}\cdot\mathbf{J})\mathbf{b}-(\mathbf{b}\cdot\nabla B\times\mathbf{b})\mathbf{b}]=\\
+    &=\mathbf{b}\times\nabla p_\perp+B^{-1}(p_\parallel-p_\perp)[\mathbf{J}-(\mathbf{b}\cdot\mathbf{J})\mathbf{b}-\nabla B\times\mathbf{b}]=\\
+    &=\mathbf{b}\times\nabla p_\perp+B^{-1}(p_\parallel-p_\perp)[\mathbf{J}_\perp+\mathbf{b}\times\nabla B]=\\
+    &=\mathbf{b}\times[\nabla p_\perp+B^{-1}(p_\parallel-p_\perp)\nabla B]+B^{-1}(p_\parallel-p_\perp)\mathbf{J}_\perp=\\
+    &=\mathbf{b}\times[\nabla p_\perp-B^{-1}(p_\perp-p_\parallel)\nabla B]-B^{-1}(p_\perp-p_\parallel)\mathbf{J}_\perp\\
+  \end{split}
+\end{equation*}
+we have
+\begin{equation*}
+  \begin{split}
+    \mathbf{J}_\perp&=B^{-1}\mathbf{b}\times\nabla\cdot\mathbb{P}= B^{-1}\mathbf{b}\times[\nabla p_\perp-B^{-1}(p_\perp-p_\parallel)\nabla B]-B^{-2}(p_\perp-p_\parallel)\mathbf{J}_\perp=\\\
+    &=\mathbf{b}\times[B^{-1}\nabla p_\perp-B^{-2}(p_\perp-p_\parallel)\nabla B]-B^{-2}(p_\perp-p_\parallel)\mathbf{J}_\perp=\\
+    &=\mathbf{b}\times[B^{-1}\nabla p_\perp-\eta\nabla B]-\eta\mathbf{J}_\perp\\
+  \end{split}
+\end{equation*}
+where $\eta=B^{-2}(p_\perp-p_\parallel)$. Then
+\begin{equation*}
+  \begin{split}
+    (1+\eta)\mathbf{J}_\perp&=\mathbf{b}\times[B^{-1}\nabla p_\perp-\eta\nabla B]=\\
+    &=\mathbf{b}\times[B^{-1}\nabla p_\perp-B^{-1}\nabla p_\parallel+B^{-1}\nabla p_\parallel-\eta\nabla B]=\\
+    &=\mathbf{b}\times[B^{-1}(\nabla p_\perp-\nabla p_\parallel)+B^{-1}\nabla p_\parallel-\eta\nabla B]=\\
+    &=\mathbf{b}\times[B^{-1}\nabla( p_\perp- p_\parallel)+B^{-1}\nabla p_\parallel-\eta\nabla B]=\\
+    &=\mathbf{b}\times[\nabla\big(B^{-1}(p_\perp- p_\parallel)\big)-(p_\perp- p_\parallel)\nabla B^{-1}+B^{-1}\nabla p_\parallel-\eta\nabla B]=\\
+    &=\mathbf{b}\times[\nabla\big(B^{-1}(p_\perp- p_\parallel)\big)+B^{-2}(p_\perp- p_\parallel)\nabla B+B^{-1}\nabla p_\parallel-\eta\nabla B]=\\
+    &=\mathbf{b}\times[\nabla\big(BB^{-2}(p_\perp- p_\parallel)\big)+\eta\nabla B+B^{-1}\nabla p_\parallel-\eta\nabla B]=\\
+    &=\mathbf{b}\times[\nabla(\eta B)+B^{-1}\nabla p_\parallel]=\\
+    &=\mathbf{b}\times[B\nabla\eta+\eta\nabla B+B^{-1}\nabla p_\parallel].\\
+  \end{split}
+\end{equation*}
+Using the fact that
+\begin{equation*}
+  \nabla p_\parallel=\frac{\partial p_\parallel}{\partial \psi}\nabla\psi+\frac{\partial p_\parallel}{\partial B}\nabla B \overset{\mbox{(\ref{eq:pressure_balance})}}{=}
+  \frac{\partial p_\parallel}{\partial \psi}\nabla\psi+B^{-1}(p_\parallel-p_\perp)\nabla B
+\end{equation*}
+we find
+\begin{equation*}
+  \begin{split}
+    (1+\eta)\mathbf{J}_\perp&=\mathbf{b}\times\left[B\nabla\eta+\eta\nabla B+B^{-1}\left(\frac{\partial p_\parallel}{\partial \psi}\nabla\psi+B^{-1}(p_\parallel-p_\perp)\nabla B\right)\right]=\\
+    &=\mathbf{b}\times\left[B\nabla\eta+\eta\nabla B+B^{-1}\frac{\partial p_\parallel}{\partial \psi}\nabla\psi-B^{-2}(p_\perp-p_\parallel)\nabla B\right]=\\
+    &=\mathbf{b}\times\left[B\nabla\eta+\eta\nabla B+B^{-1}\frac{\partial p_\parallel}{\partial \psi}\nabla\psi-\eta\nabla B\right]=\\
+    &=\mathbf{b}\times\left[B\nabla\eta+B^{-1}\frac{\partial p_\parallel}{\partial \psi}\nabla\psi\right]=\\
+    &=\mathbf{B}\times\nabla\eta+B^{-2}\frac{\partial p_\parallel}{\partial \psi}\mathbf{B}\times\nabla\psi.
+  \end{split}
+\end{equation*}
+So
+\begin{equation*}
+  \mathbf{J}_\perp=\frac{1}{1+\eta}\left[\mathbf{B}\times\nabla\eta+B^{-2}\frac{\partial p_\parallel}{\partial \psi}\mathbf{B}\times\nabla\psi\right]
+\end{equation*}
+From the Clebsch representation of magnetic field and for the independence of any function from the poloidal angle we have:
+\begin{enumerate}
+ \item $\mathbf{B}\times\nabla\eta=(\nabla\psi\times\nabla\theta)\times\nabla\eta=(\nabla\eta\cdot\nabla\psi)\nabla\theta-(\nabla\eta\cdot\nabla\theta)\nabla\psi=(\nabla\eta\cdot\nabla\psi)\nabla\theta$
+  \item $\mathbf{B}\times\nabla\psi=(\nabla\psi\times\nabla\theta)\times\nabla\psi=(\nabla\psi\cdot\nabla\psi)\nabla\theta=|\nabla\psi|^2\nabla\theta$
+\end{enumerate}
+and from the covariant basis $(\mathbf{e}_r,\mathbf{e}_\theta,\mathbf{e}_z)$
+\begin{equation*}
+  B^2=|\mathbf{B}|^2=|-\frac{1}{r}\frac{\partial\psi}{\partial z}\mathbf{e}_r+\frac{1}{r}\frac{\partial\psi}{\partial r}\mathbf{e}_z|^2=\frac{1}{r^2}[(\frac{\partial\psi}{\partial z})^2+(\frac{\partial\psi}{\partial r})^2]=\frac{|\nabla\psi|^2}{r^2}
+\end{equation*}
+so that $\mathbf{B}\times\nabla\psi=r^2 B^2\nabla\theta$ then
+\begin{equation*}
+  \mathbf{J}_\perp=\frac{1}{1+\eta}\left[(\nabla\eta\cdot\nabla\psi)+r^2\frac{\partial p_\parallel}{\partial \psi}\right]\nabla\theta.
+\end{equation*}
+
+\section{Grad-Shafranov equation}
+Derivation of Eq.(\ref{eq:GS_eq}).
+\medskip
+
+For hypothesis $\partial_\theta=0$ and we notice that $B^\theta=0$ so
+\begin{equation*}
+  \nabla\times\mathbf{B}=\displaystyle
+    \begin{vmatrix}
+      \displaystyle\frac{1}{r}\mathbf{e}_r & \mathbf{e}_\theta & \displaystyle\frac{1}{r}\mathbf{e}_z\\
+      \partial_r & 0 & \partial_z\\
+    B^r & 0 & B^z
+  \end{vmatrix}
+  =\left[\partial_z\left(-\frac{1}{r}\frac{\partial\psi}{\partial z}\right)-\partial_r\left(\frac{1}{r}\frac{\partial\psi}{\partial r}\right)\right]\mathbf{e}_\theta.
+\end{equation*}
+Then for Eq.(\ref{eq:MHD_current}) we know that
+\begin{equation*}
+  \mathbf{J}=-\left[\frac{\partial}{\partial z}\left(\frac{1}{r}\frac{\partial\psi}{\partial z}\right)+\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial\psi}{\partial r}\right)\right]\mathbf{e}_\theta
+  =-\left[\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial\psi}{\partial r}\right)+\frac{1}{r}\frac{\partial^2\psi}{\partial z^2}\right]\mathbf{e}_\theta=J^\theta\mathbf{e}_\theta
+\end{equation*}
+therefore
+\begin{equation*}
+  J_\parallel=B^{-1}\mathbf{J}\cdot\mathbf{B}=B^{-1}[J^\theta\mathbf{e}_\theta\cdot(B^r\mathbf{e}_r+B^z\mathbf{e}_z)]=0.
+\end{equation*}
+So we have that $\mathbf{J}\equiv\mathbf{J}_\perp$, that is
+\begin{equation*}
+  -\left[\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial\psi}{\partial r}\right)+\frac{1}{r}\frac{\partial^2\psi}{\partial z^2}\right]\mathbf{e}_\theta
+  =\frac{1}{1+\eta}\left[(\nabla\eta\cdot\nabla\psi)+r^2\frac{\partial p_\parallel}{\partial \psi}\right]\nabla\theta.
+\end{equation*}
+As $\mathbf{e}_\theta=r\nabla\theta$, then
+\begin{equation*}
+ -\left[r\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial\psi}{\partial r}\right)+\frac{\partial^2\psi}{\partial z^2}\right]
+=\frac{1}{1+\eta}\left[(\nabla\eta\cdot\nabla\psi)+r^2\frac{\partial p_\parallel}{\partial \psi}\right]
+\end{equation*}
+or
+\begin{equation*}
+  -\Delta^*\psi=\frac{1}{1+\eta}\left[(\nabla\eta\cdot\nabla\psi)+r^2\frac{\partial p_\parallel}{\partial \psi}\right].
+\end{equation*}
+As $\eta=B^{-2}(p_\perp-p_\parallel)$ and from (\ref{eq:pressure_balance}) it results $B^{-1}(p_\perp-p_\parallel)=-\partial_B p_\parallel$, this means that
+\begin{equation*}
+  \eta=-B^{-1}\frac{\partial p_\parallel}{\partial B}
+\end{equation*}
+then
+\begin{equation*}
+  -\Delta^*\psi=\frac{1}{1-B^{-1}\partial_B p_\parallel}\left[-\nabla(B^{-1}\partial_B p_\parallel)\cdot\nabla\psi+r^2\partial_\psi p_\parallel\right].
+\end{equation*}
+Focusing on the definition of Grad-Shafranov operator we can notice that
+\begin{equation*}
+  \begin{split}
+    \Delta^*\psi&=r\left[\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial\psi}{\partial r}\right)+\frac{1}{r}\frac{\partial^2\psi}{\partial z^2}\right]=r\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial\psi}{\partial r}\right)+\frac{\partial^2\psi}{\partial z^2}=r^2\nabla\cdot\left(\frac{1}{r^2}\nabla\psi\right)=\\
+    &=-\frac{1}{r}\frac{\partial\psi}{\partial r}+\frac{\partial^2\psi}{\partial r^2}+\frac{\partial^2\psi}{\partial z^2}=\frac{1}{r}\frac{\partial\psi}{\partial r}+\frac{\partial^2\psi}{\partial r^2}+\frac{\partial^2\psi}{\partial z^2}-\frac{2}{r}\frac{\partial\psi}{\partial r}=\Delta\psi-\frac{2}{r}\frac{\partial\psi}{\partial r}
+  \end{split}
+\end{equation*}
+so
+\begin{equation*}
+ \Delta^*\psi=r^2\nabla\cdot\left(\frac{1}{r^2}\nabla\psi\right)=\Delta\psi-\frac{2}{r}\frac{\partial\psi}{\partial r}.
+\end{equation*}
