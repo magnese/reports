@@ -1,7 +1,7 @@
 \documentclass{beamer}
 
 \usepackage[english]{babel}
-\usepackage{amssymb,amsmath,amsthm,epsfig,pstricks,times,multimedia}
+\usepackage{amssymb,amsmath,amsthm,animate,epsfig,multimedia,pstricks,times}
 
 \newcommand{\R}{{\mathbb R}}
 \newcommand{\vol}{\mathcal{L}^d}
@@ -312,11 +312,11 @@ As preconditioner we use the matrix
 \begin{itemize}
 \item Smoothing: find a displacement $\vec\psi \in [H^1(\Omega)]^d$ such that
 \begin{subequations}
-\begin{align*}
+\begin{alignat*}{2}
 \nabla\,.\,\mat S & = \vec 0 \qquad &&\mbox{in } \Omega_\pm^m\,, \\
 \vec\psi &= \delta \vec X \qquad && \mbox{on } \Gamma^m\,, \\
 \vec\psi\,.\,\vec{\rm n} & = 0 \qquad &&\mbox{on } \partial\Omega\,,
-\end{align*}
+\end{alignat*}
 \end{subequations}
 where $\mat S = 2\,\mat D(\vec\psi) +(\nabla\,.\vec\psi)\,\mat\id$ is the stress
 tensor and where $\vec{\rm n}$ is the outer unit normal to $\Omega$ on
@@ -342,13 +342,10 @@ where $C_r \geq 1$ is a fixed constant.
 
 \centering
 
-\movie[
-  height = 187pt,
-  width = 187pt,
-  showcontrols,
-  poster
-]
-{}{figures/usp.avi}
+\movie[height=187pt, width=187pt]
+{\includegraphics[width=187pt]{figures/usp.ps}}
+{figures/usp.mp4}
+
 \end{frame}
 
 \begin{frame}
@@ -361,13 +358,10 @@ where $C_r \geq 1$ is a fixed constant.
 
 \centering
 
-\movie[
-  height = 187pt,
-  width = 187pt,
-  showcontrols,
-  poster
-]
-{}{figures/shear.avi}
+\movie[height=187pt, width=187pt]
+{\includegraphics[width=187pt]{figures/shear.ps}}
+{figures/shear.mp4}
+
 \end{frame}
 
 \begin{frame}
@@ -380,13 +374,10 @@ where $C_r \geq 1$ is a fixed constant.
 
 \centering
 
-\movie[
-  height = 187pt,
-  width = 187pt,
-  showcontrols,
-  poster
-]
-{}{figures/rising_bubble.avi}
+\movie[height=187pt, width=187pt]
+{\includegraphics[width=187pt]{figures/rising_bubble.ps}}
+{figures/rising_bubble.mp4}
+
 \end{frame}
 
 \begin{frame}
