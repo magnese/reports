@@ -2115,7 +2115,288 @@ Moreover, thanks to an efficient element-traversal
 algorithm, the additional computational effort needed
 for the velocity interpolation was only noticeable on nonconvex domains.
 
-\bibliographystyle{ijnam}
-\bibliography{../../bib/robert_refs,../../bib/marco_refs}
+\def\soft#1{\leavevmode\setbox0=\hbox{h}\dimen7=\ht0\advance \dimen7
+  by-1ex\relax\if t#1\relax\rlap{\raise.6\dimen7
+  \hbox{\kern.3ex\char'47}}#1\relax\else\if T#1\relax
+  \rlap{\raise.5\dimen7\hbox{\kern1.3ex\char'47}}#1\relax \else\if
+  d#1\relax\rlap{\raise.5\dimen7\hbox{\kern.9ex \char'47}}#1\relax\else\if
+  D#1\relax\rlap{\raise.5\dimen7 \hbox{\kern1.4ex\char'47}}#1\relax\else\if
+  l#1\relax \rlap{\raise.5\dimen7\hbox{\kern.4ex\char'47}}#1\relax \else\if
+  L#1\relax\rlap{\raise.5\dimen7\hbox{\kern.7ex
+  \char'47}}#1\relax\else\message{accent \string\soft \space #1 not
+  defined!}#1\relax\fi\fi\fi\fi\fi\fi}
+\begin{thebibliography}{10}
+
+\bibitem{AbelsGG12}
+H.~Abels, H.~Garcke and G.~Gr\"un, Thermodynamically consistent, frame
+  indifferent diffuse interface models for incompressible two-phase flows with
+  different densities, Math. Models Methods Appl. Sci., 22 (2012) 1150013.
+
+\bibitem{Agnese}
+M.~Agnese, {Front tracking finite element methods for two-phase Navier--Stokes
+  flow}, Ph.D. thesis, Imperial College London, London (2017).
+
+\bibitem{stokesfitted}
+M.~Agnese and R.~N\"urnberg, {Fitted finite element discretization of two-phase
+  Stokes flow}, Internat. J. Numer. Methods Fluids, 82 (2016) 709--729.
+
+\bibitem{AlandV12}
+S.~Aland and A.~Voigt, Benchmark computations of diffuse interface models for
+  two-dimensional bubble dynamics, Internat. J. Numer. Methods Fluids, 69
+  (2012) 747--761.
+
+\bibitem{AndersonMW98}
+D.~M. Anderson, G.~B. McFadden and A.~A. Wheeler, Diffuse-interface methods in
+  fluid mechanics, in Annual review of fluid mechanics, {V}ol. 30, Annual
+  Reviews, Palo Alto, CA (1998) pages 139--165.
+
+\bibitem{BanasN17}
+{\soft{L}}.~Ba{\v{n}}as and R.~N\"urnberg, Numerical approximation of a
+  non-smooth phase-field model for multicomponent incompressible flow, M2AN
+  Math. Model. Numer. Anal., 51 (2017) 1089--1117.
+
+\bibitem{Bansch01}
+E.~B{\"a}nsch, Finite element discretization of the {N}avier--{S}tokes
+  equations with a free capillary surface, Numer. Math., 88 (2001) 203--235.
+
+\bibitem{triplej}
+J.~W. Barrett, H.~Garcke and R.~N\"urnberg, A parametric finite element method
+  for fourth order geometric evolution equations, J. Comput. Phys., 222 (2007)
+  441--462.
+
+\bibitem{gflows3d}
+J.~W. Barrett, H.~Garcke and R.~N\"urnberg, On the parametric finite element
+  approximation of evolving hypersurfaces in {${\mathbb R}^3$}, J. Comput.
+  Phys., 227 (2008) 4281--4307.
+
+\bibitem{spurious}
+J.~W. Barrett, H.~Garcke and R.~N\"urnberg, Eliminating spurious velocities
+  with a stable approximation of viscous incompressible two-phase {S}tokes
+  flow, Comput. Methods Appl. Mech. Engrg., 267 (2013) 511--530.
+
+\bibitem{tpfs}
+J.~W. Barrett, H.~Garcke and R.~N\"urnberg, On the stable numerical
+  approximation of two-phase flow with insoluble surfactant, M2AN Math. Model.
+  Numer. Anal., 49 (2015) 421--458.
+
+\bibitem{fluidfbp}
+J.~W. Barrett, H.~Garcke and R.~N\"urnberg, A stable parametric finite element
+  discretization of two-phase {N}avier--{S}tokes flow, J. Sci. Comp., 63 (2015)
+  78--117.
+
+\bibitem{dunegridpaperII08}
+P.~Bastian, M.~Blatt, A.~Dedner, C.~Engwer, R.~Kl\"ofkorn, R.~Kornhuber,
+  M.~Ohlberger and O.~Sander, {A Generic Grid Interface for Parallel and
+  Adaptive Scientific Computing. Part {II}: Implementation and Tests in
+  {DUNE}}, Computing, 82 (2008) 121--138.
+
+\bibitem{dunegridpaperI08}
+P.~Bastian, M.~Blatt, A.~Dedner, C.~Engwer, R.~Kl\"ofkorn, M.~Ohlberger and
+  O.~Sander, {A Generic Grid Interface for Parallel and Adaptive Scientific
+  Computing. Part {I}: Abstract Framework}, Computing, 82 (2008) 103--119.
+
+\bibitem{Boyer02}
+F.~Boyer, A theoretical and numerical model for the study of incompressible
+  mixture flows, Comput. \& Fluids, 31 (2002) 41--68.
+
+\bibitem{BoyerM14}
+F.~Boyer and S.~Minjeaud, Hierarchy of consistent {$n$}-component
+  {C}ahn--{H}illiard systems, Math. Models Methods Appl. Sci., 24 (2014)
+  2885--2928.
+
+\bibitem{BrochuB09}
+T.~Brochu and R.~Bridson, Robust topological operations for dynamic explicit
+  surfaces, SIAM J. Sci. Comput., 31 (2009) 2472--2493.
+
+\bibitem{Davis04}
+T.~A. Davis, Algorithm 832: {UMFPACK} {V}4.3---an unsymmetric-pattern
+  multifrontal method, ACM Trans. Math. Software, 30 (2004) 196--199.
+
+\bibitem{Davis11}
+T.~A. Davis, Algorithm 915, {SuiteSparseQR}: Multifrontal multithreaded
+  rank-revealing sparse {QR} factorization, ACM Trans. Math. Software, 38
+  (2011) 1--22.
+
+\bibitem{DeckelnickDE05}
+K.~Deckelnick, G.~Dziuk and C.~M. Elliott, Computation of geometric partial
+  differential equations and mean curvature flow, Acta Numer., 14 (2005)
+  139--232.
+
+\bibitem{dunefempaper10}
+A.~Dedner, R.~Kl\"ofkorn, M.~Nolte and M.~Ohlberger, {A Generic Interface for
+  Parallel and Adaptive Scientific Computing: Abstraction Principles and the
+  DUNE-FEM Module}, Computing, 90 (2010) 165--196.
+
+\bibitem{DingSS07}
+H.~Ding, P.~D. Spelt and C.~Shu, Diffuse interface model for incompressible
+  two-phase flows with large density ratios, J. Comput. Phys., 226 (2007)
+  2078--2095.
+
+\bibitem{Donea83}
+J.~Donea, {Arbitrary Lagrangian Eulerian methods}, Comput. Meth. Trans. Anal.,
+  1 (1983) 474--516.
+
+\bibitem{Dong14}
+S.~Dong, An efficient algorithm for incompressible {N}-phase flows, J. Comput.
+  Phys., 276 (2014) 691--728.
+
+\bibitem{Dong15}
+S.~Dong, Physical formulation and numerical algorithm for simulating {N}
+  immiscible incompressible fluids involving general order parameters, J.
+  Comput. Phys., 283 (2015) 98--128.
+
+\bibitem{ElgetiS16}
+S.~Elgeti and H.~Sauerland, Deforming fluid domains within the finite element
+  method: five mesh-based tracking methods in comparison, Arch. Comput. Methods
+  Eng., 23 (2016) 323--361.
+
+\bibitem{Feng06}
+X.~Feng, Fully discrete finite element approximations of the
+  {N}avier--{S}tokes--{C}ahn--{H}illiard diffuse interface model for two-phase
+  fluid flows, SIAM J. Numer. Anal., 44 (2006) 1049--1072.
+
+\bibitem{Formaggia04}
+L.~Formaggia and F.~Nobile, {Stability analysis of second-order time accurate
+  schemes for ALE--FEM}, Comput. Methods Appl. Mech. Engrg., 193 (2004)
+  4097--4116.
+
+\bibitem{Ganesan06}
+S.~Ganesan, Finite element methods on moving meshes for free surface and
+  interface flows, Ph.D. thesis, University Magdeburg, Magdeburg, Germany
+  (2006).
+
+\bibitem{GanesanHST17}
+S.~Ganesan, A.~Hahn, K.~Simon and L.~Tobiska, A{LE}-{FEM} for two-phase and
+  free surface flows with surfactants, in Transport processes at fluidic
+  interfaces, Adv. Math. Fluid Mech., Birkh\"auser/Springer, Cham (2017) pages
+  5--31.
+
+\bibitem{GanesanT08}
+S.~Ganesan and L.~Tobiska, An accurate finite element scheme with moving meshes
+  for computing 3{D}-axisymmetric interface flows, Internat. J. Numer. Methods
+  Fluids, 57 (2008) 119--138.
+
+\bibitem{GarckeHK16}
+H.~Garcke, M.~Hinze and C.~Kahle, A stable and linear time discretization for a
+  thermodynamically consistent model for two-phase incompressible flow, Appl.
+  Numer. Math., 99 (2016) 151--171.
+
+\bibitem{GeuzaineR09}
+C.~Geuzaine and J.-F. Remacle, Gmsh: {A} 3-{D} finite element mesh generator
+  with built-in pre- and post-processing facilities, Internat. J. Numer.
+  Methods Engrg., 79 (2009) 1309--1331.
+
+\bibitem{GrossR07}
+S.~Gro{\ss} and A.~Reusken, An extended pressure finite element space for
+  two-phase incompressible flows with surface tension, J. Comput. Phys., 224
+  (2007) 40--58.
+
+\bibitem{GrossR11}
+S.~Gro{\ss} and A.~Reusken, Numerical methods for two-phase incompressible
+  flows, volume~40 of \emph{Springer Series in Computational Mathematics},
+  Springer-Verlag, Berlin (2011).
+
+\bibitem{GrunK14}
+G.~Gr{\"u}n and F.~Klingbeil, Two-phase flow with mass density contrast:
+  {S}table schemes for a thermodynamic consistent and frame-indifferent
+  diffuse-interface model, J. Comput. Phys., 257 (2014) 708--725.
+
+\bibitem{HahnHT13}
+A.~Hahn, K.~Held and L.~Tobiska, A{LE}-{FEM} for two-phase flows, PAMM. Proc.
+  Appl. Math. Mech., 13 (2013) 319--320.
+
+\bibitem{HirtN81}
+C.~W. Hirt and B.~D. Nichols, Volume of fluid {(VOF)} method for the dynamics
+  of free boundaries, J. Comput. Phys., 39 (1981) 201--225.
+
+\bibitem{HohenbergH77}
+P.~C. Hohenberg and B.~I. Halperin, Theory of dynamic critical phenomena, Rev.
+  Mod. Phys., 49 (1977) 435--479.
+
+\bibitem{Hughes81}
+T.~Hughes, W.~Liu and T.~Zimmermann, {Lagrangian-Eulerian finite element
+  formulation for incompressible viscous flows}, Comput. Methods Appl. Mech.
+  Engrg., 29 (1981) 329--349.
+
+\bibitem{HysingTKPBGT09}
+S.~Hysing, S.~Turek, D.~Kuzmin, N.~Parolini, E.~Burman, S.~Ganesan and
+  L.~Tobiska, Quantitative benchmark computations of two-dimensional bubble
+  dynamics, Internat. J. Numer. Methods Fluids, 60 (2009) 1259--1288.
+
+\bibitem{KaySW08}
+D.~Kay, V.~Styles and R.~Welford, Finite element approximation of a
+  {C}ahn--{H}illiard--{N}avier--{S}tokes system, Interfaces Free Bound., 10
+  (2008) 15--43.
+
+\bibitem{LevequeL97}
+R.~J. LeVeque and Z.~Li, Immersed interface methods for {S}tokes flow with
+  elastic boundaries or surface tension, SIAM J. Sci. Comput., 18 (1997)
+  709--735.
+
+\bibitem{LowengrubT98}
+J.~Lowengrub and L.~Truskinovsky, Quasi-incompressible {C}ahn--{H}illiard
+  fluids and topological transitions, R. Soc. Lond. Proc. Ser. A Math. Phys.
+  Eng. Sci., 454 (1998) 2617--2654.
+
+\bibitem{NobilePhd}
+F.~Nobile, {Numerical Approximation Of Fluid-Structure Interaction Problems
+  With Application To Haemodynamics}, Ph.D. thesis, EPFL, Lausanne (2001).
+
+\bibitem{Nobile99}
+F.~Nobile and L.~Formaggia, {A stability analysis for the arbitrary lagrangian:
+  Eulerian formulation with finite elements}, East-West J. Numer. Math., 7
+  (1999) 105--132.
+
+\bibitem{OsherF03}
+S.~Osher and R.~Fedkiw, Level Set Methods and Dynamic Implicit Surfaces, volume
+  153 of \emph{Applied Mathematical Sciences}, Springer-Verlag, New York
+  (2003).
+
+\bibitem{Peskin02}
+C.~S. Peskin, The immersed boundary method, Acta Numer., 11 (2002) 479--517.
+
+\bibitem{Popinet09}
+S.~Popinet, An accurate adaptive solver for surface-tension-driven interfacial
+  flows, J. Comput. Phys., 228 (2009) 5838--5866.
+
+\bibitem{RenardyR02}
+Y.~Renardy and M.~Renardy, P{ROST}: a parabolic reconstruction of surface
+  tension for the volume-of-fluid method, J. Comput. Phys., 183 (2002)
+  400--421.
+
+\bibitem{Sacconi15}
+A.~Sacconi, Front-tracking finite element methods for a void electro-stress
+  migration problem, Ph.D. thesis, Imperial College London, London, UK (2015).
+
+\bibitem{Alberta}
+A.~Schmidt and K.~G. Siebert, Design of Adaptive Finite Element Software: The
+  Finite Element Toolbox {ALBERTA}, volume~42 of \emph{Lecture Notes in
+  Computational Science and Engineering}, Springer-Verlag, Berlin (2005).
+
+\bibitem{Sethian99}
+J.~A. Sethian, Level Set Methods and Fast Marching Methods, Cambridge
+  University Press, Cambridge (1999).
+
+\bibitem{SussmanSO94}
+M.~Sussman, P.~Semereka and S.~Osher, A level set approach for computing
+  solutions to incompressible two-phase flow, J. Comput. Phys., 114 (1994)
+  146--159.
+
+\bibitem{Svacek17}
+P.~Sv{\'a}{\v c}ek, {On numerical approximation of incompresible fluid flow
+  with free surface influenced by surface tension}, EPJ Web Conf., 143 (2017)
+  02122.
+
+\bibitem{Tryggvason_etal01}
+G.~Tryggvason, B.~Bunner, A.~Esmaeeli, D.~Juric, N.~Al-Rawahi, W.~Tauber,
+  J.~Han, S.~Nas and Y.-J. Jan, A front-tracking method for the computations of
+  multiphase flow, J. Comput. Phys., 169 (2001) 708--759.
+
+\bibitem{UnverdiT92}
+S.~O. Unverdi and G.~Tryggvason, A front-tracking method for viscous,
+  incompressible multi-fluid flows, J. Comput. Phys., 100 (1992) 25--37.
+
+\end{thebibliography}
 
 \end{document}
+
