@@ -5,7 +5,6 @@
 
 \usepackage{amssymb,amsmath,amsthm,pstricks,subfig,hyperref,booktabs,graphicx}
 
-%% information for the editor
 \def\currentvolume{0}
 \def\currentissue{0}
 \def\currentyear{2019}
@@ -32,7 +31,6 @@
 \newcommand{\pspace}{\mathbb{P}}
 \newcommand{\pnormspace}{\widetilde\pspace} % normalized pressure space
 \newcommand{\uspaceref}[1]{\mathcal{U}(\vec{#1})} % ale reference space
-% ale reference space
 \newcommand{\pspaceref}{\mathcal{P}} % ale reference space
 \newcommand{\pnormspaceref}{\widetilde\pspaceref}% ale reference space
 \newcommand{\uspaceale}[1]{\mathfrak{U}(\vec{#1})} % ale space
@@ -153,13 +151,6 @@ can be found in \cite{Dong14,Dong15,BoyerM14,BanasN17}.
 The appeal of interface capturing approaches is the fact that they are usually
 easy to implement, and that they offer an automated way to deal with
 topological changes.
-%In general, the great advantage of the interface capturing
-%approaches is that they are inherently able to deal with topological changes of
-%the interface. This allows a much more flexible interface description than in
-%interface tracking approaches. On the other hand, it is challenging to treat
-%accurately discontinuous quantities across the interface, to have mass
-%conservation within each phase and to apply boundary conditions along the
-%interface.
 
 Interface tracking approaches, instead, use a Lagrangian description of the
 interface which is described explicitly. Here the interface is represented
@@ -447,17 +438,11 @@ Moreover, on noting (\ref{eq:stress_tensor}) and
 & \qquad = - \left(2\,\mu\, \mat D(\vec u)-p\,\mat\id, \nabla\,\vec \xi\right)
 - \left\langle [2\mu \,\mat D(\vec u)\,.\,\vec\nu - p\,\vec \nu]_-^+ , \vec \xi
 \right\rangle_{\Gamma(t)} \nonumber \\
-%& \qquad = \left(p\,\mat\id, \nabla\,\vec \xi\right) -2 \left(\mu\,
-%\mat D(\vec u), \nabla\,\vec \xi\right) + \gamma \left\langle \varkappa\,
-%\vec \nu , \vec \xi \right\rangle_{\Gamma(t)} \nonumber \\
 & \qquad = \left( p , \nabla\,.\,\vec \xi\right)
 -2 \left(\mu\,\mat D(\vec u) , \mat D(\vec \xi) \right)
 + \gamma \left\langle \varkappa\,\vec \nu , \vec \xi \right\rangle_{\Gamma(t)}
 \end{align}
 for all $\vec \xi \in \uspace 0$.
-%We notice that in the first equality we used
-%the standard integration by parts on $\Omega_+(t)$ and $\Omega_-(t)$
-%separately.
 Hence a standard weak formulation of (\ref{eq:ns_full_momentum}--g)
 is given as follows. Given $\Gamma(0) = \Gamma_0$ and
 $\vec u(\cdot,0) = \vec u_0$, for
@@ -520,10 +505,6 @@ associates, at each time $t$, a point in the current computational domain
 $\Omega(t)$ to a point in the reference domain $\D$. Note that for convenience
 we consider the domain $\Omega$ to be time-dependent, even though in our
 situation it is fixed.
-%Therefore, the system of
-%ODEs resulting after space discretization actually describes the evolution of
-%the solution along trajectories that are at all times contained in the
-%computational domain.
 
 We now reformulate the two-phase Navier--Stokes system
 (\ref{eq:ns_full_momentum}--g), which is expressed in terms of Eulerian
@@ -621,10 +602,6 @@ by setting
 \bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R^d,\quad
 \vec \phi=\vec{\hat\phi}\circ\vec x^{\,-1},\quad\vec{\hat\phi}(\cdot,t)
 \in\uspaceref b \quad \forall\ t \in [0,T]\}\,,\\
-%\pspaceale &:= \{ \eta:
-%\bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad
-%\eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta(\cdot,t) \in\pspaceref
-%\ \forall\ t \in [0,T] \}\,,\\
 \pnormspaceale &:= \{ \eta:
 \bigcup_{t \in [0,T]} \Omega(t)\times \{t\} \to \R,\quad
 \eta=\hat\eta\circ\vec x^{\,-1},\quad\hat\eta(\cdot,t)\in\pnormspaceref
@@ -648,13 +625,6 @@ such that
 \uspaceale 0 \,, \label{eq:ns_weaka_ale}\\
 & \left(\nabla\,.\,\vec u, \varphi\right)_{\Omega(t)} = 0
 \quad \forall\ \varphi \in \pnormspaceale\,, \label{eq:ns_weakb_ale}
-%\\
-%& \left\langle \V
-%- \vec u, \chi\,\vec\nu \right\rangle_{\Gamma(t)} = 0
-%\quad \forall\ \chi \in H^1(\Gamma(t))\,, \label{eq:ns_weakc_ale} \\
-%& \left\langle \varkappa\,\vec\nu, \vec\eta \right\rangle_{\Gamma(t)}
-%+ \left\langle \nabs\,\vec \id, \nabs\,\vec \eta \right\rangle_{\Gamma(t)}
-%= 0 \quad \forall\ \vec\eta \in [H^1(\Gamma(t))]^d\,\label{eq:ns_weakd_ale}
 \end{align}
 \end{subequations}
 and (\ref{eq:ns_weakc},d) hold for almost all times $t \in (0,T]$.
@@ -754,7 +724,6 @@ such that
 & \left( \rho^m\,\frac{\vec U^{m+1} - \vec I^m_2\,\vec U^m}{\tau}, \vec
 \xi \right) + \left(\rho^m(\vec I^m_2\vec U^m\,.\,\nabla)\,\vec U^{m+1}\,,
 \,\vec \xi \right)
-%\nonumber \\ & \qquad
 + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
 \nonumber \\ & \quad
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right)
@@ -970,7 +939,6 @@ appropriate time-dependent matrices and vectors, we can rewrite
 \begin{align}
 & \vec M^h_\Omega(t)\ddt \vec U + \vec B^h_\Omega(t) \vec U +
 \vec D^h_\Omega\big(t,\vec U^h,\W^h\big)\vec U
-%\nonumber \\ & \qquad
 + \vec C^h_\Omega(t) P
 - \gamma \Nbulk^h(t) \kappa = \vec c^h(t,\vec f_1^h,\vec f_2^h)\,,
 \label{eq:ns_ode_alea} \\
@@ -1441,7 +1409,6 @@ U^{m+1,s}-\frac{\vec\psi^{m+1,s}}{\tau}\right)\,.\,\nabla\right)\,
 \vec U^{m+1,s+1}\,, \,\vec \xi \right)_{\Omega^m}\nonumber \\ & \
 + 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi)
 \right)_{\Omega^m} - \left(P^{m+1,s+1}, \nabla\,.\,\vec \xi\right)_{\Omega^m}
-%\nonumber \\ & \qquad
 - \gamma\,\left\langle \kappa^{m+1,s+1}\,\vec\nu^m,
 \vec\xi\right\rangle_{\Gamma^m} \nonumber \\ & 
 = \left(\frac{\rho^m}{\tau}\,\vec U^m,\vec \xi
@@ -1599,8 +1566,6 @@ t_m)\|_{H^1(\Omega)}^2 \right]^\frac12\,,
 and
 $\LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2
 \right]^\frac12$.
-%In (\ref{eq:errorPp}) we employ a quadrature rule of degree $k=13$ to compute
-%the $L^2$--norms over $\Omega$.
 Moreover, we also define the estimated order of convergence EOC as
 $\mbox{EOC}={\ln{\frac{\mbox{error}_1}{\mbox{error}_0}}}/
 {\ln{\frac{\mbox{h}_1}{\mbox{h}_0}}}$,
@@ -1777,10 +1742,6 @@ tracking ALE method, while the same benchmarks were used in
 investigate different phase-field methods. Finally,
 in \cite{fluidfbp} an unfitted
 front tracking method was used for these benchmark problems.
-%A detailed comparison between particle methods, the
-%volume-of-fluid method, a level-set approach, the phase-field method and a
-%fitted ALE front tracking method is performed in \cite{ElgetiS16}.
-% NOTE: Computation only for level-set method from \cite{HysingTKPBGT09}.
 
 \subsubsection{Benchmark problem I}
 The physical parameters for the test case 1 in \cite[Table~I]{HysingTKPBGT09}
@@ -1802,9 +1763,6 @@ $V^m_c = \int_{\Omega_-^m}\vec U^m\,.\,\vec\ek_d \dL{d} / \vol(\Omega_-^m)$.
 \center
 \begin{tabular}{rrrrrr}
 \hline
-%$J_\Gamma$ & $J_\Omega^0$ & $J_\Omega^M$ $(\schemeAex)$
-%& $J_\Omega^M$ $(\schemeAim)$
-%& $J_\Omega^M$ $(\schemeB)$ & $J_\Omega^M$ $(\schemeALE)$ \\
 $J_\Gamma$ & $J_\Omega^0$ & \multicolumn{4}{c}{$J_\Omega^M$} \\ \hline
 & & $(\schemeAex)$ & $(\schemeAim)$ & $(\schemeB)$ & $(\schemeALE)$ \\
 \hline
@@ -2399,4 +2357,3 @@ S.~O. Unverdi and G.~Tryggvason, A front-tracking method for viscous,
 \end{thebibliography}
 
 \end{document}
-
