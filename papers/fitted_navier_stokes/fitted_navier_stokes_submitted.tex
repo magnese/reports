@@ -3,10 +3,15 @@
 \textheight=8.4 true in
 \topmargin 1in
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
 \usepackage{amssymb,amsmath,amsthm,pstricks,subfig,hyperref,booktabs,graphicx}
+
+%% information for the editor
+\def\currentvolume{0}
+\def\currentissue{0}
+\def\currentyear{2019}
+\def\month{XXX}
+\pagespan{0}{0}
+\copyrightinfo{2019}{} % copyright year
 
 \newcommand{\R}{\mathbb R}
 \newcommand{\D}{\mathcal D}
@@ -63,6 +68,8 @@
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{rem}[thm]{Remark}
 
+\captionsetup[subfigure]{labelformat=empty} % remove label subplot
+
 \begin{document}
 
 \title[Fitted front tracking methods for two-phase Navier--Stokes flow]
@@ -70,12 +77,13 @@
 Navier--Stokes flow:
 Eulerian and ALE finite element discretizations
 }
-\author[M. Agnese \and N\"urnberg]{Marco Agnese \and Robert N\"urnberg}
+\author[M. Agnese \and R. N\"urnberg]{Marco Agnese \and Robert N\"urnberg}
 \address{Department of Mathematics, Imperial College, London, SW7 2AZ, U.K.}
 \email{m.agnese13@imperial.ac.uk \and robert.nurnberg@imperial.ac.uk}
-%\date{}
 
-\captionsetup[subfigure]{labelformat=empty} % remove label subplot
+\date{March 3 2019 and, in revised form, October 31, 2019.}
+
+\subjclass[2000]{76T99, 76M10, 35Q30, 65M60, 76D05}
 
 \abstract{We investigate novel fitted finite element approximations for
 two-phase Navier--Stokes flow. In particular, we consider both Eulerian and
