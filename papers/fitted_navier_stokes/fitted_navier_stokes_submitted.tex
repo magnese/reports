@@ -55,8 +55,6 @@
 \newcommand{\mat}[1]{\underline{\underline{#1}}\rule{0pt}{0pt}}
 \newcommand{\V}{\vec{\mathcal{V}}} % surface velocity
 \newcommand{\strikes}{\mbox{$s\!\!\!\!\:/$}}
-\newcommand{\myurl}[1]{\hfil\penalty 100 \hfilneg \hbox{\url{#1}}} % force
-% newline before long url
 
 \newcommand{\schemeAex}{{\mathcal{A}^h_{\rm ex}}}
 \newcommand{\schemeAim}{{\mathcal{A}^h_{\rm im}}}
@@ -471,8 +469,8 @@ almost all $t\in(0,T)$ find $\Gamma(t)$ and $(\vec u, p, \varkappa)(t)\in
 \vec u,\vec \xi\right) + 2\left(\mu\,\mat D(\vec u), \mat D(\vec \xi)\right)
 - \left(p, \nabla\,.\,\vec \xi\right)
 - \gamma\,\left\langle \varkappa\,\vec\nu, \vec\xi\right\rangle_{\Gamma(t)}
-= \left(\vec f, \vec \xi\right)
-\nonumber \\ & \hspace{11cm}
+\nonumber \\ & \hspace{6cm}
+= \left(\vec f, \vec \xi\right) \quad
 \forall\ \vec\xi \in \uspace 0 \,, \label{eq:ns_weaka}\\
 & \left(\nabla\,.\,\vec u, \varphi\right) = 0
 \quad \forall\ \varphi \in \pnormspace\,, \label{eq:ns_weakb} \\
@@ -787,7 +785,7 @@ such that
 \xi \right) + \left(\rho^m( \vec U^{m+1}\,.\,\nabla)\,\vec U^{m+1}\,,
 \,\vec \xi \right)
 + 2\left(\mu^m\,\mat D(\vec U^{m+1}), \mat D(\vec \xi) \right)
-\nonumber \\ & \qquad
+\nonumber \\ & \quad
 - \left(P^{m+1}, \nabla\,.\,\vec \xi\right)
 - \gamma\,\left\langle \kappa^{m+1}\,\vec\nu^m ,
 \vec\xi\right\rangle_{\Gamma^m}
@@ -936,7 +934,8 @@ $\rho^h(t)
 S^h_0(\Omega^h(t))$.
 
 Then, given $\Gamma^h(0)$ and $\vec U^h(0)\in \uspacesemidiscale{g}{h}{0}$, for
-$t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h, P^h,
+$t\in (0,T]$ find $\Gamma^h(t)$ and \linebreak
+$(\vec U^h, P^h,
 \V^h, \kappa^h)(t) \in \uspacesemidiscale{g}{h}{t} \times \pnormspaceale^h(t)
 \times \Vht \times \Wht$ such that
 \begin{subequations}
@@ -945,7 +944,7 @@ $t\in (0,T]$ find $\Gamma^h(t)$ and $(\vec U^h, P^h,
 \left(\rho^h((\vec U^h-\W^h)\,.\,\nabla)\,\vec U^h\,,
 \,\vec \xi \right)_{\Omega^h(t)}
 +2\left(\mu^h\,\mat D(\vec U^h), \mat D(\vec \xi) \right)_{\Omega^h(t)}
-\nonumber \\ & \qquad
+\nonumber \\ & \quad
 - \left(P^h, \nabla\,.\,\vec \xi\right)_{\Omega^h(t)}
 - \gamma\,\left\langle \kappa^h\,\vec\nu^h,
 \vec\xi\right\rangle_{\Gamma^h(t)} =
@@ -1040,11 +1039,10 @@ which is based on the variational formulation
 $(\schemeALE)$: Let $\Omega^0$, $\Gamma^0$, and
 $\vec U^0\in \uspacediscale{g}{0}$ be given.
 For $m=0,\ldots, M-1$, find
-\linebreak
 $(\vec U^{m+1},P^{m+1}, \vec X^{m+1}, \kappa^{m+1},
 \W^{m+1})
 \in \uspacediscale{g}{m+1}\times \pnormspaceale^{m+1} \times \Vh \times \Wh
-\times [S^h_1(\Omega^m)]^d$ such that
+\times $ \linebreak $[S^h_1(\Omega^m)]^d$ such that
 $\W^{m+1}\!\mid_{\Gamma^m} = \frac1\tau(\vec X^{m+1} -
 \vec\id\!\mid_{\Gamma^m})$ and such that
 \begin{subequations}
@@ -1162,10 +1160,11 @@ find $(\vec U^{m+1,s+1},P^{m+1,s+1}, \vec X^{m+1,s+1}, \kappa^{m+1,s+1}) \in
 & \left( \rho^m\,\frac{\vec U^{m+1,s+1} - \vec I^m_2\,\vec U^m}{\tau}, \vec
 \xi \right) + \left((\rho^m\,\vec U^{m+1,s}\,.\,\nabla)\,\vec U^{m+1,s+1}\,,
 \,\vec \xi \right)
+\nonumber \\ &\qquad
 + 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi) \right)
-\nonumber \\ &\quad
 - \left(P^{m+1,s+1}, \nabla\,.\,\vec \xi\right)
 - \gamma\,\left\langle \kappa^{m+1,s+1}\,\vec\nu^m,\vec\xi\right\rangle_{\Gamma^m}
+\nonumber \\ &\quad
 = \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)
 \quad \forall\ \vec\xi \in \uspacedisc{0}{m}\,, \label{eq:ns_HGfixedpointa} \\
 & \left(\nabla\,.\,\vec U^{m+1,s+1}, \varphi\right) =
@@ -1183,17 +1182,17 @@ find $(\vec U^{m+1,s+1},P^{m+1,s+1}, \vec X^{m+1,s+1}, \kappa^{m+1,s+1}) \in
 \end{align}
 \end{subequations}
 and repeat the iteration until $\|\vec U^{m+1,s+1}-\vec U^{m+1,s}\|_{L^\infty}
-\leq\epsilon_f$. Finally, set $\Gamma^{m+1}=$ \linebreak
-$\vec X^{m+1,s+1}(\Gamma^m)$
+\leq\epsilon_f$. Finally, set $\Gamma^{m+1}=\vec X^{m+1,s+1}(\Gamma^m)$
 and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1}) = (\vec U^{m+1,s+1}, P^{m+1,s+1},
-\kappa^{m+1,s+1})$. Clearly, \mbox{(\ref{eq:ns_HGfixedpointa}--d)} is a linear
+\kappa^{m+1,s+1})$. \linebreak
+Clearly, \mbox{(\ref{eq:ns_HGfixedpointa}--d)} is a linear
 system for the unknowns $(\vec U^{m+1,s+1}, P^{m+1,s+1},
-\vec X^{m+1,s+1}, \kappa^{m+1,s+1})$ that is of the form
+\vec X^{m+1,s+1},$ $ \kappa^{m+1,s+1})$ that is of the form
 (\ref{eq:ns_algebraic}).
 
 \begin{rem} \label{rem:nondivfree}
 At times we will be interested in numerical simulations for
-non divergence-free solutions, in particular when considering our convergence
+non diver\-gence-free solutions, in particular when considering our convergence
 experiments in \S\ref{sec:ns_convergence_results}. Here the condition
 {\rm (\ref{eq:ns_mass_bis})} is replaced by
 $\nabla\,.\,\vec u = f_{\rm{div}}$ in $\Omega_\pm(t)$.
@@ -1439,13 +1438,13 @@ find $(\vec U^{m+1,s+1},P^{m+1,s+1}, \vec X^{m+1,s+1}, \kappa^{m+1,s+1}) \in
 & \left( \frac{\rho^m}{\tau}\,\vec U^{m+1,s+1}, \vec
 \xi\right)_{\Omega^{m+1,s}} + \left(\left(\rho^m\left(\vec
 U^{m+1,s}-\frac{\vec\psi^{m+1,s}}{\tau}\right)\,.\,\nabla\right)\,
-\vec U^{m+1,s+1}\,, \,\vec \xi \right)_{\Omega^m}\nonumber \\
-& \qquad + 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi)
+\vec U^{m+1,s+1}\,, \,\vec \xi \right)_{\Omega^m}\nonumber \\ & \
++ 2\left(\mu^m\,\mat D(\vec U^{m+1,s+1}), \mat D(\vec \xi)
 \right)_{\Omega^m} - \left(P^{m+1,s+1}, \nabla\,.\,\vec \xi\right)_{\Omega^m}
 %\nonumber \\ & \qquad
 - \gamma\,\left\langle \kappa^{m+1,s+1}\,\vec\nu^m,
-\vec\xi\right\rangle_{\Gamma^m} \nonumber \\
-& \qquad = \left(\frac{\rho^m}{\tau}\,\vec U^m,\vec \xi
+\vec\xi\right\rangle_{\Gamma^m} \nonumber \\ & 
+= \left(\frac{\rho^m}{\tau}\,\vec U^m,\vec \xi
 \right)_{\Omega^{m+1,s}}
 + \left(\rho^m\,\vec f_1^{m+1}+\vec f_2^{m+1}, \vec \xi\right)_{\Omega^m}
 \quad \forall\ \vec\xi \in \uspacediscale{0}{m}\,, \label{eq:ns_HGalea} \\
@@ -1472,10 +1471,9 @@ This iteration is repeated until $\|U^{m+1,s+1}-U^{m+1,s}\|_{L^\infty}
 \leq\epsilon_f$.
 Finally, set
 $\Gamma^{m+1} = \vec X^{m+1,s+1}(\Gamma^m)$, $\Omega^{m+1,s+1}=\Omega^{m+1}$
-and \linebreak $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1},\W^{m+1}) =
-(\vec U^{m+1,s+1}, P^{m+1,s+1},\kappa^{m+1,s+1},\tfrac1\tau\,\psi^{m+1,s+1})$.
-Clearly, \linebreak
-\mbox{(\ref{eq:ns_HGalea}--d)} is once again
+and $(\vec U^{m+1}, P^{m+1}, \kappa^{m+1},\W^{m+1}) =
+(\vec U^{m+1,s+1}, P^{m+1,s+1},\kappa^{m+1,s+1},$ \linebreak $\tfrac1\tau\,\psi^{m+1,s+1})$.
+Clearly, \mbox{(\ref{eq:ns_HGalea}--d)} is once again
 a linear system of equations for the unknowns
 $(\vec U^{m+1,s+1}, P^{m+1,s+1},$ $ \vec X^{m+1,s+1},
 \kappa^{m+1,s+1})$ of the form (\ref{eq:ns_algebraic}).
@@ -1497,8 +1495,8 @@ using the FEM toolbox \verb|dune-fem|, see
 As grid manager we employed \verb|ALBERTA|, \cite{Alberta},
 and all the meshes were created with the library \verb|Gmsh|,
 \cite{GeuzaineR09}. All the schemes described in this paper are implemented as
-a \verb|DUNE| module called \verb|dune-navier-stokes-two-phase|, available at
-\myurl{https://github.com/magnese/dune-navier-stokes-two-phase}.
+a \verb|DUNE| module called \texttt{dune-navier-stokes-two-phase}, available at
+\url{https://github.com/magnese/dune-navier-stokes-two- phase}.
 The simulations were performed as single thread computations on a cluster of
 Xeon CPUs with frequency between 2.40GHz to 3.00GHz, and with at
 least 16GB of memory.
@@ -1587,15 +1585,17 @@ $J_\Omega^M$ correspond to the scheme $(\schemeAim)$.}
 \end{table*}%
 We report on the computed errors in Table~\ref{tab:nsexpandingbubbleIp2p1p0},
 where we have defined the error quantities
-$\errorXx := \max_{m=1,\ldots, M} \|\Gamma^m - \Gamma(t_m)\|_{L^\infty}$,
+\[\errorXx := \max_{m=1,\ldots, M} \|\Gamma^m - \Gamma(t_m)\|_{L^\infty}\,,
+\]
 where $\|\Gamma^m - \Gamma(t_m)\|_{L^\infty} :=
 \max_{k=1,\ldots, K_\Gamma} {\rm dist}( \vec q^m_k, \Gamma(t_m))$,
 as well as
-$\LerrorUu2 := \left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
-t_m)\|_{L^2(\Omega)}^2 \right]^\frac12$,
-$\HerrorUu2 := $ \linebreak
-$\left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
-t_m)\|_{H^1(\Omega)}^2 \right]^\frac12$
+\begin{align*}
+\LerrorUu2 & := \left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
+t_m)\|_{L^2(\Omega)}^2 \right]^\frac12\,,\\
+\HerrorUu2 & := \left[\tau\,\sum_{m=1}^M \|\vec U^m - I^m_2\,\vec u(\cdot,
+t_m)\|_{H^1(\Omega)}^2 \right]^\frac12\,,
+\end{align*}
 and
 $\LerrorPp := \left[\tau\,\sum_{m=1}^M \|P^m - p(\cdot,t_m)\|_{L^2(\Omega)}^2
 \right]^\frac12$.
@@ -1793,7 +1793,7 @@ We list our discretization parameters for this benchmark computation
 in Table~\ref{tab:risingbubble2Delements}, and report on the quantitative
 results for our four schemes in Table~\ref{tab:risingbubbleIp2p1p0}.
 Here we have defined the $\vec\ek_d$-component of the bubble's centre of mass
-as $z_c^m = \int_{\Omega_-^m} \vec\id\,.\,\vec\ek_d \dL{d} / \vol(\Omega_-^m)$,
+as $z_c^m = \frac{\int_{\Omega_-^m} \vec\id\,.\,\vec\ek_d \dL{d}}{\vol(\Omega_-^m)}$,
 the degree of sphericity as
 $\strikes^m ={\pi^{\frac{1}{d}}[2\,d\,\vol(\Omega_-^m)]^\frac{d-1}{d}}/
 {\surfvol(\Gamma^m)}$, and the bubble's rise velocity as
